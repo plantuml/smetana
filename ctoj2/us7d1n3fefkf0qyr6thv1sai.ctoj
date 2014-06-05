@@ -1,0 +1,34 @@
+@TranslatedBy("plantuml")
+@NeedReview
+@HasQuestion("link offset ignored ?")
+	public static Dtdisc_t Ag_subnode_id_disc = new Dtdisc_t(
+	null,
+	null, 
+	null, 
+	null, 
+	null, 
+	new Dtcompar_f() {
+		public int function(Dict_t arg1, StarVoid arg2, StarVoid arg3, Dtdisc_t arg4) {
+			return agsubnodeidcmpf(arg1, arg2, arg3, arg4);
+		}
+	}, 
+	null, 
+	new Dtmemory_f() {
+		public StarVoid function(Dict_t arg1, StarVoid arg2, size_t arg3, Dtdisc_t arg4) {
+			return agdictobjmem(arg1, arg2, arg3, arg4);
+		}
+	},
+	null);
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Dtdisc_t Ag_subnode_id_disc = {
+    0,				/* pass object ptr  */
+    0,				/* size (ignored)   */
+    ((int)(&(((Agsubnode_t*)0)->id_link))),	/* link offset */
+    ((Dtmake_f)0),
+    ((Dtfree_f)0),
+    agsubnodeidcmpf,
+    ((Dthash_f)0),
+    agdictobjmem,
+    ((Dtevent_f)0)
+};
+

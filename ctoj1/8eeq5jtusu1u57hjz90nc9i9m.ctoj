@@ -1,0 +1,6 @@
+@TranslatedBy("plantuml") 
+public class Agnode_t extends Agnode_s {
+}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+typedef struct Agnode_s Agnode_t;
+

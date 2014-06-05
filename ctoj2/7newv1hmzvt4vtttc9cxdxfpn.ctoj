@@ -1,0 +1,19 @@
+@TranslatedBy("plantuml")
+public static StarVoid agalloc(Agraph_t g, size_t size) {
+    StarVoid mem;
+    mem = g.clos.disc.mem.alloc.function(g.clos.state.mem, size);
+    if (mem == null)
+	 agerr(agerrlevel_t.AGERR,"memory allocation failure");
+    return mem;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void *agalloc(Agraph_t * g, size_t size)
+{
+    void *mem;
+    mem = ((g)->clos->disc.mem)->alloc(((g)->clos->state.mem), size);
+    if (mem == ((void *)0))
+	 agerr(AGERR,"memory allocation failure");
+    return mem;
+}
+

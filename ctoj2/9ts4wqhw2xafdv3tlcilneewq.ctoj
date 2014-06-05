@@ -1,0 +1,18 @@
+@TranslatedBy("plantuml")
+public static refstr_t refsymbind(Dict_t strdict, StarChar s) {
+    refstr_t key = new refstr_t();
+    refstr_t r;
+    key.s = s;
+    r = (refstr_t) castTo(strdict.searchf.function((strdict), key,0000004), refstr_t.class);
+    return r;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static refstr_t *refsymbind(Dict_t * strdict, char *s)
+{
+    refstr_t key, *r;
+    key.s = s;
+    r = (refstr_t *) (*(((Dt_t*)(strdict))->searchf))((strdict),(void*)(&key),0000004);
+    return r;
+}
+

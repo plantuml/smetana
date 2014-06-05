@@ -1,0 +1,12 @@
+@TranslatedBy("plantuml")
+public static void agfree(Agraph_t g, StarVoid ptr) {
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void agfree(Agraph_t * g, void *ptr)
+{
+    if (ptr)
+	(((g)->clos->disc.mem)->free) (((g)->clos->state.mem), ptr);
+}
+

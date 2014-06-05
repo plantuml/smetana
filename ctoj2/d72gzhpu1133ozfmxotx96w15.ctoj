@@ -1,0 +1,7 @@
+@TranslatedBy("plantuml") 
+public static gvlayout_features_t dotgen_features = new gvlayout_features_t(1<<0);
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+gvlayout_features_t dotgen_features = {
+    (1<<0),
+};
+

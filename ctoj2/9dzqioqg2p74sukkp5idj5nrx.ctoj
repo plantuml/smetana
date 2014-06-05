@@ -1,0 +1,45 @@
+@TranslatedBy("plantuml")
+public static boolean gvjobs_output_langname(GVC_t gvc, StarChar name) {
+    if (N(gvc.jobs)) {
+	output_langname_job = gvc.job = gvc.jobs = (GVJ_t) zmalloc(new size_t(GVJ_t.class));
+    } else {
+	if (N(output_langname_job)) {
+	    output_langname_job = gvc.jobs;
+	} else {
+	    if (N(output_langname_job.next)) {
+		output_langname_job.next = (GVJ_t) zmalloc(new size_t(GVJ_t.class));
+	    }
+	    output_langname_job = output_langname_job.next;
+	}
+    }
+    output_langname_job.output_langname = name;
+    output_langname_job.gvc = gvc;
+    /* load it now to check that it exists */
+    if (gvplugin_load(gvc, api_t.API_device, name)!=null)
+	return (N(0));
+    return false;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+boolean gvjobs_output_langname(GVC_t * gvc, const char *name)
+{
+    if (!gvc->jobs) {
+	output_langname_job = gvc->job = gvc->jobs = zmalloc(sizeof(GVJ_t));
+    } else {
+	if (!output_langname_job) {
+	    output_langname_job = gvc->jobs;
+	} else {
+	    if (!output_langname_job->next) {
+		output_langname_job->next = zmalloc(sizeof(GVJ_t));
+	    }
+	    output_langname_job = output_langname_job->next;
+	}
+    }
+    output_langname_job->output_langname = name;
+    output_langname_job->gvc = gvc;
+    /* load it now to check that it exists */
+    if (gvplugin_load(gvc, API_device, name))
+	return (!(0));
+    return 0;
+}
+

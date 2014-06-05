@@ -1,0 +1,18 @@
+@TranslatedBy("plantuml") 
+public static gvlayout_engine_t dotgen_engine = new gvlayout_engine_t(
+		new h.gvlayout_engine_s.layout(){
+			public StarVoid function(Agraph_s g) {
+				throw new UnsupportedOperationException();
+			}}
+		,
+		new h.gvlayout_engine_s.cleanup() {
+			public StarVoid function(Agraph_s g) {
+				throw new UnsupportedOperationException();
+			}}
+);
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+gvlayout_engine_t dotgen_engine = {
+    dot_layout,
+    dot_cleanup,
+};
+

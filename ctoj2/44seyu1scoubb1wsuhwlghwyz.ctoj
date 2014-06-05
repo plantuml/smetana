@@ -1,0 +1,9 @@
+@TranslatedBy("plantuml")
+public static void idclose(StarVoid state) {
+}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void idclose(void *state)
+{
+    (void) state;
+}
+

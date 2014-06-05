@@ -1,0 +1,11 @@
+@TranslatedBy("plantuml")
+public static int agnextseq(Agraph_t g, int objtype) {
+    return ++(g.clos.seq[objtype]);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+unsigned long agnextseq(Agraph_t * g, int objtype)
+{
+    return ++(g->clos->seq[objtype]);
+}
+

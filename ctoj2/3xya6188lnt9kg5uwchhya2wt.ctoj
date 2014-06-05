@@ -1,0 +1,29 @@
+@TranslatedBy("plantuml")
+public static int textfont_comparf (Dict_t dt, StarVoid key1, StarVoid key2, Dtdisc_t disc) {
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int textfont_comparf (Dt_t* dt, void* key1, void* key2, Dtdisc_t* disc)
+{
+    int rc;
+    textfont_t *f1 = (textfont_t*)key1, *f2 = (textfont_t*)key2;
+    if (f1->name || f2->name) {
+        if (! f1->name) return -1;
+        if (! f2->name) return 1;
+        rc = strcmp(f1->name, f2->name);
+        if (rc) return rc;
+    }
+    if (f1->color || f2->color) {
+        if (! f1->color) return -1;
+        if (! f2->color) return 1;
+        rc = strcmp(f1->color, f2->color);
+        if (rc) return rc;
+    }
+    rc = (f1->flags - f2->flags);
+    if (rc) return rc;
+    if (f1->size < f2->size) return -1;
+    if (f1->size > f2->size) return 1;
+    return 0;
+}
+

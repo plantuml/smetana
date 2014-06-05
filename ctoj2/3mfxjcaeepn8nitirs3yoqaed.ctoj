@@ -1,0 +1,17 @@
+@TranslatedBy("plantuml") 
+public static void installnodetoroot(Agraph_t g, Agnode_t n) {
+    Agraph_t par;
+    installnode(g, n);
+    if ((par = agparent(g))!=null)
+	installnodetoroot(par, n);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void installnodetoroot(Agraph_t * g, Agnode_t * n)
+{
+    Agraph_t *par;
+    installnode(g, n);
+    if ((par = agparent(g)))
+	installnodetoroot(par, n);
+}
+

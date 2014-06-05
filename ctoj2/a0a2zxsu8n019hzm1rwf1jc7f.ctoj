@@ -1,0 +1,11 @@
+@TranslatedBy("plantuml")
+public static StarVoid idopen(Agraph_t g, Agdisc_t disc) {
+	return g;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void *idopen(Agraph_t * g, Agdisc_t* disc)
+{
+    return g;
+}
+

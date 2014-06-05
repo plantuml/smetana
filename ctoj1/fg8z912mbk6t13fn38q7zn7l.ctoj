@@ -1,0 +1,5 @@
+@TranslatedBy("plantuml")
+public class GVC_t extends GVC_s {
+}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+typedef struct GVC_s GVC_t;

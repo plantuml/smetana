@@ -1,0 +1,5 @@
+@TranslatedBy("plantuml") 
+static final Agtag_t Tag = new Agtag_t();
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static Agtag_t Tag;
+

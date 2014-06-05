@@ -1,0 +1,7 @@
+@TranslatedBy("plantuml")
+public enum agerrlevel_t {
+AGWARN, AGERR, AGMAX, AGPREV
+}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+typedef enum { AGWARN, AGERR, AGMAX, AGPREV } agerrlevel_t;
+

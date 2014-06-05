@@ -1,0 +1,34 @@
+@TranslatedBy("plantuml")
+public static Agclos_t agclos(Agdisc_t proto) {
+    Agmemdisc_t memdisc;
+    StarVoid memclosure;
+    Agclos_t rv;
+    /* establish an allocation arena */
+    memdisc = ((proto!=null && proto.mem!=null) ? proto.mem : AgMemDisc);
+    memclosure = memdisc.open.function(proto);
+    rv = (Agclos_t) memdisc.alloc.function(memclosure, sizeof(Agclos_t.class)).castTo(Agclos_t.class);
+    rv.disc.mem = memdisc;
+    rv.state.mem = memclosure;
+    rv.disc.id = ((proto!=null && proto.id!=null) ? proto.id : AgIdDisc);
+    rv.disc.io = ((proto!=null && proto.io!=null) ? proto.io : AgIoDisc);
+    rv.callbacks_enabled = (N(0));
+    return rv;
+}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static Agclos_t *agclos(Agdisc_t * proto)
+{
+    Agmemdisc_t *memdisc;
+    void *memclosure;
+    Agclos_t *rv;
+    /* establish an allocation arena */
+    memdisc = ((proto && proto->mem) ? proto->mem : &AgMemDisc);
+    memclosure = memdisc->open(proto);
+    rv = memdisc->alloc(memclosure, sizeof(Agclos_t));
+    rv->disc.mem = memdisc;
+    rv->state.mem = memclosure;
+    rv->disc.id = ((proto && proto->id) ? proto->id : &AgIdDisc);
+    rv->disc.io = ((proto && proto->io) ? proto->io : &AgIoDisc);
+    rv->callbacks_enabled = (!(0));
+    return rv;
+}
+

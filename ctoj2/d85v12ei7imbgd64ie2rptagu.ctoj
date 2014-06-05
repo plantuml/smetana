@@ -1,0 +1,33 @@
+@TranslatedBy("plantuml")
+public static int agapply(Agraph_t g, Agobj_t obj, agobjfn_t fn, StarVoid arg, boolean preorder) {
+throw new UnsupportedOperationException();
+}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int agapply(Agraph_t * g, Agobj_t * obj, agobjfn_t fn, void *arg,
+	    int preorder)
+{
+    Agobj_t *subobj;
+    agobjsearchfn_t objsearch;
+    switch (((((Agobj_t*)(obj))->tag).objtype)) {
+    case 0:
+	objsearch = subgraph_search;
+	break;
+    case 1:
+	objsearch = subnode_search;
+	break;
+    case 2:
+    case 3:
+	objsearch = subedge_search;
+	break;
+    default:
+	agerr(AGERR, "agapply: unknown object type %d\n", ((((Agobj_t*)(obj))->tag).objtype));
+	return -1;
+	break;
+    }
+    if ((subobj = objsearch(g, obj))) {
+	rec_apply(g, subobj, fn, arg, objsearch, preorder);
+	return 0;
+    } else
+	return -1;
+}
+

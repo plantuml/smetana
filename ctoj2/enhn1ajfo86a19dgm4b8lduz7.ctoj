@@ -1,0 +1,29 @@
+@TranslatedBy("plantuml")
+public static int agstrfree(Agraph_t g, StarChar s) {
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int agstrfree(Agraph_t * g, char *s)
+{
+    refstr_t *r;
+    Dict_t *strdict;
+    if (s == ((char *)0))
+	 return -1;
+    strdict = refdict(g);
+    r = refsymbind(strdict, s);
+    if (r && (r->s == s)) {
+	r->refcnt--;
+	if ((r->refcnt && CNT_BITS) == 0) {
+	    agdtdelete(g, strdict, r);
+	    /*
+	       if (g) agfree(g,r);
+	       else free(r);
+	     */
+	}
+    }
+    if (r == ((refstr_t *)0))
+	return -1;
+    return 0;
+}
+

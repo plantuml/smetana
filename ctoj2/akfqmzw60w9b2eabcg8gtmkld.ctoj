@@ -1,0 +1,73 @@
+@TranslatedBy("plantuml")
+@NeedReview 
+public static int gvLayoutJobs(GVC_t gvc, Agraph_s g) {
+    final gvlayout_engine_t gvle;
+    StarChar p;
+    int rc;
+    agbindrec(g, JUtils.asStarChar("Agraphinfo_t"), sizeof(Agraphinfo_t.class), (N(0)));
+    ((Agraphinfo_t)((Agobj_t)g.castTo(Agobj_t.class)).data.castTo(Agraphinfo_t.class)).gvc = gvc;
+    if (g != agroot(g))
+    ((Agraphinfo_t)((Agobj_t)agroot(g).castTo(Agobj_t.class)).data.castTo(Agraphinfo_t.class)).gvc = gvc;
+    if ((p = agget(g, JUtils.asStarChar("layout")))!=null) {
+        gvc.layout.engine = null;
+	rc = gvlayout_select(gvc, p);
+	if (rc == 999) {
+	    agerr (agerrlevel_t.AGERR, "Layout type: \"%s\" not recognized. Use one of:%s\n");
+	        //p, gvplugin_list(gvc, API_layout, p));
+	    return -1;
+	}
+    }
+    gvle = gvc.layout.engine;
+    if (N(gvle))
+	return -1;
+    gv_fixLocale (1);
+    graph_init(g, (gvc.layout.features.flags & (1<<0))!=0);
+    ((Agraphinfo_t)((Agobj_t)agroot(g).castTo(Agobj_t.class)).data.castTo(Agraphinfo_t.class)).drawing = 
+    	((Agraphinfo_t)((Agobj_t)g.castTo(Agobj_t.class)).data.castTo(Agraphinfo_t.class)).drawing;
+    if (gvle!=null && gvle.layout!=null) {
+	gvle.layout.function(g);
+	if (gvle.cleanup!=null)
+			((Agraphinfo_t)((Agobj_t)g.castTo(Agobj_t.class)).data.castTo(Agraphinfo_t.class)).cleanup = new Agraphinfo_t.cleanup() {
+				public void function(Agraph_s arg1) {
+					gvle.cleanup.function(arg1);
+				}
+			};
+    }
+    gv_fixLocale (0);
+    return 0;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int gvLayoutJobs(GVC_t * gvc, Agraph_t * g)
+{
+    gvlayout_engine_t *gvle;
+    char *p;
+    int rc;
+    agbindrec(g, "Agraphinfo_t", sizeof(Agraphinfo_t), (!(0)));
+    (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->gvc) = gvc;
+    if (g != agroot(g))
+	(((Agraphinfo_t*)(((Agobj_t*)(agroot(g)))->data))->gvc) = gvc;
+    if ((p = agget(g, "layout"))) {
+        gvc->layout.engine = NULL;
+	rc = gvlayout_select(gvc, p);
+	if (rc == 999) {
+	    agerr (AGERR, "Layout type: \"%s\" not recognized. Use one of:%s\n",
+	        p, gvplugin_list(gvc, API_layout, p));
+	    return -1;
+	}
+    }
+    gvle = gvc->layout.engine;
+    if (! gvle)
+	return -1;
+    gv_fixLocale (1);
+    graph_init(g, gvc->layout.features->flags & (1<<0));
+    (((Agraphinfo_t*)(((Agobj_t*)(agroot(g)))->data))->drawing) = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing);
+    if (gvle && gvle->layout) {
+	gvle->layout(g);
+	if (gvle->cleanup)
+	    (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->cleanup) = gvle->cleanup;
+    }
+    gv_fixLocale (0);
+    return 0;
+}
+

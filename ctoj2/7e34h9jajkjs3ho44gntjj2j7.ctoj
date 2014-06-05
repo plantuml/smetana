@@ -1,0 +1,13 @@
+@TranslatedBy("plantuml") 
+public static void agerrorf(StarChar fmt, Object... arg) {
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void agerrorf(const char *fmt, ...)
+{
+    va_list args;
+    va_start(args, fmt);
+    agerr_va(AGERR, fmt, args);
+}
+

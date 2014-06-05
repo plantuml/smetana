@@ -1,0 +1,11 @@
+@TranslatedBy("plantuml")
+public static StarChar agstrbind(Agraph_t g, StarChar s) {
+    return refstrbind(refdict(g), s);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+char *agstrbind(Agraph_t * g, char *s)
+{
+    return refstrbind(refdict(g), s);
+}
+

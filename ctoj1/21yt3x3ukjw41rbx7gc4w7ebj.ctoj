@@ -1,0 +1,16 @@
+@TranslatedBy("plantuml")
+public class nlist_t extends Structure {
+	public StarStar<node_t> list;
+	public int size;
+	
+	public void reset() {
+		list = null;
+		size = 0;
+	}
+}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+typedef struct nlist_t {
+	node_t **list;
+	int size;
+    } nlist_t;
+

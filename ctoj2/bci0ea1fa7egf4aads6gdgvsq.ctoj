@@ -1,0 +1,35 @@
+@TranslatedBy("plantuml")
+public static int dtsize(Dict_t dt) {
+	Dtlink_t	t;
+	int		size;
+	if ((dt.data.type&010000)!=0) dtrestore(dt,null);
+	if(dt.data.size < 0) /* !(dt->data->type&(DT_SET|DT_BAG)) */
+	{	if((dt.data.type&(0000004|0000010))!=0)
+			dt.data.size = treecount(dt.data.here);
+		else if((dt.data.type&(0000020|0000040|0000100))!=0)
+		{	for(size = 0, t = dt.data.hh._head(); t!=null; t = t.right)
+				size += 1;
+			dt.data.size = size;
+		}
+	}
+	return dt.data.size;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int dtsize(Dt_t* dt)
+{
+	register Dtlink_t*	t;
+	register int		size;
+	((dt->data->type&010000) ? dtrestore(dt,((Dtlink_t*)0)) : 0);
+	if(dt->data->size < 0) /* !(dt->data->type&(DT_SET|DT_BAG)) */
+	{	if(dt->data->type&(0000004|0000010))
+			dt->data->size = treecount(dt->data->here);
+		else if(dt->data->type&(0000020|0000040|0000100))
+		{	for(size = 0, t = dt->data->hh._head; t; t = t->right)
+				size += 1;
+			dt->data->size = size;
+		}
+	}
+	return dt->data->size;
+}
+

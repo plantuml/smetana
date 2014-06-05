@@ -1,0 +1,15 @@
+@TranslatedBy("plantuml")
+public static Agsym_t agdictsym(Dict_t dict, StarChar name) {
+    Agsym_t key = new Agsym_t();
+    key.name = name;
+    return (Agsym_t) dict.searchf.function(dict, key,0000004);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agsym_t *agdictsym(Dict_t * dict, char *name)
+{
+    Agsym_t key;
+    key.name = (char *) name;
+    return (Agsym_t *) (*(((Dt_t*)(dict))->searchf))((dict),(void*)(&key),0000004);
+}
+

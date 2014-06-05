@@ -1,0 +1,21 @@
+@TranslatedBy("plantuml")
+public static StarVoid zmalloc(size_t nbytes) {
+    StarVoid rv;
+    if (nbytes == null)
+	return null;
+    rv = gmalloc(nbytes);
+    memset(rv, 0, nbytes);
+    return rv;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void *zmalloc(size_t nbytes)
+{
+    char *rv;
+    if (nbytes == 0)
+	return 0;
+    rv = gmalloc(nbytes);
+    memset(rv, 0, nbytes);
+    return rv;
+}
+

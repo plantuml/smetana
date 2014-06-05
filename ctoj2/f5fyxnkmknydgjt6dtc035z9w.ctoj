@@ -1,0 +1,18 @@
+@TranslatedBy("plantuml")
+public static void gvconfig(GVC_t gvc, boolean rescan) {
+    /* builtins don't require LTDL */
+    gvconfig_plugin_install_builtins(gvc);
+    gvc.config_found = false;
+    gvtextlayout_select(gvc);   /* choose best available textlayout plugin immediately */
+    textfont_dict_open(gvc);    /* initialize font dict */
+}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void gvconfig(GVC_t * gvc, boolean rescan)
+{
+    /* builtins don't require LTDL */
+    gvconfig_plugin_install_builtins(gvc);
+    gvc->config_found = 0;
+    gvtextlayout_select(gvc);   /* choose best available textlayout plugin immediately */
+    textfont_dict_open(gvc);    /* initialize font dict */
+}
+

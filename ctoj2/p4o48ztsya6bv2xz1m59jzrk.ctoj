@@ -1,0 +1,14 @@
+@TranslatedBy("plantuml")
+public static void textfont_freef(Dict_t dt, StarVoid obj, Dtdisc_t disc) {
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void textfont_freef(Dt_t* dt, void* obj, Dtdisc_t* disc)
+{
+    textfont_t *f = (textfont_t*)obj;
+    if (f->name) free(f->name);
+    if (f->color) free(f->color);
+    free(f);
+}
+

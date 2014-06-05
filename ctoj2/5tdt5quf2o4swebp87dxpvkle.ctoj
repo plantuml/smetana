@@ -1,0 +1,108 @@
+@TranslatedBy("plantuml")
+public static Agsym_t setattr(Agraph_t g, int kind, StarChar name, StarChar value) {
+    Agdatadict_t dd;
+    Dict_t ldict, rdict;
+    Agsym_t lsym, psym, rsym, rv;
+    Agraph_t root;
+    Agnode_t n;
+    Agedge_t e;
+    ;
+    root = agroot(g);
+    dd = agdatadict(g, (N(0)));	/* force initialization of string attributes */
+    ldict = agdictof(g, kind);
+    lsym = aglocaldictsym(ldict, name);
+    if (lsym!=null) {			/* update old local definiton */
+	agstrfree(g, lsym.defval);
+	lsym.defval = agstrdup(g, value);
+	rv = lsym;
+    } else {
+	psym = agdictsym(ldict, name);	/* search with viewpath up to root */
+	if (psym!=null) {		/* new local definition */
+	    lsym = agnewsym(g, name, value, psym.id, kind);
+	    ldict.searchf.function(ldict,lsym,0000001);
+	    rv = lsym;
+	} else {		/* new global definition */
+	    rdict = agdictof(root, kind);
+	    rsym = agnewsym(g, name, value, dtsize(rdict), kind);
+	    rdict.searchf.function(rdict,rsym,0000001);
+	    switch (kind) {
+	    case 0:
+		agapply(root, (Agobj_t) root.castTo(Agobj_t.class), new agobjfn_t(){
+			public void function(Agraph_t g, Agobj_t obj, StarVoid arg) {
+				addattr(g, obj, (Agsym_t) arg);
+			}},
+			rsym, (N(0)));
+		break;
+	    case 1:
+		for (n = agfstnode(root); n!=null; n = agnxtnode(root, n))
+		    addattr(g, (Agobj_t) n.castTo(Agobj_t.class), rsym);
+		break;
+	    case 3:
+	    case 2:
+		for (n = agfstnode(root); n!=null; n = agnxtnode(root, n))
+		    for (e = agfstout(root, n); e!=null; e = agnxtout(root, e))
+			addattr(g, (Agobj_t) e.castTo(Agobj_t.class), rsym);
+		break;
+	    }
+	    rv = rsym;
+	}
+    }
+    if (rv!=null && (kind == 0))
+	agxset(g, rv, value);
+    agmethod_upd(g, g, rv);	/* JCE and GN wanted this */
+    return rv;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static Agsym_t *setattr(Agraph_t * g, int kind, char *name, char *value)
+{
+    Agdatadict_t *dd;
+    Dict_t *ldict, *rdict;
+    Agsym_t *lsym, *psym, *rsym, *rv;
+    Agraph_t *root;
+    Agnode_t *n;
+    Agedge_t *e;
+    ;
+    root = agroot(g);
+    dd = agdatadict(g, (!(0)));	/* force initialization of string attributes */
+    ldict = agdictof(g, kind);
+    lsym = aglocaldictsym(ldict, name);
+    if (lsym) {			/* update old local definiton */
+	agstrfree(g, lsym->defval);
+	lsym->defval = agstrdup(g, value);
+	rv = lsym;
+    } else {
+	psym = agdictsym(ldict, name);	/* search with viewpath up to root */
+	if (psym) {		/* new local definition */
+	    lsym = agnewsym(g, name, value, psym->id, kind);
+	    (*(((Dt_t*)(ldict))->searchf))((ldict),(void*)(lsym),0000001);
+	    rv = lsym;
+	} else {		/* new global definition */
+	    rdict = agdictof(root, kind);
+	    rsym = agnewsym(g, name, value, dtsize(rdict), kind);
+	    (*(((Dt_t*)(rdict))->searchf))((rdict),(void*)(rsym),0000001);
+	    switch (kind) {
+	    case 0:
+		agapply(root, (Agobj_t *) root, (agobjfn_t) addattr,
+			rsym, (!(0)));
+		break;
+	    case 1:
+		for (n = agfstnode(root); n; n = agnxtnode(root, n))
+		    addattr(g, (Agobj_t *) n, rsym);
+		break;
+	    case 3:
+	    case 2:
+		for (n = agfstnode(root); n; n = agnxtnode(root, n))
+		    for (e = agfstout(root, n); e; e = agnxtout(root, e))
+			addattr(g, (Agobj_t *) e, rsym);
+		break;
+	    }
+	    rv = rsym;
+	}
+    }
+    if (rv && (kind == 0))
+	agxset(g, rv, value);
+    agmethod_upd(g, g, rv);	/* JCE and GN wanted this */
+    return rv;
+}
+

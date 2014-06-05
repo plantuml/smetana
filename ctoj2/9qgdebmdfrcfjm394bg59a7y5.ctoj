@@ -1,0 +1,11 @@
+@TranslatedBy("plantuml") 
+public static boolean agisstrict(Agraph_t g) {
+    return g.desc.strict;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int agisstrict(Agraph_t * g)
+{
+    return g->desc.strict;
+}
+

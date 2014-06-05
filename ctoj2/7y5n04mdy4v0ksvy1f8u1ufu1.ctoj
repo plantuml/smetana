@@ -1,0 +1,5 @@
+@TranslatedBy("plantuml")
+public static GVJ_t output_langname_job;
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static GVJ_t *output_langname_job;
+

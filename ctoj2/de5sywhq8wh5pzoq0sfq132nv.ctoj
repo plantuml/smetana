@@ -1,0 +1,11 @@
+@TranslatedBy("plantuml")
+public static gvtextlayout_engine_t quartz_textlayout_engine = new gvtextlayout_engine_t(new h.gvtextlayout_engine_s.textlayout() {
+	public boolean function(textspan_t span, StarStarChar fontpath) {
+		throw new UnsupportedOperationException();
+	}
+});
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static gvtextlayout_engine_t quartz_textlayout_engine = {
+    quartz_textlayout
+};
+

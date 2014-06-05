@@ -1,0 +1,11 @@
+@TranslatedBy("plantuml")
+public static Agraph_t agparent(Agraph_t g) {
+	return g.parent;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agraph_t *agparent(Agraph_t * g)
+{
+    return g->parent;
+}
+

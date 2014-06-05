@@ -1,0 +1,25 @@
+@TranslatedBy("plantuml")
+public static StarVoid dtmemory(Dict_t dt, StarVoid addr, size_t size, Dtdisc_t disc) {
+	if(addr!=null)
+	{	if(size == null)
+		{	free(addr);
+			return null;
+		}
+		else	return realloc(addr,size);
+	}
+	else	return size.isStrictPositive() ? malloc(size) : null;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void* dtmemory(Dt_t* dt,void* addr,size_t size,Dtdisc_t* disc)
+{
+	if(addr)
+	{	if(size == 0)
+		{	free(addr);
+			return ((void*)0);
+		}
+		else	return realloc(addr,size);
+	}
+	else	return size > 0 ? malloc(size) : ((void*)0);
+}
+

@@ -1,0 +1,17 @@
+@TranslatedBy("plantuml")
+public static void freesym(Dict_t d, StarVoid obj, Dtdisc_t disc) {
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void freesym(Dict_t * d, void * obj, Dtdisc_t * disc)
+{
+    Agsym_t *sym;
+    (void) d;
+    sym = (Agsym_t *) obj;
+    (void) disc;
+    agstrfree(Ag_G_global, sym->name);
+    agstrfree(Ag_G_global, sym->defval);
+    agfree(Ag_G_global, sym);
+}
+

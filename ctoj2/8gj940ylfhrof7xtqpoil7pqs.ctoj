@@ -1,0 +1,32 @@
+@TranslatedBy("plantuml")
+public static Agraph_t agroot(StarVoid obj) {
+    switch (((Agobj_t)obj.castTo(Agobj_t.class)).tag.objtype) {
+    case 3:
+    case 2:
+	return ((Agedge_t ) obj).node.root;
+    case 1:
+	return ((Agnode_t ) obj).root;
+    case 0:
+	return ((Agraph_t ) obj).root;
+    default:			/* actually can't occur if only 2 bit tags */
+	agerr(agerrlevel_t.AGERR, "agroot of a bad object");
+	return null;
+    }
+}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agraph_t *agroot(void* obj)
+{
+    switch (((((Agobj_t*)(obj))->tag).objtype)) {
+    case 3:
+    case 2:
+	return ((Agedge_t *) obj)->node->root;
+    case 1:
+	return ((Agnode_t *) obj)->root;
+    case 0:
+	return ((Agraph_t *) obj)->root;
+    default:			/* actually can't occur if only 2 bit tags */
+	agerr(AGERR, "agroot of a bad object");
+	return ((Agraph_t*)0);
+    }
+}
+

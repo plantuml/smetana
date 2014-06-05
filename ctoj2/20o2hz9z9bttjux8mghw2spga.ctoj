@@ -1,0 +1,41 @@
+@TranslatedBy("plantuml")
+public static void objputrec(Agraph_t g, Agobj_t obj, StarVoid arg) {
+    Agrec_t firstrec, newrec;
+    newrec = (Agrec_t) arg.castTo(Agrec_t.class);
+    firstrec = obj.data;
+    if (firstrec == null)
+	newrec.next = newrec;	/* 0 elts */
+    else {
+	if (firstrec.next == firstrec) {
+	    firstrec.next = newrec;	/* 1 elt */
+	    newrec.next = firstrec;
+	} else {
+	    newrec.next = firstrec.next;
+	    firstrec.next = newrec;
+	}
+    }
+    if ((N(obj.tag.mtflock)))
+	set_data(obj, newrec, false);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void objputrec(Agraph_t * g, Agobj_t * obj, void *arg)
+{
+    Agrec_t *firstrec, *newrec;
+    newrec = arg;
+    firstrec = obj->data;
+    if (firstrec == ((Agrec_t *)0))
+	newrec->next = newrec;	/* 0 elts */
+    else {
+	if (firstrec->next == firstrec) {
+	    firstrec->next = newrec;	/* 1 elt */
+	    newrec->next = firstrec;
+	} else {
+	    newrec->next = firstrec->next;
+	    firstrec->next = newrec;
+	}
+    }
+    if ((!(obj->tag.mtflock)))
+	set_data(obj, newrec, (0));
+}
+

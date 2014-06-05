@@ -1,0 +1,14 @@
+@TranslatedBy("plantuml")
+public int idalloc(StarVoid state, int objtype, @Unsigned int request) {
+return 0;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static long idalloc(void *state, int objtype, unsigned long request)
+{
+    (void) state;
+    (void) objtype;
+    (void) request;
+    return (0);
+}
+

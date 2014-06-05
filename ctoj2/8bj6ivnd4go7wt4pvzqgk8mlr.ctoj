@@ -1,0 +1,5 @@
+@TranslatedBy("plantuml")
+private static @Unsigned int HTML_BIT;
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static unsigned long HTML_BIT;
+

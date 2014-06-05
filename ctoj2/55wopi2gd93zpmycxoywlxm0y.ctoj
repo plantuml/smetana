@@ -1,0 +1,15 @@
+@TranslatedBy("plantuml")
+public static Agnode_t agfstnode(Agraph_t g) {
+    Agsubnode_t sn;
+    sn = (Agsubnode_t) g.n_seq.searchf.function(g.n_seq,null,0000200);
+    return sn!=null ? sn.node : null;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agnode_t *agfstnode(Agraph_t * g)
+{
+    Agsubnode_t *sn;
+    sn = (Agsubnode_t *) (*(((Dt_t*)(g->n_seq))->searchf))((g->n_seq),(void*)(0),0000200);
+    return sn ? sn->node : ((Agnode_t*)0);
+}
+

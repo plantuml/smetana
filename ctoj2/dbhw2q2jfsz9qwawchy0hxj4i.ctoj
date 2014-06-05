@@ -1,0 +1,23 @@
+@TranslatedBy("plantuml")
+public static Agsym_t agnewsym(Agraph_t g, StarChar name, StarChar value, int id, int kind) {
+    Agsym_t sym;
+    sym = (Agsym_t) agalloc(g, sizeof(Agsym_t.class));
+    sym.kind = kind;
+    sym.name = agstrdup(g, name);
+    sym.defval = agstrdup(g, value);
+    sym.id = id;
+    return sym;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agsym_t *agnewsym(Agraph_t * g, char *name, char *value, int id, int kind)
+{
+    Agsym_t *sym;
+    sym = agalloc(g, sizeof(Agsym_t));
+    sym->kind = kind;
+    sym->name = agstrdup(g, name);
+    sym->defval = agstrdup(g, value);
+    sym->id = id;
+    return sym;
+}
+

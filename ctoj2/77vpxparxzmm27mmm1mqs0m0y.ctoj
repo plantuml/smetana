@@ -1,0 +1,47 @@
+@TranslatedBy("plantuml")
+public static void agrecord_callback(Agraph_t g, Agobj_t obj, int kind, Agsym_t optsym) {
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void agrecord_callback(Agraph_t * g, Agobj_t * obj, int kind,
+		       Agsym_t * optsym)
+{
+    pendingset_t *pending;
+    Dict_t *dict;
+    pending_cb_t *handle;
+    pending =
+	(pendingset_t *) agbindrec(g, DRName, sizeof(pendingset_t), (0));
+    switch (kind) {
+    case 100:
+	;
+	;
+	dict = dictof(pending, obj, 100);
+	handle = lookup(dict, obj);
+	if (handle == 0)
+	    handle = insert(dict, g, obj, optsym);
+	break;
+    case 101:
+	if (lookup(dictof(pending, obj, 100), obj))
+	    break;
+	if (lookup(dictof(pending, obj, 102), obj))
+	    break;
+	dict = dictof(pending, obj, 101);
+	handle = lookup(dict, obj);
+	if (handle == 0)
+	    handle = insert(dict, g, obj, optsym);
+	record_sym(obj, handle, optsym);
+	break;
+    case 102:
+	purge(dictof(pending, obj, 100), obj);
+	purge(dictof(pending, obj, 101), obj);
+	dict = dictof(pending, obj, 102);
+	handle = lookup(dict, obj);
+	if (handle == 0)
+	    handle = insert(dict, g, obj, optsym);
+	break;
+    default:
+	agerr(AGERR,"agrecord_callback of a bad object");
+    }
+}
+

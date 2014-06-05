@@ -1,0 +1,76 @@
+@TranslatedBy("plantuml")
+public static StarVoid dtvsearch(Dict_t dt, StarVoid obj, int type) {
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void* dtvsearch(Dt_t* dt, register void* obj, register int type)
+{
+	Dt_t		*d, *p;
+	void		*o, *n, *ok, *nk;
+	int		cmp, lk, sz, ky;
+	Dtcompar_f	cmpf;
+	/* these operations only happen at the top level */
+	if(type&(0000001|0000002|0000100|0000040))
+		return (*(dt->meth->searchf))(dt,obj,type);
+	if((type&(0001000|0000004)) || /* order sets first/last done below */
+	   ((type&(0000200|0000400)) && !(dt->meth->type&(0000010|0000004)) ) )
+	{	for(d = dt; d; d = d->view)
+			if((o = (*(d->meth->searchf))(d,obj,type)) )
+				break;
+		dt->walk = d;
+		return o;
+	}
+	if(dt->meth->type & (0000010|0000004) )
+	{	if(!(type & (0000200|0000400|0000010|0000020)) )
+			return ((void*)0);
+		n = nk = ((void*)0); p = ((Dt_t*)0);
+		for(d = dt; d; d = d->view)
+		{	if(!(o = (*d->meth->searchf)(d, obj, type)) )
+				continue;
+			(ky = d->disc->key, sz = d->disc->size, lk = d->disc->link, cmpf = d->disc->comparf);
+			ok = (void*)(sz < 0 ? *((char**)((char*)(o)+ky)) : ((char*)(o)+ky));
+			if(n) /* get the right one among all dictionaries */
+			{	cmp = (cmpf ? (*cmpf)(d,ok,nk,d->disc) : (sz <= 0 ? strcmp(ok,nk) : memcmp(ok,nk,sz)) );
+				if(((type & (0000010|0000200)) && cmp < 0) ||
+				   ((type & (0000020|0000400)) && cmp > 0) )
+					goto a_dj;
+			}
+			else /* looks good for now */
+			{ a_dj: p  = d;
+				n  = o;
+				nk = ok;
+			}
+		}
+		dt->walk = p;
+		return n;
+	}
+	/* non-ordered methods */
+	if(!(type & (0000010|0000020)) )
+		return ((void*)0);
+	if(!dt->walk || obj != (dt->walk->disc->link < 0 ? ((Dthold_t*)(dt->walk->data->here))->obj : (void*)((char*)(dt->walk->data->here) - dt->walk->disc->link) ) )
+	{	for(d = dt; d; d = d->view)
+			if((o = (*(d->meth->searchf))(d, obj, 0000004)) )
+				break;
+		dt->walk = d;
+		if(!(obj = o) )
+			return ((void*)0);
+	}
+	for(d = dt->walk, obj = (*d->meth->searchf)(d, obj, type);; )
+	{	while(obj) /* keep moving until finding an uncovered object */
+		{	for(p = dt; ; p = p->view)
+			{	if(p == d) /* adjacent object is uncovered */	
+					return obj;
+				if((*(p->meth->searchf))(p, obj, 0000004) )
+					break;
+			}
+			obj = (*d->meth->searchf)(d, obj, type);
+		}
+		if(!(d = dt->walk = d->view) ) /* move on to next dictionary */
+			return ((void*)0);
+		else if(type&0000010)
+			obj = (*(d->meth->searchf))(d,((void*)0),0000200);
+		else	obj = (*(d->meth->searchf))(d,((void*)0),0000400);
+	}
+}
+

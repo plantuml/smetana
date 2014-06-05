@@ -1,0 +1,5 @@
+@TranslatedBy("plantuml")
+public static StarChar DataDictName = JUtils.asStarChar("_AG_datadict");
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static char DataDictName[] = "_AG_datadict";
+

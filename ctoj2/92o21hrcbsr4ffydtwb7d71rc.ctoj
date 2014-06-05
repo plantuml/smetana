@@ -1,0 +1,20 @@
+@TranslatedBy("plantuml")
+public static int agedgeseqcmpf(Dict_t d, StarVoid arg_e0, StarVoid arg_e1, Dtdisc_t disc) {
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int agedgeseqcmpf(Dict_t * d, void *arg_e0, void *arg_e1, Dtdisc_t * disc)
+{
+    long v;
+    Agedge_t *e0, *e1;
+    (void) d;
+    e0 = arg_e0;
+    e1 = arg_e1;
+    (void) disc;
+	;
+	if (e0->node != e1->node) v = ((((Agobj_t*)(e0->node))->tag).seq) - ((((Agobj_t*)(e1->node))->tag).seq);
+	else v = (((((Agobj_t*)(e0))->tag).seq) - ((((Agobj_t*)(e1))->tag).seq));
+    return ((v==0)?0:(v<0?-1:1));
+}
+

@@ -1,0 +1,26 @@
+@TranslatedBy("plantuml") 
+public static void gv_fixLocale (int set) {
+System.err.println("Ignoring gv_fixLocale");
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void gv_fixLocale (int set)
+{
+    static char* save_locale;
+    static int cnt;
+    if (set) {
+	cnt++;
+	if (cnt == 1) {
+	    save_locale = strdup (setlocale (LC_NUMERIC, NULL));
+	    setlocale (LC_NUMERIC, "C");
+	}
+    }
+    else if (cnt > 0) {
+	cnt--;
+	if (cnt == 0) {
+	    setlocale (LC_NUMERIC, save_locale);
+	    free (save_locale);
+	}
+    }
+}
+

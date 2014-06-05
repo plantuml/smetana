@@ -1,0 +1,21 @@
+@TranslatedBy("plantuml")
+public static Agsym_t getattr(Agraph_t g, int kind, StarChar name) {
+    Agsym_t rv = null;
+    Dict_t dict;
+    dict = agdictof(g, kind);
+    if (dict!=null)
+	rv = agdictsym(dict, name);	/* viewpath up to root */
+    return rv;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static Agsym_t *getattr(Agraph_t * g, int kind, char *name)
+{
+    Agsym_t *rv = 0;
+    Dict_t *dict;
+    dict = agdictof(g, kind);
+    if (dict)
+	rv = agdictsym(dict, name);	/* viewpath up to root */
+    return rv;
+}
+

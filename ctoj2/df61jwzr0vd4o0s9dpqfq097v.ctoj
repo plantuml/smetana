@@ -1,0 +1,53 @@
+@TranslatedBy("plantuml")
+public static Dict_t agdictof(Agraph_t g, int kind) {
+    Agdatadict_t dd;
+    Dict_t dict;
+    dd = agdatadict(g, (false));
+    if (dd!=null)
+	switch (kind) {
+	case 0:
+	    dict = dd.dict.g;
+	    break;
+	case 1:
+	    dict = dd.dict.n;
+	    break;
+	case 3:
+	case 2:
+	    dict = dd.dict.e;
+	    break;
+	default:
+	    agerr(agerrlevel_t.AGERR,"agdictof: unknown kind %d\n", kind);
+	    dict = null;
+	    break;
+    } else
+	dict = null;
+    return dict;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Dict_t *agdictof(Agraph_t * g, int kind)
+{
+    Agdatadict_t *dd;
+    Dict_t *dict;
+    dd = agdatadict(g, (0));
+    if (dd)
+	switch (kind) {
+	case 0:
+	    dict = dd->dict.g;
+	    break;
+	case 1:
+	    dict = dd->dict.n;
+	    break;
+	case 3:
+	case 2:
+	    dict = dd->dict.e;
+	    break;
+	default:
+	    agerr(AGERR,"agdictof: unknown kind %d\n", kind);
+	    dict = ((Dict_t *)0);
+	    break;
+    } else
+	dict = ((Dict_t *)0);
+    return dict;
+}
+

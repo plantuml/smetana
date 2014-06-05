@@ -1,0 +1,5 @@
+// @TranslatedBy("plantuml")
+// Do not use this class : use Dict_t
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+typedef struct _dt_s		Dt_t;
+

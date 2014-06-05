@@ -1,0 +1,17 @@
+@TranslatedBy("plantuml")
+public static void agmethod_init(Agraph_t g, StarVoid obj) {
+    if (g.clos.callbacks_enabled)
+	aginitcb(g, obj, g.clos.cb);
+    else
+	agrecord_callback(g, (Agobj_t)obj, 100, null);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void agmethod_init(Agraph_t * g, void *obj)
+{
+    if (g->clos->callbacks_enabled)
+	aginitcb(g, obj, g->clos->cb);
+    else
+	agrecord_callback(g, obj, 100, ((Agsym_t*)0));
+}
+

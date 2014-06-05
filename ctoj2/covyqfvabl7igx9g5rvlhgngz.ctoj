@@ -1,0 +1,5 @@
+@TranslatedBy("plantuml")
+public static StarChar AgDataRecName = JUtils.asStarChar("_AG_strdata");
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+char *AgDataRecName = "_AG_strdata";
+

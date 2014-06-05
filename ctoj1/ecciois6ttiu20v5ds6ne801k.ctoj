@@ -1,0 +1,14 @@
+@TranslatedBy("plantuml")
+public class box extends Structure {
+	final point LL = new point();
+	final point UR = new point();
+	
+	public void reset() {
+	    LL.reset();
+	    UR.reset();
+	}
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+typedef struct { point LL, UR; } box;
+

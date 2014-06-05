@@ -1,0 +1,9 @@
+@TranslatedBy("plantuml") 
+public interface agobjupdfn_t extends FP {
+	void function(Agraph_t g, Agobj_t obj, StarVoid arg, Agsym_t sym);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+typedef void (*agobjupdfn_t) (Agraph_t * g, Agobj_t * obj, void *arg,
+			      Agsym_t * sym);
+

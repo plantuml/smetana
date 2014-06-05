@@ -1,0 +1,10 @@
+@TranslatedBy("plantuml")
+public static boolean agisdirected(Agraph_t g) {
+    return g.desc.directed;
+}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int agisdirected(Agraph_t * g)
+{
+    return g->desc.directed;
+}
+

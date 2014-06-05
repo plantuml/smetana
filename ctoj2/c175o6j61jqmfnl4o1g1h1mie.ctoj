@@ -1,0 +1,39 @@
+@TranslatedBy("plantuml") 
+public static Agedge_t agfindedge_by_key(Agraph_t g, Agnode_t t, Agnode_t h, @ByValue Agtag_t key) {
+    Agedge_t e;
+    final Agedge_t template = new Agedge_t();
+    Agsubnode_t sn;
+    if ((t == null) || (h == null))
+	return null;
+    template.base.tag.copyFrom(key);
+    template.node = t;		/* guess that fan-in < fan-out */
+    sn = agsubrep(g, h);
+    if (N(sn)) e = null;
+    else {
+	    dtrestore(g.e_id, sn.in_id);
+	    e = (Agedge_t) ((Dict_t)g.e_id).searchf.function((g.e_id),template,0000004);
+	    sn.in_id = dtextract(g.e_id);
+    }
+    return e;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static Agedge_t *agfindedge_by_key(Agraph_t * g, Agnode_t * t, Agnode_t * h,
+			    Agtag_t key)
+{
+    Agedge_t *e, template;
+    Agsubnode_t *sn;
+    if ((t == ((Agnode_t*)0)) || (h == ((Agnode_t*)0)))
+	return ((Agedge_t*)0);
+    template.base.tag = key;
+    template.node = t;		/* guess that fan-in < fan-out */
+    sn = agsubrep(g, h);
+    if (!sn) e = 0;
+    else {
+	    dtrestore(g->e_id, sn->in_id);
+	    e = (Agedge_t *) (*(((Dt_t*)(g->e_id))->searchf))((g->e_id),(void*)(&template),0000004);
+	    sn->in_id = dtextract(g->e_id);
+    }
+    return e;
+}
+

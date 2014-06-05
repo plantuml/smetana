@@ -1,0 +1,11 @@
+@TranslatedBy("plantuml")
+public static void agregister(Agraph_t g, int objtype, StarVoid obj) {
+	(g.clos.disc.id).idregister.function((g.clos.state.id), objtype, obj);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void agregister(Agraph_t * g, int objtype, void *obj)
+{
+	((g)->clos->disc.id)->idregister(((g)->clos->state.id), objtype, obj);
+}
+

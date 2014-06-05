@@ -1,0 +1,13 @@
+@TranslatedBy("plantuml")
+public static void free_subnode (Dict_t d, Agsubnode_t sn, Dtdisc_t disc) {
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void
+free_subnode (Dt_t* d, Agsubnode_t* sn, Dtdisc_t * disc)
+{
+   if (!((sn)==(&((sn)->node->mainsub)))) 
+	agfree (sn->node->root, sn);
+}
+

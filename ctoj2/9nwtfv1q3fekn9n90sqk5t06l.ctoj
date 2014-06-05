@@ -1,0 +1,26 @@
+@TranslatedBy("plantuml")
+public static void set_data(Agobj_t obj, Agrec_t data, boolean mtflock) {
+    Agedge_t e;
+    obj.data = data;
+    obj.tag.mtflock = mtflock;
+    if ((((((Agobj_t)(obj)).tag).objtype) == 3) || (((((Agobj_t)(obj)).tag).objtype) == 2)) {
+	e = ((Agobj_t)((Agedge_t)obj.castTo(Agedge_t.class)).castTo(Agobj_t.class)).tag.objtype==3?null:null;
+	(((Agobj_t)(e.castTo(Agobj_t.class))).data) = data;
+	e.base.tag.mtflock = mtflock;
+	throw new UnsupportedOperationException("null:null to be corrected");
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void set_data(Agobj_t * obj, Agrec_t * data, int mtflock)
+{
+    Agedge_t *e;
+    obj->data = data;
+    obj->tag.mtflock = mtflock;
+    if ((((((Agobj_t*)(obj))->tag).objtype) == 3) || (((((Agobj_t*)(obj))->tag).objtype) == 2)) {
+	e = ((((((Agobj_t*)((Agedge_t *) obj))->tag).objtype)==3)?(((Agedge_t *) obj)-1):(((Agedge_t *) obj)+1));
+	(((Agobj_t*)(e))->data) = data;
+	e->base.tag.mtflock = mtflock;
+    }
+}
+

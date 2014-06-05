@@ -1,0 +1,5 @@
+@TranslatedBy("plantuml") 
+public static Agdesc_t Agdirected = new Agdesc_t(1, 0, 0, 1, 0, 0);
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agdesc_t Agdirected = { 1, 0, 0, 1 };
+

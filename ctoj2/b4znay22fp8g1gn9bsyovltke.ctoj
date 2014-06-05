@@ -1,0 +1,11 @@
+@TranslatedBy("plantuml") 
+public static gvplugin_installed_t[] gvlayout_dot_layout = new gvplugin_installed_t[]{
+new gvplugin_installed_t(0, JUtils.asStarChar("dot"), 0, dotgen_engine, dotgen_features),
+null
+};
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+gvplugin_installed_t gvlayout_dot_layout[] = {
+    {LAYOUT_DOT, "dot", 0, &dotgen_engine, &dotgen_features},
+    {0, NULL, 0, NULL, NULL}
+};
+

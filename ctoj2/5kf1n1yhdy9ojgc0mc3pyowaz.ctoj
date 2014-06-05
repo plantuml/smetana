@@ -1,0 +1,9 @@
+@TranslatedBy("plantuml")
+public static Dtmethod_t _Dttree = new Dtmethod_t(new Dtsearch_f() {
+	public StarVoid function(Dict_t arg1, StarVoid arg2, int arg3) {
+	    return dttree(arg1, arg2, arg3);
+	}
+}, 0000004);
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Dtmethod_t		_Dttree = { dttree, 0000004 };
+

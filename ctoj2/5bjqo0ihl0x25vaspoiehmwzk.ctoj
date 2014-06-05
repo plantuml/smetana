@@ -1,0 +1,12 @@
+@TranslatedBy("plantuml")
+public static void idregister(StarVoid state, int objtype, StarVoid obj) {
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void idregister(void *state, int objtype, void *obj)
+{
+    (void) state;
+    (void) objtype;
+    (void) obj;
+}
+

@@ -1,0 +1,42 @@
+@TranslatedBy("plantuml")
+public static Agraph_t agopen(StarChar name, Agdesc_t desc, Agdisc_t arg_disc) {
+    Agraph_t g;
+    Agclos_t clos;
+    @Unsigned StarLong gid = mallocLong(1);
+    clos = agclos(arg_disc);
+    g = (Agraph_t) clos.disc.mem.alloc.function(clos.state.mem, sizeof(Agraph_t.class)).castTo(Agraph_t.class);
+    ((Agobj_t)g.castTo(Agobj_t.class)).tag.objtype = 0;
+    g.clos = clos;
+    g.desc.memcopyFrom(desc);
+    g.desc.maingraph = (N(0));
+    g.root = g;
+    g.clos.state.id = g.clos.disc.id.open.function(g, arg_disc);
+    if (agmapnametoid(g, 0, name, gid, (N(0))))
+     ((Agobj_t)g.castTo(Agobj_t.class)).tag.id = gid;
+    /* else AGID(g) = 0 because we have no alternatives */
+     g = agopen1(g);
+    agregister(g, 0, g);
+    return g;
+}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agraph_t *agopen(char *name, Agdesc_t desc, Agdisc_t * arg_disc)
+{
+    Agraph_t *g;
+    Agclos_t *clos;
+    unsigned long gid;
+    clos = agclos(arg_disc);
+    g = clos->disc.mem->alloc(clos->state.mem, sizeof(Agraph_t));
+    ((((Agobj_t*)(g))->tag).objtype) = 0;
+    g->clos = clos;
+    g->desc = desc;
+    g->desc.maingraph = (!(0));
+    g->root = g;
+    g->clos->state.id = g->clos->disc.id->open(g, arg_disc);
+    if (agmapnametoid(g, 0, name, &gid, (!(0))))
+	((((Agobj_t*)(g))->tag).id) = gid;
+    /* else AGID(g) = 0 because we have no alternatives */
+    g = agopen1(g);
+    agregister(g, 0, g);
+    return g;
+}
+

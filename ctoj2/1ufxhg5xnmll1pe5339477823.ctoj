@@ -1,0 +1,21 @@
+@TranslatedBy("plantuml")
+public static boolean ok_to_make_edge(Agraph_t g, Agnode_t t, Agnode_t h) {
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int ok_to_make_edge(Agraph_t * g, Agnode_t * t, Agnode_t * h)
+{
+    Agtag_t key;
+    /* protect against self, multi-edges in strict graphs */
+    if (agisstrict(g)) {
+	if (g->desc.no_loop && (t == h)) /* simple graphs */
+	    return (0);
+	key = Tag;
+	key.objtype = 0;	/* wild card */
+	if (agfindedge_by_key(g, t, h, key))
+	    return (0);
+    }
+    return (!(0));
+}
+

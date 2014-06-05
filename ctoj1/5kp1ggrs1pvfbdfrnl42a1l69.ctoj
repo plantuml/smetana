@@ -1,0 +1,6 @@
+@TranslatedBy("plantuml") 
+public class Agdstate_t extends Agdstate_s {
+}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+typedef struct Agdstate_s Agdstate_t;
+

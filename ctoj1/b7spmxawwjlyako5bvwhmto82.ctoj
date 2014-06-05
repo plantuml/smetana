@@ -1,0 +1,6 @@
+@TranslatedBy("plantuml")
+public class Agclos_t extends Agclos_s {
+}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+typedef struct Agclos_s Agclos_t;
+

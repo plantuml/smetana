@@ -1,0 +1,21 @@
+@TranslatedBy("plantuml")
+public static GVC_t gvContext() {
+    GVC_t gvc;
+
+    agattr(null, 1, JUtils.asStarChar("label"), JUtils.asStarChar("\\N"));
+    /* default to no builtins, demand loading enabled */
+    gvc = gvNEWcontext(null, (N(0)));
+    gvconfig(gvc, false); /* configure for available plugins */
+    return gvc;
+}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+GVC_t *gvContext(void)
+{
+    GVC_t *gvc;
+
+    agattr(NULL, 1, "label", "\\N");
+    /* default to no builtins, demand loading enabled */
+    gvc = gvNEWcontext(NULL, (!(0)));
+    gvconfig(gvc, 0); /* configure for available plugins */
+    return gvc;
+}

@@ -1,0 +1,25 @@
+@TranslatedBy("plantuml")
+public static StarChar dotneato_basename (StarChar path) {
+System.err.println("dotneato_basename not translated (return null) : probably not usefull");
+return null;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static char* dotneato_basename (char* path)
+{
+    char* ret;
+    char* s = path;
+    if (*s == '\0') return path; /* empty string */
+    while (*s) s++; s--;
+    /* skip over trailing slashes, nulling out as we go */
+    while ((s > path) && ((*s == '/') || (*s == '\\')))
+	*s-- = '\0';
+    if (s == path) ret = path;
+    else {
+	while ((s > path) && ((*s != '/') && (*s != '\\'))) s--;
+	if ((*s == '/') || (*s == '\\')) ret = s+1;
+	else ret = path;
+    }
+    return ret;
+}
+

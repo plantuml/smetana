@@ -1,0 +1,24 @@
+@TranslatedBy("plantuml")
+public static int agedgeidcmpf(Dict_t d, StarVoid arg_e0, StarVoid arg_e1, Dtdisc_t disc) {
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int agedgeidcmpf(Dict_t * d, void *arg_e0, void *arg_e1, Dtdisc_t * disc)
+{
+    long v;
+    Agedge_t *e0, *e1;
+    (void) d;
+    e0 = arg_e0;
+    e1 = arg_e1;
+    (void) disc;
+    v = ((((Agobj_t*)(e0->node))->tag).id) - ((((Agobj_t*)(e1->node))->tag).id);
+    if (v == 0) {		/* same node */
+	if ((((((Agobj_t*)(e0))->tag).objtype) == 0) || (((((Agobj_t*)(e1))->tag).objtype) == 0))
+	    v = 0;
+	else
+	    v = ((((Agobj_t*)(e0))->tag).id) - ((((Agobj_t*)(e1))->tag).id);
+    }
+    return ((v==0)?0:(v<0?-1:1));
+}
+

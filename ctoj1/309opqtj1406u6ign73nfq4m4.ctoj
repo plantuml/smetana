@@ -1,0 +1,10 @@
+@TranslatedBy("plantuml") 
+public class lt_symlist_t extends Structure {
+	public StarChar name;
+	public StarVoid address;
+}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+typedef struct {
+	const char *name;
+	void* address;
+    } lt_symlist_t;

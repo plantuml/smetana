@@ -1,0 +1,103 @@
+@TranslatedBy("plantuml")
+@NeedReview
+public static int dtrestore(Dict_t dt, Dtlink_t list) {
+	Dtlink_t	t;
+	StarStar<Dtlink_t> s, ends;
+	int		type;
+	Dtsearch_f	searchf = dt.meth.searchf;
+	type = dt.data.type&010000;
+	if(N(list)) /* restoring a flattened dictionary */
+	{	if(N(type))
+			return -1;
+		list = dt.data.here;
+	}
+	else	/* restoring an extracted list of elements */
+	{	if(dt.data.size != 0)
+			return -1;
+		type = 0;
+	}
+	dt.data.type &= ~010000;
+	if((dt.data.type&(0000001|0000002))!=0)
+	{	dt.data.here = null;
+		if(type!=0) /* restoring a flattened dictionary */
+		{	for(ends = (s = dt.data.hh._htab()).plus(dt.data.ntab); s.compareTo(ends)<0; s=s.plus(1))
+			{	if((t = s.get())!=null )
+				{	s.set(list);
+					list = t.right;
+					t.right = null;
+				}
+			}
+		}
+		else	/* restoring an extracted list of elements */
+		{	dt.data.size = 0;
+			while(list!=null)
+			{	t = list.right;
+				searchf.function(dt,list,0000040);
+				list = t;
+			}
+		}
+	}
+	else
+	{	if((dt.data.type&(0000004|0000010))!=0)
+			dt.data.here = list;
+		else /*if(dt->data->type&(DT_LIST|DT_STACK|DT_QUEUE))*/
+		{	dt.data.here = null;
+			dt.data.hh._head(list);
+		}
+		if(N(type))
+			dt.data.size = -1;
+	}
+	return 0;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int dtrestore(register Dt_t* dt, register Dtlink_t* list)
+{
+	register Dtlink_t	*t, **s, **ends;
+	register int		type;
+	register Dtsearch_f	searchf = dt->meth->searchf;
+	type = dt->data->type&010000;
+	if(!list) /* restoring a flattened dictionary */
+	{	if(!type)
+			return -1;
+		list = dt->data->here;
+	}
+	else	/* restoring an extracted list of elements */
+	{	if(dt->data->size != 0)
+			return -1;
+		type = 0;
+	}
+	dt->data->type &= ~010000;
+	if(dt->data->type&(0000001|0000002))
+	{	dt->data->here = ((Dtlink_t*)0);
+		if(type) /* restoring a flattened dictionary */
+		{	for(ends = (s = dt->data->hh._htab) + dt->data->ntab; s < ends; ++s)
+			{	if((t = *s) )
+				{	*s = list;
+					list = t->right;
+					t->right = ((Dtlink_t*)0);
+				}
+			}
+		}
+		else	/* restoring an extracted list of elements */
+		{	dt->data->size = 0;
+			while(list)
+			{	t = list->right;
+				(*searchf)(dt,(void*)list,0000040);
+				list = t;
+			}
+		}
+	}
+	else
+	{	if(dt->data->type&(0000004|0000010))
+			dt->data->here = list;
+		else /*if(dt->data->type&(DT_LIST|DT_STACK|DT_QUEUE))*/
+		{	dt->data->here = ((Dtlink_t*)0);
+			dt->data->hh._head = list;
+		}
+		if(!type)
+			dt->data->size = -1;
+	}
+	return 0;
+}
+

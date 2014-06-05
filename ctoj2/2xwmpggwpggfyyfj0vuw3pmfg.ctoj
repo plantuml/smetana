@@ -1,0 +1,5 @@
+@TranslatedBy("plantuml")
+public static Agraph_t Ag_dictop_G;
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static Agraph_t *Ag_dictop_G;
+

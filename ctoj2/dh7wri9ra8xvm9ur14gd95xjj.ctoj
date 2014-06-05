@@ -1,0 +1,131 @@
+@TranslatedBy("plantuml")
+@NeedReview
+public static gvplugin_available_t gvplugin_load(GVC_t gvc, api_t api, StarChar str) {
+	// Here we are cheating : we hardcode dot
+	System.err.println("Here we are cheating : we hardcode dot for "+api);
+	gvplugin_available_t result = new gvplugin_available_t();
+	if (api==api_t.API_textlayout) {
+		result.next= null;
+		result.typestr = JUtils.asStarChar("?");
+		result.quality = 0;
+		result.package_ = new gvplugin_package_t();
+		result.typeptr = gen.plugin.quartz.gvtextlayout_quartz.gvtextlayout_quartz_types[0];
+	} else {
+		result.next= null;
+		result.typestr = JUtils.asStarChar("svg");
+		result.quality = 0;
+		result.package_ = new gvplugin_package_t();
+		result.typeptr = gen.plugin.dot_layout.gvlayout_dot_layout.gvlayout_dot_layout[0];
+	}
+	if (result!=null) return result;
+	// Here we are cheating : we hardcode dot
+	
+    // StarStar<gvplugin_available_t> pnext;
+    gvplugin_available_t pnext_;
+    gvplugin_available_t rv;
+    gvplugin_library_t library;
+    gvplugin_api_t apis;
+    gvplugin_installed_t types;
+    StarChar reqtyp = Memory.mallocStarChar(64);
+    StarChar typ = Memory.mallocStarChar(64);
+    StarChar reqdep, dep = null, reqpkg;
+    int i;
+    api_t apidep;
+    if (api == api_t.API_device || api == api_t.API_loadimage)
+        /* api dependencies - FIXME - find better way to code these *s */
+        apidep = api_t.API_render;
+    else
+        apidep = api;
+    strncpy(reqtyp, str, 64 - 1);
+    reqdep = strchr(reqtyp, ':');
+    if (reqdep!=null) {
+    	reqdep = reqdep.plus(1); reqdep.set('\0');
+        reqpkg = strchr(reqdep, ':');
+        if (reqpkg!=null)
+	    	reqpkg = reqpkg.plus(1); reqpkg.set('\0');
+    } else
+        reqpkg = null;
+    /* iterate the linked list of plugins for this api */
+    for (pnext_ = gvc.apis[api.ordinal()]; pnext_!=null; pnext_ = pnext_.next) {
+throw new UnsupportedOperationException();
+    }
+    rv = pnext_;
+    if (rv!=null && rv.typeptr == null) {
+throw new UnsupportedOperationException();
+    }
+    /* one last check for successfull load */
+    if (rv!=null && rv.typeptr == null)
+        rv = null;
+    if (rv!=null && gvc.common.verbose)
+        System.err.println("Using %s: %s:%s\n");
+    gvc.api[api.ordinal()] = rv;
+    return rv;
+}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+gvplugin_available_t *gvplugin_load(GVC_t * gvc, api_t api, const char *str)
+{
+    gvplugin_available_t **pnext, *rv;
+    gvplugin_library_t *library;
+    gvplugin_api_t *apis;
+    gvplugin_installed_t *types;
+    char reqtyp[64], typ[64];
+    char *reqdep, *dep = NULL, *reqpkg;
+    int i;
+    api_t apidep;
+    if (api == API_device || api == API_loadimage)
+        /* api dependencies - FIXME - find better way to code these *s */
+        apidep = API_render;
+    else
+        apidep = api;
+    strncpy(reqtyp, str, 64 - 1);
+    reqdep = strchr(reqtyp, ':');
+    if (reqdep) {
+        *reqdep++ = '\0';
+        reqpkg = strchr(reqdep, ':');
+        if (reqpkg)
+            *reqpkg++ = '\0';
+    } else
+        reqpkg = NULL;
+    /* iterate the linked list of plugins for this api */
+    for (pnext = &(gvc->apis[api]); *pnext; pnext = &((*pnext)->next)) {
+        strncpy(typ, (*pnext)->typestr, 64 - 1);
+        dep = strchr(typ, ':');
+        if (dep)
+            *dep++ = '\0';
+        if (strcmp(typ, reqtyp))
+            continue;           /* types empty or mismatched */
+        if (dep && reqdep && strcmp(dep, reqdep))
+            continue;           /* dependencies not empty, but mismatched */
+        if (!reqpkg || strcmp(reqpkg, (*pnext)->package->name) == 0) {
+            /* found with no packagename constraints, or with required matching packagname */
+            if (dep && (apidep != api)) /* load dependency if needed, continue if can't find */
+                if (!(gvplugin_load(gvc, apidep, dep)))
+                    continue;
+            break;
+        }
+    }
+    rv = *pnext;
+    if (rv && rv->typeptr == NULL) {
+        library = gvplugin_library_load(gvc, rv->package->path);
+        if (library) {
+            /* Now activate the library with real type ptrs */
+            for (apis = library->apis; (types = apis->types); apis++) {
+                for (i = 0; types[i].type; i++) {
+                    /* NB. quality is not checked or replaced
+                     *   in case user has manually edited quality in config */
+                    gvplugin_activate(gvc, apis->api, types[i].type, library->packagename, rv->package->path, &types[i]);
+                }
+            }
+            if (gvc->common.verbose >= 1)
+                fprintf(stderr, "Activated plugin library: %s\n", rv->package->path ? rv->package->path : "<builtin>");
+        }
+    }
+    /* one last check for successfull load */
+    if (rv && rv->typeptr == NULL)
+        rv = NULL;
+    if (rv && gvc->common.verbose >= 1)
+        fprintf(stderr, "Using %s: %s:%s\n", api_names[api], rv->typestr, rv->package->name);
+    gvc->api[api] = rv;
+    return rv;
+}
+

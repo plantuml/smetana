@@ -1,0 +1,43 @@
+@TranslatedBy("plantuml") 
+public static Dtlink_t dtflatten(Dict_t dt) {
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Dtlink_t* dtflatten(Dt_t* dt)
+{
+	register Dtlink_t	*t, *r, *list, *last, **s, **ends;
+	/* already flattened */
+	if(dt->data->type&010000 )
+		return dt->data->here;
+	list = last = ((Dtlink_t*)0);
+	if(dt->data->type&(0000001|0000002))
+	{	for(ends = (s = dt->data->hh._htab) + dt->data->ntab; s < ends; ++s)
+		{	if((t = *s) )
+			{	if(last)
+					last->right = t;
+				else	list = last = t;
+				while(last->right)
+					last = last->right;
+				*s = last;
+			}
+		}
+	}
+	else if(dt->data->type&(0000020|0000040|0000100) )
+		list = dt->data->hh._head;
+	else if((r = dt->data->here) ) /*if(dt->data->type&(DT_OSET|DT_OBAG))*/
+	{	while((t = r->hl._left) )
+			(((r)->hl._left = (t)->right, (t)->right = (r)), (r) = (t));
+		for(list = last = r, r = r->right; r; last = r, r = r->right)
+		{	if((t = r->hl._left) )
+			{	do	(((r)->hl._left = (t)->right, (t)->right = (r)), (r) = (t));
+				while((t = r->hl._left) );
+				last->right = r;
+			}
+		}
+	}
+	dt->data->here = list;
+	dt->data->type |= 010000;
+	return list;
+}
+

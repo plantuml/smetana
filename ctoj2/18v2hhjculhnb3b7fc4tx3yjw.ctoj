@@ -1,0 +1,17 @@
+@TranslatedBy("plantuml")
+public static StarVoid memresize(StarVoid heap, StarVoid ptr, size_t oldsize, size_t request) {
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void *memresize(void *heap, void *ptr, size_t oldsize,
+		       size_t request)
+{
+    void *rv;
+    (void) heap;
+    rv = realloc(ptr, request);
+    if (request > oldsize)
+	memset((char *) rv + oldsize, 0, request - oldsize);
+    return rv;
+}
+
