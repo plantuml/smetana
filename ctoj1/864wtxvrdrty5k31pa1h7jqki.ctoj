@@ -1,6 +1,0 @@
-@TranslatedBy("plantuml") 
-public class Dtdata_t extends _dtdata_s {
-}
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-typedef struct _dtdata_s	Dtdata_t;
-

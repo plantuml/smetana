@@ -1,6 +1,0 @@
-@TranslatedBy("plantuml")
-public class Agsubnode_t extends Agsubnode_s {
-}
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-typedef struct Agsubnode_s Agsubnode_t;
-

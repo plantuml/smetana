@@ -1,5 +1,0 @@
-@TranslatedBy("plantuml") 
-public static StarChar Gvfilepath;
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-char *Gvfilepath;
-

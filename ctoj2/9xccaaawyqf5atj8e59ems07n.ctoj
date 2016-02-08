@@ -1,9 +1,0 @@
-@TranslatedBy("plantuml")
-public static StarStarChar LibInfo = Memory.mallocStarStarChar(new String[] {"graphviz", "PACKAGE_VERSION", "BUILDDATE"});
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-static char *LibInfo[] = {
-    "graphviz",         /* Program */
-    PACKAGE_VERSION,   /* Version */
-    BUILDDATE           /* Build Date */
-};
-

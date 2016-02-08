@@ -1,3 +1,0 @@
-# Site      Directory       Pattern         Version Script
-version=3
-http://www.graphviz.org/pub/@GRAPHVIZ_SOURCES@/graphviz-([0-9.]+)\.tar\.gz

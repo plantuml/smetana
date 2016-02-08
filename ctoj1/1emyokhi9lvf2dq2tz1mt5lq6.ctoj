@@ -1,6 +1,0 @@
-@TranslatedBy("plantuml")
-public class GVJ_t extends GVJ_s {
-}
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-typedef struct GVJ_s GVJ_t;
-

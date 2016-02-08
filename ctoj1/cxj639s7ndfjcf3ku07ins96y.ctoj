@@ -1,9 +1,0 @@
-@TranslatedBy("plantuml")
-public class Agobj_t extends Agobj_s {
-	public Agobj_t(Object parentStructure) {
-		super(parentStructure);
-	}
-}
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-typedef struct Agobj_s Agobj_t;
-

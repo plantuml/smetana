@@ -1,6 +1,0 @@
-@TranslatedBy("plantuml")
-public class Agcbdisc_t extends Agcbdisc_s {
-} 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-typedef struct Agcbdisc_s Agcbdisc_t;
-

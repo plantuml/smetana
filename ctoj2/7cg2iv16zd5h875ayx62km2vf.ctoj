@@ -1,5 +1,0 @@
-@TranslatedBy("plantuml")
-public static boolean Verbose;
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-unsigned char Verbose;
-

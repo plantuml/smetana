@@ -1,6 +1,0 @@
-@TranslatedBy("plantuml")
-public class Agsym_t extends Agsym_s {
-}
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-typedef struct Agsym_s Agsym_t;
-

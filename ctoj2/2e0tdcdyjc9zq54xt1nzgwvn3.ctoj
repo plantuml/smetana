@@ -1,5 +1,0 @@
-@TranslatedBy("plantuml")
-private static Dict_t Refdict_default[] = new Dict_t[1];
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-static Dict_t *Refdict_default;
-

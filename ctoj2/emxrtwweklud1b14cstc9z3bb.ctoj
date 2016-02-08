@@ -1,6 +1,0 @@
-@TranslatedBy("plantuml")
-@HasQuestion("char* or Dt_t ?")
-private static Dict_t Version = new Dict_t();
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-static char*     Version = "\n@(#)$Id$\0\n";
-

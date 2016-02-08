@@ -1,4 +1,0 @@
-@TranslatedBy("plantuml") 
-public static Dtmethod_t Dtoset = _Dtoset;
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-Dtmethod_t* Dtoset = &_Dtoset;

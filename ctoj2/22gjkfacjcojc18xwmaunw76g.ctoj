@@ -1,5 +1,0 @@
-@TranslatedBy("plantuml") 
-public static StarChar HTTPServerEnVar;
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-char *HTTPServerEnVar;
-

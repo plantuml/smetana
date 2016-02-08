@@ -1,5 +1,0 @@
-@TranslatedBy("plantuml")
-public static Agiodisc_t AgIoDisc = null;
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-Agiodisc_t AgIoDisc = { iofread, ioputstr, ioflush };
-

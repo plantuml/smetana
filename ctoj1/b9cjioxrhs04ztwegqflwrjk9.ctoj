@@ -1,7 +1,0 @@
-@TranslatedBy("plantuml")
-public enum fontname_kind {
-	NATIVEFONTS,PSFONTS,SVGFONTS
-}
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-typedef enum {NATIVEFONTS,PSFONTS,SVGFONTS} fontname_kind;
-

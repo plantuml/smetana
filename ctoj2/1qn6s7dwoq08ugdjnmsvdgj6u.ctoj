@@ -1,5 +1,0 @@
-@TranslatedBy("plantuml")
-static Agdesc_t ProtoDesc = new Agdesc_t(1, 0, 1, 0, 1, 1);
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-static Agdesc_t ProtoDesc = { 1, 0, 1, 0, 1, 1 };
-

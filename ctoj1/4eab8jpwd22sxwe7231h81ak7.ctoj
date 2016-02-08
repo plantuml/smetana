@@ -1,6 +1,0 @@
-@TranslatedBy("plantuml")
-public class Agattr_t extends Agattr_s {
-}
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-typedef struct Agattr_s Agattr_t;
-

@@ -1,5 +1,0 @@
-@TranslatedBy("plantuml")
-static private @Unsigned int CNT_BITS;
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-static unsigned long CNT_BITS;
-

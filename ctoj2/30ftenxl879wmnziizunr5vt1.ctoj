@@ -1,5 +1,0 @@
-@TranslatedBy("plantuml")
-static public Agraph_t ProtoGraph = null;
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-static Agraph_t *ProtoGraph;
-

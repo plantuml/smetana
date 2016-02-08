@@ -1,6 +1,0 @@
-@TranslatedBy("plantuml") 
-public class graph_t extends Agraph_s {
-}
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-typedef struct Agraph_s graph_t;
-

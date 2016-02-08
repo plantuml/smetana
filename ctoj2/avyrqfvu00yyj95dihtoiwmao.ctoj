@@ -1,5 +1,0 @@
-@TranslatedBy("plantuml")
-public static Dtmethod_t Dttree = _Dttree;
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-Dtmethod_t* Dttree = &_Dttree;
-
