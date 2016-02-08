@@ -1,0 +1,38 @@
+public static Agnode_s agsubnode(Agraph_s g, Agnode_s n0, boolean cflag) {
+    Agraph_s par;
+    Agnode_s n;
+    if (NEQ(agroot(g), n0.getPtr("root")))
+	return null;
+    n = agfindnode_by_id(g, AGID(n0));
+    if ((n == null) && cflag) {
+	if ((par = agparent(g))!=null) {
+	    n = agsubnode(par, n0, cflag);
+	    installnode(g, n);
+	    /* no callback for existing node insertion in subgraph (?) */
+	}
+	/* else impossible that <n> doesn't belong to <g> */
+    }
+    /* else lookup succeeded */
+    return n;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agnode_t *agsubnode(Agraph_t * g, Agnode_t * n0, int cflag)
+{
+    Agraph_t *par;
+    Agnode_t *n;
+    if (agroot(g) != n0->root)
+	return ((Agnode_t*)0);
+    n = agfindnode_by_id(g, AGID(n0));
+    if ((n == ((Agnode_t*)0)) && cflag) {
+	if ((par = agparent(g))) {
+	    n = agsubnode(par, n0, cflag);
+	    installnode(g, n);
+	    /* no callback for existing node insertion in subgraph (?) */
+	}
+	/* else impossible that <n> doesn't belong to <g> */
+    }
+    /* else lookup succeeded */
+    return n;
+}
+

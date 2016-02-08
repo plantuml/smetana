@@ -1,0 +1,80 @@
+public static void dotLayout(Agraph_s g) {
+    aspect_t aspect = (aspect_t) Memory.malloc(aspect_t.class);
+    aspect_t asp;
+    int maxphase = late_int(g, (agattr(g,AGRAPH,new CString("phase"),null)), -1, 1);
+    setEdgeType (g, (5 << 1));
+    asp = setAspect (g, aspect);
+    dot_init_subg(g,g);
+    dot_init_node_edge(g);
+    do {
+        dot_rank(g, asp);
+	if (maxphase == 1) {
+	    attach_phase_attrs (g, 1);
+	    return;
+	}
+	if (aspect.getBoolean("badGraph")) {
+UNSUPPORTED("1yu5j8tk43i6jlmu8wk9jks15"); // 	    agerr(AGWARN, "dot does not support the aspect attribute for disconnected graphs or graphs with clusters\n");
+UNSUPPORTED("5uwp9z6jkv5uc30iyfszyg6dw"); // 	    asp = NULL;
+UNSUPPORTED("28kbszyxsjoj03gb134ov4hag"); // 	    aspect.nextIter = 0;
+	}
+        dot_mincross(g, (asp != null));
+	if (maxphase == 2) {
+	    attach_phase_attrs (g, 2);
+	    return;
+	}
+        dot_position(g, asp);
+	if (maxphase == 3) {
+	    attach_phase_attrs (g, 2);  /* positions will be attached on output */
+	    return;
+	}
+	aspect.setInt("nPasses", aspect.getInt("nPasses") -1);
+    } while (aspect.getInt("nextIter")!=0 && aspect.getInt("nPasses")!=0);
+    if ((GD_flags(g) & (1 << 4))!=0)
+	removeFill (g);
+    dot_sameports(g);
+    dot_splines(g);
+    if (mapbool(agget(g, new CString("compound"))))
+	dot_compoundEdges(g);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void dotLayout(Agraph_t * g)
+{
+    aspect_t aspect;
+    aspect_t* asp;
+    int maxphase = late_int(g, (agattr(g,AGRAPH,"phase",NULL)), -1, 1);
+    setEdgeType (g, (5 << 1));
+    asp = setAspect (g, &aspect);
+    dot_init_subg(g,g);
+    dot_init_node_edge(g);
+    do {
+        dot_rank(g, asp);
+	if (maxphase == 1) {
+	    attach_phase_attrs (g, 1);
+	    return;
+	}
+	if (aspect.badGraph) {
+	    agerr(AGWARN, "dot does not support the aspect attribute for disconnected graphs or graphs with clusters\n");
+	    asp = NULL;
+	    aspect.nextIter = 0;
+	}
+        dot_mincross(g, (asp != NULL));
+	if (maxphase == 2) {
+	    attach_phase_attrs (g, 2);
+	    return;
+	}
+        dot_position(g, asp);
+	if (maxphase == 3) {
+	    attach_phase_attrs (g, 2);  /* positions will be attached on output */
+	    return;
+	}
+	aspect.nPasses--;
+    } while (aspect.nextIter && aspect.nPasses);
+    if (GD_flags(g) & (1 << 4))
+	removeFill (g);
+    dot_sameports(g);
+    dot_splines(g);
+    if (mapbool(agget(g, "compound")))
+	dot_compoundEdges(g);
+}
+

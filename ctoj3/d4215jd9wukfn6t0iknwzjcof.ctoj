@@ -1,0 +1,365 @@
+public static void addXLabels(Agraph_s gp) {
+    Agnode_s np;
+    Agedge_s ep;
+    int cnt, i, n_objs, n_lbls;
+    int n_nlbls = 0;		/* # of unset node xlabels */
+    int n_elbls = 0;		/* # of unset edge labels or xlabels */
+    int n_set_lbls = 0;		/* # of set xlabels and edge labels */
+    int n_clbls = 0;		/* # of set cluster labels */
+    final __struct__<boxf> bb = __struct__.from(boxf.class);
+    final __struct__<pointf> ur = __struct__.from(pointf.class);
+    textlabel_t lp;
+    final __struct__<label_params_t> params = __struct__.from(label_params_t.class);
+    object_t objs;
+    xlabel_t lbls;
+    object_t objp;
+    xlabel_t xlp;
+    Agsym_s force;
+    int et = (GD_flags(gp) & (7 << 1));
+    if (N(GD_has_labels(gp) & (1 << 4)) &&
+	N(GD_has_labels(gp) & (1 << 5)) &&
+	N(GD_has_labels(gp) & (1 << 2)) &&
+	N(GD_has_labels(gp) & (1 << 1)) &&
+	(N(GD_has_labels(gp) & (1 << 0)) || EdgeLabelsDone!=0))
+	return;
+UNSUPPORTED("27ppdplfezcqw6rdrkzyrr8yg"); //     for (np = agfstnode(gp); np; np = agnxtnode(gp, np)) {
+UNSUPPORTED("eezvruvdh9ueqsgad8k5xzbqi"); // 	if (ND_xlabel(np)) {
+UNSUPPORTED("6oje33bnpp4jv5mclsrrhl005"); // 	    if (ND_xlabel(np)->set)
+UNSUPPORTED("cfkrw6t4lrs7dfgx86sgrz26"); // 		n_set_lbls++;
+UNSUPPORTED("5c97f6vfxny0zz35l2bu4maox"); // 	    else
+UNSUPPORTED("26eewzzknvqt2nbcrqds5fmti"); // 		n_nlbls++;
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("41dpbku41lh3gpb30ds9ex6aa"); // 	for (ep = agfstout(gp, np); ep; ep = agnxtout(gp, ep)) {
+UNSUPPORTED("9c5vwy3kfweqsgk827cpj3d6q"); // 	    if (ED_xlabel(ep)) {
+UNSUPPORTED("appkettxihy2o612jk6fahbnh"); // 		if (ED_xlabel(ep)->set)
+UNSUPPORTED("8k2rclvg6eaoph9r2pz4620xq"); // 		    n_set_lbls++;
+UNSUPPORTED("14y6caappoxe17mogr979qf75"); // 		else if (((et != (0 << 1)) && (ED_spl(ep) != NULL)))
+UNSUPPORTED("q3t8uxncrxc4n8rtuabtzxya"); // 		    n_elbls++;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("1mk50yh8pbs8jzn7h8otaonfd"); // 	    if (ED_head_label(ep)) {
+UNSUPPORTED("4xstfnjw4gi0ja4inv8o0n8z"); // 		if (ED_head_label(ep)->set)
+UNSUPPORTED("8k2rclvg6eaoph9r2pz4620xq"); // 		    n_set_lbls++;
+UNSUPPORTED("14y6caappoxe17mogr979qf75"); // 		else if (((et != (0 << 1)) && (ED_spl(ep) != NULL)))
+UNSUPPORTED("q3t8uxncrxc4n8rtuabtzxya"); // 		    n_elbls++;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("4micw28bcx68bfiqihi9ruani"); // 	    if (ED_tail_label(ep)) {
+UNSUPPORTED("abwl715n01quq34u2qs1kn9xn"); // 		if (ED_tail_label(ep)->set)
+UNSUPPORTED("8k2rclvg6eaoph9r2pz4620xq"); // 		    n_set_lbls++;
+UNSUPPORTED("14y6caappoxe17mogr979qf75"); // 		else if (((et != (0 << 1)) && (ED_spl(ep) != NULL)))
+UNSUPPORTED("q3t8uxncrxc4n8rtuabtzxya"); // 		    n_elbls++;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("92f340ohb0u21xl6jgpc2hieo"); // 	    if (ED_label(ep)) {
+UNSUPPORTED("5skvrpmqqjq5cj6a8uiylmjsw"); // 		if (ED_label(ep)->set)
+UNSUPPORTED("8k2rclvg6eaoph9r2pz4620xq"); // 		    n_set_lbls++;
+UNSUPPORTED("14y6caappoxe17mogr979qf75"); // 		else if (((et != (0 << 1)) && (ED_spl(ep) != NULL)))
+UNSUPPORTED("q3t8uxncrxc4n8rtuabtzxya"); // 		    n_elbls++;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("2uqg2vrduqxs9hk9hmamj7wlu"); //     if (GD_has_labels(gp) & (1 << 3))
+UNSUPPORTED("4z3bgexjlrmdrfgpdaajems8q"); // 	n_clbls = countClusterLabels (gp);
+UNSUPPORTED("19labxj7f93ljlhkpmrde0zgt"); //     /* A label for each unpositioned external label */
+UNSUPPORTED("5kla6rwar4q1ig2olguocajn6"); //     n_lbls = n_nlbls + n_elbls;
+UNSUPPORTED("apjqar4agmf5jlfd88kbn4f4d"); //     if (n_lbls == 0) return;
+UNSUPPORTED("4j54hc42lgojcuorb9p42tlr"); //     /* An object for each node, each positioned external label, any cluster label, 
+UNSUPPORTED("adxf9gd6tasafb302px9vqgum"); //      * and all unset edge labels and xlabels.
+UNSUPPORTED("795vpnc8yojryr8b46aidsu69"); //      */
+UNSUPPORTED("6id92o3db6qu5zuuj8q40n3zn"); //     n_objs = agnnodes(gp) + n_set_lbls + n_clbls + n_elbls;
+UNSUPPORTED("3e10kvi719e134x675xgwi1tj"); //     objp = objs = (object_t*)zmalloc((n_objs)*sizeof(object_t));
+UNSUPPORTED("6z86cmeenod2nx8ej72n0qotk"); //     xlp = lbls = (xlabel_t*)zmalloc((n_lbls)*sizeof(xlabel_t));
+UNSUPPORTED("f2nzvg1xnr11v28w2feg923cs"); //     bb.LL = pointfof(INT_MAX, INT_MAX);
+UNSUPPORTED("7tttoj8cnxfqgnq2aagnnav48"); //     bb.UR = pointfof(-INT_MAX, -INT_MAX);
+UNSUPPORTED("27ppdplfezcqw6rdrkzyrr8yg"); //     for (np = agfstnode(gp); np; np = agnxtnode(gp, np)) {
+UNSUPPORTED("38hh82sue091x6ybm9e34wy61"); // 	bb = addNodeObj (np, objp, bb);
+UNSUPPORTED("ex5hwora23t1cl8hpjo4uvphm"); // 	if ((lp = ND_xlabel(np))) {
+UNSUPPORTED("d5pjy3dwui27jfdz550cy0cln"); // 	    if (lp->set) {
+UNSUPPORTED("cls7z8l7wi371a4wrec0viqil"); // 		objp++;
+UNSUPPORTED("3zy3jhlqyioeyh9mlrspjjgc6"); // 		bb = addLabelObj (lp, objp, bb);
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("6q044im7742qhglc4553noina"); // 	    else {
+UNSUPPORTED("2msn58w2dse7pbq2esv7awk4r"); // 		addXLabel (lp, objp, xlp, 0, ur); 
+UNSUPPORTED("1zpq9rd3nn9kjrmun8ivs9zx5"); // 		xlp++;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("bhbvoj12subdn6905juhiubo2"); // 	objp++;
+UNSUPPORTED("41dpbku41lh3gpb30ds9ex6aa"); // 	for (ep = agfstout(gp, np); ep; ep = agnxtout(gp, ep)) {
+UNSUPPORTED("9zaprre819fwswan5wvid0h6g"); // 	    if ((lp = ED_label(ep))) {
+UNSUPPORTED("5dapykbxjvnhw0dpi7jfpcazk"); // 		if (lp->set) {
+UNSUPPORTED("7rwrlod7lkgin3rnnzy3iw2rw"); // 		    bb = addLabelObj (lp, objp, bb);
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("dfnmpe0hri6ksye0gnxssi4zz"); // 		else if (((et != (0 << 1)) && (ED_spl(ep) != NULL))) {
+UNSUPPORTED("9ffmrymv8cg4h4b3ea97t9qbp"); // 		    addXLabel (lp, objp, xlp, 1, edgeMidpoint(gp, ep)); 
+UNSUPPORTED("808184nt3k6cxj5dsg27yvpvg"); // 		    xlp++;
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("d28blrbmwwqp80cyksuz7dwx9"); // 		else {
+UNSUPPORTED("3ia66n3hqrwmh3hybkoh6f8wa"); // 		    agerr(AGWARN, "no position for edge with label %s",
+UNSUPPORTED("9npeksy1st7v005znerttzzzv"); // 			    ED_label(ep)->text);
+UNSUPPORTED("2yi9az7ibt7j9bwztjilyo0v2"); // 		    continue;
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("d23ocobgp22a33eopdnqe9o4u"); // 	        objp++;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("a5mn7dpum21w95ku1l27m9rpk"); // 	    if ((lp = ED_tail_label(ep))) {
+UNSUPPORTED("5dapykbxjvnhw0dpi7jfpcazk"); // 		if (lp->set) {
+UNSUPPORTED("7rwrlod7lkgin3rnnzy3iw2rw"); // 		    bb = addLabelObj (lp, objp, bb);
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("dfnmpe0hri6ksye0gnxssi4zz"); // 		else if (((et != (0 << 1)) && (ED_spl(ep) != NULL))) {
+UNSUPPORTED("bqc6ukxlmt6l3osbpsmqbzutc"); // 		    addXLabel (lp, objp, xlp, 1, edgeTailpoint(ep)); 
+UNSUPPORTED("808184nt3k6cxj5dsg27yvpvg"); // 		    xlp++;
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("d28blrbmwwqp80cyksuz7dwx9"); // 		else {
+UNSUPPORTED("5ixexxcbcix5hrfl43td7pj4s"); // 		    agerr(AGWARN, "no position for edge with tail label %s",
+UNSUPPORTED("cf9qaysecgkvv4165la4uu6cb"); // 			    ED_tail_label(ep)->text);
+UNSUPPORTED("2yi9az7ibt7j9bwztjilyo0v2"); // 		    continue;
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("cls7z8l7wi371a4wrec0viqil"); // 		objp++;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("6rvkuvq5nj7p2za2zqxf74l3c"); // 	    if ((lp = ED_head_label(ep))) {
+UNSUPPORTED("5dapykbxjvnhw0dpi7jfpcazk"); // 		if (lp->set) {
+UNSUPPORTED("7rwrlod7lkgin3rnnzy3iw2rw"); // 		    bb = addLabelObj (lp, objp, bb);
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("dfnmpe0hri6ksye0gnxssi4zz"); // 		else if (((et != (0 << 1)) && (ED_spl(ep) != NULL))) {
+UNSUPPORTED("7gewvtwwzj3unxzrtbqpwduzg"); // 		    addXLabel (lp, objp, xlp, 1, edgeHeadpoint(ep)); 
+UNSUPPORTED("808184nt3k6cxj5dsg27yvpvg"); // 		    xlp++;
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("d28blrbmwwqp80cyksuz7dwx9"); // 		else {
+UNSUPPORTED("8nrkavpg9ifts9yylhfijn9rp"); // 		    agerr(AGWARN, "no position for edge with head label %s",
+UNSUPPORTED("a5omwtwd411hsfrc37d8t6m8b"); // 			    ED_head_label(ep)->text);
+UNSUPPORTED("2yi9az7ibt7j9bwztjilyo0v2"); // 		    continue;
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("cls7z8l7wi371a4wrec0viqil"); // 		objp++;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("1pb88fhz51khiwboqgii8qayw"); // 	    if ((lp = ED_xlabel(ep))) {
+UNSUPPORTED("5dapykbxjvnhw0dpi7jfpcazk"); // 		if (lp->set) {
+UNSUPPORTED("7rwrlod7lkgin3rnnzy3iw2rw"); // 		    bb = addLabelObj (lp, objp, bb);
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("dfnmpe0hri6ksye0gnxssi4zz"); // 		else if (((et != (0 << 1)) && (ED_spl(ep) != NULL))) {
+UNSUPPORTED("9ffmrymv8cg4h4b3ea97t9qbp"); // 		    addXLabel (lp, objp, xlp, 1, edgeMidpoint(gp, ep)); 
+UNSUPPORTED("808184nt3k6cxj5dsg27yvpvg"); // 		    xlp++;
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("d28blrbmwwqp80cyksuz7dwx9"); // 		else {
+UNSUPPORTED("dbskad3xgu5oqqhwl1cr9f88g"); // 		    agerr(AGWARN, "no position for edge with xlabel %s",
+UNSUPPORTED("dtpynjioyrbt2xfca2o46eb0j"); // 			    ED_xlabel(ep)->text);
+UNSUPPORTED("2yi9az7ibt7j9bwztjilyo0v2"); // 		    continue;
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("cls7z8l7wi371a4wrec0viqil"); // 		objp++;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("5zntyu3vcfnjveucnumrmbjig"); //     if (n_clbls) {
+UNSUPPORTED("48ipxdlv7xlti99g0yhi5zuai"); // 	cinfo_t info;
+UNSUPPORTED("7c5iohb8t706p273ae1lxal8r"); // 	info.bb = bb;
+UNSUPPORTED("b1474fakrbyw7p5ja42jgv90c"); // 	info.objp = objp;
+UNSUPPORTED("6ygw8idplugc5u6w7ro3gakmb"); // 	info = addClusterObj (gp, info);
+UNSUPPORTED("1l2cwgzediv4hztjhtm052rl3"); // 	bb = info.bb;
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("79ifzl4zpx3wbd5szboa2x2vb"); //     force = (agattr(gp,AGRAPH,"forcelabels",NULL));
+UNSUPPORTED("1if7tdbcs4rwvb0polsdlbfh4"); //     params.force = late_bool(gp, force, NOT(0));
+UNSUPPORTED("2ol916ffwy0e2vxinxn4v4sgt"); //     params.bb = bb;
+UNSUPPORTED("25rb35acbkepp55u3bkjxb1gc"); //     placeLabels(objs, n_objs, lbls, n_lbls, &params);
+UNSUPPORTED("2di5wqm6caczzl6bvqe35ry8y"); //     if (Verbose)
+UNSUPPORTED("4iypau1fdov37qnq2ub6iq5ra"); // 	printData(objs, n_objs, lbls, n_lbls, &params);
+UNSUPPORTED("52mefujap7scy273ud7nyj9hn"); //     xlp = lbls;
+UNSUPPORTED("3wtn792c3ql5yhn77alu6r5d8"); //     cnt = 0;
+UNSUPPORTED("30yvif5t111f94y1fs2gd8crq"); //     for (i = 0; i < n_lbls; i++) {
+UNSUPPORTED("w0kpfap6pb5scjkqkgsfira0"); // 	if (xlp->set) {
+UNSUPPORTED("7hl03wjg5yryhvbe4ar0i0b8g"); // 	    cnt++;
+UNSUPPORTED("8xqwhcveb6ivragr1ebkp4pfh"); // 	    lp = (textlabel_t *) (xlp->lbl);
+UNSUPPORTED("a5h8ktnl3raui7zo5kcjzd2e0"); // 	    lp->set = 1;
+UNSUPPORTED("4lub8ddx8vt0gove63lajjr4s"); // 	    lp->pos = centerPt(xlp);
+UNSUPPORTED("d613i6370zjpynl7n5caiorig"); // 	    updateBB (gp, lp);
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("1966qdxqc520zc0itk8al0xus"); // 	xlp++;
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("2di5wqm6caczzl6bvqe35ry8y"); //     if (Verbose)
+UNSUPPORTED("dy42jv2urndusl1b1jrir300t"); // 	fprintf (stderr, "%d out of %d labels positioned.\n", cnt, n_lbls);
+UNSUPPORTED("1jtgut2015ohnwt6qfisxgbs5"); //     else if (cnt != n_lbls)
+UNSUPPORTED("9hqu9h8q1a2xl4ty48ct0fdyp"); // 	agerr(AGWARN, "%d out of %d exterior labels positioned.\n", cnt, n_lbls);
+UNSUPPORTED("baez6nmarx9nht65vulvjojic"); //     free(objs);
+UNSUPPORTED("ayak2o9js1lmsa5vuzul2sdxs"); //     free(lbls);
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void addXLabels(Agraph_t * gp)
+{
+    Agnode_t *np;
+    Agedge_t *ep;
+    int cnt, i, n_objs, n_lbls;
+    int n_nlbls = 0;		/* # of unset node xlabels */
+    int n_elbls = 0;		/* # of unset edge labels or xlabels */
+    int n_set_lbls = 0;		/* # of set xlabels and edge labels */
+    int n_clbls = 0;		/* # of set cluster labels */
+    boxf bb;
+    pointf ur;
+    textlabel_t* lp;
+    label_params_t params;
+    object_t* objs;
+    xlabel_t* lbls;
+    object_t* objp;
+    xlabel_t* xlp;
+    Agsym_t* force;
+    int et = (GD_flags(gp) & (7 << 1));
+    if (!(GD_has_labels(gp) & (1 << 4)) &&
+	!(GD_has_labels(gp) & (1 << 5)) &&
+	!(GD_has_labels(gp) & (1 << 2)) &&
+	!(GD_has_labels(gp) & (1 << 1)) &&
+	(!(GD_has_labels(gp) & (1 << 0)) || EdgeLabelsDone))
+	return;
+    for (np = agfstnode(gp); np; np = agnxtnode(gp, np)) {
+	if (ND_xlabel(np)) {
+	    if (ND_xlabel(np)->set)
+		n_set_lbls++;
+	    else
+		n_nlbls++;
+	}
+	for (ep = agfstout(gp, np); ep; ep = agnxtout(gp, ep)) {
+	    if (ED_xlabel(ep)) {
+		if (ED_xlabel(ep)->set)
+		    n_set_lbls++;
+		else if (((et != (0 << 1)) && (ED_spl(ep) != NULL)))
+		    n_elbls++;
+	    }
+	    if (ED_head_label(ep)) {
+		if (ED_head_label(ep)->set)
+		    n_set_lbls++;
+		else if (((et != (0 << 1)) && (ED_spl(ep) != NULL)))
+		    n_elbls++;
+	    }
+	    if (ED_tail_label(ep)) {
+		if (ED_tail_label(ep)->set)
+		    n_set_lbls++;
+		else if (((et != (0 << 1)) && (ED_spl(ep) != NULL)))
+		    n_elbls++;
+	    }
+	    if (ED_label(ep)) {
+		if (ED_label(ep)->set)
+		    n_set_lbls++;
+		else if (((et != (0 << 1)) && (ED_spl(ep) != NULL)))
+		    n_elbls++;
+	    }
+	}
+    }
+    if (GD_has_labels(gp) & (1 << 3))
+	n_clbls = countClusterLabels (gp);
+    /* A label for each unpositioned external label */
+    n_lbls = n_nlbls + n_elbls;
+    if (n_lbls == 0) return;
+    /* An object for each node, each positioned external label, any cluster label, 
+     * and all unset edge labels and xlabels.
+     */
+    n_objs = agnnodes(gp) + n_set_lbls + n_clbls + n_elbls;
+    objp = objs = (object_t*)zmalloc((n_objs)*sizeof(object_t));
+    xlp = lbls = (xlabel_t*)zmalloc((n_lbls)*sizeof(xlabel_t));
+    bb.LL = pointfof(INT_MAX, INT_MAX);
+    bb.UR = pointfof(-INT_MAX, -INT_MAX);
+    for (np = agfstnode(gp); np; np = agnxtnode(gp, np)) {
+	bb = addNodeObj (np, objp, bb);
+	if ((lp = ND_xlabel(np))) {
+	    if (lp->set) {
+		objp++;
+		bb = addLabelObj (lp, objp, bb);
+	    }
+	    else {
+		addXLabel (lp, objp, xlp, 0, ur); 
+		xlp++;
+	    }
+	}
+	objp++;
+	for (ep = agfstout(gp, np); ep; ep = agnxtout(gp, ep)) {
+	    if ((lp = ED_label(ep))) {
+		if (lp->set) {
+		    bb = addLabelObj (lp, objp, bb);
+		}
+		else if (((et != (0 << 1)) && (ED_spl(ep) != NULL))) {
+		    addXLabel (lp, objp, xlp, 1, edgeMidpoint(gp, ep)); 
+		    xlp++;
+		}
+		else {
+		    agerr(AGWARN, "no position for edge with label %s",
+			    ED_label(ep)->text);
+		    continue;
+		}
+	        objp++;
+	    }
+	    if ((lp = ED_tail_label(ep))) {
+		if (lp->set) {
+		    bb = addLabelObj (lp, objp, bb);
+		}
+		else if (((et != (0 << 1)) && (ED_spl(ep) != NULL))) {
+		    addXLabel (lp, objp, xlp, 1, edgeTailpoint(ep)); 
+		    xlp++;
+		}
+		else {
+		    agerr(AGWARN, "no position for edge with tail label %s",
+			    ED_tail_label(ep)->text);
+		    continue;
+		}
+		objp++;
+	    }
+	    if ((lp = ED_head_label(ep))) {
+		if (lp->set) {
+		    bb = addLabelObj (lp, objp, bb);
+		}
+		else if (((et != (0 << 1)) && (ED_spl(ep) != NULL))) {
+		    addXLabel (lp, objp, xlp, 1, edgeHeadpoint(ep)); 
+		    xlp++;
+		}
+		else {
+		    agerr(AGWARN, "no position for edge with head label %s",
+			    ED_head_label(ep)->text);
+		    continue;
+		}
+		objp++;
+	    }
+	    if ((lp = ED_xlabel(ep))) {
+		if (lp->set) {
+		    bb = addLabelObj (lp, objp, bb);
+		}
+		else if (((et != (0 << 1)) && (ED_spl(ep) != NULL))) {
+		    addXLabel (lp, objp, xlp, 1, edgeMidpoint(gp, ep)); 
+		    xlp++;
+		}
+		else {
+		    agerr(AGWARN, "no position for edge with xlabel %s",
+			    ED_xlabel(ep)->text);
+		    continue;
+		}
+		objp++;
+	    }
+	}
+    }
+    if (n_clbls) {
+	cinfo_t info;
+	info.bb = bb;
+	info.objp = objp;
+	info = addClusterObj (gp, info);
+	bb = info.bb;
+    }
+    force = (agattr(gp,AGRAPH,"forcelabels",NULL));
+    params.force = late_bool(gp, force, NOT(0));
+    params.bb = bb;
+    placeLabels(objs, n_objs, lbls, n_lbls, &params);
+    if (Verbose)
+	printData(objs, n_objs, lbls, n_lbls, &params);
+    xlp = lbls;
+    cnt = 0;
+    for (i = 0; i < n_lbls; i++) {
+	if (xlp->set) {
+	    cnt++;
+	    lp = (textlabel_t *) (xlp->lbl);
+	    lp->set = 1;
+	    lp->pos = centerPt(xlp);
+	    updateBB (gp, lp);
+	}
+	xlp++;
+    }
+    if (Verbose)
+	fprintf (stderr, "%d out of %d labels positioned.\n", cnt, n_lbls);
+    else if (cnt != n_lbls)
+	agerr(AGWARN, "%d out of %d exterior labels positioned.\n", cnt, n_lbls);
+    free(objs);
+    free(lbls);
+}
+

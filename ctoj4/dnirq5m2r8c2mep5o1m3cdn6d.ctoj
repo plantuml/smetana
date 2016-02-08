@@ -1,0 +1,32 @@
+private static final __array_of_struct__ Arrowtypes = __array_of_struct__.malloc(arrowtype_t.class, 9);
+static {
+	Arrowtypes.plus(0).setStruct(createArrowtypes(1, 1.0, function(arrows__c.class, "arrow_type_normal")));
+	Arrowtypes.plus(1).setStruct(createArrowtypes(2, 1.0, function(arrows__c.class, "arrow_type_crow")));
+	Arrowtypes.plus(2).setStruct(createArrowtypes(3, 0.5, function(arrows__c.class, "arrow_type_tee")));
+	Arrowtypes.plus(3).setStruct(createArrowtypes(4, 1.0, function(arrows__c.class, "arrow_type_box")));
+	Arrowtypes.plus(4).setStruct(createArrowtypes(5, 1.2, function(arrows__c.class, "arrow_type_diamond")));
+	Arrowtypes.plus(5).setStruct(createArrowtypes(6, 0.8, function(arrows__c.class, "arrow_type_dot")));
+	Arrowtypes.plus(6).setStruct(createArrowtypes(7, 1.0, function(arrows__c.class, "arrow_type_curve")));
+	Arrowtypes.plus(7).setStruct(createArrowtypes(8, 0.5, function(arrows__c.class, "arrow_type_gap")));
+	Arrowtypes.plus(8).setStruct(createArrowtypes(0, 0.0, null));
+}
+private final static __struct__ createArrowtypes(int type, double lenfact, CFunction function) {
+	final __struct__<arrowtype_t> result = __struct__.from(arrowtype_t.class);
+	result.setInt("type", type);
+	result.setDouble("lenfact", lenfact);
+	result.setPtr("gen", function);
+	return result;
+}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static arrowtype_t Arrowtypes[] = {
+    {1, 1.0, arrow_type_normal},
+    {2, 1.0, arrow_type_crow},
+    {3, 0.5, arrow_type_tee},
+    {4, 1.0, arrow_type_box},
+    {5, 1.2, arrow_type_diamond},
+    {6, 0.8, arrow_type_dot},
+    {7, 1.0, arrow_type_curve},
+    {8, 0.5, arrow_type_gap},
+    {(0), 0.0, NULL}
+};
+

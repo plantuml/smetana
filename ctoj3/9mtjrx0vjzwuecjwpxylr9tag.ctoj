@@ -1,0 +1,16 @@
+public static __ptr__ memalloc(__ptr__ heap, size_t request) {
+    __ptr__ rv;
+    rv = (__ptr__) request.malloc();
+    return rv;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void *memalloc(void *heap, size_t request)
+{
+    void *rv;
+    (void) heap;
+    rv = malloc(request);
+    memset(rv, 0, request);
+    return rv;
+}
+

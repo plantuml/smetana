@@ -1,0 +1,172 @@
+public static void set_ycoords(Agraph_s g) {
+    int i, j, r;
+    double ht2, maxht, delta, d0, d1;
+    Agnode_s n;
+    Agedge_s e;
+    __ptr__ rank = GD_rank(g);
+    Agraph_s clust;
+    int lbl;
+    ht2 = maxht = 0;
+    /* scan ranks for tallest nodes.  */
+    for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
+	for (i = 0; i < rank.plus(r).getInt("n"); i++) {
+	    n = (Agnode_s) rank.plus(r).getArrayOfPtr("v").plus(i).getPtr();
+	    /* assumes symmetry, ht1 = ht2 */
+	    ht2 = ND_ht(n) / 2;
+	    /* have to look for high self-edge labels, too */
+	    if (ND_other(n).getPtr("list")!=null)
+		for (j = 0; (e = (Agedge_s) ND_other(n).getArrayOfPtr("list").plus(j).getPtr())!=null; j++) {
+		    if (EQ(agtail(e), aghead(e))) {
+			if (ED_label(e)!=null)
+			    ht2 = MAX(ht2, ED_label(e).getPtr("dimen").getDouble("y") / 2);
+		    }
+		}
+	    /* update global rank ht */
+	    if (rank.plus(r).getDouble("pht2") < ht2) {
+		rank.plus(r).setDouble("ht2", ht2);
+		rank.plus(r).setDouble("pht2", ht2);
+		}
+	    if (rank.plus(r).getDouble("pht1") < ht2) {
+		rank.plus(r).setDouble("ht1", ht2);
+		rank.plus(r).setDouble("pht1", ht2);
+		}
+	    /* update nearest enclosing cluster rank ht */
+	    if ((clust = ND_clust(n))!=null) {
+		int yoff = (clust == g ? 0 : late_int (clust, G_margin, 8, 0));
+		if (ND_rank(n) == GD_minrank(clust))
+		    GD_ht2(clust, MAX(GD_ht2(clust), ht2 + yoff));
+		if (ND_rank(n) == GD_maxrank(clust))
+		    GD_ht1(clust, MAX(GD_ht1(clust), ht2 + yoff));
+	    }
+	}
+    }
+    /* scan sub-clusters */
+    lbl = clust_ht(g);
+    /* make the initial assignment of ycoords to leftmost nodes by ranks */
+    maxht = 0;
+    r = GD_maxrank(g);
+    (ND_coord(rank.plus(r).getArrayOfPtr("v").plus(0).getPtr())).setDouble("y", rank.plus(r).getDouble("ht1"));
+    while (--r >= GD_minrank(g)) {
+	d0 = rank.plus(r + 1).getDouble("pht2") + rank.plus(r).getDouble("pht1") + GD_ranksep(g);	/* prim node sep */
+	d1 = rank.plus(r + 1).getDouble("ht2") + rank.plus(r).getDouble("ht1") + 8;	/* cluster sep */
+	delta = MAX(d0, d1);
+	if (rank.plus(r).getInt("n") > 0)	/* this may reflect some problem */
+		(ND_coord(rank.plus(r).getArrayOfPtr("v").plus(0).getPtr())).setDouble("y", (ND_coord(rank.plus(r + 1).getArrayOfPtr("v").plus(0).getPtr())).getDouble("y") + delta);
+	maxht = MAX(maxht, delta);
+    }
+    /* If there are cluster labels and the drawing is rotated, we need special processing to
+     * allocate enough room. We use adjustRanks for this, and then recompute the maxht if
+     * the ranks are to be equally spaced. This seems simpler and appears to work better than
+     * handling equal spacing as a special case.
+     */
+    if (lbl!=0 && GD_flip(g)!=0) {
+UNSUPPORTED("bxjqk5nu40mwo1156dicr9tur"); // 	adjustRanks(g, 0);
+UNSUPPORTED("6vy9qfed3u61pmvy12724s9l4"); // 	if (GD_exact_ranksep(g)) {  /* recompute maxht */
+UNSUPPORTED("74f5n6u4x39ngn0gsan7fgzyr"); // 	    maxht = 0;
+UNSUPPORTED("2pd9g1n9b0746fgt892degls3"); // 	    r = GD_maxrank(g);
+UNSUPPORTED("8dils3hlxottsbf2iuapvhqeq"); // 	    d0 = (ND_coord(rank[r].v[0])).y;
+UNSUPPORTED("cw5accmrcan3lqfc789udgcka"); // 	    while (--r >= GD_minrank(g)) {
+UNSUPPORTED("6bxo7bknt38qh9t31zr7p6kie"); // 		d1 = (ND_coord(rank[r].v[0])).y;
+UNSUPPORTED("b1ta7vjm5i7swyklhfwy27w35"); // 		delta = d1 - d0;
+UNSUPPORTED("65l8hg0imd48bfdu614k2kylt"); // 		maxht = MAX(maxht, delta);
+UNSUPPORTED("5irf6cp6xdzi2ik033azsbauo"); // 		d0 = d1;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+    }
+    /* re-assign if ranks are equally spaced */
+    if (GD_exact_ranksep(g)!=0) {
+UNSUPPORTED("cyxbyjrdzywkc46nl8lkrngai"); // 	for (r = GD_maxrank(g) - 1; r >= GD_minrank(g); r--)
+UNSUPPORTED("5sd5ltavyp6llt0t2t0xmqwj5"); // 	    if (rank[r].n > 0)	/* this may reflect the same problem :-() */
+UNSUPPORTED("5zoeqpznt31feqxjcx2rg0o1f"); // 			(ND_coord(rank[r].v[0])).y=
+UNSUPPORTED("e6dfx5uesysjaefb0djyfp7f"); // 		    (ND_coord(rank[r + 1].v[0])).y + maxht;
+    }
+    /* copy ycoord assignment from leftmost nodes to others */
+    for (n = GD_nlist(g); n!=null; n = ND_next(n))
+	ND_coord(n).setDouble("y", (ND_coord(rank.plus(ND_rank(n)).getArrayOfPtr("v").plus(0).getPtr())).getDouble("y"));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void set_ycoords(graph_t * g)
+{
+    int i, j, r;
+    double ht2, maxht, delta, d0, d1;
+    node_t *n;
+    edge_t *e;
+    rank_t *rank = GD_rank(g);
+    graph_t *clust;
+    int lbl;
+    ht2 = maxht = 0;
+    /* scan ranks for tallest nodes.  */
+    for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
+	for (i = 0; i < rank[r].n; i++) {
+	    n = rank[r].v[i];
+	    /* assumes symmetry, ht1 = ht2 */
+	    ht2 = ND_ht(n) / 2;
+	    /* have to look for high self-edge labels, too */
+	    if (ND_other(n).list)
+		for (j = 0; (e = ND_other(n).list[j]); j++) {
+		    if (agtail(e) == aghead(e)) {
+			if (ED_label(e))
+			    ht2 = MAX(ht2, ED_label(e)->dimen.y / 2);
+		    }
+		}
+	    /* update global rank ht */
+	    if (rank[r].pht2 < ht2)
+		rank[r].pht2 = rank[r].ht2 = ht2;
+	    if (rank[r].pht1 < ht2)
+		rank[r].pht1 = rank[r].ht1 = ht2;
+	    /* update nearest enclosing cluster rank ht */
+	    if ((clust = ND_clust(n))) {
+		int yoff = (clust == g ? 0 : late_int (clust, G_margin, 8, 0));
+		if (ND_rank(n) == GD_minrank(clust))
+		    GD_ht2(clust) = MAX(GD_ht2(clust), ht2 + yoff);
+		if (ND_rank(n) == GD_maxrank(clust))
+		    GD_ht1(clust) = MAX(GD_ht1(clust), ht2 + yoff);
+	    }
+	}
+    }
+    /* scan sub-clusters */
+    lbl = clust_ht(g);
+    /* make the initial assignment of ycoords to leftmost nodes by ranks */
+    maxht = 0;
+    r = GD_maxrank(g);
+    (ND_coord(rank[r].v[0])).y = rank[r].ht1;
+    while (--r >= GD_minrank(g)) {
+	d0 = rank[r + 1].pht2 + rank[r].pht1 + GD_ranksep(g);	/* prim node sep */
+	d1 = rank[r + 1].ht2 + rank[r].ht1 + 8;	/* cluster sep */
+	delta = MAX(d0, d1);
+	if (rank[r].n > 0)	/* this may reflect some problem */
+		(ND_coord(rank[r].v[0])).y = (ND_coord(rank[r + 1].v[0])).y + delta;
+	maxht = MAX(maxht, delta);
+    }
+    /* If there are cluster labels and the drawing is rotated, we need special processing to
+     * allocate enough room. We use adjustRanks for this, and then recompute the maxht if
+     * the ranks are to be equally spaced. This seems simpler and appears to work better than
+     * handling equal spacing as a special case.
+     */
+    if (lbl && GD_flip(g)) {
+	adjustRanks(g, 0);
+	if (GD_exact_ranksep(g)) {  /* recompute maxht */
+	    maxht = 0;
+	    r = GD_maxrank(g);
+	    d0 = (ND_coord(rank[r].v[0])).y;
+	    while (--r >= GD_minrank(g)) {
+		d1 = (ND_coord(rank[r].v[0])).y;
+		delta = d1 - d0;
+		maxht = MAX(maxht, delta);
+		d0 = d1;
+	    }
+	}
+    }
+    /* re-assign if ranks are equally spaced */
+    if (GD_exact_ranksep(g)) {
+	for (r = GD_maxrank(g) - 1; r >= GD_minrank(g); r--)
+	    if (rank[r].n > 0)	/* this may reflect the same problem :-() */
+			(ND_coord(rank[r].v[0])).y=
+		    (ND_coord(rank[r + 1].v[0])).y + maxht;
+    }
+    /* copy ycoord assignment from leftmost nodes to others */
+    for (n = GD_nlist(g); n; n = ND_next(n))
+	ND_coord(n).y = (ND_coord(rank[ND_rank(n)].v[0])).y;
+}
+

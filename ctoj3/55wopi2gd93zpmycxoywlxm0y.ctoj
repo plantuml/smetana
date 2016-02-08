@@ -1,0 +1,14 @@
+public static Agnode_s agfstnode(Agraph_s g) {
+    Agsubnode_s sn;
+    sn = (Agsubnode_s) g.getPtr("n_seq").castTo(_dt_s.class).call("searchf", g.getPtr("n_seq"),null,0000200);
+    return sn!=null ? (Agnode_s) sn.getPtr("node") : null;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agnode_t *agfstnode(Agraph_t * g)
+{
+    Agsubnode_t *sn;
+    sn = (Agsubnode_t *) (*(((Dt_t*)(g->n_seq))->searchf))((g->n_seq),(void*)(0),0000200);
+    return sn ? sn->node : ((Agnode_t*)0);
+}
+

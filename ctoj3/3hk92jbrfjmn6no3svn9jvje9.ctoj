@@ -1,0 +1,27 @@
+public static void dot_init_node(Agnode_s n) {
+    agbindrec(n, new CString("Agnodeinfo_t"), sizeof(Agnodeinfo_t.class), (N(0)));	//graph custom data
+    common_init_node(n);
+    gv_nodesize(n, GD_flip(agraphof(n)));
+    alloc_elist(4, ND_in(n), Agnode_s.class);
+    alloc_elist(4, ND_out(n), Agnode_s.class);
+    alloc_elist(2, ND_flat_in(n), Agnode_s.class);
+    alloc_elist(2, ND_flat_out(n), Agnode_s.class);
+    alloc_elist(2, ND_other(n), Agnode_s.class);
+    ND_UF_size(n, 1);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void 
+dot_init_node(node_t * n)
+{
+    agbindrec(n, "Agnodeinfo_t", sizeof(Agnodeinfo_t), NOT(0));	//graph custom data
+    common_init_node(n);
+    gv_nodesize(n, GD_flip(agraphof(n)));
+    alloc_elist(4, ND_in(n));
+    alloc_elist(4, ND_out(n));
+    alloc_elist(2, ND_flat_in(n));
+    alloc_elist(2, ND_flat_out(n));
+    alloc_elist(2, ND_other(n));
+    ND_UF_size(n) = 1;
+}
+

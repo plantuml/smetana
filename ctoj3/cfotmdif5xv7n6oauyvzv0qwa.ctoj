@@ -1,0 +1,54 @@
+public static void expand_leaves(Agraph_s g) {
+    int i, d;
+    Agnode_s n;
+    Agedge_s e, f;
+    make_leafslots(g);
+    for (n = GD_nlist(g); n!=null; n = ND_next(n)) {
+	if (ND_inleaf(n)!=null)
+	    do_leaves(g, ND_inleaf(n));
+	if (ND_outleaf(n)!=null)
+	    do_leaves(g, ND_outleaf(n));
+	if (ND_other(n).getPtr("list")!=null)
+	    for (i = 0; (e = (Agedge_s) ND_other(n).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
+		if ((d = ND_rank(aghead(e)) - ND_rank(aghead(e))) == 0)
+		    continue;
+		f = ED_to_orig(e);
+		if (ports_eq(e, f) == false) {
+		    zapinlist(ND_other(n), e);
+		    if (d == 1)
+			fast_edge(e);
+		    /*else unitize(e); ### */
+		    i--;
+		}
+	    }
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void expand_leaves(graph_t * g)
+{
+    int i, d;
+    node_t *n;
+    edge_t *e, *f;
+    make_leafslots(g);
+    for (n = GD_nlist(g); n; n = ND_next(n)) {
+	if (ND_inleaf(n))
+	    do_leaves(g, ND_inleaf(n));
+	if (ND_outleaf(n))
+	    do_leaves(g, ND_outleaf(n));
+	if (ND_other(n).list)
+	    for (i = 0; (e = ND_other(n).list[i]); i++) {
+		if ((d = ND_rank(aghead(e)) - ND_rank(aghead(e))) == 0)
+		    continue;
+		f = ED_to_orig(e);
+		if (ports_eq(e, f) == 0) {
+		    zapinlist(&(ND_other(n)), e);
+		    if (d == 1)
+			fast_edge(e);
+		    /*else unitize(e); ### */
+		    i--;
+		}
+	    }
+    }
+}
+

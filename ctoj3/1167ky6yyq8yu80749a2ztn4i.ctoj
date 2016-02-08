@@ -1,0 +1,82 @@
+public static int clust_ht(Agraph_s g) {
+    int c;
+    double ht1, ht2;
+    Agraph_s subg;
+    __ptr__ rank = dot_root(g).castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getPtr("rank");
+    int margin, haveClustLabel = 0;
+    if (EQ(g, dot_root(g))) 
+	margin = 8;
+    else
+	margin = late_int (g, G_margin, 8, 0);
+    ht1 = g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getDouble("ht1");
+    ht2 = g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getDouble("ht2");
+    /* account for sub-clusters */
+    for (c = 1; c <= g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("n_cluster"); c++) {
+UNSUPPORTED("5mn9h61er3wuqufzzdhijpu7z"); // 	subg = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->clust)[c];
+UNSUPPORTED("bssvyalx7nxr46cpjovcbb8m8"); // 	haveClustLabel |= clust_ht(subg);
+UNSUPPORTED("ti0t3134jje2owaeynfuas4m"); // 	if ((((Agraphinfo_t*)(((Agobj_t*)(subg))->data))->maxrank) == (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank))
+UNSUPPORTED("1ab53x605mysixd1gl1qkb2om"); // 	    ht1 = ((ht1)>((((Agraphinfo_t*)(((Agobj_t*)(subg))->data))->ht1) + margin)?(ht1):((((Agraphinfo_t*)(((Agobj_t*)(subg))->data))->ht1) + margin));
+UNSUPPORTED("7v46gyax7obtrk4ze519qovcv"); // 	if ((((Agraphinfo_t*)(((Agobj_t*)(subg))->data))->minrank) == (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank))
+UNSUPPORTED("50dt8eyt34n5gn9y1x9osy4vi"); // 	    ht2 = ((ht2)>((((Agraphinfo_t*)(((Agobj_t*)(subg))->data))->ht2) + margin)?(ht2):((((Agraphinfo_t*)(((Agobj_t*)(subg))->data))->ht2) + margin));
+    }
+    /* account for a possible cluster label in clusters */
+    /* room for root graph label is handled in dotneato_postprocess */
+    if (NEQ(g, dot_root(g)) && g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getPtr("label")!=null) {
+UNSUPPORTED("28ay2po1kkuxbnp5ni5zw9vcu"); // 	haveClustLabel = 1;
+UNSUPPORTED("di8ub9iztoek52c3d95ev5yg6"); // 	if (!((((Agraphinfo_t*)(((Agobj_t*)(agroot(g)))->data))->rankdir & 0x3) & 1)) {
+UNSUPPORTED("asekkwbk2j7svttfuda31ylct"); // 	    ht1 += (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->border)[0].y;
+UNSUPPORTED("f4mu1t0o16fgi5kx7sp8jd4x6"); // 	    ht2 += (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->border)[2].y;
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+    }
+    g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).setDouble("ht1", ht1);
+    g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).setDouble("ht2", ht2);
+    /* update the global ranks */
+    if (NEQ(g, dot_root(g))) {
+UNSUPPORTED("oaathhssll7nnd9e82z2tniy"); // 	rank[(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank)].ht2 = ((rank[(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank)].ht2)>(ht2)?(rank[(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank)].ht2):(ht2));
+UNSUPPORTED("35u3x0z55lym9u0n70pj7zflg"); // 	rank[(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank)].ht1 = ((rank[(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank)].ht1)>(ht1)?(rank[(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank)].ht1):(ht1));
+    }
+    return haveClustLabel;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int clust_ht(Agraph_t * g)
+{
+    int c;
+    double ht1, ht2;
+    graph_t *subg;
+    rank_t *rank = (((Agraphinfo_t*)(((Agobj_t*)(dot_root(g)))->data))->rank);
+    int margin, haveClustLabel = 0;
+    if (g == dot_root(g)) 
+	margin = 8;
+    else
+	margin = late_int (g, G_margin, 8, 0);
+    ht1 = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->ht1);
+    ht2 = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->ht2);
+    /* account for sub-clusters */
+    for (c = 1; c <= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->n_cluster); c++) {
+	subg = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->clust)[c];
+	haveClustLabel |= clust_ht(subg);
+	if ((((Agraphinfo_t*)(((Agobj_t*)(subg))->data))->maxrank) == (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank))
+	    ht1 = ((ht1)>((((Agraphinfo_t*)(((Agobj_t*)(subg))->data))->ht1) + margin)?(ht1):((((Agraphinfo_t*)(((Agobj_t*)(subg))->data))->ht1) + margin));
+	if ((((Agraphinfo_t*)(((Agobj_t*)(subg))->data))->minrank) == (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank))
+	    ht2 = ((ht2)>((((Agraphinfo_t*)(((Agobj_t*)(subg))->data))->ht2) + margin)?(ht2):((((Agraphinfo_t*)(((Agobj_t*)(subg))->data))->ht2) + margin));
+    }
+    /* account for a possible cluster label in clusters */
+    /* room for root graph label is handled in dotneato_postprocess */
+    if ((g != dot_root(g)) && (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->label)) {
+	haveClustLabel = 1;
+	if (!((((Agraphinfo_t*)(((Agobj_t*)(agroot(g)))->data))->rankdir & 0x3) & 1)) {
+	    ht1 += (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->border)[0].y;
+	    ht2 += (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->border)[2].y;
+	}
+    }
+    (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->ht1) = ht1;
+    (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->ht2) = ht2;
+    /* update the global ranks */
+    if (g != dot_root(g)) {
+	rank[(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank)].ht2 = ((rank[(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank)].ht2)>(ht2)?(rank[(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank)].ht2):(ht2));
+	rank[(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank)].ht1 = ((rank[(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank)].ht1)>(ht1)?(rank[(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank)].ht1):(ht1));
+    }
+    return haveClustLabel;
+}
+

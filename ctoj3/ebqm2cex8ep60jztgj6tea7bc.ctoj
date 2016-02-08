@@ -1,0 +1,49 @@
+public static void merge_components(Agraph_s g) {
+    int c;
+    Agnode_s u, v;
+    if (g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getPtr("comp").getInt("size") <= 1)
+	return;
+    u = null;
+UNSUPPORTED("eqtgtixzz8nes5xo103bdd0iv"); //     for (c = 0; c < (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->comp).size; c++) {
+UNSUPPORTED("4nrw0godwtegxcvmwm18hb7p"); // 	v = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->comp).list[c];
+UNSUPPORTED("b9gfp46tk6krt8gqegwmackqf"); // 	if (u)
+UNSUPPORTED("dmt8g2m7qbhw56kclh758fk5d"); // 	    (((Agnodeinfo_t*)(((Agobj_t*)(u))->data))->next) = v;
+UNSUPPORTED("d4qzhblrvfcqanqxrg8xyquif"); // 	(((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->prev) = u;
+UNSUPPORTED("1fhes6h2qo4gsvsds5g6djwu6"); // 	while ((((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->next)) {
+UNSUPPORTED("40beann8v0n1p42oi6cbvckd2"); // 	    v = (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->next);
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("qkj9h7elujdjas8snduv4pms"); // 	u = v;
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("2ccuo1qp6q22v0sel4m8sasez"); //     (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->comp).size = 1;
+UNSUPPORTED("7w9tpkek9dfpdtv37w0cd6j6"); //     (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->nlist) = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->comp).list[0];
+UNSUPPORTED("e3udd75vdjsni22x2ooyupp6d"); //     (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank) = GlobalMinRank;
+UNSUPPORTED("6zp2svbumxhyz0yujam2fhx2w"); //     (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank) = GlobalMaxRank;
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void merge_components(graph_t * g)
+{
+    int c;
+    node_t *u, *v;
+    if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->comp).size <= 1)
+	return;
+    u = NULL;
+    for (c = 0; c < (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->comp).size; c++) {
+	v = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->comp).list[c];
+	if (u)
+	    (((Agnodeinfo_t*)(((Agobj_t*)(u))->data))->next) = v;
+	(((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->prev) = u;
+	while ((((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->next)) {
+	    v = (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->next);
+	}
+	u = v;
+    }
+    (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->comp).size = 1;
+    (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->nlist) = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->comp).list[0];
+    (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank) = GlobalMinRank;
+    (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank) = GlobalMaxRank;
+}
+

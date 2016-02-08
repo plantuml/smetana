@@ -1,0 +1,41 @@
+public static int shapeOf(Agnode_s n) {
+    shape_desc sh = (shape_desc) n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("shape");
+    CFunctionImpl ifn; //void (*ifn) (node_t *);
+    if (N(sh))
+	return enumAsInt(shape_kind.class, "SH_UNSET");
+    ifn = (CFunctionImpl) n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("shape").getPtr("fns").getPtr("initfn");
+    if (ifn.getName().equals("poly_init"))
+	return enumAsInt(shape_kind.class, "SH_POLY");
+UNSUPPORTED("251a710sgr57bnrs3uh7ppfpi"); //     else if (ifn == record_init)
+UNSUPPORTED("uubga3e6j1jsmn61hfok2zwk"); // 	return SH_RECORD;
+UNSUPPORTED("cpzx2lwu889clk2f1d0k4c9jd"); //     else if (ifn == point_init)
+UNSUPPORTED("f4x4vap21dff1trk1lrzzb8u5"); // 	return SH_POINT;
+UNSUPPORTED("alkskrmw3fjn82qi1t2kyi6uh"); //     else if (ifn == epsf_init)
+UNSUPPORTED("5hp3oli47xj0s4fk7yj1dairi"); // 	return SH_EPSF;
+UNSUPPORTED("div10atae09n36x269sl208r1"); //     else
+UNSUPPORTED("7if5cqgy6h2m78kwe6gagv7p"); // 	return SH_UNSET;
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+shape_kind shapeOf(node_t * n)
+{
+    shape_desc *sh = (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->shape);
+    void (*ifn) (node_t *);
+    if (!sh)
+	return SH_UNSET;
+    ifn = (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->shape)->fns->initfn;
+    if (ifn == poly_init)
+	return SH_POLY;
+    else if (ifn == record_init)
+	return SH_RECORD;
+    else if (ifn == point_init)
+	return SH_POINT;
+    else if (ifn == epsf_init)
+	return SH_EPSF;
+    else
+	return SH_UNSET;
+}
+

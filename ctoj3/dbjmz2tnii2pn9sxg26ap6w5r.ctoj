@@ -1,0 +1,35 @@
+public static int ncross(Agraph_s g) {
+    int r, count, nc;
+    g = Root;
+    count = 0;
+    for (r = GD_minrank(g); r < GD_maxrank(g); r++) {
+	if (GD_rank(g).plus(r).getBoolean("valid"))
+	    count += GD_rank(g).plus(r).getInt("cache_nc");
+	else {
+	    nc = rcross(g, r);
+	    GD_rank(g).plus(r).getInt("cache_nc");
+	    count += nc;
+	    GD_rank(g).plus(r).setInt("valid", 1);
+	}
+    }
+    return count;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int ncross(graph_t * g)
+{
+    int r, count, nc;
+    g = Root;
+    count = 0;
+    for (r = GD_minrank(g); r < GD_maxrank(g); r++) {
+	if (GD_rank(g)[r].valid)
+	    count += GD_rank(g)[r].cache_nc;
+	else {
+	    nc = GD_rank(g)[r].cache_nc = rcross(g, r);
+	    count += nc;
+	    GD_rank(g)[r].valid = NOT(0);
+	}
+    }
+    return count;
+}
+

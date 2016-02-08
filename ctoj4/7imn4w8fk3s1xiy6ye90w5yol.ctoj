@@ -1,0 +1,4 @@
+public static boolean Concentrate;
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+unsigned char Concentrate;
+

@@ -1,0 +1,4 @@
+private static Agraph_s G;
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static Agraph_t *G;
+

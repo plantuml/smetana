@@ -1,0 +1,16 @@
+public static void rec_save_vlists(Agraph_s g) {
+    int c;
+    save_vlist(g);
+    for (c = 1; c <= g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("n_cluster"); c++)
+	rec_save_vlists((Agraph_s) g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("clust", c));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void rec_save_vlists(graph_t * g)
+{
+    int c;
+    save_vlist(g);
+    for (c = 1; c <= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->n_cluster); c++)
+	rec_save_vlists((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->clust)[c]);
+}
+

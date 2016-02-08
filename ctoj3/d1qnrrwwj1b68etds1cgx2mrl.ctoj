@@ -1,0 +1,50 @@
+public static void dot_mincross(Agraph_s g, boolean doBalance) {
+    int c, nc;
+    CString s;
+	System.err.println("dot_mincross A");
+    init_mincross(g);
+	System.err.println("dot_mincross B");
+    for (nc = c = 0; c < g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getPtr("comp").getInt("size"); c++) {
+	init_mccomp(g, c);
+	nc += mincross_(g, 0, 2, doBalance);
+    }
+	System.err.println("dot_mincross C");
+    merge2(g);
+	System.err.println("dot_mincross D");
+    /* run mincross on contents of each cluster */
+    for (c = 1; c <= g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("n_cluster"); c++) {
+	nc += mincross_clust(g, (Agraph_s) g.castTo(Agobj_t.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("clust", c), doBalance);
+    }
+    if (g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("n_cluster") > 0
+	&& (N(s = agget(g, new CString("remincross"))) || mapbool(s))) {
+	mark_lowclusters(g);
+	ReMincross = (N(0));
+	nc = mincross_(g, 2, 2, doBalance);
+    }
+    cleanup2(g, nc);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void dot_mincross(graph_t * g, int doBalance)
+{
+    int c, nc;
+    char *s;
+    init_mincross(g);
+    for (nc = c = 0; c < (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->comp).size; c++) {
+	init_mccomp(g, c);
+	nc += mincross(g, 0, 2, doBalance);
+    }
+    merge2(g);
+    /* run mincross on contents of each cluster */
+    for (c = 1; c <= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->n_cluster); c++) {
+	nc += mincross_clust(g, (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->clust)[c], doBalance);
+    }
+    if (((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->n_cluster) > 0)
+	&& (!(s = agget(g, "remincross")) || (mapbool(s)))) {
+	mark_lowclusters(g);
+	ReMincross = (!(0));
+	nc = mincross(g, 2, 2, doBalance);
+    }
+    cleanup2(g, nc);
+}
+

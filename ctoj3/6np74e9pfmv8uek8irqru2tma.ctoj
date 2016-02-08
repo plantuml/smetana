@@ -1,0 +1,56 @@
+public static __struct__<pointf> ccwrotatepf(final __struct__<pointf> p, int ccwrot) {
+    double x = p.getDouble("x"), y = p.getDouble("y");
+    switch (ccwrot) {
+    case 0:
+	break;
+    case 90:
+	p.setDouble("x", -y);
+	p.setDouble("y", x);
+	break;
+    case 180:
+	p.setDouble("x", x);
+	p.setDouble("y", -y);
+	break;
+    case 270:
+	p.setDouble("x", y);
+	p.setDouble("y", x);
+	break;
+    default:
+	if (ccwrot < 0)
+	    return cwrotatepf(p, -ccwrot);
+        if (ccwrot > 360)
+	    return ccwrotatepf(p, ccwrot%360);
+	return rotatepf(p, 360-ccwrot);
+    }
+    return p;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+pointf ccwrotatepf(pointf p, int ccwrot)
+{
+    double x = p.x, y = p.y;
+    switch (ccwrot) {
+    case 0:
+	break;
+    case 90:
+	p.x = -y;
+	p.y = x;
+	break;
+    case 180:
+	p.x = x;
+	p.y = -y;
+	break;
+    case 270:
+	p.x = y;
+	p.y = x;
+	break;
+    default:
+	if (ccwrot < 0)
+	    return cwrotatepf(p, -ccwrot);
+        if (ccwrot > 360)
+	    return ccwrotatepf(p, ccwrot%360);
+	return rotatepf(p, 360-ccwrot);
+    }
+    return p;
+}
+

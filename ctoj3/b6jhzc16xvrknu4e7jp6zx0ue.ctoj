@@ -1,0 +1,25 @@
+public static int agedgeseqcmpf(_dt_s d, __ptr__ arg_e0, __ptr__ arg_e1, _dtdisc_s disc) {
+    int v;
+    Agedge_s e0, e1;
+    e0 = (Agedge_s) arg_e0;
+    e1 = (Agedge_s) arg_e1;
+	if (NEQ(e0.getPtr("node"), e1.getPtr("node"))) v = AGSEQ(e0.getPtr("node")) - AGSEQ(e1.getPtr("node"));
+	else v = (AGSEQ(e0) - AGSEQ(e1));
+    return ((v==0)?0:(v<0?-1:1));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int agedgeseqcmpf(Dict_t * d, void *arg_e0, void *arg_e1, Dtdisc_t * disc)
+{
+    long v;
+    Agedge_t *e0, *e1;
+    (void) d;
+    e0 = arg_e0;
+    e1 = arg_e1;
+    (void) disc;
+	;
+	if (e0->node != e1->node) v = AGSEQ(e0->node) - AGSEQ(e1->node);
+	else v = (AGSEQ(e0) - AGSEQ(e1));
+    return ((v==0)?0:(v<0?-1:1));
+}
+

@@ -1,0 +1,82 @@
+public static shape_desc Shapes[] = {
+__Shapes__("box", poly_fns.amp(), p_box.amp()),
+__Shapes__("ellipse", poly_fns.amp(), p_ellipse.amp()),
+__Shapes__(null, null, null)
+};
+private static shape_desc __Shapes__(String s, shape_functions shape_functions, polygon_t polygon) {
+	shape_desc result = (shape_desc) Memory.malloc(shape_desc.class);
+	result.setPtr("name", s==null?null:new CString(s));
+	result.setPtr("fns", shape_functions);
+	result.setPtr("polygon", polygon);
+	return result;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static shape_desc Shapes[] = {	/* first entry is default for no such shape */
+    {"box", &poly_fns, &p_box},
+    {"polygon", &poly_fns, &p_polygon},
+    {"ellipse", &poly_fns, &p_ellipse},
+    {"oval", &poly_fns, &p_ellipse},
+    {"circle", &poly_fns, &p_circle},
+    {"point", &point_fns, &p_circle},
+    {"egg", &poly_fns, &p_egg},
+    {"triangle", &poly_fns, &p_triangle},
+    {"none", &poly_fns, &p_plaintext},
+    {"plaintext", &poly_fns, &p_plaintext},
+    {"diamond", &poly_fns, &p_diamond},
+    {"trapezium", &poly_fns, &p_trapezium},
+    {"parallelogram", &poly_fns, &p_parallelogram},
+    {"house", &poly_fns, &p_house},
+    {"pentagon", &poly_fns, &p_pentagon},
+    {"hexagon", &poly_fns, &p_hexagon},
+    {"septagon", &poly_fns, &p_septagon},
+    {"octagon", &poly_fns, &p_octagon},
+    {"note", &poly_fns, &p_note},
+    {"tab", &poly_fns, &p_tab},
+    {"folder", &poly_fns, &p_folder},
+    {"box3d", &poly_fns, &p_box3d},
+    {"component", &poly_fns, &p_component},
+    {"rect", &poly_fns, &p_box},
+    {"rectangle", &poly_fns, &p_box},
+    {"square", &poly_fns, &p_square},
+    {"doublecircle", &poly_fns, &p_doublecircle},
+    {"doubleoctagon", &poly_fns, &p_doubleoctagon},
+    {"tripleoctagon", &poly_fns, &p_tripleoctagon},
+    {"invtriangle", &poly_fns, &p_invtriangle},
+    {"invtrapezium", &poly_fns, &p_invtrapezium},
+    {"invhouse", &poly_fns, &p_invhouse},
+    {"underline", &poly_fns, &p_underline},
+    {"Mdiamond", &poly_fns, &p_Mdiamond},
+    {"Msquare", &poly_fns, &p_Msquare},
+    {"Mcircle", &poly_fns, &p_Mcircle},
+	/* biological circuit shapes, as specified by SBOLv*/
+	/** gene expression symbols **/
+    {"promoter", &poly_fns, &p_promoter},
+    {"cds",  &poly_fns, &p_cds},
+    {"terminator",  &poly_fns, &p_terminator},
+    {"utr",  &poly_fns, &p_utr},
+    {"insulator", &poly_fns, &p_insulator},
+    {"ribosite", &poly_fns, &p_ribosite},
+    {"rnastab", &poly_fns, &p_rnastab},
+    {"proteasesite", &poly_fns, &p_proteasesite},
+    {"proteinstab", &poly_fns, &p_proteinstab},
+	/** dna construction symbols **/
+    {"primersite",  &poly_fns, &p_primersite},
+    {"restrictionsite", &poly_fns, &p_restrictionsite},
+    {"fivepoverhang", &poly_fns, &p_fivepoverhang},
+    {"threepoverhang", &poly_fns, &p_threepoverhang},
+    {"noverhang", &poly_fns, &p_noverhang},
+    {"assembly", &poly_fns, &p_assembly},
+    {"signature", &poly_fns, &p_signature},
+    {"rpromoter", &poly_fns, &p_rpromoter},
+    {"larrow",  &poly_fns, &p_larrow},
+    {"rarrow",  &poly_fns, &p_rarrow},
+    {"lpromoter",  &poly_fns, &p_lpromoter},
+	/*  *** shapes other than polygons  *** */
+    {"record", &record_fns, NULL},
+    {"Mrecord", &record_fns, NULL},
+    {"epsf", &epsf_fns, NULL},
+    {"star", &star_fns, &p_star},
+    {NULL, NULL, NULL}
+};
+

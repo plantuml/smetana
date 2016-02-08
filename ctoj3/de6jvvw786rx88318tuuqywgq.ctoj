@@ -1,0 +1,28 @@
+public static int mkspacep(int size) {
+    if (size > maxpn) {
+	int newmax = maxpn + (size / 300 + 1) * 300;
+	ps = RALLOC(newmax, ps, pointf.class);
+	if (N(ps)) {
+UNSUPPORTED("ds2v91aohji00tc7zmjuc3v6q"); // 	    agerr(AGERR, "cannot re-allocate ps\n");
+UNSUPPORTED("btmwubugs9vkexo4yb7a5nqel"); // 	    return 1;
+	}
+	maxpn = newmax;
+    }
+    return 0;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int mkspacep(int size)
+{
+    if (size > maxpn) {
+	int newmax = maxpn + (size / 300 + 1) * 300;
+	ps = RALLOC(newmax, ps, pointf);
+	if (!ps) {
+	    agerr(AGERR, "cannot re-allocate ps\n");
+	    return 1;
+	}
+	maxpn = newmax;
+    }
+    return 0;
+}
+

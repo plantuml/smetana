@@ -1,0 +1,15 @@
+public static void enqueue(nodequeue q, Agnode_s n) {
+    q.getArrayOfPtr("tail").plus(0).setPtr(n);
+    q.setPtr("tail", q.getPtr("tail").plus(1));
+    if (q.getPtr("tail").comparePointer(q.getPtr("limit")) >= 0)
+	q.setPtr("tail", q.getPtr("store"));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void enqueue(nodequeue * q, node_t * n)
+{
+    *(q->tail++) = n;
+    if (q->tail >= q->limit)
+	q->tail = q->store;
+}
+

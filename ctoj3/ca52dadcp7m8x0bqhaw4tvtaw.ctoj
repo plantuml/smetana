@@ -1,0 +1,10 @@
+public static Agraph_s dot_root(__ptr__ p) {
+    return GD_dotroot(agroot(p));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agraph_t * dot_root (void* p)
+{
+    return GD_dotroot(agroot(p));
+}
+

@@ -1,0 +1,34 @@
+public static Agclos_s agclos(Agdisc_s proto) {
+		Agmemdisc_s memdisc;
+		__ptr__  memclosure;
+		Agclos_s rv;
+		/* establish an allocation arena */
+		memdisc = (Agmemdisc_s) ((proto != null && proto.getPtr("mem") != null) ? proto.getPtr("mem") : AgMemDisc.amp());
+		memclosure = (__ptr__) memdisc.call("open", proto);
+		rv = (Agclos_s) memdisc.call("alloc", memclosure, sizeof(Agclos_s.class));
+		rv.getStruct("disc").setPtr("mem", memdisc);
+		rv.getStruct("state").setPtr("mem", memclosure);
+		rv.getStruct("disc").setPtr("id", ((proto != null && proto.getPtr("id") != null) ? proto.getPtr("id") : AgIdDisc.amp()));
+		rv.getStruct("disc").setPtr("io", ((proto != null && proto.getPtr("io") != null) ? proto.getPtr("io") : AgIdDisc.amp()));
+		rv.setBoolean("callbacks_enabled", (N(0)));
+		return rv;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static Agclos_t *agclos(Agdisc_t * proto)
+{
+    Agmemdisc_t *memdisc;
+    void *memclosure;
+    Agclos_t *rv;
+    /* establish an allocation arena */
+    memdisc = ((proto && proto->mem) ? proto->mem : &AgMemDisc);
+    memclosure = memdisc->open(proto);
+    rv = memdisc->alloc(memclosure, sizeof(Agclos_t));
+    rv->disc.mem = memdisc;
+    rv->state.mem = memclosure;
+    rv->disc.id = ((proto && proto->id) ? proto->id : &AgIdDisc);
+    rv->disc.io = ((proto && proto->io) ? proto->io : &AgIoDisc);
+    rv->callbacks_enabled = (!(0));
+    return rv;
+}
+

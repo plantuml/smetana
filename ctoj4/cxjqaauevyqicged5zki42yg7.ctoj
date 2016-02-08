@@ -1,0 +1,5 @@
+private static int edgen;
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int edgen;
+

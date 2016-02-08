@@ -1,0 +1,34 @@
+public static void makeFlatEnd(Agraph_s g, spline_info_t sp, path P, Agnode_s n, Agedge_s e, pathend_t endp, boolean isBegin) {
+    final __struct__<boxf> b = __struct__.from(boxf.class);
+    b.____(maximal_bbox(g, sp, n, null, e));
+    endp.setStruct("nb", b);
+UNSUPPORTED("ea7i6u22d7eb1vhtlx2sbc66c"); //     endp->sidemask = (1<<2);
+UNSUPPORTED("c3u0b2z8mb4le2v1g6q8amjt"); //     if (isBegin) beginpath(P, e, 2, endp, 0);
+UNSUPPORTED("1e0zyjb03r85tgqddfnlk9e9"); //     else endpath(P, e, 2, endp, 0);
+UNSUPPORTED("7pwqqvagpkzye4cdmjlbrmt7a"); //     b.UR.y = endp->boxes[endp->boxn - 1].UR.y;
+UNSUPPORTED("1mefjjoto40rfwb1qhzvobhje"); //     b.LL.y = endp->boxes[endp->boxn - 1].LL.y;
+UNSUPPORTED("37959fgd5enhc5bdt7bt8cfbf"); //     b = makeregularend(b, (1<<2), ND_coord(n).y + GD_rank(g)[ND_rank(n)].ht2);
+UNSUPPORTED("6xj9sv3inmj1rwtz76qp6p30n"); //     if (b.LL.x < b.UR.x && b.LL.y < b.UR.y)
+UNSUPPORTED("cmjm4y40vf7wklmgz0ae4k36v"); // 	endp->boxes[endp->boxn++] = b;
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void
+makeFlatEnd (graph_t* g, spline_info_t* sp, path* P, node_t* n, edge_t* e, pathend_t* endp,
+             boolean isBegin)
+{
+    boxf b;
+    b = endp->nb = maximal_bbox(g, sp, n, NULL, e);
+    endp->sidemask = (1<<2);
+    if (isBegin) beginpath(P, e, 2, endp, 0);
+    else endpath(P, e, 2, endp, 0);
+    b.UR.y = endp->boxes[endp->boxn - 1].UR.y;
+    b.LL.y = endp->boxes[endp->boxn - 1].LL.y;
+    b = makeregularend(b, (1<<2), ND_coord(n).y + GD_rank(g)[ND_rank(n)].ht2);
+    if (b.LL.x < b.UR.x && b.LL.y < b.UR.y)
+	endp->boxes[endp->boxn++] = b;
+}
+

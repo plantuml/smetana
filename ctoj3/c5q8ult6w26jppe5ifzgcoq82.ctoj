@@ -1,0 +1,38 @@
+public static void growtris(int newtrin) {
+    if (newtrin <= trin)
+	return;
+    if (N(tris)) {
+	if (N(tris = Memory.malloc(sizeof(triangle_t.class, newtrin)))) {
+UNSUPPORTED("5782e28cjpaa3dpf8up4zmtq7"); // 	    fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\shortest.c", 26, ("cannot malloc tris"));
+UNSUPPORTED("1r6uhbnmxv8c6msnscw07w0qx"); // 	    longjmp(jbuf,1);
+	}
+    } else {
+UNSUPPORTED("5s57uida8ul0337fx4es83903"); // 	if (!(tris = (triangle_t *) realloc((void *) tris,
+UNSUPPORTED("8n7cq5nylvl5v1n4c2t00oiak"); // 					    sizeof (triangle_t) * newtrin))) {
+UNSUPPORTED("d3fgu54pn5tydfhn7z73v73ra"); // 	    fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\shortest.c", 26, ("cannot realloc tris"));
+UNSUPPORTED("1r6uhbnmxv8c6msnscw07w0qx"); // 	    longjmp(jbuf,1);
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+    }
+    trin = newtrin;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void growtris(int newtrin)
+{
+    if (newtrin <= trin)
+	return;
+    if (!tris) {
+	if (!(tris = (triangle_t *) malloc(sizeof (triangle_t) * newtrin))) {
+	    fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\shortest.c", 26, ("cannot malloc tris"));
+	    longjmp(jbuf,1);
+	}
+    } else {
+	if (!(tris = (triangle_t *) realloc((void *) tris,
+					    sizeof (triangle_t) * newtrin))) {
+	    fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\shortest.c", 26, ("cannot realloc tris"));
+	    longjmp(jbuf,1);
+	}
+    }
+    trin = newtrin;
+}
+

@@ -1,0 +1,54 @@
+public static Agrec_s aggetrec(__ptr__ obj, CString name, boolean mtf) {
+    Agobj_s hdr;
+    Agrec_s d, first;
+    hdr = (Agobj_s) obj.castTo(Agobj_s.class);
+    first = d = (Agrec_s) hdr.getPtr("data");
+    while (d!=null) {
+	if (N(strcmp(name,d.getCString("name"))))
+	    break;
+	d = (Agrec_s) d.getPtr("next");
+	if (EQ(d, first)) {
+	    d = null;
+	    break;
+	}
+    }
+    if (d!=null) {
+	if (hdr.getStruct("tag").getBoolean("mtflock")) {
+	    if (mtf && NEQ(hdr.getPtr("data"), d))
+		System.err.println("move to front lock inconsistency");
+	} else {
+	    if (NEQ(d, first) || (mtf != hdr.getStruct("tag").getBoolean("mtflock")))
+		set_data(hdr, d, ASINT(mtf));	/* Always optimize */
+	}
+    }
+    return d;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agrec_t *aggetrec(void *obj, char *name, int mtf)
+{
+    Agobj_t *hdr;
+    Agrec_t *d, *first;
+    hdr = (Agobj_t *) obj;
+    first = d = hdr->data;
+    while (d) {
+	if ((d->name == name) || ((*name == *d->name) && !strcmp((name),(d->name))))
+	    break;
+	d = d->next;
+	if (d == first) {
+	    d = ((Agrec_t *)0);
+	    break;
+	}
+    }
+    if (d) {
+	if (hdr->tag.mtflock) {
+	    if (mtf && (hdr->data != d))
+		agerr(AGERR, "move to front lock inconsistency");
+	} else {
+	    if ((d != first) || (mtf != hdr->tag.mtflock))
+		set_data(hdr, d, mtf);	/* Always optimize */
+	}
+    }
+    return d;
+}
+

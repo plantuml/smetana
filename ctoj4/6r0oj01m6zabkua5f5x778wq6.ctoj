@@ -1,0 +1,5 @@
+private static int pnln, pnll;
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int pnln, pnll;
+

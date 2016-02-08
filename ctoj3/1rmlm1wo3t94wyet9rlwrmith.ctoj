@@ -1,0 +1,47 @@
+public static boolean minmax_edges2(Agraph_s g, final __struct__<point> slen) {
+    Agnode_s n;
+    Agedge_s e = null;
+    if ((GD_maxset(g)!=null) || (GD_minset(g)!=null)) {
+UNSUPPORTED("attp4bsjqe99xnhi7lr7pszar"); // 	for (n = agfstnode(g); n; n = agnxtnode(g, n)) {
+UNSUPPORTED("8y47p29z0c2f1xpkrsb8w8re8"); // 	    if (n != UF_find(n))
+UNSUPPORTED("6hyelvzskqfqa07xtgjtvg2is"); // 		continue;
+UNSUPPORTED("49yt5gs5xlk2yzmiulvp7iqrd"); // 	    if (((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->out).size == 0) && (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxset) && (n != (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxset))) {
+UNSUPPORTED("9ksut17itonzpk3hp57jn4d1s"); // 		e = virtual_edge(n, (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxset), NULL);
+UNSUPPORTED("7dlot3nkpploeywkumjt3erop"); // 		(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->minlen) = slen.y;
+UNSUPPORTED("5ddkb181unkbg63gxqjx85fzq"); // 		(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->weight) = 0;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("5b66s1jsuwe7l2e8p6o1xpnab"); // 	    if (((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->in).size == 0) && (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minset) && (n != (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minset))) {
+UNSUPPORTED("c00g90uqqonkk08nncvi45c8f"); // 		e = virtual_edge((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minset), n, NULL);
+UNSUPPORTED("cxdsqlq2h35nyz65uc4eifchp"); // 		(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->minlen) = slen.x;
+UNSUPPORTED("5ddkb181unkbg63gxqjx85fzq"); // 		(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->weight) = 0;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+    }
+    return (e != null);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int 
+minmax_edges2(graph_t * g, point slen)
+{
+    node_t *n;
+    edge_t *e = 0;
+    if ((GD_maxset(g)) || (GD_minset(g))) {
+	for (n = agfstnode(g); n; n = agnxtnode(g, n)) {
+	    if (n != UF_find(n))
+		continue;
+	    if ((ND_out(n).size == 0) && GD_maxset(g) && (n != GD_maxset(g))) {
+		e = virtual_edge(n, GD_maxset(g), NULL);
+		ED_minlen(e) = slen.y;
+		ED_weight(e) = 0;
+	    }
+	    if ((ND_in(n).size == 0) && GD_minset(g) && (n != GD_minset(g))) {
+		e = virtual_edge(GD_minset(g), n, NULL);
+		ED_minlen(e) = slen.x;
+		ED_weight(e) = 0;
+	    }
+	}
+    }
+    return (e != 0);
+}
+

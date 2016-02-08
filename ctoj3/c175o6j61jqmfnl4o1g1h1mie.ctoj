@@ -1,0 +1,38 @@
+public static Agedge_s agfindedge_by_key(Agraph_s g, Agnode_s t, Agnode_s h,  final __struct__<Agtag_s> key) {
+    Agedge_s e, template = (Agedge_s) Memory.malloc(Agedge_s.class);
+    Agsubnode_s sn;
+    if ((t == null) || (h == null))
+	return null;
+    template.getStruct("base").setStruct("tag", key);
+    template.setPtr("node", t);		/* guess that fan-in < fan-out */
+    sn = agsubrep(g, h);
+    if (N(sn)) e = null;
+    else {
+	    dtrestore((_dt_s)g.getPtr("e_id"), (_dtlink_s)sn.getPtr("in_id"));
+	    e = (Agedge_s) ((__ptr__)g.getPtr("e_id").castTo(_dt_s.class).call("searchf", g.getPtr("e_id"),template,0000004));
+	    if (e!=null) e = (Agedge_s) e.castTo(Agedge_s.class);
+	    sn.setPtr("in_id", dtextract((_dt_s)g.getPtr("e_id")));
+    }
+    return e;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static Agedge_t *agfindedge_by_key(Agraph_t * g, Agnode_t * t, Agnode_t * h,
+			    Agtag_t key)
+{
+    Agedge_t *e, template;
+    Agsubnode_t *sn;
+    if ((t == ((Agnode_t*)0)) || (h == ((Agnode_t*)0)))
+	return ((Agedge_t*)0);
+    template.base.tag = key;
+    template.node = t;		/* guess that fan-in < fan-out */
+    sn = agsubrep(g, h);
+    if (!sn) e = 0;
+    else {
+	    dtrestore(g->e_id, sn->in_id);
+	    e = (Agedge_t *) (*(((Dt_t*)(g->e_id))->searchf))((g->e_id),(void*)(&template),0000004);
+	    sn->in_id = dtextract(g->e_id);
+    }
+    return e;
+}
+

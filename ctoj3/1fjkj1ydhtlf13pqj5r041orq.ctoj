@@ -1,0 +1,40 @@
+public static void shape_clip0(__ptr__ inside_context, Agnode_s n, __ptr__ curve, boolean left_inside) {
+    int i;
+    double save_real_size;
+    final __array_of_struct__ c = __array_of_struct__.malloc(pointf.class, 4);
+    save_real_size = ND_rw(n);
+    for (i = 0; i < 4; i++) {
+	c.plus(i).setDouble("x", curve.plus(i).getDouble("x") - ND_coord(n).getDouble("x"));
+	c.plus(i).setDouble("y", curve.plus(i).getDouble("y") - ND_coord(n).getDouble("y"));
+    }
+    bezier_clip(inside_context, ND_shape(n).getPtr("fns").getPtr("insidefn"), c,
+		left_inside);
+    for (i = 0; i < 4; i++) {
+	curve.plus(i).setDouble("x", c.plus(i).getDouble("x") + ND_coord(n).getDouble("x"));
+	curve.plus(i).setDouble("y", c.plus(i).getDouble("y") + ND_coord(n).getDouble("y"));
+    }
+    ND_rw(n, save_real_size);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void
+shape_clip0(inside_t * inside_context, node_t * n, pointf curve[4],
+	    boolean left_inside)
+{
+    int i;
+    double save_real_size;
+    pointf c[4];
+    save_real_size = ND_rw(n);
+    for (i = 0; i < 4; i++) {
+	c[i].x = curve[i].x - ND_coord(n).x;
+	c[i].y = curve[i].y - ND_coord(n).y;
+    }
+    bezier_clip(inside_context, ND_shape(n)->fns->insidefn, c,
+		left_inside);
+    for (i = 0; i < 4; i++) {
+	curve[i].x = c[i].x + ND_coord(n).x;
+	curve[i].y = c[i].y + ND_coord(n).y;
+    }
+    ND_rw(n) = save_real_size;
+}
+

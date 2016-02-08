@@ -1,0 +1,70 @@
+public static int feasible_tree() {
+    int i, delta;
+    Agnode_s n;
+    Agedge_s e, f;
+    if (N_nodes <= 1)
+	return 0;
+    while (tight_tree() < N_nodes) {
+	e = null;
+	for (n = GD_nlist(G); n!=null; n = ND_next(n)) {
+	    for (i = 0; (f = (Agedge_s) ND_out(n).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
+		if ((TREE_EDGE(f) == false) && incident(f)!=null && ((e == null)
+							       || (SLACK(f)
+								   <
+								   SLACK
+								   (e))))
+		    e = f;
+	    }
+	}
+	if (e!=null) {
+	    delta = SLACK(e);
+	    if (delta!=0) {
+		if (EQ(incident(e), aghead(e)))
+		    delta = -delta;
+		for (i = 0; i < Tree_node.getInt("size"); i++)
+		    ND_rank(Tree_node.getArrayOfPtr("list").plus(i).getPtr(), ND_rank(Tree_node.getArrayOfPtr("list").plus(i).getPtr()) + delta);
+	    }
+	} else {
+	    return 1;
+	}
+    }
+    init_cutvalues();
+    return 0;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int feasible_tree(void)
+{
+    int i, delta;
+    node_t *n;
+    edge_t *e, *f;
+    if (N_nodes <= 1)
+	return 0;
+    while (tight_tree() < N_nodes) {
+	e = NULL;
+	for (n = GD_nlist(G); n; n = ND_next(n)) {
+	    for (i = 0; (f = ND_out(n).list[i]); i++) {
+		if ((TREE_EDGE(f) == 0) && incident(f) && ((e == NULL)
+							       || (SLACK(f)
+								   <
+								   SLACK
+								   (e))))
+		    e = f;
+	    }
+	}
+	if (e) {
+	    delta = SLACK(e);
+	    if (delta) {
+		if (incident(e) == aghead(e))
+		    delta = -delta;
+		for (i = 0; i < Tree_node.size; i++)
+		    ND_rank(Tree_node.list[i]) += delta;
+	    }
+	} else {
+	    return 1;
+	}
+    }
+    init_cutvalues();
+    return 0;
+}
+

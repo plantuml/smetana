@@ -1,0 +1,5 @@
+private static double Convergence;
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static double Convergence;
+

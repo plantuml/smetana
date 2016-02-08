@@ -1,0 +1,58 @@
+public static void make_chain(Agraph_s g, Agnode_s from, Agnode_s to, Agedge_s orig) {
+    int r, label_rank;
+    Agnode_s u, v=null;
+    Agedge_s e;
+    u = from;
+    if (orig.castTo(Agobj_s.class).getPtr("data").castTo(Agedgeinfo_t.class).getPtr("label")!=null)
+UNSUPPORTED("e73wiz44f8hmmubezsldadkyf"); // 	label_rank = ((((Agnodeinfo_t*)(((Agobj_t*)(from))->data))->rank) + (((Agnodeinfo_t*)(((Agobj_t*)(to))->data))->rank)) / 2;
+    else
+	label_rank = -1;
+    //assert((((Agedgeinfo_t*)(((Agobj_t*)(orig))->data))->to_virt) == NULL);
+    for (r = from.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("rank") + 1
+	;
+	r <= to.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("rank")
+	; r++) {
+	if (r < to.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("rank")) {
+UNSUPPORTED("a9ccwtwb2yy3d89cjb5crqgt6"); // 	    if (r == label_rank)
+UNSUPPORTED("7p2lbkulls6c0eh3ux9m0t4ra"); // 		v = label_vnode(g, orig);
+UNSUPPORTED("5c97f6vfxny0zz35l2bu4maox"); // 	    else
+UNSUPPORTED("71vvtut47i5a8a5y1sms9hzlz"); // 		v = plain_vnode(g, orig);
+UNSUPPORTED("8cumdm6sb7jp0iv2ixq0rs5je"); // 	    (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->rank) = r;
+	} else
+	    v = to;
+	e = virtual_edge(u, v, orig);
+	virtual_weight(e);
+	u = v;
+    }
+    //assert((((Agedgeinfo_t*)(((Agobj_t*)(orig))->data))->to_virt) != NULL);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void 
+make_chain(graph_t * g, node_t * from, node_t * to, edge_t * orig)
+{
+    int r, label_rank;
+    node_t *u, *v;
+    edge_t *e;
+    u = from;
+    if ((((Agedgeinfo_t*)(((Agobj_t*)(orig))->data))->label))
+	label_rank = ((((Agnodeinfo_t*)(((Agobj_t*)(from))->data))->rank) + (((Agnodeinfo_t*)(((Agobj_t*)(to))->data))->rank)) / 2;
+    else
+	label_rank = -1;
+    assert((((Agedgeinfo_t*)(((Agobj_t*)(orig))->data))->to_virt) == NULL);
+    for (r = (((Agnodeinfo_t*)(((Agobj_t*)(from))->data))->rank) + 1; r <= (((Agnodeinfo_t*)(((Agobj_t*)(to))->data))->rank); r++) {
+	if (r < (((Agnodeinfo_t*)(((Agobj_t*)(to))->data))->rank)) {
+	    if (r == label_rank)
+		v = label_vnode(g, orig);
+	    else
+		v = plain_vnode(g, orig);
+	    (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->rank) = r;
+	} else
+	    v = to;
+	e = virtual_edge(u, v, orig);
+	virtual_weight(e);
+	u = v;
+    }
+    assert((((Agedgeinfo_t*)(((Agobj_t*)(orig))->data))->to_virt) != NULL);
+}
+

@@ -1,0 +1,219 @@
+public static void make_LR_constraints(Agraph_s g) {
+    int i, j, k;
+    int sw;			/* self width */
+    int m0, m1;
+    double width;
+    int sep[] = new int[2];
+    int nodesep;      /* separation between nodes on same rank */
+    Agedge_s e, e0, e1, ff;
+    Agnode_s u, v, t0, h0;
+    __ptr__ rank = GD_rank(g);
+    /* Use smaller separation on odd ranks if g has edge labels */
+    if ((GD_has_labels(g) & (1 << 0))!=0) {
+	sep[0] = GD_nodesep(g);
+	sep[1] = 5;
+    }
+    else {
+	sep[1] = sep[0] = GD_nodesep(g);
+    }
+    /* make edges to constrain left-to-right ordering */
+    for (i = GD_minrank(g); i <= GD_maxrank(g); i++) {
+	double last;
+	ND_rank(rank.plus(i).getArrayOfPtr("v").plus(0).getPtr(), 0);
+	last = 0;
+	nodesep = sep[i & 1];
+	for (j = 0; j < rank.plus(i).getInt("n"); j++) {
+	    u = (Agnode_s) rank.plus(i).getArrayOfPtr("v").plus(j).getPtr();
+	    ND_mval(u, ND_rw(u));	/* keep it somewhere safe */
+	    if (ND_other(u).getInt("size") > 0) {	/* compute self size */
+		/* FIX: dot assumes all self-edges go to the right. This
+                 * is no longer true, though makeSelfEdge still attempts to
+                 * put as many as reasonable on the right. The dot code
+                 * should be modified to allow a box reflecting the placement
+                 * of all self-edges, and use that to reposition the nodes.
+                 * Note that this would not only affect left and right
+                 * positioning but may also affect interrank spacing.
+                 */
+		sw = 0;
+		for (k = 0; (e = (Agedge_s) ND_other(u).getArrayOfPtr("list").plus(k).getPtr())!=null; k++) {
+		    if (EQ(agtail(e), aghead(e))) {
+			sw += selfRightSpace (e);
+		    }
+		}
+		ND_rw(u, ND_rw(u) + sw);	/* increment to include self edges */
+	    }
+	    v = (Agnode_s) rank.plus(i).getArrayOfPtr("v").plus(j + 1).getPtr();
+	    if (v!=null) {
+		width = ND_rw(u) + ND_lw(v) + nodesep;
+		e0 = make_aux_edge(u, v, width, 0);
+		ND_rank(v, (int)(last + width));
+		last = (int)(last + width);
+	    }
+	    /* constraints from labels of flat edges on previous rank */
+	    if ((e = (Agedge_s) ND_alg(u))!=null) {
+		e0 = (Agedge_s) ND_save_out(u).getArrayOfPtr("list").plus(0).getPtr();
+		e1 = (Agedge_s) ND_save_out(u).getArrayOfPtr("list").plus(1).getPtr();
+		if (ND_order(aghead(e0)) > ND_order(aghead(e1))) {
+		    ff = e0;
+		    e0 = e1;
+		    e1 = ff;
+		}
+		m0 = (ED_minlen(e) * GD_nodesep(g)) / 2;
+		m1 = m0 + ((int)(ND_rw(aghead(e0)) + ND_lw(agtail(e0))));
+		/* these guards are needed because the flat edges
+		 * work very poorly with cluster layout */
+		if (canreach(agtail(e0), aghead(e0)) == 0)
+		    make_aux_edge(aghead(e0), agtail(e0), m1,
+			ED_weight(e));
+		m1 = m0 + ((int)(ND_rw(agtail(e1)) + ND_lw(aghead(e1))));
+		if (canreach(aghead(e1), agtail(e1)) == 0)
+		    make_aux_edge(agtail(e1), aghead(e1), m1,
+			ED_weight(e));
+	    }
+	    /* position flat edge endpoints */
+	    for (k = 0; k < ND_flat_out(u).getInt("size"); k++) {
+		e = (Agedge_s) ND_flat_out(u).getArrayOfPtr("list").plus(k).getPtr();
+		if (ND_order(agtail(e)) < ND_order(aghead(e))) {
+		    t0 = agtail(e);
+		    h0 = aghead(e);
+		} else {
+		    t0 = aghead(e);
+		    h0 = agtail(e);
+		}
+		width = ND_rw(t0) + ND_lw(h0);
+		m0 = (int) (ED_minlen(e) * GD_nodesep(g) + width);
+		if ((e0 = find_fast_edge(t0, h0))!=null) {
+		    /* flat edge between adjacent neighbors 
+                     * ED_dist contains the largest label width.
+                     */
+		    m0 = MAX(m0, (int)(width + GD_nodesep(g) + ROUND(ED_dist(e))));
+		    if (m0 > USHRT_MAX)
+			m0 = (int) largeMinlen (m0);
+		    ED_minlen(e0, MAX(ED_minlen(e0), m0));
+		    ED_weight(e0, MAX(ED_weight(e0), ED_weight(e)));
+		}
+		else if (N(ED_label(e))) {
+		    /* unlabeled flat edge between non-neighbors 
+		     * ED_minlen(e) is max of ED_minlen of all equivalent 
+                     * edges.
+                     */
+		    make_aux_edge(t0, h0, m0, ED_weight(e));
+		}
+		/* labeled flat edges between non-neighbors have already
+                 * been constrained by the label above. 
+                 */ 
+	    }
+	}
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void 
+make_LR_constraints(graph_t * g)
+{
+    int i, j, k;
+    int sw;			/* self width */
+    int m0, m1;
+    double width;
+    int sep[2];
+    int nodesep;      /* separation between nodes on same rank */
+    edge_t *e, *e0, *e1, *ff;
+    node_t *u, *v, *t0, *h0;
+    rank_t *rank = GD_rank(g);
+    /* Use smaller separation on odd ranks if g has edge labels */
+    if (GD_has_labels(g) & (1 << 0)) {
+	sep[0] = GD_nodesep(g);
+	sep[1] = 5;
+    }
+    else {
+	sep[1] = sep[0] = GD_nodesep(g);
+    }
+    /* make edges to constrain left-to-right ordering */
+    for (i = GD_minrank(g); i <= GD_maxrank(g); i++) {
+	double last;
+	last = ND_rank(rank[i].v[0]) = 0;
+	nodesep = sep[i & 1];
+	for (j = 0; j < rank[i].n; j++) {
+	    u = rank[i].v[j];
+	    ND_mval(u) = ND_rw(u);	/* keep it somewhere safe */
+	    if (ND_other(u).size > 0) {	/* compute self size */
+		/* FIX: dot assumes all self-edges go to the right. This
+                 * is no longer true, though makeSelfEdge still attempts to
+                 * put as many as reasonable on the right. The dot code
+                 * should be modified to allow a box reflecting the placement
+                 * of all self-edges, and use that to reposition the nodes.
+                 * Note that this would not only affect left and right
+                 * positioning but may also affect interrank spacing.
+                 */
+		sw = 0;
+		for (k = 0; (e = ND_other(u).list[k]); k++) {
+		    if (agtail(e) == aghead(e)) {
+			sw += selfRightSpace (e);
+		    }
+		}
+		ND_rw(u) += sw;	/* increment to include self edges */
+	    }
+	    v = rank[i].v[j + 1];
+	    if (v) {
+		width = ND_rw(u) + ND_lw(v) + nodesep;
+		e0 = make_aux_edge(u, v, width, 0);
+		last = (ND_rank(v) = last + width);
+	    }
+	    /* constraints from labels of flat edges on previous rank */
+	    if ((e = (edge_t*)ND_alg(u))) {
+		e0 = ND_save_out(u).list[0];
+		e1 = ND_save_out(u).list[1];
+		if (ND_order(aghead(e0)) > ND_order(aghead(e1))) {
+		    ff = e0;
+		    e0 = e1;
+		    e1 = ff;
+		}
+		m0 = (ED_minlen(e) * GD_nodesep(g)) / 2;
+		m1 = m0 + ND_rw(aghead(e0)) + ND_lw(agtail(e0));
+		/* these guards are needed because the flat edges
+		 * work very poorly with cluster layout */
+		if (canreach(agtail(e0), aghead(e0)) == 0)
+		    make_aux_edge(aghead(e0), agtail(e0), m1,
+			ED_weight(e));
+		m1 = m0 + ND_rw(agtail(e1)) + ND_lw(aghead(e1));
+		if (canreach(aghead(e1), agtail(e1)) == 0)
+		    make_aux_edge(agtail(e1), aghead(e1), m1,
+			ED_weight(e));
+	    }
+	    /* position flat edge endpoints */
+	    for (k = 0; k < ND_flat_out(u).size; k++) {
+		e = ND_flat_out(u).list[k];
+		if (ND_order(agtail(e)) < ND_order(aghead(e))) {
+		    t0 = agtail(e);
+		    h0 = aghead(e);
+		} else {
+		    t0 = aghead(e);
+		    h0 = agtail(e);
+		}
+		width = ND_rw(t0) + ND_lw(h0);
+		m0 = ED_minlen(e) * GD_nodesep(g) + width;
+		if ((e0 = find_fast_edge(t0, h0))) {
+		    /* flat edge between adjacent neighbors 
+                     * ED_dist contains the largest label width.
+                     */
+		    m0 = MAX(m0, width + GD_nodesep(g) + ROUND(ED_dist(e)));
+		    if (m0 > USHRT_MAX)
+			m0 = largeMinlen (m0);
+		    ED_minlen(e0) = MAX(ED_minlen(e0), m0);
+		    ED_weight(e0) = MAX(ED_weight(e0), ED_weight(e));
+		}
+		else if (!ED_label(e)) {
+		    /* unlabeled flat edge between non-neighbors 
+		     * ED_minlen(e) is max of ED_minlen of all equivalent 
+                     * edges.
+                     */
+		    make_aux_edge(t0, h0, m0, ED_weight(e));
+		}
+		/* labeled flat edges between non-neighbors have already
+                 * been constrained by the label above. 
+                 */ 
+	    }
+	}
+    }
+}
+

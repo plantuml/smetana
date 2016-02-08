@@ -1,0 +1,32 @@
+public static void add2dq(int side, __ptr__ pnlp) {
+    if (side == 1) {
+	if (dq.getInt("lpnlpi") - dq.getInt("fpnlpi") >= 0)
+	    pnlp.setPtr("link", dq.getPtr("pnlps").plus(dq.getInt("fpnlpi")).getPtr());
+	    /* shortest path links */
+	dq.setInt("fpnlpi", dq.getInt("fpnlpi")-1);
+	dq.getPtr("pnlps").plus(dq.getInt("fpnlpi")).setPtr(pnlp);
+    } else {
+	if (dq.getInt("lpnlpi") - dq.getInt("fpnlpi") >= 0)
+	    pnlp.setPtr("link", dq.getPtr("pnlps").plus(dq.getInt("lpnlpi")).getPtr());
+	    /* shortest path links */
+	dq.setInt("lpnlpi", dq.getInt("lpnlpi")+1);
+	dq.getPtr("pnlps").plus(dq.getInt("lpnlpi")).setPtr(pnlp);
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void add2dq(int side, pointnlink_t * pnlp)
+{
+    if (side == 1) {
+	if (dq.lpnlpi - dq.fpnlpi >= 0)
+	    pnlp->link = dq.pnlps[dq.fpnlpi];	/* shortest path links */
+	dq.fpnlpi--;
+	dq.pnlps[dq.fpnlpi] = pnlp;
+    } else {
+	if (dq.lpnlpi - dq.fpnlpi >= 0)
+	    pnlp->link = dq.pnlps[dq.lpnlpi];	/* shortest path links */
+	dq.lpnlpi++;
+	dq.pnlps[dq.lpnlpi] = pnlp;
+    }
+}
+

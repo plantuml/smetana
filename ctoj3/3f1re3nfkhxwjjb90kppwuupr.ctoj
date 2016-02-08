@@ -1,0 +1,17 @@
+public static void renewlist(elist L) {
+    int i;
+    for (i = L.getInt("size"); i >= 0; i--)
+	L.getArrayOfPtr("list").plus(i).setPtr(null);
+    L.setInt("size", 0);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void 
+renewlist(elist * L)
+{
+    int i;
+    for (i = L->size; i >= 0; i--)
+	L->list[i] = NULL;
+    L->size = 0;
+}
+

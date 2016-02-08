@@ -1,0 +1,24 @@
+public static Agnode_s incident(Agedge_s e) {
+    if (ND_mark(agtail(e))!=0) {
+	if (ND_mark(aghead(e)) == 0)
+	    return agtail(e);
+    } else {
+	if (ND_mark(aghead(e))!=0)
+	    return aghead(e);
+    }
+    return null;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static node_t *incident(edge_t * e)
+{
+    if (ND_mark(agtail(e))) {
+	if (ND_mark(aghead(e)) == 0)
+	    return agtail(e);
+    } else {
+	if (ND_mark(aghead(e)))
+	    return aghead(e);
+    }
+    return NULL;
+}
+

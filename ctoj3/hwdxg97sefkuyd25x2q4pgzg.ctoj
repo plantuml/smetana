@@ -1,0 +1,16 @@
+public static void rec_save_vlists(Agraph_s g) {
+    int c;
+    save_vlist(g);
+    for (c = 1; c <= GD_n_cluster(g); c++)
+	rec_save_vlists((Agraph_s) GD_clust(g).plus(c).getPtr());
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void rec_save_vlists(graph_t * g)
+{
+    int c;
+    save_vlist(g);
+    for (c = 1; c <= GD_n_cluster(g); c++)
+	rec_save_vlists(GD_clust(g)[c]);
+}
+

@@ -1,0 +1,34 @@
+public static void dfs_cutval(Agnode_s v, Agedge_s par) {
+    int i;
+    Agedge_s e;
+    for (i = 0;
+    (e = (Agedge_s) v.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("tree_out").getArrayOfPtr("list", i))!=null
+    ; i++)
+	if (NEQ(e, par))
+	    dfs_cutval(
+	    (Agnode_s) (e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2? e: e.plus(-1)).getPtr("node")
+	    , e);
+    for (i = 0;
+    (e = (Agedge_s) v.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("tree_in").getArrayOfPtr("list", i))!=null
+    ; i++)
+	if (NEQ(e, par))
+UNSUPPORTED("92ljf4xjchl6d1yielgl40ub7"); // 	    dfs_cutval(((((((Agobj_t*)(e))->tag).objtype) == 3? (e): ((e)+1))->node), e);
+    if (par!=null)
+	x_cutval(par);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void dfs_cutval(node_t * v, edge_t * par)
+{
+    int i;
+    edge_t *e;
+    for (i = 0; (e = (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->tree_out).list[i]); i++)
+	if (e != par)
+	    dfs_cutval(((((((Agobj_t*)(e))->tag).objtype) == 2? (e): ((e)-1))->node), e);
+    for (i = 0; (e = (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->tree_in).list[i]); i++)
+	if (e != par)
+	    dfs_cutval(((((((Agobj_t*)(e))->tag).objtype) == 3? (e): ((e)+1))->node), e);
+    if (par)
+	x_cutval(par);
+}
+

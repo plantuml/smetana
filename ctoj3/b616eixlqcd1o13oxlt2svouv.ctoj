@@ -1,0 +1,18 @@
+public static boolean is_cluster_edge(Agedge_s e) {
+    return (
+	(e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 3?e:e.plus(1)).getPtr("node").castTo(Agobj_s.class).getPtr("data")
+	.castTo(Agnodeinfo_t.class).getInt("ranktype") == 7
+	    ||
+			(e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2?e:e.plus(-1)).getPtr("node").castTo(Agobj_s.class).getPtr("data")
+	.castTo(Agnodeinfo_t.class).getInt("ranktype") == 7
+		);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int 
+is_cluster_edge(edge_t * e)
+{
+    return (((((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 3?(e):((e)+1))->node)))->data))->ranktype) == 7)
+	    || ((((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 2?(e):((e)-1))->node)))->data))->ranktype) == 7));
+}
+

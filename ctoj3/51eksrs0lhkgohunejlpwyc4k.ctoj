@@ -1,0 +1,12 @@
+public static Agraph_s agfstsubg(Agraph_s g) {
+	__ptr__ tmp = (__ptr__)g.getPtr("g_dict").castTo(_dt_s.class).call("searchf", g.getPtr("g_dict"),null,0000200);
+	if (tmp!=null) tmp = tmp.castTo(Agraph_s.class);
+	return (Agraph_s) tmp;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agraph_t *agfstsubg(Agraph_t * g)
+{
+    return (Agraph_t *) (*(((Dt_t*)(g->g_dict))->searchf))((g->g_dict),(void*)(0),0000200);
+}
+

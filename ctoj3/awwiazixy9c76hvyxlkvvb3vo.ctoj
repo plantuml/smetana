@@ -1,0 +1,20 @@
+public static int agsubnodeidcmpf(_dt_s d, __ptr__ arg0, __ptr__ arg1, _dtdisc_s disc) {
+    int	v;
+    Agsubnode_s sn0, sn1;
+    sn0 = (Agsubnode_s) arg0.castTo(Agsubnode_s.class);
+    sn1 = (Agsubnode_s) arg1.castTo(Agsubnode_s.class);
+    v = (AGID(sn0.getPtr("node")) - AGID(sn1.getPtr("node")));
+    return ((v==0)?0:(v<0?-1:1));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int agsubnodeidcmpf(Dict_t * d, void *arg0, void *arg1, Dtdisc_t * disc)
+{
+    long	v;
+    Agsubnode_t *sn0, *sn1;
+    sn0 = (Agsubnode_t *) arg0;
+    sn1 = (Agsubnode_t *) arg1;
+    v = (AGID(sn0->node) - AGID(sn1->node));
+    return ((v==0)?0:(v<0?-1:1));
+}
+

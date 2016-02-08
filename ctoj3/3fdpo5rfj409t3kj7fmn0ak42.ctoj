@@ -1,0 +1,40 @@
+public static Agedge_s make_aux_edge(Agnode_s u, Agnode_s v, double len, int wt) {
+    Agedge_s e;
+    Agedgepair_s e2 = (Agedgepair_s) zmalloc(sizeof(Agedgepair_s.class));
+    e2.getPtr("in").castTo(Agobj_s.class).getPtr("tag").setInt("objtype", 3);
+    e2.getPtr("out").castTo(Agobj_s.class).getPtr("tag").setInt("objtype", 2);
+    e2.getPtr("out").getPtr("base").setPtr("data",
+      zmalloc(sizeof(Agedgeinfo_t.class)));
+    e = (Agedge_s) e2.getPtr("out");
+    (e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 3? e: e.plus(1)).setPtr("node", 
+      u);
+    (e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2? e: e.plus(-1)).setPtr("node", 
+      v);
+    if (len > USHRT_MAX)
+	len = largeMinlen (len);
+    e.castTo(Agobj_s.class).getPtr("data").castTo(Agedgeinfo_t.class).setInt("minlen",
+      ((len>=0)?(int)(len + .5):(int)(len - .5)));
+    e.castTo(Agobj_s.class).getPtr("data").castTo(Agedgeinfo_t.class).setInt("weight", wt);
+    fast_edge(e);
+    return e;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+edge_t *make_aux_edge(node_t * u, node_t * v, double len, int wt)
+{
+    edge_t *e;
+    Agedgepair_t* e2 = (Agedgepair_t*)zmalloc(sizeof(Agedgepair_t));
+    ((((Agobj_t*)(&(e2->in)))->tag).objtype) = 3;
+    ((((Agobj_t*)(&(e2->out)))->tag).objtype) = 2;
+    e2->out.base.data = (Agrec_t*)(Agedgeinfo_t*)zmalloc(sizeof(Agedgeinfo_t));
+    e = &(e2->out);
+    ((((((Agobj_t*)(e))->tag).objtype) == 3? (e): ((e)+1))->node) = u;
+    ((((((Agobj_t*)(e))->tag).objtype) == 2? (e): ((e)-1))->node) = v;
+    if (len > USHRT_MAX)
+	len = largeMinlen (len);
+    (((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->minlen) = ((len>=0)?(int)(len + .5):(int)(len - .5));
+    (((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->weight) = wt;
+    fast_edge(e);
+    return e;
+}
+

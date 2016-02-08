@@ -1,0 +1,80 @@
+public static int mkspline(__ptr__ inps, int inpn, __ptr__ tnas, final __struct__<pointf> ev0, final __struct__<pointf> ev1, __ptr__ sp0, __ptr__ sv0, __ptr__ sp1, __ptr__ sv1) {
+    final __struct__<pointf> tmp = __struct__.from(pointf.class);
+    double c[][] = new double[2][2];
+    double x[] = new double[2];
+    double det01, det0X, detX1;
+    double d01, scale0, scale3;
+    int i;
+    scale0 = scale3 = 0.0;
+    c[0][0] = c[0][1] = c[1][0] = c[1][1] = 0.0;
+    x[0] = x[1] = 0.0;
+    for (i = 0; i < inpn; i++) {
+	c[0][0] += dot(tnas.plus(i).getStruct().getArrayOfStruct("a").plus(0).getStruct(), tnas.plus(i).getStruct().getArrayOfStruct("a").plus(0).getStruct());
+	c[0][1] += dot(tnas.plus(i).getStruct().getArrayOfStruct("a").plus(0).getStruct(), tnas.plus(i).getStruct().getArrayOfStruct("a").plus(1).getStruct());
+	c[1][0] = c[0][1];
+	c[1][1] += dot(tnas.plus(i).getStruct().getArrayOfStruct("a").plus(1).getStruct(), tnas.plus(i).getStruct().getArrayOfStruct("a").plus(1).getStruct());
+	tmp.____(sub(inps.plus(i).getStruct(), add(scale(inps.plus(0).getStruct(), B01(tnas.plus(i).getStruct().getDouble("t"))),
+			       scale(inps.plus(inpn - 1).getStruct(), B23(tnas.plus(i).getStruct().getDouble("t"))))));
+	x[0] += dot(tnas.plus(i).getStruct().getArrayOfStruct("a").plus(0).getStruct(), tmp);
+	x[1] += dot(tnas.plus(i).getStruct().getArrayOfStruct("a").plus(1).getStruct(), tmp);
+    }
+    det01 = c[0][0] * c[1][1] - c[1][0] * c[0][1];
+    det0X = c[0][0] * x[1] - c[0][1] * x[0];
+    detX1 = x[0] * c[1][1] - x[1] * c[0][1];
+    if (((det01) >= 0 ? (det01) : -(det01)) >= 1e-6) {
+	scale0 = detX1 / det01;
+	scale3 = det0X / det01;
+    }
+    if (((det01) >= 0 ? (det01) : -(det01)) < 1e-6 || scale0 <= 0.0 || scale3 <= 0.0) {
+	d01 = dist(inps.plus(0).getStruct(), inps.plus(inpn - 1).getStruct()) / 3.0;
+	scale0 = d01;
+	scale3 = d01;
+    }
+    sp0.setStruct(inps.plus(0).getStruct());
+    sv0.setStruct(scale(ev0, scale0));
+    sp1.setStruct(inps.plus(inpn - 1).getStruct());
+    sv1.setStruct(scale(ev1, scale3));
+    return 0;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int mkspline(Ppoint_t * inps, int inpn, tna_t * tnas, Ppoint_t ev0,
+		    Ppoint_t ev1, Ppoint_t * sp0, Ppoint_t * sv0,
+		    Ppoint_t * sp1, Ppoint_t * sv1)
+{
+    Ppoint_t tmp;
+    double c[2][2], x[2], det01, det0X, detX1;
+    double d01, scale0, scale3;
+    int i;
+    scale0 = scale3 = 0.0;
+    c[0][0] = c[0][1] = c[1][0] = c[1][1] = 0.0;
+    x[0] = x[1] = 0.0;
+    for (i = 0; i < inpn; i++) {
+	c[0][0] += dot(tnas[i].a[0], tnas[i].a[0]);
+	c[0][1] += dot(tnas[i].a[0], tnas[i].a[1]);
+	c[1][0] = c[0][1];
+	c[1][1] += dot(tnas[i].a[1], tnas[i].a[1]);
+	tmp = sub(inps[i], add(scale(inps[0], B01(tnas[i].t)),
+			       scale(inps[inpn - 1], B23(tnas[i].t))));
+	x[0] += dot(tnas[i].a[0], tmp);
+	x[1] += dot(tnas[i].a[1], tmp);
+    }
+    det01 = c[0][0] * c[1][1] - c[1][0] * c[0][1];
+    det0X = c[0][0] * x[1] - c[0][1] * x[0];
+    detX1 = x[0] * c[1][1] - x[1] * c[0][1];
+    if (((det01) >= 0 ? (det01) : -(det01)) >= 1e-6) {
+	scale0 = detX1 / det01;
+	scale3 = det0X / det01;
+    }
+    if (((det01) >= 0 ? (det01) : -(det01)) < 1e-6 || scale0 <= 0.0 || scale3 <= 0.0) {
+	d01 = dist(inps[0], inps[inpn - 1]) / 3.0;
+	scale0 = d01;
+	scale3 = d01;
+    }
+    *sp0 = inps[0];
+    *sv0 = scale(ev0, scale0);
+    *sp1 = inps[inpn - 1];
+    *sv1 = scale(ev1, scale3);
+    return 0;
+}
+

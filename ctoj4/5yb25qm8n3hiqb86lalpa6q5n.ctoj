@@ -1,0 +1,16 @@
+private static final __array_of_struct__ Arrowmods = __array_of_struct__.malloc(arrowname_t.class, 1);
+static {
+	Arrowmods.plus(0).setStruct(create_arrowname_t(null, 0));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static arrowname_t Arrowmods[] = {
+    {"o", (1<<(4+0))},
+    {"r", (1<<(4+3))},
+    {"l", (1<<(4+2))},
+    /* deprecated alternates for backward compat */
+    {"e", (1<<(4+0))},	/* o  - needed for "ediamond" */
+    {"half", (1<<(4+2))},	/* l  - needed for "halfopen" */
+    {(char *) 0, (0)}
+};
+

@@ -1,0 +1,18 @@
+public static void create_aux_edges(Agraph_s g) {
+    allocate_aux_edges(g);
+    make_LR_constraints(g);
+    make_edge_pairs(g);
+    pos_clusters(g);
+    compress_graph(g);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void create_aux_edges(graph_t * g)
+{
+    allocate_aux_edges(g);
+    make_LR_constraints(g);
+    make_edge_pairs(g);
+    pos_clusters(g);
+    compress_graph(g);
+}
+

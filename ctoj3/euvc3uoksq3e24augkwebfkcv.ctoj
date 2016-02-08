@@ -1,0 +1,12 @@
+public static void dot_layout(Agraph_s g) {
+    if (agnnodes(g)!=0) doDot (g);
+    dotneato_postprocess(g);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void dot_layout(Agraph_t * g)
+{
+    if (agnnodes(g)) doDot (g);
+    dotneato_postprocess(g);
+}
+

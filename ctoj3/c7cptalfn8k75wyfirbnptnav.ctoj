@@ -1,0 +1,23 @@
+public static nodequeue new_queue(int sz) {
+    nodequeue q = (nodequeue)zmalloc(sizeof(nodequeue.class));
+    if (sz <= 1)
+	sz = 2;
+	final __ptr__ tmp__ = zmalloc(sizeof(Agnode_s.class, sz));
+	q.setPtr("store", tmp__);
+	q.setPtr("tail", tmp__);
+	q.setPtr("head", tmp__);
+	q.setPtr("limit", tmp__.plus(sz));
+    return q;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+nodequeue *new_queue(int sz)
+{
+    nodequeue *q = (nodequeue*)zmalloc(sizeof(nodequeue));
+    if (sz <= 1)
+	sz = 2;
+    q->head = q->tail = q->store = (node_t **)zmalloc((sz)*sizeof(node_t *));
+    q->limit = q->store + sz;
+    return q;
+}
+

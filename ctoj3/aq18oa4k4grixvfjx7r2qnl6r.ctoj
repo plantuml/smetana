@@ -1,0 +1,55 @@
+public static int local_cross(final __struct__<elist> l, int dir) {
+ UNSUPPORTED("3jmndo6p8u1x5wp297qpt0jto"); // static int local_cross(elist l, int dir)
+UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
+UNSUPPORTED("2gmuwkiycm22in3d9obd7bzll"); //     int i, j, is_out;
+UNSUPPORTED("bcforqedbns82qhgqkocjbvm"); //     int cross = 0;
+UNSUPPORTED("9b48a157azcrz2ihzqehhpsvs"); //     edge_t *e, *f;
+UNSUPPORTED("8az9seos08f2sa39127q6yo9"); //     if (dir > 0)
+UNSUPPORTED("8xj2loay6suplxyiun7hlye39"); // 	is_out = NOT(0);
+UNSUPPORTED("div10atae09n36x269sl208r1"); //     else
+UNSUPPORTED("56xhe3qw67sg923dvr87k8hho"); // 	is_out = 0;
+UNSUPPORTED("16t717mqlhfn3egmgor8are83"); //     for (i = 0; (e = l.list[i]); i++) {
+UNSUPPORTED("3lbek06034x2gsimhxwfmgf0r"); // 	if (is_out)
+UNSUPPORTED("2pkmgz4cm8lwpwxgcg3znjm90"); // 	    for (j = i + 1; (f = l.list[j]); j++) {
+UNSUPPORTED("8wj6phwqlmunjcua9abo6093d"); // 		if ((ND_order(aghead(f)) - ND_order(aghead(e)))
+UNSUPPORTED("pt12knuv94kokmtrwpdp1m0j"); // 			 * (ED_tail_port(f).p.x - ED_tail_port(e).p.x) < 0)
+UNSUPPORTED("bw8rwv11yqzss88pad7ljil8a"); // 		    cross += ED_xpenalty(e) * ED_xpenalty(f);
+UNSUPPORTED("6to1esmb8qfrhzgtr7jdqleja"); // 	} else
+UNSUPPORTED("2pkmgz4cm8lwpwxgcg3znjm90"); // 	    for (j = i + 1; (f = l.list[j]); j++) {
+UNSUPPORTED("bza83c6rmihrkzyllwf0jm4tn"); // 		if ((ND_order(agtail(f)) - ND_order(agtail(e)))
+UNSUPPORTED("csrxg0y1azmvde7t833lm13sp"); // 			* (ED_head_port(f).p.x - ED_head_port(e).p.x) < 0)
+UNSUPPORTED("bw8rwv11yqzss88pad7ljil8a"); // 		    cross += ED_xpenalty(e) * ED_xpenalty(f);
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("8dm5o3tsfvxtjilyob6q5ndi1"); //     return cross;
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int local_cross(elist l, int dir)
+{
+    int i, j, is_out;
+    int cross = 0;
+    edge_t *e, *f;
+    if (dir > 0)
+	is_out = NOT(0);
+    else
+	is_out = 0;
+    for (i = 0; (e = l.list[i]); i++) {
+	if (is_out)
+	    for (j = i + 1; (f = l.list[j]); j++) {
+		if ((ND_order(aghead(f)) - ND_order(aghead(e)))
+			 * (ED_tail_port(f).p.x - ED_tail_port(e).p.x) < 0)
+		    cross += ED_xpenalty(e) * ED_xpenalty(f);
+	} else
+	    for (j = i + 1; (f = l.list[j]); j++) {
+		if ((ND_order(agtail(f)) - ND_order(agtail(e)))
+			* (ED_head_port(f).p.x - ED_head_port(e).p.x) < 0)
+		    cross += ED_xpenalty(e) * ED_xpenalty(f);
+	    }
+    }
+    return cross;
+}
+

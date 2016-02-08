@@ -1,0 +1,44 @@
+public static void growdq(int newdqn) {
+    if (newdqn <= dq.getInt("pnlpn"))
+	return;
+    if (N(dq.getPtr("pnlps"))) {
+	if (N
+	    (dq.setPtr("pnlps",
+	     (__ptr__) Memory.malloc(sizeof_starstar_empty(pointnlink_t.class, newdqn))))) {
+UNSUPPORTED("88fwpb40wz9jc8jiz7u032s4t"); // 	    fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\shortest.c", 26, ("cannot malloc dq.pnls"));
+UNSUPPORTED("1r6uhbnmxv8c6msnscw07w0qx"); // 	    longjmp(jbuf,1);
+	}
+    } else {
+UNSUPPORTED("1lqt1bq6n68aajebcq04qnxi9"); // 	if (!(dq.pnlps = (pointnlink_t **) realloc((void *) dq.pnlps,
+UNSUPPORTED("2rez1kpi8lahpe65p73p75bwj"); // 						   sizeof (pointnlink_t *) *
+UNSUPPORTED("3jangvz57cahcu1m72u3ewng4"); // 						   newdqn))) {
+UNSUPPORTED("exqx4ck7h15m8whgip6xpnhoo"); // 	    fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\shortest.c", 26, ("cannot realloc dq.pnls"));
+UNSUPPORTED("1r6uhbnmxv8c6msnscw07w0qx"); // 	    longjmp(jbuf,1);
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+    }
+    dq.setInt("pnlpn", newdqn);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void growdq(int newdqn)
+{
+    if (newdqn <= dq.pnlpn)
+	return;
+    if (!dq.pnlps) {
+	if (!
+	    (dq.pnlps =
+	     (pointnlink_t **) malloc(sizeof (pointnlink_t *) * newdqn))) {
+	    fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\shortest.c", 26, ("cannot malloc dq.pnls"));
+	    longjmp(jbuf,1);
+	}
+    } else {
+	if (!(dq.pnlps = (pointnlink_t **) realloc((void *) dq.pnlps,
+						   sizeof (pointnlink_t *) *
+						   newdqn))) {
+	    fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\shortest.c", 26, ("cannot realloc dq.pnls"));
+	    longjmp(jbuf,1);
+	}
+    }
+    dq.pnlpn = newdqn;
+}
+

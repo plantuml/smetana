@@ -1,0 +1,30 @@
+public static boolean ok_to_make_edge(Agraph_s g, Agnode_s t, Agnode_s h) {
+    final __struct__<Agtag_s> key = __struct__.from(Agtag_s.class);
+    /* protect against self, multi-edges in strict graphs */
+    if (agisstrict(g)) {
+	if (g.getPtr("desc").getBoolean("no_loop") && (EQ(t, h))) /* simple graphs */
+	    return false;
+	key.____(Tag);
+	key.setInt("objtype", 0);	/* wild card */
+	if (agfindedge_by_key(g, t, h, key)!=null)
+	    return false;
+    }
+    return (N(0));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int ok_to_make_edge(Agraph_t * g, Agnode_t * t, Agnode_t * h)
+{
+    Agtag_t key;
+    /* protect against self, multi-edges in strict graphs */
+    if (agisstrict(g)) {
+	if (g->desc.no_loop && (t == h)) /* simple graphs */
+	    return (0);
+	key = Tag;
+	key.objtype = 0;	/* wild card */
+	if (agfindedge_by_key(g, t, h, key))
+	    return (0);
+    }
+    return (!(0));
+}
+

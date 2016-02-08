@@ -1,0 +1,20 @@
+public static int agsubnodeseqcmpf(_dt_s d, __ptr__ arg0, __ptr__ arg1, _dtdisc_s disc) {
+    Agsubnode_s sn0, sn1;
+    int	v;
+    sn0 = (Agsubnode_s) arg0.castTo(Agsubnode_s.class);
+    sn1 = (Agsubnode_s) arg1.castTo(Agsubnode_s.class);
+    v = (AGSEQ(sn0.getPtr("node")) - AGSEQ(sn1.getPtr("node")));
+    return ((v==0)?0:(v<0?-1:1));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int agsubnodeseqcmpf(Dict_t * d, void *arg0, void *arg1, Dtdisc_t * disc)
+{
+    Agsubnode_t *sn0, *sn1;
+    long	v;
+    sn0 = (Agsubnode_t *) arg0;
+    sn1 = (Agsubnode_t *) arg1;
+    v = (AGSEQ(sn0->node) - AGSEQ(sn1->node));
+    return ((v==0)?0:(v<0?-1:1));
+}
+

@@ -1,0 +1,89 @@
+public static void cleanup1(Agraph_s g) {
+    Agnode_s n;
+    Agedge_s e, f;
+    int c;
+    for (c = 0; c < GD_comp(g).getInt("size"); c++) {
+	GD_nlist(g, GD_comp(g).getArrayOfPtr("list").plus(c).getPtr());
+	for (n = GD_nlist(g); n!=null; n = ND_next(n)) {
+	    renewlist(ND_in(n).amp());
+	    renewlist(ND_out(n).amp());
+	    ND_mark(n, 0);
+	}
+    }
+    for (n = agfstnode(g); n!=null; n = agnxtnode(g, n)) {
+	for (e = agfstout(g, n); e!=null; e = agnxtout(g, e)) {
+	    f = ED_to_virt(e);
+	    /* Null out any other references to f to make sure we don't 
+	     * handle it a second time. For example, parallel multiedges 
+	     * share a virtual edge.
+	     */
+	    if (f!=null && (EQ(e, ED_to_orig(f)))) {
+		Agedge_s e1, f1;
+		Agnode_s n1;
+		for (n1 = agfstnode(g); n1!=null; n1 = agnxtnode(g, n1)) {
+		    for (e1 = agfstout(g, n1); e1!=null; e1 = agnxtout(g, e1)) {
+			if (NEQ(e, e1)) {
+			    f1 = ED_to_virt(e1);
+			    if (f1!=null && EQ(f, f1)) {
+				ED_to_virt(e1, null);
+			    }
+			}
+		    }
+		}
+		Memory.free(f.getStruct("base").getPtr("data"));
+		Memory.free(f);
+	    }
+	    ED_to_virt(e, null);
+	}
+    }
+    Memory.free(GD_comp(g).getPtr("list"));
+    GD_comp(g).setPtr("list", null);
+    GD_comp(g).setInt("size", 0);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void 
+cleanup1(graph_t * g)
+{
+    node_t *n;
+    edge_t *e, *f;
+    int c;
+    for (c = 0; c < GD_comp(g).size; c++) {
+	GD_nlist(g) = GD_comp(g).list[c];
+	for (n = GD_nlist(g); n; n = ND_next(n)) {
+	    renewlist(&ND_in(n));
+	    renewlist(&ND_out(n));
+	    ND_mark(n) = 0;
+	}
+    }
+    for (n = agfstnode(g); n; n = agnxtnode(g, n)) {
+	for (e = agfstout(g, n); e; e = agnxtout(g, e)) {
+	    f = ED_to_virt(e);
+	    /* Null out any other references to f to make sure we don't 
+	     * handle it a second time. For example, parallel multiedges 
+	     * share a virtual edge.
+	     */
+	    if (f && (e == ED_to_orig(f))) {
+		edge_t *e1, *f1;
+		node_t *n1;
+		for (n1 = agfstnode(g); n1; n1 = agnxtnode(g, n1)) {
+		    for (e1 = agfstout(g, n1); e1; e1 = agnxtout(g, e1)) {
+			if (e != e1) {
+			    f1 = ED_to_virt(e1);
+			    if (f1 && (f == f1)) {
+				ED_to_virt(e1) = NULL;
+			    }
+			}
+		    }
+		}
+		free(f->base.data);
+		free(f);
+	    }
+	    ED_to_virt(e) = NULL;
+	}
+    }
+    free(GD_comp(g).list);
+    GD_comp(g).list = NULL;
+    GD_comp(g).size = 0;
+}
+

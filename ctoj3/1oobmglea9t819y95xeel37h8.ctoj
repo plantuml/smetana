@@ -1,0 +1,29 @@
+public static void set_xcoords(Agraph_s g) {
+    int i, j;
+    Agnode_s v;
+    __ptr__ rank = GD_rank(g);
+    for (i = GD_minrank(g); i <= GD_maxrank(g); i++) {
+	for (j = 0; j < rank.plus(i).getInt("n"); j++) {
+	    v = (Agnode_s) rank.plus(i).getArrayOfPtr("v").plus(j).getPtr();
+	    ND_coord(v).setDouble("x", ND_rank(v));
+	    ND_rank(v, i);
+	}
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void 
+set_xcoords(graph_t * g)
+{
+    int i, j;
+    node_t *v;
+    rank_t *rank = GD_rank(g);
+    for (i = GD_minrank(g); i <= GD_maxrank(g); i++) {
+	for (j = 0; j < rank[i].n; j++) {
+	    v = rank[i].v[j];
+	    ND_coord(v).x = ND_rank(v);
+	    ND_rank(v) = i;
+	}
+    }
+}
+

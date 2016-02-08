@@ -1,0 +1,39 @@
+public static Agnode_s virtual_node(Agraph_s g) {
+    Agnode_s n;
+    n = (Agnode_s)zmalloc(sizeof(Agnode_s.class));
+//  agnameof(n) = "virtual";
+    AGTYPE(n, AGNODE);
+    n.getStruct("base").setPtr("data", (Agnodeinfo_t)zmalloc(sizeof(Agnodeinfo_t.class)));
+    n.setPtr("root", agroot(g));
+    ND_node_type(n, 1);
+    ND_rw(n, 1);
+    ND_lw(n, 1);
+    ND_ht(n, 1);
+    ND_UF_size(n, 1);
+    alloc_elist(4, ND_in(n), Agnode_s.class);
+    alloc_elist(4, ND_out(n), Agnode_s.class);
+    fast_node(g, n);
+    GD_n_nodes(g, GD_n_nodes(g)+1);
+    return n;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+node_t *virtual_node(graph_t * g)
+{
+    node_t *n;
+    n = (node_t*)zmalloc(sizeof(node_t));
+//  agnameof(n) = "virtual";
+    AGTYPE(n) = AGNODE;
+    n->base.data = (Agrec_t*)(Agnodeinfo_t*)zmalloc(sizeof(Agnodeinfo_t));
+    n->root = agroot(g);
+    ND_node_type(n) = 1;
+    ND_lw(n) = ND_rw(n) = 1;
+    ND_ht(n) = 1;
+    ND_UF_size(n) = 1;
+    alloc_elist(4, ND_in(n));
+    alloc_elist(4, ND_out(n));
+    fast_node(g, n);
+    GD_n_nodes(g)++;
+    return n;
+}
+

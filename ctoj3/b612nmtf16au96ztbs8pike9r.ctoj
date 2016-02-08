@@ -1,0 +1,27 @@
+public static Agnode_s dequeue(nodequeue q) {
+    Agnode_s n;
+    if (EQ(q.getPtr("head"), q.getPtr("tail")))
+	n = null;
+    else {
+	n = (Agnode_s) q.getArrayOfPtr("head").plus(0).getPtr();
+	q.setPtr("head", q.getPtr("head").plus(1));
+	if (q.getPtr("head").comparePointer(q.getPtr("limit")) >= 0)
+	    q.setPtr("head", q.getPtr("store"));
+    }
+    return n;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+node_t *dequeue(nodequeue * q)
+{
+    node_t *n;
+    if (q->head == q->tail)
+	n = (void *)0;
+    else {
+	n = *(q->head++);
+	if (q->head >= q->limit)
+	    q->head = q->store;
+    }
+    return n;
+}
+

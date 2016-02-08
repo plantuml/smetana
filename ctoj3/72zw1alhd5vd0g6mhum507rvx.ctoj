@@ -1,0 +1,52 @@
+public static void place_graph_label(Agraph_s g) {
+    int c;
+    final __struct__<pointf> p = __struct__.from(pointf.class), d = __struct__.from(pointf.class);
+    if (NEQ(g, agroot(g)) && (GD_label(g)!=null) && N(GD_label(g).getPtr("set"))) {
+UNSUPPORTED("bb9kbz7bijh4xjt97fdn2q90k"); // 	if (GD_label_pos(g) & 1) {
+UNSUPPORTED("5lv96pqhcx8svzq467h22fwih"); // 	    d = GD_border(g)[2];
+UNSUPPORTED("a7anlx7s8s2pqd73q59ep0kpf"); // 	    p.y = GD_bb(g).UR.y - d.y / 2;
+UNSUPPORTED("7yhr8hn3r6wohafwxrt85b2j2"); // 	} else {
+UNSUPPORTED("1w38no4welthbwa0i10hei16b"); // 	    d = GD_border(g)[0];
+UNSUPPORTED("2xa4n9ca16xpf1kahaycmkl4r"); // 	    p.y = GD_bb(g).LL.y + d.y / 2;
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("2qpji9cqj2p2czgcug3wvnqpl"); // 	if (GD_label_pos(g) & 4) {
+UNSUPPORTED("cgv3bcg9c274cdwxi1y0sja3p"); // 	    p.x = GD_bb(g).UR.x - d.x / 2;
+UNSUPPORTED("blrmgi2c43f98h1nso1k757hi"); // 	} else if (GD_label_pos(g) & 2) {
+UNSUPPORTED("7ictv9eqmjvxjii5lqlyw8nu"); // 	    p.x = GD_bb(g).LL.x + d.x / 2;
+UNSUPPORTED("7yhr8hn3r6wohafwxrt85b2j2"); // 	} else {
+UNSUPPORTED("2j8xggcs05suub0imusgk58jw"); // 	    p.x = (GD_bb(g).LL.x + GD_bb(g).UR.x) / 2;
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("ptjqgn3loi94u957cup0fi1"); // 	GD_label(g)->pos = p;
+UNSUPPORTED("5ezl5j9dxa3ewoj8hxw72wn4n"); // 	GD_label(g)->set = NOT(0);
+    }
+    for (c = 1; c <= GD_n_cluster(g); c++)
+	place_graph_label((Agraph_s) GD_clust(g).plus(c).getPtr());
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void place_graph_label(graph_t * g)
+{
+    int c;
+    pointf p, d;
+    if ((g != agroot(g)) && (GD_label(g)) && !GD_label(g)->set) {
+	if (GD_label_pos(g) & 1) {
+	    d = GD_border(g)[2];
+	    p.y = GD_bb(g).UR.y - d.y / 2;
+	} else {
+	    d = GD_border(g)[0];
+	    p.y = GD_bb(g).LL.y + d.y / 2;
+	}
+	if (GD_label_pos(g) & 4) {
+	    p.x = GD_bb(g).UR.x - d.x / 2;
+	} else if (GD_label_pos(g) & 2) {
+	    p.x = GD_bb(g).LL.x + d.x / 2;
+	} else {
+	    p.x = (GD_bb(g).LL.x + GD_bb(g).UR.x) / 2;
+	}
+	GD_label(g)->pos = p;
+	GD_label(g)->set = NOT(0);
+    }
+    for (c = 1; c <= GD_n_cluster(g); c++)
+	place_graph_label(GD_clust(g)[c]);
+}
+

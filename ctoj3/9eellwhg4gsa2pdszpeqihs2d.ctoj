@@ -1,0 +1,54 @@
+public static int arrowEndClip(Agedge_s e, __ptr__ ps, int startp, int endp, bezier spl, int eflag) {
+    final __struct__<inside_t> inside_context = __struct__.from(inside_t.class);
+    final __array_of_struct__ sp = __array_of_struct__.malloc(pointf.class, 4);
+    double elen;
+    MutableDouble elen2 = new MutableDouble(0);
+    elen = arrow_length(e, eflag);
+    elen2.setValue(elen * elen);
+    spl.setInt("eflag", eflag);
+    spl.setStruct("ep", ps.plus(endp + 3).getStruct());
+    if (endp > startp && DIST2(ps.plus(endp).getPtr(), ps.plus(endp + 3).getPtr()) < elen2.getValue()) {
+	endp -= 3;
+    }
+    sp.plus(3).setStruct(ps.plus(endp).getStruct());
+    sp.plus(2).setStruct(ps.plus(endp+1).getStruct());
+    sp.plus(1).setStruct(ps.plus(endp+2).getStruct());
+    sp.plus(0).setStruct(spl.getStruct("ep"));
+    /* ensure endpoint starts inside */
+    inside_context.setPtr("a.p", sp.plus(0).asPtr());
+    inside_context.setPtr("a.r", elen2.amp());
+    bezier_clip(inside_context.amp(), function(arrows__c.class, "inside"), sp, NOT(false));
+    ps.plus(endp).setStruct(sp.plus(3).getStruct());
+    ps.plus(endp+1).setStruct(sp.plus(2).getStruct());
+    ps.plus(endp+2).setStruct(sp.plus(1).getStruct());
+    ps.plus(endp+3).setStruct(sp.plus(0).getStruct());
+    return endp;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int arrowEndClip(edge_t* e, pointf * ps, int startp,
+		 int endp, bezier * spl, int eflag)
+{
+    inside_t inside_context;
+    pointf sp[4];
+    double elen, elen2;
+    elen = arrow_length(e, eflag);
+    elen2 = elen * elen;
+    spl->eflag = eflag, spl->ep = ps[endp + 3];
+    if (endp > startp && DIST2(ps[endp], ps[endp + 3]) < elen2) {
+	endp -= 3;
+    }
+    sp[3] = ps[endp];
+    sp[2] = ps[endp + 1];
+    sp[1] = ps[endp + 2];
+    sp[0] = spl->ep;	/* ensure endpoint starts inside */
+    inside_context.a.p = &sp[0];
+    inside_context.a.r = &elen2;
+    bezier_clip(&inside_context, inside, sp, NOT(0));
+    ps[endp] = sp[3];
+    ps[endp + 1] = sp[2];
+    ps[endp + 2] = sp[1];
+    ps[endp + 3] = sp[0];
+    return endp;
+}
+

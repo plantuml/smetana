@@ -1,0 +1,12 @@
+public static void idregister(Object state, int objtype, Object obj) {
+ 
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void idregister(void *state, int objtype, void *obj)
+{
+    (void) state;
+    (void) objtype;
+    (void) obj;
+}
+

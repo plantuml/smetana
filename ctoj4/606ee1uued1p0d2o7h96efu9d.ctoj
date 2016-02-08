@@ -1,0 +1,13 @@
+public static final __struct__<polygon_t> p_ellipse = __struct__.from(polygon_t.class);
+static {
+p_ellipse.setInt("regular", 0);
+p_ellipse.setInt("peripheries", 1);
+p_ellipse.setInt("sides", 1);
+p_ellipse.setDouble("orientation", 0.);
+p_ellipse.setDouble("distortion", 0.);
+p_ellipse.setDouble("skew", 0.);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static polygon_t p_ellipse = { 0, 1, 1, 0., 0., 0. };
+

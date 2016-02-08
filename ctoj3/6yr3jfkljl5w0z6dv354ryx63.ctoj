@@ -1,0 +1,201 @@
+public static void make_flat_edge(Agraph_s g, spline_info_t sp, path P, __ptr__ edges, int ind, int cnt, int et) {
+    Agnode_s tn, hn;
+    final __struct__<Agedgeinfo_t> fwdedgei = __struct__.from(Agedgeinfo_t.class);
+    final __struct__<Agedgepair_s> fwdedge = __struct__.from(Agedgepair_s.class);
+    Agedge_s e;
+    int j, i, r, isAdjacent;
+    double stepx, stepy, vspace;
+    int tside, hside;
+    int pn[] = new int[] {0};
+    pointf ps;
+    final __struct__<pathend_t> tend = __struct__.from(pathend_t.class), hend = __struct__.from(pathend_t.class);
+    fwdedge.getPtr("out").getPtr("base").setPtr("data", fwdedgei.amp());
+    /* Get sample edge; normalize to go from left to right */
+    e = (Agedge_s) edges.plus(ind).getPtr();
+    isAdjacent = ED_adjacent(e);
+    if ((ED_tree_index(e) & 32)!=0) {
+	MAKEFWDEDGE(fwdedge.getPtr("out"), e);
+	e = (Agedge_s) fwdedge.getPtr("out");
+    }
+    for (i = 1; i < cnt; i++) {
+	if (ED_adjacent(edges.plus(ind+i).getPtr())!=0) {
+	    isAdjacent = 1;
+	    break;
+	}
+    }
+    /* The lead edge edges[ind] might not have been marked earlier as adjacent,
+     * so check them all.
+     */
+    if (isAdjacent!=0) {
+	make_flat_adj_edges (g, P, edges, ind, cnt, e, et);
+	return;
+    }
+    if (ED_label(e)!=null) {  /* edges with labels aren't multi-edges */
+	make_flat_labeled_edge (g, sp, P, e, et);
+	return;
+    }
+    if (et == (1 << 1)) {
+	makeSimpleFlat (agtail(e), aghead(e), edges, ind, cnt, et);
+	return;
+    }
+    tside = ED_tail_port(e).getInt("side");
+    hside = ED_head_port(e).getInt("side");
+    if (((tside == (1<<0)) && (hside != (1<<2))) ||
+        ((hside == (1<<0)) && (tside != (1<<2)))) {
+	make_flat_bottom_edges (g, sp, P, edges, ind, cnt, e, et == (5 << 1));
+	return;
+    }
+    tn = agtail(e);
+    hn = aghead(e);
+    r = ND_rank(tn);
+    if (r > 0) {
+	__ptr__ prevr;
+	if ((GD_has_labels(g) & (1 << 0))!=0)
+	    prevr = GD_rank(g).plus(r-2);
+	else
+	    prevr = GD_rank(g).plus(r-1);
+	vspace = ND_coord(prevr.getPtr().getArrayOfPtr("v").plus(0).getPtr()).getDouble("y") - prevr.getPtr().getDouble("ht1")
+	   - ND_coord(tn).getDouble("y") - GD_rank(g).plus(r).getDouble("ht2");
+    }
+    else {
+	vspace = GD_ranksep(g);
+    }
+    stepx = ((double)sp.getInt("Multisep")) / (cnt+1); 
+    stepy = vspace / (cnt+1);
+    makeFlatEnd (g, sp, P, tn, e, tend.amp(), true);
+    makeFlatEnd (g, sp, P, hn, e, hend.amp(), false);
+    for (i = 0; i < cnt; i++) {
+	int boxn;
+	final __struct__<boxf> b = __struct__.from(boxf.class);
+	e = (Agedge_s) edges.plus(ind + i).getPtr();
+	boxn = 0;
+	b.____(tend.getArrayOfPtr("boxes").plus(tend.getInt("boxn") - 1).getStruct());
+ 	boxes.plus(boxn).getStruct().getStruct("LL").setDouble("x", b.getPtr("LL").getDouble("x")); 
+	boxes.plus(boxn).getStruct().getStruct("LL").setDouble("y", b.getPtr("UR").getDouble("y")); 
+	boxes.plus(boxn).getStruct().getStruct("UR").setDouble("x", b.getPtr("UR").getDouble("x") + (i + 1) * stepx);
+	boxes.plus(boxn).getStruct().getStruct("UR").setDouble("y", b.getPtr("UR").getDouble("y") + (i + 1) * stepy);
+	boxn++;
+	boxes.plus(boxn).getStruct().getStruct("LL").setDouble("x", tend.getArrayOfPtr("boxes").plus(tend.getInt("boxn") - 1).getPtr().getPtr("LL").getDouble("x")); 
+	boxes.plus(boxn).getStruct().getStruct("LL").setDouble("y", boxes.plus(boxn-1).getStruct().getStruct("UR").getDouble("y"));
+	boxes.plus(boxn).getStruct().getStruct("UR").setDouble("x", hend.getArrayOfPtr("boxes").plus(hend.getInt("boxn") - 1).getPtr().getPtr("UR").getDouble("x"));
+	boxes.plus(boxn).getStruct().getStruct("UR").setDouble("y", boxes.plus(boxn).getStruct().getStruct("LL").getDouble("y") + stepy);
+	boxn++;
+	b.____(tend.getArrayOfPtr("boxes").plus(tend.getInt("boxn") - 1).getStruct());
+	boxes.plus(boxn).getStruct().getStruct("UR").setDouble("x", b.getPtr("UR").getDouble("x"));
+	boxes.plus(boxn).getStruct().getStruct("LL").setDouble("y", b.getPtr("UR").getDouble("y"));
+	boxes.plus(boxn).getStruct().getStruct("LL").setDouble("x", b.getPtr("LL").getDouble("x") - (i + 1) * stepx);
+	boxes.plus(boxn).getStruct().getStruct("UR").setDouble("y", boxes.plus(boxn-1).getStruct().getStruct("LL").getDouble("y"));
+	boxn++;
+	for (j = 0; j < tend.getInt("boxn"); j++) add_box(P, tend.getArrayOfPtr("boxes").plus(j).getStruct());
+	for (j = 0; j < boxn; j++) add_box(P, boxes.plus(j).getStruct());
+	for (j = hend.getInt("boxn") - 1; j >= 0; j--) add_box(P, hend.getArrayOfPtr("boxes").plus(j).getStruct());
+	if (et == (5 << 1)) ps = (pointf) routesplines(P, pn);
+	else ps = (pointf) routepolylines(P, pn);
+	if (pn[0] == 0)
+	    return;
+	clip_and_install(e, aghead(e), ps, pn[0], sinfo.amp());
+	P.setInt("nbox",  0);
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void
+make_flat_edge(graph_t* g, spline_info_t* sp, path * P, edge_t ** edges, int ind, int cnt, int et)
+{
+    node_t *tn, *hn;
+    Agedgeinfo_t fwdedgei;
+    Agedgepair_t fwdedge;
+    edge_t *e;
+    int j, i, r, isAdjacent;
+    double stepx, stepy, vspace;
+    int tside, hside, pn;
+    pointf *ps;
+    pathend_t tend, hend;
+    fwdedge.out.base.data = (Agrec_t*)&fwdedgei;
+    /* Get sample edge; normalize to go from left to right */
+    e = edges[ind];
+    isAdjacent = ED_adjacent(e);
+    if (ED_tree_index(e) & 32) {
+	MAKEFWDEDGE(&fwdedge.out, e);
+	e = &fwdedge.out;
+    }
+    for (i = 1; i < cnt; i++) {
+	if (ED_adjacent(edges[ind+i])) {
+	    isAdjacent = 1;
+	    break;
+	}
+    }
+    /* The lead edge edges[ind] might not have been marked earlier as adjacent,
+     * so check them all.
+     */
+    if (isAdjacent) {
+	make_flat_adj_edges (g, P, edges, ind, cnt, e, et);
+	return;
+    }
+    if (ED_label(e)) {  /* edges with labels aren't multi-edges */
+	make_flat_labeled_edge (g, sp, P, e, et);
+	return;
+    }
+    if (et == (1 << 1)) {
+	makeSimpleFlat (agtail(e), aghead(e), edges, ind, cnt, et);
+	return;
+    }
+    tside = ED_tail_port(e).side;
+    hside = ED_head_port(e).side;
+    if (((tside == (1<<0)) && (hside != (1<<2))) ||
+        ((hside == (1<<0)) && (tside != (1<<2)))) {
+	make_flat_bottom_edges (g, sp, P, edges, ind, cnt, e, et == (5 << 1));
+	return;
+    }
+    tn = agtail(e);
+    hn = aghead(e);
+    r = ND_rank(tn);
+    if (r > 0) {
+	rank_t* prevr;
+	if (GD_has_labels(g) & (1 << 0))
+	    prevr = GD_rank(g) + (r-2);
+	else
+	    prevr = GD_rank(g) + (r-1);
+	vspace = ND_coord(prevr->v[0]).y - prevr->ht1 - ND_coord(tn).y - GD_rank(g)[r].ht2;
+    }
+    else {
+	vspace = GD_ranksep(g);
+    }
+    stepx = ((double)sp->Multisep) / (cnt+1); 
+    stepy = vspace / (cnt+1);
+    makeFlatEnd (g, sp, P, tn, e, &tend, NOT(0));
+    makeFlatEnd (g, sp, P, hn, e, &hend, 0);
+    for (i = 0; i < cnt; i++) {
+	int boxn;
+	boxf b;
+	e = edges[ind + i];
+	boxn = 0;
+	b = tend.boxes[tend.boxn - 1];
+ 	boxes[boxn].LL.x = b.LL.x; 
+	boxes[boxn].LL.y = b.UR.y; 
+	boxes[boxn].UR.x = b.UR.x + (i + 1) * stepx;
+	boxes[boxn].UR.y = b.UR.y + (i + 1) * stepy;
+	boxn++;
+	boxes[boxn].LL.x = tend.boxes[tend.boxn - 1].LL.x; 
+	boxes[boxn].LL.y = boxes[boxn-1].UR.y;
+	boxes[boxn].UR.x = hend.boxes[hend.boxn - 1].UR.x;
+	boxes[boxn].UR.y = boxes[boxn].LL.y + stepy;
+	boxn++;
+	b = hend.boxes[hend.boxn - 1];
+	boxes[boxn].UR.x = b.UR.x;
+	boxes[boxn].LL.y = b.UR.y;
+	boxes[boxn].LL.x = b.LL.x - (i + 1) * stepx;
+	boxes[boxn].UR.y = boxes[boxn-1].LL.y;
+	boxn++;
+	for (j = 0; j < tend.boxn; j++) add_box(P, tend.boxes[j]);
+	for (j = 0; j < boxn; j++) add_box(P, boxes[j]);
+	for (j = hend.boxn - 1; j >= 0; j--) add_box(P, hend.boxes[j]);
+	if (et == (5 << 1)) ps = routesplines(P, &pn);
+	else ps = routepolylines(P, &pn);
+	if (pn == 0)
+	    return;
+	clip_and_install(e, aghead(e), ps, pn, &sinfo);
+	P->nbox = 0;
+    }
+}
+

@@ -1,0 +1,32 @@
+public static int late_int(__ptr__ obj, Agsym_s attr, int def, int low) {
+    CString p;
+    CString endp[] = new CString[1];
+    int rv;
+    if (attr == null)
+	return def;
+    p = agxget(obj,attr);
+    if (N(p) || p.length()==0)
+	return def;
+    rv = strtol (p, endp, 10);
+    if (EQ(p, endp[0])) return def;  /* invalid int format */
+    if (rv < low) return low;
+    else return rv;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int late_int(void *obj, attrsym_t * attr, int def, int low)
+{
+    char *p;
+    char *endp;
+    int rv;
+    if (attr == (void *)0)
+	return def;
+    p = agxget(obj,attr);
+    if (!p || p[0] == '\0')
+	return def;
+    rv = strtol (p, &endp, 10);
+    if (p == endp) return def;  /* invalid int format */
+    if (rv < low) return low;
+    else return rv;
+}
+

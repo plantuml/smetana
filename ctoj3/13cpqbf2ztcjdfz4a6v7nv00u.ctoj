@@ -1,0 +1,28 @@
+public static void setEdgeType(Agraph_s g, int dflt) {
+    CString s = agget(g, new CString("splines"));
+    int et;
+    if (N(s)) {
+	et = dflt;
+    }
+    else if (s.charAt(0) == '\0') {
+	et = (0 << 1);
+    }
+    else et = edgeType (s, dflt);
+    GD_flags(g, GD_flags(g) | et);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void setEdgeType (graph_t* g, int dflt)
+{
+    char* s = agget(g, "splines");
+    int et;
+    if (!s) {
+	et = dflt;
+    }
+    else if (*s == '\0') {
+	et = (0 << 1);
+    }
+    else et = edgeType (s, dflt);
+    GD_flags(g) |= et;
+}
+

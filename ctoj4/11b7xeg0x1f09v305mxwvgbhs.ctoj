@@ -1,0 +1,5 @@
+private static final __struct__<elist> Tree_edge = __struct__.from(elist.class);
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static elist Tree_edge;
+

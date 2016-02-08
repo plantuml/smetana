@@ -1,0 +1,26 @@
+public static void rank1(Agraph_s g) {
+    int maxiter = Integer.MAX_VALUE;
+    int c;
+    CString s;
+    if ((s = agget(g, new CString("nslimit1")))!=null)
+UNSUPPORTED("9tp2zk1tsr4ce9rwsr0is9u3o"); // 	maxiter = atof(s) * agnnodes(g);
+    for (c = 0; c < GD_comp(g).getInt("size"); c++) {
+	GD_nlist(g, GD_comp(g).getArrayOfPtr("list").plus(c).getPtr());
+	rank(g, (GD_n_cluster(g) == 0 ? 1 : 0), maxiter);	/* TB balance */
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void rank1(graph_t * g)
+{
+    int maxiter = INT_MAX;
+    int c;
+    char *s;
+    if ((s = agget(g, "nslimit1")))
+	maxiter = atof(s) * agnnodes(g);
+    for (c = 0; c < GD_comp(g).size; c++) {
+	GD_nlist(g) = GD_comp(g).list[c];
+	rank(g, (GD_n_cluster(g) == 0 ? 1 : 0), maxiter);	/* TB balance */
+    }
+}
+

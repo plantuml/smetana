@@ -1,0 +1,22 @@
+public static void fast_node(Agraph_s g, Agnode_s n) {
+    n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).setPtr("next",
+       g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getPtr("nlist"));
+    if (n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("next")!=null)
+		n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("next").castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).setPtr("prev",
+		n);
+    g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).setPtr("nlist", n);
+    n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).setPtr("prev", null);
+    // assert(n != (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->next));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void fast_node(graph_t * g, Agnode_t * n)
+{
+    (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->next) = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->nlist);
+    if ((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->next))
+	(((Agnodeinfo_t*)(((Agobj_t*)((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->next)))->data))->prev) = n;
+    (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->nlist) = n;
+    (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->prev) = NULL;
+    assert(n != (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->next));
+}
+

@@ -1,0 +1,12 @@
+public static void init_cutvalues() {
+    dfs_range((Agnode_s) G.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getPtr("nlist"), null, 1);
+    dfs_cutval((Agnode_s) G.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getPtr("nlist"), null);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void init_cutvalues(void)
+{
+    dfs_range((((Agraphinfo_t*)(((Agobj_t*)(G))->data))->nlist), NULL, 1);
+    dfs_cutval((((Agraphinfo_t*)(((Agobj_t*)(G))->data))->nlist), NULL);
+}
+

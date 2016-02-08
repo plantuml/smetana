@@ -1,0 +1,47 @@
+public static int selfRightSpace(Agedge_s e) {
+ UNSUPPORTED("etrjsq5w49uo9jq5pzifohkqw"); // int
+UNSUPPORTED("4srl58rvuueml0gqcxw75ix8f"); // selfRightSpace (edge_t* e)
+UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
+UNSUPPORTED("1o1td6xaqvqlt55b24sowbfof"); //     int sw;
+UNSUPPORTED("39ge75rdjv6rx8ni213z3r72c"); //     double label_width;
+UNSUPPORTED("9vsyud2ckmrakolcqwcm26u87"); //     textlabel_t* l = ED_label(e);
+UNSUPPORTED("cohwdsicl277mxqz45fmfmr1y"); //     if (((!ED_tail_port(e).defined) && (!ED_head_port(e).defined)) ||
+UNSUPPORTED("2d2ms9rmiu2vku75kkdxe94uz"); //         (!(ED_tail_port(e).side & (1<<3)) && 
+UNSUPPORTED("et0rh7mym2ien2n05rinis0hw"); //          !(ED_head_port(e).side & (1<<3)) &&
+UNSUPPORTED("dtk5859ogxhed9u0fml8hbdpp"); //           ((ED_tail_port(e).side != ED_head_port(e).side) || 
+UNSUPPORTED("3xtwm4erjadagtumcwcq9dny2"); //           (!(ED_tail_port(e).side & ((1<<2)|(1<<0))))))) {
+UNSUPPORTED("4wvp6oq6cuup2bk5ocrgryewe"); // 	sw = 18;
+UNSUPPORTED("7k37giuc8thg3g2t2pqprvifv"); // 	if (l) {
+UNSUPPORTED("baqv7wwemypydrjjeeeuk1tr5"); // 	    label_width = GD_flip(agraphof(aghead(e))) ? l->dimen.y : l->dimen.x;
+UNSUPPORTED("32qz68nr5ecifqa9e4yx9f78p"); // 	    sw += label_width;
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("7t3qpwn6vvyzeur6ny3dg1l0h"); //     else sw = 0;
+UNSUPPORTED("cmv795kw7np50wxmcp7jrwbp0"); //     return sw;
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int
+selfRightSpace (edge_t* e)
+{
+    int sw;
+    double label_width;
+    textlabel_t* l = ED_label(e);
+    if (((!ED_tail_port(e).defined) && (!ED_head_port(e).defined)) ||
+        (!(ED_tail_port(e).side & (1<<3)) && 
+         !(ED_head_port(e).side & (1<<3)) &&
+          ((ED_tail_port(e).side != ED_head_port(e).side) || 
+          (!(ED_tail_port(e).side & ((1<<2)|(1<<0))))))) {
+	sw = 18;
+	if (l) {
+	    label_width = GD_flip(agraphof(aghead(e))) ? l->dimen.y : l->dimen.x;
+	    sw += label_width;
+	}
+    }
+    else sw = 0;
+    return sw;
+}
+

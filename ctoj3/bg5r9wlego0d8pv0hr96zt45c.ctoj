@@ -1,0 +1,16 @@
+public static boolean mergeable(Agedge_s e, Agedge_s f) {
+    if (e!=null && f!=null && EQ(agtail(e), agtail(f)) && EQ(aghead(e), aghead(f)) &&
+	EQ(ED_label(e), ED_label(f)) && ports_eq(e, f))
+	return NOT(false);
+    return false;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int mergeable(edge_t * e, edge_t * f)
+{
+    if (e && f && (agtail(e) == agtail(f)) && (aghead(e) == aghead(f)) &&
+	(ED_label(e) == ED_label(f)) && ports_eq(e, f))
+	return NOT(0);
+    return 0;
+}
+

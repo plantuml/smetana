@@ -1,0 +1,332 @@
+static CString rankname[] = new CString[] { new CString("local"), new CString("global"), new CString("none"), null };
+static int rankcode[] = { 100, 101, 102, 100 };
+static CString fontnamenames[] = new CString[] {new CString("gd"),new CString("ps"),new CString("svg"), null};
+static int fontnamecodes[] = {enumAsInt(fontname_kind.class, "NATIVEFONTS"),enumAsInt(fontname_kind.class, "PSFONTS"),
+enumAsInt(fontname_kind.class, "SVGFONTS"),-1};
+public static void graph_init(Agraph_s g, boolean use_rankdir) {
+    CString p;
+    double xf;
+    int rankdir;
+    GD_drawing(g, zmalloc(sizeof(layout_t.class)));
+    /* set this up fairly early in case any string sizes are needed */
+    if ((p = agget(g, new CString("fontpath")))!=null || (p = getenv(new CString("DOTFONTPATH")))!=null) {
+UNSUPPORTED("81bz3jcukzyotxiqgrlhn9cbq"); // 	/* overide GDFONTPATH in local environment if dot
+UNSUPPORTED("6jgl7atk1m9yeam4auh127azw"); // 	 * wants its own */
+UNSUPPORTED("dyk0vc64gdzy1uwvsc2jqnjdw"); // 	static char *buf = 0;
+UNSUPPORTED("8dywgree8jdjmj2ll2whbekhe"); // 	buf = grealloc(buf, strlen("GDFONTPATH=") + strlen(p) + 1);
+UNSUPPORTED("d9ej6bo2s49vpstu3pql6tkrx"); // 	strcpy(buf, "GDFONTPATH=");
+UNSUPPORTED("1s2jcd2h3eok7j6pclv20gyi2"); // 	strcat(buf, p);
+UNSUPPORTED("abkxekvux4nramryfw2e8vcru"); // 	putenv(buf);
+    }
+    GD_charset(g, findCharset (g));
+    /*if (!HTTPServerEnVar) {
+	Gvimagepath = agget (g, "imagepath");
+	if (!Gvimagepath)
+	    Gvimagepath = Gvfilepath;
+    }*/
+    GD_drawing(g).setDouble("quantum",
+ 	late_double(g, (agattr(g,AGRAPH,new CString("quantum"),null)), 0.0, 0.0));
+    /* setting rankdir=LR is only defined in dot,
+     * but having it set causes shape code and others to use it. 
+     * The result is confused output, so we turn it off unless requested.
+     * This effective rankdir is stored in the bottom 2 bits of g->u.rankdir.
+     * Sometimes, the code really needs the graph's rankdir, e.g., neato -n
+     * with record shapes, so we store the real rankdir in the next 2 bits.
+     */
+    rankdir = 0;
+    if ((p = agget(g, new CString("rankdir")))!=null) {
+UNSUPPORTED("sp7zcza7w0dn7t66aj8rf4wn"); // 	if ((*(p)==*("LR")&&!strcmp(p,"LR")))
+UNSUPPORTED("bjd2vk1jssqehllmgnqv601qd"); // 	    rankdir = 1;
+UNSUPPORTED("ry8itlrmblmuegdwk1iu1t0x"); // 	else if ((*(p)==*("BT")&&!strcmp(p,"BT")))
+UNSUPPORTED("5hno0xn18yt443qg815w3c2s2"); // 	    rankdir = 2;
+UNSUPPORTED("aal39mi047mhafrsrxoutcffk"); // 	else if ((*(p)==*("RL")&&!strcmp(p,"RL")))
+UNSUPPORTED("7vlda224wrgcdhr0ts3mndh5q"); // 	    rankdir = 3;
+    }
+    if (use_rankdir)
+	GD_rankdir2(g, (rankdir << 2) | rankdir);
+    else
+	GD_rankdir2(g, (rankdir << 2));
+    xf = late_double(g, (agattr(g,AGRAPH,new CString("nodesep"),null)),
+		0.25, 0.02);
+    GD_nodesep(g, (ROUND((xf)*72)));
+    p = late_string(g, (agattr(g,AGRAPH,new CString("ranksep"),null)), null);
+    if (p!=null) {
+UNSUPPORTED("c3p25g4289dxlei062z4eflss"); // 	if (sscanf(p, "%lf", &xf) == 0)
+UNSUPPORTED("570vljex12zx5dkwi7mqa9knw"); // 	    xf = 0.5;
+UNSUPPORTED("8k75h069sv2k9b6tgz77dscwd"); // 	else {
+UNSUPPORTED("p882lodfwy5v48rwbxvg5s9i"); // 	    if (xf < 0.02)
+UNSUPPORTED("dhhbmqv6n01j1eeyy7fpus1xw"); // 		xf = 0.02;
+	if (strstr(p, new CString("equally"))!=null)
+	    GD_exact_ranksep(g, 1);
+    } else
+	xf = 0.5;
+    GD_ranksep(g, (ROUND((xf)*72)));
+    GD_showboxes(g, late_int(g, (agattr(g,AGRAPH,new CString("showboxes"),null)), 0, 0));
+    p = late_string(g, (agattr(g,AGRAPH,new CString("fontnames"),null)), null);
+    GD_fontnames(g, maptoken(p, fontnamenames, fontnamecodes));
+    setRatio(g);
+    GD_drawing(g).setBoolean("filled", 
+	getdoubles2ptf(g, new CString("size"), (pointf) GD_drawing(g).getStruct("size").amp()));
+    getdoubles2ptf(g, new CString("page"), GD_drawing(g).getStruct("page").amp());
+    GD_drawing(g).setBoolean("centered", mapbool(agget(g, new CString("center"))));
+    if ((p = agget(g, new CString("rotate")))!=null)
+	GD_drawing(g).setBoolean("landscape", (atoi(p) == 90));
+    else if ((p = agget(g, new CString("orientation")))!=null)
+	GD_drawing(g).setBoolean("landscape", ((p.charAt(0) == 'l') || (p.charAt(0) == 'L')));
+    else if ((p = agget(g, new CString("landscape")))!=null)
+	GD_drawing(g).setBoolean("landscape", mapbool(p));
+    p = agget(g, new CString("clusterrank"));
+    CL_type = maptoken(p, rankname, rankcode);
+    p = agget(g, new CString("concentrate"));
+    Concentrate = mapbool(p);
+    State = 0;
+    EdgeLabelsDone = 0;
+    GD_drawing(g).setDouble("dpi", 0.0);
+    if (((p = agget(g, new CString("dpi")))!=null && p.charAt(0)!='\0')
+	|| ((p = agget(g, new CString("resolution")))!=null && p.charAt(0)!='\0'))
+	GD_drawing(g).setDouble("dpi", atof(p));
+    do_graph_label(g);
+    Initial_dist = (1.0e+37);
+    G_ordering = (agattr(g,AGRAPH,new CString("ordering"),null));
+    G_gradientangle = (agattr(g,AGRAPH,new CString("gradientangle"),null));
+    G_margin = (agattr(g,AGRAPH,new CString("margin"),null));
+    /* initialize nodes */
+    N_height = (agattr(g,AGNODE,new CString("height"),null));
+    N_width = (agattr(g,AGNODE,new CString("width"),null));
+    N_shape = (agattr(g,AGNODE,new CString("shape"),null));
+    N_color = (agattr(g,AGNODE,new CString("color"),null));
+    N_fillcolor = (agattr(g,AGNODE,new CString("fillcolor"),null));
+    N_style = (agattr(g,AGNODE,new CString("style"),null));
+    N_fontsize = (agattr(g,AGNODE,new CString("fontsize"),null));
+    N_fontname = (agattr(g,AGNODE,new CString("fontname"),null));
+    N_fontcolor = (agattr(g,AGNODE,new CString("fontcolor"),null));
+    N_label = (agattr(g,AGNODE,new CString("label"),null));
+    if (N(N_label))
+	N_label = agattr(g, AGNODE, new CString("label"), new CString("\\N"));
+    N_xlabel = (agattr(g,AGNODE,new CString("xlabel"),null));
+    N_showboxes = (agattr(g,AGNODE,new CString("showboxes"),null));
+    N_penwidth = (agattr(g,AGNODE,new CString("penwidth"),null));
+    N_ordering = (agattr(g,AGNODE,new CString("ordering"),null));
+    N_margin = (agattr(g,AGNODE,new CString("margin"),null));
+    /* attribs for polygon shapes */
+    N_sides = (agattr(g,AGNODE,new CString("sides"),null));
+    N_peripheries = (agattr(g,AGNODE,new CString("peripheries"),null));
+    N_skew = (agattr(g,AGNODE,new CString("skew"),null));
+    N_orientation = (agattr(g,AGNODE,new CString("orientation"),null));
+    N_distortion = (agattr(g,AGNODE,new CString("distortion"),null));
+    N_fixed = (agattr(g,AGNODE,new CString("fixedsize"),null));
+    N_imagescale = (agattr(g,AGNODE,new CString("imagescale"),null));
+    N_nojustify = (agattr(g,AGNODE,new CString("nojustify"),null));
+    N_layer = (agattr(g,AGNODE,new CString("layer"),null));
+    N_group = (agattr(g,AGNODE,new CString("group"),null));
+    N_comment = (agattr(g,AGNODE,new CString("comment"),null));
+    N_vertices = (agattr(g,AGNODE,new CString("vertices"),null));
+    N_z = (agattr(g,AGNODE,new CString("z"),null));
+    N_gradientangle = (agattr(g,AGNODE,new CString("gradientangle"),null));
+    /* initialize edges */
+    E_weight = (agattr(g,AGEDGE,new CString("weight"),null));
+    E_color = (agattr(g,AGEDGE,new CString("color"),null));
+    E_fillcolor = (agattr(g,AGEDGE,new CString("fillcolor"),null));
+    E_fontsize = (agattr(g,AGEDGE,new CString("fontsize"),null));
+    E_fontname = (agattr(g,AGEDGE,new CString("fontname"),null));
+    E_fontcolor = (agattr(g,AGEDGE,new CString("fontcolor"),null));
+    E_label = (agattr(g,AGEDGE,new CString("label"),null));
+    E_xlabel = (agattr(g,AGEDGE,new CString("xlabel"),null));
+    E_label_float = (agattr(g,AGEDGE,new CString("labelfloat"),null));
+    /* vladimir */
+    E_dir = (agattr(g,AGEDGE,new CString("dir"),null));
+    E_arrowhead = (agattr(g,AGEDGE,new CString("arrowhead"),null));
+    E_arrowtail = (agattr(g,AGEDGE,new CString("arrowtail"),null));
+    E_headlabel = (agattr(g,AGEDGE,new CString("headlabel"),null));
+    E_taillabel = (agattr(g,AGEDGE,new CString("taillabel"),null));
+    E_labelfontsize = (agattr(g,AGEDGE,new CString("labelfontsize"),null));
+    E_labelfontname = (agattr(g,AGEDGE,new CString("labelfontname"),null));
+    E_labelfontcolor = (agattr(g,AGEDGE,new CString("labelfontcolor"),null));
+    E_labeldistance = (agattr(g,AGEDGE,new CString("labeldistance"),null));
+    E_labelangle = (agattr(g,AGEDGE,new CString("labelangle"),null));
+    /* end vladimir */
+    E_minlen = (agattr(g,AGEDGE,new CString("minlen"),null));
+    E_showboxes = (agattr(g,AGEDGE,new CString("showboxes"),null));
+    E_style = (agattr(g,AGEDGE,new CString("style"),null));
+    E_decorate = (agattr(g,AGEDGE,new CString("decorate"),null));
+    E_arrowsz = (agattr(g,AGEDGE,new CString("arrowsize"),null));
+    E_constr = (agattr(g,AGEDGE,new CString("constraint"),null));
+    E_layer = (agattr(g,AGEDGE,new CString("layer"),null));
+    E_comment = (agattr(g,AGEDGE,new CString("comment"),null));
+    E_tailclip = (agattr(g,AGEDGE,new CString("tailclip"),null));
+    E_headclip = (agattr(g,AGEDGE,new CString("headclip"),null));
+    E_penwidth = (agattr(g,AGEDGE,new CString("penwidth"),null));
+    /* background */
+    GD_drawing(g).setPtr("xdots", init_xdot (g));
+    /* initialize id, if any */
+    if ((p = agget(g, new CString("id")))!=null && p.charAt(0)!='\0')
+	GD_drawing(g).setPtr("id", strdup_and_subst_obj(p, g));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void graph_init(graph_t * g, boolean use_rankdir)
+{
+    char *p;
+    double xf;
+    static char *rankname[] = { "local", "global", "none", NULL };
+    static int rankcode[] = { 100, 101, 102, 100 };
+    static char *fontnamenames[] = {"gd","ps","svg", NULL};
+    static int fontnamecodes[] = {NATIVEFONTS,PSFONTS,SVGFONTS,-1};
+    int rankdir;
+    GD_drawing(g) = (layout_t*)zmalloc(sizeof(layout_t));
+    /* set this up fairly early in case any string sizes are needed */
+    if ((p = agget(g, "fontpath")) || (p = getenv("DOTFONTPATH"))) {
+	/* overide GDFONTPATH in local environment if dot
+	 * wants its own */
+	static char *buf = 0;
+	buf = grealloc(buf, strlen("GDFONTPATH=") + strlen(p) + 1);
+	strcpy(buf, "GDFONTPATH=");
+	strcat(buf, p);
+	putenv(buf);
+    }
+    GD_charset(g) = findCharset (g);
+    if (!HTTPServerEnVar) {
+	Gvimagepath = agget (g, "imagepath");
+	if (!Gvimagepath)
+	    Gvimagepath = Gvfilepath;
+    }
+    GD_drawing(g)->quantum =
+	late_double(g, (agattr(g,AGRAPH,"quantum",NULL)), 0.0, 0.0);
+    /* setting rankdir=LR is only defined in dot,
+     * but having it set causes shape code and others to use it. 
+     * The result is confused output, so we turn it off unless requested.
+     * This effective rankdir is stored in the bottom 2 bits of g->u.rankdir.
+     * Sometimes, the code really needs the graph's rankdir, e.g., neato -n
+     * with record shapes, so we store the real rankdir in the next 2 bits.
+     */
+    rankdir = 0;
+    if ((p = agget(g, "rankdir"))) {
+	if ((*(p)==*("LR")&&!strcmp(p,"LR")))
+	    rankdir = 1;
+	else if ((*(p)==*("BT")&&!strcmp(p,"BT")))
+	    rankdir = 2;
+	else if ((*(p)==*("RL")&&!strcmp(p,"RL")))
+	    rankdir = 3;
+    }
+    if (use_rankdir)
+	(GD_rankdir2(g) = (rankdir << 2) | rankdir);
+    else
+	(GD_rankdir2(g) = (rankdir << 2));
+    xf = late_double(g, (agattr(g,AGRAPH,"nodesep",NULL)),
+		0.25, 0.02);
+    GD_nodesep(g) = (ROUND((xf)*72));
+    p = late_string(g, (agattr(g,AGRAPH,"ranksep",NULL)), NULL);
+    if (p) {
+	if (sscanf(p, "%lf", &xf) == 0)
+	    xf = 0.5;
+	else {
+	    if (xf < 0.02)
+		xf = 0.02;
+	}
+	if (strstr(p, "equally"))
+	    GD_exact_ranksep(g) = NOT(0);
+    } else
+	xf = 0.5;
+    GD_ranksep(g) = (ROUND((xf)*72));
+    GD_showboxes(g) = late_int(g, (agattr(g,AGRAPH,"showboxes",NULL)), 0, 0);
+    p = late_string(g, (agattr(g,AGRAPH,"fontnames",NULL)), NULL);
+    GD_fontnames(g) = maptoken(p, fontnamenames, fontnamecodes);
+    setRatio(g);
+    GD_drawing(g)->filled =
+	getdoubles2ptf(g, "size", &(GD_drawing(g)->size));
+    getdoubles2ptf(g, "page", &(GD_drawing(g)->page));
+    GD_drawing(g)->centered = mapbool(agget(g, "center"));
+    if ((p = agget(g, "rotate")))
+	GD_drawing(g)->landscape = (atoi(p) == 90);
+    else if ((p = agget(g, "orientation")))
+	GD_drawing(g)->landscape = ((p[0] == 'l') || (p[0] == 'L'));
+    else if ((p = agget(g, "landscape")))
+	GD_drawing(g)->landscape = mapbool(p);
+    p = agget(g, "clusterrank");
+    CL_type = maptoken(p, rankname, rankcode);
+    p = agget(g, "concentrate");
+    Concentrate = mapbool(p);
+    State = 0;
+    EdgeLabelsDone = 0;
+    GD_drawing(g)->dpi = 0.0;
+    if (((p = agget(g, "dpi")) && p[0])
+	|| ((p = agget(g, "resolution")) && p[0]))
+	GD_drawing(g)->dpi = atof(p);
+    do_graph_label(g);
+    Initial_dist = (1.0e+37);
+    G_ordering = (agattr(g,AGRAPH,"ordering",NULL));
+    G_gradientangle = (agattr(g,AGRAPH,"gradientangle",NULL));
+    G_margin = (agattr(g,AGRAPH,"margin",NULL));
+    /* initialize nodes */
+    N_height = (agattr(g,AGNODE,"height",NULL));
+    N_width = (agattr(g,AGNODE,"width",NULL));
+    N_shape = (agattr(g,AGNODE,"shape",NULL));
+    N_color = (agattr(g,AGNODE,"color",NULL));
+    N_fillcolor = (agattr(g,AGNODE,"fillcolor",NULL));
+    N_style = (agattr(g,AGNODE,"style",NULL));
+    N_fontsize = (agattr(g,AGNODE,"fontsize",NULL));
+    N_fontname = (agattr(g,AGNODE,"fontname",NULL));
+    N_fontcolor = (agattr(g,AGNODE,"fontcolor",NULL));
+    N_label = (agattr(g,AGNODE,"label",NULL));
+    if (!N_label)
+	N_label = agattr(g, AGNODE, "label", "\\N");
+    N_xlabel = (agattr(g,AGNODE,"xlabel",NULL));
+    N_showboxes = (agattr(g,AGNODE,"showboxes",NULL));
+    N_penwidth = (agattr(g,AGNODE,"penwidth",NULL));
+    N_ordering = (agattr(g,AGNODE,"ordering",NULL));
+    N_margin = (agattr(g,AGNODE,"margin",NULL));
+    /* attribs for polygon shapes */
+    N_sides = (agattr(g,AGNODE,"sides",NULL));
+    N_peripheries = (agattr(g,AGNODE,"peripheries",NULL));
+    N_skew = (agattr(g,AGNODE,"skew",NULL));
+    N_orientation = (agattr(g,AGNODE,"orientation",NULL));
+    N_distortion = (agattr(g,AGNODE,"distortion",NULL));
+    N_fixed = (agattr(g,AGNODE,"fixedsize",NULL));
+    N_imagescale = (agattr(g,AGNODE,"imagescale",NULL));
+    N_nojustify = (agattr(g,AGNODE,"nojustify",NULL));
+    N_layer = (agattr(g,AGNODE,"layer",NULL));
+    N_group = (agattr(g,AGNODE,"group",NULL));
+    N_comment = (agattr(g,AGNODE,"comment",NULL));
+    N_vertices = (agattr(g,AGNODE,"vertices",NULL));
+    N_z = (agattr(g,AGNODE,"z",NULL));
+    N_gradientangle = (agattr(g,AGNODE,"gradientangle",NULL));
+    /* initialize edges */
+    E_weight = (agattr(g,AGEDGE,"weight",NULL));
+    E_color = (agattr(g,AGEDGE,"color",NULL));
+    E_fillcolor = (agattr(g,AGEDGE,"fillcolor",NULL));
+    E_fontsize = (agattr(g,AGEDGE,"fontsize",NULL));
+    E_fontname = (agattr(g,AGEDGE,"fontname",NULL));
+    E_fontcolor = (agattr(g,AGEDGE,"fontcolor",NULL));
+    E_label = (agattr(g,AGEDGE,"label",NULL));
+    E_xlabel = (agattr(g,AGEDGE,"xlabel",NULL));
+    E_label_float = (agattr(g,AGEDGE,"labelfloat",NULL));
+    /* vladimir */
+    E_dir = (agattr(g,AGEDGE,"dir",NULL));
+    E_arrowhead = (agattr(g,AGEDGE,"arrowhead",NULL));
+    E_arrowtail = (agattr(g,AGEDGE,"arrowtail",NULL));
+    E_headlabel = (agattr(g,AGEDGE,"headlabel",NULL));
+    E_taillabel = (agattr(g,AGEDGE,"taillabel",NULL));
+    E_labelfontsize = (agattr(g,AGEDGE,"labelfontsize",NULL));
+    E_labelfontname = (agattr(g,AGEDGE,"labelfontname",NULL));
+    E_labelfontcolor = (agattr(g,AGEDGE,"labelfontcolor",NULL));
+    E_labeldistance = (agattr(g,AGEDGE,"labeldistance",NULL));
+    E_labelangle = (agattr(g,AGEDGE,"labelangle",NULL));
+    /* end vladimir */
+    E_minlen = (agattr(g,AGEDGE,"minlen",NULL));
+    E_showboxes = (agattr(g,AGEDGE,"showboxes",NULL));
+    E_style = (agattr(g,AGEDGE,"style",NULL));
+    E_decorate = (agattr(g,AGEDGE,"decorate",NULL));
+    E_arrowsz = (agattr(g,AGEDGE,"arrowsize",NULL));
+    E_constr = (agattr(g,AGEDGE,"constraint",NULL));
+    E_layer = (agattr(g,AGEDGE,"layer",NULL));
+    E_comment = (agattr(g,AGEDGE,"comment",NULL));
+    E_tailclip = (agattr(g,AGEDGE,"tailclip",NULL));
+    E_headclip = (agattr(g,AGEDGE,"headclip",NULL));
+    E_penwidth = (agattr(g,AGEDGE,"penwidth",NULL));
+    /* background */
+    GD_drawing(g)->xdots = init_xdot (g);
+    /* initialize id, if any */
+    if ((p = agget(g, "id")) && *p)
+	GD_drawing(g)->id = strdup_and_subst_obj(p, g);
+}
+

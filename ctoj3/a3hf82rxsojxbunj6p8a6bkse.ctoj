@@ -1,0 +1,40 @@
+public static void translate_bb(Agraph_s g, int rankdir) {
+    int c;
+    final __struct__<boxf> bb = __struct__.from(boxf.class), new_bb = __struct__.from(boxf.class);
+    bb.____(GD_bb(g));
+    if (rankdir == 1 || rankdir == 2) {
+UNSUPPORTED("d4wrtj0h7lkb0e0vernd9czq9"); // 	new_bb.LL = map_point(pointfof(bb.LL.x, bb.UR.y));
+UNSUPPORTED("crysiae5zxc69cj3v2ygfs8xn"); // 	new_bb.UR = map_point(pointfof(bb.UR.x, bb.LL.y));
+    } else {
+	new_bb.getStruct("LL").____(map_point(pointfof(bb.getStruct("LL").getDouble("x"), bb.getStruct("LL").getDouble("y"))));
+	new_bb.getStruct("UR").____(map_point(pointfof(bb.getStruct("UR").getDouble("x"), bb.getStruct("UR").getDouble("y"))));
+    }
+    GD_bb(g).____(new_bb);
+    if (GD_label(g)!=null) {
+UNSUPPORTED("bkn67oo24unyb5eif9prtw0et"); // 	GD_label(g)->pos = map_point(GD_label(g)->pos);
+    }
+    for (c = 1; c <= GD_n_cluster(g); c++)
+	translate_bb((Agraph_s) GD_clust(g).plus(c).getPtr(), rankdir);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void translate_bb(graph_t * g, int rankdir)
+{
+    int c;
+    boxf bb, new_bb;
+    bb = GD_bb(g);
+    if (rankdir == 1 || rankdir == 2) {
+	new_bb.LL = map_point(pointfof(bb.LL.x, bb.UR.y));
+	new_bb.UR = map_point(pointfof(bb.UR.x, bb.LL.y));
+    } else {
+	new_bb.LL = map_point(pointfof(bb.LL.x, bb.LL.y));
+	new_bb.UR = map_point(pointfof(bb.UR.x, bb.UR.y));
+    }
+    GD_bb(g) = new_bb;
+    if (GD_label(g)) {
+	GD_label(g)->pos = map_point(GD_label(g)->pos);
+    }
+    for (c = 1; c <= GD_n_cluster(g); c++)
+	translate_bb(GD_clust(g)[c], rankdir);
+}
+

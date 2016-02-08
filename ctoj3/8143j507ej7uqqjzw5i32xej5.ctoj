@@ -1,0 +1,18 @@
+public static CString idprint(__ptr__ state, int objtype, int id) {
+    if (id % 2 == 0)
+	return (CString) Memory.fromIdentityHashCode(id);
+    else
+	return null;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static char *idprint(void *state, int objtype, unsigned long id)
+{
+    (void) state;
+    (void) objtype;
+    if (id % 2 == 0)
+	return (char *) id;
+    else
+	return ((char*)0);
+}
+

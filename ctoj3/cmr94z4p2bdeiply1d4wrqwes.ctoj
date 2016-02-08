@@ -1,0 +1,25 @@
+public static void dot_init_subg(Agraph_s g, Agraph_s droot) {
+    Agraph_s subg;
+    if (NEQ(g, agroot(g)))
+	agbindrec(g, new CString("Agraphinfo_t"), sizeof(Agraphinfo_t.class), (N(0)));
+    if (EQ(g, droot))
+	GD_dotroot(agroot(g), droot);
+    for (subg = agfstsubg(g); subg!=null; subg = agnxtsubg(subg)) {
+	dot_init_subg(subg, droot);
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void
+dot_init_subg(graph_t * g, graph_t* droot)
+{
+    graph_t* subg;
+    if ((g != agroot(g)))
+	agbindrec(g, "Agraphinfo_t", sizeof(Agraphinfo_t), NOT(0));
+    if (g == droot)
+	GD_dotroot(agroot(g)) = droot;
+    for (subg = agfstsubg(g); subg; subg = agnxtsubg(subg)) {
+	dot_init_subg(subg, droot);
+    }
+}
+

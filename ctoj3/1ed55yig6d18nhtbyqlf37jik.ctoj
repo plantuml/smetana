@@ -1,0 +1,15 @@
+public static __ptr__ grealloc(__ptr__ ptr, size_t size) {
+    __ptr__ p = (__ptr__) size.realloc(ptr);
+    return p;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void *grealloc(void *ptr, size_t size)
+{
+    void *p = realloc(ptr, size);
+    if (p == NULL && size) {
+	fprintf(stderr, "out of memory\n");
+    }
+    return p;
+}
+

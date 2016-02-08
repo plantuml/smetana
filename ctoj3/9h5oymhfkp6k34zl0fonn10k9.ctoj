@@ -1,0 +1,20 @@
+public static CString agxget(__ptr__ obj,  Agsym_s sym) {
+    Agattr_s data;
+    CString rv;
+    data = agattrrec(obj.castTo(Agobj_s.class));
+
+    rv = data.getArrayOfCString("str").plus(sym.getInt("id")).getCString();
+    return rv;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+char *agxget(void *obj, Agsym_t * sym)
+{
+    Agattr_t *data;
+    char *rv;
+    data = agattrrec((Agobj_t *) obj);
+    ;
+    rv = (char *) (data->str[sym->id]);
+    return rv;
+}
+

@@ -1,0 +1,71 @@
+public static int gvLayoutJobs(GVC_s gvc, Agraph_s g) {
+    gvlayout_engine_s gvle;
+    CString p = null;
+    int rc;
+    agbindrec(g, new CString("Agraphinfo_t"), sizeof(Agraphinfo_t.class), (N(0)));
+    GD_gvc(g, gvc);
+    if (NEQ(g, agroot(g)))
+UNSUPPORTED("ah9ygbaap1fyxr97z734juk0j"); // 	(((Agraphinfo_t*)(((Agobj_t*)(agroot(g)))->data))->gvc) = gvc;
+/*    if ((p = agget(g, new CString("layout")))!=null) {
+UNSUPPORTED("dlm1jil8gt2pv7p8yrit1tuls"); //         gvc->layout.engine = NULL;
+UNSUPPORTED("efl8rjna6ij4qjxb0xlyu3hh1"); // 	rc = gvlayout_select(gvc, p);
+UNSUPPORTED("7smbmph5nldinro02iqf3qlxv"); // 	if (rc == 999) {
+UNSUPPORTED("6ru23qpjrx893ivwviirr1ikc"); // 	    agerr (AGERR, "Layout type: \"%s\" not recognized. Use one of:%s\n",
+UNSUPPORTED("f3vrr10ga3mqymh2qxomxn326"); // 	        p, gvplugin_list(gvc, API_layout, p));
+UNSUPPORTED("aivfd7ajlfz8o8oi68d4u5s5z"); // 	    return -1;
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+    }*/
+    
+    rc = gvlayout_select(gvc, p); //Let's force things
+    
+    gvle = (gvlayout_engine_s) gvc.getStruct("layout").getPtr("engine");
+    if (N(gvle))
+	UNSUPPORTED("return -1;");
+    gv_fixLocale (1);
+    graph_init(g, (gvc.getStruct("layout").getPtr("features").getInt("flags") & (1<<0))!=0);
+    GD_drawing(agroot(g), GD_drawing(g));
+    if (gvle!=null && gvle.getPtr("layout")!=null) {
+	gvle.call("layout", g);
+	if (gvle.getPtr("cleanup")!=null)
+	if (GD_cleanup(g)==null) 
+	System.err.println("WARNING WE CHEAT GD_cleanup(g) is NULL"); else
+	    GD_cleanup(g).setPtr(gvle.getPtr("cleanup"));
+    }
+    gv_fixLocale (0);
+    return 0;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int gvLayoutJobs(GVC_t * gvc, Agraph_t * g)
+{
+    gvlayout_engine_t *gvle;
+    char *p;
+    int rc;
+    agbindrec(g, "Agraphinfo_t", sizeof(Agraphinfo_t), NOT(0));
+    GD_gvc(g) = gvc;
+    if (g != agroot(g))
+	GD_gvc(agroot(g)) = gvc;
+    if ((p = agget(g, "layout"))) {
+        gvc->layout.engine = NULL;
+	rc = gvlayout_select(gvc, p);
+	if (rc == 999) {
+	    agerr (AGERR, "Layout type: \"%s\" not recognized. Use one of:%s\n",
+	        p, gvplugin_list(gvc, API_layout, p));
+	    return -1;
+	}
+    }
+    gvle = gvc->layout.engine;
+    if (! gvle)
+	return -1;
+    gv_fixLocale (1);
+    graph_init(g, gvc->layout.features->flags & (1<<0));
+    GD_drawing(agroot(g)) = GD_drawing(g);
+    if (gvle && gvle->layout) {
+	gvle->layout(g);
+	if (gvle->cleanup)
+	    GD_cleanup(g) = gvle->cleanup;
+    }
+    gv_fixLocale (0);
+    return 0;
+}
+

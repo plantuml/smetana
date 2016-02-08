@@ -1,0 +1,20 @@
+public static GVC_s gvContext(Object... arg) {
+    GVC_s gvc;
+    agattr(null, AGNODE, new CString("label"), new CString("\\N"));
+    /* default to no builtins, demand loading enabled */
+    gvc = (GVC_s) gvNEWcontext(null, (NOT(0)));
+    gvconfig(gvc, false); /* configure for available plugins */
+    return gvc;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+GVC_t *gvContext(void)
+{
+    GVC_t *gvc;
+    agattr(NULL, AGNODE, "label", "\\N");
+    /* default to no builtins, demand loading enabled */
+    gvc = gvNEWcontext(NULL, NOT(0));
+    gvconfig(gvc, 0); /* configure for available plugins */
+    return gvc;
+}
+

@@ -1,0 +1,48 @@
+public static void init_mincross(Agraph_s g) {
+    int size;
+    //if (Verbose)
+	//start_timer();
+    ReMincross = false;
+    Root = g;
+    /* alloc +1 for the null terminator usage in do_ordering() */
+    /* also, the +1 avoids attempts to alloc 0 sizes, something
+       that efence complains about */
+    size = agnedges(dot_root(g)) + 1;
+    TE_list = zmalloc(sizeof_starstar(Agedge_s.class, size));
+    TI_list = zmalloc(size_t_array_of_integer(size));
+    mincross_options(g);
+    if ((g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("flags") & (1 << 4))!=0)
+UNSUPPORTED("dqcnmc9qpcthx4scsko6iczpc"); // 	fillRanks (g);
+    class2(g);
+    decompose(g, 1);
+    allocate_ranks(g);
+    ordered_edges(g);
+    GlobalMinRank = g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("minrank");
+    GlobalMaxRank = g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("maxrank");
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void init_mincross(graph_t * g)
+{
+    int size;
+    if (Verbose)
+	start_timer();
+    ReMincross = 0;
+    Root = g;
+    /* alloc +1 for the null terminator usage in do_ordering() */
+    /* also, the +1 avoids attempts to alloc 0 sizes, something
+       that efence complains about */
+    size = agnedges(dot_root(g)) + 1;
+    TE_list = (edge_t **)zmalloc((size)*sizeof(edge_t *));
+    TI_list = (int*)zmalloc((size)*sizeof(int));
+    mincross_options(g);
+    if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->flags) & (1 << 4))
+	fillRanks (g);
+    class2(g);
+    decompose(g, 1);
+    allocate_ranks(g);
+    ordered_edges(g);
+    GlobalMinRank = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank);
+    GlobalMaxRank = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank);
+}
+

@@ -1,0 +1,10 @@
+public static Agedge_s agopp(__ptr__ e) {
+    return AGOPP((Agedge_s) e);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agedge_t *agopp(Agedge_t * e)
+{
+    return AGOPP(e);
+}
+

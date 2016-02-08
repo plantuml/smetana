@@ -1,0 +1,32 @@
+public static void set_xcoords(Agraph_s g) {
+    int i, j;
+    Agnode_s v;
+    __ptr__ rank = g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getPtr("rank");
+    for (i = g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("minrank");
+    i <= g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("maxrank");
+    i++) {
+	for (j = 0; j < rank.getBracket(i).getInt("n"); j++) {
+	    v = (Agnode_s) rank.getBracket(i).getArrayOfPtr("v", j);
+	    v.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("coord").setDouble("x",
+	      v.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("rank"));
+	    v.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).setInt("rank", i);
+	}
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void 
+set_xcoords(graph_t * g)
+{
+    int i, j;
+    node_t *v;
+    rank_t *rank = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank);
+    for (i = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank); i <= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank); i++) {
+	for (j = 0; j < rank[i].n; j++) {
+	    v = rank[i].v[j];
+	    (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->coord).x = (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->rank);
+	    (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->rank) = i;
+	}
+    }
+}
+

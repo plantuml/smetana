@@ -1,0 +1,12 @@
+public static double B23(double t) {
+    double tmp = 1.0 - t;
+    return t * t * (3 * tmp + t);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static double B23(double t)
+{
+    double tmp = 1.0 - t;
+    return t * t * (3 * tmp + t);
+}
+

@@ -1,0 +1,26 @@
+static public final __struct__<_dtdisc_s> Refstrdisc = __struct__.from(_dtdisc_s.class);
+static {
+	Refstrdisc.setInt("key", OFFSET.create(refstr_t.class, "s").toInt()); // *s is the third field in refstr_t
+	Refstrdisc.setInt("size", -1);
+	Refstrdisc.setInt("link", 0);
+	Refstrdisc.setPtr("makef", null);
+	Refstrdisc.setPtr("freef", function(utils__c.class, "agdictobjfree"));
+	Refstrdisc.setPtr("comparf", null);
+	Refstrdisc.setPtr("hashf", null);
+	Refstrdisc.setPtr("memoryf", function(utils__c.class, "agdictobjmem"));
+	Refstrdisc.setPtr("eventf", null);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static Dtdisc_t Refstrdisc = {
+    ((int)(&(((refstr_t*)0)->s))),	/* key */
+    -1,				/* size */
+    0,				/* link offset */
+    ((Dtmake_f)0),
+    agdictobjfree,
+    ((Dtcompar_f)0),
+    ((Dthash_f)0),
+    agdictobjmem,
+    ((Dtevent_f)0)
+};
+

@@ -1,0 +1,84 @@
+public static void dot_sameports(Agraph_s g) {
+    Agnode_s n;
+    Agedge_s e;
+    CString id;
+    //same_t samehead[5];
+    //same_t sametail[5];
+    int n_samehead;		/* number of same_t groups on current node */
+    int n_sametail;		/* number of same_t groups on current node */
+    int i;
+    E_samehead = agattr(g, AGEDGE, new CString("samehead"),null);
+    E_sametail = agattr(g, AGEDGE, new CString("sametail"),null);
+    if (N(E_samehead!=null || E_sametail!=null))
+	return;
+UNSUPPORTED("44thr6ep72jsj3fksjiwdx3yr"); //     for (n = agfstnode(g); n; n = agnxtnode(g, n)) {
+UNSUPPORTED("4roxmr5lxkjz6gn1j9mndurq2"); // 	n_samehead = n_sametail = 0;
+UNSUPPORTED("8oxob1qbbkbjh0jjcogk42jfl"); // 	for (e = agfstedge(g, n); e; e = agnxtedge(g, e, n)) {
+UNSUPPORTED("4gy7rakqurxvound05crezka2"); // 	    if (aghead(e) == agtail(e)) continue;  /* Don't support same* for loops */
+UNSUPPORTED("2r5fkddp1ey0fvpok2scgkk99"); // 	    if (aghead(e) == n && E_samehead &&
+UNSUPPORTED("d38ofiemhq37ykyauh9wync84"); // 	        (id = agxget(e, E_samehead))[0])
+UNSUPPORTED("18y7dy98psh7ultlx0jugsfu2"); // 		n_samehead = sameedge(samehead, n_samehead, n, e, id);
+UNSUPPORTED("5snv0fee5roi91irdwv8x51xi"); // 	    else if (agtail(e) == n && E_sametail &&
+UNSUPPORTED("8xvjbvzldkn1yksprzfexgsjs"); // 	        (id = agxget(e, E_sametail))[0])
+UNSUPPORTED("cdn1fgq1pke9ekyar2b4r6e91"); // 		n_sametail = sameedge(sametail, n_sametail, n, e, id);
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("c96gtgvp5uw8ktp389l2s9l4u"); // 	for (i = 0; i < n_samehead; i++) {
+UNSUPPORTED("b2s9feywib1q9pxw4h31yz6dk"); // 	    if (samehead[i].l.size > 1)
+UNSUPPORTED("1xvsmwfz2hihjki8tsqiaa1g8"); // 		sameport(n, &samehead[i].l, samehead[i].arr_len);
+UNSUPPORTED("cpzvkkchr60qet357b9gg1e5q"); // 	    free_list(samehead[i].l);
+UNSUPPORTED("6cnsuklvjftdyhzat6za4qggi"); // 	    /* I sure hope I don't need to free the char* id */
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("9ktz8j6cseb5w7jkfhrj5r19t"); // 	for (i = 0; i < n_sametail; i++) {
+UNSUPPORTED("5vcqm1irqrqcg4f6ldrqkikq8"); // 	    if (sametail[i].l.size > 1)
+UNSUPPORTED("dcjzqns8bm1o766uqi8dy72qf"); // 		sameport(n, &sametail[i].l, sametail[i].arr_len);
+UNSUPPORTED("13a7frulpyheo0h4ajbfja7ph"); // 	    free_list(sametail[i].l);
+UNSUPPORTED("6cnsuklvjftdyhzat6za4qggi"); // 	    /* I sure hope I don't need to free the char* id */
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void dot_sameports(graph_t * g)
+/* merge edge ports in G */
+{
+    node_t *n;
+    edge_t *e;
+    char *id;
+    same_t samehead[5];
+    same_t sametail[5];
+    int n_samehead;		/* number of same_t groups on current node */
+    int n_sametail;		/* number of same_t groups on current node */
+    int i;
+    E_samehead = agattr(g, AGEDGE, "samehead",(char*)0);
+    E_sametail = agattr(g, AGEDGE, "sametail",(char*)0);
+    if (!(E_samehead || E_sametail))
+	return;
+    for (n = agfstnode(g); n; n = agnxtnode(g, n)) {
+	n_samehead = n_sametail = 0;
+	for (e = agfstedge(g, n); e; e = agnxtedge(g, e, n)) {
+	    if (aghead(e) == agtail(e)) continue;  /* Don't support same* for loops */
+	    if (aghead(e) == n && E_samehead &&
+	        (id = agxget(e, E_samehead))[0])
+		n_samehead = sameedge(samehead, n_samehead, n, e, id);
+	    else if (agtail(e) == n && E_sametail &&
+	        (id = agxget(e, E_sametail))[0])
+		n_sametail = sameedge(sametail, n_sametail, n, e, id);
+	}
+	for (i = 0; i < n_samehead; i++) {
+	    if (samehead[i].l.size > 1)
+		sameport(n, &samehead[i].l, samehead[i].arr_len);
+	    free_list(samehead[i].l);
+	    /* I sure hope I don't need to free the char* id */
+	}
+	for (i = 0; i < n_sametail; i++) {
+	    if (sametail[i].l.size > 1)
+		sameport(n, &sametail[i].l, sametail[i].arr_len);
+	    free_list(sametail[i].l);
+	    /* I sure hope I don't need to free the char* id */
+	}
+    }
+}
+

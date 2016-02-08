@@ -1,0 +1,62 @@
+public static void exchange_tree_edges(Agedge_s e, Agedge_s f) {
+    int i, j;
+    Agnode_s n;
+    ED_tree_index(f, ED_tree_index(e));
+    Tree_edge.getArrayOfPtr("list").plus(ED_tree_index(e)).setPtr(f);
+    ED_tree_index(e, -1);
+    n = agtail(e);
+    ND_tree_out(n).setInt("size", ND_tree_out(n).getInt("size") -1);
+    i = ND_tree_out(n).getInt("size");
+    for (j = 0; j <= i; j++)
+	if (EQ(ND_tree_out(n).getArrayOfPtr("list").plus(j).getPtr(), e))
+	    break;
+    ND_tree_out(n).getArrayOfPtr("list").plus(j).setPtr(ND_tree_out(n).getArrayOfPtr("list").plus(i).getPtr());
+    ND_tree_out(n).getArrayOfPtr("list").plus(i).setPtr(null);
+    n = aghead(e);
+    ND_tree_in(n).setInt("size", ND_tree_in(n).getInt("size") -1);
+    i = ND_tree_in(n).getInt("size");
+    for (j = 0; j <= i; j++)
+	if (EQ(ND_tree_in(n).getArrayOfPtr("list").plus(j).getPtr(), e))
+	    break;
+    ND_tree_in(n).getArrayOfPtr("list").plus(j).setPtr(ND_tree_in(n).getArrayOfPtr("list").plus(i).getPtr());
+    ND_tree_in(n).getArrayOfPtr("list").plus(i).setPtr(null);
+    n = agtail(f);
+    ND_tree_out(n).getArrayOfPtr("list").plus(ND_tree_out(n).getInt("size")).setPtr(f);
+    ND_tree_out(n).setInt("size", ND_tree_out(n).getInt("size") +1);
+    ND_tree_out(n).getArrayOfPtr("list").plus(ND_tree_out(n).getInt("size")).setPtr(null);
+    n = aghead(f);
+    ND_tree_in(n).getArrayOfPtr("list").plus(ND_tree_in(n).getInt("size")).setPtr(f);
+    ND_tree_in(n).setInt("size", ND_tree_in(n).getInt("size") +1);
+    ND_tree_in(n).getArrayOfPtr("list").plus(ND_tree_in(n).getInt("size")).setPtr(null);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void exchange_tree_edges(edge_t * e, edge_t * f)
+{
+    int i, j;
+    node_t *n;
+    ED_tree_index(f) = ED_tree_index(e);
+    Tree_edge.list[ED_tree_index(e)] = f;
+    ED_tree_index(e) = -1;
+    n = agtail(e);
+    i = --(ND_tree_out(n).size);
+    for (j = 0; j <= i; j++)
+	if (ND_tree_out(n).list[j] == e)
+	    break;
+    ND_tree_out(n).list[j] = ND_tree_out(n).list[i];
+    ND_tree_out(n).list[i] = NULL;
+    n = aghead(e);
+    i = --(ND_tree_in(n).size);
+    for (j = 0; j <= i; j++)
+	if (ND_tree_in(n).list[j] == e)
+	    break;
+    ND_tree_in(n).list[j] = ND_tree_in(n).list[i];
+    ND_tree_in(n).list[i] = NULL;
+    n = agtail(f);
+    ND_tree_out(n).list[ND_tree_out(n).size++] = f;
+    ND_tree_out(n).list[ND_tree_out(n).size] = NULL;
+    n = aghead(f);
+    ND_tree_in(n).list[ND_tree_in(n).size++] = f;
+    ND_tree_in(n).list[ND_tree_in(n).size] = NULL;
+}
+

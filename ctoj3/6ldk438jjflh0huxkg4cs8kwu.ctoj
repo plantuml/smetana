@@ -1,0 +1,14 @@
+public static void addroot(double root, double roots[], int rootnp[]) {
+    if (root >= 0 && root <= 1) {
+	roots[rootnp[0]] = root;
+	rootnp[0]++;
+	}
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void addroot(double root, double *roots, int *rootnp)
+{
+    if (root >= 0 && root <= 1)
+	roots[*rootnp] = root, (*rootnp)++;
+}
+

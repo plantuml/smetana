@@ -1,0 +1,4 @@
+public static CString DataDictName = new CString("_AG_datadict");
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static char DataDictName[] = "_AG_datadict";
+

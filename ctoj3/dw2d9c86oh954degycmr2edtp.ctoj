@@ -1,0 +1,58 @@
+private static textfont_t tf = (textfont_t) Memory.malloc(textfont_t.class);
+public static void storeline(GVC_s gvc, textlabel_t lp, CString line, char terminator) {
+    pointf size = (pointf) Memory.malloc(pointf.class);
+    textspan_t span;
+    int oldsz = lp.getInt("u.txt.nspans") + 1;
+    lp.setPtr("u.txt.span", lp.getPtr("u.txt.span")!=null?
+      UNSUPPORTED("(textspan_t*)zrealloc(lp->u.txt.span,oldsz + 1,sizeof(textspan_t),oldsz)")
+      :
+      (textspan_t)Memory.malloc(textspan_t.class));
+      if (lp.getInt("u.txt.nspans")!=0) throw new UnsupportedOperationException();
+    span = (textspan_t) lp.getPtr("u.txt.span");
+    span.setPtr("str", line);
+    span.setInt("just", terminator);
+    if (line!=null && line.charAt(0)!='\0') {
+	tf.setPtr("name", lp.getCString("fontname"));
+	tf.setDouble("size", lp.getDouble("fontsize"));
+//UNSUPPORTED("df05clv9x1nfecle8wkvtgulm"); // 	span->font = (*(((Dt_t*)(gvc->textfont_dt))->searchf))((gvc->textfont_dt),(void*)(&tf),0000001);
+    size = textspan_size(gvc, span);
+    }
+    else {
+UNSUPPORTED("bw0m1ovvkm789pulwmtlmd3s8"); // 	size.x = 0.0;
+UNSUPPORTED("9m3xivr1b1cp50bejquadm3an"); // 	span->size.y = size.y = (int)(lp->fontsize * 1.20);
+    }
+    lp.setInt("u.txt.nspans", lp.getInt("u.txt.nspans")+1);
+    /* width = max line width */
+    lp.getPtr("dimen").setDouble("x", ((lp.getPtr("dimen").getDouble("x"))>(size.getDouble("x"))?(lp.getPtr("dimen").getDouble("x")):(size.getDouble("x"))));
+    /* accumulate height */
+    lp.getPtr("dimen").setDouble("y", lp.getPtr("dimen").getDouble("y") + size.getDouble("y"));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void storeline(GVC_t *gvc, textlabel_t *lp, char *line, char terminator)
+{
+    pointf size;
+    textspan_t *span;
+    static textfont_t tf;
+    int oldsz = lp->u.txt.nspans + 1;
+    lp->u.txt.span = (lp->u.txt.span? (textspan_t*)zrealloc(lp->u.txt.span,oldsz + 1,sizeof(textspan_t),oldsz):(textspan_t*)zmalloc((oldsz + 1)*sizeof(textspan_t)));
+    span = &(lp->u.txt.span[lp->u.txt.nspans]);
+    span->str = line;
+    span->just = terminator;
+    if (line && line[0]) {
+	tf.name = lp->fontname;
+	tf.size = lp->fontsize;
+	span->font = (*(((Dt_t*)(gvc->textfont_dt))->searchf))((gvc->textfont_dt),(void*)(&tf),0000001);
+        size = textspan_size(gvc, span);
+    }
+    else {
+	size.x = 0.0;
+	span->size.y = size.y = (int)(lp->fontsize * 1.20);
+    }
+    lp->u.txt.nspans++;
+    /* width = max line width */
+    lp->dimen.x = ((lp->dimen.x)>(size.x)?(lp->dimen.x):(size.x));
+    /* accumulate height */
+    lp->dimen.y += size.y;
+}
+

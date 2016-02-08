@@ -1,0 +1,9 @@
+public static final __struct__<_dtmethod_s> _Dttree = __struct__.from(_dtmethod_s.class);
+static {
+	_Dttree.setPtr("searchf", function(dttree__c.class, "dttree"));
+	_Dttree.setInt("type", 0000004);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Dtmethod_t		_Dttree = { dttree, 0000004 };
+

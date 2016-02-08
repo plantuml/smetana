@@ -1,0 +1,86 @@
+public static int x_val(Agedge_s e, Agnode_s v, int dir) {
+    Agnode_s other;
+    int d=0, rv=0, f=0;
+   if (EQ(
+  (e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 3? e: e.plus(1)).getPtr("node")
+   , v))
+	other = (Agnode_s) (e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2? e: e.plus(-1)).getPtr("node");
+    else
+	other = (Agnode_s) (e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 3? e: e.plus(1)).getPtr("node");
+    if (N(
+	v.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("low") 
+	<=
+	other.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("lim")
+	&&
+	other.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("lim")
+	<=
+	v.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("lim")
+	)) {
+	f = 1;
+	rv = e.castTo(Agobj_s.class).getPtr("data").castTo(Agedgeinfo_t.class).getInt("weight");
+    } else {
+UNSUPPORTED("5fakoy78fn8supsw3hklar8s7"); // 	f = 0;
+UNSUPPORTED("8nli4gkeap3ffvyj7lh8dk8tj"); // 	if (((((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->tree_index) >= 0))
+UNSUPPORTED("27bq2yux8ncq6d1b9tqibdqs4"); // 	    rv = (((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->cutvalue);
+UNSUPPORTED("9352ql3e58qs4fzapgjfrms2s"); // 	else
+UNSUPPORTED("6x7u8qhr1l1yhthdztmb8zbvw"); // 	    rv = 0;
+UNSUPPORTED("c4jczt6ej8o4vs3cdudqbjs5z"); // 	rv -= (((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->weight);
+    }
+    if (dir > 0) {
+UNSUPPORTED("88e5eu2slfo0ivczycuwt2cox"); // 	if (((((((Agobj_t*)(e))->tag).objtype) == 2? (e): ((e)-1))->node) == v)
+UNSUPPORTED("c5krqo60t4kv0c6vj2yxklrir"); // 	    d = 1;
+UNSUPPORTED("9352ql3e58qs4fzapgjfrms2s"); // 	else
+UNSUPPORTED("a9n09zi0owv42txv9bsgtgnez"); // 	    d = -1;
+    } else {
+	if (EQ(
+	(e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 3? e: e.plus(1)).getPtr("node")
+	, v))
+	    d = 1;
+	else
+	    d = -1;
+    }
+    if (f!=0)
+	d = -d;
+    if (d < 0)
+	rv = -rv;
+    return rv;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int x_val(edge_t * e, node_t * v, int dir)
+{
+    node_t *other;
+    int d, rv, f;
+    if (((((((Agobj_t*)(e))->tag).objtype) == 3? (e): ((e)+1))->node) == v)
+	other = ((((((Agobj_t*)(e))->tag).objtype) == 2? (e): ((e)-1))->node);
+    else
+	other = ((((((Agobj_t*)(e))->tag).objtype) == 3? (e): ((e)+1))->node);
+    if (!(((((((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->low)) <= ((((Agnodeinfo_t*)(((Agobj_t*)(other))->data))->lim))) && (((((Agnodeinfo_t*)(((Agobj_t*)(other))->data))->lim)) <= ((((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->lim)))))) {
+	f = 1;
+	rv = (((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->weight);
+    } else {
+	f = 0;
+	if (((((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->tree_index) >= 0))
+	    rv = (((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->cutvalue);
+	else
+	    rv = 0;
+	rv -= (((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->weight);
+    }
+    if (dir > 0) {
+	if (((((((Agobj_t*)(e))->tag).objtype) == 2? (e): ((e)-1))->node) == v)
+	    d = 1;
+	else
+	    d = -1;
+    } else {
+	if (((((((Agobj_t*)(e))->tag).objtype) == 3? (e): ((e)+1))->node) == v)
+	    d = 1;
+	else
+	    d = -1;
+    }
+    if (f)
+	d = -d;
+    if (d < 0)
+	rv = -rv;
+    return rv;
+}
+

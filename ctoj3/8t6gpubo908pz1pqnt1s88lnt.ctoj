@@ -1,0 +1,14 @@
+public static Agedge_s fast_edge(Agedge_s e) {
+    elist_append(e, ND_out(agtail(e)));
+    elist_append(e, ND_in(aghead(e)));
+    return e;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+edge_t *fast_edge(edge_t * e)
+{
+    elist_append(e, ND_out(agtail(e)));
+    elist_append(e, ND_in(aghead(e)));
+    return e;
+}
+

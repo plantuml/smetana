@@ -1,0 +1,22 @@
+public static Agsym_s agnewsym(Agraph_s g, CString name, CString value, int id, int kind) {
+    Agsym_s sym;
+    sym = (Agsym_s) agalloc(g, sizeof(Agsym_s.class));
+    sym.setInt("kind", kind);
+    sym.setPtr("name", agstrdup(g, name));
+    sym.setPtr("defval", agstrdup(g, value));
+    sym.setInt("id", id);
+    return sym;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agsym_t *agnewsym(Agraph_t * g, char *name, char *value, int id, int kind)
+{
+    Agsym_t *sym;
+    sym = agalloc(g, sizeof(Agsym_t));
+    sym->kind = kind;
+    sym->name = agstrdup(g, name);
+    sym->defval = agstrdup(g, value);
+    sym->id = id;
+    return sym;
+}
+

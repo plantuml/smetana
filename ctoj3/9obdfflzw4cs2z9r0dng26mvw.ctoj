@@ -1,0 +1,10 @@
+public static Agedge_s virtual_edge(Agnode_s u, Agnode_s v, Agedge_s orig) {
+    return fast_edge(new_virtual_edge(u, v, orig));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+edge_t *virtual_edge(node_t * u, node_t * v, edge_t * orig)
+{
+    return fast_edge(new_virtual_edge(u, v, orig));
+}
+

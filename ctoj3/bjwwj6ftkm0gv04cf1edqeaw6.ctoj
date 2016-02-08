@@ -1,0 +1,153 @@
+public static int flat_edges(Agraph_s g) {
+    int i, j, reset = 0;
+    Agnode_s n;
+    Agedge_s e;
+    int found = 0;
+    for (n = GD_nlist(g); n!=null; n = ND_next(n)) {
+	if (ND_flat_out(n).getPtr("list")!=null) {
+	    for (j = 0; (e = (Agedge_s) ND_flat_out(n).getArrayOfPtr("list").plus(j).getPtr())!=null; j++) {
+		checkFlatAdjacent (e);
+	    }
+	}
+	for (j = 0; j < ND_other(n).getInt("size"); j++) {
+	    e = (Agedge_s) ND_other(n).getArrayOfPtr("list").plus(j).getPtr();
+	    if (ND_rank(aghead(e)) == ND_rank(agtail(e)))
+		checkFlatAdjacent (e);
+	}
+    }
+    if ((GD_rank(g).plus(0).getPtr("flat")!=null) || (GD_n_cluster(g) > 0)) {
+	for (i = 0; (n = (Agnode_s) GD_rank(g).plus(0).getArrayOfPtr("v").plus(i).getPtr())!=null; i++) {
+	    for (j = 0; (e = (Agedge_s) ND_flat_in(n).getArrayOfPtr("list").plus(j).getPtr())!=null; j++) {
+		if ((ED_label(e)!=null) && N(ED_adjacent(e))) {
+		    abomination(g);
+		    found = 1;
+		    break;
+		}
+	    }
+	    if (found!=0)
+		break;
+	}
+    }
+    rec_save_vlists(g);
+    for (n = GD_nlist(g); n!=null; n = ND_next(n)) {
+          /* if n is the tail of any flat edge, one will be in flat_out */
+	if (ND_flat_out(n).getPtr("list")!=null) {
+	    for (i = 0; (e = (Agedge_s) ND_flat_out(n).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
+		if (ED_label(e)!=null) {
+		    if (ED_adjacent(e)!=0) {
+			if (GD_flip(g)!=0) ED_dist(e, ED_label(e).getPtr("dimen").getDouble("y"));
+			else ED_dist(e, ED_label(e).getPtr("dimen").getDouble("x")); 
+		    }
+		    else {
+			reset = 1;
+			flat_node(e);
+		    }
+		}
+	    }
+		/* look for other flat edges with labels */
+	    for (j = 0; j < ND_other(n).getInt("size"); j++) {
+		Agedge_s le;
+		e = (Agedge_s) ND_other(n).getArrayOfPtr("list").plus(j).getPtr();
+		if (ND_rank(agtail(e)) != ND_rank(aghead(e))) continue;
+		if (EQ(agtail(e), aghead(e))) continue; /* skip loops */
+		le = e;
+		while (ED_to_virt(le)!=null) le = ED_to_virt(le);
+		ED_adjacent(e, ED_adjacent(le)); 
+		if (ED_label(e)!=null) {
+		    if (ED_adjacent(e)!=0) {
+			double lw;
+			if (GD_flip(g)!=0) lw = ED_label(e).getPtr("dimen").getDouble("y");
+			else lw = ED_label(e).getPtr("dimen").getDouble("x"); 
+			ED_dist(le, MAX(lw,ED_dist(le)));
+		    }
+		    else {
+			reset = 1;
+			flat_node(e);
+		    }
+		}
+	    }
+	}
+    }
+    if (reset!=0)
+	rec_reset_vlists(g);
+    return reset;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int 
+flat_edges(graph_t * g)
+{
+    int i, j, reset = 0;
+    node_t *n;
+    edge_t *e;
+    int found = 0;
+    for (n = GD_nlist(g); n; n = ND_next(n)) {
+	if (ND_flat_out(n).list) {
+	    for (j = 0; (e = ND_flat_out(n).list[j]); j++) {
+		checkFlatAdjacent (e);
+	    }
+	}
+	for (j = 0; j < ND_other(n).size; j++) {
+	    e = ND_other(n).list[j];
+	    if (ND_rank(aghead(e)) == ND_rank(agtail(e)))
+		checkFlatAdjacent (e);
+	}
+    }
+    if ((GD_rank(g)[0].flat) || (GD_n_cluster(g) > 0)) {
+	for (i = 0; (n = GD_rank(g)[0].v[i]); i++) {
+	    for (j = 0; (e = ND_flat_in(n).list[j]); j++) {
+		if ((ED_label(e)) && !ED_adjacent(e)) {
+		    abomination(g);
+		    found = NOT(0);
+		    break;
+		}
+	    }
+	    if (found)
+		break;
+	}
+    }
+    rec_save_vlists(g);
+    for (n = GD_nlist(g); n; n = ND_next(n)) {
+          /* if n is the tail of any flat edge, one will be in flat_out */
+	if (ND_flat_out(n).list) {
+	    for (i = 0; (e = ND_flat_out(n).list[i]); i++) {
+		if (ED_label(e)) {
+		    if (ED_adjacent(e)) {
+			if (GD_flip(g)) ED_dist(e) = ED_label(e)->dimen.y;
+			else ED_dist(e) = ED_label(e)->dimen.x; 
+		    }
+		    else {
+			reset = NOT(0);
+			flat_node(e);
+		    }
+		}
+	    }
+		/* look for other flat edges with labels */
+	    for (j = 0; j < ND_other(n).size; j++) {
+		edge_t* le;
+		e = ND_other(n).list[j];
+		if (ND_rank(agtail(e)) != ND_rank(aghead(e))) continue;
+		if (agtail(e) == aghead(e)) continue; /* skip loops */
+		le = e;
+		while (ED_to_virt(le)) le = ED_to_virt(le);
+		ED_adjacent(e) = ED_adjacent(le); 
+		if (ED_label(e)) {
+		    if (ED_adjacent(e)) {
+			double lw;
+			if (GD_flip(g)) lw = ED_label(e)->dimen.y;
+			else lw = ED_label(e)->dimen.x; 
+			ED_dist(le) = MAX(lw,ED_dist(le));
+		    }
+		    else {
+			reset = NOT(0);
+			flat_node(e);
+		    }
+		}
+	    }
+	}
+    }
+    if (reset)
+	rec_reset_vlists(g);
+    return reset;
+}
+

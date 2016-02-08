@@ -1,0 +1,26 @@
+public static int agedgeseqcmpf(_dt_s d, __ptr__ arg_e0, __ptr__ arg_e1, _dtdisc_s disc) {
+    int v;
+    Agedge_s e0, e1;
+    e0 = (Agedge_s) arg_e0;
+    e1 = (Agedge_s) arg_e1;
+	if (NEQ(e0.getPtr("node"), e1.getPtr("node"))) v = e0.getPtr("node").castTo(Agobj_s.class).getPtr("tag").getInt("seq")
+	 - e1.getPtr("node").castTo(Agobj_s.class).getPtr("tag").getInt("seq");
+	else v = e0.castTo(Agobj_s.class).getPtr("tag").getInt("seq") - e1.castTo(Agobj_s.class).getPtr("tag").getInt("seq");
+    return ((v==0)?0:(v<0?-1:1));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int agedgeseqcmpf(Dict_t * d, void *arg_e0, void *arg_e1, Dtdisc_t * disc)
+{
+    long v;
+    Agedge_t *e0, *e1;
+    (void) d;
+    e0 = arg_e0;
+    e1 = arg_e1;
+    (void) disc;
+	;
+	if (e0->node != e1->node) v = ((((Agobj_t*)(e0->node))->tag).seq) - ((((Agobj_t*)(e1->node))->tag).seq);
+	else v = (((((Agobj_t*)(e0))->tag).seq) - ((((Agobj_t*)(e1))->tag).seq));
+    return ((v==0)?0:(v<0?-1:1));
+}
+

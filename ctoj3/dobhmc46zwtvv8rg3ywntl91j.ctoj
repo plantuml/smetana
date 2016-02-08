@@ -1,0 +1,21 @@
+public static Agedge_s getmainedge(Agedge_s e) {
+    Agedge_s le = e;
+    while (ED_to_virt(le)!=null)
+	le = ED_to_virt(le);
+    while (ED_to_orig(le)!=null)
+	le = ED_to_orig(le);
+    return le;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static edge_t*
+getmainedge(edge_t * e)
+{
+    edge_t *le = e;
+    while (ED_to_virt(le))
+	le = ED_to_virt(le);
+    while (ED_to_orig(le))
+	le = ED_to_orig(le);
+    return le;
+}
+

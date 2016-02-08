@@ -1,0 +1,26 @@
+public static boolean same_side(final __struct__<pointf> p0, final __struct__<pointf> p1, final __struct__<pointf> L0, final __struct__<pointf> L1) {
+    boolean s0, s1;
+    double a, b, c;
+    /* a x + b y = c */
+    a = -(L1.getDouble("y") - L0.getDouble("y"));
+    b = (L1.getDouble("x") - L0.getDouble("x"));
+    c = a * L0.getDouble("x") + b * L0.getDouble("y");
+    s0 = (a * p0.getDouble("x") + b * p0.getDouble("y") - c >= 0);
+    s1 = (a * p1.getDouble("x") + b * p1.getDouble("y") - c >= 0);
+    return (s0 == s1);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int same_side(pointf p0, pointf p1, pointf L0, pointf L1)
+{
+    int s0, s1;
+    double a, b, c;
+    /* a x + b y = c */
+    a = -(L1.y - L0.y);
+    b = (L1.x - L0.x);
+    c = a * L0.x + b * L0.y;
+    s0 = (a * p0.x + b * p0.y - c >= 0);
+    s1 = (a * p1.x + b * p1.y - c >= 0);
+    return (s0 == s1);
+}
+

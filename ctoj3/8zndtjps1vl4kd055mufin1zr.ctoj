@@ -1,0 +1,50 @@
+public static void enqueue_neighbors(nodequeue q, Agnode_s n0, int pass) {
+    int i;
+    Agedge_s e;
+    if (pass == 0) {
+	for (i = 0; i < n0.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("out").getInt("size"); i++) {
+	    e = (Agedge_s) n0.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("out").getArrayOfPtr("list", i);
+	    if (
+		(e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2?e:e.plus(-1)).getPtr("node").castTo(Agobj_s.class)
+		.getPtr("data").castTo(Agnodeinfo_t.class).getInt("mark")
+		== 0) {
+		(e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2?e:e.plus(-1)).getPtr("node").castTo(Agobj_s.class)
+		.getPtr("data").castTo(Agnodeinfo_t.class).setInt("mark", 1);
+		enqueue(q, (Agnode_s) (e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2? e: e.plus(-1)).getPtr("node"));
+	    }
+	}
+    } else {
+UNSUPPORTED("6uw90eeivsndm6rcbkp3i2rwa"); // 	for (i = 0; i < (((Agnodeinfo_t*)(((Agobj_t*)(n0))->data))->in).size; i++) {
+UNSUPPORTED("qvbpcn7z19sqizt3vlu7gxcs"); // 	    e = (((Agnodeinfo_t*)(((Agobj_t*)(n0))->data))->in).list[i];
+UNSUPPORTED("28zmhcmccikviezfaier8rnqv"); // 	    if ((((((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 3?(e):((e)+1))->node)))->data))->mark))) == 0) {
+UNSUPPORTED("651wo8myf64sgsya4grtwz4si"); // 		((((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 3?(e):((e)+1))->node)))->data))->mark)) = (!(0));
+UNSUPPORTED("20itvpy9xhjqfe1if91oro4rc"); // 		enqueue(q, ((((((Agobj_t*)(e))->tag).objtype) == 3? (e): ((e)+1))->node));
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void enqueue_neighbors(nodequeue * q, node_t * n0, int pass)
+{
+    int i;
+    edge_t *e;
+    if (pass == 0) {
+	for (i = 0; i < (((Agnodeinfo_t*)(((Agobj_t*)(n0))->data))->out).size; i++) {
+	    e = (((Agnodeinfo_t*)(((Agobj_t*)(n0))->data))->out).list[i];
+	    if ((((((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 2?(e):((e)-1))->node)))->data))->mark))) == 0) {
+		((((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 2?(e):((e)-1))->node)))->data))->mark)) = (!(0));
+		enqueue(q, ((((((Agobj_t*)(e))->tag).objtype) == 2? (e): ((e)-1))->node));
+	    }
+	}
+    } else {
+	for (i = 0; i < (((Agnodeinfo_t*)(((Agobj_t*)(n0))->data))->in).size; i++) {
+	    e = (((Agnodeinfo_t*)(((Agobj_t*)(n0))->data))->in).list[i];
+	    if ((((((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 3?(e):((e)+1))->node)))->data))->mark))) == 0) {
+		((((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 3?(e):((e)+1))->node)))->data))->mark)) = (!(0));
+		enqueue(q, ((((((Agobj_t*)(e))->tag).objtype) == 3? (e): ((e)+1))->node));
+	    }
+	}
+    }
+}
+

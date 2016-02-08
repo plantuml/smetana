@@ -1,0 +1,22 @@
+public static Agdatadict_s agdatadict(Agraph_s g, boolean cflag) {
+    Agdatadict_s rv;
+    rv = (Agdatadict_s) aggetrec(g, DataDictName, false).castTo(Agdatadict_s.class);
+    if (rv!=null || N(cflag))
+	return rv;
+    init_all_attrs(g);
+    rv = (Agdatadict_s) aggetrec(g, DataDictName, false).castTo(Agdatadict_s.class);
+    return rv;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agdatadict_t *agdatadict(Agraph_t * g, int cflag)
+{
+    Agdatadict_t *rv;
+    rv = (Agdatadict_t *) aggetrec(g, DataDictName, (0));
+    if (rv || !cflag)
+	return rv;
+    init_all_attrs(g);
+    rv = (Agdatadict_t *) aggetrec(g, DataDictName, (0));
+    return rv;
+}
+

@@ -1,0 +1,18 @@
+public static int nsiter2(Agraph_s g) {
+    int maxiter = Integer.MAX_VALUE;
+    CString s;
+    if ((s = agget(g, new CString("nslimit")))!=null)
+	maxiter = (int)(atof(s) * agnnodes(g));
+    return maxiter;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int nsiter2(graph_t * g)
+{
+    int maxiter = ((int)(~(unsigned)0 >> 1));
+    char *s;
+    if ((s = agget(g, "nslimit")))
+	maxiter = atof(s) * agnnodes(g);
+    return maxiter;
+}
+

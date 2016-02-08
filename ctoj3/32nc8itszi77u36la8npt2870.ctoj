@@ -1,0 +1,162 @@
+public static int splineintersectsline(__array_of_struct__ sps, __array_of_struct__ lps, double roots[]) {
+    double scoeff[] = new double[4];
+    double xcoeff[] = new double[2];
+    double ycoeff[] = new double[2];
+    double xroots[] = new double[3];
+    double yroots[] = new double[3];
+    double tv, sv, rat;
+    int rootn[] = new int[]{0};
+    int xrootn, yrootn, i, j;
+    xcoeff[0] = lps.plus(0).getStruct().getDouble("x");
+    xcoeff[1] = lps.plus(1).getStruct().getDouble("x") - lps.plus(0).getStruct().getDouble("x");
+    ycoeff[0] = lps.plus(0).getStruct().getDouble("y");
+    ycoeff[1] = lps.plus(1).getStruct().getDouble("y") - lps.plus(0).getStruct().getDouble("y");
+    rootn[0] = 0;
+    if (xcoeff[1] == 0) {
+ 	if (ycoeff[1] == 0) {
+	    points2coeff(sps.plus(0).getStruct().getDouble("x"), sps.plus(1).getStruct().getDouble("x"), sps.plus(2).getStruct().getDouble("x"), sps.plus(3).getStruct().getDouble("x"), scoeff);
+	    scoeff[0] -= xcoeff[0];
+	    xrootn = solve3(scoeff, xroots);
+	    points2coeff(sps.plus(0).getStruct().getDouble("y"), sps.plus(1).getStruct().getDouble("y"), sps.plus(2).getStruct().getDouble("y"), sps.plus(3).getStruct().getDouble("y"), scoeff);
+	    scoeff[0] -= ycoeff[0];
+	    yrootn = solve3(scoeff, yroots);
+	    if (xrootn == 4)
+		if (yrootn == 4)
+		    return 4;
+		else
+		    for (j = 0; j < yrootn; j++)
+			addroot(yroots[j], roots, rootn);
+	    else if (yrootn == 4)
+		for (i = 0; i < xrootn; i++)
+		    addroot(xroots[i], roots, rootn);
+	    else
+		for (i = 0; i < xrootn; i++)
+		    for (j = 0; j < yrootn; j++)
+			if (xroots[i] == yroots[j])
+			    addroot(xroots[i], roots, rootn);
+	    return rootn[0];
+	} else {
+ 	    points2coeff(sps.plus(0).getStruct().getDouble("x"), sps.plus(1).getStruct().getDouble("x"), sps.plus(2).getStruct().getDouble("x"), sps.plus(3).getStruct().getDouble("x"), scoeff);
+ 	    scoeff[0] -= xcoeff[0];
+	    xrootn = solve3(scoeff, xroots);
+	    if (xrootn == 4)
+		return 4;
+	    for (i = 0; i < xrootn; i++) {
+		tv = xroots[i];
+		if (tv >= 0 && tv <= 1) {
+		    points2coeff(sps.plus(0).getStruct().getDouble("y"), sps.plus(1).getStruct().getDouble("y"), sps.plus(2).getStruct().getDouble("y"), sps.plus(3).getStruct().getDouble("y"),
+				 scoeff);
+		    sv = scoeff[0] + tv * (scoeff[1] + tv *
+					   (scoeff[2] + tv * scoeff[3]));
+		    sv = (sv - ycoeff[0]) / ycoeff[1];
+		    if ((0 <= sv) && (sv <= 1))
+			addroot(tv, roots, rootn);
+		}
+	    }
+	    return rootn[0];
+	}
+    } else {
+	rat = ycoeff[1] / xcoeff[1];
+	points2coeff(sps.plus(0).getStruct().getDouble("y") - rat * sps.plus(0).getStruct().getDouble("x"), sps.plus(1).getStruct().getDouble("y") - rat * sps.plus(1).getStruct().getDouble("x"),
+		     sps.plus(2).getStruct().getDouble("y") - rat * sps.plus(2).getStruct().getDouble("x"), sps.plus(3).getStruct().getDouble("y") - rat * sps.plus(3).getStruct().getDouble("x"),
+		     scoeff);
+	scoeff[0] += rat * xcoeff[0] - ycoeff[0];
+	xrootn = solve3(scoeff, xroots);
+	if (xrootn == 4)
+	    return 4;
+	for (i = 0; i < xrootn; i++) {
+	    tv = xroots[i];
+	    if (tv >= 0 && tv <= 1) {
+		points2coeff(sps.plus(0).getStruct().getDouble("x"), sps.plus(1).getStruct().getDouble("x"), sps.plus(2).getStruct().getDouble("x"), sps.plus(3).getStruct().getDouble("x"),
+			     scoeff);
+		sv = scoeff[0] + tv * (scoeff[1] +
+				       tv * (scoeff[2] + tv * scoeff[3]));
+		sv = (sv - xcoeff[0]) / xcoeff[1];
+		if ((0 <= sv) && (sv <= 1))
+		    addroot(tv, roots, rootn);
+	    }
+	}
+	return rootn[0];
+	}
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int splineintersectsline(Ppoint_t * sps, Ppoint_t * lps,
+				double *roots)
+{
+    double scoeff[4], xcoeff[2], ycoeff[2];
+    double xroots[3], yroots[3], tv, sv, rat;
+    int rootn, xrootn, yrootn, i, j;
+    xcoeff[0] = lps[0].x;
+    xcoeff[1] = lps[1].x - lps[0].x;
+    ycoeff[0] = lps[0].y;
+    ycoeff[1] = lps[1].y - lps[0].y;
+    rootn = 0;
+    if (xcoeff[1] == 0) {
+	if (ycoeff[1] == 0) {
+	    points2coeff(sps[0].x, sps[1].x, sps[2].x, sps[3].x, scoeff);
+	    scoeff[0] -= xcoeff[0];
+	    xrootn = solve3(scoeff, xroots);
+	    points2coeff(sps[0].y, sps[1].y, sps[2].y, sps[3].y, scoeff);
+	    scoeff[0] -= ycoeff[0];
+	    yrootn = solve3(scoeff, yroots);
+	    if (xrootn == 4)
+		if (yrootn == 4)
+		    return 4;
+		else
+		    for (j = 0; j < yrootn; j++)
+			addroot(yroots[j], roots, &rootn);
+	    else if (yrootn == 4)
+		for (i = 0; i < xrootn; i++)
+		    addroot(xroots[i], roots, &rootn);
+	    else
+		for (i = 0; i < xrootn; i++)
+		    for (j = 0; j < yrootn; j++)
+			if (xroots[i] == yroots[j])
+			    addroot(xroots[i], roots, &rootn);
+	    return rootn;
+	} else {
+	    points2coeff(sps[0].x, sps[1].x, sps[2].x, sps[3].x, scoeff);
+	    scoeff[0] -= xcoeff[0];
+	    xrootn = solve3(scoeff, xroots);
+	    if (xrootn == 4)
+		return 4;
+	    for (i = 0; i < xrootn; i++) {
+		tv = xroots[i];
+		if (tv >= 0 && tv <= 1) {
+		    points2coeff(sps[0].y, sps[1].y, sps[2].y, sps[3].y,
+				 scoeff);
+		    sv = scoeff[0] + tv * (scoeff[1] + tv *
+					   (scoeff[2] + tv * scoeff[3]));
+		    sv = (sv - ycoeff[0]) / ycoeff[1];
+		    if ((0 <= sv) && (sv <= 1))
+			addroot(tv, roots, &rootn);
+		}
+	    }
+	    return rootn;
+	}
+    } else {
+	rat = ycoeff[1] / xcoeff[1];
+	points2coeff(sps[0].y - rat * sps[0].x, sps[1].y - rat * sps[1].x,
+		     sps[2].y - rat * sps[2].x, sps[3].y - rat * sps[3].x,
+		     scoeff);
+	scoeff[0] += rat * xcoeff[0] - ycoeff[0];
+	xrootn = solve3(scoeff, xroots);
+	if (xrootn == 4)
+	    return 4;
+	for (i = 0; i < xrootn; i++) {
+	    tv = xroots[i];
+	    if (tv >= 0 && tv <= 1) {
+		points2coeff(sps[0].x, sps[1].x, sps[2].x, sps[3].x,
+			     scoeff);
+		sv = scoeff[0] + tv * (scoeff[1] +
+				       tv * (scoeff[2] + tv * scoeff[3]));
+		sv = (sv - xcoeff[0]) / xcoeff[1];
+		if ((0 <= sv) && (sv <= 1))
+		    addroot(tv, roots, &rootn);
+	    }
+	}
+	return rootn;
+    }
+}
+

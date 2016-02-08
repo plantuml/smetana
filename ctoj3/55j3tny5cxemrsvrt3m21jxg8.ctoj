@@ -1,0 +1,20 @@
+public static void routesplinesterm() {
+    if (--routeinit > 0) return;
+    Memory.free(ps);
+    /*if (Verbose)
+	fprintf(stderr,
+		"routesplines: %d edges, %d boxes %.2f sec\n",
+		nedges, nboxes, elapsed_sec());*/
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void routesplinesterm()
+{
+    if (--routeinit > 0) return;
+    free(ps);
+    if (Verbose)
+	fprintf(stderr,
+		"routesplines: %d edges, %d boxes %.2f sec\n",
+		nedges, nboxes, elapsed_sec());
+}
+

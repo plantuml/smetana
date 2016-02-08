@@ -1,0 +1,21 @@
+public static Agnode_s UF_find(Agnode_s n) {
+    while (n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("UF_parent")!=null
+    && (NEQ(n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("UF_parent"), n))) {
+UNSUPPORTED("79uxb3bacmuu7toh35dnjhxwk"); // 	if ((((Agnodeinfo_t*)(((Agobj_t*)((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->UF_parent)))->data))->UF_parent))
+UNSUPPORTED("21kxggttsmhw5hwk83bnymwnd"); // 	    (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->UF_parent) = (((Agnodeinfo_t*)(((Agobj_t*)((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->UF_parent)))->data))->UF_parent);
+UNSUPPORTED("3qqky0euqbxdudps7n2utazca"); // 	n = (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->UF_parent);
+    }
+    return n;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+node_t *UF_find(node_t * n)
+{
+    while ((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->UF_parent) && ((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->UF_parent) != n)) {
+	if ((((Agnodeinfo_t*)(((Agobj_t*)((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->UF_parent)))->data))->UF_parent))
+	    (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->UF_parent) = (((Agnodeinfo_t*)(((Agobj_t*)((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->UF_parent)))->data))->UF_parent);
+	n = (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->UF_parent);
+    }
+    return n;
+}
+

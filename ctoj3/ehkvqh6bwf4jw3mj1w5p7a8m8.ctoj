@@ -1,0 +1,10 @@
+public static boolean mapbool(CString p) {
+    return mapBool (p, false);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+boolean mapbool(char *p)
+{
+    return mapBool (p, 0);
+}
+

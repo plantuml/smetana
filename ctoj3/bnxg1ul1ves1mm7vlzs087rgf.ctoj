@@ -1,0 +1,64 @@
+public static void aginit(Agraph_s g, int kind, CString rec_name, size_t arg_rec_size, boolean mtf) {
+    Agnode_s n;
+    Agedge_s e;
+    Agraph_s s;
+    size_t		 rec_size;
+	int		 recur;	/* if recursive on subgraphs */
+	if (arg_rec_size.isStrictNegative()) {recur = 1; rec_size = arg_rec_size.negate();}
+	else {recur = 0; rec_size= arg_rec_size;}
+    switch (kind) {
+    case 0:
+	agbindrec(g, rec_name, rec_size, mtf);
+	if (recur!=0)
+		for (s = agfstsubg(g); s!=null; s = agnxtsubg(s))
+			aginit(s,kind,rec_name,arg_rec_size,mtf);
+	break;
+    case 1:
+    case 2:
+    case 3:
+	for (n = agfstnode(g); n!=null; n = agnxtnode(g, n))
+	    if (kind == 1)
+		agbindrec(n, rec_name, rec_size, mtf);
+	    else {
+		for (e = agfstout(g, n); e!=null; e = agnxtout(g, e))
+		    agbindrec(e, rec_name, rec_size, mtf);
+	    }
+	break;
+    default:
+	break;
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void aginit(Agraph_t * g, int kind, char *rec_name, int arg_rec_size, int mtf)
+{
+    Agnode_t *n;
+    Agedge_t *e;
+    Agraph_t *s;
+	int		 rec_size;
+	int		 recur;	/* if recursive on subgraphs */
+	if (arg_rec_size < 0) {recur = 1; rec_size = -arg_rec_size;}
+	else {recur = 0; rec_size= arg_rec_size;}
+    switch (kind) {
+    case 0:
+	agbindrec(g, rec_name, rec_size, mtf);
+	if (recur)
+		for (s = agfstsubg(g); s; s = agnxtsubg(s))
+			aginit(s,kind,rec_name,arg_rec_size,mtf);
+	break;
+    case 1:
+    case 2:
+    case 3:
+	for (n = agfstnode(g); n; n = agnxtnode(g, n))
+	    if (kind == 1)
+		agbindrec(n, rec_name, rec_size, mtf);
+	    else {
+		for (e = agfstout(g, n); e; e = agnxtout(g, e))
+		    agbindrec(e, rec_name, rec_size, mtf);
+	    }
+	break;
+    default:
+	break;
+    }
+}
+

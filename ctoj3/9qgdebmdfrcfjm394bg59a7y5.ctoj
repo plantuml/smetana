@@ -1,0 +1,10 @@
+public static boolean agisstrict(Agraph_s g) {
+    return g.getStruct("desc").getBoolean("strict");
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int agisstrict(Agraph_t * g)
+{
+    return g->desc.strict;
+}
+

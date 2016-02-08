@@ -1,0 +1,42 @@
+public static Agraph_s agopen(CString name, Agdesc_s desc, Agdisc_s arg_disc) {
+		Agraph_s g;
+		Agclos_s clos;
+		int gid[] = new int[1];
+		clos = agclos(arg_disc);
+		g = (Agraph_s) clos.getPtr("disc").getPtr("mem").call("alloc", clos.getPtr("state").getPtr("mem"), sizeof(Agraph_s.class));
+		g.castTo(Agobj_s.class).getPtr("tag").setPtr("objtype", 0);
+		g.setPtr("clos", clos);
+		g.setPtr("desc", desc);
+		g.getPtr("desc").setInt("maingraph", ASINT((N(0))));
+		g.setPtr("root", g);
+		g.getPtr("clos").getPtr("state").setPtr("id", g.getPtr("clos").getPtr("disc").getPtr("id").call("open", g, arg_disc));
+		 if (agmapnametoid(g, 0, name, gid, (N(0)))!=0)
+		  g.castTo(Agobj_s.class).getPtr("tag").setInt("id", gid[0]);
+		// /* else AGID(g) = 0 because we have no alternatives */
+		g = agopen1(g);
+		agregister(g, 0, g);
+		return g;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agraph_t *agopen(char *name, Agdesc_t desc, Agdisc_t * arg_disc)
+{
+    Agraph_t *g;
+    Agclos_t *clos;
+    unsigned long gid;
+    clos = agclos(arg_disc);
+    g = clos->disc.mem->alloc(clos->state.mem, sizeof(Agraph_t));
+    ((((Agobj_t*)(g))->tag).objtype) = 0;
+    g->clos = clos;
+    g->desc = desc;
+    g->desc.maingraph = (!(0));
+    g->root = g;
+    g->clos->state.id = g->clos->disc.id->open(g, arg_disc);
+    if (agmapnametoid(g, 0, name, &gid, (!(0))))
+	((((Agobj_t*)(g))->tag).id) = gid;
+    /* else AGID(g) = 0 because we have no alternatives */
+    g = agopen1(g);
+    agregister(g, 0, g);
+    return g;
+}
+

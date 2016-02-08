@@ -1,0 +1,36 @@
+public static boolean mapBool(CString p, boolean dflt) {
+    if (N(p) || (p.charAt(0) == '\0'))
+	return dflt;
+    if (N(strcasecmp(p, new CString("false"))))
+	return false;
+    if (N(strcasecmp(p, new CString("no"))))
+	return false;
+    if (N(strcasecmp(p, new CString("true"))))
+	return (N(0));
+    if (N(strcasecmp(p, new CString("yes"))))
+	return (N(0));
+    if (isdigit(p.charAt(0)))
+	return atoi(p)!=0;
+    else
+	return dflt;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+boolean mapBool(char *p, boolean dflt)
+{
+    if (!p || (*p == '\0'))
+	return dflt;
+    if (!strcasecmp(p, "false"))
+	return 0;
+    if (!strcasecmp(p, "no"))
+	return 0;
+    if (!strcasecmp(p, "true"))
+	return (!(0));
+    if (!strcasecmp(p, "yes"))
+	return (!(0));
+    if (isdigit(*p))
+	return atoi(p);
+    else
+	return dflt;
+}
+

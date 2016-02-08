@@ -1,0 +1,16 @@
+public static void free_matrix(adjmatrix_t p) {
+    if (p!=null) {
+	Memory.free(p.getPtr("data"));
+	Memory.free(p);
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void free_matrix(adjmatrix_t * p)
+{
+    if (p) {
+	free(p->data);
+	free(p);
+    }
+}
+

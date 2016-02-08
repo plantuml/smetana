@@ -1,0 +1,105 @@
+public static int parsePackModeInfo(CString p, int dflt, pack_info pinfo) {
+    float v;
+    int i;
+    //assert (pinfo);
+    pinfo.setInt("flags", 0);
+    pinfo.setInt("mode", dflt);
+    pinfo.setInt("sz", 0);
+    pinfo.setPtr("vals", null);
+    if (p!=null && p.charAt(0)!='\0') {
+UNSUPPORTED("2ybrtqq8efxouph8wjbrnowxz"); // 	switch (*p) {
+UNSUPPORTED("2v5u3irq50r1n2ccuna0y09lk"); // 	case 'a':
+UNSUPPORTED("4o68zbwd6291pxryyntjh2432"); // 	    if ((!strncmp(p,"array",(sizeof("array")/sizeof(char) - 1)))) {
+UNSUPPORTED("3cxht114gc0fn4wl8xjy515bv"); // 		pinfo->mode = l_array;
+UNSUPPORTED("edkaa80od81ojkn7d4h0q1zbu"); // 		p += (sizeof("array")/sizeof(char) - 1);
+UNSUPPORTED("106zhcf9a6frvafctbbgrbws3"); // 		p = chkFlags (p, pinfo);
+UNSUPPORTED("epac8gmlq3r1q3g6lh3fb9nzh"); // 		if ((sscanf (p, "%d", &i)>0) && (i > 0))
+UNSUPPORTED("2e563kaxakuuou2t5kqvv33w5"); // 		    pinfo->sz = i;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("38dve3snq2grkwui6y1tpc6r1"); // 	    else if ((!strncmp(p,"aspect",(sizeof("aspect")/sizeof(char) - 1)))) {
+UNSUPPORTED("ems4wqj0nbd0vi3sttf36tnir"); // 		pinfo->mode = l_aspect;
+UNSUPPORTED("3ckdfsy55ba8os2xhymh002al"); // 		if ((sscanf (p + (sizeof("array")/sizeof(char) - 1), "%f", &v)>0) && (v > 0))
+UNSUPPORTED("1i6xlg2sfqvjqjdu811xm5398"); // 		    pinfo->aspect = v;
+UNSUPPORTED("7e1uy5mzei37p66t8jp01r3mk"); // 		else
+UNSUPPORTED("b3tzhasiwa1p83l47nhl6k5x8"); // 		    pinfo->aspect = 1;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("ai3czg6gaaxspsmndknpyvuiu"); // 	    break;
+UNSUPPORTED("f3lyz2cejs6yn5fyckhn7ba1"); // 	case 'c':
+UNSUPPORTED("d6yjom2gtqleeq1vf5l72eazl"); // 	    if ((*(p)==*("cluster")&&!strcmp(p,"cluster")))
+UNSUPPORTED("2xe2y3s32q27l74dshw3831hu"); // 		pinfo->mode = l_clust;
+UNSUPPORTED("ai3czg6gaaxspsmndknpyvuiu"); // 	    break;
+UNSUPPORTED("e00kor2k58i044hvvxytt9dhg"); // 	case 'g':
+UNSUPPORTED("8vzhimdinzz48u15tcx34gzgs"); // 	    if ((*(p)==*("graph")&&!strcmp(p,"graph")))
+UNSUPPORTED("coafx7pn3ah1ulp0o7a0z119r"); // 		pinfo->mode = l_graph;
+UNSUPPORTED("ai3czg6gaaxspsmndknpyvuiu"); // 	    break;
+UNSUPPORTED("f187wptsr73liavtlyoyfovp3"); // 	case 'n':
+UNSUPPORTED("aqi1ed010xc3cj8xoye8vqkqe"); // 	    if ((*(p)==*("node")&&!strcmp(p,"node")))
+UNSUPPORTED("epewq8yin5pr1meeofxvntjes"); // 		pinfo->mode = l_node;
+UNSUPPORTED("ai3czg6gaaxspsmndknpyvuiu"); // 	    break;
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+    }
+    //if (Verbose) {
+	//fprintf (stderr, "pack info:\n");
+	//fprintf (stderr, "  mode   %s\n", mode2Str(pinfo->mode));
+	//if (pinfo->mode == l_aspect)
+	//    fprintf (stderr, "  aspect %f\n", pinfo->aspect);
+	//fprintf (stderr, "  size   %d\n", pinfo->sz);
+	//fprintf (stderr, "  flags  %d\n", pinfo->flags);
+    //}
+    return pinfo.getInt("mode");
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+pack_mode 
+parsePackModeInfo(char* p, pack_mode dflt, pack_info* pinfo)
+{
+    float v;
+    int i;
+    assert (pinfo);
+    pinfo->flags = 0;
+    pinfo->mode = dflt;
+    pinfo->sz = 0;
+    pinfo->vals = NULL;
+    if (p && *p) {
+	switch (*p) {
+	case 'a':
+	    if ((!strncmp(p,"array",(sizeof("array")/sizeof(char) - 1)))) {
+		pinfo->mode = l_array;
+		p += (sizeof("array")/sizeof(char) - 1);
+		p = chkFlags (p, pinfo);
+		if ((sscanf (p, "%d", &i)>0) && (i > 0))
+		    pinfo->sz = i;
+	    }
+	    else if ((!strncmp(p,"aspect",(sizeof("aspect")/sizeof(char) - 1)))) {
+		pinfo->mode = l_aspect;
+		if ((sscanf (p + (sizeof("array")/sizeof(char) - 1), "%f", &v)>0) && (v > 0))
+		    pinfo->aspect = v;
+		else
+		    pinfo->aspect = 1;
+	    }
+	    break;
+	case 'c':
+	    if ((*(p)==*("cluster")&&!strcmp(p,"cluster")))
+		pinfo->mode = l_clust;
+	    break;
+	case 'g':
+	    if ((*(p)==*("graph")&&!strcmp(p,"graph")))
+		pinfo->mode = l_graph;
+	    break;
+	case 'n':
+	    if ((*(p)==*("node")&&!strcmp(p,"node")))
+		pinfo->mode = l_node;
+	    break;
+	}
+    }
+    if (Verbose) {
+	fprintf (stderr, "pack info:\n");
+	fprintf (stderr, "  mode   %s\n", mode2Str(pinfo->mode));
+	if (pinfo->mode == l_aspect)
+	    fprintf (stderr, "  aspect %f\n", pinfo->aspect);
+	fprintf (stderr, "  size   %d\n", pinfo->sz);
+	fprintf (stderr, "  flags  %d\n", pinfo->flags);
+    }
+    return pinfo->mode;
+}
+

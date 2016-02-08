@@ -1,0 +1,25 @@
+public static void edgelabel_ranks(Agraph_s g) {
+    Agnode_s n;
+    Agedge_s e;
+    if ((GD_has_labels(g) & (1 << 0))!=0) {
+UNSUPPORTED("eg21iwn9eqyjsoisl58nl8i36"); // 	for (n = agfstnode(g); n; n = agnxtnode(g, n))
+UNSUPPORTED("8wpryg13apwpccvklympyeyqu"); // 	    for (e = agfstout(g, n); e; e = agnxtout(g, e))
+UNSUPPORTED("27dscdfax4gfyfzrfhga66ba3"); // 		(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->minlen) *= 2;
+UNSUPPORTED("2nn4f0wfczb55o9cugxa0h15o"); // 	(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->ranksep) = ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->ranksep) + 1) / 2;
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void 
+edgelabel_ranks(graph_t * g)
+{
+    node_t *n;
+    edge_t *e;
+    if (GD_has_labels(g) & (1 << 0)) {
+	for (n = agfstnode(g); n; n = agnxtnode(g, n))
+	    for (e = agfstout(g, n); e; e = agnxtout(g, e))
+		ED_minlen(e) *= 2;
+	GD_ranksep(g) = (GD_ranksep(g) + 1) / 2;
+    }
+}
+

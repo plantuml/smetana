@@ -1,0 +1,30 @@
+public static void rank1(Agraph_s g) {
+    int maxiter = Integer.MAX_VALUE;
+    int c;
+    CString s;
+    if ((s = agget(g, new CString("nslimit1")))!=null)
+UNSUPPORTED("9tp2zk1tsr4ce9rwsr0is9u3o"); // 	maxiter = atof(s) * agnnodes(g);
+    for (c = 0; 
+	c < g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getPtr("comp").getInt("size")
+	; c++) {
+	g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).setPtr("nlist", 
+	  g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getPtr("comp").getArrayOfPtr("list", c));
+	rank(g, g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("n_cluster") == 0 ? 1 : 0, maxiter);
+	/* TB balance */
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void rank1(graph_t * g)
+{
+    int maxiter = ((int)(~(unsigned)0 >> 1));
+    int c;
+    char *s;
+    if ((s = agget(g, "nslimit1")))
+	maxiter = atof(s) * agnnodes(g);
+    for (c = 0; c < (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->comp).size; c++) {
+	(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->nlist) = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->comp).list[c];
+	rank(g, ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->n_cluster) == 0 ? 1 : 0), maxiter);	/* TB balance */
+    }
+}
+

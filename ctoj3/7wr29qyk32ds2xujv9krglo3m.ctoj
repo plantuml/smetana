@@ -1,0 +1,204 @@
+public static void set_ycoords(Agraph_s g) {
+    int i, j, r;
+    double ht2, maxht, delta, d0, d1;
+    Agnode_s n;
+    Agedge_s e;
+    __ptr__ rank = g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getPtr("rank");
+    Agraph_s clust;
+    int lbl;
+    ht2 = maxht = 0;
+    /* scan ranks for tallest nodes.  */
+    for (r = g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("minrank");
+    r <= g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("maxrank")
+    ; r++) {
+	for (i = 0; i < rank.getBracket(r).getInt("n"); i++) {
+	    n = (Agnode_s) rank.getBracket(r).getArrayOfPtr("v", i);
+	    /* assumes symmetry, ht1 = ht2 */
+	    ht2 = n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getDouble("ht") / 2;
+	    /* have to look for high self-edge labels, too */
+  	    if (n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("other").getPtr("list")!=null)
+  		for (j = 0; (e = (Agedge_s) n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("other").getArrayOfPtr("list", j))!=null; j++) {
+UNSUPPORTED("4yeq8o1707oidcplg862k50b1"); // 		    if (((((((Agobj_t*)(e))->tag).objtype) == 3? (e): ((e)+1))->node) == ((((((Agobj_t*)(e))->tag).objtype) == 2? (e): ((e)-1))->node)) {
+UNSUPPORTED("akrlc1hebv5a0awm8c1sh8hrd"); // 			if ((((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->label))
+UNSUPPORTED("dalgway17eglofypsez299scl"); // 			    ht2 = ((ht2)>((((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->label)->dimen.y / 2)?(ht2):((((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->label)->dimen.y / 2));
+UNSUPPORTED("dkxvw03k2gg9anv4dbze06axd"); // 		    }
+		}
+	    /* update global rank ht */
+	    if (rank.getBracket(r).getDouble("pht2") < ht2) {
+		rank.getBracket(r).setDouble("pht2", ht2);
+		rank.getBracket(r).setDouble("ht2", ht2);
+		}
+	    if (rank.getBracket(r).getDouble("pht1") < ht2) {
+		rank.getBracket(r).setDouble("pht1", ht2);
+		rank.getBracket(r).setDouble("ht1", ht2);
+		}
+	    /* update nearest enclosing cluster rank ht */
+  	    if ((clust = (Agraph_s) n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("clust"))!=null) {
+  		int yoff = EQ(clust, g) ? 0 : late_int (clust, G_margin, 8, 0);
+		if (
+		n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("rank")
+		== 
+		clust.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("minrank")
+		)
+	    clust.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).setDouble("ht2", 
+			clust.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getDouble("ht2") > ht2 + yoff ?
+			clust.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getDouble("ht2")
+			: ht2 + yoff );
+		if (
+		n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("rank")
+		== 
+		clust.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("maxrank")
+		)
+	    clust.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).setDouble("ht1", 
+			clust.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getDouble("ht1") > ht2 + yoff ?
+			clust.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getDouble("ht1")
+			: ht2 + yoff );  	    }
+	}
+    }
+    /* scan sub-clusters */
+    lbl = clust_ht(g);
+    /* make the initial assignment of ycoords to leftmost nodes by ranks */
+    maxht = 0;
+    r = g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("maxrank");
+    rank.getBracket(r).getArrayOfPtr("v", 0).castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("coord").setDouble("y", 
+      rank.getBracket(r).getDouble("ht1"));
+    while (--r >= g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("minrank")) {
+	d0 = rank.getBracket(r + 1).getDouble("pht2")
+	 + rank.getBracket(r).getDouble("pht1")
+	 + g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("ranksep");
+	/* prim node sep */
+	d1 = rank.getBracket(r + 1).getDouble("ht2") + rank.getBracket(r).getDouble("ht1") + 8;
+	/* cluster sep */
+	delta = ((d0)>(d1)?(d0):(d1));
+	if (rank.getBracket(r).getInt("n") > 0)	/* this may reflect some problem */
+  		rank.getBracket(r).getArrayOfPtr("v", 0).castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("coord").setDouble("y",
+  		   rank.getBracket(r + 1).getArrayOfPtr("v", 0).castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("coord").getDouble("y") + delta);
+ 	maxht = ((maxht)>(delta)?(maxht):(delta));
+    }
+    /* If there are cluster labels and the drawing is rotated, we need special processing to
+     * allocate enough room. We use adjustRanks for this, and then recompute the maxht if
+     * the ranks are to be equally spaced. This seems simpler and appears to work better than
+     * handling equal spacing as a special case.
+     */
+    if (lbl!=0 && ((g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("rankdir") & 0x3) & 1)!=0) {
+	adjustRanks(g, 0);
+UNSUPPORTED("7b8u80b153eawtes5hlxic4hh"); // 	if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->exact_ranksep)) {  /* recompute maxht */
+UNSUPPORTED("74f5n6u4x39ngn0gsan7fgzyr"); // 	    maxht = 0;
+UNSUPPORTED("6yjf0ntun9talmycko56nrp0"); // 	    r = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank);
+UNSUPPORTED("wgdgse1elhnerpixvdyh9xwk"); // 	    d0 = ((((Agnodeinfo_t*)(((Agobj_t*)(rank[r].v[0]))->data))->coord)).y;
+UNSUPPORTED("3738rgcwd3gb7y99p66mfqgx0"); // 	    while (--r >= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank)) {
+UNSUPPORTED("e5sulrg5revr9r0gc2drf5tv4"); // 		d1 = ((((Agnodeinfo_t*)(((Agobj_t*)(rank[r].v[0]))->data))->coord)).y;
+UNSUPPORTED("b1ta7vjm5i7swyklhfwy27w35"); // 		delta = d1 - d0;
+UNSUPPORTED("a9effn5fx133poolhpmzyu9er"); // 		maxht = ((maxht)>(delta)?(maxht):(delta));
+UNSUPPORTED("5irf6cp6xdzi2ik033azsbauo"); // 		d0 = d1;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+    }
+    /* re-assign if ranks are equally spaced */
+    if (g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getBoolean("exact_ranksep")) {
+UNSUPPORTED("enif1z5heyu5j3t5g4jd9yyur"); // 	for (r = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank) - 1; r >= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank); r--)
+UNSUPPORTED("5sd5ltavyp6llt0t2t0xmqwj5"); // 	    if (rank[r].n > 0)	/* this may reflect the same problem :-() */
+UNSUPPORTED("62t6uxlq64v5lgdqff1hxolzj"); // 			((((Agnodeinfo_t*)(((Agobj_t*)(rank[r].v[0]))->data))->coord)).y=
+UNSUPPORTED("1o0ovoklkrakntigam03apa3g"); // 		    ((((Agnodeinfo_t*)(((Agobj_t*)(rank[r + 1].v[0]))->data))->coord)).y + maxht;
+    }
+    /* copy ycoord assignment from leftmost nodes to others */
+    for (n = (Agnode_s) g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getPtr("nlist")
+    ; n!=null;
+    n = (Agnode_s) n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("next"))
+    {
+	final __ptr__ tmp3 = rank.getBracket(
+	  n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("rank")
+	  );
+	final __ptr__ tmp6 = tmp3.getArrayOfPtr("v", 0);
+	n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("coord").setDouble("y", 
+	  	  tmp6.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("coord").getDouble("y")
+	  );
+	
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void set_ycoords(graph_t * g)
+{
+    int i, j, r;
+    double ht2, maxht, delta, d0, d1;
+    node_t *n;
+    edge_t *e;
+    rank_t *rank = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank);
+    graph_t *clust;
+    int lbl;
+    ht2 = maxht = 0;
+    /* scan ranks for tallest nodes.  */
+    for (r = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank); r <= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank); r++) {
+	for (i = 0; i < rank[r].n; i++) {
+	    n = rank[r].v[i];
+	    /* assumes symmetry, ht1 = ht2 */
+	    ht2 = (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->ht) / 2;
+	    /* have to look for high self-edge labels, too */
+	    if ((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->other).list)
+		for (j = 0; (e = (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->other).list[j]); j++) {
+		    if (((((((Agobj_t*)(e))->tag).objtype) == 3? (e): ((e)+1))->node) == ((((((Agobj_t*)(e))->tag).objtype) == 2? (e): ((e)-1))->node)) {
+			if ((((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->label))
+			    ht2 = ((ht2)>((((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->label)->dimen.y / 2)?(ht2):((((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->label)->dimen.y / 2));
+		    }
+		}
+	    /* update global rank ht */
+	    if (rank[r].pht2 < ht2)
+		rank[r].pht2 = rank[r].ht2 = ht2;
+	    if (rank[r].pht1 < ht2)
+		rank[r].pht1 = rank[r].ht1 = ht2;
+	    /* update nearest enclosing cluster rank ht */
+	    if ((clust = (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->clust))) {
+		int yoff = (clust == g ? 0 : late_int (clust, G_margin, 8, 0));
+		if ((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->rank) == (((Agraphinfo_t*)(((Agobj_t*)(clust))->data))->minrank))
+		    (((Agraphinfo_t*)(((Agobj_t*)(clust))->data))->ht2) = (((((Agraphinfo_t*)(((Agobj_t*)(clust))->data))->ht2))>(ht2 + yoff)?((((Agraphinfo_t*)(((Agobj_t*)(clust))->data))->ht2)):(ht2 + yoff));
+		if ((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->rank) == (((Agraphinfo_t*)(((Agobj_t*)(clust))->data))->maxrank))
+		    (((Agraphinfo_t*)(((Agobj_t*)(clust))->data))->ht1) = (((((Agraphinfo_t*)(((Agobj_t*)(clust))->data))->ht1))>(ht2 + yoff)?((((Agraphinfo_t*)(((Agobj_t*)(clust))->data))->ht1)):(ht2 + yoff));
+	    }
+	}
+    }
+    /* scan sub-clusters */
+    lbl = clust_ht(g);
+    /* make the initial assignment of ycoords to leftmost nodes by ranks */
+    maxht = 0;
+    r = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank);
+    ((((Agnodeinfo_t*)(((Agobj_t*)(rank[r].v[0]))->data))->coord)).y = rank[r].ht1;
+    while (--r >= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank)) {
+	d0 = rank[r + 1].pht2 + rank[r].pht1 + (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->ranksep);	/* prim node sep */
+	d1 = rank[r + 1].ht2 + rank[r].ht1 + 8;	/* cluster sep */
+	delta = ((d0)>(d1)?(d0):(d1));
+	if (rank[r].n > 0)	/* this may reflect some problem */
+		((((Agnodeinfo_t*)(((Agobj_t*)(rank[r].v[0]))->data))->coord)).y = ((((Agnodeinfo_t*)(((Agobj_t*)(rank[r + 1].v[0]))->data))->coord)).y + delta;
+	maxht = ((maxht)>(delta)?(maxht):(delta));
+    }
+    /* If there are cluster labels and the drawing is rotated, we need special processing to
+     * allocate enough room. We use adjustRanks for this, and then recompute the maxht if
+     * the ranks are to be equally spaced. This seems simpler and appears to work better than
+     * handling equal spacing as a special case.
+     */
+    if (lbl && ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rankdir & 0x3) & 1)) {
+	adjustRanks(g, 0);
+	if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->exact_ranksep)) {  /* recompute maxht */
+	    maxht = 0;
+	    r = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank);
+	    d0 = ((((Agnodeinfo_t*)(((Agobj_t*)(rank[r].v[0]))->data))->coord)).y;
+	    while (--r >= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank)) {
+		d1 = ((((Agnodeinfo_t*)(((Agobj_t*)(rank[r].v[0]))->data))->coord)).y;
+		delta = d1 - d0;
+		maxht = ((maxht)>(delta)?(maxht):(delta));
+		d0 = d1;
+	    }
+	}
+    }
+    /* re-assign if ranks are equally spaced */
+    if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->exact_ranksep)) {
+	for (r = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank) - 1; r >= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank); r--)
+	    if (rank[r].n > 0)	/* this may reflect the same problem :-() */
+			((((Agnodeinfo_t*)(((Agobj_t*)(rank[r].v[0]))->data))->coord)).y=
+		    ((((Agnodeinfo_t*)(((Agobj_t*)(rank[r + 1].v[0]))->data))->coord)).y + maxht;
+    }
+    /* copy ycoord assignment from leftmost nodes to others */
+    for (n = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->nlist); n; n = (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->next))
+	(((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->coord).y = ((((Agnodeinfo_t*)(((Agobj_t*)(rank[(((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->rank)].v[0]))->data))->coord)).y;
+}
+

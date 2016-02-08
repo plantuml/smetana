@@ -1,0 +1,5 @@
+private static Agedge_s Enter;
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static edge_t *Enter;
+

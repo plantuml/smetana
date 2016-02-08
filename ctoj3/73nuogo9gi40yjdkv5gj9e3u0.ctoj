@@ -1,0 +1,160 @@
+public static void flat_reorder(Agraph_s g) {
+    int i, j, r, pos, n_search, local_in_cnt, local_out_cnt, base_order;
+    Agnode_s v, t;
+    __ptr__ left, right;
+    __ptr__ temprank = null;
+    Agedge_s flat_e, e;
+    if (g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("has_flat_edges") == 0)
+	return;
+UNSUPPORTED("6s1dtk6i3voia5j4230ru4r2k"); //     for (r = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank); r <= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank); r++) {
+UNSUPPORTED("8prckp59y9fpitswcc5wqnitk"); // 	if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n == 0) continue;
+UNSUPPORTED("8bf4l0asslts41zih6aat84l2"); // 	base_order = (((Agnodeinfo_t*)(((Agobj_t*)((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v[0]))->data))->order);
+UNSUPPORTED("76659s7c95vbeeyool8wy9vge"); // 	for (i = 0; i < (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n; i++)
+UNSUPPORTED("cy0ax7vohgcwqe108hht6738z"); // 	    ((((Agnodeinfo_t*)(((Agobj_t*)((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v[i]))->data))->mark)) = 0;
+UNSUPPORTED("bhc0d6tic993c7lsednui6wlf"); // 	temprank = (temprank? (node_t **)grealloc(temprank,(i + 1)*sizeof(node_t *)):(node_t **)gmalloc((i + 1)*sizeof(node_t *)));
+UNSUPPORTED("ptj0sxywmshehzmr5058z3ld"); // 	pos = 0;
+UNSUPPORTED("heovdmfd7dmyls9n93y5ao8w"); // 	/* construct reverse topological sort order in temprank */
+UNSUPPORTED("3hkx35pges7nccl7an8q4gxxr"); // 	for (i = 0; i < (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n; i++) {
+UNSUPPORTED("6vk8m1km93urw7vscfxd392he"); // 	    if (((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rankdir & 0x3) & 1)) v = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v[i];
+UNSUPPORTED("8ctjsu3kd9l37xubek88u54dt"); // 	    else v = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v[(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n - i - 1];
+UNSUPPORTED("80lfdxbk10vp5rvtxkk5wj5ds"); // 	    local_in_cnt = local_out_cnt = 0;
+UNSUPPORTED("5ys0m96c6o5sdlgxb6q0ifyap"); // 	    for (j = 0; j < (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->flat_in).size; j++) {
+UNSUPPORTED("f5gmmf0ed5ngik81glplx7ssz"); // 		flat_e = (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->flat_in).list[j];
+UNSUPPORTED("larig8jnxb7ncytin6qrhq59"); // 		if (constraining_flat_edge(g,v,flat_e)) local_in_cnt++;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("9mdyjyjiqrv4xq2leh8358uga"); // 	    for (j = 0; j < (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->flat_out).size; j++) {
+UNSUPPORTED("akb6tbh1k8tw4w1cf8x0nhoae"); // 		flat_e = (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->flat_out).list[j];
+UNSUPPORTED("2rgbk1kji5v8o4ybrrs4ls262"); // 		if (constraining_flat_edge(g,v,flat_e)) local_out_cnt++;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("8o4pi1ans4czypy73ni9zgsnx"); // 	    if ((local_in_cnt == 0) && (local_out_cnt == 0))
+UNSUPPORTED("9nashj3bi59s5cdaa5a7sto8i"); // 		temprank[pos++] = v;
+UNSUPPORTED("6q044im7742qhglc4553noina"); // 	    else {
+UNSUPPORTED("5hczrof2ewsilv5zq18l1z4"); // 		if ((((((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->mark)) == 0) && (local_in_cnt == 0)) {
+UNSUPPORTED("a0cdgbreyl50679zmodu8jcj7"); // 		    left = temprank + pos;
+UNSUPPORTED("ewczn7sv1xkn79j21j6y98nna"); // 		    n_search = postorder(g, v, left, r);
+UNSUPPORTED("9xx3k65ddahr2zhjqsy9k4d5e"); // 		    pos += n_search;
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("exh0x53ewc1trtk2sr9j89dlv"); // 	if (pos) {
+UNSUPPORTED("eeyx41rq4ueplpohjd7mzryd4"); // 	    if (((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rankdir & 0x3) & 1) == 0) {
+UNSUPPORTED("aoz8iesotnzpotyuf6ft5oifs"); // 		left = temprank;
+UNSUPPORTED("dvxhjx37ryagjnn8012r3lab8"); // 		right = temprank + pos - 1;
+UNSUPPORTED("1kao1dlkemj6wsxv5pn1h61uw"); // 		while (left < right) {
+UNSUPPORTED("47h36vbyykmhp4m0k8gf0hpmq"); // 		    t = *left;
+UNSUPPORTED("235bgn7jwjpkg14gvd07fhz7h"); // 		    *left = *right;
+UNSUPPORTED("979a47z6ouhljp1uf4l8y19pw"); // 		    *right = t;
+UNSUPPORTED("5abi92edlhj6xlcwxgcsi7nj4"); // 		    left++;
+UNSUPPORTED("4xtkerapdpuh4g359203xnbhh"); // 		    right--;
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("4ic9a2s85yp5hi81aoo3eshc4"); // 	    for (i = 0; i < (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n; i++) {
+UNSUPPORTED("76h1khejdxsq3sl6dpl0ji5n9"); // 		v = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v[i] = temprank[i];
+UNSUPPORTED("4nrt74kq3x0oubwb7fox5l5lq"); // 		(((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->order) = i + base_order;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("bi573dmi6584mc3zavlx7d3eq"); // 	    /* nonconstraint flat edges must be made LR */
+UNSUPPORTED("4ic9a2s85yp5hi81aoo3eshc4"); // 	    for (i = 0; i < (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n; i++) {
+UNSUPPORTED("2fkbtc1psv8bzi5ohdinipb53"); // 		v = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v[i];
+UNSUPPORTED("cxvrn84i10exejwjh04wx4r47"); // 		if ((((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->flat_out).list) {
+UNSUPPORTED("8yf37xridjsi0vemvg93tc7s0"); // 		    for (j = 0; (e = (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->flat_out).list[j]); j++) {
+UNSUPPORTED("4mjrbn6mf8eyt3crwono8e4t2"); // 			if ( ((((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rankdir & 0x3) & 1) == 0) && ((((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 2?(e):((e)-1))->node)))->data))->order) < (((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 3?(e):((e)+1))->node)))->data))->order))) ||
+UNSUPPORTED("9duo4m99paxltekt9d9u0qoxn"); // 				 ( (((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rankdir & 0x3) & 1)) && ((((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 2?(e):((e)-1))->node)))->data))->order) > (((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 3?(e):((e)+1))->node)))->data))->order) ))) {
+UNSUPPORTED("3omkik04m6s1wn9lkk45pivko"); // 			    assert(constraining_flat_edge(g,v,e) == 0);
+UNSUPPORTED("7ebw4lyjfgu8v0is6gfktqm7x"); // 			    delete_flat_edge(e);
+UNSUPPORTED("39xps1d6e8rc55xmsxaunuia8"); // 			    j--;
+UNSUPPORTED("1w583swkkvuwckydgv3bcn71d"); // 			    flat_rev(g, e);
+UNSUPPORTED("3to5h0rvqxdeqs38mhv47mm3o"); // 			}
+UNSUPPORTED("dkxvw03k2gg9anv4dbze06axd"); // 		    }
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("cvr0qehm47iqjy6mr0gf98ezh"); // 	    /* postprocess to restore intended order */
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("cmw1tuaeuiic11679pz61lx30"); // 	/* else do no harm! */
+UNSUPPORTED("d4occueawwth59sljwi6k9jkm"); // 	(((Agraphinfo_t*)(((Agobj_t*)(Root))->data))->rank)[r].valid = 0;
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("eedt0djlt1d5wfxm9242oovdy"); //     if (temprank)
+UNSUPPORTED("32y50hmbvwlkczwe82ltwu0s5"); // 	free(temprank);
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void flat_reorder(graph_t * g)
+{
+    int i, j, r, pos, n_search, local_in_cnt, local_out_cnt, base_order;
+    node_t *v, **left, **right, *t;
+    node_t **temprank = NULL;
+    edge_t *flat_e, *e;
+    if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->has_flat_edges) == 0)
+	return;
+    for (r = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank); r <= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank); r++) {
+	if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n == 0) continue;
+	base_order = (((Agnodeinfo_t*)(((Agobj_t*)((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v[0]))->data))->order);
+	for (i = 0; i < (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n; i++)
+	    ((((Agnodeinfo_t*)(((Agobj_t*)((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v[i]))->data))->mark)) = 0;
+	temprank = (temprank? (node_t **)grealloc(temprank,(i + 1)*sizeof(node_t *)):(node_t **)gmalloc((i + 1)*sizeof(node_t *)));
+	pos = 0;
+	/* construct reverse topological sort order in temprank */
+	for (i = 0; i < (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n; i++) {
+	    if (((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rankdir & 0x3) & 1)) v = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v[i];
+	    else v = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v[(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n - i - 1];
+	    local_in_cnt = local_out_cnt = 0;
+	    for (j = 0; j < (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->flat_in).size; j++) {
+		flat_e = (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->flat_in).list[j];
+		if (constraining_flat_edge(g,v,flat_e)) local_in_cnt++;
+	    }
+	    for (j = 0; j < (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->flat_out).size; j++) {
+		flat_e = (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->flat_out).list[j];
+		if (constraining_flat_edge(g,v,flat_e)) local_out_cnt++;
+	    }
+	    if ((local_in_cnt == 0) && (local_out_cnt == 0))
+		temprank[pos++] = v;
+	    else {
+		if ((((((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->mark)) == 0) && (local_in_cnt == 0)) {
+		    left = temprank + pos;
+		    n_search = postorder(g, v, left, r);
+		    pos += n_search;
+		}
+	    }
+	}
+	if (pos) {
+	    if (((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rankdir & 0x3) & 1) == 0) {
+		left = temprank;
+		right = temprank + pos - 1;
+		while (left < right) {
+		    t = *left;
+		    *left = *right;
+		    *right = t;
+		    left++;
+		    right--;
+		}
+	    }
+	    for (i = 0; i < (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n; i++) {
+		v = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v[i] = temprank[i];
+		(((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->order) = i + base_order;
+	    }
+	    /* nonconstraint flat edges must be made LR */
+	    for (i = 0; i < (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n; i++) {
+		v = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v[i];
+		if ((((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->flat_out).list) {
+		    for (j = 0; (e = (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->flat_out).list[j]); j++) {
+			if ( ((((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rankdir & 0x3) & 1) == 0) && ((((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 2?(e):((e)-1))->node)))->data))->order) < (((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 3?(e):((e)+1))->node)))->data))->order))) ||
+				 ( (((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rankdir & 0x3) & 1)) && ((((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 2?(e):((e)-1))->node)))->data))->order) > (((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 3?(e):((e)+1))->node)))->data))->order) ))) {
+			    assert(constraining_flat_edge(g,v,e) == 0);
+			    delete_flat_edge(e);
+			    j--;
+			    flat_rev(g, e);
+			}
+		    }
+		}
+	    }
+	    /* postprocess to restore intended order */
+	}
+	/* else do no harm! */
+	(((Agraphinfo_t*)(((Agobj_t*)(Root))->data))->rank)[r].valid = 0;
+    }
+    if (temprank)
+	free(temprank);
+}
+

@@ -1,0 +1,12 @@
+public static void init_cutvalues() {
+    dfs_range(GD_nlist(G), null, 1);
+    dfs_cutval(GD_nlist(G), null);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void init_cutvalues(void)
+{
+    dfs_range(GD_nlist(G), NULL, 1);
+    dfs_cutval(GD_nlist(G), NULL);
+}
+

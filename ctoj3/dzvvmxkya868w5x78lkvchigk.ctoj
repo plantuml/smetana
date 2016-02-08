@@ -1,0 +1,60 @@
+public static Agraph_s cl_bound(Agraph_s g,  Agnode_s n, Agnode_s adj) {
+    Agraph_s rv, cl, tcl, hcl;
+    Agedge_s orig;
+    rv = null;
+    if (ND_node_type(n) == 0)
+	tcl = hcl = ND_clust(n);
+    else {
+	orig = ED_to_orig(ND_out(n).getArrayOfPtr("list").plus(0).getPtr());
+	tcl = ND_clust(agtail(orig));
+	hcl = ND_clust(aghead(orig));
+    }
+    if (ND_node_type(adj) == 0) {
+	cl = ( EQ(ND_clust(adj), g) ? null:ND_clust(adj));
+	if (cl!=null && NEQ(cl, tcl) && NEQ(cl, hcl))
+	    rv = cl;
+    } else {
+	orig = ED_to_orig(ND_out(adj).getArrayOfPtr("list").plus(0).getPtr());
+	cl = ( EQ(ND_clust(agtail(orig)), g) ? null:ND_clust(agtail(orig)));
+	if (cl!=null && NEQ(cl, tcl) && NEQ(cl, hcl) && cl_vninside(cl, adj))
+	    rv = cl;
+	else {
+	    cl = ( EQ(ND_clust(aghead(orig)), g) ? null:ND_clust(aghead(orig)));
+	    if (cl!=null && NEQ(cl, tcl) && NEQ(cl, hcl) && cl_vninside(cl, adj))
+		rv = cl;
+	}
+    }
+    return rv;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static Agraph_t *cl_bound(graph_t* g,  node_t *n, node_t *adj)
+{
+    graph_t *rv, *cl, *tcl, *hcl;
+    edge_t *orig;
+    rv = NULL;
+    if (ND_node_type(n) == 0)
+	tcl = hcl = ND_clust(n);
+    else {
+	orig = ED_to_orig(ND_out(n).list[0]);
+	tcl = ND_clust(agtail(orig));
+	hcl = ND_clust(aghead(orig));
+    }
+    if (ND_node_type(adj) == 0) {
+	cl = (ND_clust(adj)==g?NULL:ND_clust(adj));
+	if (cl && (cl != tcl) && (cl != hcl))
+	    rv = cl;
+    } else {
+	orig = ED_to_orig(ND_out(adj).list[0]);
+	cl = (ND_clust(agtail(orig))==g?NULL:ND_clust(agtail(orig)));
+	if (cl && (cl != tcl) && (cl != hcl) && cl_vninside(cl, adj))
+	    rv = cl;
+	else {
+	    cl = (ND_clust(aghead(orig))==g?NULL:ND_clust(aghead(orig)));
+	    if (cl && (cl != tcl) && (cl != hcl) && cl_vninside(cl, adj))
+		rv = cl;
+	}
+    }
+    return rv;
+}
+

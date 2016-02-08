@@ -1,0 +1,28 @@
+public static IMapEntry_t find_isym(Agraph_s g, int objtype, int id) {
+    _dt_s d;
+    IMapEntry_t isym, itemplate = (IMapEntry_t) Memory.malloc(IMapEntry_t.class);
+    if (objtype == 3)
+	objtype = 2;
+    if ((d = (_dt_s) g.getPtr("clos").getArrayOfPtr("lookup_by_id", objtype))!=null) {
+	itemplate.setPtr("id", id);
+	isym = (IMapEntry_t) UNSUPPORTED("(IMapEntry_t *) (*(((Dt_t*)(d))->searchf))((d),(void*)(&itemplate),0000004)");
+    } else
+	isym = null;
+    return isym;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static IMapEntry_t *find_isym(Agraph_t * g, int objtype, unsigned long id)
+{
+    Dict_t *d;
+    IMapEntry_t *isym, itemplate;
+    if (objtype == 3)
+	objtype = 2;
+    if ((d = g->clos->lookup_by_id[objtype])) {
+	itemplate.id = id;
+	isym = (IMapEntry_t *) (*(((Dt_t*)(d))->searchf))((d),(void*)(&itemplate),0000004);
+    } else
+	isym = ((IMapEntry_t *)0);
+    return isym;
+}
+

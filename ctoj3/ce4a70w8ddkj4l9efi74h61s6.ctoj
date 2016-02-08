@@ -1,0 +1,27 @@
+public static int getPackInfo(Agraph_s g, int dflt, int dfltMargin, pack_info pinfo) {
+    //assert (pinfo);
+    pinfo.setInt("margin", getPack(g, dfltMargin, dfltMargin));
+    //if (Verbose) {
+	//fprintf (stderr, "  margin %d\n", pinfo->margin);
+    //}
+    pinfo.setInt("doSplines", 0);
+    pinfo.setInt("fixed", 0);
+    getPackModeInfo(g, dflt, pinfo);
+    return pinfo.getInt("mode");
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+pack_mode 
+getPackInfo(Agraph_t * g, pack_mode dflt, int dfltMargin, pack_info* pinfo)
+{
+    assert (pinfo);
+    pinfo->margin = getPack(g, dfltMargin, dfltMargin);
+    if (Verbose) {
+	fprintf (stderr, "  margin %d\n", pinfo->margin);
+    }
+    pinfo->doSplines = 0;
+    pinfo->fixed = 0;
+    getPackModeInfo(g, dflt, pinfo);
+    return pinfo->mode;
+}
+

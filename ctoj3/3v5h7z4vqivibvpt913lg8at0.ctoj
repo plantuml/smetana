@@ -1,0 +1,53 @@
+public static void flat_breakcycles(Agraph_s g) {
+    int i, r, flat;
+    Agnode_s v;
+    for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
+	flat = 0;
+	for (i = 0; i < GD_rank(g).plus(r).getInt("n"); i++) {
+	    v = (Agnode_s) GD_rank(g).plus(r).getArrayOfPtr("v").plus(i).getPtr();
+	    ND_mark(v, 0);
+	    ND_onstack(v, 0);
+	    ND_low(v, i);
+	    if ((ND_flat_out(v).getInt("size") > 0) && (flat == 0)) {
+		GD_rank(g).plus(r).setPtr("flat",
+		    new_matrix(GD_rank(g).plus(r).getInt("n"), GD_rank(g).plus(r).getInt("n")));
+		flat = 1;
+	    }
+	}
+	if (flat!=0) {
+	    for (i = 0; i < GD_rank(g).plus(r).getInt("n"); i++) {
+		v = (Agnode_s) GD_rank(g).plus(r).getArrayOfPtr("v").plus(i).getPtr();
+		if (ND_mark(v) == 0)
+		    flat_search(g, v);
+	    }
+	}
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void flat_breakcycles(graph_t * g)
+{
+    int i, r, flat;
+    node_t *v;
+    for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
+	flat = 0;
+	for (i = 0; i < GD_rank(g)[r].n; i++) {
+	    v = GD_rank(g)[r].v[i];
+	    ND_mark(v) = ND_onstack(v) = 0;
+	    ND_low(v) = i;
+	    if ((ND_flat_out(v).size > 0) && (flat == 0)) {
+		GD_rank(g)[r].flat =
+		    new_matrix(GD_rank(g)[r].n, GD_rank(g)[r].n);
+		flat = 1;
+	    }
+	}
+	if (flat) {
+	    for (i = 0; i < GD_rank(g)[r].n; i++) {
+		v = GD_rank(g)[r].v[i];
+		if (ND_mark(v) == 0)
+		    flat_search(g, v);
+	    }
+	}
+    }
+}
+

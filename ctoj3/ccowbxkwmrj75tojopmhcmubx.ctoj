@@ -1,0 +1,93 @@
+public static void connectGraph(Agraph_s g) {
+    int i, j, r, found;
+    Agnode_s tp;
+    Agnode_s hp;
+    Agnode_s sn;
+    Agedge_s e;
+    __ptr__ rp;
+    for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
+	rp = GD_rank(g).plus(r);
+	found =0;
+        tp = null;
+	for (i = 0; i < rp.getPtr().getInt("n"); i++) {
+	    tp = (Agnode_s) rp.getPtr().getArrayOfPtr("v").plus(i).getPtr();
+	    if (ND_save_out(tp).getPtr("list")!=null) {
+        	for (j = 0; (e = (Agedge_s) ND_save_out(tp).getArrayOfPtr("list").plus(j).getPtr())!=null; j++) {
+		    if ((ND_rank(aghead(e)) > r) || (ND_rank(agtail(e)) > r)) {
+			found = 1;
+			break;
+		    }
+        	}
+		if (found!=0) break;
+	    }
+	    if (ND_save_in(tp).getPtr("list")!=null) {
+        	for (j = 0; (e = (Agedge_s) ND_save_in(tp).getArrayOfPtr("list").plus(j).getPtr())!=null; j++) {
+		    if ((ND_rank(agtail(e)) > r) || (ND_rank(aghead(e)) > r)) {
+			found = 1;
+			break;
+		    }
+        	}
+		if (found!=0) break;
+	    }
+	}
+	if (found!=0 || N(tp)) continue;
+	tp = (Agnode_s) rp.getPtr().getArrayOfPtr("v").plus(0).getPtr();
+	if (r < GD_maxrank(g)) hp = (Agnode_s) rp.plus(1).getPtr().getArrayOfPtr("v").plus(0).getPtr();
+	else hp = (Agnode_s) rp.plus(-1).getPtr().getArrayOfPtr("v").plus(0).getPtr();
+	//assert (hp);
+	sn = virtual_node(g);
+	ND_node_type(sn, 2);
+	make_aux_edge(sn, tp, 0, 0);
+	make_aux_edge(sn, hp, 0, 0);
+	ND_rank(sn, MIN(ND_rank(tp), ND_rank(hp)));
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void
+connectGraph (graph_t* g)
+{
+    int i, j, r, found;
+    node_t* tp;
+    node_t* hp;
+    node_t* sn;
+    edge_t* e;
+    rank_t* rp;
+    for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
+	rp = GD_rank(g)+r;
+	found =0;
+        tp = NULL;
+	for (i = 0; i < rp->n; i++) {
+	    tp = rp->v[i];
+	    if (ND_save_out(tp).list) {
+        	for (j = 0; (e = ND_save_out(tp).list[j]); j++) {
+		    if ((ND_rank(aghead(e)) > r) || (ND_rank(agtail(e)) > r)) {
+			found = NOT(0);
+			break;
+		    }
+        	}
+		if (found) break;
+	    }
+	    if (ND_save_in(tp).list) {
+        	for (j = 0; (e = ND_save_in(tp).list[j]); j++) {
+		    if ((ND_rank(agtail(e)) > r) || (ND_rank(aghead(e)) > r)) {
+			found = NOT(0);
+			break;
+		    }
+        	}
+		if (found) break;
+	    }
+	}
+	if (found || !tp) continue;
+	tp = rp->v[0];
+	if (r < GD_maxrank(g)) hp = (rp+1)->v[0];
+	else hp = (rp-1)->v[0];
+	assert (hp);
+	sn = virtual_node(g);
+	ND_node_type(sn) = 2;
+	make_aux_edge(sn, tp, 0, 0);
+	make_aux_edge(sn, hp, 0, 0);
+	ND_rank(sn) = MIN(ND_rank(tp), ND_rank(hp));
+    }
+}
+

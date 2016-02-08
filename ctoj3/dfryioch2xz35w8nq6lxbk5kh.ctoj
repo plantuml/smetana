@@ -1,0 +1,57 @@
+public static _dt_s dtview(_dt_s dt, _dt_s view) {
+	_dt_s	d;
+	if ((dt.getPtr("data").getInt("type")&010000)!=0) dtrestore(dt,null);
+	if(view!=null)
+	{	if ((view.getPtr("data").getInt("type")&010000)!=0) dtrestore(view,null);
+		if(NEQ(view.getPtr("meth"), dt.getPtr("meth"))) /* must use the same method */
+			UNSUPPORTED("return null;");
+	}
+	/* make sure there won't be a cycle */
+	for(d = view; d!=null; d = (_dt_s)d.getPtr("view"))
+		if(EQ(d, dt))
+			return null;
+	/* no more viewing lower dictionary */
+	if((d = (_dt_s)dt.getPtr("view"))!=null )
+		d.setInt("nview", d.getInt("nview")-1);
+	dt.setPtr("walk", null);
+	dt.setPtr("view", null);
+	if(N(view))
+	{	dt.setPtr("searchf", dt.getPtr("meth").getPtr("searchf"));
+		return d;
+	}
+	/* ok */
+	dt.setPtr("view", view);
+	dt.setPtr("searchf", function(dtview__c.class, "dtvsearch"));
+	view.setInt("nview", view.getInt("nview")+1 );
+	return view;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Dt_t* dtview(register Dt_t* dt, register Dt_t* view)
+{
+	register Dt_t*	d;
+	((dt->data->type&010000) ? dtrestore(dt,((Dtlink_t*)0)) : 0);
+	if(view)
+	{	((view->data->type&010000) ? dtrestore(view,((Dtlink_t*)0)) : 0);
+		if(view->meth != dt->meth) /* must use the same method */
+			return ((Dt_t*)0);
+	}
+	/* make sure there won't be a cycle */
+	for(d = view; d; d = d->view)
+		if(d == dt)
+			return ((Dt_t*)0);
+	/* no more viewing lower dictionary */
+	if((d = dt->view) )
+		d->nview -= 1;
+	dt->view = dt->walk = ((Dt_t*)0);
+	if(!view)
+	{	dt->searchf = dt->meth->searchf;
+		return d;
+	}
+	/* ok */
+	dt->view = view;
+	dt->searchf = dtvsearch;
+	view->nview += 1;
+	return view;
+}
+

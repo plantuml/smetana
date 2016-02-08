@@ -1,0 +1,86 @@
+static __ptr__ Count;
+static int C;
+public static int rcross(Agraph_s g, int r) {
+    int top, bot, cross, max, i, k;
+    Agnode_s v;
+    __ptr__ rtop;
+    cross = 0;
+    max = 0;
+    rtop = GD_rank(g).plus(r).getPtr("v");
+    if (C <= GD_rank(Root).plus(r + 1).getInt("n")) {
+	C = GD_rank(Root).plus(r + 1).getInt("n") + 1;
+	Count = ALLOC_INT(C, Count);
+    }
+    for (i = 0; i < GD_rank(g).plus(r + 1).getInt("n"); i++)
+	Count.plus(i).setInt(0);
+    for (top = 0; top < GD_rank(g).plus(r).getInt("n"); top++) {
+	Agedge_s e;
+	if (max > 0) {
+	    for (i = 0; (e = (Agedge_s) ND_out(rtop.plus(top).getPtr()).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
+		for (k = ND_order(aghead(e)) + 1; k <= max; k++)
+		    cross += Count.plus(k).getInt() * ED_xpenalty(e);
+	    }
+	}
+	for (i = 0; (e = (Agedge_s) ND_out(rtop.plus(top).getPtr()).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
+	    int inv = ND_order(aghead(e));
+	    if (inv > max)
+		max = inv;
+	    Count.plus(inv).setInt(Count.plus(inv).getInt() + ED_xpenalty(e));
+	}
+    }
+    for (top = 0; top < GD_rank(g).plus(r).getInt("n"); top++) {
+	v = (Agnode_s) GD_rank(g).plus(r).getArrayOfPtr("v").plus(top).getPtr();
+	if (ND_has_port(v))
+	    cross += local_cross(ND_out(v), 1);
+    }
+    for (bot = 0; bot < GD_rank(g).plus(r + 1).getInt("n"); bot++) {
+	v = (Agnode_s) GD_rank(g).plus(r + 1).getArrayOfPtr("v").plus(bot).getPtr();
+	if (ND_has_port(v))
+	    cross += local_cross(ND_in(v), -1);
+    }
+    return cross;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int rcross(graph_t * g, int r)
+{
+    static int *Count, C;
+    int top, bot, cross, max, i, k;
+    node_t **rtop, *v;
+    cross = 0;
+    max = 0;
+    rtop = GD_rank(g)[r].v;
+    if (C <= GD_rank(Root)[r + 1].n) {
+	C = GD_rank(Root)[r + 1].n + 1;
+	Count = ALLOC(C, Count, int);
+    }
+    for (i = 0; i < GD_rank(g)[r + 1].n; i++)
+	Count[i] = 0;
+    for (top = 0; top < GD_rank(g)[r].n; top++) {
+	register edge_t *e;
+	if (max > 0) {
+	    for (i = 0; (e = ND_out(rtop[top]).list[i]); i++) {
+		for (k = ND_order(aghead(e)) + 1; k <= max; k++)
+		    cross += Count[k] * ED_xpenalty(e);
+	    }
+	}
+	for (i = 0; (e = ND_out(rtop[top]).list[i]); i++) {
+	    register int inv = ND_order(aghead(e));
+	    if (inv > max)
+		max = inv;
+	    Count[inv] += ED_xpenalty(e);
+	}
+    }
+    for (top = 0; top < GD_rank(g)[r].n; top++) {
+	v = GD_rank(g)[r].v[top];
+	if (ND_has_port(v))
+	    cross += local_cross(ND_out(v), 1);
+    }
+    for (bot = 0; bot < GD_rank(g)[r + 1].n; bot++) {
+	v = GD_rank(g)[r + 1].v[bot];
+	if (ND_has_port(v))
+	    cross += local_cross(ND_in(v), -1);
+    }
+    return cross;
+}
+

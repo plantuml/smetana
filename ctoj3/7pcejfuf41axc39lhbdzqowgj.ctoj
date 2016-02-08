@@ -1,0 +1,75 @@
+public static void make_edge_pairs(Agraph_s g) {
+    int i, m0, m1;
+    Agnode_s n, sn;
+    Agedge_s e;
+    for (n = (Agnode_s) g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getPtr("nlist")
+    ; n!=null;
+    n = (Agnode_s) n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("next")) {
+	if (n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("save_out").getPtr("list")!=null)
+	    for (i = 0;
+	    (e = (Agedge_s) n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("save_out").getArrayOfPtr("list", i)) !=null
+	    ; i++) {
+		sn = virtual_node(g);
+		sn.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).setInt("node_type", 2);
+		m0 = (int) (
+		  e.castTo(Agobj_s.class).getPtr("data").castTo(Agedgeinfo_t.class).getPtr("head_port").getPtr("p").getDouble("x")
+		  -
+		  e.castTo(Agobj_s.class).getPtr("data").castTo(Agedgeinfo_t.class).getPtr("tail_port").getPtr("p").getDouble("x")
+		  );
+		if (m0 > 0)
+		    m1 = 0;
+		else {
+		    m1 = -m0;
+		    m0 = 0;
+		}
+		make_aux_edge((Agnode_s) sn,
+		 (Agnode_s) (e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 3? e: e.plus(1)).getPtr("node"),
+		 m0 + 1,
+		 e.castTo(Agobj_s.class).getPtr("data").castTo(Agedgeinfo_t.class).getInt("weight")
+		 );
+     make_aux_edge((Agnode_s) sn,
+		 (Agnode_s) (e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2? e: e.plus(-1)).getPtr("node"),
+		 m1 + 1,
+		 e.castTo(Agobj_s.class).getPtr("data").castTo(Agedgeinfo_t.class).getInt("weight")
+		 );
+		sn.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).setInt("rank",		
+(e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 3?e:e.plus(1)).getPtr("node").castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("rank") - m0 - 1
+			<
+(e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2?e:e.plus(-1)).getPtr("node").castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("rank") - m1 - 1
+ ?
+(e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 3?e:e.plus(1)).getPtr("node").castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("rank") - m0 - 1
+ :
+(e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2?e:e.plus(-1)).getPtr("node").castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("rank") - m1 - 1
+ );
+	    }
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void make_edge_pairs(graph_t * g)
+{
+    int i, m0, m1;
+    node_t *n, *sn;
+    edge_t *e;
+    for (n = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->nlist); n; n = (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->next)) {
+	if ((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->save_out).list)
+	    for (i = 0; (e = (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->save_out).list[i]); i++) {
+		sn = virtual_node(g);
+		(((Agnodeinfo_t*)(((Agobj_t*)(sn))->data))->node_type) = 2;
+		m0 = ((((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->head_port).p.x - (((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->tail_port).p.x);
+		if (m0 > 0)
+		    m1 = 0;
+		else {
+		    m1 = -m0;
+		    m0 = 0;
+		}
+		make_aux_edge(sn, ((((((Agobj_t*)(e))->tag).objtype) == 3? (e): ((e)+1))->node), m0 + 1, (((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->weight));
+		make_aux_edge(sn, ((((((Agobj_t*)(e))->tag).objtype) == 2? (e): ((e)-1))->node), m1 + 1, (((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->weight));
+		(((Agnodeinfo_t*)(((Agobj_t*)(sn))->data))->rank) =
+		    (((((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 3?(e):((e)+1))->node)))->data))->rank) - m0 - 1)<(
+ (((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 2?(e):((e)-1))->node)))->data))->rank) - m1 - 1)?((((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 3?(e):((e)+1))->node)))->data))->rank) - m0 - 1):(
+ (((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 2?(e):((e)-1))->node)))->data))->rank) - m1 - 1));
+	    }
+    }
+}
+

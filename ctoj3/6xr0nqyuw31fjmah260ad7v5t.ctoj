@@ -1,0 +1,83 @@
+public static void dotLayout(Agraph_s g) {
+    aspect_t aspect = (aspect_t) Memory.malloc(aspect_t.class);
+    aspect_t asp;
+    int maxphase = late_int(g, (agattr(g,0,new CString("phase"),null)), -1, 1);
+    setEdgeType (g, (5 << 1));
+    asp = setAspect (g, aspect);
+    dot_init_subg(g,g);
+    dot_init_node_edge(g);
+    do {
+        dot_rank(g, asp);
+	if (maxphase == 1) {
+	    attach_phase_attrs (g, 1);
+	    return;
+	}
+	if (aspect.getBoolean("badGraph")) {
+UNSUPPORTED("1yu5j8tk43i6jlmu8wk9jks15"); // 	    agerr(AGWARN, "dot does not support the aspect attribute for disconnected graphs or graphs with clusters\n");
+UNSUPPORTED("5uwp9z6jkv5uc30iyfszyg6dw"); // 	    asp = NULL;
+UNSUPPORTED("28kbszyxsjoj03gb134ov4hag"); // 	    aspect.nextIter = 0;
+	}
+        dot_mincross(g, (asp != null));
+	if (maxphase == 2) {
+	    attach_phase_attrs (g, 2);
+	    return;
+	}
+        dot_position(g, asp);
+UNSUPPORTED("d2ybfpxclo60tbgfr4c5whfdd"); // 	if (maxphase == 3) {
+UNSUPPORTED("7tclpubnjqp7upnbl3zf69ixm"); // 	    attach_phase_attrs (g, 2);  /* positions will be attached on output */
+UNSUPPORTED("6cprbghvenu9ldc0ez1ifc63q"); // 	    return;
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("4pmj3ajfgkkx05ngnmxgqq5al"); // 	aspect.nPasses--;
+    } while (aspect.getInt("nextIter")!=0 && aspect.getInt("nPasses")!=0);
+UNSUPPORTED("amrl56wiz1y5tnqb1w8jz34ew"); //     if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->flags) & (1 << 4))
+UNSUPPORTED("chdfo9cy1zakjuhk10qrp7moh"); // 	removeFill (g);
+UNSUPPORTED("cxqkio2bushnccnomj6rrkmd6"); //     dot_sameports(g);
+UNSUPPORTED("eqr47jco69lojaonpflckgsb2"); //     dot_splines(g);
+UNSUPPORTED("nrahxrvqjdfvs0qtn8g1zsyf"); //     if (mapbool(agget(g, "compound")))
+UNSUPPORTED("83p23nypvvv3b8sxg71x11own"); // 	dot_compoundEdges(g);
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void dotLayout(Agraph_t * g)
+{
+    aspect_t aspect;
+    aspect_t* asp;
+    int maxphase = late_int(g, (agattr(g,0,"phase",NULL)), -1, 1);
+    setEdgeType (g, (5 << 1));
+    asp = setAspect (g, &aspect);
+    dot_init_subg(g,g);
+    dot_init_node_edge(g);
+    do {
+        dot_rank(g, asp);
+	if (maxphase == 1) {
+	    attach_phase_attrs (g, 1);
+	    return;
+	}
+	if (aspect.badGraph) {
+	    agerr(AGWARN, "dot does not support the aspect attribute for disconnected graphs or graphs with clusters\n");
+	    asp = NULL;
+	    aspect.nextIter = 0;
+	}
+        dot_mincross(g, (asp != NULL));
+	if (maxphase == 2) {
+	    attach_phase_attrs (g, 2);
+	    return;
+	}
+        dot_position(g, asp);
+	if (maxphase == 3) {
+	    attach_phase_attrs (g, 2);  /* positions will be attached on output */
+	    return;
+	}
+	aspect.nPasses--;
+    } while (aspect.nextIter && aspect.nPasses);
+    if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->flags) & (1 << 4))
+	removeFill (g);
+    dot_sameports(g);
+    dot_splines(g);
+    if (mapbool(agget(g, "compound")))
+	dot_compoundEdges(g);
+}
+

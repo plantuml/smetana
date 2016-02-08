@@ -1,0 +1,26 @@
+public static Agsym_s agattrsym(__ptr__ obj, CString name) {
+    Agattr_s data;
+    Agsym_s rv;
+    CString arg = name;
+    data = agattrrec(obj.castTo(Agobj_s.class));
+    if (data!=null)
+	rv = agdictsym((_dt_s)data.getPtr("dict"), arg);
+    else
+	rv = null;
+    return rv;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agsym_t *agattrsym(void *obj, char *name)
+{
+    Agattr_t *data;
+    Agsym_t *rv;
+    char *arg = name;
+    data = agattrrec((Agobj_t *) obj);
+    if (data)
+	rv = agdictsym(data->dict, arg);
+    else
+	rv = ((Agsym_t*)0);
+    return rv;
+}
+

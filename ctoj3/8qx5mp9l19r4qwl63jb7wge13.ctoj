@@ -1,0 +1,78 @@
+public static void install_in_rank(Agraph_s g, Agnode_s n) {
+    int i, r;
+    r = n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("rank");
+    i = g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).getInt("n");
+    if (g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).getInt("an") <= 0) {
+UNSUPPORTED("8qk1xhvvb994zhv9aq10k4v12"); // 	agerr(AGERR, "install_in_rank, line %d: %s %s rank %d i = %d an = 0\n",
+UNSUPPORTED("53h8d82ax23hys2k21hjswp72"); // 	      1034, agnameof(g), agnameof(n), r, i);
+UNSUPPORTED("a7fgam0j0jm7bar0mblsv3no4"); // 	return;
+    }
+    g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).setArray("v", i, n);
+    n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).setInt("order", i);
+    g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).setInt("n",
+      1+g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).getInt("n"));
+    // assert((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n <= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].an);
+    if (
+		n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("order") 
+		>
+		Root.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).getInt("an")
+	) {
+UNSUPPORTED("399szcw1txekt1xssyw7s2x07"); // 	agerr(AGERR, "install_in_rank, line %d: ND_order(%s) [%d] > GD_rank(Root)[%d].an [%d]\n",
+UNSUPPORTED("bjzm7dd34p8ghd1fuuqr4x7g0"); // 	      1052, agnameof(n), (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->order), r, (((Agraphinfo_t*)(((Agobj_t*)(Root))->data))->rank)[r].an);
+UNSUPPORTED("a7fgam0j0jm7bar0mblsv3no4"); // 	return;
+    }
+    if (
+		(r < (g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("minrank")))
+		||
+		(r > (g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("maxrank")))
+	) {
+UNSUPPORTED("7o1thnqda767wqpe2lh9mj03t"); // 	agerr(AGERR, "install_in_rank, line %d: rank %d not in rank range [%d,%d]\n",
+UNSUPPORTED("b98cc473fdl10mw3dt9tx68md"); // 	      1057, r, (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank), (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank));
+UNSUPPORTED("a7fgam0j0jm7bar0mblsv3no4"); // 	return;
+      }
+      if (
+	  g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).getPtr("v")
+	  .plus(n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("order")) 
+	  .comparePointer(
+        g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).getPtr("av")
+		.plus(Root.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).getInt("an"))) > 0
+		) {
+UNSUPPORTED("3eb32nc5czs5auwzz5p5mtl04"); // 	agerr(AGERR, "install_in_rank, line %d: GD_rank(g)[%d].v + ND_order(%s) [%d] > GD_rank(g)[%d].av + GD_rank(Root)[%d].an [%d]\n",
+UNSUPPORTED("4iyfin6re5snv0lglg2iy181d"); // 	      1062, r, agnameof(n),(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v + (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->order), r, r, (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].av+(((Agraphinfo_t*)(((Agobj_t*)(Root))->data))->rank)[r].an);
+UNSUPPORTED("a7fgam0j0jm7bar0mblsv3no4"); // 	return;
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void install_in_rank(graph_t * g, node_t * n)
+{
+    int i, r;
+    r = (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->rank);
+    i = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n;
+    if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].an <= 0) {
+	agerr(AGERR, "install_in_rank, line %d: %s %s rank %d i = %d an = 0\n",
+	      1034, agnameof(g), agnameof(n), r, i);
+	return;
+    }
+    (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v[i] = n;
+    (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->order) = i;
+    (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n++;
+    assert((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n <= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].an);
+    if ((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->order) > (((Agraphinfo_t*)(((Agobj_t*)(Root))->data))->rank)[r].an) {
+	agerr(AGERR, "install_in_rank, line %d: ND_order(%s) [%d] > GD_rank(Root)[%d].an [%d]\n",
+	      1052, agnameof(n), (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->order), r, (((Agraphinfo_t*)(((Agobj_t*)(Root))->data))->rank)[r].an);
+	return;
+    }
+    if ((r < (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank)) || (r > (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank))) {
+	agerr(AGERR, "install_in_rank, line %d: rank %d not in rank range [%d,%d]\n",
+	      1057, r, (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank), (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank));
+	return;
+    }
+    if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v + (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->order) >
+	(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].av + (((Agraphinfo_t*)(((Agobj_t*)(Root))->data))->rank)[r].an) {
+	agerr(AGERR, "install_in_rank, line %d: GD_rank(g)[%d].v + ND_order(%s) [%d] > GD_rank(g)[%d].av + GD_rank(Root)[%d].an [%d]\n",
+	      1062, r, agnameof(n),(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v + (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->order), r, r, (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].av+(((Agraphinfo_t*)(((Agobj_t*)(Root))->data))->rank)[r].an);
+	return;
+    }
+}
+

@@ -1,0 +1,14 @@
+public static void initnode(Agraph_s g, Agnode_s n) {
+    if (agroot(g).getStruct("desc").getInt("has_attrs")!=0)
+	agnodeattr_init(g,n);
+    agmethod_init(g, n);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void initnode(Agraph_t * g, Agnode_t * n)
+{
+    if (agroot(g)->desc.has_attrs)
+	agnodeattr_init(g,n);
+    agmethod_init(g, n);
+}
+

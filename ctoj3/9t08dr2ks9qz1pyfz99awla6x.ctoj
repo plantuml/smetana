@@ -1,0 +1,31 @@
+public static int findCharset(Agraph_s g) {
+	return 0;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int findCharset (graph_t * g)
+{
+    int enc;
+    char* p;
+    p = late_nnstring(g,(agattr(g,AGRAPH,"charset",NULL)),"utf-8");
+    if (!strcasecmp(p,"latin-1")
+	|| !strcasecmp(p,"latin1")
+	|| !strcasecmp(p,"l1")
+	|| !strcasecmp(p,"ISO-8859-1")
+	|| !strcasecmp(p,"ISO_8859-1")
+	|| !strcasecmp(p,"ISO8859-1")
+	|| !strcasecmp(p,"ISO-IR-100"))
+		enc = 1; 
+    else if (!strcasecmp(p,"big-5")
+	|| !strcasecmp(p,"big5")) 
+		enc = 2; 
+    else if (!strcasecmp(p,"utf-8")
+	|| !strcasecmp(p,"utf8"))
+		enc = 0; 
+    else {
+	agerr(AGWARN, "Unsupported charset \"%s\" - assuming utf-8\n", p);
+	enc = 0; 
+    }
+    return enc;
+}
+

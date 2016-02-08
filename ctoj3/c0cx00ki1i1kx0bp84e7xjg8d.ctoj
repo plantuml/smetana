@@ -1,0 +1,13 @@
+public static boolean is_cluster_edge(Agedge_s e) {
+    return ((ND_ranktype(agtail(e)) == 7)
+	    || (ND_ranktype(aghead(e)) == 7));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int 
+is_cluster_edge(edge_t * e)
+{
+    return ((ND_ranktype(agtail(e)) == 7)
+	    || (ND_ranktype(aghead(e)) == 7));
+}
+

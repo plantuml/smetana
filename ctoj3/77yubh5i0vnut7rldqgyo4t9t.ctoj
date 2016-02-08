@@ -1,0 +1,52 @@
+public static Agrec_s agmakeattrs(Agraph_s context, __ptr__ obj) {
+    int sz;
+    Agattr_s rec;
+    Agsym_s sym;
+    _dt_s datadict;
+    rec = (Agattr_s) agbindrec(obj, AgDataRecName, sizeof(Agattr_s.class), false).castTo(Agattr_s.class);
+    datadict = agdictof(context, obj.castTo(Agobj_s.class).getPtr("tag").getInt("objtype"));
+
+
+    if (rec.getPtr("dict") == null) {
+	rec.setPtr("dict", agdictof(agroot(context), obj.castTo(Agobj_s.class).getPtr("tag").getInt("objtype")));
+	/* don't malloc(0) */
+	sz = topdictsize((Agobj_s) obj);
+	if (sz < 4)
+	    sz = 4;
+	rec.setPtr("str", agalloc(agraphof(obj), sizeof("char*", sz)));
+	/* doesn't call agxset() so no obj-modified callbacks occur */
+	for (sym = (Agsym_t) ((__ptr__)datadict.call("searchf", datadict,null,0000200)); sym!=null;
+	     sym = (Agsym_t) ((__ptr__)datadict.call("searchf", datadict,sym,0000010)))
+	    UNSUPPORTED("rec->str[sym->id] = agstrdup(agraphof(obj), sym->defval)");
+    } else {
+    }
+    return (Agrec_s) rec;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static Agrec_t *agmakeattrs(Agraph_t * context, void *obj)
+{
+    int sz;
+    Agattr_t *rec;
+    Agsym_t *sym;
+    Dict_t *datadict;
+    rec = agbindrec(obj, AgDataRecName, sizeof(Agattr_t), (0));
+    datadict = agdictof(context, ((((Agobj_t*)(obj))->tag).objtype));
+    ;
+    if (rec->dict == ((Dict_t *)0)) {
+	rec->dict = agdictof(agroot(context), ((((Agobj_t*)(obj))->tag).objtype));
+	/* don't malloc(0) */
+	sz = topdictsize(obj);
+	if (sz < 4)
+	    sz = 4;
+	rec->str = agalloc(agraphof(obj), sz * sizeof(char *));
+	/* doesn't call agxset() so no obj-modified callbacks occur */
+	for (sym = (Agsym_t *) (*(((Dt_t*)(datadict))->searchf))((datadict),(void*)(0),0000200); sym;
+	     sym = (Agsym_t *) (*(((Dt_t*)(datadict))->searchf))((datadict),(void*)(sym),0000010))
+	    rec->str[sym->id] = agstrdup(agraphof(obj), sym->defval);
+    } else {
+	;
+    }
+    return (Agrec_t *) rec;
+}
+

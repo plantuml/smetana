@@ -1,0 +1,5 @@
+private static __ptr__ ps;
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static pointf *ps;
+

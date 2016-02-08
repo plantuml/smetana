@@ -1,0 +1,14 @@
+public static Agsym_s agdictsym(_dt_s dict, CString name) {
+    Agsym_s key = (Agsym_s) Memory.malloc(Agsym_s.class);
+    key.setPtr("name", name);
+    return  (Agsym_s) dict.call("searchf", (dict),key,0000004);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agsym_t *agdictsym(Dict_t * dict, char *name)
+{
+    Agsym_t key;
+    key.name = (char *) name;
+    return (Agsym_t *) (*(((Dt_t*)(dict))->searchf))((dict),(void*)(&key),0000004);
+}
+

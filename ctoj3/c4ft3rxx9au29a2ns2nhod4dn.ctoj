@@ -1,0 +1,16 @@
+public static void agmethod_init(Agraph_s g, __ptr__ obj) {
+    if (g.getPtr("clos").getBoolean("callbacks_enabled"))
+	aginitcb(g, obj, (Agcbstack_s) g.getPtr("clos").getPtr("cb"));
+    else
+	agrecord_callback(g, obj, 100, null);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void agmethod_init(Agraph_t * g, void *obj)
+{
+    if (g->clos->callbacks_enabled)
+	aginitcb(g, obj, g->clos->cb);
+    else
+	agrecord_callback(g, obj, 100, ((Agsym_t*)0));
+}
+

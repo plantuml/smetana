@@ -1,0 +1,60 @@
+public static void arrow_flags(Agedge_s e, int sflag[], int eflag[]) {
+    CString attr;
+    arrowdir_t arrowdir;
+    sflag[0] = (0);
+    eflag[0] = agisdirected(agraphof(e)) ? 1 : (0);
+    if (E_dir!=null && ((attr = agxget(e, E_dir))).charAt(0)!='\0') {
+UNSUPPORTED("em7x45v09orjeey5u06gf9b4s"); // 	for (arrowdir = Arrowdirs; arrowdir->dir; arrowdir++) {
+UNSUPPORTED("dhaookuw0a1xqmh07lldcvlgi"); // 	    if ((*(attr)==*(arrowdir->dir)&&!strcmp(attr,arrowdir->dir))) {
+UNSUPPORTED("1d32qbc447n7nmmvedj3bnhr4"); // 		*sflag = arrowdir->sflag;
+UNSUPPORTED("4bwlkonvn34iwi5ea1o8zov3o"); // 		*eflag = arrowdir->eflag;
+UNSUPPORTED("9ekmvj13iaml5ndszqyxa8eq"); // 		break;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+    }
+    if (E_arrowhead!=null && (eflag[0] == 1) && ((attr = agxget(e, E_arrowhead))).charAt(0)!='\0')
+	arrow_match_name(attr, eflag);
+    if (E_arrowtail!=null && (sflag[0] == 1) && ((attr = agxget(e, E_arrowtail))).charAt(0)!='\0')
+	arrow_match_name(attr, sflag);
+    if (ED_conc_opp_flag(e)) {
+UNSUPPORTED("1p2usipxeqlorwroqo37t3yfy"); // 	edge_t *f;
+UNSUPPORTED("6ne3pu2bnhx6tyx81t4td4up6"); // 	int s0, e0;
+UNSUPPORTED("8vccx8sm1c228dqm7l1jm2hfs"); // 	/* pick up arrowhead of opposing edge */
+UNSUPPORTED("cu21qrxyz93ly7l96af2gcsle"); // 	f = (agedge(agraphof(aghead(e)),aghead(e),agtail(e),NULL,0));
+UNSUPPORTED("9u6scg3h7baww90tcykvjhajo"); // 	arrow_flags(f, &s0, &e0);
+UNSUPPORTED("157il4mnbenpon7knxfdb4fwb"); // 	*eflag = *eflag | s0;
+UNSUPPORTED("7wucod5xwp24vblpcbjbmmcq1"); // 	*sflag = *sflag | e0;
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void arrow_flags(Agedge_t * e, int *sflag, int *eflag)
+{
+    char *attr;
+    arrowdir_t *arrowdir;
+    *sflag = (0);
+    *eflag = agisdirected(agraphof(e)) ? 1 : (0);
+    if (E_dir && ((attr = agxget(e, E_dir)))[0]) {
+	for (arrowdir = Arrowdirs; arrowdir->dir; arrowdir++) {
+	    if ((*(attr)==*(arrowdir->dir)&&!strcmp(attr,arrowdir->dir))) {
+		*sflag = arrowdir->sflag;
+		*eflag = arrowdir->eflag;
+		break;
+	    }
+	}
+    }
+    if (E_arrowhead && (*eflag == 1) && ((attr = agxget(e, E_arrowhead)))[0])
+	arrow_match_name(attr, eflag);
+    if (E_arrowtail && (*sflag == 1) && ((attr = agxget(e, E_arrowtail)))[0])
+	arrow_match_name(attr, sflag);
+    if (ED_conc_opp_flag(e)) {
+	edge_t *f;
+	int s0, e0;
+	/* pick up arrowhead of opposing edge */
+	f = (agedge(agraphof(aghead(e)),aghead(e),agtail(e),NULL,0));
+	arrow_flags(f, &s0, &e0);
+	*eflag = *eflag | s0;
+	*sflag = *sflag | e0;
+    }
+}
+

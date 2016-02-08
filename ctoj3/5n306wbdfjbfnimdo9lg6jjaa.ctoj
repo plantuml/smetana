@@ -1,0 +1,10 @@
+public static void dot_splines(Agraph_s g) {
+    _dot_splines (g, 1);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void dot_splines(graph_t * g)
+{
+    _dot_splines (g, 1);
+}
+

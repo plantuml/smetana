@@ -1,0 +1,30 @@
+public static void addattr(Agraph_s g, Agobj_s obj, Agsym_s sym) {
+    Agattr_s attr;
+    attr = (Agattr_s) agattrrec(obj);
+
+    if (sym.getInt("id") >= 4)
+	attr.setPtr("str", (__ptr__) g.getPtr("clos").getPtr("disc").getPtr("mem").call("resize", g.getPtr("clos").getPtr("state").getPtr("mem"),
+						     attr.getPtr("str"),
+						     sizeof("char*", sym.getInt("id")),
+						     sizeof("char*", sym.getInt("id") + 1)));
+	attr.getArrayOfCString("str").plus(sym.getInt("id")).setCString(agstrdup(g, sym.getCString("defval")));
+    /* agmethod_upd(g,obj,sym);  JCE and GN didn't like this. */
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void addattr(Agraph_t * g, Agobj_t * obj, Agsym_t * sym)
+{
+    Agattr_t *attr;
+    attr = (Agattr_t *) agattrrec(obj);
+    ;
+    if (sym->id >= 4)
+	attr->str = (char **) ((g)->clos->disc.mem)->resize(((g)->clos->state.mem),
+						     attr->str,
+						     sym->id *
+						     sizeof(char *),
+						     (sym->id +
+						      1) * sizeof(char *));
+    attr->str[sym->id] = agstrdup(g, sym->defval);
+    /* agmethod_upd(g,obj,sym);  JCE and GN didn't like this. */
+}
+

@@ -1,0 +1,16 @@
+public static CString late_nnstring(__ptr__ obj, Agsym_s attr, CString def) {
+    CString rv = late_string(obj, attr, def);
+    if (N(rv) || (rv.charAt(0) == '\0'))
+	rv = def;
+    return rv;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+char *late_nnstring(void *obj, attrsym_t * attr, char *def)
+{
+    char *rv = late_string(obj, attr, def);
+    if (!rv || (rv[0] == '\0'))
+	rv = def;
+    return rv;
+}
+

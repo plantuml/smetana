@@ -1,0 +1,31 @@
+public static int routesplinesinit() {
+    if (++routeinit > 1) return 0;
+    if (N(ps = gmalloc(sizeof(pointf.class, 300)))) {
+UNSUPPORTED("2qoo3na2ur9oh7hmvt6xv1txd"); // 	agerr(AGERR, "routesplinesinit: cannot allocate ps\n");
+UNSUPPORTED("eleqpc2p2r3hvma6tipoy7tr"); // 	return 1;
+    }
+    maxpn = 300;
+    nedges = 0;
+    nboxes = 0;
+    /*if (Verbose)
+	start_timer();*/
+    return 0;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int
+routesplinesinit()
+{
+    if (++routeinit > 1) return 0;
+    if (!(ps = (pointf*)gmalloc((300)*sizeof(pointf)))) {
+	agerr(AGERR, "routesplinesinit: cannot allocate ps\n");
+	return 1;
+    }
+    maxpn = 300;
+    nedges = 0;
+    nboxes = 0;
+    if (Verbose)
+	start_timer();
+    return 0;
+}
+

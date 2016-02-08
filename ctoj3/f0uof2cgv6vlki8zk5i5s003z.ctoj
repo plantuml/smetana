@@ -1,0 +1,18 @@
+public static void save_vlist(Agraph_s g) {
+    int r;
+    if (g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getPtr("rankleader")!=null)
+UNSUPPORTED("bawg9qsymdfm43bef7jjdhbx7"); // 	for (r = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank); r <= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank); r++) {
+//UNSUPPORTED("3jh5c4k62jx0mg3530c9cgwst"); // 	    (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rankleader)[r] = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v[0];
+//UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void save_vlist(graph_t * g)
+{
+    int r;
+    if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rankleader))
+	for (r = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank); r <= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank); r++) {
+	    (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rankleader)[r] = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v[0];
+	}
+}
+

@@ -1,0 +1,45 @@
+public static void mark_lowclusters(Agraph_s root) {
+    Agnode_s n, vn;
+    Agedge_s orig, e;
+    /* first, zap any previous cluster labelings */
+    for (n = agfstnode(root); n!=null; n = agnxtnode(root, n)) {
+	n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).setPtr("clust", null);
+	for (orig = agfstout(root, n); orig!=null; orig = agnxtout(root, orig)) {
+	    if ((e = (Agedge_s) orig.castTo(Agobj_s.class).getPtr("data").castTo(Agedgeinfo_t.class).getPtr("to_virt"))!=null) {
+		while (e!=null && 
+		(e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2?e:e.plus(-1)).getPtr("node").castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("node_type") 
+		== 1
+		&&
+		(vn =(Agnode_s) (e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2?e:e.plus(-1)).getPtr("node"))!=null
+		) {
+UNSUPPORTED("7ui1sp9svdhu6vnz9i09aqb0y"); // 		    (((Agnodeinfo_t*)(((Agobj_t*)(vn))->data))->clust) = NULL;
+UNSUPPORTED("5unjvfcv2d2hwdbwb11smkbjf"); // 		    e = (((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 2?(e):((e)-1))->node)))->data))->out).list[0];
+		}
+	    }
+	}
+    }
+    /* do the recursion */
+    mark_lowcluster_basic(root);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void mark_lowclusters(Agraph_t * root)
+{
+    Agnode_t *n, *vn;
+    Agedge_t *orig, *e;
+    /* first, zap any previous cluster labelings */
+    for (n = agfstnode(root); n; n = agnxtnode(root, n)) {
+	(((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->clust) = NULL;
+	for (orig = agfstout(root, n); orig; orig = agnxtout(root, orig)) {
+	    if ((e = (((Agedgeinfo_t*)(((Agobj_t*)(orig))->data))->to_virt))) {
+		while (e && ((((Agnodeinfo_t*)(((Agobj_t*)(vn =((((((Agobj_t*)(e))->tag).objtype) == 2?(e):((e)-1))->node)))->data))->node_type)) == 1) {
+		    (((Agnodeinfo_t*)(((Agobj_t*)(vn))->data))->clust) = NULL;
+		    e = (((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 2?(e):((e)-1))->node)))->data))->out).list[0];
+		}
+	    }
+	}
+    }
+    /* do the recursion */
+    mark_lowcluster_basic(root);
+}
+

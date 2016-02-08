@@ -1,0 +1,16 @@
+public static void rec_bb(Agraph_s g, Agraph_s root) {
+    int c;
+    for (c = 1; c <= g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("n_cluster"); c++)
+UNSUPPORTED("3n98k38f1t3kl8reh6qcuxb22"); // 	rec_bb((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->clust)[c], root);
+    dot_compute_bb(g, root);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void rec_bb(graph_t * g, graph_t * root)
+{
+    int c;
+    for (c = 1; c <= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->n_cluster); c++)
+	rec_bb((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->clust)[c], root);
+    dot_compute_bb(g, root);
+}
+

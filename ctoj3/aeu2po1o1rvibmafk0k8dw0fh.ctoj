@@ -1,0 +1,46 @@
+public static Agedge_s enter_edge(Agedge_s e) {
+    Agnode_s v;
+    int outsearch;
+    /* v is the down node */
+    if (ND_lim(agtail(e)) < ND_lim(aghead(e))) {
+	v = agtail(e);
+	outsearch = 0;
+    } else {
+	v = aghead(e);
+	outsearch = 1;
+    }
+    Enter = null;
+    Slack = INT_MAX;
+    Low = ND_low(v);
+    Lim = ND_lim(v);
+    if (outsearch!=0)
+	dfs_enter_outedge(v);
+    else
+	dfs_enter_inedge(v);
+    return Enter;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static edge_t *enter_edge(edge_t * e)
+{
+    node_t *v;
+    int outsearch;
+    /* v is the down node */
+    if (ND_lim(agtail(e)) < ND_lim(aghead(e))) {
+	v = agtail(e);
+	outsearch = 0;
+    } else {
+	v = aghead(e);
+	outsearch = NOT(0);
+    }
+    Enter = NULL;
+    Slack = INT_MAX;
+    Low = ND_low(v);
+    Lim = ND_lim(v);
+    if (outsearch)
+	dfs_enter_outedge(v);
+    else
+	dfs_enter_inedge(v);
+    return Enter;
+}
+

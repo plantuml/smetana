@@ -1,0 +1,5 @@
+static private int Minrank, Maxrank;
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int Minrank, Maxrank;
+

@@ -1,0 +1,16 @@
+public static void agmethod_upd(Agraph_s g, __ptr__ obj, Agsym_s sym) {
+    if (g.getPtr("clos").getBoolean("callbacks_enabled"))
+	agupdcb(g, obj, sym, (Agcbstack_s) g.getPtr("clos").getPtr("cb"));
+    else
+	agrecord_callback(g, obj, 101, sym);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void agmethod_upd(Agraph_t * g, void *obj, Agsym_t * sym)
+{
+    if (g->clos->callbacks_enabled)
+	agupdcb(g, obj, sym, g->clos->cb);
+    else
+	agrecord_callback(g, obj, 101, sym);
+}
+

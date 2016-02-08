@@ -1,0 +1,10 @@
+public static boolean agisundirected(Agraph_s g) {
+    return (NOT(agisdirected(g)));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int agisundirected(Agraph_t * g)
+{
+    return NOT(agisdirected(g));
+}
+

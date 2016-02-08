@@ -1,0 +1,31 @@
+public static int mincross_clust(Agraph_s par, Agraph_s g, boolean doBalance) {
+    int c, nc;
+    expand_cluster(g);
+    ordered_edges(g);
+    flat_breakcycles(g);
+    flat_reorder(g);
+    nc = mincross_(g, 2, 2, doBalance);
+UNSUPPORTED("7z5fb6iyowsosn1hiz7opeoc6"); //     for (c = 1; c <= GD_n_cluster(g); c++)
+UNSUPPORTED("9rf0oc3d6vv2etoxo9lfaafjv"); // 	nc += mincross_clust(g, GD_clust(g)[c], doBalance);
+UNSUPPORTED("epdz9wujhh3y1k5vt6a57dwqv"); //     save_vlist(g);
+UNSUPPORTED("bvmnch84b0w6a8b52fsv3my85"); //     return nc;
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int mincross_clust(graph_t * par, graph_t * g, int doBalance)
+{
+    int c, nc;
+    expand_cluster(g);
+    ordered_edges(g);
+    flat_breakcycles(g);
+    flat_reorder(g);
+    nc = mincross(g, 2, 2, doBalance);
+    for (c = 1; c <= GD_n_cluster(g); c++)
+	nc += mincross_clust(g, GD_clust(g)[c], doBalance);
+    save_vlist(g);
+    return nc;
+}
+

@@ -1,0 +1,32 @@
+public static void allocate_aux_edges(Agraph_s g) {
+    int i, j, n_in;
+    Agnode_s n;
+    /* allocate space for aux edge lists */
+    for (n = GD_nlist(g); n!=null; n = ND_next(n)) {
+	ND_save_in(n, ND_in(n));
+	ND_save_out(n, ND_out(n));
+	for (i = 0; ND_out(n).getArrayOfPtr("list").plus(i).getPtr()!=null; i++);
+	for (j = 0; ND_in(n).getArrayOfPtr("list").plus(j).getPtr()!=null; j++);
+	n_in = i + j;
+	alloc_elist(n_in + 3, ND_in(n), Agnode_s.class);
+	alloc_elist(3, ND_out(n), Agnode_s.class);
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void allocate_aux_edges(graph_t * g)
+{
+    int i, j, n_in;
+    node_t *n;
+    /* allocate space for aux edge lists */
+    for (n = GD_nlist(g); n; n = ND_next(n)) {
+	ND_save_in(n) = ND_in(n);
+	ND_save_out(n) = ND_out(n);
+	for (i = 0; ND_out(n).list[i]; i++);
+	for (j = 0; ND_in(n).list[j]; j++);
+	n_in = i + j;
+	alloc_elist(n_in + 3, ND_in(n));
+	alloc_elist(3, ND_out(n));
+    }
+}
+

@@ -1,0 +1,161 @@
+public static void set_aspect(Agraph_s g, aspect_t asp) {
+    double xf = 0.0, yf = 0.0, actual, desired;
+    Agnode_s n;
+    boolean scale_it, filled;
+    point sz = (point) Memory.malloc(point.class);
+    rec_bb(g, g);
+UNSUPPORTED("bchowvr3zm0kee4u7d638jzy"); //     if (((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank) > 0) && ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->ratio_kind)) {
+UNSUPPORTED("9aaw0oqip89glyvzbfdpxa1fc"); // 	sz.x = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->bb).UR.x - (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->bb).LL.x;
+UNSUPPORTED("7b4j7hyzwuryl735q09n9vxh6"); // 	sz.y = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->bb).UR.y - (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->bb).LL.y;	/* normalize */
+UNSUPPORTED("682fqqe8j0qbiljpq0t0yi3iv"); // 	if (((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rankdir & 0x3) & 1)) {
+UNSUPPORTED("d55uzald1tvs7xodnua67pxv6"); // 	    int t = sz.x;
+UNSUPPORTED("47s1klx0pfzda4e311w53ou7e"); // 	    sz.x = sz.y;
+UNSUPPORTED("3tx1mj7j0rqw33y24a0gu4ali"); // 	    sz.y = t;
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("3mttwy1npqn7j3jy6woqpzp1y"); // 	scale_it = (!(0));
+UNSUPPORTED("6upejo46509fi3zp7m95fkued"); // 	if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->ratio_kind == R_AUTO)
+UNSUPPORTED("8mtmgag5dxj8ttlcabbpd865p"); // 	    filled = idealsize(g, .5);
+UNSUPPORTED("9352ql3e58qs4fzapgjfrms2s"); // 	else
+UNSUPPORTED("dh3cu510vntd2yfqqmo29l816"); // 	    filled = ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->ratio_kind == R_FILL);
+UNSUPPORTED("2atgu691bmn6h9jvk8lve5qzc"); // 	if (filled) {
+UNSUPPORTED("1zx5etcjofceqjvogfn8urkdj"); // 	    /* fill is weird because both X and Y can stretch */
+UNSUPPORTED("cupbhbx077okd099ovilh8298"); // 	    if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->size.x <= 0)
+UNSUPPORTED("dao0fnoi65upcdtr9csqhhy41"); // 		scale_it = 0;
+UNSUPPORTED("6q044im7742qhglc4553noina"); // 	    else {
+UNSUPPORTED("865pqzq5tiv8l7cnuy3st97g1"); // 		xf = (double) (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->size.x / (double) sz.x;
+UNSUPPORTED("437oiwu12ftg089to0iaoo6vf"); // 		yf = (double) (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->size.y / (double) sz.y;
+UNSUPPORTED("5xkzvdrdnfd5afhhxgajbywya"); // 		if ((xf < 1.0) || (yf < 1.0)) {
+UNSUPPORTED("cvkvyq93xp1itpomhj1r2xlzy"); // 		    if (xf < yf) {
+UNSUPPORTED("capfpf4tncicsp81elmwvf0l"); // 			yf = yf / xf;
+UNSUPPORTED("7sdzyzqj65rbq6edfgf5x6xht"); // 			xf = 1.0;
+UNSUPPORTED("d86r93g8nz9a1kfzgi7f8j8nh"); // 		    } else {
+UNSUPPORTED("emwaipsi6kyqbpk2y26k3cxfw"); // 			xf = xf / yf;
+UNSUPPORTED("1s91x56ftedjsc3m32dqgspqn"); // 			yf = 1.0;
+UNSUPPORTED("dkxvw03k2gg9anv4dbze06axd"); // 		    }
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("f4p9hn9qh3nf9cka5dyky19j7"); // 	} else if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->ratio_kind == R_EXPAND) {
+UNSUPPORTED("cupbhbx077okd099ovilh8298"); // 	    if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->size.x <= 0)
+UNSUPPORTED("dao0fnoi65upcdtr9csqhhy41"); // 		scale_it = 0;
+UNSUPPORTED("6q044im7742qhglc4553noina"); // 	    else {
+UNSUPPORTED("agr82hfwqft70d5y57704tj63"); // 		xf = (double) (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->size.x /
+UNSUPPORTED("7bvokgctj3n044v4nvf5wgeyg"); // 		    (double) (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->bb).UR.x;
+UNSUPPORTED("9vwzpeqbl3eb0v4o803w72q16"); // 		yf = (double) (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->size.y /
+UNSUPPORTED("b2lhp35x0fiww403nhyu6rtsc"); // 		    (double) (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->bb).UR.y;
+UNSUPPORTED("a2jzgqbpoanzqdqc7vjk32vmz"); // 		if ((xf > 1.0) && (yf > 1.0)) {
+UNSUPPORTED("c94nt2port0g54mlad4q79o38"); // 		    double scale = ((xf)<(yf)?(xf):(yf));
+UNSUPPORTED("272bmuv1row7l9tla5bhot840"); // 		    xf = yf = scale;
+UNSUPPORTED("738mi6h8ef0itznt34ngxe25o"); // 		} else
+UNSUPPORTED("b5qs3ho2fcywk3sd5cw3m88kw"); // 		    scale_it = 0;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("6jptn9y92phlki75fn8qadbcb"); // 	} else if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->ratio_kind == R_VALUE) {
+UNSUPPORTED("b8t1ulzf3dangldeo3tipyn1z"); // 	    desired = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->ratio;
+UNSUPPORTED("douwz2voka0puoeooqjn8kijk"); // 	    actual = ((double) sz.y) / ((double) sz.x);
+UNSUPPORTED("7u9yvuqazzo19geppiphd9rfh"); // 	    if (actual < desired) {
+UNSUPPORTED("apqq3m2rezfl96zbvk7lut02"); // 		yf = desired / actual;
+UNSUPPORTED("8po0oizki4figodjv9xku16gq"); // 		xf = 1.0;
+UNSUPPORTED("175pyfe8j8mbhdwvrbx3gmew9"); // 	    } else {
+UNSUPPORTED("84c3pp9xgnii11clyyxblqmy6"); // 		xf = actual / desired;
+UNSUPPORTED("1tr1b9rp1b00pcafss87kadfe"); // 		yf = 1.0;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("6to1esmb8qfrhzgtr7jdqleja"); // 	} else
+UNSUPPORTED("csvnhx5mo535o6ue1tg3ktjhs"); // 	    scale_it = 0;
+UNSUPPORTED("bh2d68e9s7cr7k1bl0h9fmr9a"); // 	if (scale_it) {
+UNSUPPORTED("8dnklyuu9gjto9veh1lkw38ol"); // 	    if (((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rankdir & 0x3) & 1)) {
+UNSUPPORTED("bi983gfofc0blj8r4yetj14kb"); // 		double t = xf;
+UNSUPPORTED("69pmocxfvmk0urni4fg0x4na5"); // 		xf = yf;
+UNSUPPORTED("cyt895z1pa5arxz4d1kv0hqgq"); // 		yf = t;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("yqduc5qrx5u7ft5xx3n41vq6"); // 	    for (n = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->nlist); n; n = (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->next)) {
+UNSUPPORTED("d50noqjsoai0oao1v2soot7pq"); // 		(((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->coord).x = (((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->coord).x * xf>=0)?(int)((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->coord).x * xf + .5):(int)((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->coord).x * xf - .5));
+UNSUPPORTED("7rg5m7s1cugrlyanx4swwxwbt"); // 		(((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->coord).y = (((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->coord).y * yf>=0)?(int)((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->coord).y * yf + .5):(int)((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->coord).y * yf - .5));
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("8f0d3etdet1pk8ikvltmz5h2s"); // 	    scale_bb(g, g, xf, yf);
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("b4jlhynnsh7n2ymuz65n5jpyd"); //     if (asp) adjustAspectRatio (g, asp);
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void set_aspect(graph_t * g, aspect_t* asp)
+{
+    double xf = 0.0, yf = 0.0, actual, desired;
+    node_t *n;
+    boolean scale_it, filled;
+    point sz;
+    rec_bb(g, g);
+    if (((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank) > 0) && ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->ratio_kind)) {
+	sz.x = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->bb).UR.x - (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->bb).LL.x;
+	sz.y = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->bb).UR.y - (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->bb).LL.y;	/* normalize */
+	if (((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rankdir & 0x3) & 1)) {
+	    int t = sz.x;
+	    sz.x = sz.y;
+	    sz.y = t;
+	}
+	scale_it = (!(0));
+	if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->ratio_kind == R_AUTO)
+	    filled = idealsize(g, .5);
+	else
+	    filled = ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->ratio_kind == R_FILL);
+	if (filled) {
+	    /* fill is weird because both X and Y can stretch */
+	    if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->size.x <= 0)
+		scale_it = 0;
+	    else {
+		xf = (double) (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->size.x / (double) sz.x;
+		yf = (double) (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->size.y / (double) sz.y;
+		if ((xf < 1.0) || (yf < 1.0)) {
+		    if (xf < yf) {
+			yf = yf / xf;
+			xf = 1.0;
+		    } else {
+			xf = xf / yf;
+			yf = 1.0;
+		    }
+		}
+	    }
+	} else if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->ratio_kind == R_EXPAND) {
+	    if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->size.x <= 0)
+		scale_it = 0;
+	    else {
+		xf = (double) (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->size.x /
+		    (double) (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->bb).UR.x;
+		yf = (double) (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->size.y /
+		    (double) (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->bb).UR.y;
+		if ((xf > 1.0) && (yf > 1.0)) {
+		    double scale = ((xf)<(yf)?(xf):(yf));
+		    xf = yf = scale;
+		} else
+		    scale_it = 0;
+	    }
+	} else if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->ratio_kind == R_VALUE) {
+	    desired = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->ratio;
+	    actual = ((double) sz.y) / ((double) sz.x);
+	    if (actual < desired) {
+		yf = desired / actual;
+		xf = 1.0;
+	    } else {
+		xf = actual / desired;
+		yf = 1.0;
+	    }
+	} else
+	    scale_it = 0;
+	if (scale_it) {
+	    if (((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rankdir & 0x3) & 1)) {
+		double t = xf;
+		xf = yf;
+		yf = t;
+	    }
+	    for (n = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->nlist); n; n = (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->next)) {
+		(((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->coord).x = (((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->coord).x * xf>=0)?(int)((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->coord).x * xf + .5):(int)((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->coord).x * xf - .5));
+		(((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->coord).y = (((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->coord).y * yf>=0)?(int)((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->coord).y * yf + .5):(int)((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->coord).y * yf - .5));
+	    }
+	    scale_bb(g, g, xf, yf);
+	}
+    }
+    if (asp) adjustAspectRatio (g, asp);
+}
+

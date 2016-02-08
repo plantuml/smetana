@@ -1,0 +1,19 @@
+public static void fillRanks(Agraph_s g) {
+    Agraph_s sg;
+    int rnks_sz = GD_maxrank(g) + 2;
+    __ptr__ rnks = zmalloc(size_t_array_of_integer(rnks_sz));
+    sg = realFillRanks (g, rnks, rnks_sz, null);
+    Memory.free (rnks);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void
+fillRanks (Agraph_t* g)
+{
+    Agraph_t* sg;
+    int rnks_sz = GD_maxrank(g) + 2;
+    int* rnks = (int*)zmalloc((rnks_sz)*sizeof(int));
+    sg = realFillRanks (g, rnks, rnks_sz, NULL);
+    free (rnks);
+}
+

@@ -1,0 +1,20 @@
+public static int maptoken(CString p, CString name[], int val[]) {
+    int i;
+    CString q;
+    for (i = 0; (q = name[i]) != null; i++)
+	if (p!=null && (N(strcmp(p,q))))
+	    break;
+    return val[i];
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int maptoken(char *p, char **name, int *val)
+{
+    int i;
+    char *q;
+    for (i = 0; (q = name[i]) != 0; i++)
+	if (p && (*(p)==*(q)&&!strcmp(p,q)))
+	    break;
+    return val[i];
+}
+

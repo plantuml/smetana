@@ -1,0 +1,115 @@
+public static int edgecmp(__ptr__ ptr0, __ptr__ ptr1) {
+UNSUPPORTED("529ke91vxq074jaswefsiwgw6"); // static int edgecmp(edge_t** ptr0, edge_t** ptr1)
+UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
+UNSUPPORTED("2o36mle7swe9pjogc1tlgidl3"); //     Agedgeinfo_t fwdedgeai, fwdedgebi;
+UNSUPPORTED("792a00kpfktx1pv24ti0vnmj1"); //     Agedgepair_t fwdedgea, fwdedgeb;
+UNSUPPORTED("1q93l7obyh3r1j1sudfkbxog4"); //     edge_t *e0, *e1, *ea, *eb, *le0, *le1;
+UNSUPPORTED("es2a3tmg4tus1g2msdro243ct"); //     int et0, et1, v0, v1, rv;
+UNSUPPORTED("2fhw2xehfslddxazuydqahdj8"); //     double t0, t1;
+UNSUPPORTED("aas7v6489iemcprmdqkdeu9wj"); //     fwdedgea.out.base.data = (Agrec_t*)&fwdedgeai;
+UNSUPPORTED("7jqhpgkklmarlgai7dv5rn5yq"); //     fwdedgeb.out.base.data = (Agrec_t*)&fwdedgebi;
+UNSUPPORTED("2sguzqa05jlpshkbbs5vnvax2"); //     e0 = (edge_t *) * ptr0;
+UNSUPPORTED("3gec6wc34v653peyslti6c8dd"); //     e1 = (edge_t *) * ptr1;
+UNSUPPORTED("385fgccjbi4o6wetvlhifs1tq"); //     et0 = ED_tree_index(e0) & 15;
+UNSUPPORTED("5fiz03cjfwpno0unithnb98wj"); //     et1 = ED_tree_index(e1) & 15;
+UNSUPPORTED("ajdhdfbeimi3v8721vqyq4gm"); //     if (et0 != et1)
+UNSUPPORTED("1451tqdw3j5hrtg322dxs4njj"); // 	return (et1 - et0);
+UNSUPPORTED("5r08enojrri0ptn3aws5mj52c"); //     le0 = getmainedge(e0);
+UNSUPPORTED("5qq0j2a7kp7ga7j00ygs37eyv"); //     le1 = getmainedge(e1);
+UNSUPPORTED("71pdm38iw0jt6dqqbmvlb0q9c"); //     t0 = ND_rank(agtail(le0)) - ND_rank(aghead(le0));
+UNSUPPORTED("dvb43xlrgo38yqgsfxvjldkut"); //     t1 = ND_rank(agtail(le1)) - ND_rank(aghead(le1));
+UNSUPPORTED("76bz6h5168wjcdfb1tvhkorsl"); //     v0 = ABS((int)t0);   /* ugly, but explicit as to how we avoid equality tests on fp numbers */
+UNSUPPORTED("4y2ef7gkgafcze3umdmpyehfx"); //     v1 = ABS((int)t1);
+UNSUPPORTED("cjxeq7yua1cwiiu8u0arpbdm8"); //     if (v0 != v1)
+UNSUPPORTED("dcezy5kb8cszdw08g4fqtndty"); // 	return (v0 - v1);
+UNSUPPORTED("emxvhjvuqyvw0xtfqxbo4mk7p"); //     t0 = ND_coord(agtail(le0)).x - ND_coord(aghead(le0)).x;
+UNSUPPORTED("6tkvnxyu1wl1229h5hh9tnkc"); //     t1 = ND_coord(agtail(le1)).x - ND_coord(aghead(le1)).x;
+UNSUPPORTED("4ycq5pptog0qy735sqism1gas"); //     v0 = ABS((int)t0);
+UNSUPPORTED("4y2ef7gkgafcze3umdmpyehfx"); //     v1 = ABS((int)t1);
+UNSUPPORTED("cjxeq7yua1cwiiu8u0arpbdm8"); //     if (v0 != v1)
+UNSUPPORTED("dcezy5kb8cszdw08g4fqtndty"); // 	return (v0 - v1);
+UNSUPPORTED("3xqljzgssfrfm22cw297rsbzn"); //     /* This provides a cheap test for edges having the same set of endpoints.  */
+UNSUPPORTED("6bjc4lhu1i4gzsduyjhkyn1b7"); //     if (AGSEQ(le0) != AGSEQ(le1))
+UNSUPPORTED("9x8idp70oy9n8if41oc0i5rar"); // 	return (AGSEQ(le0) - AGSEQ(le1));
+UNSUPPORTED("cmef6ku31ggzxlf21vgaskz9x"); //     ea = (ED_tail_port(e0).defined || ED_head_port(e0).defined) ? e0 : le0;
+UNSUPPORTED("aak4q9gs9ci25wjiaqe1135ad"); //     if (ED_tree_index(ea) & 32) {
+UNSUPPORTED("7zw1j1v06qw5en9ekur1cjzg2"); // 	{ edge_t *newp; Agedgeinfo_t *info; newp = &fwdedgea.out; info = (Agedgeinfo_t*)newp->base.data; *info = *(Agedgeinfo_t*)ea->base.data; *newp = *ea; newp->base.data = (Agrec_t*)info; AGTAIL(newp) = AGHEAD(ea); AGHEAD(newp) = AGTAIL(ea); ED_tail_port(newp) = ED_head_port(ea); ED_head_port(newp) = ED_tail_port(ea); ED_edge_type(newp) = 1; ED_to_orig(newp) = ea; };
+UNSUPPORTED("7occmdb66l5xc1my22518fado"); // 	ea = &fwdedgea.out;
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("chafmnbnj2u4vi0eknfea2gb6"); //     eb = (ED_tail_port(e1).defined || ED_head_port(e1).defined) ? e1 : le1;
+UNSUPPORTED("xngp0lq54hmw98l0m348y6s1"); //     if (ED_tree_index(eb) & 32) {
+UNSUPPORTED("a3u3pdhuebbdyovf28xll2sqh"); // 	{ edge_t *newp; Agedgeinfo_t *info; newp = &fwdedgeb.out; info = (Agedgeinfo_t*)newp->base.data; *info = *(Agedgeinfo_t*)eb->base.data; *newp = *eb; newp->base.data = (Agrec_t*)info; AGTAIL(newp) = AGHEAD(eb); AGHEAD(newp) = AGTAIL(eb); ED_tail_port(newp) = ED_head_port(eb); ED_head_port(newp) = ED_tail_port(eb); ED_edge_type(newp) = 1; ED_to_orig(newp) = eb; };
+UNSUPPORTED("meup7d6ydic0cepn5kn0ugr1"); // 	eb = &fwdedgeb.out;
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("df5vjojfmxg7b8r9mt7t0nu11"); //     if ((rv = portcmp(ED_tail_port(ea), ED_tail_port(eb))))
+UNSUPPORTED("cs1ejkx9cw658cl8cagdzqrzm"); // 	return rv;
+UNSUPPORTED("cpl7104yts660jyzlcc6x2fqi"); //     if ((rv = portcmp(ED_head_port(ea), ED_head_port(eb))))
+UNSUPPORTED("cs1ejkx9cw658cl8cagdzqrzm"); // 	return rv;
+UNSUPPORTED("jrt9k16fm6mvq064orjiwze"); //     et0 = ED_tree_index(e0) & 192;
+UNSUPPORTED("2c4ltxswuvvkari1q0o1w46jx"); //     et1 = ED_tree_index(e1) & 192;
+UNSUPPORTED("ajdhdfbeimi3v8721vqyq4gm"); //     if (et0 != et1)
+UNSUPPORTED("5t1xn47xl6kfgbdojobf19q3q"); // 	return (et0 - et1);
+UNSUPPORTED("eq7umrvfy8f8nxv5v0z63v7o0"); //     if (et0 == 2 && ED_label(e0) != ED_label(e1))
+UNSUPPORTED("6m05f2reqpssy39frjqo83oar"); // 	return (int) (ED_label(e0) - ED_label(e1));
+UNSUPPORTED("a865il9l0vdnnblu8kqww2yia"); //     return (AGSEQ(e0) - AGSEQ(e1));
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int edgecmp(edge_t** ptr0, edge_t** ptr1)
+{
+    Agedgeinfo_t fwdedgeai, fwdedgebi;
+    Agedgepair_t fwdedgea, fwdedgeb;
+    edge_t *e0, *e1, *ea, *eb, *le0, *le1;
+    int et0, et1, v0, v1, rv;
+    double t0, t1;
+    fwdedgea.out.base.data = (Agrec_t*)&fwdedgeai;
+    fwdedgeb.out.base.data = (Agrec_t*)&fwdedgebi;
+    e0 = (edge_t *) * ptr0;
+    e1 = (edge_t *) * ptr1;
+    et0 = ED_tree_index(e0) & 15;
+    et1 = ED_tree_index(e1) & 15;
+    if (et0 != et1)
+	return (et1 - et0);
+    le0 = getmainedge(e0);
+    le1 = getmainedge(e1);
+    t0 = ND_rank(agtail(le0)) - ND_rank(aghead(le0));
+    t1 = ND_rank(agtail(le1)) - ND_rank(aghead(le1));
+    v0 = ABS((int)t0);   /* ugly, but explicit as to how we avoid equality tests on fp numbers */
+    v1 = ABS((int)t1);
+    if (v0 != v1)
+	return (v0 - v1);
+    t0 = ND_coord(agtail(le0)).x - ND_coord(aghead(le0)).x;
+    t1 = ND_coord(agtail(le1)).x - ND_coord(aghead(le1)).x;
+    v0 = ABS((int)t0);
+    v1 = ABS((int)t1);
+    if (v0 != v1)
+	return (v0 - v1);
+    /* This provides a cheap test for edges having the same set of endpoints.  */
+    if (AGSEQ(le0) != AGSEQ(le1))
+	return (AGSEQ(le0) - AGSEQ(le1));
+    ea = (ED_tail_port(e0).defined || ED_head_port(e0).defined) ? e0 : le0;
+    if (ED_tree_index(ea) & 32) {
+	{ edge_t *newp; Agedgeinfo_t *info; newp = &fwdedgea.out; info = (Agedgeinfo_t*)newp->base.data; *info = *(Agedgeinfo_t*)ea->base.data; *newp = *ea; newp->base.data = (Agrec_t*)info; AGTAIL(newp) = AGHEAD(ea); AGHEAD(newp) = AGTAIL(ea); ED_tail_port(newp) = ED_head_port(ea); ED_head_port(newp) = ED_tail_port(ea); ED_edge_type(newp) = 1; ED_to_orig(newp) = ea; };
+	ea = &fwdedgea.out;
+    }
+    eb = (ED_tail_port(e1).defined || ED_head_port(e1).defined) ? e1 : le1;
+    if (ED_tree_index(eb) & 32) {
+	{ edge_t *newp; Agedgeinfo_t *info; newp = &fwdedgeb.out; info = (Agedgeinfo_t*)newp->base.data; *info = *(Agedgeinfo_t*)eb->base.data; *newp = *eb; newp->base.data = (Agrec_t*)info; AGTAIL(newp) = AGHEAD(eb); AGHEAD(newp) = AGTAIL(eb); ED_tail_port(newp) = ED_head_port(eb); ED_head_port(newp) = ED_tail_port(eb); ED_edge_type(newp) = 1; ED_to_orig(newp) = eb; };
+	eb = &fwdedgeb.out;
+    }
+    if ((rv = portcmp(ED_tail_port(ea), ED_tail_port(eb))))
+	return rv;
+    if ((rv = portcmp(ED_head_port(ea), ED_head_port(eb))))
+	return rv;
+    et0 = ED_tree_index(e0) & 192;
+    et1 = ED_tree_index(e1) & 192;
+    if (et0 != et1)
+	return (et0 - et1);
+    if (et0 == 2 && ED_label(e0) != ED_label(e1))
+	return (int) (ED_label(e0) - ED_label(e1));
+    return (AGSEQ(e0) - AGSEQ(e1));
+}
+

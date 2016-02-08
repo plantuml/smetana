@@ -1,0 +1,45 @@
+public static void dfs(Agnode_s n) {
+    int i;
+    Agedge_s e;
+    Agnode_s w;
+    if (ND_mark(n)!=0)
+	return;
+    ND_mark(n, 1);
+    ND_onstack(n, 1);
+    for (i = 0; (e = (Agedge_s) ND_out(n).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
+	w = aghead(e);
+	if (ND_onstack(w)!=0) {
+	    reverse_edge(e);
+	    i--;
+	} else {
+	    if (ND_mark(w) == 0)
+		dfs(w);
+	}
+    }
+    ND_onstack(n, 0);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void 
+dfs(node_t * n)
+{
+    int i;
+    edge_t *e;
+    node_t *w;
+    if (ND_mark(n))
+	return;
+    ND_mark(n) = NOT(0);
+    ND_onstack(n) = NOT(0);
+    for (i = 0; (e = ND_out(n).list[i]); i++) {
+	w = aghead(e);
+	if (ND_onstack(w)) {
+	    reverse_edge(e);
+	    i--;
+	} else {
+	    if (ND_mark(w) == 0)
+		dfs(w);
+	}
+    }
+    ND_onstack(n) = 0;
+}
+

@@ -1,0 +1,160 @@
+public static void flat_reorder(Agraph_s g) {
+    int i, j, r, pos, n_search, local_in_cnt, local_out_cnt, base_order;
+    Agnode_s v, t;
+    __ptr__ left, right;
+    __ptr__ temprank = null;
+    Agedge_s flat_e, e;
+    if (GD_has_flat_edges(g) == 0)
+	return;
+UNSUPPORTED("60nab7gyukq3bs8e6dizhbacy"); //     for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
+UNSUPPORTED("2xm6bhb8x1bdvvm79rdx4ih8k"); // 	if (GD_rank(g)[r].n == 0) continue;
+UNSUPPORTED("43wkd0u4gt5f22bo4b81tpj18"); // 	base_order = ND_order(GD_rank(g)[r].v[0]);
+UNSUPPORTED("930yyqztt6dbtgwp49heo6aa7"); // 	for (i = 0; i < GD_rank(g)[r].n; i++)
+UNSUPPORTED("dz61yb90hbycduz1zl0palr7i"); // 	    (ND_mark(GD_rank(g)[r].v[i])) = 0;
+UNSUPPORTED("8bg3a9yayjyik2zurmxun7b2a"); // 	temprank = ALLOC(i + 1, temprank, node_t *);
+UNSUPPORTED("ptj0sxywmshehzmr5058z3ld"); // 	pos = 0;
+UNSUPPORTED("heovdmfd7dmyls9n93y5ao8w"); // 	/* construct reverse topological sort order in temprank */
+UNSUPPORTED("6eix918gmfs16624x6omusuhm"); // 	for (i = 0; i < GD_rank(g)[r].n; i++) {
+UNSUPPORTED("phr38thvtlbcjq1u87vo3r23"); // 	    if (GD_flip(g)) v = GD_rank(g)[r].v[i];
+UNSUPPORTED("6y4xt5s32t191ksegr3it73b2"); // 	    else v = GD_rank(g)[r].v[GD_rank(g)[r].n - i - 1];
+UNSUPPORTED("80lfdxbk10vp5rvtxkk5wj5ds"); // 	    local_in_cnt = local_out_cnt = 0;
+UNSUPPORTED("bl3do7s57na7xpv6f1vdbmyve"); // 	    for (j = 0; j < ND_flat_in(v).size; j++) {
+UNSUPPORTED("e96fdaq6dg03b925jfjo2kpx9"); // 		flat_e = ND_flat_in(v).list[j];
+UNSUPPORTED("larig8jnxb7ncytin6qrhq59"); // 		if (constraining_flat_edge(g,v,flat_e)) local_in_cnt++;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("3dy5d7z3uazd4h4yyct78ghnu"); // 	    for (j = 0; j < ND_flat_out(v).size; j++) {
+UNSUPPORTED("dva1y1bkf4j66nkebj52la0i6"); // 		flat_e = ND_flat_out(v).list[j];
+UNSUPPORTED("2rgbk1kji5v8o4ybrrs4ls262"); // 		if (constraining_flat_edge(g,v,flat_e)) local_out_cnt++;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("8o4pi1ans4czypy73ni9zgsnx"); // 	    if ((local_in_cnt == 0) && (local_out_cnt == 0))
+UNSUPPORTED("9nashj3bi59s5cdaa5a7sto8i"); // 		temprank[pos++] = v;
+UNSUPPORTED("6q044im7742qhglc4553noina"); // 	    else {
+UNSUPPORTED("1ezp9srjuy982ufzobpcuuisu"); // 		if (((ND_mark(v)) == 0) && (local_in_cnt == 0)) {
+UNSUPPORTED("a0cdgbreyl50679zmodu8jcj7"); // 		    left = temprank + pos;
+UNSUPPORTED("ewczn7sv1xkn79j21j6y98nna"); // 		    n_search = postorder(g, v, left, r);
+UNSUPPORTED("9xx3k65ddahr2zhjqsy9k4d5e"); // 		    pos += n_search;
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("exh0x53ewc1trtk2sr9j89dlv"); // 	if (pos) {
+UNSUPPORTED("4qkwn54estl5dx8jlgzlyraqo"); // 	    if (GD_flip(g) == 0) {
+UNSUPPORTED("aoz8iesotnzpotyuf6ft5oifs"); // 		left = temprank;
+UNSUPPORTED("dvxhjx37ryagjnn8012r3lab8"); // 		right = temprank + pos - 1;
+UNSUPPORTED("1kao1dlkemj6wsxv5pn1h61uw"); // 		while (left < right) {
+UNSUPPORTED("47h36vbyykmhp4m0k8gf0hpmq"); // 		    t = *left;
+UNSUPPORTED("235bgn7jwjpkg14gvd07fhz7h"); // 		    *left = *right;
+UNSUPPORTED("979a47z6ouhljp1uf4l8y19pw"); // 		    *right = t;
+UNSUPPORTED("5abi92edlhj6xlcwxgcsi7nj4"); // 		    left++;
+UNSUPPORTED("4xtkerapdpuh4g359203xnbhh"); // 		    right--;
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("ekjgpp51cwp03bcjy2ujywyo9"); // 	    for (i = 0; i < GD_rank(g)[r].n; i++) {
+UNSUPPORTED("5s8v862nltdximeipdvny9y1f"); // 		v = GD_rank(g)[r].v[i] = temprank[i];
+UNSUPPORTED("5kb820ryu1ki992hjcxkz57or"); // 		ND_order(v) = i + base_order;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("bi573dmi6584mc3zavlx7d3eq"); // 	    /* nonconstraint flat edges must be made LR */
+UNSUPPORTED("ekjgpp51cwp03bcjy2ujywyo9"); // 	    for (i = 0; i < GD_rank(g)[r].n; i++) {
+UNSUPPORTED("93xv71x0pyo09i8el5dtgsr5z"); // 		v = GD_rank(g)[r].v[i];
+UNSUPPORTED("2v2exvmxlze26y0d0kispv9fw"); // 		if (ND_flat_out(v).list) {
+UNSUPPORTED("dyi5yufj0afxef8enqddgd7uz"); // 		    for (j = 0; (e = ND_flat_out(v).list[j]); j++) {
+UNSUPPORTED("4b127pxbma7th1i5vtdmpsv0a"); // 			if ( ((GD_flip(g) == 0) && (ND_order(aghead(e)) < ND_order(agtail(e)))) ||
+UNSUPPORTED("9dc4vox9k8rdfjaqvaf0xnksx"); // 				 ( (GD_flip(g)) && (ND_order(aghead(e)) > ND_order(agtail(e)) ))) {
+UNSUPPORTED("3omkik04m6s1wn9lkk45pivko"); // 			    assert(constraining_flat_edge(g,v,e) == 0);
+UNSUPPORTED("7ebw4lyjfgu8v0is6gfktqm7x"); // 			    delete_flat_edge(e);
+UNSUPPORTED("39xps1d6e8rc55xmsxaunuia8"); // 			    j--;
+UNSUPPORTED("1w583swkkvuwckydgv3bcn71d"); // 			    flat_rev(g, e);
+UNSUPPORTED("3to5h0rvqxdeqs38mhv47mm3o"); // 			}
+UNSUPPORTED("dkxvw03k2gg9anv4dbze06axd"); // 		    }
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("cvr0qehm47iqjy6mr0gf98ezh"); // 	    /* postprocess to restore intended order */
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("cmw1tuaeuiic11679pz61lx30"); // 	/* else do no harm! */
+UNSUPPORTED("aiubcqxqgke7s3v2d7ukdxub4"); // 	GD_rank(Root)[r].valid = 0;
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("eedt0djlt1d5wfxm9242oovdy"); //     if (temprank)
+UNSUPPORTED("32y50hmbvwlkczwe82ltwu0s5"); // 	free(temprank);
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void flat_reorder(graph_t * g)
+{
+    int i, j, r, pos, n_search, local_in_cnt, local_out_cnt, base_order;
+    node_t *v, **left, **right, *t;
+    node_t **temprank = NULL;
+    edge_t *flat_e, *e;
+    if (GD_has_flat_edges(g) == 0)
+	return;
+    for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
+	if (GD_rank(g)[r].n == 0) continue;
+	base_order = ND_order(GD_rank(g)[r].v[0]);
+	for (i = 0; i < GD_rank(g)[r].n; i++)
+	    (ND_mark(GD_rank(g)[r].v[i])) = 0;
+	temprank = ALLOC(i + 1, temprank, node_t *);
+	pos = 0;
+	/* construct reverse topological sort order in temprank */
+	for (i = 0; i < GD_rank(g)[r].n; i++) {
+	    if (GD_flip(g)) v = GD_rank(g)[r].v[i];
+	    else v = GD_rank(g)[r].v[GD_rank(g)[r].n - i - 1];
+	    local_in_cnt = local_out_cnt = 0;
+	    for (j = 0; j < ND_flat_in(v).size; j++) {
+		flat_e = ND_flat_in(v).list[j];
+		if (constraining_flat_edge(g,v,flat_e)) local_in_cnt++;
+	    }
+	    for (j = 0; j < ND_flat_out(v).size; j++) {
+		flat_e = ND_flat_out(v).list[j];
+		if (constraining_flat_edge(g,v,flat_e)) local_out_cnt++;
+	    }
+	    if ((local_in_cnt == 0) && (local_out_cnt == 0))
+		temprank[pos++] = v;
+	    else {
+		if (((ND_mark(v)) == 0) && (local_in_cnt == 0)) {
+		    left = temprank + pos;
+		    n_search = postorder(g, v, left, r);
+		    pos += n_search;
+		}
+	    }
+	}
+	if (pos) {
+	    if (GD_flip(g) == 0) {
+		left = temprank;
+		right = temprank + pos - 1;
+		while (left < right) {
+		    t = *left;
+		    *left = *right;
+		    *right = t;
+		    left++;
+		    right--;
+		}
+	    }
+	    for (i = 0; i < GD_rank(g)[r].n; i++) {
+		v = GD_rank(g)[r].v[i] = temprank[i];
+		ND_order(v) = i + base_order;
+	    }
+	    /* nonconstraint flat edges must be made LR */
+	    for (i = 0; i < GD_rank(g)[r].n; i++) {
+		v = GD_rank(g)[r].v[i];
+		if (ND_flat_out(v).list) {
+		    for (j = 0; (e = ND_flat_out(v).list[j]); j++) {
+			if ( ((GD_flip(g) == 0) && (ND_order(aghead(e)) < ND_order(agtail(e)))) ||
+				 ( (GD_flip(g)) && (ND_order(aghead(e)) > ND_order(agtail(e)) ))) {
+			    assert(constraining_flat_edge(g,v,e) == 0);
+			    delete_flat_edge(e);
+			    j--;
+			    flat_rev(g, e);
+			}
+		    }
+		}
+	    }
+	    /* postprocess to restore intended order */
+	}
+	/* else do no harm! */
+	GD_rank(Root)[r].valid = 0;
+    }
+    if (temprank)
+	free(temprank);
+}
+

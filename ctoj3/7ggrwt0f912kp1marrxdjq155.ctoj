@@ -1,0 +1,12 @@
+public static void begin_component() {
+    Last_node = null;
+    GD_nlist(G, null);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void 
+begin_component(void)
+{
+    Last_node = GD_nlist(G) = NULL;
+}
+

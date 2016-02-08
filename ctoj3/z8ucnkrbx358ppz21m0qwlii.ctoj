@@ -1,0 +1,78 @@
+public static void cleanup2(Agraph_s g, int nc) {
+    int i, j, r, c;
+    Agnode_s v;
+    Agedge_s e;
+    if (TI_list!=null) {
+	Memory.free(TI_list);
+	TI_list = null;
+    }
+    if (TE_list!=null) {
+	Memory.free(TE_list);
+	TE_list = null;
+    }
+    /* fix vlists of clusters */
+    for (c = 1; c <= g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("n_cluster"); c++)
+	rec_reset_vlists(g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("clust", c));
+    /* remove node temporary edges for ordering nodes */
+    for (r = g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("minrank");
+    r <= g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("maxrank")
+    ; r++) {
+	for (i = 0; i < g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).getInt("n"); i++) {
+	    v = (Agnode_s) g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).getArrayOfPtr("v", i);
+	    v.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).setInt("order", i);
+	    if (v.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("flat_out").getPtr("list")!=null) {
+		for (j = 0; (e = (Agedge_s) v.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("flat_out").getArrayOfPtr("list", j))!=null; j++)
+		    if (e.castTo(Agobj_s.class).getPtr("data").castTo(Agedgeinfo_t.class).getInt("edge_type") == 4) {
+UNSUPPORTED("b2h2u1jvkykys5r2zks3aa9q1"); // 			delete_flat_edge(e);
+UNSUPPORTED("8l079weo5zbt4jvv2es6uaz18"); // 			free(e->base.data);
+UNSUPPORTED("5b9okxbwcdf6s77wf110avl8h"); // 			free(e);
+UNSUPPORTED("4tsbdddk542n5jq0l5tqx74my"); // 			j--;
+  		    }
+  	    }
+	}
+	free_matrix((adjmatrix_t) g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).getPtr("flat"));
+    }
+    /*if (Verbose)
+	fprintf(stderr, "mincross %s: %d crossings, %.2f secs.\n",
+		agnameof(g), nc, elapsed_sec());*/
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void cleanup2(graph_t * g, int nc)
+{
+    int i, j, r, c;
+    node_t *v;
+    edge_t *e;
+    if (TI_list) {
+	free(TI_list);
+	TI_list = NULL;
+    }
+    if (TE_list) {
+	free(TE_list);
+	TE_list = NULL;
+    }
+    /* fix vlists of clusters */
+    for (c = 1; c <= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->n_cluster); c++)
+	rec_reset_vlists((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->clust)[c]);
+    /* remove node temporary edges for ordering nodes */
+    for (r = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank); r <= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank); r++) {
+	for (i = 0; i < (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n; i++) {
+	    v = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v[i];
+	    (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->order) = i;
+	    if ((((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->flat_out).list) {
+		for (j = 0; (e = (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->flat_out).list[j]); j++)
+		    if ((((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->edge_type) == 4) {
+			delete_flat_edge(e);
+			free(e->base.data);
+			free(e);
+			j--;
+		    }
+	    }
+	}
+	free_matrix((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].flat);
+    }
+    if (Verbose)
+	fprintf(stderr, "mincross %s: %d crossings, %.2f secs.\n",
+		agnameof(g), nc, elapsed_sec());
+}
+

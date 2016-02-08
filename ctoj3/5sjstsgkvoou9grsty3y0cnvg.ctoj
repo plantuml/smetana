@@ -1,0 +1,10 @@
+public static double B3(double t) {
+    return t * t * t;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static double B3(double t)
+{
+    return t * t * t;
+}
+

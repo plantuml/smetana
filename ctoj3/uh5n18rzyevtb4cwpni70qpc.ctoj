@@ -1,0 +1,24 @@
+public static boolean between(__ptr__ pap, __ptr__ pbp, __ptr__ pcp) {
+    final __struct__<pointf> p1 = __struct__.from(pointf.class), p2 = __struct__.from(pointf.class);
+    p1.setDouble("x", pbp.getDouble("x") - pap.getDouble("x"));
+    p1.setDouble("y", pbp.getDouble("y") - pap.getDouble("y"));
+    p2.setDouble("x", pcp.getDouble("x") - pap.getDouble("x"));
+    p2.setDouble("y", pcp.getDouble("y") - pap.getDouble("y"));
+    if (ccw(pap, pbp, pcp) != 3)
+	return false;
+    return (p2.getDouble("x") * p1.getDouble("x") + p2.getDouble("y") * p1.getDouble("y") >= 0) &&
+	(p2.getDouble("x") * p2.getDouble("x") + p2.getDouble("y") * p2.getDouble("y") <= p1.getDouble("x") * p1.getDouble("x") + p1.getDouble("y") * p1.getDouble("y"));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int between(Ppoint_t * pap, Ppoint_t * pbp, Ppoint_t * pcp)
+{
+    Ppoint_t p1, p2;
+    p1.x = pbp->x - pap->x, p1.y = pbp->y - pap->y;
+    p2.x = pcp->x - pap->x, p2.y = pcp->y - pap->y;
+    if (ccw(pap, pbp, pcp) != 3)
+	return 0;
+    return (p2.x * p1.x + p2.y * p1.y >= 0) &&
+	(p2.x * p2.x + p2.y * p2.y <= p1.x * p1.x + p1.y * p1.y);
+}
+

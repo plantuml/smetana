@@ -1,0 +1,25 @@
+public static __struct__<port> resolvePort(Agnode_s n, Agnode_s other, port oldport) {
+ UNSUPPORTED("1aa44pvk8su341rug2x5h5h9o"); // port resolvePort(node_t * n, node_t * other, port * oldport)
+UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
+UNSUPPORTED("9ricxd1wv1am78xxjvd40ki5e"); //     port rv;
+UNSUPPORTED("jdbaecwphvo5avabk6l4xiy3"); //     char *compass = closestSide(n, other, oldport);
+UNSUPPORTED("afwu4bhodfj1avn0vvvmp2j5n"); //     /* transfer name pointer; all other necessary fields will be regenerated */
+UNSUPPORTED("102hdormt85y9xfjr5sy321jr"); //     rv.name = oldport->name;
+UNSUPPORTED("f4v5e5pyzu6udom6g40aku41y"); //     compassPort(n, oldport->bp, &rv, compass, oldport->side, NULL);
+UNSUPPORTED("v7vqc9l7ge2bfdwnw11z7rzi"); //     return rv;
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+port resolvePort(node_t * n, node_t * other, port * oldport)
+{
+    port rv;
+    char *compass = closestSide(n, other, oldport);
+    /* transfer name pointer; all other necessary fields will be regenerated */
+    rv.name = oldport->name;
+    compassPort(n, oldport->bp, &rv, compass, oldport->side, NULL);
+    return rv;
+}
+

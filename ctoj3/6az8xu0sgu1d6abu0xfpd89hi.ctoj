@@ -1,0 +1,14 @@
+public static int topdictsize(Agobj_s obj) {
+    _dt_s d;
+    d = agdictof(agroot(agraphof(obj)), AGTYPE(obj));
+    return d!=null ? dtsize_(d) : 0;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int topdictsize(Agobj_t * obj)
+{
+    Dict_t *d;
+    d = agdictof(agroot(agraphof(obj)), AGTYPE(obj));
+    return d ? dtsize(d) : 0;
+}
+

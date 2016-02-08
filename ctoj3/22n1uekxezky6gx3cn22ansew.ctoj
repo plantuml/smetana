@@ -1,0 +1,22 @@
+public static int strcasecmp(CString s1, CString s2) {
+    while ((s1.charAt(0) != '\0')
+	   && (tolower(s1.charAt(0)) ==
+	       tolower(s2.charAt(0)))) {
+	s1=s1.plus(1);
+	s2=s2.plus(1);
+    }
+    return tolower(s1.charAt(0)) - tolower(s2.charAt(0));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int strcasecmp(const char *s1, const char *s2)
+{
+    while ((*s1 != '\0')
+	   && (tolower(*(unsigned char *) s1) ==
+	       tolower(*(unsigned char *) s2))) {
+	s1++;
+	s2++;
+    }
+    return tolower(*(unsigned char *) s1) - tolower(*(unsigned char *) s2);
+}
+

@@ -1,0 +1,24 @@
+public static void agraphattr_init(Agraph_s g) {
+    /* Agdatadict_t *dd; */
+    /* Agrec_t                      *attr; */
+    Agraph_s context;
+    g.getStruct("desc").setInt("has_attrs", 1);
+    /* dd = */ agmakedatadict(g);
+    if (N(context = agparent(g)))
+	context = g;
+    /* attr = */ agmakeattrs(context, g);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void agraphattr_init(Agraph_t * g)
+{
+    /* Agdatadict_t *dd; */
+    /* Agrec_t                      *attr; */
+    Agraph_t *context;
+    g->desc.has_attrs = 1;
+    /* dd = */ agmakedatadict(g);
+    if (!(context = agparent(g)))
+	context = g;
+    /* attr = */ agmakeattrs(context, g);
+}
+

@@ -1,0 +1,33 @@
+public static Agraph_s agroot(__ptr__ obj) {
+    switch (AGTYPE(obj)) {
+    case AGINEDGE:
+    case AGOUTEDGE:
+	return (Agraph_s) obj.castTo(Agedge_s.class).getPtr("node").getPtr("root");
+    case AGNODE:
+	return (Agraph_s) obj.castTo(Agnode_s.class).getPtr("root");
+    case AGRAPH:
+	return (Agraph_s) obj.castTo(Agraph_s.class).getPtr("root");
+    default:			/* actually can't occur if only 2 bit tags */
+	System.err.println("agroot of a bad object");
+	return null;
+    }
+}
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agraph_t *agroot(void* obj)
+{
+    switch (AGTYPE(obj)) {
+    case AGINEDGE:
+    case AGOUTEDGE:
+	return ((Agedge_t *) obj)->node->root;
+    case AGNODE:
+	return ((Agnode_t *) obj)->root;
+    case AGRAPH:
+	return ((Agraph_t *) obj)->root;
+    default:			/* actually can't occur if only 2 bit tags */
+	agerr(AGERR, "agroot of a bad object");
+	return ((Agraph_t*)0);
+    }
+}
+

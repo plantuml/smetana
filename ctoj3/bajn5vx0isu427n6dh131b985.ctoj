@@ -1,0 +1,38 @@
+public static __struct__<boxf> rank_box(spline_info_t sp, Agraph_s g, int r) {
+    final __struct__<boxf> b = __struct__.from(boxf.class);
+    Agnode_s /* *right0, *right1, */  left0, left1;
+    b.____(sp.getPtr("Rank_box").plus(r).getStruct());
+    if (b.getStruct("LL").getDouble("x") == b.getStruct("UR").getDouble("x")) {
+	left0 = (Agnode_s) GD_rank(g).plus(r).getArrayOfPtr("v").plus(0).getPtr();
+	/* right0 = GD_rank(g)[r].v[GD_rank(g)[r].n - 1]; */
+	left1 = (Agnode_s) GD_rank(g).plus(r + 1).getArrayOfPtr("v").plus(0).getPtr();
+	/* right1 = GD_rank(g)[r + 1].v[GD_rank(g)[r + 1].n - 1]; */
+	b.getStruct("LL").setDouble("x", sp.getInt("LeftBound"));
+	b.getStruct("LL").setDouble("y", ND_coord(left1).getDouble("y") + GD_rank(g).plus(r + 1).getDouble("ht2"));
+	b.getStruct("UR").setDouble("x", sp.getInt("RightBound"));
+	b.getStruct("UR").setDouble("y", ND_coord(left0).getDouble("y") - GD_rank(g).plus(r).getDouble("ht1"));
+	sp.getPtr("Rank_box").plus(r).setStruct(b);
+    }
+    return b;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static boxf rank_box(spline_info_t* sp, graph_t * g, int r)
+{
+    boxf b;
+    node_t /* *right0, *right1, */  * left0, *left1;
+    b = sp->Rank_box[r];
+    if (b.LL.x == b.UR.x) {
+	left0 = GD_rank(g)[r].v[0];
+	/* right0 = GD_rank(g)[r].v[GD_rank(g)[r].n - 1]; */
+	left1 = GD_rank(g)[r + 1].v[0];
+	/* right1 = GD_rank(g)[r + 1].v[GD_rank(g)[r + 1].n - 1]; */
+	b.LL.x = sp->LeftBound;
+	b.LL.y = ND_coord(left1).y + GD_rank(g)[r + 1].ht2;
+	b.UR.x = sp->RightBound;
+	b.UR.y = ND_coord(left0).y - GD_rank(g)[r].ht1;
+	sp->Rank_box[r] = b;
+    }
+    return b;
+}
+

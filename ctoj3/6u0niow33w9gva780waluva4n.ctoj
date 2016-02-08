@@ -1,0 +1,14 @@
+public static void ins(_dt_s d, STARSTAR<_dtlink_s> set, Agedge_s e) {
+    dtrestore(d, set.getMe());
+    d.call("searchf", d,e,0000001);
+    set.setMe(dtextract(d));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void ins(Dict_t * d, Dtlink_t ** set, Agedge_t * e)
+{
+    dtrestore(d, *set);
+    (*(((Dt_t*)(d))->searchf))((d),(void*)(e),0000001);
+    *set = dtextract(d);
+}
+

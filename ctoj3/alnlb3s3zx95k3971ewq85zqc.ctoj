@@ -1,0 +1,33 @@
+public static int rank_set_class(Agraph_s g) {
+	UNSUPPORTED("d9cz56vtrl0ri6hz88cumukuf"); // static int 
+UNSUPPORTED("aiavfenpkfwkoggje5ygl0343"); // rank_set_class(graph_t * g)
+UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
+UNSUPPORTED("beh1efn44w374qcxri4urb730"); //     static char *name[] = { "same", "min", "source", "max", "sink", NULL };
+UNSUPPORTED("bxrhaqie4k62190nrdxh3g7cu"); //     static int class[] =
+UNSUPPORTED("9jttspk7s9ap5zx8604n4i29l"); // 	{ 1, 2, 3, 4, 5, 0 };
+UNSUPPORTED("3z4qqbm5080y3sn2lfr6rs0nk"); //     int val;
+UNSUPPORTED("6srvoj4huvsrdg9yn3ovc2i95"); //     if (is_cluster(g))
+UNSUPPORTED("5luvq39rf983pa9j6f0x4ha1a"); // 	return 7;
+UNSUPPORTED("qklh472yy0ssm16fyw0y0kp7"); //     val = maptoken(agget(g, "rank"), name, class);
+UNSUPPORTED("bt7nv5ry1wxtbmqf1axrbdi7h"); //     (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->set_type) = val;
+UNSUPPORTED("7crurn8zc2wtnfvxlv6qwks1k"); //     return val;
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int 
+rank_set_class(graph_t * g)
+{
+    static char *name[] = { "same", "min", "source", "max", "sink", NULL };
+    static int class[] =
+	{ 1, 2, 3, 4, 5, 0 };
+    int val;
+    if (is_cluster(g))
+	return 7;
+    val = maptoken(agget(g, "rank"), name, class);
+    (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->set_type) = val;
+    return val;
+}
+

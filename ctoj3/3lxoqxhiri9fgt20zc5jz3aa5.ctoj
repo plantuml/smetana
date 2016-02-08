@@ -1,0 +1,64 @@
+public static void install_in_rank(Agraph_s g, Agnode_s n) {
+    int i, r;
+    r = ND_rank(n);
+    i = GD_rank(g).plus(r).getInt("n");
+    if (GD_rank(g).plus(r).getInt("an") <= 0) {
+UNSUPPORTED("8qk1xhvvb994zhv9aq10k4v12"); // 	agerr(AGERR, "install_in_rank, line %d: %s %s rank %d i = %d an = 0\n",
+UNSUPPORTED("53h8d82ax23hys2k21hjswp72"); // 	      1034, agnameof(g), agnameof(n), r, i);
+	return;
+    }
+    GD_rank(g).plus(r).getArrayOfPtr("v").plus(i).setPtr(n);
+    ND_order(n, i);
+    GD_rank(g).plus(r).setInt("n", 1+GD_rank(g).plus(r).getInt("n"));
+    // assert(GD_rank(g)[r].n <= GD_rank(g)[r].an);
+    if (ND_order(n) > GD_rank(Root).plus(r).getInt("an")) {
+UNSUPPORTED("399szcw1txekt1xssyw7s2x07"); // 	agerr(AGERR, "install_in_rank, line %d: ND_order(%s) [%d] > GD_rank(Root)[%d].an [%d]\n",
+UNSUPPORTED("9puojrmsk6vb1qc0jtr8ge4g8"); // 	      1052, agnameof(n), ND_order(n), r, GD_rank(Root)[r].an);
+	return;
+    }
+    if ((r < GD_minrank(g)) || (r > GD_maxrank(g))) {
+UNSUPPORTED("7o1thnqda767wqpe2lh9mj03t"); // 	agerr(AGERR, "install_in_rank, line %d: rank %d not in rank range [%d,%d]\n",
+UNSUPPORTED("d2ugluzf7bmj7osicgitgy3sr"); // 	      1057, r, GD_minrank(g), GD_maxrank(g));
+	return;
+    }
+    if (GD_rank(g).plus(r).getPtr("v").plus(ND_order(n)).comparePointer(
+	GD_rank(g).plus(r).getPtr("av").plus(GD_rank(Root).plus(r).getInt("an")))>0) {
+UNSUPPORTED("3eb32nc5czs5auwzz5p5mtl04"); // 	agerr(AGERR, "install_in_rank, line %d: GD_rank(g)[%d].v + ND_order(%s) [%d] > GD_rank(g)[%d].av + GD_rank(Root)[%d].an [%d]\n",
+UNSUPPORTED("3qe3qpw5h6vse39xs1ca9sjmo"); // 	      1062, r, agnameof(n),GD_rank(g)[r].v + ND_order(n), r, r, GD_rank(g)[r].av+GD_rank(Root)[r].an);
+	return;
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void install_in_rank(graph_t * g, node_t * n)
+{
+    int i, r;
+    r = ND_rank(n);
+    i = GD_rank(g)[r].n;
+    if (GD_rank(g)[r].an <= 0) {
+	agerr(AGERR, "install_in_rank, line %d: %s %s rank %d i = %d an = 0\n",
+	      1034, agnameof(g), agnameof(n), r, i);
+	return;
+    }
+    GD_rank(g)[r].v[i] = n;
+    ND_order(n) = i;
+    GD_rank(g)[r].n++;
+    assert(GD_rank(g)[r].n <= GD_rank(g)[r].an);
+    if (ND_order(n) > GD_rank(Root)[r].an) {
+	agerr(AGERR, "install_in_rank, line %d: ND_order(%s) [%d] > GD_rank(Root)[%d].an [%d]\n",
+	      1052, agnameof(n), ND_order(n), r, GD_rank(Root)[r].an);
+	return;
+    }
+    if ((r < GD_minrank(g)) || (r > GD_maxrank(g))) {
+	agerr(AGERR, "install_in_rank, line %d: rank %d not in rank range [%d,%d]\n",
+	      1057, r, GD_minrank(g), GD_maxrank(g));
+	return;
+    }
+    if (GD_rank(g)[r].v + ND_order(n) >
+	GD_rank(g)[r].av + GD_rank(Root)[r].an) {
+	agerr(AGERR, "install_in_rank, line %d: GD_rank(g)[%d].v + ND_order(%s) [%d] > GD_rank(g)[%d].av + GD_rank(Root)[%d].an [%d]\n",
+	      1062, r, agnameof(n),GD_rank(g)[r].v + ND_order(n), r, r, GD_rank(g)[r].av+GD_rank(Root)[r].an);
+	return;
+    }
+}
+

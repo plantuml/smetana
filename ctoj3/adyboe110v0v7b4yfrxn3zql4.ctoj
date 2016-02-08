@@ -1,0 +1,48 @@
+public static void allocate_aux_edges(Agraph_s g) {
+    int i, j, n_in;
+    Agnode_s n;
+    /* allocate space for aux edge lists */
+    for (n = (Agnode_s) g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getPtr("nlist")
+    ; n!=null;
+    n = (Agnode_s) n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("next")) {
+	n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).setPtr("save_in",
+	  n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("in"));
+	n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).setPtr("save_out",
+	  n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("out"));
+	for (i = 0; n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("out").getArrayOfPtr("list", i)!=null; i++);
+	for (j = 0; n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("in").getArrayOfPtr("list", j)!=null; j++);
+	n_in = i + j;
+	do {
+	n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("in").setInt("size", 0)
+	;
+	n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("in").setPtr("list",
+	 zmalloc(sizeof_starstar(Agedge_s.class, n_in + 3 + 1)))
+	;
+	} while (false);
+	do {
+	n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("out").setInt("size", 0)
+	;
+	n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("out").setPtr("list",
+	 zmalloc(sizeof_starstar(Agedge_s.class, 3 + 1)))
+	;
+	} while (false);
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void allocate_aux_edges(graph_t * g)
+{
+    int i, j, n_in;
+    node_t *n;
+    /* allocate space for aux edge lists */
+    for (n = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->nlist); n; n = (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->next)) {
+	(((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->save_in) = (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->in);
+	(((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->save_out) = (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->out);
+	for (i = 0; (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->out).list[i]; i++);
+	for (j = 0; (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->in).list[j]; j++);
+	n_in = i + j;
+	do {(((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->in).size = 0; (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->in).list = (edge_t**)zmalloc((n_in + 3 + 1)*sizeof(edge_t*)); } while (0);
+	do {(((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->out).size = 0; (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->out).list = (edge_t**)zmalloc((3 + 1)*sizeof(edge_t*)); } while (0);
+    }
+}
+

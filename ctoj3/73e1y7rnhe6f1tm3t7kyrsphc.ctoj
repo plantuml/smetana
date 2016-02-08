@@ -1,0 +1,50 @@
+public static void x_cutval(Agedge_s f) {
+    Agnode_s v=null;
+    Agedge_s e;
+    int i, sum, dir=0;
+    /* set v to the node on the side of the edge already searched */
+    if (
+	EQ(
+	(f.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") ==3?f:f.plus(1)).getPtr("node").castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("par")
+	,
+	f)) {
+UNSUPPORTED("daml5tgfy7kyhjdal08wtd1gg"); // 	v = ((((((Agobj_t*)(f))->tag).objtype) == 3? (f): ((f)+1))->node);
+UNSUPPORTED("4tu6k4gwplcalffq4tkhxmzvx"); // 	dir = 1;
+    } else {
+	v = (Agnode_s) (f.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2? f: f.plus(-1)).getPtr("node");
+	dir = -1;
+    }
+    sum = 0;
+    for (i = 0;
+    (e = (Agedge_s) v.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("out").getArrayOfPtr("list", i))!=null
+    ; i++)
+	sum += x_val(e, v, dir);
+    for (i = 0;
+    (e = (Agedge_s) v.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("in").getArrayOfPtr("list", i))!=null
+    ; i++)
+	sum += x_val(e, v, dir);
+    f.castTo(Agobj_s.class).getPtr("data").castTo(Agedgeinfo_t.class).setInt("cutvalue", sum);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void x_cutval(edge_t * f)
+{
+    node_t *v;
+    edge_t *e;
+    int i, sum, dir;
+    /* set v to the node on the side of the edge already searched */
+    if ((((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(f))->tag).objtype) == 3?(f):((f)+1))->node)))->data))->par) == f) {
+	v = ((((((Agobj_t*)(f))->tag).objtype) == 3? (f): ((f)+1))->node);
+	dir = 1;
+    } else {
+	v = ((((((Agobj_t*)(f))->tag).objtype) == 2? (f): ((f)-1))->node);
+	dir = -1;
+    }
+    sum = 0;
+    for (i = 0; (e = (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->out).list[i]); i++)
+	sum += x_val(e, v, dir);
+    for (i = 0; (e = (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->in).list[i]); i++)
+	sum += x_val(e, v, dir);
+    (((Agedgeinfo_t*)(((Agobj_t*)(f))->data))->cutvalue) = sum;
+}
+

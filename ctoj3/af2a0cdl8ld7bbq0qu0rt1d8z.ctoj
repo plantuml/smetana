@@ -1,0 +1,15 @@
+public static CString strdup_and_subst_obj(CString str, __ptr__ obj) {
+ UNSUPPORTED("7eeocxzl6qhtvcv7gnh73o7d1"); // char *strdup_and_subst_obj(char *str, void *obj)
+UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
+UNSUPPORTED("67419rdrhawe7vudn882sohkd"); //     return strdup_and_subst_obj0 (str, obj, 1);
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+char *strdup_and_subst_obj(char *str, void *obj)
+{
+    return strdup_and_subst_obj0 (str, obj, 1);
+}
+

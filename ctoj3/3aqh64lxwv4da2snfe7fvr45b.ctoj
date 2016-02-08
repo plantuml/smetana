@@ -1,0 +1,129 @@
+public static int common_init_edge(Agedge_s e) {
+    CString str;
+    int r = 0;
+    fontinfo fi = (fontinfo) Memory.malloc(fontinfo.class);
+    fontinfo lfi = (fontinfo) Memory.malloc(fontinfo.class);
+    Agraph_s sg = agraphof(agtail(e));
+    fi.setPtr("fontname", null);
+    lfi.setPtr("fontname", null);
+    if (E_label!=null && (str = agxget(e, E_label))!=null && (str.charAt(0)!='\0')) {
+UNSUPPORTED("5j2phi2zkje8kvjn46u8addz3"); // 	r = 1;
+UNSUPPORTED("ewpzbv78qtqjbo4abykj4xl23"); // 	initFontEdgeAttr(e, &fi);
+UNSUPPORTED("6ykvjm17acrzzlieof1fewkop"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->label) = make_label((void*)e, str, (aghtmlstr(str) ? (1 << 1) : (0 << 1)),
+UNSUPPORTED("b0zm6fkpjlt9jacykbgugjodg"); // 				fi.fontsize, fi.fontname, fi.fontcolor);
+UNSUPPORTED("bmjb6umjm17m3fozy73ozaxwa"); // 	(((Agraphinfo_t*)(((Agobj_t*)(sg))->data))->has_labels) |= (1 << 0);
+UNSUPPORTED("e3mxxkc1s8kb4fbczsiz4viiz"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->label_ontop) =
+UNSUPPORTED("1utcc14ussqqgikmhd75f50p4"); // 	    mapbool(late_string(e, E_label_float, "false"));
+    }
+    if (E_xlabel!=null && (str = agxget(e, E_xlabel))!=null && (str.charAt(0)!='\0')) {
+UNSUPPORTED("1j3mhgq7abuh3n19q2jtjddbc"); // 	if (!fi.fontname)
+UNSUPPORTED("bmqo2g5g107quod3h31r8iudr"); // 	    initFontEdgeAttr(e, &fi);
+UNSUPPORTED("3s7kg9x748riuy3tm697s6e8t"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->xlabel) = make_label((void*)e, str, (aghtmlstr(str) ? (1 << 1) : (0 << 1)),
+UNSUPPORTED("b0zm6fkpjlt9jacykbgugjodg"); // 				fi.fontsize, fi.fontname, fi.fontcolor);
+UNSUPPORTED("c078bypfszv0nsvp1nc0x28wx"); // 	(((Agraphinfo_t*)(((Agobj_t*)(sg))->data))->has_labels) |= (1 << 5);
+    }
+    /* vladimir */
+    if (E_headlabel!=null && (str = agxget(e, E_headlabel))!=null && (str.charAt(0)!='\0')) {
+UNSUPPORTED("cgznvdnh671wl8jq8q3tyhv1r"); // 	initFontLabelEdgeAttr(e, &fi, &lfi);
+UNSUPPORTED("6nfh8swason2akjp45hm0o5b0"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->head_label) = make_label((void*)e, str, (aghtmlstr(str) ? (1 << 1) : (0 << 1)),
+UNSUPPORTED("eu3ztkfva2x87y72tnu7vv4re"); // 				lfi.fontsize, lfi.fontname, lfi.fontcolor);
+UNSUPPORTED("axtvdewh7zhtm1diu8c6dprx4"); // 	(((Agraphinfo_t*)(((Agobj_t*)(sg))->data))->has_labels) |= (1 << 1);
+    }
+    if (E_taillabel!=null && (str = agxget(e, E_taillabel))!=null && (str.charAt(0)!='\0')) {
+UNSUPPORTED("6y6e1y496y6j6a6065nfesr8o"); // 	if (!lfi.fontname)
+UNSUPPORTED("4w2bicw8rsgyy40x0vhyzzlnm"); // 	    initFontLabelEdgeAttr(e, &fi, &lfi);
+UNSUPPORTED("ans0pi92t6ou5mworb3ohiqj3"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->tail_label) = make_label((void*)e, str, (aghtmlstr(str) ? (1 << 1) : (0 << 1)),
+UNSUPPORTED("eu3ztkfva2x87y72tnu7vv4re"); // 				lfi.fontsize, lfi.fontname, lfi.fontcolor);
+UNSUPPORTED("50hobbhvpqr6dj302waqr59mu"); // 	(((Agraphinfo_t*)(((Agobj_t*)(sg))->data))->has_labels) |= (1 << 2);
+    }
+    /* end vladimir */
+    /* We still accept ports beginning with colons but this is deprecated 
+     * That is, we allow tailport = ":abc" as well as the preferred 
+     * tailport = "abc".
+     */
+    str = agget(e, new CString("tailport"));
+    /* libgraph always defines tailport/headport; libcgraph doesn't */
+    if (N(str)) str = new CString("");
+    if (str!=null && str.charAt(0)!='\0')
+UNSUPPORTED("j71lo2acx1ydov0uj7xjjce"); // 	(((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 3?(e):((e)+1))->node)))->data))->has_port) = (!(0));
+
+    ED_tail_port(e, chkPort ((CFunction) ND_shape(agtail(e)).getPtr("fns").getPtr("portfn"), agtail(e), str));
+    if (noClip(e, E_tailclip))
+UNSUPPORTED("cg4z67u0dm6h9nrcx8kkalnlt"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->tail_port).clip = 0;
+    str = agget(e, new CString("headport"));
+    /* libgraph always defines tailport/headport; libcgraph doesn't */
+    if (N(str)) str = new CString("");
+    if (str!=null && str.charAt(0)!='\0')
+UNSUPPORTED("542y57dbsosmjvsmdnzon2qb5"); // 	(((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 2?(e):((e)-1))->node)))->data))->has_port) = (!(0));
+
+    ED_head_port(e, chkPort((CFunction) ND_shape(aghead(e)).getPtr("fns").getPtr("portfn"), aghead(e), str));
+
+    if (noClip(e, E_headclip))
+UNSUPPORTED("ayqscz30ekhcje94wh4ib1hcu"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->head_port).clip = 0;
+    return r;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int common_init_edge(edge_t * e)
+{
+    char *str;
+    int r = 0;
+    struct fontinfo fi;
+    struct fontinfo lfi;
+    graph_t *sg = agraphof(agtail(e));
+    fi.fontname = (void *)0;
+    lfi.fontname = (void *)0;
+    if (E_label && (str = agxget(e, E_label)) && (str[0])) {
+	r = 1;
+	initFontEdgeAttr(e, &fi);
+	ED_label(e) = make_label((void*)e, str, (aghtmlstr(str) ? (1 << 1) : (0 << 1)),
+				fi.fontsize, fi.fontname, fi.fontcolor);
+	GD_has_labels(sg) |= (1 << 0);
+	ED_label_ontop(e) =
+	    mapbool(late_string(e, E_label_float, "false"));
+    }
+    if (E_xlabel && (str = agxget(e, E_xlabel)) && (str[0])) {
+	if (!fi.fontname)
+	    initFontEdgeAttr(e, &fi);
+	ED_xlabel(e) = make_label((void*)e, str, (aghtmlstr(str) ? (1 << 1) : (0 << 1)),
+				fi.fontsize, fi.fontname, fi.fontcolor);
+	GD_has_labels(sg) |= (1 << 5);
+    }
+    /* vladimir */
+    if (E_headlabel && (str = agxget(e, E_headlabel)) && (str[0])) {
+	initFontLabelEdgeAttr(e, &fi, &lfi);
+	ED_head_label(e) = make_label((void*)e, str, (aghtmlstr(str) ? (1 << 1) : (0 << 1)),
+				lfi.fontsize, lfi.fontname, lfi.fontcolor);
+	GD_has_labels(sg) |= (1 << 1);
+    }
+    if (E_taillabel && (str = agxget(e, E_taillabel)) && (str[0])) {
+	if (!lfi.fontname)
+	    initFontLabelEdgeAttr(e, &fi, &lfi);
+	ED_tail_label(e) = make_label((void*)e, str, (aghtmlstr(str) ? (1 << 1) : (0 << 1)),
+				lfi.fontsize, lfi.fontname, lfi.fontcolor);
+	GD_has_labels(sg) |= (1 << 2);
+    }
+    /* end vladimir */
+    /* We still accept ports beginning with colons but this is deprecated 
+     * That is, we allow tailport = ":abc" as well as the preferred 
+     * tailport = "abc".
+     */
+    str = agget(e, "tailport");
+    /* libgraph always defines tailport/headport; libcgraph doesn't */
+    if (!str) str = "";
+    if (str && str[0])
+	ND_has_port(agtail(e)) = (!(0));
+    ED_tail_port(e) = chkPort (ND_shape(agtail(e))->fns->portfn, agtail(e), str);
+    if (noClip(e, E_tailclip))
+	ED_tail_port(e).clip = 0;
+    str = agget(e, "headport");
+    /* libgraph always defines tailport/headport; libcgraph doesn't */
+    if (!str) str = "";
+    if (str && str[0])
+	ND_has_port(aghead(e)) = (!(0));
+    ED_head_port(e) = chkPort(ND_shape(aghead(e))->fns->portfn, aghead(e), str);
+    if (noClip(e, E_headclip))
+	ED_head_port(e).clip = 0;
+    return r;
+}
+

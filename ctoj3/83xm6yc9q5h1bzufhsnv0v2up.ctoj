@@ -1,0 +1,14 @@
+public static CString late_string(__ptr__ obj, Agsym_s attr, CString def) {
+    if (N(attr) || N(obj))
+	return def;
+    return agxget(obj, attr);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+char *late_string(void *obj, attrsym_t * attr, char *def)
+{
+    if (!attr || !obj)
+	return def;
+    return agxget(obj, attr);
+}
+

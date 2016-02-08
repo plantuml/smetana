@@ -1,0 +1,25 @@
+public static boolean noClip(Agedge_s e, Agsym_s sym) {
+    CString str;
+    boolean		rv = false;
+    if (sym!=null) {	/* mapbool isn't a good fit, because we want "" to mean true */
+	str = agxget(e,sym);
+	if (str!=null && str.charAt(0)!='\0') rv = !mapbool(str);
+	else rv = false;
+    }
+    return rv;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static boolean 
+noClip(edge_t *e, attrsym_t* sym)
+{
+    char		*str;
+    boolean		rv = 0;
+    if (sym) {	/* mapbool isn't a good fit, because we want "" to mean true */
+	str = agxget(e,sym);
+	if (str && str[0]) rv = !mapbool(str);
+	else rv = 0;
+    }
+    return rv;
+}
+

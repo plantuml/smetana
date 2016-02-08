@@ -1,0 +1,47 @@
+// private static char buf[32];
+public static CString agnameof(__ptr__ obj) {
+    Agraph_s g;
+    CString rv;
+    /* perform internal lookup first */
+    g = agraphof(obj);
+    if ((rv = aginternalmapprint(g, obj.castTo(Agobj_s.class).getPtr("tag").getInt("objtype"), obj.castTo(Agobj_s.class).getPtr("tag").getInt("id")))!=null)
+	return rv;
+    if (g.getPtr("clos").getPtr("disc").getPtr("id").getPtr("print")!=null) {
+	if ((rv =
+	     (CString) g.getPtr("clos").getPtr("disc").getPtr("id").call("print", g.getPtr("clos").getPtr("state").getPtr("id"),
+	     obj.castTo(Agobj_s.class).getPtr("tag").getInt("objtype"), 
+	     obj.castTo(Agobj_s.class).getPtr("tag").getInt("id")))!=null)
+	    return rv;
+    }
+    if (obj.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") != 2) {
+      rv = new CString("%"+obj.castTo(Agobj_s.class).getPtr("tag").getInt("id"));
+    }
+    else
+	rv = null;
+    return rv;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+char *agnameof(void *obj)
+{
+    Agraph_t *g;
+    char *rv;
+    static char buf[32];
+    /* perform internal lookup first */
+    g = agraphof(obj);
+    if ((rv = aginternalmapprint(g, ((((Agobj_t*)(obj))->tag).objtype), ((((Agobj_t*)(obj))->tag).id))))
+	return rv;
+    if (((g)->clos->disc.id)->print) {
+	if ((rv =
+	     ((g)->clos->disc.id)->print(((g)->clos->state.id), ((((Agobj_t*)(obj))->tag).objtype), ((((Agobj_t*)(obj))->tag).id))))
+	    return rv;
+    }
+    if (((((Agobj_t*)(obj))->tag).objtype) != 2) {
+	sprintf(buf, "%c%ld", '%', ((((Agobj_t*)(obj))->tag).id));
+	rv = buf;
+    }
+    else
+	rv = 0;
+    return rv;
+}
+

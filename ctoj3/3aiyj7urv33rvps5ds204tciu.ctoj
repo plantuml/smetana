@@ -1,0 +1,37 @@
+public static __struct__<pointf> rotatepf(final __struct__<pointf> p, int cwrot) {
+ UNSUPPORTED("adzi0wztceimu4ni3aonznmq7"); // static pointf rotatepf(pointf p, int cwrot)
+UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
+UNSUPPORTED("bvmbf4zjo22hbkaarrfpdlocf"); //     static double sina, cosa;
+UNSUPPORTED("2q61ok3mvkrnszcasq86sa47u"); //     static int last_cwrot;
+UNSUPPORTED("7lh87lvufqsd73q9difg0omei"); //     pointf P;
+UNSUPPORTED("apr20mshcgdjbln509cnpuysv"); //     /* cosa is initially wrong for a cwrot of 0
+UNSUPPORTED("7chgrmqliof6d9xytud69tz1u"); //      * this caching only works because we are never called for 0 rotations */
+UNSUPPORTED("bbm4jlwljjo7wmvr5ma5c3ybf"); //     if (cwrot != last_cwrot) {
+UNSUPPORTED("djdw08yi87cxa9gld79itcxte"); // 	sincos(cwrot / (2 * M_PI), &sina, &cosa);
+UNSUPPORTED("1p92a46pieij11gut3g3w5c8a"); // 	last_cwrot = cwrot;
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("5ebfpnhj3mdplyf7cdm05fvqt"); //     P.x = p.x * cosa - p.y * sina;
+UNSUPPORTED("87v4w9w5q8h1qv8g0mktgna71"); //     P.y = p.y * cosa + p.x * sina;
+UNSUPPORTED("57gdhsck3pq8wsbtv00wvc7ca"); //     return P;
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static pointf rotatepf(pointf p, int cwrot)
+{
+    static double sina, cosa;
+    static int last_cwrot;
+    pointf P;
+    /* cosa is initially wrong for a cwrot of 0
+     * this caching only works because we are never called for 0 rotations */
+    if (cwrot != last_cwrot) {
+	sincos(cwrot / (2 * M_PI), &sina, &cosa);
+	last_cwrot = cwrot;
+    }
+    P.x = p.x * cosa - p.y * sina;
+    P.y = p.y * cosa + p.x * sina;
+    return P;
+}
+

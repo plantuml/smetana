@@ -1,0 +1,26 @@
+public static void acyclic_(Agraph_s g) {
+    int c;
+    Agnode_s n;
+    for (c = 0; c < GD_comp(g).getInt("size"); c++) {
+	GD_nlist(g, GD_comp(g).getArrayOfPtr("list").plus(c).getPtr());
+	for (n = GD_nlist(g); n!=null; n = ND_next(n))
+	    ND_mark(n, 0);
+	for (n = GD_nlist(g); n!=null; n = ND_next(n))
+	    dfs(n);
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void acyclic(graph_t * g)
+{
+    int c;
+    node_t *n;
+    for (c = 0; c < GD_comp(g).size; c++) {
+	GD_nlist(g) = GD_comp(g).list[c];
+	for (n = GD_nlist(g); n; n = ND_next(n))
+	    ND_mark(n) = 0;
+	for (n = GD_nlist(g); n; n = ND_next(n))
+	    dfs(n);
+    }
+}
+

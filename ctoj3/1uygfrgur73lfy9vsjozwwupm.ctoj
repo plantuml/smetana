@@ -1,0 +1,10 @@
+public static Agedge_s find_fast_edge(Agnode_s u, Agnode_s v) {
+    return ffe(u, ND_out(u), v, ND_in(v));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+edge_t *find_fast_edge(node_t * u, node_t * v)
+{
+    return ffe(u, ND_out(u), v, ND_in(v));
+}
+

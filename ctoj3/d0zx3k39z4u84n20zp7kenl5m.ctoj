@@ -1,0 +1,24 @@
+public static Agnode_s incident(Agedge_s e) {
+    if ((e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 3?e:e.plus(1)).getPtr("node").castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("mark")!=0) {
+	if ((e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2?e:e.plus(-1)).getPtr("node").castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("mark")==0)
+	    return (Agnode_s) (e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 3?e:e.plus(1)).getPtr("node");
+    } else {
+	if ((e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2?e:e.plus(-1)).getPtr("node").castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("mark")!=0)
+	    return (Agnode_s) (e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2?e:e.plus(-1)).getPtr("node");
+    }
+    return null;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static node_t *incident(edge_t * e)
+{
+    if ((((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 3?(e):((e)+1))->node)))->data))->mark)) {
+	if ((((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 2?(e):((e)-1))->node)))->data))->mark) == 0)
+	    return ((((((Agobj_t*)(e))->tag).objtype) == 3? (e): ((e)+1))->node);
+    } else {
+	if ((((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 2?(e):((e)-1))->node)))->data))->mark))
+	    return ((((((Agobj_t*)(e))->tag).objtype) == 2? (e): ((e)-1))->node);
+    }
+    return NULL;
+}
+

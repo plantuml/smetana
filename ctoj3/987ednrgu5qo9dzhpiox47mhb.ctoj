@@ -1,0 +1,114 @@
+public static int splinefits(__ptr__ edges, int edgen, final __struct__<pointf> pa, final __struct__<pointf> va, final __struct__<pointf> pb, final __struct__<pointf> vb, __ptr__ inps, int inpn) {
+    final __array_of_struct__ sps = __array_of_struct__.malloc(pointf.class, 4);
+    double a, b;
+    int pi;
+    int forceflag;
+    int first = 1;
+    forceflag = (inpn == 2 ? 1 : 0);
+    a = b = 4;
+    for (;;) {
+	sps.plus(0).getStruct().setDouble("x", pa.getDouble("x"));
+	sps.plus(0).getStruct().setDouble("y", pa.getDouble("y"));
+	sps.plus(1).getStruct().setDouble("x", pa.getDouble("x") + a * va.getDouble("x") / 3.0);
+	sps.plus(1).getStruct().setDouble("y", pa.getDouble("y") + a * va.getDouble("y") / 3.0);
+	sps.plus(2).getStruct().setDouble("x", pb.getDouble("x") - b * vb.getDouble("x") / 3.0);
+	sps.plus(2).getStruct().setDouble("y", pb.getDouble("y") - b * vb.getDouble("y") / 3.0);
+	sps.plus(3).getStruct().setDouble("x", pb.getDouble("x"));
+	sps.plus(3).getStruct().setDouble("y", pb.getDouble("y"));
+	/* shortcuts (paths shorter than the shortest path) not allowed -
+	 * they must be outside the constraint polygon.  this can happen
+	 * if the candidate spline intersects the constraint polygon exactly
+	 * on sides or vertices.  maybe this could be more elegant, but
+	 * it solves the immediate problem. we could also try jittering the
+	 * constraint polygon, or computing the candidate spline more carefully,
+	 * for example using the path. SCN */
+	if (first!=0 && (dist_n(sps.asPtr(), 4) < (dist_n(inps, inpn) - 1E-3)))
+	    return 0;
+	first = 0;
+	if (splineisinside(edges, edgen, sps)!=0) {
+	    growops(opl + 4);
+	    for (pi = 1; pi < 4; pi++) {
+		ops.plus(opl).setDouble("x", sps.plus(pi).getStruct().getDouble("x"));
+		ops.plus(opl).setDouble("y", sps.plus(pi).getStruct().getDouble("y"));
+		opl++;
+		}
+	    return 1;
+	}
+	if (a == 0 && b == 0) {
+	    if (forceflag!=0) {
+		growops(opl + 4);
+		for (pi = 1; pi < 4; pi++)
+		{
+			ops.plus(opl).setDouble("x", sps.plus(pi).getStruct().getDouble("x"));
+			ops.plus(opl).setDouble("y", sps.plus(pi).getStruct().getDouble("y"));
+		    opl++;
+		}
+		return 1;
+	    }
+	    break;
+	}
+	if (a > .01)
+	{
+	    a /= 2;
+	    b /= 2;
+	}
+	else
+	    a = b = 0;
+    }
+    return 0;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int splinefits(Pedge_t * edges, int edgen, Ppoint_t pa,
+		      Pvector_t va, Ppoint_t pb, Pvector_t vb,
+		      Ppoint_t * inps, int inpn)
+{
+    Ppoint_t sps[4];
+    double a, b;
+    int pi;
+    int forceflag;
+    int first = 1;
+    forceflag = (inpn == 2 ? 1 : 0);
+    a = b = 4;
+    for (;;) {
+	sps[0].x = pa.x;
+	sps[0].y = pa.y;
+	sps[1].x = pa.x + a * va.x / 3.0;
+	sps[1].y = pa.y + a * va.y / 3.0;
+	sps[2].x = pb.x - b * vb.x / 3.0;
+	sps[2].y = pb.y - b * vb.y / 3.0;
+	sps[3].x = pb.x;
+	sps[3].y = pb.y;
+	/* shortcuts (paths shorter than the shortest path) not allowed -
+	 * they must be outside the constraint polygon.  this can happen
+	 * if the candidate spline intersects the constraint polygon exactly
+	 * on sides or vertices.  maybe this could be more elegant, but
+	 * it solves the immediate problem. we could also try jittering the
+	 * constraint polygon, or computing the candidate spline more carefully,
+	 * for example using the path. SCN */
+	if (first && (dist_n(sps, 4) < (dist_n(inps, inpn) - 1E-3)))
+	    return 0;
+	first = 0;
+	if (splineisinside(edges, edgen, &sps[0])) {
+	    growops(opl + 4);
+	    for (pi = 1; pi < 4; pi++)
+		ops[opl].x = sps[pi].x, ops[opl++].y = sps[pi].y;
+	    return 1;
+	}
+	if (a == 0 && b == 0) {
+	    if (forceflag) {
+		growops(opl + 4);
+		for (pi = 1; pi < 4; pi++)
+		    ops[opl].x = sps[pi].x, ops[opl++].y = sps[pi].y;
+		return 1;
+	    }
+	    break;
+	}
+	if (a > .01)
+	    a /= 2, b /= 2;
+	else
+	    a = b = 0;
+    }
+    return 0;
+}
+

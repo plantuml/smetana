@@ -1,0 +1,5 @@
+private static int opn, opl;
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int opn, opl;
+

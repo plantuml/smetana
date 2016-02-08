@@ -1,0 +1,47 @@
+public static double conc_slope(Agnode_s n) {
+ UNSUPPORTED("e388y3vtrp8f6spgh9q4wx37w"); // static double 
+UNSUPPORTED("4yxpid2dxvb387487trn1umlw"); // conc_slope(node_t* n)
+UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
+UNSUPPORTED("9669xuley9dxylr00ex9kbzg7"); //     double s_in, s_out, m_in, m_out;
+UNSUPPORTED("wfd0ht8utdwwqctf47l4dtrz"); //     int cnt_in, cnt_out;
+UNSUPPORTED("2bghyit203pd6xw2ihhenzyn8"); //     pointf p;
+UNSUPPORTED("5gypxs09iuryx5a2eho9lgdcp"); //     edge_t *e;
+UNSUPPORTED("apjf2mf9d7qj0eo9o2x5yli2e"); //     s_in = s_out = 0.0;
+UNSUPPORTED("7mc6shwmvz25mz9inwj97lqk6"); //     for (cnt_in = 0; (e = ND_in(n).list[cnt_in]); cnt_in++)
+UNSUPPORTED("cb1h5cx7oxhtdkm5l0k6qrx2z"); // 	s_in += ND_coord(agtail(e)).x;
+UNSUPPORTED("hjfqfqmtdqdrp9z80ebrpthm"); //     for (cnt_out = 0; (e = ND_out(n).list[cnt_out]); cnt_out++)
+UNSUPPORTED("2iidrr9ljv8ap9s2g6gj3q1o3"); // 	s_out += ND_coord(aghead(e)).x;
+UNSUPPORTED("2yeio9xc9oorju7qqnhilwujx"); //     p.x = ND_coord(n).x - (s_in / cnt_in);
+UNSUPPORTED("87jzl9isj7w9kgyr05inw33s5"); //     p.y = ND_coord(n).y - ND_coord(agtail(ND_in(n).list[0])).y;
+UNSUPPORTED("6y2pc9af2xxdqajbpykvca9eg"); //     m_in = atan2(p.y, p.x);
+UNSUPPORTED("ruwz5svpk33ucfgs4wx0xolm"); //     p.x = (s_out / cnt_out) - ND_coord(n).x;
+UNSUPPORTED("8vif8c37lbo7ww4vwfrcxgpmr"); //     p.y = ND_coord(aghead(ND_out(n).list[0])).y - ND_coord(n).y;
+UNSUPPORTED("ez8z3gbteryfhktbqkwmzhhzs"); //     m_out = atan2(p.y, p.x);
+UNSUPPORTED("ej1ftaglexa47x955elb88yh2"); //     return ((m_in + m_out) / 2.0);
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static double 
+conc_slope(node_t* n)
+{
+    double s_in, s_out, m_in, m_out;
+    int cnt_in, cnt_out;
+    pointf p;
+    edge_t *e;
+    s_in = s_out = 0.0;
+    for (cnt_in = 0; (e = ND_in(n).list[cnt_in]); cnt_in++)
+	s_in += ND_coord(agtail(e)).x;
+    for (cnt_out = 0; (e = ND_out(n).list[cnt_out]); cnt_out++)
+	s_out += ND_coord(aghead(e)).x;
+    p.x = ND_coord(n).x - (s_in / cnt_in);
+    p.y = ND_coord(n).y - ND_coord(agtail(ND_in(n).list[0])).y;
+    m_in = atan2(p.y, p.x);
+    p.x = (s_out / cnt_out) - ND_coord(n).x;
+    p.y = ND_coord(aghead(ND_out(n).list[0])).y - ND_coord(n).y;
+    m_out = atan2(p.y, p.x);
+    return ((m_in + m_out) / 2.0);
+}
+

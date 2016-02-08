@@ -1,0 +1,49 @@
+public static void merge_components(Agraph_s g) {
+    int c;
+    Agnode_s u, v;
+    if (GD_comp(g).getInt("size") <= 1)
+	return;
+    u = null;
+UNSUPPORTED("636pqelh1tz8cxif83unv4i8h"); //     for (c = 0; c < GD_comp(g).size; c++) {
+UNSUPPORTED("5imhf8owstricua9ga0ttxgza"); // 	v = GD_comp(g).list[c];
+UNSUPPORTED("b9gfp46tk6krt8gqegwmackqf"); // 	if (u)
+UNSUPPORTED("83jz0ssw95jodsh7plgaqrup4"); // 	    ND_next(u) = v;
+UNSUPPORTED("1jzywnxul39p2wz0lfjejlcvs"); // 	ND_prev(v) = u;
+UNSUPPORTED("7w7lk8hzlv2xblitvnknhu32s"); // 	while (ND_next(v)) {
+UNSUPPORTED("en88ux114ejlak2mn2k29phwa"); // 	    v = ND_next(v);
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("qkj9h7elujdjas8snduv4pms"); // 	u = v;
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("9aulongg83abscaxz6bzifded"); //     GD_comp(g).size = 1;
+UNSUPPORTED("58d4zw1j389saz5wnd51y2pgu"); //     GD_nlist(g) = GD_comp(g).list[0];
+UNSUPPORTED("ces6zn0yqvwyqxklid0d0t44k"); //     GD_minrank(g) = GlobalMinRank;
+UNSUPPORTED("242l613u89lhrlpukcz265xm1"); //     GD_maxrank(g) = GlobalMaxRank;
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void merge_components(graph_t * g)
+{
+    int c;
+    node_t *u, *v;
+    if (GD_comp(g).size <= 1)
+	return;
+    u = NULL;
+    for (c = 0; c < GD_comp(g).size; c++) {
+	v = GD_comp(g).list[c];
+	if (u)
+	    ND_next(u) = v;
+	ND_prev(v) = u;
+	while (ND_next(v)) {
+	    v = ND_next(v);
+	}
+	u = v;
+    }
+    GD_comp(g).size = 1;
+    GD_nlist(g) = GD_comp(g).list[0];
+    GD_minrank(g) = GlobalMinRank;
+    GD_maxrank(g) = GlobalMaxRank;
+}
+

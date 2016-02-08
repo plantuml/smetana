@@ -1,0 +1,24 @@
+public static void freeTreeList(Agraph_s g) {
+    Agnode_s n;
+    for (n = (Agnode_s) G.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getPtr("nlist")
+	; n!=null ;
+	n = (Agnode_s) n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("next")
+	) {
+//UNSUPPORTED("dh0vv4t07uitijwiiz7b2ar7h"); // 	do {if ((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->tree_in).list) free((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->tree_in).list);} while (0);
+//UNSUPPORTED("c2l4v7oly59b7crthro5r4ihj"); // 	do {if ((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->tree_out).list) free((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->tree_out).list);} while (0);
+	n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).setInt("mark", 0);
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void
+freeTreeList (graph_t* g)
+{
+    node_t *n;
+    for (n = (((Agraphinfo_t*)(((Agobj_t*)(G))->data))->nlist); n; n = (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->next)) {
+	do {if ((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->tree_in).list) free((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->tree_in).list);} while (0);
+	do {if ((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->tree_out).list) free((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->tree_out).list);} while (0);
+	(((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->mark) = 0;
+    }
+}
+

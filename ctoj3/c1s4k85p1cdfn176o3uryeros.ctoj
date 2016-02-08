@@ -1,0 +1,16 @@
+public static __struct__<pointf> pointfof(double x, double y) {
+    final __struct__<pointf> r = __struct__.from(pointf.class);
+    r.setDouble("x", x);
+    r.setDouble("y", y);
+    return r;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static inline pointf pointfof(double x, double y)
+{
+    pointf r;
+    r.x = x;
+    r.y = y;
+    return r;
+}
+

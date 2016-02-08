@@ -1,0 +1,74 @@
+public static int x_val(Agedge_s e, Agnode_s v, int dir) {
+    Agnode_s other;
+    int d=0, rv=0, f=0;
+    if (EQ(agtail(e), v))
+	other = aghead(e);
+    else
+	other = agtail(e);
+    if (N(SEQ(ND_low(v), ND_lim(other), ND_lim(v)))) {
+	f = 1;
+	rv = ED_weight(e);
+    } else {
+	f = 0;
+	if (TREE_EDGE(e))
+	    rv = ED_cutvalue(e);
+	else
+	    rv = 0;
+	rv -= ED_weight(e);
+    }
+    if (dir > 0) {
+	if (EQ(aghead(e), v))
+	    d = 1;
+	else
+	    d = -1;
+    } else {
+	if (EQ(agtail(e), v))
+	    d = 1;
+	else
+	    d = -1;
+    }
+    if (f!=0)
+	d = -d;
+    if (d < 0)
+	rv = -rv;
+    return rv;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int x_val(edge_t * e, node_t * v, int dir)
+{
+    node_t *other;
+    int d, rv, f;
+    if (agtail(e) == v)
+	other = aghead(e);
+    else
+	other = agtail(e);
+    if (!(SEQ(ND_low(v), ND_lim(other), ND_lim(v)))) {
+	f = 1;
+	rv = ED_weight(e);
+    } else {
+	f = 0;
+	if (TREE_EDGE(e))
+	    rv = ED_cutvalue(e);
+	else
+	    rv = 0;
+	rv -= ED_weight(e);
+    }
+    if (dir > 0) {
+	if (aghead(e) == v)
+	    d = 1;
+	else
+	    d = -1;
+    } else {
+	if (agtail(e) == v)
+	    d = 1;
+	else
+	    d = -1;
+    }
+    if (f)
+	d = -d;
+    if (d < 0)
+	rv = -rv;
+    return rv;
+}
+

@@ -1,0 +1,4 @@
+public static int EdgeLabelsDone;
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int EdgeLabelsDone;
+

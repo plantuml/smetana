@@ -1,0 +1,57 @@
+public static void merge2(Agraph_s g) {
+	// REVIEW 17/01/2016
+    int i, r;
+    Agnode_s v;
+    /* merge the components and rank limits */
+    merge_components(g);
+    /* install complete ranks */
+    for (r = g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("minrank");
+    r <= g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("maxrank");
+    r++) {
+	g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).setInt("n",
+	  g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).getInt("an"));
+	g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).setPtr("v",
+	  g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).getPtr("av"));
+	for (i = 0;
+	i < g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).getInt("n")
+	; i++) {
+	    v = (Agnode_s) g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).getArrayOfPtr("v", i);
+	    if (v == null) {
+		/*if (Verbose)
+		    fprintf(stderr,
+			    "merge2: graph %s, rank %d has only %d < %d nodes\n",
+			    agnameof(g), r, i, (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n);*/
+		g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).setInt("n", i);
+		break;
+	    }
+	    v.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).setInt("order", i);
+	}
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void merge2(graph_t * g)
+{
+    int i, r;
+    node_t *v;
+    /* merge the components and rank limits */
+    merge_components(g);
+    /* install complete ranks */
+    for (r = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank); r <= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank); r++) {
+	(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].an;
+	(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].av;
+	for (i = 0; i < (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n; i++) {
+	    v = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v[i];
+	    if (v == NULL) {
+		if (Verbose)
+		    fprintf(stderr,
+			    "merge2: graph %s, rank %d has only %d < %d nodes\n",
+			    agnameof(g), r, i, (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n);
+		(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n = i;
+		break;
+	    }
+	    (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->order) = i;
+	}
+    }
+}
+

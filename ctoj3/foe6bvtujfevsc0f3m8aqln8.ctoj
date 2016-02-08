@@ -1,0 +1,16 @@
+public static CString aginternalmapprint(Agraph_s g, int objtype, int id) {
+    IMapEntry_t isym;
+    if ((isym = find_isym(g, objtype, id))!=null)
+	return isym.getCString("str");
+    return null;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+char *aginternalmapprint(Agraph_t * g, int objtype, unsigned long id)
+{
+    IMapEntry_t *isym;
+    if ((isym = find_isym(g, objtype, id)))
+	return isym->str;
+    return ((char*)0);
+}
+

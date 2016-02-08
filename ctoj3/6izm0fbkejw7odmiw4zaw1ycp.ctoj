@@ -1,0 +1,74 @@
+public static void arrow_clip(Agedge_s fe, Agnode_s hn, __ptr__ ps, int startp[], int endp[], bezier spl, __ptr__ info) {
+    Agedge_s e;
+    int i;
+    boolean j;
+    int sflag[] = new int[]{0};
+    int eflag[] = new int[]{0};
+    for (e = fe; ED_to_orig(e)!=null; e = ED_to_orig(e));
+    if (info.getBoolean("ignoreSwap"))
+	j = false;
+    else
+	j = (Boolean) info.call("swapEnds", e);
+    arrow_flags(e, sflag, eflag);
+    if ((Boolean) info.call("splineMerge", hn))
+	eflag[0] = 0;
+    if ((Boolean) info.call("splineMerge", agtail(fe)))
+	sflag[0] = 0;
+    /* swap the two ends */
+    if (j) {
+	i = sflag[0];
+	sflag[0] = eflag[0];
+	eflag[0] = i;
+    }
+    if (info.getBoolean("isOrtho")) {
+UNSUPPORTED("7a3lmojyfh13d6shkviuogx2c"); // 	if (eflag || sflag)
+UNSUPPORTED("dzbrwr2ulubtjkbd8j2o4yyov"); // 	    arrowOrthoClip(e, ps, *startp, *endp, spl, sflag, eflag);
+    }
+    else {
+	if (sflag[0]!=0)
+	    UNSUPPORTED("startp[0] =");
+		//arrowStartClip(e, ps, startp, endp, spl, sflag);
+	if (eflag[0]!=0)
+	    endp[0] =
+		arrowEndClip(e, ps, startp[0], endp[0], spl, eflag[0]);
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void
+arrow_clip(edge_t * fe, node_t * hn,
+	   pointf * ps, int *startp, int *endp,
+	   bezier * spl, splineInfo * info)
+{
+    edge_t *e;
+    int i, j, sflag, eflag;
+    for (e = fe; ED_to_orig(e); e = ED_to_orig(e));
+    if (info->ignoreSwap)
+	j = 0;
+    else
+	j = info->swapEnds(e);
+    arrow_flags(e, &sflag, &eflag);
+    if (info->splineMerge(hn))
+	eflag = 0;
+    if (info->splineMerge(agtail(fe)))
+	sflag = 0;
+    /* swap the two ends */
+    if (j) {
+	i = sflag;
+	sflag = eflag;
+	eflag = i;
+    }
+    if (info->isOrtho) {
+	if (eflag || sflag)
+	    arrowOrthoClip(e, ps, *startp, *endp, spl, sflag, eflag);
+    }
+    else {
+	if (sflag)
+	    *startp =
+		arrowStartClip(e, ps, *startp, *endp, spl, sflag);
+	if (eflag)
+	    *endp =
+		arrowEndClip(e, ps, *startp, *endp, spl, eflag);
+    }
+}
+

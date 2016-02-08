@@ -1,0 +1,120 @@
+public static void add_tree_edge(Agedge_s e) {
+    Agnode_s n;
+    if (e.castTo(Agobj_s.class).getPtr("data").castTo(Agedgeinfo_t.class).getInt("tree_index") >= 0) {
+UNSUPPORTED("cq4nqjjxvb0dtdfy4c7pwpqai"); // 	agerr(AGERR, "add_tree_edge: missing tree edge\n");
+UNSUPPORTED("6fzmgjpkhmnx0a2cnt0q0rceg"); // 	longjmp (jbuf, 1);
+    }
+
+    e.castTo(Agobj_s.class).getPtr("data").castTo(Agedgeinfo_t.class).setInt("tree_index",
+      Tree_edge.getInt("size"));
+
+    Tree_edge.setArray("list", Tree_edge.getInt("size"), e);
+
+    Tree_edge.setInt("size", 
+      1+Tree_edge.getInt("size"));
+
+    if (
+	(e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 3?e:e.plus(1)).getPtr("node").castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("mark")
+	== 0)
+{
+Tree_node.setArray("list", Tree_node.getInt("size"),
+ (e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 3? e: e.plus(1)).getPtr("node")
+ );
+ 
+Tree_node.setInt("size", 
+  1+Tree_node.getInt("size"));
+}
+
+    if (
+	(e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2?e:e.plus(-1)).getPtr("node").castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getInt("mark")
+	== 0)
+{
+Tree_node.setArray("list", Tree_node.getInt("size"),
+ (e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2? e: e.plus(-1)).getPtr("node")
+ );
+
+Tree_node.setInt("size", 
+  1+Tree_node.getInt("size"));
+}
+
+	n = (Agnode_s) (e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 3? e: e.plus(1)).getPtr("node");
+
+    n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).setInt("mark", 1);
+n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("tree_out").setArray("list",
+ n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("tree_out").getInt("size")
+ ,e);
+
+n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("tree_out").setInt("size",
+ 1+n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("tree_out").getInt("size"));
+
+n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("tree_out").setArray("list",
+
+n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("tree_out").getInt("size")
+ , null);
+
+if (
+n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("out").getArrayOfPtr("list",
+n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("tree_out").getInt("size") - 1
+)
+== null) {
+UNSUPPORTED("9src34zgmgy8yvdzfs1ozlh0w"); // 	agerr(AGERR, "add_tree_edge: empty outedge list\n");
+UNSUPPORTED("6fzmgjpkhmnx0a2cnt0q0rceg"); // 	longjmp (jbuf, 1);
+    }
+    
+	n = (Agnode_s) (e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2? e: e.plus(-1)).getPtr("node");
+	
+    n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).setInt("mark", 1);
+    
+	n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("tree_in").setArray("list",
+ n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("tree_in").getInt("size")
+ ,e);
+ 
+n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("tree_in").setInt("size",
+ 1+n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("tree_in").getInt("size"));
+ 
+n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("tree_in").setArray("list",
+ n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("tree_in").getInt("size")
+ , null);
+ 
+	if (
+n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("in").getArrayOfPtr("list",
+n.castTo(Agobj_s.class).getPtr("data").castTo(Agnodeinfo_t.class).getPtr("tree_in").getInt("size") - 1
+)
+== null) {
+UNSUPPORTED("f0uri98pv606g2qjpy9k385cy"); // 	agerr(AGERR, "add_tree_edge: empty inedge list\n");
+UNSUPPORTED("6fzmgjpkhmnx0a2cnt0q0rceg"); // 	longjmp (jbuf, 1);
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void add_tree_edge(edge_t * e)
+{
+    node_t *n;
+    if (((((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->tree_index) >= 0)) {
+	agerr(AGERR, "add_tree_edge: missing tree edge\n");
+	longjmp (jbuf, 1);
+    }
+    (((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->tree_index) = Tree_edge.size;
+    Tree_edge.list[Tree_edge.size++] = e;
+    if ((((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 3?(e):((e)+1))->node)))->data))->mark) == 0)
+	Tree_node.list[Tree_node.size++] = ((((((Agobj_t*)(e))->tag).objtype) == 3? (e): ((e)+1))->node);
+    if ((((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 2?(e):((e)-1))->node)))->data))->mark) == 0)
+	Tree_node.list[Tree_node.size++] = ((((((Agobj_t*)(e))->tag).objtype) == 2? (e): ((e)-1))->node);
+    n = ((((((Agobj_t*)(e))->tag).objtype) == 3? (e): ((e)+1))->node);
+    (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->mark) = (!(0));
+    (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->tree_out).list[(((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->tree_out).size++] = e;
+    (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->tree_out).list[(((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->tree_out).size] = NULL;
+    if ((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->out).list[(((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->tree_out).size - 1] == 0) {
+	agerr(AGERR, "add_tree_edge: empty outedge list\n");
+	longjmp (jbuf, 1);
+    }
+    n = ((((((Agobj_t*)(e))->tag).objtype) == 2? (e): ((e)-1))->node);
+    (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->mark) = (!(0));
+    (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->tree_in).list[(((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->tree_in).size++] = e;
+    (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->tree_in).list[(((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->tree_in).size] = NULL;
+    if ((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->in).list[(((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->tree_in).size - 1] == 0) {
+	agerr(AGERR, "add_tree_edge: empty inedge list\n");
+	longjmp (jbuf, 1);
+    }
+}
+

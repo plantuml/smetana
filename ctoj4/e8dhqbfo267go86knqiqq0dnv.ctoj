@@ -1,0 +1,39 @@
+private static final __array_of_struct__ Arrownames = __array_of_struct__.malloc(arrowname_t.class, 3);
+static {
+	Arrownames.plus(0).setStruct(create_arrowname_t("normal", 1));
+	Arrownames.plus(1).setStruct(create_arrowname_t("none", 8));
+	Arrownames.plus(2).setStruct(create_arrowname_t(null, 0));
+}
+private final static __struct__ create_arrowname_t(String name, int type) {
+	final __struct__<arrowname_t> result = __struct__.from(arrowname_t.class);
+	result.setCString("name", name==null?null:new CString(name));
+	result.setInt("type", type);
+	return result;
+}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static arrowname_t Arrownames[] = {
+    {"normal", 1},
+    {"crow", 2},
+    {"tee", 3},
+    {"box", 4},
+    {"diamond", 5},
+    {"dot", 6},
+//    {"none", ARR_TYPE_NONE},
+    {"none", 8},
+//    {"gap", ARR_TYPE_GAP},
+    /* ARR_MOD_INV is used only here to define two additional shapes
+       since not all types can use it */
+    {"inv", (1 | (1<<(4+1)))},
+    {"vee", (2 | (1<<(4+1)))},
+    /* WARNING ugly kludge to deal with "o" v "open" conflict */
+    /* Define "open" as just "pen" since "o" already taken as ARR_MOD_OPEN */
+    /* Note that ARR_MOD_OPEN has no meaning for ARR_TYPE_CROW shape */
+    {"pen", (2 | (1<<(4+1)))},
+    /* WARNING ugly kludge to deal with "e" v "empty" conflict */
+    /* Define "empty" as just "mpty" since "e" already taken as ARR_MOD_OPEN */
+    /* Note that ARR_MOD_OPEN has expected meaning for ARR_TYPE_NORM shape */
+    {"mpty", 1},
+    {"curve", 7},
+    {(char *) 0, (0)}
+};
+

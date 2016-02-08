@@ -1,0 +1,12 @@
+public static double B0(double t) {
+    double tmp = 1.0 - t;
+    return tmp * tmp * tmp;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static double B0(double t)
+{
+    double tmp = 1.0 - t;
+    return tmp * tmp * tmp;
+}
+

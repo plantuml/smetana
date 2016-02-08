@@ -1,0 +1,74 @@
+public static void installedge(Agraph_s g, Agedge_s e) {
+    Agnode_s t, h;
+    Agedge_s out, in;
+    Agsubnode_s sn;
+    out = (Agedge_s) (e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2 ? e: e.plus(-1));
+    in = (Agedge_s) (e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 3 ? e: e.plus(1));
+    t = (Agnode_s) ((e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 3? e: e.plus(1))).getPtr("node");
+    h = (Agnode_s) ((e.castTo(Agobj_s.class).getPtr("tag").getInt("objtype") == 2? e: e.plus(-1))).getPtr("node");
+    while (g!=null) {
+	if (agfindedge_by_key(g, t, h, (Agtag_s) e.castTo(Agobj_s.class).getPtr("tag"))!=null) break;
+	sn = agsubrep(g, t); final Agsubnode_s sn1 = sn;
+	ins((_dt_s)g.getPtr("e_seq"), 
+			STARSTAR.amp(new ACCESS<_dtlink_s>() {
+				public _dtlink_s get() {
+					return (_dtlink_s) sn1.getPtr("out_seq");
+				}
+				public void set(_dtlink_s obj) {
+					sn1.setPtr("out_seq", obj);
+				}})
+	, (Agedge_s)out);
+	ins((_dt_s)g.getPtr("e_id"), 
+			STARSTAR.amp(new ACCESS<_dtlink_s>() {
+				public _dtlink_s get() {
+					return (_dtlink_s) sn1.getPtr("out_id");
+				}
+				public void set(_dtlink_s obj) {
+					sn1.setPtr("out_id", obj);
+				}})
+	, (Agedge_s)out);
+	sn = agsubrep(g, h);  final Agsubnode_s sn2 = sn;
+	ins((_dt_s)g.getPtr("e_seq"), 
+			STARSTAR.amp(new ACCESS<_dtlink_s>() {
+				public _dtlink_s get() {
+					return (_dtlink_s) sn2.getPtr("in_seq");
+				}
+				public void set(_dtlink_s obj) {
+					sn2.setPtr("in_seq", obj);
+				}})
+	, (Agedge_s)in);
+	ins((_dt_s)g.getPtr("e_id"), 
+			STARSTAR.amp(new ACCESS<_dtlink_s>() {
+				public _dtlink_s get() {
+					return (_dtlink_s) sn2.getPtr("in_id");
+				}
+				public void set(_dtlink_s obj) {
+					sn2.setPtr("in_id", obj);
+				}})
+	, (Agedge_s)in);
+	g = agparent(g);
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void installedge(Agraph_t * g, Agedge_t * e)
+{
+    Agnode_t *t, *h;
+    Agedge_t *out, *in;
+    Agsubnode_t *sn;
+    out = (((((Agobj_t*)(e))->tag).objtype) == 2? (e): ((e)-1));
+    in = (((((Agobj_t*)(e))->tag).objtype) == 3? (e): ((e)+1));
+    t = ((((((Agobj_t*)(e))->tag).objtype) == 3? (e): ((e)+1))->node);
+    h = ((((((Agobj_t*)(e))->tag).objtype) == 2? (e): ((e)-1))->node);
+    while (g) {
+	if (agfindedge_by_key(g, t, h, (((Agobj_t*)(e))->tag))) break;
+	sn = agsubrep(g, t);
+	ins(g->e_seq, &sn->out_seq, out);
+	ins(g->e_id, &sn->out_id, out);
+	sn = agsubrep(g, h);
+	ins(g->e_seq, &sn->in_seq, in);
+	ins(g->e_id, &sn->in_id, in);
+	g = agparent(g);
+    }
+}
+

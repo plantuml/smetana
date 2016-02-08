@@ -1,0 +1,68 @@
+//static boolean onetime = (!(0));
+//static char *pathlist = (void *)0;
+//static int maxdirlen;
+//static char** dirs;
+public static CString safefile(CString filename) {
+	return null;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+const char *safefile(const char *filename)
+{
+    static boolean onetime = (!(0));
+    static char *pathlist = (void *)0;
+    static int maxdirlen;
+    static char** dirs;
+    const char *str, *p;
+    if (!filename || !filename[0])
+	return (void *)0;
+    if (HTTPServerEnVar) {   /* If used as a server */
+	/* 
+	 * If we are running in an http server we allow
+	 * files only from the directory specified in
+	 * the GV_FILE_PATH environment variable.
+	 */
+	if (!Gvfilepath || (*Gvfilepath == '\0')) {
+	    if (onetime) {
+		agerr(AGWARN,
+		      "file loading is disabled because the environment contains SERVER_NAME=\"%s\"\n"
+		      "and the GV_FILE_PATH variable is unset or empty.\n",
+		      HTTPServerEnVar);
+		onetime = 0;
+	    }
+	    return (void *)0;
+	}
+	if (!pathlist) {
+	    dirs = mkDirlist (Gvfilepath, &maxdirlen);
+	    pathlist = Gvfilepath;
+	}
+	str = filename;
+	if ((p = strrchr(str, '/')))
+	    str = ++p;
+	if ((p = strrchr(str, '\\')))
+	    str = ++p;
+	if ((p = strrchr(str, ':')))
+	    str = ++p;
+	if (onetime && str != filename) {
+	    agerr(AGWARN, "Path provided to file: \"%s\" has been ignored"
+		  " because files are only permitted to be loaded from the directories in \"%s\""
+		  " when running in an http server.\n", filename, Gvfilepath);
+	    onetime = 0;
+	}
+	return findPath (dirs, maxdirlen, str);
+    }
+    if (pathlist != Gvimagepath) {
+	if (dirs) {
+	    free (dirs[0]);
+	    free (dirs);
+	    dirs = (void *)0;
+	}
+	pathlist = Gvimagepath;
+	if (pathlist && *pathlist)
+	    dirs = mkDirlist (pathlist, &maxdirlen);
+    }
+    if ((*filename == "/"[0]) || !dirs)
+	return filename;
+    return findPath (dirs, maxdirlen, filename);
+}
+

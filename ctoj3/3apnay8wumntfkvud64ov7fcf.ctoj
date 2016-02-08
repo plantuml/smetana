@@ -1,0 +1,37 @@
+public static CString arrow_match_name_frag(CString name, __array_of_struct__ arrownames, int flag[]) {
+ UNSUPPORTED("cw8t22aa6zs16jqowqjjkzywg"); // static char *arrow_match_name_frag(char *name, arrowname_t * arrownames, int *flag)
+UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
+UNSUPPORTED("ij5y28mkncrjeiqcpshx0eb6"); //     arrowname_t *arrowname;
+UNSUPPORTED("1tn1krtup6qe1swed3vb7rsyl"); //     int namelen = 0;
+UNSUPPORTED("c0vrdgjia18jvvw01f49sovz5"); //     char *rest = name;
+UNSUPPORTED("ecwk85uixpdt1xvlwr1rw58a4"); //     for (arrowname = arrownames; arrowname->name; arrowname++) {
+UNSUPPORTED("9h58czuqvp8q45izpqt7dzgi6"); // 	namelen = strlen(arrowname->name);
+UNSUPPORTED("9fd8hjdir8m00yuhi9anrrnos"); // 	if (strncmp(name, arrowname->name, namelen) == 0) {
+UNSUPPORTED("ag3b2jixanemgvefu1c01mp6u"); // 	    *flag |= arrowname->type;
+UNSUPPORTED("1h43j4ja8m8uxuvay0jg33ukm"); // 	    rest += namelen;
+UNSUPPORTED("ai3czg6gaaxspsmndknpyvuiu"); // 	    break;
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("bbweh79ihpurvsz097xab3u5k"); //     return rest;
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static char *arrow_match_name_frag(char *name, arrowname_t * arrownames, int *flag)
+{
+    arrowname_t *arrowname;
+    int namelen = 0;
+    char *rest = name;
+    for (arrowname = arrownames; arrowname->name; arrowname++) {
+	namelen = strlen(arrowname->name);
+	if (strncmp(name, arrowname->name, namelen) == 0) {
+	    *flag |= arrowname->type;
+	    rest += namelen;
+	    break;
+	}
+    }
+    return rest;
+}
+

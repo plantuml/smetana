@@ -1,0 +1,37 @@
+public static int ncross(Agraph_s g) {
+    int r, count, nc;
+    g = Root;
+    count = 0;
+    for (r = g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("minrank");
+	r < g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("maxrank")
+	; r++) {
+	if (g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).getInt("valid")!=0)
+	    count += g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).getInt("cache_nc");
+	else {
+	    nc = rcross(g, r);
+	    g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).setPtr("cache_nc", nc);
+	    count += nc;
+	    g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getArrayOfPtr("rank", r).setInt("valid", 1);
+	}
+    }
+    return count;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int ncross(graph_t * g)
+{
+    int r, count, nc;
+    g = Root;
+    count = 0;
+    for (r = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank); r < (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank); r++) {
+	if ((((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].valid)
+	    count += (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].cache_nc;
+	else {
+	    nc = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].cache_nc = rcross(g, r);
+	    count += nc;
+	    (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].valid = (!(0));
+	}
+    }
+    return count;
+}
+

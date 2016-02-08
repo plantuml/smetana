@@ -1,0 +1,5 @@
+private static jmp_buf jbuf = new jmp_buf();
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static jmp_buf jbuf;
+

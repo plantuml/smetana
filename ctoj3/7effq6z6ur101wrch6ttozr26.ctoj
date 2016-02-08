@@ -1,0 +1,158 @@
+public static void set_aspect(Agraph_s g, aspect_t asp) {
+    double xf = 0.0, yf = 0.0, actual, desired;
+    Agnode_s n;
+    boolean scale_it, filled;
+    point sz = (point) Memory.malloc(point.class);
+    rec_bb(g, g);
+    if ((GD_maxrank(g) > 0) && (GD_drawing(g).getInt("ratio_kind")!=0)) {
+UNSUPPORTED("5wbmy4x78flo2ztfabki9lyjf"); // 	sz.x = GD_bb(g).UR.x - GD_bb(g).LL.x;
+UNSUPPORTED("catd6eu5oc282ln95k9zz52f3"); // 	sz.y = GD_bb(g).UR.y - GD_bb(g).LL.y;	/* normalize */
+UNSUPPORTED("21zvq2qx1j34j1i1879zyhzpj"); // 	if (GD_flip(g)) {
+UNSUPPORTED("d55uzald1tvs7xodnua67pxv6"); // 	    int t = sz.x;
+UNSUPPORTED("47s1klx0pfzda4e311w53ou7e"); // 	    sz.x = sz.y;
+UNSUPPORTED("3tx1mj7j0rqw33y24a0gu4ali"); // 	    sz.y = t;
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("4ct8ztqxnsskgphsp1v3aw5ec"); // 	scale_it = NOT(0);
+UNSUPPORTED("8v772n1u4wqlmskqfswlzcz2o"); // 	if (GD_drawing(g)->ratio_kind == R_AUTO)
+UNSUPPORTED("8mtmgag5dxj8ttlcabbpd865p"); // 	    filled = idealsize(g, .5);
+UNSUPPORTED("9352ql3e58qs4fzapgjfrms2s"); // 	else
+UNSUPPORTED("bxtk5e5ls8qsd36eucvhufg9y"); // 	    filled = (GD_drawing(g)->ratio_kind == R_FILL);
+UNSUPPORTED("2atgu691bmn6h9jvk8lve5qzc"); // 	if (filled) {
+UNSUPPORTED("1zx5etcjofceqjvogfn8urkdj"); // 	    /* fill is weird because both X and Y can stretch */
+UNSUPPORTED("7ezqjon4u21dwg4qvxssrnwfc"); // 	    if (GD_drawing(g)->size.x <= 0)
+UNSUPPORTED("dao0fnoi65upcdtr9csqhhy41"); // 		scale_it = 0;
+UNSUPPORTED("6q044im7742qhglc4553noina"); // 	    else {
+UNSUPPORTED("6ifkww34s7php908n9wg0oiju"); // 		xf = (double) GD_drawing(g)->size.x / (double) sz.x;
+UNSUPPORTED("6faiikvxwdge2ydblv90976hb"); // 		yf = (double) GD_drawing(g)->size.y / (double) sz.y;
+UNSUPPORTED("5xkzvdrdnfd5afhhxgajbywya"); // 		if ((xf < 1.0) || (yf < 1.0)) {
+UNSUPPORTED("cvkvyq93xp1itpomhj1r2xlzy"); // 		    if (xf < yf) {
+UNSUPPORTED("capfpf4tncicsp81elmwvf0l"); // 			yf = yf / xf;
+UNSUPPORTED("7sdzyzqj65rbq6edfgf5x6xht"); // 			xf = 1.0;
+UNSUPPORTED("d86r93g8nz9a1kfzgi7f8j8nh"); // 		    } else {
+UNSUPPORTED("emwaipsi6kyqbpk2y26k3cxfw"); // 			xf = xf / yf;
+UNSUPPORTED("1s91x56ftedjsc3m32dqgspqn"); // 			yf = 1.0;
+UNSUPPORTED("dkxvw03k2gg9anv4dbze06axd"); // 		    }
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("c48w89y9jw5baxqqucmiyfha7"); // 	} else if (GD_drawing(g)->ratio_kind == R_EXPAND) {
+UNSUPPORTED("7ezqjon4u21dwg4qvxssrnwfc"); // 	    if (GD_drawing(g)->size.x <= 0)
+UNSUPPORTED("dao0fnoi65upcdtr9csqhhy41"); // 		scale_it = 0;
+UNSUPPORTED("6q044im7742qhglc4553noina"); // 	    else {
+UNSUPPORTED("akfs904fsk7cyl8wbv0x7fnvz"); // 		xf = (double) GD_drawing(g)->size.x /
+UNSUPPORTED("1ewqbc4kglc2kg1n13euxrxzh"); // 		    (double) GD_bb(g).UR.x;
+UNSUPPORTED("6fmkpg9ypaxceugi24gklvdra"); // 		yf = (double) GD_drawing(g)->size.y /
+UNSUPPORTED("8mskb0mqou89myfbiihsjpbg6"); // 		    (double) GD_bb(g).UR.y;
+UNSUPPORTED("a2jzgqbpoanzqdqc7vjk32vmz"); // 		if ((xf > 1.0) && (yf > 1.0)) {
+UNSUPPORTED("6np8qfg5qnlaypikhw0bdx84j"); // 		    double scale = MIN(xf, yf);
+UNSUPPORTED("272bmuv1row7l9tla5bhot840"); // 		    xf = yf = scale;
+UNSUPPORTED("738mi6h8ef0itznt34ngxe25o"); // 		} else
+UNSUPPORTED("b5qs3ho2fcywk3sd5cw3m88kw"); // 		    scale_it = 0;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("d7deewhp6akdb13j7ry364hbd"); // 	} else if (GD_drawing(g)->ratio_kind == R_VALUE) {
+UNSUPPORTED("fpejwrlknxizaxxibhuyaxdt"); // 	    desired = GD_drawing(g)->ratio;
+UNSUPPORTED("douwz2voka0puoeooqjn8kijk"); // 	    actual = ((double) sz.y) / ((double) sz.x);
+UNSUPPORTED("7u9yvuqazzo19geppiphd9rfh"); // 	    if (actual < desired) {
+UNSUPPORTED("apqq3m2rezfl96zbvk7lut02"); // 		yf = desired / actual;
+UNSUPPORTED("8po0oizki4figodjv9xku16gq"); // 		xf = 1.0;
+UNSUPPORTED("175pyfe8j8mbhdwvrbx3gmew9"); // 	    } else {
+UNSUPPORTED("84c3pp9xgnii11clyyxblqmy6"); // 		xf = actual / desired;
+UNSUPPORTED("1tr1b9rp1b00pcafss87kadfe"); // 		yf = 1.0;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("6to1esmb8qfrhzgtr7jdqleja"); // 	} else
+UNSUPPORTED("csvnhx5mo535o6ue1tg3ktjhs"); // 	    scale_it = 0;
+UNSUPPORTED("bh2d68e9s7cr7k1bl0h9fmr9a"); // 	if (scale_it) {
+UNSUPPORTED("b8symsgdtoq84y3j1151pv0g4"); // 	    if (GD_flip(g)) {
+UNSUPPORTED("bi983gfofc0blj8r4yetj14kb"); // 		double t = xf;
+UNSUPPORTED("69pmocxfvmk0urni4fg0x4na5"); // 		xf = yf;
+UNSUPPORTED("cyt895z1pa5arxz4d1kv0hqgq"); // 		yf = t;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("crtcqz91ff5l8ntjbne40b5x4"); // 	    for (n = GD_nlist(g); n; n = ND_next(n)) {
+UNSUPPORTED("brs6nych5z9m0a75ixbe5l80o"); // 		ND_coord(n).x = ROUND(ND_coord(n).x * xf);
+UNSUPPORTED("cpe0pjsilppgrp2ofysn4y54w"); // 		ND_coord(n).y = ROUND(ND_coord(n).y * yf);
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("8f0d3etdet1pk8ikvltmz5h2s"); // 	    scale_bb(g, g, xf, yf);
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+    }
+    if (asp!=null) adjustAspectRatio (g, asp);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void set_aspect(graph_t * g, aspect_t* asp)
+{
+    double xf = 0.0, yf = 0.0, actual, desired;
+    node_t *n;
+    boolean scale_it, filled;
+    point sz;
+    rec_bb(g, g);
+    if ((GD_maxrank(g) > 0) && (GD_drawing(g)->ratio_kind)) {
+	sz.x = GD_bb(g).UR.x - GD_bb(g).LL.x;
+	sz.y = GD_bb(g).UR.y - GD_bb(g).LL.y;	/* normalize */
+	if (GD_flip(g)) {
+	    int t = sz.x;
+	    sz.x = sz.y;
+	    sz.y = t;
+	}
+	scale_it = NOT(0);
+	if (GD_drawing(g)->ratio_kind == R_AUTO)
+	    filled = idealsize(g, .5);
+	else
+	    filled = (GD_drawing(g)->ratio_kind == R_FILL);
+	if (filled) {
+	    /* fill is weird because both X and Y can stretch */
+	    if (GD_drawing(g)->size.x <= 0)
+		scale_it = 0;
+	    else {
+		xf = (double) GD_drawing(g)->size.x / (double) sz.x;
+		yf = (double) GD_drawing(g)->size.y / (double) sz.y;
+		if ((xf < 1.0) || (yf < 1.0)) {
+		    if (xf < yf) {
+			yf = yf / xf;
+			xf = 1.0;
+		    } else {
+			xf = xf / yf;
+			yf = 1.0;
+		    }
+		}
+	    }
+	} else if (GD_drawing(g)->ratio_kind == R_EXPAND) {
+	    if (GD_drawing(g)->size.x <= 0)
+		scale_it = 0;
+	    else {
+		xf = (double) GD_drawing(g)->size.x /
+		    (double) GD_bb(g).UR.x;
+		yf = (double) GD_drawing(g)->size.y /
+		    (double) GD_bb(g).UR.y;
+		if ((xf > 1.0) && (yf > 1.0)) {
+		    double scale = MIN(xf, yf);
+		    xf = yf = scale;
+		} else
+		    scale_it = 0;
+	    }
+	} else if (GD_drawing(g)->ratio_kind == R_VALUE) {
+	    desired = GD_drawing(g)->ratio;
+	    actual = ((double) sz.y) / ((double) sz.x);
+	    if (actual < desired) {
+		yf = desired / actual;
+		xf = 1.0;
+	    } else {
+		xf = actual / desired;
+		yf = 1.0;
+	    }
+	} else
+	    scale_it = 0;
+	if (scale_it) {
+	    if (GD_flip(g)) {
+		double t = xf;
+		xf = yf;
+		yf = t;
+	    }
+	    for (n = GD_nlist(g); n; n = ND_next(n)) {
+		ND_coord(n).x = ROUND(ND_coord(n).x * xf);
+		ND_coord(n).y = ROUND(ND_coord(n).y * yf);
+	    }
+	    scale_bb(g, g, xf, yf);
+	}
+    }
+    if (asp) adjustAspectRatio (g, asp);
+}
+

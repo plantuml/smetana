@@ -1,0 +1,28 @@
+public static int getPack(Agraph_s g, int not_def, int dflt) {
+    CString p;
+    int i;
+    int v = not_def;
+    if ((p = agget(g, new CString("pack")))!=null) {
+UNSUPPORTED("enpqar7c7okvibe7xhe0vjtfn"); // 	if ((sscanf(p, "%d", &i) == 1) && (i >= 0))
+UNSUPPORTED("3puzxwczcmpxvlw8cvmeyio74"); // 	    v = i;
+UNSUPPORTED("65w8fxtw319slbg2c6nvtmow8"); // 	else if ((*p == 't') || (*p == 'T'))
+UNSUPPORTED("5lifdir9mxnvpi8ur34qo0jej"); // 	    v = dflt;
+    }
+    return v;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int getPack(Agraph_t * g, int not_def, int dflt)
+{
+    char *p;
+    int i;
+    int v = not_def;
+    if ((p = agget(g, "pack"))) {
+	if ((sscanf(p, "%d", &i) == 1) && (i >= 0))
+	    v = i;
+	else if ((*p == 't') || (*p == 'T'))
+	    v = dflt;
+    }
+    return v;
+}
+

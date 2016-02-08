@@ -1,0 +1,32 @@
+public static Agraph_s agraphof(__ptr__ obj) {
+    switch (obj.castTo(Agobj_s.class).getPtr("tag").getInt("objtype")) {
+    case 3:
+    case 2:
+    return (Agraph_s) obj.castTo(Agedge_s.class).getPtr("node").getPtr("root").castTo(Agraph_s.class);
+    case 1:
+    return (Agraph_s) obj.castTo(Agnode_s.class).getPtr("root").castTo(Agraph_s.class);
+    case 0:
+	return (Agraph_s) obj.castTo(Agraph_s.class);
+    default:			/* actually can't occur if only 2 bit tags */
+	System.err.println("agraphof a bad object");
+	return null;
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agraph_t *agraphof(void *obj)
+{
+    switch (((((Agobj_t*)(obj))->tag).objtype)) {
+    case 3:
+    case 2:
+	return ((Agedge_t *) obj)->node->root;
+    case 1:
+	return ((Agnode_t *) obj)->root;
+    case 0:
+	return (Agraph_t *) obj;
+    default:			/* actually can't occur if only 2 bit tags */
+	agerr(AGERR, "agraphof a bad object");
+	return ((Agraph_t*)0);
+    }
+}
+

@@ -1,0 +1,5 @@
+private static __ptr__ TE_list;
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static edge_t **TE_list;
+

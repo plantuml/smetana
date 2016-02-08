@@ -1,0 +1,16 @@
+public static void agedgeattr_init(Agraph_s g, Agedge_s e) {
+    Agattr_s data;
+    data = agattrrec(e);
+    if ((N(data)) || (N(data.getPtr("dict"))))
+	agmakeattrs(g, e);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void agedgeattr_init(Agraph_t * g, Agedge_t * e)
+{
+    Agattr_t *data;
+    data = agattrrec(e);
+    if ((!data) || (!data->dict))
+	(void) agmakeattrs(g, e);
+}
+

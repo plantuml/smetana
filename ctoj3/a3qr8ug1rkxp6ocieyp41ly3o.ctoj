@@ -1,0 +1,103 @@
+public static Agsym_s setattr(Agraph_s g, int kind, CString name, CString value) {
+    Agdatadict_s dd;
+    _dt_s ldict, rdict;
+    Agsym_s lsym, psym, rsym, rv;
+    Agraph_s root;
+    Agnode_s n;
+    Agedge_s e;
+   
+    root = agroot(g);
+    dd = agdatadict(g, (N(0)));	/* force initialization of string attributes */
+    ldict = agdictof(g, kind);
+    lsym = aglocaldictsym(ldict, name);
+    if (lsym!=null) {			/* update old local definiton */
+	agstrfree(g, lsym.getCString("defval"));
+	lsym.setPtr("defval", agstrdup(g, value));
+	rv = lsym;
+    } else {
+	psym = agdictsym(ldict, name);	/* search with viewpath up to root */
+	if (psym!=null) {		/* new local definition */
+	    lsym = agnewsym(g, name, value, psym.getInt("id"), kind);
+	    ldict.castTo(_dt_s.class).call("searchf",ldict,lsym,0000001);
+	    rv = lsym;
+	} else {		/* new global definition */
+	    rdict = agdictof(root, kind);
+	    rsym = agnewsym(g, name, value, dtsize_(rdict), kind);
+	    rdict.castTo(_dt_s.class).call("searchf",rdict,rsym,0000001);
+	    switch (kind) {
+	    case AGRAPH:
+		agapply(root, root.castTo(Agobj_s.class), (agobjfn_t) function(attr__c.class, "addattr"),
+			rsym, (N(0)));
+		break;
+	    case AGNODE:
+		for (n = agfstnode(root); n!=null; n = agnxtnode(root, n))
+		    addattr(g, (Agobj_s) n.castTo(Agobj_s.class), rsym);
+		break;
+	    case AGINEDGE:
+	    case AGOUTEDGE:
+		for (n = agfstnode(root); n!=null; n = agnxtnode(root, n))
+		    for (e = agfstout(root, n); e!=null; e = agnxtout(root, e))
+			addattr(g, (Agobj_s) e.castTo(Agobj_s.class), rsym);
+		break;
+	    }
+	    rv = rsym;
+	}
+    }
+    if (rv!=null && (kind == 0))
+	agxset(g, rv, value);
+    agmethod_upd(g, g, rv);	/* JCE and GN wanted this */
+    return rv;
+}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static Agsym_t *setattr(Agraph_t * g, int kind, char *name, char *value)
+{
+    Agdatadict_t *dd;
+    Dict_t *ldict, *rdict;
+    Agsym_t *lsym, *psym, *rsym, *rv;
+    Agraph_t *root;
+    Agnode_t *n;
+    Agedge_t *e;
+    ;
+    root = agroot(g);
+    dd = agdatadict(g, (!(0)));	/* force initialization of string attributes */
+    ldict = agdictof(g, kind);
+    lsym = aglocaldictsym(ldict, name);
+    if (lsym) {			/* update old local definiton */
+	agstrfree(g, lsym->defval);
+	lsym->defval = agstrdup(g, value);
+	rv = lsym;
+    } else {
+	psym = agdictsym(ldict, name);	/* search with viewpath up to root */
+	if (psym) {		/* new local definition */
+	    lsym = agnewsym(g, name, value, psym->id, kind);
+	    (*(((Dt_t*)(ldict))->searchf))((ldict),(void*)(lsym),0000001);
+	    rv = lsym;
+	} else {		/* new global definition */
+	    rdict = agdictof(root, kind);
+	    rsym = agnewsym(g, name, value, dtsize(rdict), kind);
+	    (*(((Dt_t*)(rdict))->searchf))((rdict),(void*)(rsym),0000001);
+	    switch (kind) {
+	    case AGRAPH:
+		agapply(root, (Agobj_t *) root, (agobjfn_t) addattr,
+			rsym, (!(0)));
+		break;
+	    case AGNODE:
+		for (n = agfstnode(root); n; n = agnxtnode(root, n))
+		    addattr(g, (Agobj_t *) n, rsym);
+		break;
+	    case AGINEDGE:
+	    case AGOUTEDGE:
+		for (n = agfstnode(root); n; n = agnxtnode(root, n))
+		    for (e = agfstout(root, n); e; e = agnxtout(root, e))
+			addattr(g, (Agobj_t *) e, rsym);
+		break;
+	    }
+	    rv = rsym;
+	}
+    }
+    if (rv && (kind == AGRAPH))
+	agxset(g, rv, value);
+    agmethod_upd(g, g, rv);	/* JCE and GN wanted this */
+    return rv;
+}
+

@@ -1,0 +1,53 @@
+public static CString agstrdup(Agraph_s g, CString s) {
+    refstr_t r;
+    _dt_s strdict;
+    size_t sz;
+    if (s == null)
+	 return null;
+    strdict = refdict(g);
+    r = (refstr_t) refsymbind(strdict, s);
+    if (r!=null) r = (refstr_t) r.castTo(refstr_t.class);
+    if (r!=null)
+	r.setInt("refcnt", r.getInt("refcnt")+1);
+    else {
+	sz = sizeof(refstr_t.class).plus(s.length());
+	if (g!=null)
+	    r = (refstr_t) agalloc(g, sz);
+	else
+	    r = (refstr_t) sz.malloc();
+	r.setInt("refcnt", 1);
+	r.setPtr("s", s.duplicate());
+//	strcpy(r->store, s);
+//	r->s = r->store;
+	strdict.call("searchf", strdict,r,0000001);
+    }
+	return r.getCString("s");
+}
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+char *agstrdup(Agraph_t * g, char *s)
+{
+    refstr_t *r;
+    Dict_t *strdict;
+    size_t sz;
+    if (s == ((char *)0))
+	 return ((char *)0);
+    strdict = refdict(g);
+    r = refsymbind(strdict, s);
+    if (r)
+	r->refcnt++;
+    else {
+	sz = sizeof(refstr_t) + strlen(s);
+	if (g)
+	    r = (refstr_t *) agalloc(g, sz);
+	else
+	    r = (refstr_t *) malloc(sz);
+	r->refcnt = 1;
+	strcpy(r->store, s);
+	r->s = r->store;
+	(*(((Dt_t*)(strdict))->searchf))((strdict),(void*)(r),0000001);
+    }
+    return r->s;
+}
+

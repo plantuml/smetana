@@ -1,0 +1,12 @@
+public static Agraph_s agnxtsubg(Agraph_s subg) {
+	throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agraph_t *agnxtsubg(Agraph_t * subg)
+{
+    Agraph_t *g;
+    g = agparent(subg);
+    return g? (Agraph_t *) (*(((Dt_t*)(g->g_dict))->searchf))((g->g_dict),(void*)(subg),0000010) : 0;
+}
+

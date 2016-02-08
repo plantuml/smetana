@@ -1,0 +1,71 @@
+public static void update(Agedge_s e, Agedge_s f) {
+    int cutvalue, delta;
+    Agnode_s lca;
+    delta = SLACK(f);
+    /* "for (v = in nodes in tail side of e) do ND_rank(v) -= delta;" */
+    if (delta > 0) {
+	int s;
+	s = ND_tree_in(agtail(e)).getInt("size") + ND_tree_out(agtail(e)).getInt("size");
+	if (s == 1)
+	    rerank(agtail(e), delta);
+	else {
+	    s = ND_tree_in(aghead(e)).getInt("size") + ND_tree_out(aghead(e)).getInt("size");
+	    if (s == 1)
+		rerank(aghead(e), -delta);
+	    else {
+		if (ND_lim(agtail(e)) < ND_lim(aghead(e)))
+		    rerank(agtail(e), delta);
+		else
+		    rerank(aghead(e), -delta);
+	    }
+	}
+    }
+    cutvalue = ED_cutvalue(e);
+    lca = treeupdate(agtail(f), aghead(f), cutvalue, true);
+    if (NEQ(treeupdate(aghead(f), agtail(f), cutvalue, false), lca)) {
+UNSUPPORTED("f2l4c6yhnwnfer3vrasf55fio"); // 	agerr(AGERR, "update: mismatched lca in treeupdates\n");
+UNSUPPORTED("6fzmgjpkhmnx0a2cnt0q0rceg"); // 	longjmp (jbuf, 1);
+    }
+    ED_cutvalue(f, -cutvalue);
+    ED_cutvalue(e, 0);
+    exchange_tree_edges(e, f);
+    dfs_range(lca, ND_par(lca), ND_low(lca));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void 
+update(edge_t * e, edge_t * f)
+{
+    int cutvalue, delta;
+    node_t *lca;
+    delta = SLACK(f);
+    /* "for (v = in nodes in tail side of e) do ND_rank(v) -= delta;" */
+    if (delta > 0) {
+	int s;
+	s = ND_tree_in(agtail(e)).size + ND_tree_out(agtail(e)).size;
+	if (s == 1)
+	    rerank(agtail(e), delta);
+	else {
+	    s = ND_tree_in(aghead(e)).size + ND_tree_out(aghead(e)).size;
+	    if (s == 1)
+		rerank(aghead(e), -delta);
+	    else {
+		if (ND_lim(agtail(e)) < ND_lim(aghead(e)))
+		    rerank(agtail(e), delta);
+		else
+		    rerank(aghead(e), -delta);
+	    }
+	}
+    }
+    cutvalue = ED_cutvalue(e);
+    lca = treeupdate(agtail(f), aghead(f), cutvalue, 1);
+    if (treeupdate(aghead(f), agtail(f), cutvalue, 0) != lca) {
+	agerr(AGERR, "update: mismatched lca in treeupdates\n");
+	longjmp (jbuf, 1);
+    }
+    ED_cutvalue(f) = -cutvalue;
+    ED_cutvalue(e) = 0;
+    exchange_tree_edges(e, f);
+    dfs_range(lca, ND_par(lca), ND_low(lca));
+}
+

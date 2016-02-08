@@ -1,0 +1,130 @@
+public static int rank2(Agraph_s g, int balance, int maxiter, int search_size) {
+    int iter = 0, feasible;
+    CString ns = new CString("network simplex: ");
+    Agedge_s e, f;
+    /*if (Verbose) {
+	int nn, ne;
+	graphSize (g, &nn, &ne);
+	fprintf(stderr, "%s %d nodes %d edges maxiter=%d balance=%d\n", ns,
+	    nn, ne, maxiter, balance);
+	start_timer();
+    }*/
+    feasible = init_graph(g);
+    if (N(feasible))
+	init_rank();
+    if (maxiter <= 0) {
+	freeTreeList (g);
+	return 1;
+    }
+    if (search_size >= 0)
+	Search_size = search_size;
+    else
+	Search_size = 30;
+    if (setjmp (jbuf)!=0) {
+	return 2;
+    }
+    if (feasible_tree()!=0) {
+	freeTreeList (g);
+	return 1;
+    }
+     while ((e = leave_edge())!=null) {
+	f = enter_edge(e);
+	update(e, f);
+	iter++;
+	/*if (Verbose && (iter % 100 == 0)) {
+	    if (iter % 1000 == 100)
+		fputs(ns, stderr);
+	    fprintf(stderr, "%d ", iter);
+	    if (iter % 1000 == 0)
+		fputc('\n', stderr);
+	}*/
+	if (iter >= maxiter)
+	    break;
+    }
+    switch (balance) {
+    case 1:
+	TB_balance();
+	break;
+    case 2:
+	LR_balance();
+	break;
+    default:
+	scan_and_normalize();
+	freeTreeList (G);
+	break;
+    }
+    /*if (Verbose) {
+	if (iter >= 100)
+	    fputc('\n', stderr);
+	fprintf(stderr, "%s%d nodes %d edges %d iter %.2f sec\n",
+		ns, N_nodes, N_edges, iter, elapsed_sec());
+    }*/
+    return 0;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int rank2(graph_t * g, int balance, int maxiter, int search_size)
+{
+    int iter = 0, feasible;
+    char *ns = "network simplex: ";
+    edge_t *e, *f;
+    if (Verbose) {
+	int nn, ne;
+	graphSize (g, &nn, &ne);
+	fprintf(stderr, "%s %d nodes %d edges maxiter=%d balance=%d\n", ns,
+	    nn, ne, maxiter, balance);
+	start_timer();
+    }
+    feasible = init_graph(g);
+    if (!feasible)
+	init_rank();
+    if (maxiter <= 0) {
+	freeTreeList (g);
+	return 0;
+    }
+    if (search_size >= 0)
+	Search_size = search_size;
+    else
+	Search_size = 30;
+    if (setjmp (jbuf)) {
+	return 2;
+    }
+    if (feasible_tree()) {
+	freeTreeList (g);
+	return 1;
+    }
+    while ((e = leave_edge())) {
+	f = enter_edge(e);
+	update(e, f);
+	iter++;
+	if (Verbose && (iter % 100 == 0)) {
+	    if (iter % 1000 == 100)
+		fputs(ns, stderr);
+	    fprintf(stderr, "%d ", iter);
+	    if (iter % 1000 == 0)
+		fputc('\n', stderr);
+	}
+	if (iter >= maxiter)
+	    break;
+    }
+    switch (balance) {
+    case 1:
+	TB_balance();
+	break;
+    case 2:
+	LR_balance();
+	break;
+    default:
+	scan_and_normalize();
+	freeTreeList (G);
+	break;
+    }
+    if (Verbose) {
+	if (iter >= 100)
+	    fputc('\n', stderr);
+	fprintf(stderr, "%s%d nodes %d edges %d iter %.2f sec\n",
+		ns, N_nodes, N_edges, iter, elapsed_sec());
+    }
+    return 0;
+}
+

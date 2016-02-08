@@ -1,0 +1,27 @@
+public static void installnode(Agraph_s g, Agnode_s n) {
+    Agsubnode_s sn;
+    int osize;
+    osize = dtsize_((_dt_s)g.getPtr("n_id"));
+    if (EQ(g, agroot(g))) sn = (Agsubnode_s) n.getStruct("mainsub").amp().castTo(Agsubnode_s.class);
+    else sn = (Agsubnode_s) ((__ptr__)agalloc(g, sizeof(Agsubnode_s.class))).castTo(Agsubnode_s.class);
+    sn.setPtr("node", n);
+    g.getPtr("n_id").call("searchf", g.getPtr("n_id"),sn,0000001);
+    g.getPtr("n_seq").call("searchf", g.getPtr("n_seq"),sn,0000001);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void installnode(Agraph_t * g, Agnode_t * n)
+{
+    Agsubnode_t *sn;
+    int osize;
+    ;
+    osize = dtsize(g->n_id);
+    if (g == agroot(g)) sn = &(n->mainsub);
+    else sn = agalloc(g, sizeof(Agsubnode_t));
+    sn->node = n;
+    (*(((Dt_t*)(g->n_id))->searchf))((g->n_id),(void*)(sn),0000001);
+    (*(((Dt_t*)(g->n_seq))->searchf))((g->n_seq),(void*)(sn),0000001);
+    ;
+    ;
+}
+

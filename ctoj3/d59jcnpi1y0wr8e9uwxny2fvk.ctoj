@@ -1,0 +1,38 @@
+public static void growops(int newopn) {
+    if (newopn <= opn)
+	return;
+    if (N(ops)) {
+	if (N(ops = Memory.malloc(sizeof (pointf.class, newopn)))) {
+UNSUPPORTED("413an1hqgkb4ezaec6qdsdplx"); // 	    fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\route.c", 32, ("cannot malloc ops"));
+UNSUPPORTED("1r6uhbnmxv8c6msnscw07w0qx"); // 	    longjmp(jbuf,1);
+	}
+    } else {
+	if (N(ops = Memory.realloc(ops,
+					 sizeof (pointf.class, newopn)))) {
+UNSUPPORTED("8u0qgahxvk5pplf90thmhwxhl"); // 	    fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\route.c", 32, ("cannot realloc ops"));
+UNSUPPORTED("1r6uhbnmxv8c6msnscw07w0qx"); // 	    longjmp(jbuf,1);
+	}
+    }
+    opn = newopn;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void growops(int newopn)
+{
+    if (newopn <= opn)
+	return;
+    if (!ops) {
+	if (!(ops = (Ppoint_t *) malloc(sizeof (Ppoint_t) * newopn))) {
+	    fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\route.c", 32, ("cannot malloc ops"));
+	    longjmp(jbuf,1);
+	}
+    } else {
+	if (!(ops = (Ppoint_t *) realloc((void *) ops,
+					 sizeof (Ppoint_t) * newopn))) {
+	    fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\route.c", 32, ("cannot realloc ops"));
+	    longjmp(jbuf,1);
+	}
+    }
+    opn = newopn;
+}
+

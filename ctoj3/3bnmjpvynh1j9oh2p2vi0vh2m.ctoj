@@ -1,0 +1,68 @@
+public static void setRatio(Agraph_s g) {
+    CString p;
+    char c;
+    double ratio;
+    if ((p = agget(g, new CString("ratio")))!=null && ((c = p.charAt(0))!='\0')) {
+UNSUPPORTED("7rk995hpmaqbbasmi40mqg0yw"); // 	switch (c) {
+UNSUPPORTED("2v5u3irq50r1n2ccuna0y09lk"); // 	case 'a':
+UNSUPPORTED("3jv8xrrloj92axkpkgolzwgo6"); // 	    if ((*(p)==*("auto")&&!strcmp(p,"auto")))
+UNSUPPORTED("8bdbsrt9sk4hnj3wm6z100qm"); // 		(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->ratio_kind = R_AUTO;
+UNSUPPORTED("ai3czg6gaaxspsmndknpyvuiu"); // 	    break;
+UNSUPPORTED("f3lyz2cejs6yn5fyckhn7ba1"); // 	case 'c':
+UNSUPPORTED("1v3jyjziibgnha1glbymorwg1"); // 	    if ((*(p)==*("compress")&&!strcmp(p,"compress")))
+UNSUPPORTED("coprfqf41n6byzz3nfneke6a"); // 		(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->ratio_kind = R_COMPRESS;
+UNSUPPORTED("ai3czg6gaaxspsmndknpyvuiu"); // 	    break;
+UNSUPPORTED("2fzjr952o6hmcz3ad5arl2n8d"); // 	case 'e':
+UNSUPPORTED("5s06nikh994hgncpwni2p4rwq"); // 	    if ((*(p)==*("expand")&&!strcmp(p,"expand")))
+UNSUPPORTED("eanijnkdjj1f6q7su4gmmijpj"); // 		(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->ratio_kind = R_EXPAND;
+UNSUPPORTED("ai3czg6gaaxspsmndknpyvuiu"); // 	    break;
+UNSUPPORTED("8jntw084f69528np3kisw5ioc"); // 	case 'f':
+UNSUPPORTED("105p0jwfnsptmrweig5mhpkn9"); // 	    if ((*(p)==*("fill")&&!strcmp(p,"fill")))
+UNSUPPORTED("eknfh3axjhorf2rfb914hdgbd"); // 		(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->ratio_kind = R_FILL;
+UNSUPPORTED("ai3czg6gaaxspsmndknpyvuiu"); // 	    break;
+UNSUPPORTED("1drv0xz8hp34qnf72b4jpprg2"); // 	default:
+UNSUPPORTED("e4fr8djxwn615yr0rj46vtdbd"); // 	    ratio = atof(p);
+UNSUPPORTED("43a0ik2dkpg3y58orisgkn32q"); // 	    if (ratio > 0.0) {
+UNSUPPORTED("azv56xi8njootl2n9l5bm1udc"); // 		(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->ratio_kind = R_VALUE;
+UNSUPPORTED("ch5o67mezsw0v6iwxylb98myn"); // 		(((Agraphinfo_t*)(((Agobj_t*)(g))->data))->drawing)->ratio = ratio;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("ai3czg6gaaxspsmndknpyvuiu"); // 	    break;
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void setRatio(graph_t * g)
+{
+    char *p, c;
+    double ratio;
+    if ((p = agget(g, "ratio")) && ((c = p[0]))) {
+	switch (c) {
+	case 'a':
+	    if ((*(p)==*("auto")&&!strcmp(p,"auto")))
+		GD_drawing(g)->ratio_kind = R_AUTO;
+	    break;
+	case 'c':
+	    if ((*(p)==*("compress")&&!strcmp(p,"compress")))
+		GD_drawing(g)->ratio_kind = R_COMPRESS;
+	    break;
+	case 'e':
+	    if ((*(p)==*("expand")&&!strcmp(p,"expand")))
+		GD_drawing(g)->ratio_kind = R_EXPAND;
+	    break;
+	case 'f':
+	    if ((*(p)==*("fill")&&!strcmp(p,"fill")))
+		GD_drawing(g)->ratio_kind = R_FILL;
+	    break;
+	default:
+	    ratio = atof(p);
+	    if (ratio > 0.0) {
+		GD_drawing(g)->ratio_kind = R_VALUE;
+		GD_drawing(g)->ratio = ratio;
+	    }
+	    break;
+	}
+    }
+}
+

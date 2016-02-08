@@ -1,0 +1,10 @@
+public static int agobjkind(__ptr__ arg) {
+	return AGTYPE(arg);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int agobjkind(void *arg)
+{
+	return AGTYPE(arg);
+}
+

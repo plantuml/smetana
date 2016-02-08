@@ -1,0 +1,12 @@
+public static void free_queue(nodequeue q) {
+    Memory.free(q.getPtr("store"));
+    Memory.free(q);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void free_queue(nodequeue * q)
+{
+    free(q->store);
+    free(q);
+}
+

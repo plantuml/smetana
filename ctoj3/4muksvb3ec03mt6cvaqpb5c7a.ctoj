@@ -1,0 +1,40 @@
+public static void mark_lowclusters(Agraph_s root) {
+    Agnode_s n, vn;
+    Agedge_s orig, e;
+    /* first, zap any previous cluster labelings */
+    for (n = agfstnode(root); n!=null; n = agnxtnode(root, n)) {
+	ND_clust(n, null);
+	for (orig = agfstout(root, n); orig!=null; orig = agnxtout(root, orig)) {
+	    if ((e = ED_to_virt(orig))!=null) {
+		while (e!=null && (ND_node_type(vn = aghead(e))) == 1) {
+		    ND_clust(vn, null);
+		    e = (Agedge_s) ND_out(aghead(e)).getArrayOfPtr("list").plus(0).getPtr();
+		}
+	    }
+	}
+    }
+    /* do the recursion */
+    mark_lowcluster_basic(root);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void mark_lowclusters(Agraph_t * root)
+{
+    Agnode_t *n, *vn;
+    Agedge_t *orig, *e;
+    /* first, zap any previous cluster labelings */
+    for (n = agfstnode(root); n; n = agnxtnode(root, n)) {
+	ND_clust(n) = NULL;
+	for (orig = agfstout(root, n); orig; orig = agnxtout(root, orig)) {
+	    if ((e = ED_to_virt(orig))) {
+		while (e && (ND_node_type(vn = aghead(e))) == 1) {
+		    ND_clust(vn) = NULL;
+		    e = ND_out(aghead(e)).list[0];
+		}
+	    }
+	}
+    }
+    /* do the recursion */
+    mark_lowcluster_basic(root);
+}
+

@@ -1,0 +1,26 @@
+public static boolean swap_ends_p(Agedge_s e) {
+    while (ED_to_orig(e)!=null)
+	e = ED_to_orig(e);
+    if (ND_rank(aghead(e)) > ND_rank(agtail(e)))
+	return false;
+    if (ND_rank(aghead(e)) < ND_rank(agtail(e)))
+	return NOT(false);
+    if (ND_order(aghead(e)) >= ND_order(agtail(e)))
+	return false;
+    return NOT(false);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static boolean swap_ends_p(edge_t * e)
+{
+    while (ED_to_orig(e))
+	e = ED_to_orig(e);
+    if (ND_rank(aghead(e)) > ND_rank(agtail(e)))
+	return 0;
+    if (ND_rank(aghead(e)) < ND_rank(agtail(e)))
+	return NOT(0);
+    if (ND_order(aghead(e)) >= ND_order(agtail(e)))
+	return 0;
+    return NOT(0);
+}
+

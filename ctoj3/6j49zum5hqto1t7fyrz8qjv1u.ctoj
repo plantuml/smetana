@@ -1,0 +1,9 @@
+public static int treecount(_dtlink_s e) {
+	return e!=null ? treecount((_dtlink_s) e.getPtr("hl._left")) + treecount((_dtlink_s) e.getPtr("right")) + 1 : 0;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int treecount(register Dtlink_t* e)
+{	return e ? treecount(e->hl._left) + treecount(e->right) + 1 : 0;
+}
+

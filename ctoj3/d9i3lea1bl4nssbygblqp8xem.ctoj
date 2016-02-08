@@ -1,0 +1,25 @@
+public static void init_mccomp(Agraph_s g, int c) {
+    int r;
+    g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).setPtr("nlist", 
+	  g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getPtr("comp").getArrayOfPtr("list", c));
+    if (c > 0) {
+UNSUPPORTED("bawg9qsymdfm43bef7jjdhbx7"); // 	for (r = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank); r <= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank); r++) {
+UNSUPPORTED("4y2e617zokb7f8ht699qq0mf3"); // 	    (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v + (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n;
+UNSUPPORTED("djh59ri84ez5swoch4q8e4atr"); // 	    (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n = 0;
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void init_mccomp(graph_t * g, int c)
+{
+    int r;
+    (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->nlist) = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->comp).list[c];
+    if (c > 0) {
+	for (r = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->minrank); r <= (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->maxrank); r++) {
+	    (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].v + (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n;
+	    (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->rank)[r].n = 0;
+	}
+    }
+}
+

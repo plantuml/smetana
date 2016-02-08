@@ -1,0 +1,32 @@
+public static Agnode_s newnode(Agraph_s g, int id, int seq) {
+    Agnode_s n;
+    n = (Agnode_s) ((__ptr__)agalloc(g, sizeof(Agnode_s.class))).castTo(Agnode_s.class);
+    n.castTo(Agobj_s.class).getPtr("tag").setInt("objtype", 1);
+    n.castTo(Agobj_s.class).getPtr("tag").setInt("id", id);
+    n.castTo(Agobj_s.class).getPtr("tag").setInt("seq", seq);
+    n.setPtr("root", agroot(g));
+    if (agroot(g).getPtr("desc").getInt("has_attrs")!=0)
+	  agbindrec(n, AgDataRecName, sizeof(Agattr_s.class), false);
+    /* nodeattr_init and method_init will be called later, from the
+     * subgraph where the node was actually created, but first it has
+     * to be installed in all the (sub)graphs up to root. */
+    return n;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static Agnode_t *newnode(Agraph_t * g, unsigned long id, unsigned long seq)
+{
+    Agnode_t *n;
+    n = agalloc(g, sizeof(Agnode_t));
+    ((((Agobj_t*)(n))->tag).objtype) = 1;
+    ((((Agobj_t*)(n))->tag).id) = id;
+    ((((Agobj_t*)(n))->tag).seq) = seq;
+    n->root = agroot(g);
+    if (agroot(g)->desc.has_attrs)
+	(void) agbindrec(n, AgDataRecName, sizeof(Agattr_t), (0));
+    /* nodeattr_init and method_init will be called later, from the
+     * subgraph where the node was actually created, but first it has
+     * to be installed in all the (sub)graphs up to root. */
+    return n;
+}
+

@@ -1,0 +1,20 @@
+public static boolean nonconstraint_edge(Agedge_s e) {
+    CString constr;
+    if (E_constr!=null && (constr = agxget(e, E_constr))!=null) {
+	if (constr.charAt(0)!='\0' && mapbool(constr) == false)
+	    return (!(false));
+    }
+    return false;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+int nonconstraint_edge(edge_t * e)
+{
+    char *constr;
+    if (E_constr && (constr = agxget(e, E_constr))) {
+	if (constr[0] && mapbool(constr) == 0)
+	    return (!(0));
+    }
+    return 0;
+}
+

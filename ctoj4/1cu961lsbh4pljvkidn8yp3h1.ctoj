@@ -1,0 +1,17 @@
+public static Agsym_s
+	G_activepencolor, G_activefillcolor,
+	G_selectedpencolor, G_selectedfillcolor,
+	G_visitedpencolor, G_visitedfillcolor,
+	G_deletedpencolor, G_deletedfillcolor,
+	G_ordering, G_peripheries, G_penwidth,
+	G_gradientangle, G_margin;
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agsym_t
+	*G_activepencolor, *G_activefillcolor,
+	*G_selectedpencolor, *G_selectedfillcolor,
+	*G_visitedpencolor, *G_visitedfillcolor,
+	*G_deletedpencolor, *G_deletedfillcolor,
+	*G_ordering, *G_peripheries, *G_penwidth,
+	*G_gradientangle, *G_margin;
+

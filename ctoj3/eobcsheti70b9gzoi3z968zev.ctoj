@@ -1,0 +1,47 @@
+public static void aginitcb(Agraph_s g, __ptr__ obj, Agcbstack_s cbstack) {
+    agobjfn_t fn;
+    if (cbstack == null)
+	return;
+UNSUPPORTED("cv6tr3wc0y2e3s7hrj040fbgz"); //     aginitcb(g, obj, cbstack->prev);
+UNSUPPORTED("ugu810574xlbrchajuiqvlbj"); //     fn = ((agobjfn_t)0);
+UNSUPPORTED("afk5q8b9fd4sednpczh6r1eg9"); //     switch (((((Agobj_t*)(obj))->tag).objtype)) {
+UNSUPPORTED("70xjc0sbkjvexfar5luzibcgf"); //     case 0:
+UNSUPPORTED("33rj0o79bxra63omicn33shh1"); // 	fn = cbstack->f->graph.ins;
+UNSUPPORTED("6aw91xzjmqvmtdvt1di23af8y"); // 	break;
+UNSUPPORTED("d0gk15gzj4wz8nv54zbr285hm"); //     case 1:
+UNSUPPORTED("43opp5hvwaad6urofp737fx95"); // 	fn = cbstack->f->node.ins;
+UNSUPPORTED("6aw91xzjmqvmtdvt1di23af8y"); // 	break;
+UNSUPPORTED("4u5xz2u3urj13y0aw30fdyup5"); //     case 2:
+UNSUPPORTED("7k5xv2n0vdcq7e1h7c511n2vt"); // 	fn = cbstack->f->edge.ins;
+UNSUPPORTED("6aw91xzjmqvmtdvt1di23af8y"); // 	break;
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("b9a2u7luojz68ys0qfhdssxc5"); //     if (fn)
+UNSUPPORTED("d6swsvu9o2h2ajgawq3fidg54"); // 	fn(g, obj, cbstack->state);
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void aginitcb(Agraph_t * g, void *obj, Agcbstack_t * cbstack)
+{
+    agobjfn_t fn;
+    if (cbstack == ((Agcbstack_t *)0))
+	return;
+    aginitcb(g, obj, cbstack->prev);
+    fn = ((agobjfn_t)0);
+    switch (AGTYPE(obj)) {
+    case AGRAPH:
+	fn = cbstack->f->graph.ins;
+	break;
+    case AGNODE:
+	fn = cbstack->f->node.ins;
+	break;
+    case AGEDGE:
+	fn = cbstack->f->edge.ins;
+	break;
+    }
+    if (fn)
+	fn(g, obj, cbstack->state);
+}
+

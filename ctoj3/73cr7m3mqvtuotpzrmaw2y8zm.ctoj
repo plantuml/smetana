@@ -1,0 +1,48 @@
+public static void triangulate(__ptr__ pnlps, int pnln) {
+    int pnli, pnlip1, pnlip2;
+	if (pnln > 3) 
+	{
+		for (pnli = 0; pnli < pnln; pnli++) 
+		{
+			pnlip1 = (pnli + 1) % pnln;
+			pnlip2 = (pnli + 2) % pnln;
+			if (isdiagonal(pnli, pnlip2, pnlps, pnln)) 
+			{
+				loadtriangle(pnlps.plus(pnli).getPtr(), pnlps.plus(pnlip1).getPtr(), pnlps.plus(pnlip2).getPtr());
+				for (pnli = pnlip1; pnli < pnln - 1; pnli++)
+					pnlps.plus(pnli).setPtr(pnlps.plus(pnli + 1).getPtr());
+				triangulate(pnlps, pnln - 1);
+				return;
+			}
+		}
+UNSUPPORTED("b7cubu75mkrcno7zj7e0t4dqk"); // 		fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\shortest.c", 26, ("triangulation failed"));
+    } 
+	else
+		loadtriangle(pnlps.plus(0).getPtr(), pnlps.plus(1).getPtr(), pnlps.plus(2).getPtr());
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void triangulate(pointnlink_t ** pnlps, int pnln)
+{
+    int pnli, pnlip1, pnlip2;
+	if (pnln > 3) 
+	{
+		for (pnli = 0; pnli < pnln; pnli++) 
+		{
+			pnlip1 = (pnli + 1) % pnln;
+			pnlip2 = (pnli + 2) % pnln;
+			if (isdiagonal(pnli, pnlip2, pnlps, pnln)) 
+			{
+				loadtriangle(pnlps[pnli], pnlps[pnlip1], pnlps[pnlip2]);
+				for (pnli = pnlip1; pnli < pnln - 1; pnli++)
+					pnlps[pnli] = pnlps[pnli + 1];
+				triangulate(pnlps, pnln - 1);
+				return;
+			}
+		}
+		fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\shortest.c", 26, ("triangulation failed"));
+    } 
+	else
+		loadtriangle(pnlps[0], pnlps[1], pnlps[2]);
+}
+
