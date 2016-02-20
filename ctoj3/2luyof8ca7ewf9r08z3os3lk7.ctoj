@@ -1,6 +1,6 @@
 public static boolean nonconstraint_edge(Agedge_s e) {
     CString constr;
-    if (E_constr!=null && (constr = agxget(e, E_constr))!=null) {
+    if (Z._().E_constr!=null && (constr = agxget(e, Z._().E_constr))!=null) {
 	if (constr.charAt(0)!='\0' && mapbool(constr) == false)
 	    return (!(false));
     }

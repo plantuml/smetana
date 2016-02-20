@@ -12,17 +12,17 @@ public static _dt_s refdict(final Agraph_s g) {
 		else
 			dictref = STARSTAR.amp(new ACCESS<_dt_s>() {
 				public _dt_s get() {
-					return Refdict_default;
+					return Z._().Refdict_default;
 				}
 				public void set(_dt_s obj) {
-					Refdict_default = obj;
+					Z._().Refdict_default = obj;
 				}
 			});
     if (dictref.getMe() == null) {
-	dictref.setMe(agdtopen(g, Refstrdisc.amp(), Dttree));
+	dictref.setMe(agdtopen(g, Z._().Refstrdisc.amp(), Z._().Dttree));
 		}
-	HTML_BIT = 1 << 31;
-	CNT_BITS = ~HTML_BIT;
+	Z._().HTML_BIT = 1 << 31;
+	Z._().CNT_BITS = ~Z._().HTML_BIT;
     return dictref.getMe();
 }
 

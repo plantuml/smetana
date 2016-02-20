@@ -2,9 +2,9 @@ public static void mincross_options(Agraph_s g) {
     CString p;
     double f;
     /* set default values */
-    MinQuit = 8;
-    MaxIter = 24;
-    Convergence = .995;
+    Z._().MinQuit = 8;
+    Z._().MaxIter = 24;
+    Z._().Convergence = .995;
     p = agget(g, new CString("mclimit"));
     if (p!=null && ((f = atof(p)) > 0.0)) {
 UNSUPPORTED("4iu53eiz077u6joqgwawca8ya"); // 	MinQuit = ((1)>(MinQuit * f)?(1):(MinQuit * f));

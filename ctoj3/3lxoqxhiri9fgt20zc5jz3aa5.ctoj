@@ -11,7 +11,7 @@ UNSUPPORTED("53h8d82ax23hys2k21hjswp72"); // 	      1034, agnameof(g), agnameof(
     ND_order(n, i);
     GD_rank(g).plus(r).setInt("n", 1+GD_rank(g).plus(r).getInt("n"));
     // assert(GD_rank(g)[r].n <= GD_rank(g)[r].an);
-    if (ND_order(n) > GD_rank(Root).plus(r).getInt("an")) {
+    if (ND_order(n) > GD_rank(Z._().Root).plus(r).getInt("an")) {
 UNSUPPORTED("399szcw1txekt1xssyw7s2x07"); // 	agerr(AGERR, "install_in_rank, line %d: ND_order(%s) [%d] > GD_rank(Root)[%d].an [%d]\n",
 UNSUPPORTED("9puojrmsk6vb1qc0jtr8ge4g8"); // 	      1052, agnameof(n), ND_order(n), r, GD_rank(Root)[r].an);
 	return;
@@ -22,7 +22,7 @@ UNSUPPORTED("d2ugluzf7bmj7osicgitgy3sr"); // 	      1057, r, GD_minrank(g), GD_m
 	return;
     }
     if (GD_rank(g).plus(r).getPtr("v").plus(ND_order(n)).comparePointer(
-	GD_rank(g).plus(r).getPtr("av").plus(GD_rank(Root).plus(r).getInt("an")))>0) {
+	GD_rank(g).plus(r).getPtr("av").plus(GD_rank(Z._().Root).plus(r).getInt("an")))>0) {
 UNSUPPORTED("3eb32nc5czs5auwzz5p5mtl04"); // 	agerr(AGERR, "install_in_rank, line %d: GD_rank(g)[%d].v + ND_order(%s) [%d] > GD_rank(g)[%d].av + GD_rank(Root)[%d].an [%d]\n",
 UNSUPPORTED("3qe3qpw5h6vse39xs1ca9sjmo"); // 	      1062, r, agnameof(n),GD_rank(g)[r].v + ND_order(n), r, r, GD_rank(g)[r].av+GD_rank(Root)[r].an);
 	return;

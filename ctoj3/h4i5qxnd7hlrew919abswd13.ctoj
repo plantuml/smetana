@@ -1,16 +1,16 @@
 public static void translate_drawing(Agraph_s g) {
     Agnode_s v;
     Agedge_s e;
-    boolean shift = (Offset.getDouble("x")!=0.0 || Offset.getDouble("y")!=0.0);
-    if (N(shift) && N(Rankdir))
+    boolean shift = (Z._().Offset.getDouble("x")!=0.0 || Z._().Offset.getDouble("y")!=0.0);
+    if (N(shift) && N(Z._().Rankdir))
 	return;
     for (v = agfstnode(g); v!=null; v = agnxtnode(g, v)) {
-	if (Rankdir!=0)
+	if (Z._().Rankdir!=0)
 UNSUPPORTED("e0j848r4j1j7sojfht5gwikvi"); // 	    gv_nodesize(v, 0);
 	ND_coord(v).____(map_point(ND_coord(v)));
 	if (ND_xlabel(v)!=null)
 UNSUPPORTED("3fy0l7w2v24hzrvlpstpknwl7"); // 	    ND_xlabel(v)->pos = map_point(ND_xlabel(v)->pos);
-	if (State == 1)
+	if (Z._().State == 1)
 	    for (e = agfstout(g, v); e!=null; e = agnxtout(g, e))
 		map_edge(e);
     }

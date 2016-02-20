@@ -3,7 +3,7 @@ public static void edge_normalize(Agraph_s g) {
     Agnode_s n;
     for (n = agfstnode(g); n!=null; n = agnxtnode(g, n)) {
 	for (e = agfstout(g, n); e!=null; e = agnxtout(g, e)) {
-	    if ((Boolean)sinfo.call("swapEnds", e) && ED_spl(e)!=null)
+	    if ((Boolean)Z._().sinfo.call("swapEnds", e) && ED_spl(e)!=null)
 		swap_spline(ED_spl(e));
 	}
     }

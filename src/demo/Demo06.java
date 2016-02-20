@@ -1,8 +1,37 @@
+/* ========================================================================
+ * PlantUML : a free UML diagram generator
+ * ========================================================================
+ *
+ * Project Info:  http://plantuml.com
+ * 
+ * This file is part of Smetana.
+ * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
+ *
+ * (C) Copyright 2009-2017, Arnaud Roques
+ *
+ * This translation is distributed under the same Licence as the original C program.
+ * 
+ * THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE PUBLIC
+ * LICENSE ("AGREEMENT"). [Eclipse Public License - v 1.0]
+ * 
+ * ANY USE, REPRODUCTION OR DISTRIBUTION OF THE PROGRAM CONSTITUTES
+ * RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 package demo;
 
-import static gen.lib.cgraph.attr__c.*;
+import static gen.lib.cgraph.attr__c.agsafeset;
 import static gen.lib.cgraph.edge__c.agedge;
-import static gen.lib.cgraph.graph__c.Agdirected;
 import static gen.lib.cgraph.graph__c.agopen;
 import static gen.lib.cgraph.node__c.agnode;
 import static gen.lib.gvc.gvc__c.gvContext;
@@ -16,28 +45,31 @@ import java.io.File;
 import java.io.IOException;
 
 import smetana.core.CString;
-import smetana.core.JUtils;
+import smetana.core.JUtilsDebug;
+import smetana.core.Z;
 import smetana.core.debug.Debug;
-import demo.graphic.Graphic;
+import dot.Graphic;
 
 public class Demo06 {
 
 	public static void main(String[] args) throws IOException {
 
-		Agraph_s g = agopen(new CString("g"), Agdirected, null);
+		Agraph_s g = agopen(new CString("g"), Z._().Agdirected, null);
 		try {
 			work(g);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		JUtils.printCallStack(new File("CALLTRACE.txt"));
-		JUtils.printMethods();
+		JUtilsDebug.printCallStack(new File("CALLTRACE.txt"));
+		JUtilsDebug.printMethods();
 
 	}
 
 	private static Agnode_s createNode(Agraph_s g, String s) {
 		Agnode_s node = agnode(g, new CString(s), true);
 		agsafeset(node, new CString("shape"), new CString("box"), new CString(""));
+		agsafeset(node, new CString("width"), new CString("1"), new CString(""));
+		agsafeset(node, new CString("height"), new CString("1"), new CString(""));
 		return node;
 	}
 
@@ -56,11 +88,11 @@ public class Demo06 {
 
 
 	private static void work(Agraph_s g) {
-		Agnode_s n = createNode(g, "n");
-		Agnode_s m = createNode(g, "m");
+		Agnode_s n = createNode(g, "n", "1", "1");
+		Agnode_s m = createNode(g, "m", "1", "1");
 		Agnode_s m2 = createNode(g, "m2", "1.1", "1.2");
-		Agnode_s m3 = createNode(g, "m3");
-		Agnode_s m4 = createNode(g, "m4");
+		Agnode_s m3 = createNode(g, "m3", "1", "1");
+		Agnode_s m4 = createNode(g, "m4", "1", "1");
 		Agedge_s e = agedge(g, n, m, null, true);
 		noArrowAtAll(e);
 		Agedge_s e2 = agedge(g, n, m2, null, true);
@@ -85,26 +117,26 @@ public class Demo06 {
 		/* Compute a layout using layout engine from command line args */
 		gvLayoutJobs(gvc, g);
 
-		DemoUtils.printDebugNode(n);
-		DemoUtils.printDebugNode(m);
-		DemoUtils.printDebugNode(m2);
-		DemoUtils.printDebugNode(m3);
-		DemoUtils.printDebugNode(m4);
-		DemoUtils.printDebugEdge(e);
-		DemoUtils.printDebugEdge(e2);
-		DemoUtils.printDebugEdge(e3);
-		DemoUtils.printDebugEdge(e4);
+		DebugUtils.printDebugNode(n);
+		DebugUtils.printDebugNode(m);
+		DebugUtils.printDebugNode(m2);
+		DebugUtils.printDebugNode(m3);
+		DebugUtils.printDebugNode(m4);
+		DebugUtils.printDebugEdge(e);
+		DebugUtils.printDebugEdge(e2);
+		DebugUtils.printDebugEdge(e3);
+		DebugUtils.printDebugEdge(e4);
 
-		final Graphic graphic = new Graphic(640, 320);
+		final Graphic graphic = new Graphic();
 		graphic.addNode(n);
 		graphic.addNode(m);
 		graphic.addNode(m2);
 		graphic.addNode(m3);
 		graphic.addNode(m4);
-		graphic.addSplines(e);
-		graphic.addSplines(e2);
-		graphic.addSplines(e3);
-		graphic.addSplines(e4);
+		graphic.addEdge(e);
+		graphic.addEdge(e2);
+		graphic.addEdge(e3);
+		graphic.addEdge(e4);
 		graphic.drawTo(new File("out.png"));
 	}
 

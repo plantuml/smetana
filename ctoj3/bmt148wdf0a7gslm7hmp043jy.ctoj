@@ -6,7 +6,7 @@ public static shape_desc bind_shape(CString name, Agnode_s np) {
     if (str!=null && UNSUPPORTED("!(*(name)==*(\"epsf\")&&!strcmp(name,\"epsf\"))")!=null)
 	name = new CString("custom");
     if (N(name.charAt(0)=='c' && N(strcmp(name,new CString("custom"))))) {
-	for (shape_desc ptr : Shapes) {
+	for (shape_desc ptr : Z._().Shapes) {
 	    if ((N(strcmp(ptr.getCString("name"),name)))) {
 		rv = ptr;
 		break;

@@ -3,9 +3,9 @@ public static void init_rank() {
     nodequeue Q;
     Agnode_s v;
     Agedge_s e;
-    Q = new_queue(N_nodes);
+    Q = new_queue(Z._().N_nodes);
     ctr = 0;
-    for (v = GD_nlist(G); v!=null; v = ND_next(v)) {
+    for (v = GD_nlist(Z._().G_ns); v!=null; v = ND_next(v)) {
 	if (ND_priority(v) == 0)
 	    enqueue(Q, v);
     }
@@ -20,7 +20,7 @@ public static void init_rank() {
 		enqueue(Q, aghead(e));
 	}
     }
-    if (ctr != N_nodes) {
+    if (ctr != Z._().N_nodes) {
 UNSUPPORTED("7sgp99x1l3hzfks5wykxa87gf"); // 	agerr(AGERR, "trouble in init_rank\n");
 UNSUPPORTED("bwwunxmw4kgz6qntbn6xp0cur"); // 	for (v = (((Agraphinfo_t*)(((Agobj_t*)(G))->data))->nlist); v; v = (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->next))
 UNSUPPORTED("3dk132mz1u2pf0tla64kl6hv0"); // 	    if ((((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->priority))

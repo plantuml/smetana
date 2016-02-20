@@ -1,4 +1,4 @@
-private static int nedges, nboxes;
+//private static int nedges, nboxes;
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static int nedges, nboxes;

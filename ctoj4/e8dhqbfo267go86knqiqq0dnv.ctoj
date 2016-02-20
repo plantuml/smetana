@@ -1,4 +1,4 @@
-private static final __array_of_struct__ Arrownames = __array_of_struct__.malloc(arrowname_t.class, 3);
+/*private static final __array_of_struct__ Arrownames = __array_of_struct__.malloc(arrowname_t.class, 3);
 static {
 	Arrownames.plus(0).setStruct(create_arrowname_t("normal", 1));
 	Arrownames.plus(1).setStruct(create_arrowname_t("none", 8));
@@ -9,7 +9,7 @@ private final static __struct__ create_arrowname_t(String name, int type) {
 	result.setCString("name", name==null?null:new CString(name));
 	result.setInt("type", type);
 	return result;
-}
+}*/
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static arrowname_t Arrownames[] = {
     {"normal", 1},

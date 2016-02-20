@@ -2,33 +2,15 @@
  * PlantUML : a free UML diagram generator
  * ========================================================================
  *
- * (C) Copyright 2009-2017, Arnaud Roques
- *
  * Project Info:  http://plantuml.com
  * 
- * This file is part of PlantUML.
+ * This file is part of Smetana.
+ * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * PlantUML is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * (C) Copyright 2009-2017, Arnaud Roques
  *
- * PlantUML distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- *
- * Original Author:  Arnaud Roques
- *
- *
- *
- *
+ * This translation is distributed under the same Licence as the original C program:
+ * 
  *************************************************************************
  * Copyright (c) 2011 AT&T Intellectual Property 
  * All rights reserved. This program and the accompanying materials
@@ -39,164 +21,80 @@
  * Contributors: See CVS logs. Details at http://www.graphviz.org/
  *************************************************************************
  *
+ * THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE PUBLIC
+ * LICENSE ("AGREEMENT"). [Eclipse Public License - v 1.0]
+ * 
+ * ANY USE, REPRODUCTION OR DISTRIBUTION OF THE PROGRAM CONSTITUTES
+ * RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 package gen.lib.common;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.grammar__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.cgraph.y_tab__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.common.y_tab__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.dotgen2.decomp__c.*;
-import static gen.lib.dotgen2.dotinit__c.*;
-import static gen.lib.dotgen2.groups__c.*;
-import static gen.lib.dotgen2.level__c.*;
-import static gen.lib.dotgen2.minc2__c.*;
-import static gen.lib.dotgen2.minc_utils__c.*;
-import static gen.lib.dotgen2.ns__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import static gen.lib.cgraph.attr__c.agget;
+import static gen.lib.cgraph.edge__c.aghead;
+import static gen.lib.cgraph.edge__c.agtail;
+import static gen.lib.common.memory__c.zmalloc;
+import static gen.lib.common.utils__c.dequeue;
+import static gen.lib.common.utils__c.enqueue;
+import static gen.lib.common.utils__c.free_queue;
+import static gen.lib.common.utils__c.new_queue;
+import static smetana.core.JUtils.EQ;
+import static smetana.core.JUtils.NEQ;
+import static smetana.core.JUtils.atoi;
+import static smetana.core.JUtils.setjmp;
+import static smetana.core.JUtils.size_t_array_of_integer;
+import static smetana.core.JUtils.sizeof;
+import static smetana.core.JUtilsDebug.ENTERING;
+import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.ALLOC_empty;
+import static smetana.core.Macro.ED_cutvalue;
+import static smetana.core.Macro.ED_minlen;
+import static smetana.core.Macro.ED_tree_index;
+import static smetana.core.Macro.ED_weight;
+import static smetana.core.Macro.GD_nlist;
+import static smetana.core.Macro.INT_MAX;
+import static smetana.core.Macro.MAX;
+import static smetana.core.Macro.MIN;
+import static smetana.core.Macro.N;
+import static smetana.core.Macro.ND_in;
+import static smetana.core.Macro.ND_lim;
+import static smetana.core.Macro.ND_low;
+import static smetana.core.Macro.ND_mark;
+import static smetana.core.Macro.ND_next;
+import static smetana.core.Macro.ND_node_type;
+import static smetana.core.Macro.ND_out;
+import static smetana.core.Macro.ND_par;
+import static smetana.core.Macro.ND_priority;
+import static smetana.core.Macro.ND_rank;
+import static smetana.core.Macro.ND_tree_in;
+import static smetana.core.Macro.ND_tree_out;
+import static smetana.core.Macro.NOT;
+import static smetana.core.Macro.SEQ;
+import static smetana.core.Macro.SLACK;
+import static smetana.core.Macro.TREE_EDGE;
+import static smetana.core.Macro.UNSUPPORTED;
+import static smetana.core.Macro.free_list;
+import h.Agedge_s;
+import h.Agnode_s;
+import h.Agraph_s;
+import h.boxf;
+import h.nodequeue;
+import h.pointf;
+import smetana.core.CString;
+import smetana.core.Memory;
+import smetana.core.Z;
+import smetana.core.__ptr__;
+import smetana.core.__struct__;
+import smetana.core.jmp_buf;
 
 public class ns__c {
 //1 2digov3edok6d5srhgtlmrycs
@@ -842,30 +740,30 @@ private static jmp_buf jbuf = new jmp_buf();
 
 //1 5kbimjtsi4ulxiyk2w1brj6py
 // static graph_t *G
-private static Agraph_s G;
+//private static Agraph_s G;
 //1 608xz3ruk6qq4bs1sagl9fuav
 // static int N_nodes, N_edges
-private static int N_nodes, N_edges;
+//private static int N_nodes, N_edges;
 
 //1 cfz1upsuq7ct75nfqmyg925bo
 // static int Minrank, Maxrank
-static private int Minrank, Maxrank;
+//static private int Minrank, Maxrank;
 
 //1 1xxb2cip20ls1938be1sgpc8s
 // static int S_i
-private static int S_i;
+//private static int S_i;
 
 //1 2ahnzxrqoz8eoicu88g9jzic7
 // static int Search_size
-private static int Search_size;
+//private static int Search_size;
 
 //1 3t9aql1n1eclyvy7p2nwyacor
 // static nlist_t Tree_node
-private static final __struct__<nlist_t> Tree_node = __struct__.from(nlist_t.class);
+//private static final __struct__<nlist_t> Tree_node = __struct__.from(nlist_t.class);
 
 //1 11b7xeg0x1f09v305mxwvgbhs
 // static elist Tree_edge
-private static final __struct__<elist> Tree_edge = __struct__.from(elist.class);
+//private static final __struct__<elist> Tree_edge = __struct__.from(elist.class);
 
 
 
@@ -879,39 +777,39 @@ try {
 UNSUPPORTED("cq4nqjjxvb0dtdfy4c7pwpqai"); // 	agerr(AGERR, "add_tree_edge: missing tree edge\n");
 UNSUPPORTED("6fzmgjpkhmnx0a2cnt0q0rceg"); // 	longjmp (jbuf, 1);
     }
-    ED_tree_index(e, Tree_edge.getInt("size"));
+    ED_tree_index(e, Z._().Tree_edge.getInt("size"));
     
-    Tree_edge.getArray("list").plus(Tree_edge.getInt("size")).setPtr(e);
-    Tree_edge.setInt("size", 1+ Tree_edge.getInt("size"));
+    Z._().Tree_edge.getArrayOfPtr("list").plus(Z._().Tree_edge.getInt("size")).setPtr(e);
+    Z._().Tree_edge.setInt("size", 1+ Z._().Tree_edge.getInt("size"));
         
     if (ND_mark(agtail(e)) == 0) {
-	Tree_node.getArray("list").plus(Tree_node.getInt("size")).setPtr(agtail(e));
-    Tree_node.setInt("size", 1+ Tree_node.getInt("size"));
+	Z._().Tree_node.getArrayOfPtr("list").plus(Z._().Tree_node.getInt("size")).setPtr(agtail(e));
+    Z._().Tree_node.setInt("size", 1+ Z._().Tree_node.getInt("size"));
 	}
 	
     if (ND_mark(aghead(e)) == 0) {
-	Tree_node.getArray("list").plus(Tree_node.getInt("size")).setPtr(aghead(e));
-    Tree_node.setInt("size", 1+ Tree_node.getInt("size"));
+	Z._().Tree_node.getArrayOfPtr("list").plus(Z._().Tree_node.getInt("size")).setPtr(aghead(e));
+    Z._().Tree_node.setInt("size", 1+ Z._().Tree_node.getInt("size"));
 	}
     n = agtail(e);
     ND_mark(n, 1);
     
-    ND_tree_out(n).getArray("list").plus(ND_tree_out(n).getInt("size")).setPtr(e);
+    ND_tree_out(n).getArrayOfPtr("list").plus(ND_tree_out(n).getInt("size")).setPtr(e);
     ND_tree_out(n).setInt("size", 1+ND_tree_out(n).getInt("size"));
-    ND_tree_out(n).getArray("list").plus(ND_tree_out(n).getInt("size")).setPtr(null);
+    ND_tree_out(n).getArrayOfPtr("list").plus(ND_tree_out(n).getInt("size")).setPtr(null);
     
-    if (ND_out(n).getArray("list").plus(ND_tree_out(n).getInt("size") - 1).getPtr() == null) {
+    if (ND_out(n).getArrayOfPtr("list").plus(ND_tree_out(n).getInt("size") - 1).getPtr() == null) {
 UNSUPPORTED("9src34zgmgy8yvdzfs1ozlh0w"); // 	agerr(AGERR, "add_tree_edge: empty outedge list\n");
 UNSUPPORTED("6fzmgjpkhmnx0a2cnt0q0rceg"); // 	longjmp (jbuf, 1);
     }
     n = aghead(e);
     ND_mark(n, 1);
     
-    ND_tree_in(n).getArray("list").plus(ND_tree_in(n).getInt("size")).setPtr(e);
+    ND_tree_in(n).getArrayOfPtr("list").plus(ND_tree_in(n).getInt("size")).setPtr(e);
     ND_tree_in(n).setInt("size", 1+ND_tree_in(n).getInt("size"));
-    ND_tree_in(n).getArray("list").plus(ND_tree_in(n).getInt("size")).setPtr(null);
+    ND_tree_in(n).getArrayOfPtr("list").plus(ND_tree_in(n).getInt("size")).setPtr(null);
 
-    if (ND_in(n).getArray("list").plus(ND_tree_in(n).getInt("size") - 1).getPtr() == null) {
+    if (ND_in(n).getArrayOfPtr("list").plus(ND_tree_in(n).getInt("size") - 1).getPtr() == null) {
 UNSUPPORTED("f0uri98pv606g2qjpy9k385cy"); // 	agerr(AGERR, "add_tree_edge: empty inedge list\n");
 UNSUPPORTED("6fzmgjpkhmnx0a2cnt0q0rceg"); // 	longjmp (jbuf, 1);
     }
@@ -931,32 +829,32 @@ try {
     int i, j;
     Agnode_s n;
     ED_tree_index(f, ED_tree_index(e));
-    Tree_edge.getArray("list").plus(ED_tree_index(e)).setPtr(f);
+    Z._().Tree_edge.getArrayOfPtr("list").plus(ED_tree_index(e)).setPtr(f);
     ED_tree_index(e, -1);
     n = agtail(e);
     ND_tree_out(n).setInt("size", ND_tree_out(n).getInt("size") -1);
     i = ND_tree_out(n).getInt("size");
     for (j = 0; j <= i; j++)
-	if (EQ(ND_tree_out(n).getArray("list").plus(j).getPtr(), e))
+	if (EQ(ND_tree_out(n).getArrayOfPtr("list").plus(j).getPtr(), e))
 	    break;
-    ND_tree_out(n).getArray("list").plus(j).setPtr(ND_tree_out(n).getArray("list").plus(i).getPtr());
-    ND_tree_out(n).getArray("list").plus(i).setPtr(null);
+    ND_tree_out(n).getArrayOfPtr("list").plus(j).setPtr(ND_tree_out(n).getArrayOfPtr("list").plus(i).getPtr());
+    ND_tree_out(n).getArrayOfPtr("list").plus(i).setPtr(null);
     n = aghead(e);
     ND_tree_in(n).setInt("size", ND_tree_in(n).getInt("size") -1);
     i = ND_tree_in(n).getInt("size");
     for (j = 0; j <= i; j++)
-	if (EQ(ND_tree_in(n).getArray("list").plus(j).getPtr(), e))
+	if (EQ(ND_tree_in(n).getArrayOfPtr("list").plus(j).getPtr(), e))
 	    break;
-    ND_tree_in(n).getArray("list").plus(j).setPtr(ND_tree_in(n).getArray("list").plus(i).getPtr());
-    ND_tree_in(n).getArray("list").plus(i).setPtr(null);
+    ND_tree_in(n).getArrayOfPtr("list").plus(j).setPtr(ND_tree_in(n).getArrayOfPtr("list").plus(i).getPtr());
+    ND_tree_in(n).getArrayOfPtr("list").plus(i).setPtr(null);
     n = agtail(f);
-    ND_tree_out(n).getArray("list").plus(ND_tree_out(n).getInt("size")).setPtr(f);
+    ND_tree_out(n).getArrayOfPtr("list").plus(ND_tree_out(n).getInt("size")).setPtr(f);
     ND_tree_out(n).setInt("size", ND_tree_out(n).getInt("size") +1);
-    ND_tree_out(n).getArray("list").plus(ND_tree_out(n).getInt("size")).setPtr(null);
+    ND_tree_out(n).getArrayOfPtr("list").plus(ND_tree_out(n).getInt("size")).setPtr(null);
     n = aghead(f);
-    ND_tree_in(n).getArray("list").plus(ND_tree_in(n).getInt("size")).setPtr(f);
+    ND_tree_in(n).getArrayOfPtr("list").plus(ND_tree_in(n).getInt("size")).setPtr(f);
     ND_tree_in(n).setInt("size", ND_tree_in(n).getInt("size") +1);
-    ND_tree_in(n).getArray("list").plus(ND_tree_in(n).getInt("size")).setPtr(null);
+    ND_tree_in(n).getArrayOfPtr("list").plus(ND_tree_in(n).getInt("size")).setPtr(null);
 } finally {
 LEAVING("9b7b78pmafynmvffztrqnlxtn","exchange_tree_edges");
 }
@@ -974,24 +872,24 @@ try {
     nodequeue Q;
     Agnode_s v;
     Agedge_s e;
-    Q = new_queue(N_nodes);
+    Q = new_queue(Z._().N_nodes);
     ctr = 0;
-    for (v = GD_nlist(G); v!=null; v = ND_next(v)) {
+    for (v = GD_nlist(Z._().G_ns); v!=null; v = ND_next(v)) {
 	if (ND_priority(v) == 0)
 	    enqueue(Q, v);
     }
     while ((v = dequeue(Q))!=null) {
 	ND_rank(v, 0);
 	ctr++;
-	for (i = 0; (e = (Agedge_s) ND_in(v).getArray("list").plus(i).getPtr())!=null; i++)
+	for (i = 0; (e = (Agedge_s) ND_in(v).getArrayOfPtr("list").plus(i).getPtr())!=null; i++)
 	    ND_rank(v, MAX(ND_rank(v), ND_rank(agtail(e)) + ED_minlen(e)));
-	for (i = 0; (e = (Agedge_s) ND_out(v).getArray("list").plus(i).getPtr())!=null; i++) {
+	for (i = 0; (e = (Agedge_s) ND_out(v).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
 	    ND_priority(aghead(e), ND_priority(aghead(e)) -1 );
 	    if ((ND_priority(aghead(e))) <= 0)
 		enqueue(Q, aghead(e));
 	}
     }
-    if (ctr != N_nodes) {
+    if (ctr != Z._().N_nodes) {
 UNSUPPORTED("7sgp99x1l3hzfks5wykxa87gf"); // 	agerr(AGERR, "trouble in init_rank\n");
 UNSUPPORTED("bwwunxmw4kgz6qntbn6xp0cur"); // 	for (v = (((Agraphinfo_t*)(((Agobj_t*)(G))->data))->nlist); v; v = (((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->next))
 UNSUPPORTED("3dk132mz1u2pf0tla64kl6hv0"); // 	    if ((((Agnodeinfo_t*)(((Agobj_t*)(v))->data))->priority))
@@ -1034,32 +932,32 @@ ENTERING("4i9tcvid2iql874c6k70s9aqm","leave_edge");
 try {
     Agedge_s f, rv = null;
     int j, cnt = 0;
-    j = S_i;
-    while (S_i < Tree_edge.getInt("size")) {
-	if (ED_cutvalue(f = (Agedge_s) Tree_edge.getArray("list").plus(S_i).getPtr()) < 0) {
+    j = Z._().S_i;
+    while (Z._().S_i < Z._().Tree_edge.getInt("size")) {
+	if (ED_cutvalue(f = (Agedge_s) Z._().Tree_edge.getArrayOfPtr("list").plus(Z._().S_i).getPtr()) < 0) {
 	    if (rv!=null) {
 		if (ED_cutvalue(rv) > ED_cutvalue(f))
 		    rv = f;
 	    } else
-		rv = (Agedge_s) Tree_edge.getArray("list").plus(S_i).getPtr();
-	    if (++cnt >= Search_size)
+		rv = (Agedge_s) Z._().Tree_edge.getArrayOfPtr("list").plus(Z._().S_i).getPtr();
+	    if (++cnt >= Z._().Search_size)
 		return rv;
 	}
-	S_i++;
+	Z._().S_i++;
     }
     if (j > 0) {
-	S_i = 0;
-	while (S_i < j) {
-	    if (ED_cutvalue(f = (Agedge_s) Tree_edge.getArray("list").plus(S_i).getPtr()) < 0) {
+	Z._().S_i = 0;
+	while (Z._().S_i < j) {
+	    if (ED_cutvalue(f = (Agedge_s) Z._().Tree_edge.getArrayOfPtr("list").plus(Z._().S_i).getPtr()) < 0) {
 		if (rv!=null) {
 		    if (ED_cutvalue(rv) > ED_cutvalue(f))
 			rv = f;
 		} else
-		    rv = (Agedge_s) Tree_edge.getArray("list").plus(S_i).getPtr();
-		if (++cnt >= Search_size)
+		    rv = (Agedge_s) Z._().Tree_edge.getArrayOfPtr("list").plus(Z._().S_i).getPtr();
+		if (++cnt >= Z._().Search_size)
 		    return rv;
 	    }
-	    S_i++;
+	    Z._().S_i++;
 	}
     }
     return rv;
@@ -1071,39 +969,39 @@ LEAVING("4i9tcvid2iql874c6k70s9aqm","leave_edge");
 
 //1 3wm7ej298st1xk7rbhbtnbk64
 // static edge_t *Enter
-private static Agedge_s Enter;
+//private static Agedge_s Enter;
 
 //1 dx9f0e947f5kjhc2eftn43t90
 // static int Low, Lim, Slack
-private static int Low, Lim, Slack;
+//private static int Low, Lim, Slack;
 
 
 
 //3 10lkpr4y40luvy2idlozfiva3
 // static void dfs_enter_outedge(node_t * v) 
-public static Object dfs_enter_outedge(Object... arg) {
-UNSUPPORTED("5aeisjkzrf2n2kypeh7zb86ik"); // static void dfs_enter_outedge(node_t * v)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("f5kktpag8d9zee5idgik7srfl"); //     int i, slack;
-UNSUPPORTED("5gypxs09iuryx5a2eho9lgdcp"); //     edge_t *e;
-UNSUPPORTED("3sorv2cchit2xibaz0x5980lt"); //     for (i = 0; (e = ND_out(v).list[i]); i++) {
-UNSUPPORTED("b6myhyykz9cyx50wntod4j1fg"); // 	if (TREE_EDGE(e) == 0) {
-UNSUPPORTED("js3jaijsi09p2nocnj9l0fyt"); // 	    if (!SEQ(Low, ND_lim(aghead(e)), Lim)) {
-UNSUPPORTED("87036mgzpjrymwuunxnrdlyqj"); // 		slack = SLACK(e);
-UNSUPPORTED("3bx25ml174yh77z4gvt8f9kbw"); // 		if ((slack < Slack) || (Enter == NULL)) {
-UNSUPPORTED("bu6yvi44cx564ex4bqjqwkg6l"); // 		    Enter = e;
-UNSUPPORTED("8xs72plo1jwfx1py5vfl6e30x"); // 		    Slack = slack;
-UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("511osbx5joqk0e7vic2qmul6t"); // 	} else if (ND_lim(aghead(e)) < ND_lim(v))
-UNSUPPORTED("b5nky1f2p4lwciitop8n892oy"); // 	    dfs_enter_outedge(aghead(e));
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("3hbniohqzyw4q06k6khi0lhr3"); //     for (i = 0; (e = ND_tree_in(v).list[i]) && (Slack > 0); i++)
-UNSUPPORTED("cq4gpojg2kbk8nekia9oelvfe"); // 	if (ND_lim(agtail(e)) < ND_lim(v))
-UNSUPPORTED("1e6s3gszer8v4tv4hlrdhoimv"); // 	    dfs_enter_outedge(agtail(e));
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static void dfs_enter_outedge(Agnode_s v) {
+ENTERING("10lkpr4y40luvy2idlozfiva3","dfs_enter_outedge");
+try {
+    int i, slack;
+    Agedge_s e;
+    for (i = 0; (e = (Agedge_s) ND_out(v).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
+	if (TREE_EDGE(e) == false) {
+	    if (N(SEQ(Z._().Low, ND_lim(aghead(e)), Z._().Lim))) {
+		slack = SLACK(e);
+		if ((slack < Z._().Slack) || (Z._().Enter == null)) {
+		    Z._().Enter = e;
+		    Z._().Slack = slack;
+		}
+	    }
+	} else if (ND_lim(aghead(e)) < ND_lim(v))
+	    dfs_enter_outedge(aghead(e));
+    }
+    for (i = 0; (e = (Agedge_s) ND_tree_in(v).getArrayOfPtr("list").plus(i).getPtr())!=null && (Z._().Slack > 0); i++)
+	if (ND_lim(agtail(e)) < ND_lim(v))
+	    dfs_enter_outedge(agtail(e));
+} finally {
+LEAVING("10lkpr4y40luvy2idlozfiva3","dfs_enter_outedge");
+}
 }
 
 
@@ -1116,19 +1014,19 @@ ENTERING("2z9nii6380p8qlql8nznzgvof","dfs_enter_inedge");
 try {
     int i, slack;
     Agedge_s e;
-    for (i = 0; (e = (Agedge_s) ND_in(v).getArray("list").plus(i).getPtr())!=null; i++) {
+    for (i = 0; (e = (Agedge_s) ND_in(v).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
 	if (TREE_EDGE(e) == false) {
-	    if (N(SEQ(Low, ND_lim(agtail(e)), Lim))) {
+	    if (N(SEQ(Z._().Low, ND_lim(agtail(e)), Z._().Lim))) {
 		slack = SLACK(e);
-		if ((slack < Slack) || (Enter == null)) {
-		    Enter = e;
-		    Slack = slack;
+		if ((slack < Z._().Slack) || (Z._().Enter == null)) {
+		    Z._().Enter = e;
+		    Z._().Slack = slack;
 		}
 	    }
 	} else if (ND_lim(agtail(e)) < ND_lim(v))
 	    dfs_enter_inedge(agtail(e));
     }
-    for (i = 0; (e = (Agedge_s) ND_tree_out(v).getArray("list").plus(i).getPtr())!=null && (Slack > 0); i++)
+    for (i = 0; (e = (Agedge_s) ND_tree_out(v).getArrayOfPtr("list").plus(i).getPtr())!=null && (Z._().Slack > 0); i++)
 	if (ND_lim(aghead(e)) < ND_lim(v))
 	    dfs_enter_inedge(aghead(e));
 } finally {
@@ -1154,15 +1052,15 @@ try {
 	v = aghead(e);
 	outsearch = 1;
     }
-    Enter = null;
-    Slack = INT_MAX;
-    Low = ND_low(v);
-    Lim = ND_lim(v);
+    Z._().Enter = null;
+    Z._().Slack = INT_MAX;
+    Z._().Low = ND_low(v);
+    Z._().Lim = ND_lim(v);
     if (outsearch!=0)
 	dfs_enter_outedge(v);
     else
 	dfs_enter_inedge(v);
-    return Enter;
+    return Z._().Enter;
 } finally {
 LEAVING("aeu2po1o1rvibmafk0k8dw0fh","enter_edge");
 }
@@ -1178,17 +1076,17 @@ ENTERING("1gvyafmercq92v3lg6gb33cbt","treesearch");
 try {
     int i;
     Agedge_s e;
-    for (i = 0; (e = (Agedge_s) ND_out(v).getArray("list").plus(i).getPtr())!=null; i++) {
+    for (i = 0; (e = (Agedge_s) ND_out(v).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
 	if ((ND_mark(aghead(e)) == 0) && (SLACK(e) == 0)) {
 	    add_tree_edge(e);
-	    if ((Tree_edge.getInt("size") == N_nodes - 1) || treesearch(aghead(e)))
+	    if ((Z._().Tree_edge.getInt("size") == Z._().N_nodes - 1) || treesearch(aghead(e)))
 		return NOT(0);
 	}
     }
-    for (i = 0; (e = (Agedge_s) ND_in(v).getArray("list").plus(i).getPtr())!=null; i++) {
+    for (i = 0; (e = (Agedge_s) ND_in(v).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
 	if ((ND_mark(agtail(e)) == 0) && (SLACK(e) == 0)) {
 	    add_tree_edge(e);
-	    if ((Tree_edge.getInt("size") == N_nodes - 1) || treesearch(agtail(e)))
+	    if ((Z._().Tree_edge.getInt("size") == Z._().N_nodes - 1) || treesearch(agtail(e)))
 		return NOT(0);
 	}
     }
@@ -1208,20 +1106,20 @@ ENTERING("c98bj1u8j43cdezeczn33mec0","tight_tree");
 try {
     int i;
     Agnode_s n;
-    for (n = GD_nlist(G); n!=null; n = ND_next(n)) {
+    for (n = GD_nlist(Z._().G_ns); n!=null; n = ND_next(n)) {
 	ND_mark(n, 0);
-	ND_tree_in(n).getArray("list").plus(0).setPtr(null);
-	ND_tree_out(n).getArray("list").plus(0).setPtr(null);
+	ND_tree_in(n).getArrayOfPtr("list").plus(0).setPtr(null);
+	ND_tree_out(n).getArrayOfPtr("list").plus(0).setPtr(null);
 	ND_tree_in(n).setInt("size", 0);
 	ND_tree_out(n).setInt("size", 0);
     }
-    for (i = 0; i < Tree_edge.getInt("size"); i++)
-	ED_tree_index(Tree_edge.getArray("list").plus(i).getPtr(), -1);
-    Tree_node.setInt("size", 0);
-    Tree_edge.setInt("size", 0);
-    for (n = GD_nlist(G); n!=null && (Tree_edge.getInt("size") == 0); n = ND_next(n))
+    for (i = 0; i < Z._().Tree_edge.getInt("size"); i++)
+	ED_tree_index(Z._().Tree_edge.getArrayOfPtr("list").plus(i).getPtr(), -1);
+    Z._().Tree_node.setInt("size", 0);
+    Z._().Tree_edge.setInt("size", 0);
+    for (n = GD_nlist(Z._().G_ns); n!=null && (Z._().Tree_edge.getInt("size") == 0); n = ND_next(n))
 	treesearch(n);
-    return Tree_node.getInt("size");
+    return Z._().Tree_node.getInt("size");
 } finally {
 LEAVING("c98bj1u8j43cdezeczn33mec0","tight_tree");
 }
@@ -1235,8 +1133,8 @@ LEAVING("c98bj1u8j43cdezeczn33mec0","tight_tree");
 public static void init_cutvalues() {
 ENTERING("10o7oe8d097fx7swmpqd4tf0h","init_cutvalues");
 try {
-    dfs_range(GD_nlist(G), null, 1);
-    dfs_cutval(GD_nlist(G), null);
+    dfs_range(GD_nlist(Z._().G_ns), null, 1);
+    dfs_cutval(GD_nlist(Z._().G_ns), null);
 } finally {
 LEAVING("10o7oe8d097fx7swmpqd4tf0h","init_cutvalues");
 }
@@ -1253,12 +1151,12 @@ try {
     int i, delta;
     Agnode_s n;
     Agedge_s e, f;
-    if (N_nodes <= 1)
+    if (Z._().N_nodes <= 1)
 	return 0;
-    while (tight_tree() < N_nodes) {
+    while (tight_tree() < Z._().N_nodes) {
 	e = null;
-	for (n = GD_nlist(G); n!=null; n = ND_next(n)) {
-	    for (i = 0; (f = (Agedge_s) ND_out(n).getArray("list").plus(i).getPtr())!=null; i++) {
+	for (n = GD_nlist(Z._().G_ns); n!=null; n = ND_next(n)) {
+	    for (i = 0; (f = (Agedge_s) ND_out(n).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
 		if ((TREE_EDGE(f) == false) && incident(f)!=null && ((e == null)
 							       || (SLACK(f)
 								   <
@@ -1272,8 +1170,8 @@ try {
 	    if (delta!=0) {
 		if (EQ(incident(e), aghead(e)))
 		    delta = -delta;
-		for (i = 0; i < Tree_node.getInt("size"); i++)
-		    ND_rank(Tree_node.getArray("list").plus(i).getPtr(), ND_rank(Tree_node.getArray("list").plus(i).getPtr()) + delta);
+		for (i = 0; i < Z._().Tree_node.getInt("size"); i++)
+		    ND_rank(Z._().Tree_node.getArrayOfPtr("list").plus(i).getPtr(), ND_rank(Z._().Tree_node.getArrayOfPtr("list").plus(i).getPtr()) + delta);
 	    }
 	} else {
 	    return 1;
@@ -1328,10 +1226,10 @@ try {
     int i;
     Agedge_s e;
     ND_rank(v, ND_rank(v) - delta);
-    for (i = 0; (e = (Agedge_s) ND_tree_out(v).getArray("list").plus(i).getPtr())!=null; i++)
+    for (i = 0; (e = (Agedge_s) ND_tree_out(v).getArrayOfPtr("list").plus(i).getPtr())!=null; i++)
 	if (NEQ(e, ND_par(v)))
 	    rerank(aghead(e), delta);
-    for (i = 0; (e = (Agedge_s) ND_tree_in(v).getArray("list").plus(i).getPtr())!=null; i++)
+    for (i = 0; (e = (Agedge_s) ND_tree_in(v).getArrayOfPtr("list").plus(i).getPtr())!=null; i++)
 	if (NEQ(e, ND_par(v)))
 	    rerank(agtail(e), delta);
 } finally {
@@ -1392,19 +1290,19 @@ public static void scan_and_normalize() {
 ENTERING("3yw7w42hz7af67d6qse3b2172","scan_and_normalize");
 try {
     Agnode_s n;
-    Minrank = Integer.MAX_VALUE;
-    Maxrank = -Integer.MAX_VALUE;
-    for (n = GD_nlist(G); n!=null; n = ND_next(n)) {
+    Z._().Minrank = Integer.MAX_VALUE;
+    Z._().Maxrank = -Integer.MAX_VALUE;
+    for (n = GD_nlist(Z._().G_ns); n!=null; n = ND_next(n)) {
 	if (ND_node_type(n) == 0) {
-	    Minrank = MIN(Minrank, ND_rank(n));
-	    Maxrank = MAX(Maxrank, ND_rank(n));
+	    Z._().Minrank = MIN(Z._().Minrank, ND_rank(n));
+	    Z._().Maxrank = MAX(Z._().Maxrank, ND_rank(n));
 	}
     }
-    if (Minrank != 0) {
-	for (n = GD_nlist(G); n!=null; n = ND_next(n))
-	    ND_rank(n, ND_rank(n) - Minrank);
-	Maxrank -= Minrank;
-	Minrank = 0;
+    if (Z._().Minrank != 0) {
+	for (n = GD_nlist(Z._().G_ns); n!=null; n = ND_next(n))
+	    ND_rank(n, ND_rank(n) - Z._().Minrank);
+	Z._().Maxrank -= Z._().Minrank;
+	Z._().Minrank = 0;
     }
 } finally {
 LEAVING("3yw7w42hz7af67d6qse3b2172","scan_and_normalize");
@@ -1420,7 +1318,7 @@ public static void freeTreeList(Agraph_s g) {
 ENTERING("7eg6zti36nbg4tqyo8yunh86r","freeTreeList");
 try {
     Agnode_s n;
-    for (n = GD_nlist(G); n!=null; n = ND_next(n)) {
+    for (n = GD_nlist(Z._().G_ns); n!=null; n = ND_next(n)) {
 	free_list(ND_tree_in(n));
 	free_list(ND_tree_out(n));
 	ND_mark(n, 0);
@@ -1440,8 +1338,8 @@ ENTERING("9gx8p7md3v3mzp640xdjj814a","LR_balance");
 try {
     int i, delta;
     Agedge_s e, f;
-    for (i = 0; i < Tree_edge.getInt("size"); i++) {
-	e = (Agedge_s) Tree_edge.getArray("list").plus(i).getPtr();
+    for (i = 0; i < Z._().Tree_edge.getInt("size"); i++) {
+	e = (Agedge_s) Z._().Tree_edge.getArrayOfPtr("list").plus(i).getPtr();
 	if (ED_cutvalue(e) == 0) {
 	    f = enter_edge(e);
 	    if (f == null)
@@ -1455,7 +1353,7 @@ try {
 		rerank(aghead(e), -delta / 2);
 	}
     }
-    freeTreeList (G);
+    freeTreeList (Z._().G_ns);
 } finally {
 LEAVING("9gx8p7md3v3mzp640xdjj814a","LR_balance");
 }
@@ -1476,23 +1374,23 @@ try {
     int inweight, outweight;
     scan_and_normalize();
     /* find nodes that are not tight and move to less populated ranks */
-    nrank = zmalloc(size_t_array_of_integer(Maxrank + 1));
-    for (i = 0; i <= Maxrank; i++)
+    nrank = zmalloc(size_t_array_of_integer(Z._().Maxrank + 1));
+    for (i = 0; i <= Z._().Maxrank; i++)
 	nrank.plus(i).setInt(0);
-    for (n = GD_nlist(G); n!=null; n = ND_next(n))
+    for (n = GD_nlist(Z._().G_ns); n!=null; n = ND_next(n))
 	if (ND_node_type(n) == 0)
 	    nrank.plus(ND_rank(n)).setInt(1+nrank.plus(ND_rank(n)).getInt());
-    for (n = GD_nlist(G); n!=null; n = ND_next(n)) {
+    for (n = GD_nlist(Z._().G_ns); n!=null; n = ND_next(n)) {
 	if (ND_node_type(n) != 0)
 	    continue;
 	inweight = outweight = 0;
 	low = 0;
-	high = Maxrank;
-	for (i = 0; (e = (Agedge_s) ND_in(n).getArray("list").plus(i).getPtr())!=null; i++) {
+	high = Z._().Maxrank;
+	for (i = 0; (e = (Agedge_s) ND_in(n).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
 	    inweight += ED_weight(e);
 	    low = MAX(low, ND_rank(agtail(e)) + ED_minlen(e));
 	}
-	for (i = 0; (e = (Agedge_s) ND_out(n).getArray("list").plus(i).getPtr())!=null; i++) {
+	for (i = 0; (e = (Agedge_s) ND_out(n).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
 	    outweight += ED_weight(e);
 	    high = MIN(high, ND_rank(aghead(e)) - ED_minlen(e));
 	}
@@ -1528,22 +1426,22 @@ try {
     int i, feasible;
     Agnode_s n;
     Agedge_s e;
-    G = g;
-    N_nodes = N_edges = S_i = 0;
+    Z._().G_ns = g;
+    Z._().N_nodes = Z._().N_edges = Z._().S_i = 0;
     for (n = GD_nlist(g); n!=null; n = ND_next(n)) {
 	ND_mark(n, 0);
-	N_nodes++;
-	for (i = 0; (e = (Agedge_s) ND_out(n).getArray("list").plus(i).getPtr())!=null; i++)
-	    N_edges++;
+	Z._().N_nodes++;
+	for (i = 0; (e = (Agedge_s) ND_out(n).getArrayOfPtr("list").plus(i).getPtr())!=null; i++)
+	    Z._().N_edges++;
     }
-    Tree_node.setPtr("list", ALLOC_empty(N_nodes, Tree_node.getPtr("list"), Agnode_s.class));
-    Tree_node.setInt("size", 0);
-    Tree_edge.setPtr("list", ALLOC_empty(N_nodes, Tree_edge.getPtr("list"), Agedge_s.class));
-    Tree_edge.setInt("size", 0);
+    Z._().Tree_node.setPtr("list", ALLOC_empty(Z._().N_nodes, Z._().Tree_node.getPtr("list"), Agnode_s.class));
+    Z._().Tree_node.setInt("size", 0);
+    Z._().Tree_edge.setPtr("list", ALLOC_empty(Z._().N_nodes, Z._().Tree_edge.getPtr("list"), Agedge_s.class));
+    Z._().Tree_edge.setInt("size", 0);
     feasible = 1;
     for (n = GD_nlist(g); n!=null; n = ND_next(n)) {
 	ND_priority(n, 0);
-	for (i = 0; (e = (Agedge_s) ND_in(n).getArray("list").plus(i).getPtr())!=null; i++) {
+	for (i = 0; (e = (Agedge_s) ND_in(n).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
 	    ND_priority(n, 1+ND_priority(n));
 	    ED_cutvalue(e, 0);
 	    ED_tree_index(e, -1);
@@ -1553,7 +1451,7 @@ try {
 	}
 	ND_tree_in(n).setPtr("list", zmalloc(sizeof(Agedge_s.class, i+1)));;
 	ND_tree_in(n).setInt("size", 0);
-	for (i = 0; (e = (Agedge_s) ND_out(n).getArray("list").plus(i).getPtr())!=null; i++);
+	for (i = 0; (e = (Agedge_s) ND_out(n).getArrayOfPtr("list").plus(i).getPtr())!=null; i++);
 	ND_tree_out(n).setPtr("list", zmalloc(sizeof(Agedge_s.class, i+1)));
 	ND_tree_out(n).setInt("size", 0);
     }
@@ -1615,9 +1513,9 @@ try {
 	return 1;
     }
     if (search_size >= 0)
-	Search_size = search_size;
+	Z._().Search_size = search_size;
     else
-	Search_size = 30;
+	Z._().Search_size = 30;
     if (setjmp (jbuf)!=0) {
 	return 2;
     }
@@ -1648,7 +1546,7 @@ try {
 	break;
     default:
 	scan_and_normalize();
-	freeTreeList (G);
+	freeTreeList (Z._().G_ns);
 	break;
     }
     /*if (Verbose) {
@@ -1703,9 +1601,9 @@ try {
 	dir = -1;
     }
     sum = 0;
-    for (i = 0; (e = (Agedge_s) ND_out(v).getArray("list").plus(i).getPtr())!=null; i++)
+    for (i = 0; (e = (Agedge_s) ND_out(v).getArrayOfPtr("list").plus(i).getPtr())!=null; i++)
 	sum += x_val(e, v, dir);
-    for (i = 0; (e = (Agedge_s) ND_in(v).getArray("list").plus(i).getPtr())!=null; i++)
+    for (i = 0; (e = (Agedge_s) ND_in(v).getArrayOfPtr("list").plus(i).getPtr())!=null; i++)
 	sum += x_val(e, v, dir);
     ED_cutvalue(f, sum);
 } finally {
@@ -1769,10 +1667,10 @@ ENTERING("ah65iqmwa5j0qwotm6amhijlg","dfs_cutval");
 try {
     int i;
     Agedge_s e;
-    for (i = 0; (e = (Agedge_s) ND_tree_out(v).getArray("list").plus(i).getPtr())!=null; i++)
+    for (i = 0; (e = (Agedge_s) ND_tree_out(v).getArrayOfPtr("list").plus(i).getPtr())!=null; i++)
 	if (NEQ(e, par))
 	    dfs_cutval(aghead(e), e);
-    for (i = 0; (e = (Agedge_s) ND_tree_in(v).getArray("list").plus(i).getPtr())!=null; i++)
+    for (i = 0; (e = (Agedge_s) ND_tree_in(v).getArrayOfPtr("list").plus(i).getPtr())!=null; i++)
 	if (NEQ(e, par))
 	    dfs_cutval(agtail(e), e);
     if (par!=null)
@@ -1795,10 +1693,10 @@ try {
     lim = low;
     ND_par(v, par);
     ND_low(v, low);
-    for (i = 0; (e = (Agedge_s) ND_tree_out(v).getArray("list").plus(i).getPtr())!=null; i++)
+    for (i = 0; (e = (Agedge_s) ND_tree_out(v).getArrayOfPtr("list").plus(i).getPtr())!=null; i++)
 	if (NEQ(e, par))
 	    lim = dfs_range(aghead(e), e, lim);
-    for (i = 0; (e = (Agedge_s) ND_tree_in(v).getArray("list").plus(i).getPtr())!=null; i++)
+    for (i = 0; (e = (Agedge_s) ND_tree_in(v).getArrayOfPtr("list").plus(i).getPtr())!=null; i++)
 	if (NEQ(e, par))
 	    lim = dfs_range(agtail(e), e, lim);
     ND_lim(v, lim);

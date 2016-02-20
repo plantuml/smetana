@@ -1,6 +1,6 @@
 public static int ncross(Agraph_s g) {
     int r, count, nc;
-    g = Root;
+    g = Z._().Root;
     count = 0;
     for (r = GD_minrank(g); r < GD_maxrank(g); r++) {
 	if (GD_rank(g).plus(r).getBoolean("valid"))

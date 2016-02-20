@@ -1,0 +1,56 @@
+public static __struct__<pointf> Bezier(pointf V, int degree, double t, pointf Left, pointf Right) {
+    int i, j;			/* Index variables  */
+UNSUPPORTED("3a1zgxysa3t54vyq7k6z62wlj"); //     ilcoord_t Vtemp[5 + 1][5 + 1];
+UNSUPPORTED("byow1e8wyl29b607ktk3oabre"); //     /* Copy control points  */
+UNSUPPORTED("88y00f5lc64b0ryy0gup9n4sb"); //     for (j = 0; j <= degree; j++) {
+UNSUPPORTED("41awql5ne79yczmc4ilerplz3"); // 	Vtemp[0][j] = V[j];
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("djq9b7i3h3uq77dr40ha5o1kr"); //     /* Triangle computation */
+UNSUPPORTED("227fs1hi4i0vh0vutu3yqxarc"); //     for (i = 1; i <= degree; i++) {
+UNSUPPORTED("85sv74izli9gqstg0gqk2oznr"); // 	for (j = 0; j <= degree - i; j++) {
+UNSUPPORTED("6iowld1ly15t67xtpbyotvond"); // 	    Vtemp[i][j].x =
+UNSUPPORTED("c9tdp4smiiyeg0r8t5udg667x"); // 		(1.0 - t) * Vtemp[i - 1][j].x + t * Vtemp[i - 1][j + 1].x;
+UNSUPPORTED("d7sb593gdk2getmc8zbflz6wq"); // 	    Vtemp[i][j].y =
+UNSUPPORTED("d3h6zzsk3tsvl81ds9isu6lrl"); // 		(1.0 - t) * Vtemp[i - 1][j].y + t * Vtemp[i - 1][j + 1].y;
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("7eb3j7c6ls3zjqm1bteyyg8dd"); //     if (Left != ((ilcoord_t *)0))
+UNSUPPORTED("dzkatwg4oc51psd4chd1yao6"); // 	for (j = 0; j <= degree; j++)
+UNSUPPORTED("7zwjg663emkibah35euakizmj"); // 	    Left[j] = Vtemp[j][0];
+UNSUPPORTED("6h28oxt02m95ar9k62xgzs2"); //     if (Right != ((ilcoord_t *)0))
+UNSUPPORTED("dzkatwg4oc51psd4chd1yao6"); // 	for (j = 0; j <= degree; j++)
+UNSUPPORTED("1rki0omqbix35s4wfx442v4ty"); // 	    Right[j] = Vtemp[degree - j][j];
+UNSUPPORTED("b23mms6jm55li1q74etrttq6m"); //     return (Vtemp[degree][0]);
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static ilcoord_t Bezier(ilcoord_t * V, int degree, double t,
+			ilcoord_t * Left, ilcoord_t * Right)
+{
+    int i, j;			/* Index variables  */
+    ilcoord_t Vtemp[5 + 1][5 + 1];
+    /* Copy control points  */
+    for (j = 0; j <= degree; j++) {
+	Vtemp[0][j] = V[j];
+    }
+    /* Triangle computation */
+    for (i = 1; i <= degree; i++) {
+	for (j = 0; j <= degree - i; j++) {
+	    Vtemp[i][j].x =
+		(1.0 - t) * Vtemp[i - 1][j].x + t * Vtemp[i - 1][j + 1].x;
+	    Vtemp[i][j].y =
+		(1.0 - t) * Vtemp[i - 1][j].y + t * Vtemp[i - 1][j + 1].y;
+	}
+    }
+    if (Left != ((ilcoord_t *)0))
+	for (j = 0; j <= degree; j++)
+	    Left[j] = Vtemp[j][0];
+    if (Right != ((ilcoord_t *)0))
+	for (j = 0; j <= degree; j++)
+	    Right[j] = Vtemp[degree - j][j];
+    return (Vtemp[degree][0]);
+}
+

@@ -1,0 +1,57 @@
+public static __struct__<boxf> addLabelBB(final __struct__<boxf> bb, textlabel_t lp, boolean flipxy) {
+    double width, height;
+    final __struct__<pointf> p = __struct__.from(pointf.class);
+    p.____(lp.getStruct("pos"));
+    double min, max;
+    if (flipxy) {
+	height = lp.getStruct("dimen").getDouble("x");
+	width = lp.getStruct("dimen").getDouble("y");
+    }
+    else {
+	width = lp.getStruct("dimen").getDouble("x");
+	height = lp.getStruct("dimen").getDouble("y");
+    }
+    min = p.getDouble("x") - width / 2.;
+    max = p.getDouble("x") + width / 2.;
+    if (min < bb.getStruct("LL").getDouble("x"))
+	bb.getStruct("LL").setDouble("x", min);
+    if (max > bb.getStruct("UR").getDouble("x"))
+	bb.getStruct("UR").setDouble("x", max);
+    min = p.getDouble("y") - height / 2.;
+    max = p.getDouble("y") + height / 2.;
+    if (min < bb.getStruct("LL").getDouble("y"))
+	bb.getStruct("LL").setDouble("y", min);
+    if (max > bb.getStruct("UR").getDouble("y"))
+	bb.getStruct("UR").setDouble("y", max);
+    return bb;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static boxf addLabelBB(boxf bb, textlabel_t * lp, boolean flipxy)
+{
+    double width, height;
+    pointf p = lp->pos;
+    double min, max;
+    if (flipxy) {
+	height = lp->dimen.x;
+	width = lp->dimen.y;
+    }
+    else {
+	width = lp->dimen.x;
+	height = lp->dimen.y;
+    }
+    min = p.x - width / 2.;
+    max = p.x + width / 2.;
+    if (min < bb.LL.x)
+	bb.LL.x = min;
+    if (max > bb.UR.x)
+	bb.UR.x = max;
+    min = p.y - height / 2.;
+    max = p.y + height / 2.;
+    if (min < bb.LL.y)
+	bb.LL.y = min;
+    if (max > bb.UR.y)
+	bb.UR.y = max;
+    return bb;
+}
+

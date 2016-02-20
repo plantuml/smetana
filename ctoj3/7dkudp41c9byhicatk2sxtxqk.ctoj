@@ -1,6 +1,6 @@
 public static Object agdictobjmem(_dt_s dict, Object p, size_t size, _dtdisc_s disc) {
 	Agraph_s g;
-    g = Ag_dictop_G;
+    g = Z._().Ag_dictop_G;
     if (g!=null) {
 	if (p!=null)
 	    agfree(g, p);

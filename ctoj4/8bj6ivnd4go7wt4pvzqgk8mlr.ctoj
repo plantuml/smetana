@@ -1,4 +1,4 @@
-static public int HTML_BIT;
+//static public int HTML_BIT;
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static unsigned long HTML_BIT;

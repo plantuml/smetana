@@ -2,33 +2,15 @@
  * PlantUML : a free UML diagram generator
  * ========================================================================
  *
- * (C) Copyright 2009-2017, Arnaud Roques
- *
  * Project Info:  http://plantuml.com
  * 
- * This file is part of PlantUML.
+ * This file is part of Smetana.
+ * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * PlantUML is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * (C) Copyright 2009-2017, Arnaud Roques
  *
- * PlantUML distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- *
- * Original Author:  Arnaud Roques
- *
- *
- *
- *
+ * This translation is distributed under the same Licence as the original C program:
+ * 
  *************************************************************************
  * Copyright (c) 2011 AT&T Intellectual Property 
  * All rights reserved. This program and the accompanying materials
@@ -39,164 +21,84 @@
  * Contributors: See CVS logs. Details at http://www.graphviz.org/
  *************************************************************************
  *
+ * THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE PUBLIC
+ * LICENSE ("AGREEMENT"). [Eclipse Public License - v 1.0]
+ * 
+ * ANY USE, REPRODUCTION OR DISTRIBUTION OF THE PROGRAM CONSTITUTES
+ * RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 package gen.lib.common;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.grammar__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.cgraph.y_tab__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.common.y_tab__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.dotgen2.decomp__c.*;
-import static gen.lib.dotgen2.dotinit__c.*;
-import static gen.lib.dotgen2.groups__c.*;
-import static gen.lib.dotgen2.level__c.*;
-import static gen.lib.dotgen2.minc2__c.*;
-import static gen.lib.dotgen2.minc_utils__c.*;
-import static gen.lib.dotgen2.ns__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import static gen.lib.cgraph.attr__c.agget;
+import static gen.lib.cgraph.attr__c.agxget;
+import static gen.lib.cgraph.edge__c.aghead;
+import static gen.lib.cgraph.edge__c.agtail;
+import static gen.lib.cgraph.obj__c.agraphof;
+import static gen.lib.cgraph.refstr__c.aghtmlstr;
+import static gen.lib.common.labels__c.make_label;
+import static gen.lib.common.memory__c.zmalloc;
+import static gen.lib.common.shapes__c.bind_shape;
+import static gen.lib.common.shapes__c.shapeOf;
+import static smetana.core.JUtils.EQ;
+import static smetana.core.JUtils.NEQ;
+import static smetana.core.JUtils.atoi;
+import static smetana.core.JUtils.enumAsInt;
+import static smetana.core.JUtils.isdigit;
+import static smetana.core.JUtils.sizeof;
+import static smetana.core.JUtils.strchr;
+import static smetana.core.JUtils.strcmp;
+import static smetana.core.JUtils.strtod;
+import static smetana.core.JUtils.strtol;
+import static smetana.core.JUtils.tolower;
+import static smetana.core.JUtilsDebug.ENTERING;
+import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.ED_head_port;
+import static smetana.core.Macro.ED_label;
+import static smetana.core.Macro.ED_label_ontop;
+import static smetana.core.Macro.ED_tail_port;
+import static smetana.core.Macro.GD_bb;
+import static smetana.core.Macro.GD_flags;
+import static smetana.core.Macro.GD_flip;
+import static smetana.core.Macro.GD_has_labels;
+import static smetana.core.Macro.N;
+import static smetana.core.Macro.ND_UF_parent;
+import static smetana.core.Macro.ND_height;
+import static smetana.core.Macro.ND_ht;
+import static smetana.core.Macro.ND_label;
+import static smetana.core.Macro.ND_lw;
+import static smetana.core.Macro.ND_rw;
+import static smetana.core.Macro.ND_shape;
+import static smetana.core.Macro.ND_showboxes;
+import static smetana.core.Macro.ND_width;
+import static smetana.core.Macro.UNSUPPORTED;
+import h.Agedge_s;
+import h.Agnode_s;
+import h.Agraph_s;
+import h.Agsym_s;
+import h.boxf;
+import h.fontinfo;
+import h.nodequeue;
+import h.pointf;
+import h.port;
+import h.shape_kind;
+import h.textlabel_t;
+import smetana.core.CFunction;
+import smetana.core.CString;
+import smetana.core.Memory;
+import smetana.core.Z;
+import smetana.core.__array_of_struct__;
+import smetana.core.__ptr__;
+import smetana.core.__struct__;
 
 public class utils__c {
 //1 2digov3edok6d5srhgtlmrycs
@@ -880,7 +782,7 @@ LEAVING("1uj5nmdvwmuklnpd3v5py547f","free_queue");
 public static void enqueue(nodequeue q, Agnode_s n) {
 ENTERING("20pwd6i141q3o25lfvrdqytot","enqueue");
 try {
-    q.getArray("tail").plus(0).setPtr(n);
+    q.getArrayOfPtr("tail").plus(0).setPtr(n);
     q.setPtr("tail", q.getPtr("tail").plus(1));
     if (q.getPtr("tail").comparePointer(q.getPtr("limit")) >= 0)
 	q.setPtr("tail", q.getPtr("store"));
@@ -901,7 +803,7 @@ try {
     if (EQ(q.getPtr("head"), q.getPtr("tail")))
 	n = null;
     else {
-	n = (Agnode_s) q.getArray("head").plus(0).getPtr();
+	n = (Agnode_s) q.getArrayOfPtr("head").plus(0).getPtr();
 	q.setPtr("head", q.getPtr("head").plus(1));
 	if (q.getPtr("head").comparePointer(q.getPtr("limit")) >= 0)
 	    q.setPtr("head", q.getPtr("store"));
@@ -946,20 +848,17 @@ public static double late_double(__ptr__ obj, Agsym_s attr, double def, double l
 ENTERING("d68314e4f20r79tt0cnmxugme","late_double");
 try {
     CString p;
-    CString endp;
+    CString endp[] = new CString[1];
     double rv;
     if (N(attr) || N(obj))
 	return def;
-UNSUPPORTED("dexci42xqik3irg7xp4y3e4y5"); //     p = agxget(obj,attr);
-UNSUPPORTED("7cac6m0ax6anulpru9v9z2yq2"); //     if (!p || p[0] == '\0')
-UNSUPPORTED("1jfc1szr9lzyizq62jp9jz7ah"); // 	return def;
-UNSUPPORTED("9hjwrdbeki2j0ku142shhfl7r"); //     rv = strtod (p, &endp);
-UNSUPPORTED("2j7ve1hfmlz9mgsd7vj7ro54u"); //     if (p == endp) return def;  /* invalid double format */
-UNSUPPORTED("byscp4233ohth7sftwmde2mku"); //     if (rv < low) return low;
-UNSUPPORTED("9s8ja2azst8qzo55wst2stm7h"); //     else return rv;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+    p = agxget(obj,attr);
+    if (N(p) || p.charAt(0) == '\0')
+	return def;
+    rv = strtod (p, endp);
+    if (p == endp[0]) return def;  /* invalid double format */
+    if (rv < low) return low;
+    else return rv;
 } finally {
 LEAVING("d68314e4f20r79tt0cnmxugme","late_double");
 }
@@ -1155,20 +1054,20 @@ throw new UnsupportedOperationException();
 
 //3 6p0ey2c2ujk2o7h221p0b4xon
 // pointf Bezier(pointf * V, int degree, double t, pointf * Left, pointf * Right) 
-public static __struct__<pointf> Bezier(__array__ V, int degree, double t, __ptr__ Left, __ptr__ Right) {
+public static __struct__<pointf> Bezier(__array_of_struct__ V, int degree, double t, __ptr__ Left, __ptr__ Right) {
 // WARNING!! STRUCT
 return Bezier_w_(V, degree, t, Left, Right).copy();
 }
-private static __struct__<pointf> Bezier_w_(__array__ V, int degree, double t, __ptr__ Left, __ptr__ Right) {
+private static __struct__<pointf> Bezier_w_(__array_of_struct__ V, int degree, double t, __ptr__ Left, __ptr__ Right) {
 ENTERING("6p0ey2c2ujk2o7h221p0b4xon","Bezier");
 try {
     int i, j;			/* Index variables      */
-    final __array__ Vtemp[] = new __array__[] { __array__.malloc(pointf.class, 5+1),
-    __array__.malloc(pointf.class, 5+1),
-    __array__.malloc(pointf.class, 5+1),
-    __array__.malloc(pointf.class, 5+1),
-    __array__.malloc(pointf.class, 5+1),
-    __array__.malloc(pointf.class, 5+1) };
+    final __array_of_struct__ Vtemp[] = new __array_of_struct__[] { __array_of_struct__.malloc(pointf.class, 5+1),
+    __array_of_struct__.malloc(pointf.class, 5+1),
+    __array_of_struct__.malloc(pointf.class, 5+1),
+    __array_of_struct__.malloc(pointf.class, 5+1),
+    __array_of_struct__.malloc(pointf.class, 5+1),
+    __array_of_struct__.malloc(pointf.class, 5+1) };
     /* Copy control points  */
     for (j = 0; j <= degree; j++) {
 	Vtemp[0].plus(j).setStruct(V.plus(j).getStruct());
@@ -1544,24 +1443,24 @@ try {
     fontinfo fi = (fontinfo) Memory.malloc(fontinfo.class);
     CString str;
     ND_width(n,
-	late_double(n, N_width, 0.75, 0.01));
+	late_double(n, Z._().N_width, 0.75, 0.01));
     ND_height(n,
-	late_double(n, N_height, 0.5, 0.02));
+	late_double(n, Z._().N_height, 0.5, 0.02));
     ND_shape(n,
-	bind_shape(late_nnstring(n, N_shape, new CString("ellipse")), n));
-    str = agxget(n, N_label);
-    fi.setDouble("fontsize", late_double(n, N_fontsize, 14.0, 1.0));
-    fi.setPtr("fontname", late_nnstring(n, N_fontname, new CString("Times-Roman")));
-    fi.setPtr("fontcolor", late_nnstring(n, N_fontcolor, new CString("black")));
+	bind_shape(late_nnstring(n, Z._().N_shape, new CString("ellipse")), n));
+    str = agxget(n, Z._().N_label);
+    fi.setDouble("fontsize", late_double(n, Z._().N_fontsize, 14.0, 1.0));
+    fi.setPtr("fontname", late_nnstring(n, Z._().N_fontname, new CString("Times-Roman")));
+    fi.setPtr("fontcolor", late_nnstring(n, Z._().N_fontcolor, new CString("black")));
     ND_label(n, make_label(n, str,
 	        ((aghtmlstr(str)!=0 ? (1 << 1) : (0 << 1)) | ( (shapeOf(n) == enumAsInt(shape_kind.class, "SH_RECORD")) ? (2 << 1) : (0 << 1))),
 		fi.getDouble("fontsize"), fi.getCString("fontname"), fi.getCString("fontcolor")));
-    if (N_xlabel!=null && (str = agxget(n, N_xlabel))!=null && (str.charAt(0)!='\0')) {
+    if (Z._().N_xlabel!=null && (str = agxget(n, Z._().N_xlabel))!=null && (str.charAt(0)!='\0')) {
 UNSUPPORTED("4ua9vld76wpovsm1celv2ff6e"); // 	ND_xlabel(n) = make_label((void*)n, str, (aghtmlstr(str) ? (1 << 1) : (0 << 1)),
 UNSUPPORTED("b0zm6fkpjlt9jacykbgugjodg"); // 				fi.fontsize, fi.fontname, fi.fontcolor);
 UNSUPPORTED("ail0d4qmxj2aqh2q721inwgqu"); // 	GD_has_labels(agraphof(n)) |= (1 << 4);
     }
-    ND_showboxes(n, late_int(n, N_showboxes, 0, 0));
+    ND_showboxes(n, late_int(n, Z._().N_showboxes, 0, 0));
     ND_shape(n).getPtr("fns").call("initfn", n);
 } finally {
 LEAVING("cr81drt18h5feqzxyh3jb0u49","common_init_node");
@@ -1573,15 +1472,15 @@ LEAVING("cr81drt18h5feqzxyh3jb0u49","common_init_node");
 
 //3 d2v8l80y27ue2fag5c0qplah8
 // static void initFontEdgeAttr(edge_t * e, struct fontinfo *fi) 
-public static Object initFontEdgeAttr(Object... arg) {
-UNSUPPORTED("erp1nsgz1q4gwgkcyso40xhqu"); // static void initFontEdgeAttr(edge_t * e, struct fontinfo *fi)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("70tkj30f9mjsg97eqqpo5rv71"); //     fi->fontsize = late_double(e, E_fontsize, 14.0, 1.0);
-UNSUPPORTED("e3zm7po9we8zgxqb8kabk93m3"); //     fi->fontname = late_nnstring(e, E_fontname, "Times-Roman");
-UNSUPPORTED("7zmw6it6zbcyutvxbwacpm3wp"); //     fi->fontcolor = late_nnstring(e, E_fontcolor, "black");
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static void initFontEdgeAttr(Agedge_s e, fontinfo fi) {
+ENTERING("d2v8l80y27ue2fag5c0qplah8","initFontEdgeAttr");
+try {
+    fi.setDouble("fontsize", late_double(e, Z._().E_fontsize, 14.0, 1.0));
+    fi.setPtr("fontname", late_nnstring(e, Z._().E_fontname, new CString("Times-Roman")));
+    fi.setPtr("fontcolor", late_nnstring(e, Z._().E_fontcolor, new CString("black")));
+} finally {
+LEAVING("d2v8l80y27ue2fag5c0qplah8","initFontEdgeAttr");
+}
 }
 
 
@@ -1665,21 +1564,21 @@ ENTERING("3aqh64lxwv4da2snfe7fvr45b","common_init_edge");
 try {
     CString str;
     int r = 0;
-    fontinfo fi = (fontinfo) Memory.malloc(fontinfo.class);
-    fontinfo lfi = (fontinfo) Memory.malloc(fontinfo.class);
+    final __struct__<fontinfo> fi = __struct__.from(fontinfo.class);
+    final __struct__<fontinfo> lfi = __struct__.from(fontinfo.class);
     Agraph_s sg = agraphof(agtail(e));
     fi.setPtr("fontname", null);
     lfi.setPtr("fontname", null);
-    if (E_label!=null && (str = agxget(e, E_label))!=null && (str.charAt(0)!='\0')) {
-UNSUPPORTED("5j2phi2zkje8kvjn46u8addz3"); // 	r = 1;
-UNSUPPORTED("ewpzbv78qtqjbo4abykj4xl23"); // 	initFontEdgeAttr(e, &fi);
-UNSUPPORTED("6ykvjm17acrzzlieof1fewkop"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->label) = make_label((void*)e, str, (aghtmlstr(str) ? (1 << 1) : (0 << 1)),
-UNSUPPORTED("b0zm6fkpjlt9jacykbgugjodg"); // 				fi.fontsize, fi.fontname, fi.fontcolor);
-UNSUPPORTED("bmjb6umjm17m3fozy73ozaxwa"); // 	(((Agraphinfo_t*)(((Agobj_t*)(sg))->data))->has_labels) |= (1 << 0);
-UNSUPPORTED("e3mxxkc1s8kb4fbczsiz4viiz"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->label_ontop) =
-UNSUPPORTED("1utcc14ussqqgikmhd75f50p4"); // 	    mapbool(late_string(e, E_label_float, "false"));
+    if (Z._().E_label!=null && (str = agxget(e, Z._().E_label))!=null && (str.charAt(0)!='\0')) {
+	r = 1;
+	initFontEdgeAttr(e, fi.amp());
+	ED_label(e, make_label(e, str, (aghtmlstr(str)!=0 ? (1 << 1) : (0 << 1)),
+				fi.getDouble("fontsize"), fi.getCString("fontname"), fi.getCString("fontcolor")));
+	GD_has_labels(sg, GD_has_labels(sg) | (1 << 0));
+	ED_label_ontop(e,
+	    mapbool(late_string(e, Z._().E_label_float, new CString("false"))));
     }
-    if (E_xlabel!=null && (str = agxget(e, E_xlabel))!=null && (str.charAt(0)!='\0')) {
+    if (Z._().E_xlabel!=null && (str = agxget(e, Z._().E_xlabel))!=null && (str.charAt(0)!='\0')) {
 UNSUPPORTED("1j3mhgq7abuh3n19q2jtjddbc"); // 	if (!fi.fontname)
 UNSUPPORTED("bmqo2g5g107quod3h31r8iudr"); // 	    initFontEdgeAttr(e, &fi);
 UNSUPPORTED("3s7kg9x748riuy3tm697s6e8t"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->xlabel) = make_label((void*)e, str, (aghtmlstr(str) ? (1 << 1) : (0 << 1)),
@@ -1687,13 +1586,13 @@ UNSUPPORTED("b0zm6fkpjlt9jacykbgugjodg"); // 				fi.fontsize, fi.fontname, fi.fo
 UNSUPPORTED("c078bypfszv0nsvp1nc0x28wx"); // 	(((Agraphinfo_t*)(((Agobj_t*)(sg))->data))->has_labels) |= (1 << 5);
     }
     /* vladimir */
-    if (E_headlabel!=null && (str = agxget(e, E_headlabel))!=null && (str.charAt(0)!='\0')) {
+    if (Z._().E_headlabel!=null && (str = agxget(e, Z._().E_headlabel))!=null && (str.charAt(0)!='\0')) {
 UNSUPPORTED("cgznvdnh671wl8jq8q3tyhv1r"); // 	initFontLabelEdgeAttr(e, &fi, &lfi);
 UNSUPPORTED("6nfh8swason2akjp45hm0o5b0"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->head_label) = make_label((void*)e, str, (aghtmlstr(str) ? (1 << 1) : (0 << 1)),
 UNSUPPORTED("eu3ztkfva2x87y72tnu7vv4re"); // 				lfi.fontsize, lfi.fontname, lfi.fontcolor);
 UNSUPPORTED("axtvdewh7zhtm1diu8c6dprx4"); // 	(((Agraphinfo_t*)(((Agobj_t*)(sg))->data))->has_labels) |= (1 << 1);
     }
-    if (E_taillabel!=null && (str = agxget(e, E_taillabel))!=null && (str.charAt(0)!='\0')) {
+    if (Z._().E_taillabel!=null && (str = agxget(e, Z._().E_taillabel))!=null && (str.charAt(0)!='\0')) {
 UNSUPPORTED("6y6e1y496y6j6a6065nfesr8o"); // 	if (!lfi.fontname)
 UNSUPPORTED("4w2bicw8rsgyy40x0vhyzzlnm"); // 	    initFontLabelEdgeAttr(e, &fi, &lfi);
 UNSUPPORTED("ans0pi92t6ou5mworb3ohiqj3"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->tail_label) = make_label((void*)e, str, (aghtmlstr(str) ? (1 << 1) : (0 << 1)),
@@ -1712,7 +1611,7 @@ UNSUPPORTED("50hobbhvpqr6dj302waqr59mu"); // 	(((Agraphinfo_t*)(((Agobj_t*)(sg))
 UNSUPPORTED("j71lo2acx1ydov0uj7xjjce"); // 	(((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 3?(e):((e)+1))->node)))->data))->has_port) = (!(0));
 
     ED_tail_port(e, chkPort ((CFunction) ND_shape(agtail(e)).getPtr("fns").getPtr("portfn"), agtail(e), str));
-    if (noClip(e, E_tailclip))
+    if (noClip(e, Z._().E_tailclip))
 UNSUPPORTED("cg4z67u0dm6h9nrcx8kkalnlt"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->tail_port).clip = 0;
     str = agget(e, new CString("headport"));
     /* libgraph always defines tailport/headport; libcgraph doesn't */
@@ -1722,7 +1621,7 @@ UNSUPPORTED("542y57dbsosmjvsmdnzon2qb5"); // 	(((Agnodeinfo_t*)(((Agobj_t*)(((((
 
     ED_head_port(e, chkPort((CFunction) ND_shape(aghead(e)).getPtr("fns").getPtr("portfn"), aghead(e), str));
 
-    if (noClip(e, E_headclip))
+    if (noClip(e, Z._().E_headclip))
 UNSUPPORTED("ayqscz30ekhcje94wh4ib1hcu"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->head_port).clip = 0;
     return r;
 } finally {
@@ -1735,36 +1634,41 @@ LEAVING("3aqh64lxwv4da2snfe7fvr45b","common_init_edge");
 
 //3 3mkqvtbyq9j8ktzil6t7vakg5
 // static boxf addLabelBB(boxf bb, textlabel_t * lp, boolean flipxy) 
-public static Object addLabelBB(Object... arg) {
-UNSUPPORTED("a000hdv9ah83kbr5qfxqul1i8"); // static boxf addLabelBB(boxf bb, textlabel_t * lp, boolean flipxy)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("gdtli7sq5cifvdpg3ecrudew"); //     double width, height;
-UNSUPPORTED("ar8ld1qelcnvdvtcuwdvbqgqg"); //     pointf p = lp->pos;
-UNSUPPORTED("e03txkeso8u5bbzjqwxhg6vhg"); //     double min, max;
-UNSUPPORTED("21xxsimyep0yrpczenkejaiyv"); //     if (flipxy) {
-UNSUPPORTED("9qpb9fb511f2crpla2dle60lk"); // 	height = lp->dimen.x;
-UNSUPPORTED("31nokvh0ojfk5xd59jj1sc57"); // 	width = lp->dimen.y;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("1nyzbeonram6636b1w955bypn"); //     else {
-UNSUPPORTED("4ngp6al0yaq0vm395cjgks4v2"); // 	width = lp->dimen.x;
-UNSUPPORTED("k3pswtggvqqeet6mubiyncve"); // 	height = lp->dimen.y;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("1tctahjp9tvptr4hkm74d9f2e"); //     min = p.x - width / 2.;
-UNSUPPORTED("2zih1j193tzxjxvvdw9ir9i00"); //     max = p.x + width / 2.;
-UNSUPPORTED("99i278mhd5jmnzgl4j3yh3iz2"); //     if (min < bb.LL.x)
-UNSUPPORTED("bj8hur5430w6tp22ynl6hyb8w"); // 	bb.LL.x = min;
-UNSUPPORTED("1qrb1bjoho8y7sjj322ix4iqt"); //     if (max > bb.UR.x)
-UNSUPPORTED("dyryjyfxmd5rzzb8kri9rvsbr"); // 	bb.UR.x = max;
-UNSUPPORTED("47x3nmrvcsek1qzergrp2omhz"); //     min = p.y - height / 2.;
-UNSUPPORTED("29052tpppq1z9tu6ix93x3pv1"); //     max = p.y + height / 2.;
-UNSUPPORTED("7yshcf5r1orddd26rrhy8f12o"); //     if (min < bb.LL.y)
-UNSUPPORTED("8kuvr5zcc6bw7oet8cevvu7dr"); // 	bb.LL.y = min;
-UNSUPPORTED("45tqvtbr9r5930gitn89ieeey"); //     if (max > bb.UR.y)
-UNSUPPORTED("1oqcqicvsylc10tad0wl8uygo"); // 	bb.UR.y = max;
-UNSUPPORTED("5v5hh30squmit8o2i5hs25eig"); //     return bb;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static __struct__<boxf> addLabelBB(final __struct__<boxf> bb, textlabel_t lp, boolean flipxy) {
+// WARNING!! STRUCT
+return addLabelBB_w_(bb.copy(), lp, flipxy).copy();
+}
+private static __struct__<boxf> addLabelBB_w_(final __struct__<boxf> bb, textlabel_t lp, boolean flipxy) {
+ENTERING("3mkqvtbyq9j8ktzil6t7vakg5","addLabelBB");
+try {
+    double width, height;
+    final __struct__<pointf> p = __struct__.from(pointf.class);
+    p.____(lp.getStruct("pos"));
+    double min, max;
+    if (flipxy) {
+	height = lp.getStruct("dimen").getDouble("x");
+	width = lp.getStruct("dimen").getDouble("y");
+    }
+    else {
+	width = lp.getStruct("dimen").getDouble("x");
+	height = lp.getStruct("dimen").getDouble("y");
+    }
+    min = p.getDouble("x") - width / 2.;
+    max = p.getDouble("x") + width / 2.;
+    if (min < bb.getStruct("LL").getDouble("x"))
+	bb.getStruct("LL").setDouble("x", min);
+    if (max > bb.getStruct("UR").getDouble("x"))
+	bb.getStruct("UR").setDouble("x", max);
+    min = p.getDouble("y") - height / 2.;
+    max = p.getDouble("y") + height / 2.;
+    if (min < bb.getStruct("LL").getDouble("y"))
+	bb.getStruct("LL").setDouble("y", min);
+    if (max > bb.getStruct("UR").getDouble("y"))
+	bb.getStruct("UR").setDouble("y", max);
+    return bb;
+} finally {
+LEAVING("3mkqvtbyq9j8ktzil6t7vakg5","addLabelBB");
+}
 }
 
 
@@ -1798,13 +1702,13 @@ throw new UnsupportedOperationException();
 
 //3 bz7kjecium6a7xa39qfobwwnc
 // void updateBB(graph_t * g, textlabel_t * lp) 
-public static Object updateBB(Object... arg) {
-UNSUPPORTED("8i5mjynahaht025rw8o76rwo8"); // void updateBB(graph_t * g, textlabel_t * lp)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("audaj9ulcix7stjs6k060kmww"); //     GD_bb(g) = addLabelBB(GD_bb(g), lp, GD_flip(g));
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static void updateBB(Agraph_s g, textlabel_t lp) {
+ENTERING("bz7kjecium6a7xa39qfobwwnc","updateBB");
+try {
+    GD_bb(g).____(addLabelBB(GD_bb(g), lp, GD_flip(g)!=0));
+} finally {
+LEAVING("bz7kjecium6a7xa39qfobwwnc","updateBB");
+}
 }
 
 

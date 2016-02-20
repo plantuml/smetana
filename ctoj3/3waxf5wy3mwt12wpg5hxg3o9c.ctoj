@@ -1,15 +1,15 @@
 public static boolean marktripath(int trii, int trij) {
     int ei;
-    if (tris.plus(trii).getBoolean("mark"))
+    if (Z._().tris.plus(trii).getBoolean("mark"))
 	return false;
-    tris.plus(trii).setInt("mark", 1);
+    Z._().tris.plus(trii).setInt("mark", 1);
     if (trii == trij)
 	return ((!(false)));
     for (ei = 0; ei < 3; ei++)
-	if (tris.plus(trii).getArrayOfStruct("e").plus(ei).getStruct().getPtr("rtp")!=null &&
-	    marktripath(tris.plus(trii).getArrayOfStruct("e").plus(ei).getStruct().getPtr("rtp").minus(tris), trij))
+	if (Z._().tris.plus(trii).getArrayOfStruct("e").plus(ei).getStruct().getPtr("rtp")!=null &&
+	    marktripath(Z._().tris.plus(trii).getArrayOfStruct("e").plus(ei).getStruct().getPtr("rtp").minus(Z._().tris), trij))
 	    return ((!(false)));
-    tris.plus(trii).setInt("mark", 0);
+    Z._().tris.plus(trii).setInt("mark", 0);
     return false;
 }
 

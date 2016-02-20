@@ -1,16 +1,16 @@
 public static void add2dq(int side, __ptr__ pnlp) {
     if (side == 1) {
-	if (dq.getInt("lpnlpi") - dq.getInt("fpnlpi") >= 0)
-	    pnlp.setPtr("link", dq.getPtr("pnlps").plus(dq.getInt("fpnlpi")).getPtr());
+	if (Z._().dq.getInt("lpnlpi") - Z._().dq.getInt("fpnlpi") >= 0)
+	    pnlp.setPtr("link", Z._().dq.getPtr("pnlps").plus(Z._().dq.getInt("fpnlpi")).getPtr());
 	    /* shortest path links */
-	dq.setInt("fpnlpi", dq.getInt("fpnlpi")-1);
-	dq.getPtr("pnlps").plus(dq.getInt("fpnlpi")).setPtr(pnlp);
+	Z._().dq.setInt("fpnlpi", Z._().dq.getInt("fpnlpi")-1);
+	Z._().dq.getPtr("pnlps").plus(Z._().dq.getInt("fpnlpi")).setPtr(pnlp);
     } else {
-	if (dq.getInt("lpnlpi") - dq.getInt("fpnlpi") >= 0)
-	    pnlp.setPtr("link", dq.getPtr("pnlps").plus(dq.getInt("lpnlpi")).getPtr());
+	if (Z._().dq.getInt("lpnlpi") - Z._().dq.getInt("fpnlpi") >= 0)
+	    pnlp.setPtr("link", Z._().dq.getPtr("pnlps").plus(Z._().dq.getInt("lpnlpi")).getPtr());
 	    /* shortest path links */
-	dq.setInt("lpnlpi", dq.getInt("lpnlpi")+1);
-	dq.getPtr("pnlps").plus(dq.getInt("lpnlpi")).setPtr(pnlp);
+	Z._().dq.setInt("lpnlpi", Z._().dq.getInt("lpnlpi")+1);
+	Z._().dq.getPtr("pnlps").plus(Z._().dq.getInt("lpnlpi")).setPtr(pnlp);
     }
 }
 

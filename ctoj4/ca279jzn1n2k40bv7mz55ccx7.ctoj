@@ -1,4 +1,4 @@
-private static Agnode_s Last_node;
+//private static Agnode_s Last_node;
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static node_t *Last_node;
 

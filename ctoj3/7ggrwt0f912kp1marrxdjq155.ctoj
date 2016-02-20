@@ -1,6 +1,6 @@
 public static void begin_component() {
-    Last_node = null;
-    GD_nlist(G, null);
+    Z._().Last_node_decomp = null;
+    GD_nlist(Z._().G_decomp, null);
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

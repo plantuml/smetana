@@ -1,15 +1,9 @@
 public static Agnode_s plain_vnode(Agraph_s g, Agedge_s orig) {
- UNSUPPORTED("b9dd3satxbh59hljdxzcxecc"); // static node_t*
-UNSUPPORTED("6niew9t05w73ewrveewg28kgv"); // plain_vnode(graph_t * g, edge_t * orig)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("aigogf44ojtcesuy4xs7inqbn"); //     node_t *v;
-UNSUPPORTED("3oggzi0zznn93qe3xfvlcb75r"); //     orig = orig;
-UNSUPPORTED("ddbam9h1970eckdt1zdw6u2pq"); //     v = virtual_node(g);
-UNSUPPORTED("8q5ege6dlgj1jr0lyoah4ufgh"); //     incr_width(g, v);
-UNSUPPORTED("dpci52ct1zm8k1aasm170ru2j"); //     return v;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+    Agnode_s v;
+    orig = orig;
+    v = virtual_node(g);
+    incr_width(g, v);
+    return v;
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

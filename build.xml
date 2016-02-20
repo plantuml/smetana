@@ -1,0 +1,24 @@
+<project name="Smetana" default="dist" basedir=".">
+	<description>
+		Smetana Build File
+    </description>
+
+	<target name="compile">
+		<delete dir="build" />
+		<mkdir dir="build" />
+		<javac srcdir="src" destdir="build" classpath="lib/java2html.jar:lib/anarres-cpp.jar:lib:gnu.getopt.jar" />
+	</target>
+
+	<target name="dist" depends="compile">
+		<delete dir="dist" />
+		<mkdir dir="dist" />
+		<jar jarfile="jdot.jar" basedir="build">
+			<manifest>
+				<attribute name="Main-Class" value="dot.MainDot" />
+			</manifest>
+		</jar>
+		<delete dir="build" />
+		<delete dir="dist" />
+	</target>
+
+</project>

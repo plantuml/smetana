@@ -1,4 +1,4 @@
-private static Agraph_s Root;
+//private static Agraph_s Root;
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static graph_t *Root;

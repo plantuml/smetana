@@ -1,4 +1,4 @@
-static public final __struct__<_dtdisc_s> AgDataDictDisc = __struct__.from(_dtdisc_s.class);
+/*static public final __struct__<_dtdisc_s> AgDataDictDisc = __struct__.from(_dtdisc_s.class);
 static {
 	AgDataDictDisc.setInt("key", OFFSET.create(Agsym_s.class, "name").toInt());
 	AgDataDictDisc.setInt("size", -1);
@@ -7,7 +7,7 @@ static {
 	AgDataDictDisc.setPtr("freef", function(attr__c.class, "freesym"));
 	AgDataDictDisc.setPtr("comparf", null);
 	AgDataDictDisc.setPtr("hashf", null);
-}
+}*/
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Dtdisc_t AgDataDictDisc = {

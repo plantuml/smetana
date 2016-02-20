@@ -1,0 +1,71 @@
+public static boolean splineisinside(__ptr__ edges, int edgen, __array_of_struct__ sps) {
+    double roots[] = new double[4];
+    int rooti, rootn;
+    int ei;
+    final __array_of_struct__ lps = __array_of_struct__.malloc(pointf.class, 2);
+    final __struct__<pointf> ip = __struct__.from(pointf.class);
+    double t, ta, tb, tc, td;
+    for (ei = 0; ei < edgen; ei++) {
+	lps.plus(0).setStruct(edges.plus(ei).getStruct("a"));
+	lps.plus(1).setStruct(edges.plus(ei).getStruct("b"));
+	/* if ((rootn = splineintersectsline (sps, lps, roots)) == 4)
+	   return 1; */
+	if ((rootn = splineintersectsline(sps, lps, roots)) == 4)
+	    continue;
+	for (rooti = 0; rooti < rootn; rooti++) {
+	    if (roots[rooti] < 1E-6 || roots[rooti] > 1 - 1E-6)
+		continue;
+	    t = roots[rooti];
+	    td = t * t * t;
+	    tc = 3 * t * t * (1 - t);
+	    tb = 3 * t * (1 - t) * (1 - t);
+	    ta = (1 - t) * (1 - t) * (1 - t);
+	    ip.setDouble("x", ta * sps.plus(0).getDouble("x") + tb * sps.plus(1).getDouble("x") +
+		tc * sps.plus(2).getDouble("x") + td * sps.plus(3).getDouble("x"));
+	    ip.setDouble("y", ta * sps.plus(0).getDouble("y") + tb * sps.plus(1).getDouble("y") +
+		tc * sps.plus(2).getDouble("y") + td * sps.plus(3).getDouble("y"));
+	    if (DISTSQ(ip, lps.plus(0).getStruct()) < 1E-3 ||
+		DISTSQ(ip, lps.plus(1).getStruct()) < 1E-3)
+		continue;
+	    return false;
+	}
+    }
+    return true;
+}
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int splineisinside(Pedge_t * edges, int edgen, Ppoint_t * sps)
+{
+    double roots[4];
+    int rooti, rootn;
+    int ei;
+    Ppoint_t lps[2], ip;
+    double t, ta, tb, tc, td;
+    for (ei = 0; ei < edgen; ei++) {
+	lps[0] = edges[ei].a, lps[1] = edges[ei].b;
+	/* if ((rootn = splineintersectsline (sps, lps, roots)) == 4)
+	   return 1; */
+	if ((rootn = splineintersectsline(sps, lps, roots)) == 4)
+	    continue;
+	for (rooti = 0; rooti < rootn; rooti++) {
+	    if (roots[rooti] < 1E-6 || roots[rooti] > 1 - 1E-6)
+		continue;
+	    t = roots[rooti];
+	    td = t * t * t;
+	    tc = 3 * t * t * (1 - t);
+	    tb = 3 * t * (1 - t) * (1 - t);
+	    ta = (1 - t) * (1 - t) * (1 - t);
+	    ip.x = ta * sps[0].x + tb * sps[1].x +
+		tc * sps[2].x + td * sps[3].x;
+	    ip.y = ta * sps[0].y + tb * sps[1].y +
+		tc * sps[2].y + td * sps[3].y;
+	    if (DISTSQ(ip, lps[0]) < 1E-3 ||
+		DISTSQ(ip, lps[1]) < 1E-3)
+		continue;
+	    return 0;
+	}
+    }
+    return 1;
+}
+

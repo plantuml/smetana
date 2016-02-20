@@ -31,7 +31,7 @@ public static void class2(Agraph_s g) {
 		/* following is new cluster multi-edge code */
 		if (mergeable(prev, e)) {
 		    if (ED_to_virt(prev)!=null) {
-			merge_chain(g, e, ED_to_virt(prev), 0);
+			merge_chain(g, e, ED_to_virt(prev), false);
 			other_edge(e);
 		    } else if (ND_rank(agtail(e)) == ND_rank(aghead(e))) {
 			merge_oneway(e, prev);
@@ -53,7 +53,7 @@ public static void class2(Agraph_s g) {
 		}
 		if ((ED_label(e) == null) && (ED_label(prev) == null)
 		    && ports_eq(e, prev)) {
-		    if (Concentrate)
+		    if (Z._().Concentrate)
 			ED_edge_type(e, 6);
 		    else {
 			merge_chain(g, e, ED_to_virt(prev), NOT(false));
@@ -98,7 +98,7 @@ public static void class2(Agraph_s g) {
 			make_chain(g, agtail(opp), aghead(opp), opp);
 		    if ((ED_label(e) == null) && (ED_label(opp) == null)
 			&& ports_eq(e, opp)) {
-			if (Concentrate) {
+			if (Z._().Concentrate) {
 			    ED_edge_type(e, 6);
 			    ED_conc_opp_flag(opp, NOT(false));
 			} else {	/* see above.  this is getting out of hand */

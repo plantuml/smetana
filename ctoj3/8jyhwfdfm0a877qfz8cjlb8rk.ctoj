@@ -1,16 +1,16 @@
 public static Agraph_s agopen1(Agraph_s g) {
     Agraph_s par;
-    g.setPtr("n_seq", agdtopen(g, Ag_subnode_seq_disc.amp(), Dttree));
-    g.setPtr("n_id", agdtopen(g, Ag_subnode_id_disc.amp(), Dttree));
-    g.setPtr("e_seq", agdtopen(g, EQ(g, agroot(g))? Ag_mainedge_seq_disc.amp() : Ag_subedge_seq_disc.amp(), Dttree));
-    g.setPtr("e_id", agdtopen(g, EQ(g, agroot(g))? Ag_mainedge_id_disc.amp() : Ag_subedge_id_disc.amp(), Dttree));
-    g.setPtr("g_dict", agdtopen(g, Ag_subgraph_id_disc.amp(), Dttree));
+    g.setPtr("n_seq", agdtopen(g, Z._().Ag_subnode_seq_disc.amp(), Z._().Dttree));
+    g.setPtr("n_id", agdtopen(g, Z._().Ag_subnode_id_disc.amp(), Z._().Dttree));
+    g.setPtr("e_seq", agdtopen(g, EQ(g, agroot(g))? Z._().Ag_mainedge_seq_disc.amp() : Z._().Ag_subedge_seq_disc.amp(), Z._().Dttree));
+    g.setPtr("e_id", agdtopen(g, EQ(g, agroot(g))? Z._().Ag_mainedge_id_disc.amp() : Z._().Ag_subedge_id_disc.amp(), Z._().Dttree));
+    g.setPtr("g_dict", agdtopen(g, Z._().Ag_subgraph_id_disc.amp(), Z._().Dttree));
     par = agparent(g);
     if (par!=null) {
 	AGSEQ(g, agnextseq(par, AGRAPH));
   	par.getPtr("g_dict").call("searchf", par.getPtr("g_dict"),g,0000001);
     }				/* else AGSEQ=0 */
-    if (N(par) || par.getPtr("desc").getBoolean("has_attrs"))
+    if (N(par) || par.getStruct("desc").getBoolean("has_attrs"))
 	agraphattr_init(g);
     agmethod_init(g, g);
     return g;

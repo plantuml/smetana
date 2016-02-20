@@ -1,0 +1,20 @@
+public static void reverse_edge(Agedge_s e) {
+    Agedge_s f;
+    delete_fast_edge(e);
+    if ((f = find_fast_edge(aghead(e), agtail(e)))!=null)
+	merge_oneway(e, f);
+    else
+	virtual_edge(aghead(e), agtail(e), e);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void reverse_edge(edge_t * e)
+{
+    edge_t *f;
+    delete_fast_edge(e);
+    if ((f = find_fast_edge(aghead(e), agtail(e))))
+	merge_oneway(e, f);
+    else
+	virtual_edge(aghead(e), agtail(e), e);
+}
+

@@ -1,4 +1,4 @@
-private static int Rankdir;
+//private static int Rankdir;
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static int Rankdir;

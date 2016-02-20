@@ -1,4 +1,4 @@
-private static int Search_size;
+//private static int Search_size;
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static int Search_size;

@@ -1,0 +1,119 @@
+public static boolean medians(Agraph_s g, int r0, int r1) {
+    int i, j, j0, lm, rm, lspan, rspan;
+    __ptr__ list;
+    Agnode_s n;
+    __ptr__ v;
+    Agedge_s e;
+    boolean hasfixed = false;
+    list = Z._().TI_list;
+    v = GD_rank(g).plus(r0).getPtr("v");
+    for (i = 0; i < GD_rank(g).plus(r0).getInt("n"); i++) {
+	n = (Agnode_s) v.plus(i).getPtr();
+	j = 0;
+	if (r1 > r0)
+	    for (j0 = 0; (e = (Agedge_s) ND_out(n).getArrayOfPtr("list").plus(j0).getPtr())!=null; j0++) {
+		if (ED_xpenalty(e) > 0)
+		    list.plus(j++).setInt((256 * ND_order(aghead(e)) + (ED_head_port(e)).getInt("order")));
+	} else
+	    for (j0 = 0; (e = (Agedge_s) ND_in(n).getArrayOfPtr("list").plus(j0).getPtr())!=null; j0++) {
+		if (ED_xpenalty(e) > 0)
+		    list.plus(j++).setInt((256 * ND_order(agtail(e)) + (ED_tail_port(e)).getInt("order")));
+	    }
+	switch (j) {
+	case 0:
+	    ND_mval(n, -1);
+	    break;
+	case 1:
+	    ND_mval(n, list.plus(0).getInt());
+	    break;
+	case 2:
+	    ND_mval(n, (list.plus(0).getInt() + list.plus(1).getInt()) / 2);
+	    break;
+	default:
+	    qsort(list,
+	    	    j,
+	    	    sizeof(list.plus(0)),
+	    	    function(mincross__c.class, "ordercmpf"));
+	    if (j % 2!=0)
+		ND_mval(n, list.plus(j / 2).getInt());
+	    else {
+		/* weighted median */
+		rm = j / 2;
+		lm = rm - 1;
+		rspan = list.plus(j - 1).getInt() - list.plus(rm).getInt();
+		lspan = list.plus(lm).getInt() - list.plus(0).getInt();
+		if (lspan == rspan)
+		    ND_mval(n, (list.plus(lm).getInt() + list.plus(rm).getInt()) / 2);
+		else {
+		    int w = list.plus(lm).getInt() * rspan + list.plus(rm).getInt() * lspan;
+		    ND_mval(n, w / (lspan + rspan));
+		}
+	    }
+	}
+    }
+    for (i = 0; i < GD_rank(g).plus(r0).getInt("n"); i++) {
+	n = (Agnode_s) v.plus(i).getPtr();
+	if ((ND_out(n).getInt("size") == 0) && (ND_in(n).getInt("size") == 0))
+	    hasfixed |= flat_mval(n);
+    }
+    return hasfixed;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static boolean medians(graph_t * g, int r0, int r1)
+{
+    int i, j, j0, lm, rm, lspan, rspan, *list;
+    node_t *n, **v;
+    edge_t *e;
+    boolean hasfixed = 0;
+    list = TI_list;
+    v = GD_rank(g)[r0].v;
+    for (i = 0; i < GD_rank(g)[r0].n; i++) {
+	n = v[i];
+	j = 0;
+	if (r1 > r0)
+	    for (j0 = 0; (e = ND_out(n).list[j0]); j0++) {
+		if (ED_xpenalty(e) > 0)
+		    list[j++] = (256 * ND_order(aghead(e)) + (ED_head_port(e)).order);
+	} else
+	    for (j0 = 0; (e = ND_in(n).list[j0]); j0++) {
+		if (ED_xpenalty(e) > 0)
+		    list[j++] = (256 * ND_order(agtail(e)) + (ED_tail_port(e)).order);
+	    }
+	switch (j) {
+	case 0:
+	    ND_mval(n) = -1;
+	    break;
+	case 1:
+	    ND_mval(n) = list[0];
+	    break;
+	case 2:
+	    ND_mval(n) = (list[0] + list[1]) / 2;
+	    break;
+	default:
+	    qsort(list, j, sizeof(int), (qsort_cmpf) ordercmpf);
+	    if (j % 2)
+		ND_mval(n) = list[j / 2];
+	    else {
+		/* weighted median */
+		rm = j / 2;
+		lm = rm - 1;
+		rspan = list[j - 1] - list[rm];
+		lspan = list[lm] - list[0];
+		if (lspan == rspan)
+		    ND_mval(n) = (list[lm] + list[rm]) / 2;
+		else {
+		    int w = list[lm] * rspan + list[rm] * lspan;
+		    ND_mval(n) = w / (lspan + rspan);
+		}
+	    }
+	}
+    }
+    for (i = 0; i < GD_rank(g)[r0].n; i++) {
+	n = v[i];
+	if ((ND_out(n).size == 0) && (ND_in(n).size == 0))
+	    hasfixed |= flat_mval(n);
+    }
+    return hasfixed;
+}
+

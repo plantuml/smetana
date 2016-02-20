@@ -2,33 +2,15 @@
  * PlantUML : a free UML diagram generator
  * ========================================================================
  *
- * (C) Copyright 2009-2017, Arnaud Roques
- *
  * Project Info:  http://plantuml.com
  * 
- * This file is part of PlantUML.
+ * This file is part of Smetana.
+ * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * PlantUML is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * (C) Copyright 2009-2017, Arnaud Roques
  *
- * PlantUML distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- *
- * Original Author:  Arnaud Roques
- *
- *
- *
- *
+ * This translation is distributed under the same Licence as the original C program:
+ * 
  *************************************************************************
  * Copyright (c) 2011 AT&T Intellectual Property 
  * All rights reserved. This program and the accompanying materials
@@ -39,164 +21,64 @@
  * Contributors: See CVS logs. Details at http://www.graphviz.org/
  *************************************************************************
  *
+ * THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE PUBLIC
+ * LICENSE ("AGREEMENT"). [Eclipse Public License - v 1.0]
+ * 
+ * ANY USE, REPRODUCTION OR DISTRIBUTION OF THE PROGRAM CONSTITUTES
+ * RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 package gen.lib.common;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.grammar__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.cgraph.y_tab__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.common.y_tab__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.dotgen2.decomp__c.*;
-import static gen.lib.dotgen2.dotinit__c.*;
-import static gen.lib.dotgen2.groups__c.*;
-import static gen.lib.dotgen2.level__c.*;
-import static gen.lib.dotgen2.minc2__c.*;
-import static gen.lib.dotgen2.minc_utils__c.*;
-import static gen.lib.dotgen2.ns__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import static gen.lib.cgraph.attr__c.agattr;
+import static gen.lib.cgraph.attr__c.agget;
+import static gen.lib.common.emit__c.init_xdot;
+import static gen.lib.common.labels__c.strdup_and_subst_obj;
+import static gen.lib.common.memory__c.zmalloc;
+import static gen.lib.common.utils__c.late_double;
+import static gen.lib.common.utils__c.late_int;
+import static gen.lib.common.utils__c.late_string;
+import static gen.lib.common.utils__c.mapbool;
+import static gen.lib.common.utils__c.maptoken;
+import static smetana.core.JUtils.atof;
+import static smetana.core.JUtils.atoi;
+import static smetana.core.JUtils.enumAsInt;
+import static smetana.core.JUtils.getenv;
+import static smetana.core.JUtils.sizeof;
+import static smetana.core.JUtils.strstr;
+import static smetana.core.JUtilsDebug.ENTERING;
+import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.AGEDGE;
+import static smetana.core.Macro.AGNODE;
+import static smetana.core.Macro.AGRAPH;
+import static smetana.core.Macro.GD_charset;
+import static smetana.core.Macro.GD_drawing;
+import static smetana.core.Macro.GD_exact_ranksep;
+import static smetana.core.Macro.GD_fontnames;
+import static smetana.core.Macro.GD_nodesep;
+import static smetana.core.Macro.GD_rankdir2;
+import static smetana.core.Macro.GD_ranksep;
+import static smetana.core.Macro.GD_showboxes;
+import static smetana.core.Macro.N;
+import static smetana.core.Macro.ROUND;
+import static smetana.core.Macro.UNSUPPORTED;
+import h.Agraph_s;
+import h.boxf;
+import h.fontname_kind;
+import h.layout_t;
+import h.pointf;
+import smetana.core.CString;
+import smetana.core.Z;
+import smetana.core.__struct__;
 
 public class input__c {
 //1 2digov3edok6d5srhgtlmrycs
@@ -1507,86 +1389,86 @@ UNSUPPORTED("dhhbmqv6n01j1eeyy7fpus1xw"); // 		xf = 0.02;
     else if ((p = agget(g, new CString("landscape")))!=null)
 	GD_drawing(g).setBoolean("landscape", mapbool(p));
     p = agget(g, new CString("clusterrank"));
-    CL_type = maptoken(p, rankname, rankcode);
+    Z._().CL_type = maptoken(p, rankname, rankcode);
     p = agget(g, new CString("concentrate"));
-    Concentrate = mapbool(p);
-    State = 0;
-    EdgeLabelsDone = 0;
+    Z._().Concentrate = mapbool(p);
+    Z._().State = 0;
+    Z._().EdgeLabelsDone = 0;
     GD_drawing(g).setDouble("dpi", 0.0);
     if (((p = agget(g, new CString("dpi")))!=null && p.charAt(0)!='\0')
 	|| ((p = agget(g, new CString("resolution")))!=null && p.charAt(0)!='\0'))
 	GD_drawing(g).setDouble("dpi", atof(p));
     do_graph_label(g);
-    Initial_dist = (1.0e+37);
-    G_ordering = (agattr(g,AGRAPH,new CString("ordering"),null));
-    G_gradientangle = (agattr(g,AGRAPH,new CString("gradientangle"),null));
-    G_margin = (agattr(g,AGRAPH,new CString("margin"),null));
+    Z._().Initial_dist = (1.0e+37);
+    Z._().G_ordering = (agattr(g,AGRAPH,new CString("ordering"),null));
+    Z._().G_gradientangle = (agattr(g,AGRAPH,new CString("gradientangle"),null));
+    Z._().G_margin = (agattr(g,AGRAPH,new CString("margin"),null));
     /* initialize nodes */
-    N_height = (agattr(g,AGNODE,new CString("height"),null));
-    N_width = (agattr(g,AGNODE,new CString("width"),null));
-    N_shape = (agattr(g,AGNODE,new CString("shape"),null));
-    N_color = (agattr(g,AGNODE,new CString("color"),null));
-    N_fillcolor = (agattr(g,AGNODE,new CString("fillcolor"),null));
-    N_style = (agattr(g,AGNODE,new CString("style"),null));
-    N_fontsize = (agattr(g,AGNODE,new CString("fontsize"),null));
-    N_fontname = (agattr(g,AGNODE,new CString("fontname"),null));
-    N_fontcolor = (agattr(g,AGNODE,new CString("fontcolor"),null));
-    N_label = (agattr(g,AGNODE,new CString("label"),null));
-    if (N(N_label))
-	N_label = agattr(g, AGNODE, new CString("label"), new CString("\\N"));
-    N_xlabel = (agattr(g,AGNODE,new CString("xlabel"),null));
-    N_showboxes = (agattr(g,AGNODE,new CString("showboxes"),null));
-    N_penwidth = (agattr(g,AGNODE,new CString("penwidth"),null));
-    N_ordering = (agattr(g,AGNODE,new CString("ordering"),null));
-    N_margin = (agattr(g,AGNODE,new CString("margin"),null));
+    Z._().N_height = (agattr(g,AGNODE,new CString("height"),null));
+    Z._().N_width = (agattr(g,AGNODE,new CString("width"),null));
+    Z._().N_shape = (agattr(g,AGNODE,new CString("shape"),null));
+    Z._().N_color = (agattr(g,AGNODE,new CString("color"),null));
+    Z._().N_fillcolor = (agattr(g,AGNODE,new CString("fillcolor"),null));
+    Z._().N_style = (agattr(g,AGNODE,new CString("style"),null));
+    Z._().N_fontsize = (agattr(g,AGNODE,new CString("fontsize"),null));
+    Z._().N_fontname = (agattr(g,AGNODE,new CString("fontname"),null));
+    Z._().N_fontcolor = (agattr(g,AGNODE,new CString("fontcolor"),null));
+    Z._().N_label = (agattr(g,AGNODE,new CString("label"),null));
+    if (N(Z._().N_label))
+	Z._().N_label = agattr(g, AGNODE, new CString("label"), new CString("\\N"));
+    Z._().N_xlabel = (agattr(g,AGNODE,new CString("xlabel"),null));
+    Z._().N_showboxes = (agattr(g,AGNODE,new CString("showboxes"),null));
+    Z._().N_penwidth = (agattr(g,AGNODE,new CString("penwidth"),null));
+    Z._().N_ordering = (agattr(g,AGNODE,new CString("ordering"),null));
+    Z._().N_margin = (agattr(g,AGNODE,new CString("margin"),null));
     /* attribs for polygon shapes */
-    N_sides = (agattr(g,AGNODE,new CString("sides"),null));
-    N_peripheries = (agattr(g,AGNODE,new CString("peripheries"),null));
-    N_skew = (agattr(g,AGNODE,new CString("skew"),null));
-    N_orientation = (agattr(g,AGNODE,new CString("orientation"),null));
-    N_distortion = (agattr(g,AGNODE,new CString("distortion"),null));
-    N_fixed = (agattr(g,AGNODE,new CString("fixedsize"),null));
-    N_imagescale = (agattr(g,AGNODE,new CString("imagescale"),null));
-    N_nojustify = (agattr(g,AGNODE,new CString("nojustify"),null));
-    N_layer = (agattr(g,AGNODE,new CString("layer"),null));
-    N_group = (agattr(g,AGNODE,new CString("group"),null));
-    N_comment = (agattr(g,AGNODE,new CString("comment"),null));
-    N_vertices = (agattr(g,AGNODE,new CString("vertices"),null));
-    N_z = (agattr(g,AGNODE,new CString("z"),null));
-    N_gradientangle = (agattr(g,AGNODE,new CString("gradientangle"),null));
+    Z._().N_sides = (agattr(g,AGNODE,new CString("sides"),null));
+    Z._().N_peripheries = (agattr(g,AGNODE,new CString("peripheries"),null));
+    Z._().N_skew = (agattr(g,AGNODE,new CString("skew"),null));
+    Z._().N_orientation = (agattr(g,AGNODE,new CString("orientation"),null));
+    Z._().N_distortion = (agattr(g,AGNODE,new CString("distortion"),null));
+    Z._().N_fixed = (agattr(g,AGNODE,new CString("fixedsize"),null));
+    Z._().N_imagescale = (agattr(g,AGNODE,new CString("imagescale"),null));
+    Z._().N_nojustify = (agattr(g,AGNODE,new CString("nojustify"),null));
+    Z._().N_layer = (agattr(g,AGNODE,new CString("layer"),null));
+    Z._().N_group = (agattr(g,AGNODE,new CString("group"),null));
+    Z._().N_comment = (agattr(g,AGNODE,new CString("comment"),null));
+    Z._().N_vertices = (agattr(g,AGNODE,new CString("vertices"),null));
+    Z._().N_z = (agattr(g,AGNODE,new CString("z"),null));
+    Z._().N_gradientangle = (agattr(g,AGNODE,new CString("gradientangle"),null));
     /* initialize edges */
-    E_weight = (agattr(g,AGEDGE,new CString("weight"),null));
-    E_color = (agattr(g,AGEDGE,new CString("color"),null));
-    E_fillcolor = (agattr(g,AGEDGE,new CString("fillcolor"),null));
-    E_fontsize = (agattr(g,AGEDGE,new CString("fontsize"),null));
-    E_fontname = (agattr(g,AGEDGE,new CString("fontname"),null));
-    E_fontcolor = (agattr(g,AGEDGE,new CString("fontcolor"),null));
-    E_label = (agattr(g,AGEDGE,new CString("label"),null));
-    E_xlabel = (agattr(g,AGEDGE,new CString("xlabel"),null));
-    E_label_float = (agattr(g,AGEDGE,new CString("labelfloat"),null));
+    Z._().E_weight = (agattr(g,AGEDGE,new CString("weight"),null));
+    Z._().E_color = (agattr(g,AGEDGE,new CString("color"),null));
+    Z._().E_fillcolor = (agattr(g,AGEDGE,new CString("fillcolor"),null));
+    Z._().E_fontsize = (agattr(g,AGEDGE,new CString("fontsize"),null));
+    Z._().E_fontname = (agattr(g,AGEDGE,new CString("fontname"),null));
+    Z._().E_fontcolor = (agattr(g,AGEDGE,new CString("fontcolor"),null));
+    Z._().E_label = (agattr(g,AGEDGE,new CString("label"),null));
+    Z._().E_xlabel = (agattr(g,AGEDGE,new CString("xlabel"),null));
+    Z._().E_label_float = (agattr(g,AGEDGE,new CString("labelfloat"),null));
     /* vladimir */
-    E_dir = (agattr(g,AGEDGE,new CString("dir"),null));
-    E_arrowhead = (agattr(g,AGEDGE,new CString("arrowhead"),null));
-    E_arrowtail = (agattr(g,AGEDGE,new CString("arrowtail"),null));
-    E_headlabel = (agattr(g,AGEDGE,new CString("headlabel"),null));
-    E_taillabel = (agattr(g,AGEDGE,new CString("taillabel"),null));
-    E_labelfontsize = (agattr(g,AGEDGE,new CString("labelfontsize"),null));
-    E_labelfontname = (agattr(g,AGEDGE,new CString("labelfontname"),null));
-    E_labelfontcolor = (agattr(g,AGEDGE,new CString("labelfontcolor"),null));
-    E_labeldistance = (agattr(g,AGEDGE,new CString("labeldistance"),null));
-    E_labelangle = (agattr(g,AGEDGE,new CString("labelangle"),null));
+    Z._().E_dir = (agattr(g,AGEDGE,new CString("dir"),null));
+    Z._().E_arrowhead = (agattr(g,AGEDGE,new CString("arrowhead"),null));
+    Z._().E_arrowtail = (agattr(g,AGEDGE,new CString("arrowtail"),null));
+    Z._().E_headlabel = (agattr(g,AGEDGE,new CString("headlabel"),null));
+    Z._().E_taillabel = (agattr(g,AGEDGE,new CString("taillabel"),null));
+    Z._().E_labelfontsize = (agattr(g,AGEDGE,new CString("labelfontsize"),null));
+    Z._().E_labelfontname = (agattr(g,AGEDGE,new CString("labelfontname"),null));
+    Z._().E_labelfontcolor = (agattr(g,AGEDGE,new CString("labelfontcolor"),null));
+    Z._().E_labeldistance = (agattr(g,AGEDGE,new CString("labeldistance"),null));
+    Z._().E_labelangle = (agattr(g,AGEDGE,new CString("labelangle"),null));
     /* end vladimir */
-    E_minlen = (agattr(g,AGEDGE,new CString("minlen"),null));
-    E_showboxes = (agattr(g,AGEDGE,new CString("showboxes"),null));
-    E_style = (agattr(g,AGEDGE,new CString("style"),null));
-    E_decorate = (agattr(g,AGEDGE,new CString("decorate"),null));
-    E_arrowsz = (agattr(g,AGEDGE,new CString("arrowsize"),null));
-    E_constr = (agattr(g,AGEDGE,new CString("constraint"),null));
-    E_layer = (agattr(g,AGEDGE,new CString("layer"),null));
-    E_comment = (agattr(g,AGEDGE,new CString("comment"),null));
-    E_tailclip = (agattr(g,AGEDGE,new CString("tailclip"),null));
-    E_headclip = (agattr(g,AGEDGE,new CString("headclip"),null));
-    E_penwidth = (agattr(g,AGEDGE,new CString("penwidth"),null));
+    Z._().E_minlen = (agattr(g,AGEDGE,new CString("minlen"),null));
+    Z._().E_showboxes = (agattr(g,AGEDGE,new CString("showboxes"),null));
+    Z._().E_style = (agattr(g,AGEDGE,new CString("style"),null));
+    Z._().E_decorate = (agattr(g,AGEDGE,new CString("decorate"),null));
+    Z._().E_arrowsz = (agattr(g,AGEDGE,new CString("arrowsize"),null));
+    Z._().E_constr = (agattr(g,AGEDGE,new CString("constraint"),null));
+    Z._().E_layer = (agattr(g,AGEDGE,new CString("layer"),null));
+    Z._().E_comment = (agattr(g,AGEDGE,new CString("comment"),null));
+    Z._().E_tailclip = (agattr(g,AGEDGE,new CString("tailclip"),null));
+    Z._().E_headclip = (agattr(g,AGEDGE,new CString("headclip"),null));
+    Z._().E_penwidth = (agattr(g,AGEDGE,new CString("penwidth"),null));
     /* background */
     GD_drawing(g).setPtr("xdots", init_xdot (g));
     /* initialize id, if any */

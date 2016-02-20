@@ -1,0 +1,42 @@
+public static void swap_spline(splines s) {
+    __ptr__ list;
+    __ptr__ lp;
+    __ptr__ olp;
+    int i, sz;
+    sz = s.getInt("size");
+	list = gmalloc(sizeof(bezier.class, sz));
+    lp = list;
+    olp = s.getArrayOfPtr("list").plus(sz - 1).asPtr();
+    for (i = 0; i < sz; i++) {	/* reverse and swap list of beziers */
+	swap_bezier(olp, lp);
+	olp = olp.plus(-1);
+	lp = lp.plus(1);
+    }
+    /* free old structures */
+    for (i = 0; i < sz; i++)
+	Memory.free(s.getArrayOfPtr("list").plus(i).getPtr().getArrayOfPtr("list"));
+    Memory.free(s.getArrayOfPtr("list"));
+    s.setPtr("list", list);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void swap_spline(splines * s)
+{
+    bezier *list;
+    bezier *lp;
+    bezier *olp;
+    int i, sz;
+    sz = s->size;
+    list = (bezier*)gmalloc((sz)*sizeof(bezier));
+    lp = list;
+    olp = s->list + (sz - 1);
+    for (i = 0; i < sz; i++) {	/* reverse and swap list of beziers */
+	swap_bezier(olp--, lp++);
+    }
+    /* free old structures */
+    for (i = 0; i < sz; i++)
+	free(s->list[i].list);
+    free(s->list);
+    s->list = list;
+}
+

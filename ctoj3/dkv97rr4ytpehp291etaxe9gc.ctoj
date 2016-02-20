@@ -1,0 +1,14 @@
+public static void delete_fast_edge(Agedge_s e) {
+    //assert(e != NULL);
+    zapinlist((ND_out(agtail(e))).amp(), e);
+    zapinlist((ND_in(aghead(e))).amp(), e);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void delete_fast_edge(edge_t * e)
+{
+    assert(e != NULL);
+    zapinlist(&(ND_out(agtail(e))), e);
+    zapinlist(&(ND_in(aghead(e))), e);
+}
+

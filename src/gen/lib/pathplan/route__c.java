@@ -2,33 +2,15 @@
  * PlantUML : a free UML diagram generator
  * ========================================================================
  *
- * (C) Copyright 2009-2017, Arnaud Roques
- *
  * Project Info:  http://plantuml.com
  * 
- * This file is part of PlantUML.
+ * This file is part of Smetana.
+ * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * PlantUML is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * (C) Copyright 2009-2017, Arnaud Roques
  *
- * PlantUML distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- *
- * Original Author:  Arnaud Roques
- *
- *
- *
- *
+ * This translation is distributed under the same Licence as the original C program:
+ * 
  *************************************************************************
  * Copyright (c) 2011 AT&T Intellectual Property 
  * All rights reserved. This program and the accompanying materials
@@ -39,164 +21,42 @@
  * Contributors: See CVS logs. Details at http://www.graphviz.org/
  *************************************************************************
  *
+ * THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE PUBLIC
+ * LICENSE ("AGREEMENT"). [Eclipse Public License - v 1.0]
+ * 
+ * ANY USE, REPRODUCTION OR DISTRIBUTION OF THE PROGRAM CONSTITUTES
+ * RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 package gen.lib.pathplan;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.grammar__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.cgraph.y_tab__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.common.y_tab__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.dotgen2.decomp__c.*;
-import static gen.lib.dotgen2.dotinit__c.*;
-import static gen.lib.dotgen2.groups__c.*;
-import static gen.lib.dotgen2.level__c.*;
-import static gen.lib.dotgen2.minc2__c.*;
-import static gen.lib.dotgen2.minc_utils__c.*;
-import static gen.lib.dotgen2.ns__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import static gen.lib.pathplan.solvers__c.solve3;
+import static smetana.core.JUtils.setjmp;
+import static smetana.core.JUtils.sizeof;
+import static smetana.core.JUtils.sqrt;
+import static smetana.core.JUtilsDebug.ENTERING;
+import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.DISTSQ;
+import static smetana.core.Macro.N;
+import static smetana.core.Macro.UNSUPPORTED;
+import h.Ppoly_t;
+import h.pointf;
+import h.tna_t;
+import smetana.core.Memory;
+import smetana.core.Z;
+import smetana.core.__array_of_struct__;
+import smetana.core.__ptr__;
+import smetana.core.__struct__;
+import smetana.core.jmp_buf;
 
 public class route__c {
 //1 baedz5i9est5csw3epz3cv7z
@@ -213,11 +73,12 @@ private static jmp_buf jbuf = new jmp_buf();
 
 //1 3k2f2er3efsrl0210su710vf
 // static Ppoint_t *ops
-static private __ptr__ ops;
+//static private __ptr__ ops;
 
 //1 ds2k0zdfzruet3qxk0duytkjx
 // static int opn, opl
-private static int opn, opl;
+//private static int opn;
+//private static int opl;
 
 
 
@@ -240,14 +101,14 @@ UNSUPPORTED("8d9xfgejx5vgd6shva5wk5k06"); // 	return -1;
     /* generate the splines */
     evs.plus(0).getStruct().____(normv(evs.plus(0).getStruct()));
     evs.plus(1).getStruct().____(normv(evs.plus(1).getStruct()));
-    opl = 0;
+    Z._().opl = 0;
     growops(4);
-    ops.plus(opl).setStruct(inps.plus(0).getStruct());
-    opl++;
+    Z._().ops_route.plus(Z._().opl).setStruct(inps.plus(0).getStruct());
+    Z._().opl++;
     if (reallyroutespline(edges, edgen, inps, inpn, evs.plus(0).getStruct(), evs.plus(1).getStruct()) == -1)
 	return -1;
-    output.setInt("pn", opl);
-    output.setPtr("ps", ops);
+    output.setInt("pn", Z._().opl);
+    output.setPtr("ps", Z._().ops_route);
     return 0;
 } finally {
 LEAVING("9stmrdqlmufyk2wutp3totr5j","Proutespline");
@@ -259,8 +120,8 @@ LEAVING("9stmrdqlmufyk2wutp3totr5j","Proutespline");
 
 //3 13dxqzbgtpl4ubnnvw6ehzzi9
 // static int reallyroutespline(Pedge_t * edges, int edgen, 			     Ppoint_t * inps, int inpn, Ppoint_t ev0, 			     Ppoint_t ev1) 
-private static __ptr__ tnas;
-private static int tnan;
+//private static __ptr__ tnas;
+//private static int tnan;
 public static int reallyroutespline(__ptr__ edges, int edgen, __ptr__ inps, int inpn, final __struct__<pointf> ev0, final __struct__<pointf> ev1) {
 // WARNING!! STRUCT
 return reallyroutespline_w_(edges, edgen, inps, inpn, ev0.copy(), ev1.copy());
@@ -272,49 +133,46 @@ try {
     final __struct__<pointf> v1 = __struct__.from(pointf.class), v2 = __struct__.from(pointf.class), splitv = __struct__.from(pointf.class), splitv1 = __struct__.from(pointf.class), splitv2 = __struct__.from(pointf.class);
     double maxd, d, t;
     int maxi, i, spliti;
-    if (tnan < inpn) {
-	if (N(tnas)) {
-	    if (N(tnas = Memory.malloc(sizeof(tna_t.class, inpn))))
+    if (Z._().tnan < inpn) {
+	if (N(Z._().tnas)) {
+	    if (N(Z._().tnas = Memory.malloc(sizeof(tna_t.class, inpn))))
 		return -1;
 	} else {
-	    if (N(tnas = Memory.realloc(tnas, sizeof(tna_t.class, inpn))))
+	    if (N(Z._().tnas = Memory.realloc(Z._().tnas, sizeof(tna_t.class, inpn))))
 		return -1;
 	}
-	tnan = inpn;
+	Z._().tnan = inpn;
     }
-    tnas.plus(0).getStruct().setDouble("t", 0);
+    Z._().tnas.plus(0).getStruct().setDouble("t", 0);
     for (i = 1; i < inpn; i++)
-	tnas.plus(i).getStruct().setDouble("t", tnas.plus(i-1).getStruct().getDouble("t") + dist(inps.plus(i).getStruct(), inps.plus(i-1).getStruct()));
+	Z._().tnas.plus(i).getStruct().setDouble("t", Z._().tnas.plus(i-1).getStruct().getDouble("t") + dist(inps.plus(i).getStruct(), inps.plus(i-1).getStruct()));
     for (i = 1; i < inpn; i++)
-	tnas.plus(i).getStruct().setDouble("t", tnas.plus(i).getStruct().getDouble("t") / tnas.plus(inpn - 1).getStruct().getDouble("t"));
+	Z._().tnas.plus(i).getStruct().setDouble("t", Z._().tnas.plus(i).getStruct().getDouble("t") / Z._().tnas.plus(inpn - 1).getStruct().getDouble("t"));
     for (i = 0; i < inpn; i++) {
-	tnas.plus(i).getStruct().getArray("a").plus(0).setStruct(scale(ev0, B1(tnas.plus(i).getStruct().getDouble("t"))));
-	tnas.plus(i).getStruct().getArray("a").plus(1).setStruct(scale(ev1, B2(tnas.plus(i).getStruct().getDouble("t"))));
+	Z._().tnas.plus(i).getStruct().getArrayOfStruct("a").plus(0).setStruct(scale(ev0, B1(Z._().tnas.plus(i).getStruct().getDouble("t"))));
+	Z._().tnas.plus(i).getStruct().getArrayOfStruct("a").plus(1).setStruct(scale(ev1, B2(Z._().tnas.plus(i).getStruct().getDouble("t"))));
     }
-    if (mkspline(inps, inpn, tnas, ev0, ev1, p1.amp(), v1.amp(), p2.amp(), v2.amp()) == -1)
+    if (mkspline(inps, inpn, Z._().tnas, ev0, ev1, p1.amp(), v1.amp(), p2.amp(), v2.amp()) == -1)
 	return -1;
     if (splinefits(edges, edgen, p1, v1, p2, v2, inps, inpn)!=0)
 	return 0;
-UNSUPPORTED("d2oxz9352quicl35l2d3dm50s"); //     cp1 = add(p1, scale(v1, 1 / 3.0));
-UNSUPPORTED("d1yieqsrwyu7pr0rd88ybn6sk"); //     cp2 = sub(p2, scale(v2, 1 / 3.0));
-UNSUPPORTED("7xy5zkzbu6qutvb5f7npjonal"); //     for (maxd = -1, maxi = -1, i = 1; i < inpn - 1; i++) {
-UNSUPPORTED("c527ncexcnhg9qclevsgg46to"); // 	t = tnas[i].t;
-UNSUPPORTED("jpudiq150i4kbwz8onylgx5l"); // 	p.x = B0(t) * p1.x + B1(t) * cp1.x + B2(t) * cp2.x + B3(t) * p2.x;
-UNSUPPORTED("9o015n1oh1sq0v2c8s55ec7wd"); // 	p.y = B0(t) * p1.y + B1(t) * cp1.y + B2(t) * cp2.y + B3(t) * p2.y;
-UNSUPPORTED("6mcv8t9ihol19h9pydemdn3z"); // 	if ((d = dist(p, inps[i])) > maxd)
-UNSUPPORTED("51f153p37z4p82a9swq6pl1uc"); // 	    maxd = d, maxi = i;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("3m5ar5uy4bych3rry4xjafo2z"); //     spliti = maxi;
-UNSUPPORTED("35qrvyhcvcyn05kqby4nrkxw2"); //     splitv1 = normv(sub(inps[spliti], inps[spliti - 1]));
-UNSUPPORTED("4vpzs9dwflivbpzpbtvrxv8qc"); //     splitv2 = normv(sub(inps[spliti + 1], inps[spliti]));
-UNSUPPORTED("do5ofp56abb8kz9jbza7yu7gx"); //     splitv = normv(add(splitv1, splitv2));
-UNSUPPORTED("biexrjbmm6sc9tuqasn4qntzv"); //     reallyroutespline(edges, edgen, inps, spliti + 1, ev0, splitv);
-UNSUPPORTED("8h13rxqbjec94jyq8hiberliv"); //     reallyroutespline(edges, edgen, &inps[spliti], inpn - spliti, splitv,
-UNSUPPORTED("1m3t7k9blca5xjqe5vt1w5t46"); // 		      ev1);
-UNSUPPORTED("5oxhd3fvp0gfmrmz12vndnjt"); //     return 0;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+    cp1.____(add(p1, scale(v1, 1 / 3.0)));
+    cp2.____(sub(p2, scale(v2, 1 / 3.0)));
+    for (maxd = -1, maxi = -1, i = 1; i < inpn - 1; i++) {
+	t = Z._().tnas.plus(i).getDouble("t");
+	p.setDouble("x", B0(t) * p1.getDouble("x") + B1(t) * cp1.getDouble("x") + B2(t) * cp2.getDouble("x") + B3(t) * p2.getDouble("x"));
+	p.setDouble("y", B0(t) * p1.getDouble("y") + B1(t) * cp1.getDouble("y") + B2(t) * cp2.getDouble("y") + B3(t) * p2.getDouble("y"));
+	if ((d = dist(p, inps.plus(i).getStruct())) > maxd)
+	    {maxd = d; maxi = i;}
+    }
+    spliti = maxi;
+    splitv1.____(normv(sub(inps.plus(spliti).getStruct(), inps.plus(spliti - 1).getStruct())));
+    splitv2.____(normv(sub(inps.plus(spliti + 1).getStruct(), inps.plus(spliti).getStruct())));
+    splitv.____(normv(add(splitv1, splitv2)));
+    reallyroutespline(edges, edgen, inps, spliti + 1, ev0, splitv);
+    reallyroutespline(edges, edgen, inps.plus(spliti), inpn - spliti, splitv,
+		      ev1);
+    return 0;
 } finally {
 LEAVING("13dxqzbgtpl4ubnnvw6ehzzi9","reallyroutespline");
 }
@@ -342,14 +200,14 @@ try {
     c[0][0] = c[0][1] = c[1][0] = c[1][1] = 0.0;
     x[0] = x[1] = 0.0;
     for (i = 0; i < inpn; i++) {
-	c[0][0] += dot(tnas.plus(i).getStruct().getArray("a").plus(0).getStruct(), tnas.plus(i).getStruct().getArray("a").plus(0).getStruct());
-	c[0][1] += dot(tnas.plus(i).getStruct().getArray("a").plus(0).getStruct(), tnas.plus(i).getStruct().getArray("a").plus(1).getStruct());
+	c[0][0] += dot(tnas.plus(i).getStruct().getArrayOfStruct("a").plus(0).getStruct(), tnas.plus(i).getStruct().getArrayOfStruct("a").plus(0).getStruct());
+	c[0][1] += dot(tnas.plus(i).getStruct().getArrayOfStruct("a").plus(0).getStruct(), tnas.plus(i).getStruct().getArrayOfStruct("a").plus(1).getStruct());
 	c[1][0] = c[0][1];
-	c[1][1] += dot(tnas.plus(i).getStruct().getArray("a").plus(1).getStruct(), tnas.plus(i).getStruct().getArray("a").plus(1).getStruct());
+	c[1][1] += dot(tnas.plus(i).getStruct().getArrayOfStruct("a").plus(1).getStruct(), tnas.plus(i).getStruct().getArrayOfStruct("a").plus(1).getStruct());
 	tmp.____(sub(inps.plus(i).getStruct(), add(scale(inps.plus(0).getStruct(), B01(tnas.plus(i).getStruct().getDouble("t"))),
 			       scale(inps.plus(inpn - 1).getStruct(), B23(tnas.plus(i).getStruct().getDouble("t"))))));
-	x[0] += dot(tnas.plus(i).getStruct().getArray("a").plus(0).getStruct(), tmp);
-	x[1] += dot(tnas.plus(i).getStruct().getArray("a").plus(1).getStruct(), tmp);
+	x[0] += dot(tnas.plus(i).getStruct().getArrayOfStruct("a").plus(0).getStruct(), tmp);
+	x[1] += dot(tnas.plus(i).getStruct().getArrayOfStruct("a").plus(1).getStruct(), tmp);
     }
     det01 = c[0][0] * c[1][1] - c[1][0] * c[0][1];
     det0X = c[0][0] * x[1] - c[0][1] * x[0];
@@ -407,7 +265,7 @@ return splinefits_w_(edges, edgen, pa.copy(), va.copy(), pb.copy(), vb.copy(), i
 private static int splinefits_w_(__ptr__ edges, int edgen, final __struct__<pointf> pa, final __struct__<pointf> va, final __struct__<pointf> pb, final __struct__<pointf> vb, __ptr__ inps, int inpn) {
 ENTERING("987ednrgu5qo9dzhpiox47mhb","splinefits");
 try {
-    final __array__ sps = __array__.malloc(pointf.class, 4);
+    final __array_of_struct__ sps = __array_of_struct__.malloc(pointf.class, 4);
     double a, b;
     int pi;
     int forceflag;
@@ -433,23 +291,23 @@ try {
 	if (first!=0 && (dist_n(sps.asPtr(), 4) < (dist_n(inps, inpn) - 1E-3)))
 	    return 0;
 	first = 0;
-	if (splineisinside(edges, edgen, sps)!=0) {
-	    growops(opl + 4);
+	if (splineisinside(edges, edgen, sps)) {
+	    growops(Z._().opl + 4);
 	    for (pi = 1; pi < 4; pi++) {
-		ops.plus(opl).setDouble("x", sps.plus(pi).getStruct().getDouble("x"));
-		ops.plus(opl).setDouble("y", sps.plus(pi).getStruct().getDouble("y"));
-		opl++;
+		Z._().ops_route.plus(Z._().opl).setDouble("x", sps.plus(pi).getStruct().getDouble("x"));
+		Z._().ops_route.plus(Z._().opl).setDouble("y", sps.plus(pi).getStruct().getDouble("y"));
+		Z._().opl++;
 		}
 	    return 1;
 	}
 	if (a == 0 && b == 0) {
 	    if (forceflag!=0) {
-		growops(opl + 4);
+		growops(Z._().opl + 4);
 		for (pi = 1; pi < 4; pi++)
 		{
-			ops.plus(opl).setDouble("x", sps.plus(pi).getStruct().getDouble("x"));
-			ops.plus(opl).setDouble("y", sps.plus(pi).getStruct().getDouble("y"));
-		    opl++;
+			Z._().ops_route.plus(Z._().opl).setDouble("x", sps.plus(pi).getStruct().getDouble("x"));
+			Z._().ops_route.plus(Z._().opl).setDouble("y", sps.plus(pi).getStruct().getDouble("y"));
+		    Z._().opl++;
 		}
 		return 1;
 	    }
@@ -472,15 +330,15 @@ LEAVING("987ednrgu5qo9dzhpiox47mhb","splinefits");
 
 
 
-//3 an68if9f4tox43kcnu34vchbk
+//3 b6eghkeu16aum3l778ig52ht1
 // static int splineisinside(Pedge_t * edges, int edgen, Ppoint_t * sps) 
-public static int splineisinside(__ptr__ edges, int edgen, __array__ sps) {
-ENTERING("an68if9f4tox43kcnu34vchbk","splineisinside");
+public static boolean splineisinside(__ptr__ edges, int edgen, __array_of_struct__ sps) {
+ENTERING("b6eghkeu16aum3l778ig52ht1","splineisinside");
 try {
     double roots[] = new double[4];
     int rooti, rootn;
     int ei;
-    final __array__ lps = __array__.malloc(pointf.class, 2);
+    final __array_of_struct__ lps = __array_of_struct__.malloc(pointf.class, 2);
     final __struct__<pointf> ip = __struct__.from(pointf.class);
     double t, ta, tb, tc, td;
     for (ei = 0; ei < edgen; ei++) {
@@ -502,15 +360,15 @@ try {
 		tc * sps.plus(2).getDouble("x") + td * sps.plus(3).getDouble("x"));
 	    ip.setDouble("y", ta * sps.plus(0).getDouble("y") + tb * sps.plus(1).getDouble("y") +
 		tc * sps.plus(2).getDouble("y") + td * sps.plus(3).getDouble("y"));
-	    if (( ((ip.getDouble("x") - lps.plus(0).getStruct().getDouble("x")) * (ip.getDouble("x") - lps.plus(0).getStruct().getDouble("x"))) + ((ip.getDouble("y") - lps.plus(0).getStruct().getDouble("y")) * (ip.getDouble("y") - lps.plus(0).getStruct().getDouble("y"))) ) < 1E-3 ||
-		( ((ip.getDouble("x") - lps.plus(1).getStruct().getDouble("x")) * (ip.getDouble("x") - lps.plus(1).getStruct().getDouble("x"))) + ((ip.getDouble("y") - lps.plus(1).getStruct().getDouble("y")) * (ip.getDouble("y") - lps.plus(1).getStruct().getDouble("y"))) ) < 1E-3)
+	    if (DISTSQ(ip, lps.plus(0).getStruct()) < 1E-3 ||
+		DISTSQ(ip, lps.plus(1).getStruct()) < 1E-3)
 		continue;
-	    return 0;
+	    return false;
 	}
     }
-    return 1;
+    return true;
 } finally {
-LEAVING("an68if9f4tox43kcnu34vchbk","splineisinside");
+LEAVING("b6eghkeu16aum3l778ig52ht1","splineisinside");
 }
 }
 
@@ -519,7 +377,7 @@ LEAVING("an68if9f4tox43kcnu34vchbk","splineisinside");
 
 //3 32nc8itszi77u36la8npt2870
 // static int splineintersectsline(Ppoint_t * sps, Ppoint_t * lps, 				double *roots) 
-public static int splineintersectsline(__array__ sps, __array__ lps, double roots[]) {
+public static int splineintersectsline(__array_of_struct__ sps, __array_of_struct__ lps, double roots[]) {
 ENTERING("32nc8itszi77u36la8npt2870","splineintersectsline");
 try {
     double scoeff[] = new double[4];
@@ -673,21 +531,21 @@ LEAVING("3i8m1m9fg7qmnt8jloorwlu8e","normv");
 public static void growops(int newopn) {
 ENTERING("d59jcnpi1y0wr8e9uwxny2fvk","growops");
 try {
-    if (newopn <= opn)
+    if (newopn <= Z._().opn_route)
 	return;
-    if (N(ops)) {
-	if (N(ops = Memory.malloc(sizeof (pointf.class, newopn)))) {
+    if (N(Z._().ops_route)) {
+	if (N(Z._().ops_route = Memory.malloc(sizeof (pointf.class, newopn)))) {
 UNSUPPORTED("413an1hqgkb4ezaec6qdsdplx"); // 	    fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\route.c", 32, ("cannot malloc ops"));
 UNSUPPORTED("1r6uhbnmxv8c6msnscw07w0qx"); // 	    longjmp(jbuf,1);
 	}
     } else {
-	if (N(ops = Memory.realloc(ops,
+	if (N(Z._().ops_route = Memory.realloc(Z._().ops_route,
 					 sizeof (pointf.class, newopn)))) {
 UNSUPPORTED("8u0qgahxvk5pplf90thmhwxhl"); // 	    fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\route.c", 32, ("cannot realloc ops"));
 UNSUPPORTED("1r6uhbnmxv8c6msnscw07w0qx"); // 	    longjmp(jbuf,1);
 	}
     }
-    opn = newopn;
+    Z._().opn_route = newopn;
 } finally {
 LEAVING("d59jcnpi1y0wr8e9uwxny2fvk","growops");
 }
@@ -797,14 +655,14 @@ LEAVING("7ebsa2s1eoopqj1pp43bh5fw","dot");
 
 //3 73nhv3cuxqa9va0puve0ji2d5
 // static double B0(double t) 
-public static Object B0(Object... arg) {
-UNSUPPORTED("1uwuajk3czp61ywjcdz28kaln"); // static double B0(double t)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("cjnnjlw1oa4lvlksyd7031xtp"); //     double tmp = 1.0 - t;
-UNSUPPORTED("e3dzvz3i6wua9nwqv7gwdh5ak"); //     return tmp * tmp * tmp;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static double B0(double t) {
+ENTERING("73nhv3cuxqa9va0puve0ji2d5","B0");
+try {
+    double tmp = 1.0 - t;
+    return tmp * tmp * tmp;
+} finally {
+LEAVING("73nhv3cuxqa9va0puve0ji2d5","B0");
+}
 }
 
 
@@ -842,13 +700,13 @@ LEAVING("9ziajuqys2xceftdw0vac02g9","B2");
 
 //3 5sjstsgkvoou9grsty3y0cnvg
 // static double B3(double t) 
-public static Object B3(Object... arg) {
-UNSUPPORTED("7z7cako7kxp81tn6g3lmfsgbn"); // static double B3(double t)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("bq0lp847jroig5jhbiztlbvq"); //     return t * t * t;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static double B3(double t) {
+ENTERING("5sjstsgkvoou9grsty3y0cnvg","B3");
+try {
+    return t * t * t;
+} finally {
+LEAVING("5sjstsgkvoou9grsty3y0cnvg","B3");
+}
 }
 
 

@@ -5,10 +5,10 @@ public static int agedgeidcmpf(_dt_s d, __ptr__ arg_e0, __ptr__ arg_e1, _dtdisc_
     e1 = (Agedge_s) arg_e1;
     v = AGID(e0.getPtr("node")) - AGID(e1.getPtr("node"));
     if (v == 0) {		/* same node */
-UNSUPPORTED("ehtddg5qmuiufgoj2gbag28en"); // 	if ((((((Agobj_t*)(e0))->tag).objtype) == 0) || (((((Agobj_t*)(e1))->tag).objtype) == 0))
-UNSUPPORTED("1k3e39kpc8hkrh2jtdmzy1tur"); // 	    v = 0;
-UNSUPPORTED("9352ql3e58qs4fzapgjfrms2s"); // 	else
-UNSUPPORTED("9rfiauukf1b9q77d98glvwsyx"); // 	    v = ((((Agobj_t*)(e0))->tag).id) - ((((Agobj_t*)(e1))->tag).id);
+	if ((AGTYPE(e0) == 0) || (AGTYPE(e1) == 0))
+	    v = 0;
+	else
+	    v = AGID(e0) - AGID(e1);
     }
     return ((v==0)?0:(v<0?-1:1));
 }

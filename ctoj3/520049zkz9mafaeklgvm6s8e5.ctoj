@@ -1,0 +1,28 @@
+public static void restore_best(Agraph_s g) {
+    Agnode_s n;
+    int r;
+    for (n = GD_nlist(g); n!=null; n = ND_next(n))
+	ND_order(n, (int)ND_coord(n).getDouble("x"));
+    for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
+	GD_rank(Z._().Root).plus(r).setBoolean("valid", false);
+    qsort(GD_rank(g).plus(r).getPtr("v"),
+    	    GD_rank(g).plus(r).getInt("n"),
+    	    sizeof(GD_rank(g).plus(r).getPtr("v").plus(0)),
+    	    function(mincross__c.class, "nodeposcmpf"));
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void restore_best(graph_t * g)
+{
+    node_t *n;
+    int r;
+    for (n = GD_nlist(g); n; n = ND_next(n))
+	ND_order(n) = (ND_coord(n)).x;
+    for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
+	GD_rank(Root)[r].valid = 0;
+	qsort(GD_rank(g)[r].v, GD_rank(g)[r].n, sizeof(GD_rank(g)[0].v[0]),
+	      (qsort_cmpf) nodeposcmpf);
+    }
+}
+

@@ -1,10 +1,10 @@
-static final public __struct__<Agdesc_s> Agdirected = __struct__.from(Agdesc_s.class);
+/*static final public __struct__<Agdesc_s> Agdirected = __struct__.from(Agdesc_s.class);
 static {
 	Agdirected.setInt("directed", 1);
 	Agdirected.setInt("strict", 0);
 	Agdirected.setInt("no_loop", 0);
 	Agdirected.setInt("maingraph", 1);
-}
+}*/
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Agdesc_t Agdirected = { 1, 0, 0, 1 };

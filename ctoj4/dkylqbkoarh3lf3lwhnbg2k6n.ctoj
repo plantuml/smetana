@@ -1,4 +1,4 @@
-public static shape_desc Shapes[] = {
+/*public static shape_desc Shapes[] = {
 __Shapes__("box", poly_fns.amp(), p_box.amp()),
 __Shapes__("ellipse", poly_fns.amp(), p_ellipse.amp()),
 __Shapes__(null, null, null)
@@ -9,7 +9,7 @@ private static shape_desc __Shapes__(String s, shape_functions shape_functions, 
 	result.setPtr("fns", shape_functions);
 	result.setPtr("polygon", polygon);
 	return result;
-}
+}*/
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static shape_desc Shapes[] = {	/* first entry is default for no such shape */

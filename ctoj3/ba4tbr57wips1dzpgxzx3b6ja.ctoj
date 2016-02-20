@@ -1,0 +1,24 @@
+public static void exchange(Agnode_s v, Agnode_s w) {
+    int vi, wi, r;
+    r = ND_rank(v);
+    vi = ND_order(v);
+    wi = ND_order(w);
+    ND_order(v, wi);
+    GD_rank(Z._().Root).plus(r).getArrayOfPtr("v").plus(wi).setPtr(v);
+    ND_order(w, vi);
+    GD_rank(Z._().Root).plus(r).getArrayOfPtr("v").plus(vi).setPtr(w);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void exchange(node_t * v, node_t * w)
+{
+    int vi, wi, r;
+    r = ND_rank(v);
+    vi = ND_order(v);
+    wi = ND_order(w);
+    ND_order(v) = wi;
+    GD_rank(Root)[r].v[wi] = v;
+    ND_order(w) = vi;
+    GD_rank(Root)[r].v[vi] = w;
+}
+

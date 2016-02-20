@@ -3,8 +3,8 @@ public static void connecttris(int tri1, int tri2) {
     int ei, ej;
     for (ei = 0; ei < 3; ei++) {
 	for (ej = 0; ej < 3; ej++) {
-	    tri1p = (triangle_t) tris.plus(tri1);
-	    tri2p = (triangle_t) tris.plus(tri2);
+	    tri1p = (triangle_t) Z._().tris.plus(tri1);
+	    tri2p = (triangle_t) Z._().tris.plus(tri2);
 	    if ((EQ(tri1p.getArrayOfStruct("e").plus(ei).getStruct().getPtr("pnl0p").getPtr("pp"),
 	    		tri2p.getArrayOfStruct("e").plus(ej).getStruct().getPtr("pnl0p").getPtr("pp")) &&
 		 EQ(tri1p.getArrayOfStruct("e").plus(ei).getStruct().getPtr("pnl1p").getPtr("pp"),

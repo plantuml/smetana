@@ -2,7 +2,7 @@ public static void exchange_tree_edges(Agedge_s e, Agedge_s f) {
     int i, j;
     Agnode_s n;
     ED_tree_index(f, ED_tree_index(e));
-    Tree_edge.getArrayOfPtr("list").plus(ED_tree_index(e)).setPtr(f);
+    Z._().Tree_edge.getArrayOfPtr("list").plus(ED_tree_index(e)).setPtr(f);
     ED_tree_index(e, -1);
     n = agtail(e);
     ND_tree_out(n).setInt("size", ND_tree_out(n).getInt("size") -1);

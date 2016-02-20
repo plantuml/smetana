@@ -9,15 +9,15 @@ public static Agedge_s enter_edge(Agedge_s e) {
 	v = aghead(e);
 	outsearch = 1;
     }
-    Enter = null;
-    Slack = INT_MAX;
-    Low = ND_low(v);
-    Lim = ND_lim(v);
+    Z._().Enter = null;
+    Z._().Slack = INT_MAX;
+    Z._().Low = ND_low(v);
+    Z._().Lim = ND_lim(v);
     if (outsearch!=0)
 	dfs_enter_outedge(v);
     else
 	dfs_enter_inedge(v);
-    return Enter;
+    return Z._().Enter;
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

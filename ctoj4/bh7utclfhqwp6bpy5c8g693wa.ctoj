@@ -1,7 +1,7 @@
-private static final __array_of_struct__ Arrowsynonyms = __array_of_struct__.malloc(arrowname_t.class, 1);
+/*private static final __array_of_struct__ Arrowsynonyms = __array_of_struct__.malloc(arrowname_t.class, 1);
 static {
 	Arrowsynonyms.plus(0).setStruct(create_arrowname_t(null, 0));
-}
+}*/
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static arrowname_t Arrowsynonyms[] = {

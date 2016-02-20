@@ -19,7 +19,7 @@ UNSUPPORTED("4k888z8ymdp2b653twxc1ugbu"); // 	    agerr (AGWARN, "edge labels wi
 	}
 	for (n = agfstnode (g); n!=null; n = agnxtnode(g, n)) {
 	    for (e = agfstout(g, n); e!=null; e = agnxtout(g,e)) {
-		makeStraightEdge(g, e, et, sinfo);
+		makeStraightEdge(g, e, et, Z._().sinfo);
 	    }
 	}
 UNSUPPORTED("46btiag50nczzur103eqhjcup"); // 	goto finish;
@@ -55,7 +55,7 @@ UNSUPPORTED("dmdpxf403p3cj5res72ow5qir"); // 		ED_label(fe)->pos = ND_coord(n);
 UNSUPPORTED("equ6t5h0u8rkyhzp6p1aq8pvo"); // 		ED_label(fe)->set = NOT(0);
 	    }
 	    if ((ND_node_type(n) != 0) &&
-		((Integer)sinfo.call("splineMerge", n) == 0))
+		((Boolean)Z._().sinfo.call("splineMerge", n) == false))
 		continue;
 	    for (k = 0; (e = (Agedge_s) ND_out(n).getArrayOfPtr("list").plus(k).getPtr())!=null; k++) {
 		if ((ED_edge_type(e) == 4)
@@ -175,7 +175,7 @@ UNSUPPORTED("equ6t5h0u8rkyhzp6p1aq8pvo"); // 		ED_label(fe)->set = NOT(0);
 		int dwny = (int) (ND_coord(n).getDouble("y") - ND_coord(GD_rank(g).plus(r+1).getArrayOfPtr("v").plus(0).getPtr()).getDouble("y"));
 		sizey = MIN(upy, dwny);
 	    }
-	    makeSelfEdge(P, edges, ind, cnt, sd.getInt("Multisep"), sizey/2, sinfo.amp());
+	    makeSelfEdge(P, edges, ind, cnt, sd.getInt("Multisep"), sizey/2, Z._().sinfo.amp());
 	    for (b = 0; b < cnt; b++) {
 		e = (Agedge_s) edges.plus(ind+b).getPtr();
 		if (ED_label(e)!=null)
@@ -191,8 +191,8 @@ UNSUPPORTED("equ6t5h0u8rkyhzp6p1aq8pvo"); // 		ED_label(fe)->set = NOT(0);
     /* place regular edge labels */
     for (n = GD_nlist(g); n!=null; n = ND_next(n)) {
 	if ((ND_node_type(n) == 1) && (ND_label(n))!=null) {
-UNSUPPORTED("4w39ct9hxndczv8e4ctlgbzha"); // 	    place_vnlabel(n);
-UNSUPPORTED("ohgp641pe8uyzr6o8mald2j8"); // 	    updateBB(g, ND_label(n));
+	    place_vnlabel(n);
+	    updateBB(g, ND_label(n));
 	}
     }
     /* normalize splines so they always go from tail to head */
@@ -202,7 +202,7 @@ UNSUPPORTED("ohgp641pe8uyzr6o8mald2j8"); // 	    updateBB(g, ND_label(n));
 finish :
     /* vladimir: place port labels */
     /* FIX: head and tail labels are not part of cluster bbox */
-    if ((E_headlabel!=null || E_taillabel!=null) && (E_labelangle!=null || E_labeldistance!=null)) {
+    if ((Z._().E_headlabel!=null || Z._().E_taillabel!=null) && (Z._().E_labelangle!=null || Z._().E_labeldistance!=null)) {
 UNSUPPORTED("attp4bsjqe99xnhi7lr7pszar"); // 	for (n = agfstnode(g); n; n = agnxtnode(g, n)) {
 UNSUPPORTED("54jm4bbgzyl0txauszo1mappu"); // 	    if (E_headlabel) {
 UNSUPPORTED("dw8yu56thd0wpolmtby8r5doo"); // 		for (e = agfstin(g, n); e; e = agnxtin(g, e))
@@ -229,8 +229,8 @@ UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
 	Memory.free(sd.getPtr("Rank_box"));
 	routesplinesterm();
     } 
-    State = 1;
-    EdgeLabelsDone = 1;
+    Z._().State = 1;
+    Z._().EdgeLabelsDone = 1;
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

@@ -1,0 +1,8 @@
+digraph { 
+ cl0001 [shape=box, width=7.9, height=4.7]
+ cl0002 [shape=box, width=0.6, height=0.6]
+ cl0004 [shape=box, width=0.6, height=0.6]
+ cl0002->cl0001
+ cl0001->cl0004
+ cl0002->cl0004
+}

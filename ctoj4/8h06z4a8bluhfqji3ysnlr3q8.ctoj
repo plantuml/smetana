@@ -1,4 +1,4 @@
-private final static __struct__<port> Center = __struct__.from(port.class);
+/*private final static __struct__<port> Center = __struct__.from(port.class);
 static {
 Center.getStruct("p").setDouble("x", 0);
 Center.getStruct("p").setDouble("y", 0);
@@ -10,8 +10,8 @@ Center.setInt("clip", 1);
 Center.setInt("dyna", 0);
 Center.setInt("order", 0);
 Center.setInt("side", 0);
+}*/
 
-}
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static port Center = { {0, 0}, -1, 0, 0, 0, 1, 0, 0, 0 };
 

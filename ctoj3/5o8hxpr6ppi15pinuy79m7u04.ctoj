@@ -1,9 +1,9 @@
 public static void end_component() {
     int i;
-    i = GD_comp(G).getInt("size");
-    GD_comp(G).setInt("size", 1+GD_comp(G).getInt("size"));
-    GD_comp(G).setPtr("list", ALLOC_empty(GD_comp(G).getInt("size"), GD_comp(G).getPtr("list"), Agnode_s.class));
-    GD_comp(G).getArrayOfPtr("list").plus(i).setPtr(GD_nlist(G));
+    i = GD_comp(Z._().G_decomp).getInt("size");
+    GD_comp(Z._().G_decomp).setInt("size", 1+GD_comp(Z._().G_decomp).getInt("size"));
+    GD_comp(Z._().G_decomp).setPtr("list", ALLOC_empty(GD_comp(Z._().G_decomp).getInt("size"), GD_comp(Z._().G_decomp).getPtr("list"), Agnode_s.class));
+    GD_comp(Z._().G_decomp).getArrayOfPtr("list").plus(i).setPtr(GD_nlist(Z._().G_decomp));
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

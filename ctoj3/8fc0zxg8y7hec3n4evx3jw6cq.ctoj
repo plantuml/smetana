@@ -1,10 +1,10 @@
 public static void gv_postprocess(Agraph_s g, int allowTranslation) {
     double diff;
     final __struct__<pointf> dimen = __struct__.from(pointf.class);
-    Rankdir = GD_rankdir(g);
-    Flip = GD_flip(g)!=0;
+    Z._().Rankdir = GD_rankdir(g);
+    Z._().Flip = GD_flip(g)!=0;
     /* Handle cluster labels */
-    if (Flip)
+    if (Z._().Flip)
 UNSUPPORTED("4hxky2sp978rmy6018sfmts6m"); // 	place_flip_graph_label(g);
     else
 	place_graph_label(g);
@@ -49,9 +49,9 @@ UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
 UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
     }
     if (allowTranslation!=0) {
-	switch (Rankdir) {
+	switch (Z._().Rankdir) {
 	case 0:
-	    Offset.____(GD_bb(g).getStruct("LL"));
+	    Z._().Offset.____(GD_bb(g).getStruct("LL"));
 	    break;
 	case 1:
 UNSUPPORTED("5t3j9lrc86kd5ouaqgzvz3qcm"); // 	    Offset = pointfof(-GD_bb(g).UR.y, GD_bb(g).LL.x);
@@ -67,7 +67,7 @@ UNSUPPORTED("3xtu7zkpqq7nsx9oe68oi6ebt"); // 	    Offset = pointfof(GD_bb(g).LL.
     }
     if (GD_label(g)!=null && N(GD_label(g).getPtr("set")))
 UNSUPPORTED("6dds0zsvqw48u510zcy954fh1"); // 	place_root_label(g, dimen);
-    if (Show_boxes!=null) {
+    if (Z._().Show_boxes!=null) {
 UNSUPPORTED("8c7x8di5w36ib05qan9z4sl9"); // 	char buf[BUFSIZ];
 UNSUPPORTED("83qqprhiseoxlwtwi991aag0c"); // 	if (Flip)
 UNSUPPORTED("86tova7pv19alt02nlk0d17oj"); // 	    sprintf(buf, "/pathbox {\n    /X exch neg %.5g sub def\n    /Y exch %.5g sub def\n    /x exch neg %.5g sub def\n    /y exch %.5g sub def\n    newpath x y moveto\n    X y lineto\n    X Y lineto\n    x Y lineto\n    closepath stroke\n} def\n", Offset.x, Offset.y, Offset.x, Offset.y);

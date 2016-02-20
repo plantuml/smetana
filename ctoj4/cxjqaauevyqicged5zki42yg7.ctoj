@@ -1,4 +1,4 @@
-private static int edgen;
+//private static int edgen;
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static int edgen;

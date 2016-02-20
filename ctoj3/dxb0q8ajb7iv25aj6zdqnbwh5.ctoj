@@ -1,0 +1,26 @@
+public static void zapinlist(elist L, Agedge_s e) {
+    int i;
+    for (i = 0; i < L.getInt("size"); i++) {
+	if (EQ(L.getArrayOfPtr("list").plus(i).getPtr(), e)) {
+	    L.setInt("size", L.getInt("size")-1);
+	    L.getArrayOfPtr("list").plus(i).setPtr(L.getArrayOfPtr("list").plus(L.getInt("size")).getPtr());
+	    L.getArrayOfPtr("list").plus(L.getInt("size")).setPtr(null);
+	    break;
+	}
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void zapinlist(elist * L, edge_t * e)
+{
+    int i;
+    for (i = 0; i < L->size; i++) {
+	if (L->list[i] == e) {
+	    L->size--;
+	    L->list[i] = L->list[L->size];
+	    L->list[L->size] = NULL;
+	    break;
+	}
+    }
+}
+

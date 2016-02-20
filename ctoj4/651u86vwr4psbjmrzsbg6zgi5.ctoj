@@ -1,4 +1,4 @@
-private static int routeinit;
+//private static int routeinit;
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static int routeinit;

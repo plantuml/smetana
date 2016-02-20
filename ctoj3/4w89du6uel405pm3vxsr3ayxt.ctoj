@@ -1,10 +1,10 @@
-private static __struct__<Agsubnode_s> template = __struct__.from(Agsubnode_s.class);
-private static __struct__<Agnode_s> dummy = __struct__.from(Agnode_s.class);
+//private static __struct__<Agsubnode_s> template = __struct__.from(Agsubnode_s.class);
+//private static __struct__<Agnode_s> dummy = __struct__.from(Agnode_s.class);
 public static Agnode_s agfindnode_by_id(Agraph_s g, int id) {
     Agsubnode_s sn;
-    dummy.getStruct("base").getStruct("tag").setInt("id", id);
-    template.setPtr("node", dummy.amp());
-    sn = (Agsubnode_s) (g.getPtr("n_id").call("searchf", g.getPtr("n_id"), template.amp(),0000004));
+    Z._().dummy.getStruct("base").getStruct("tag").setInt("id", id);
+    Z._().template.setPtr("node", Z._().dummy.amp());
+    sn = (Agsubnode_s) (g.getPtr("n_id").call("searchf", g.getPtr("n_id"), Z._().template.amp(),0000004));
     return (Agnode_s) (sn!=null ? sn.getPtr("node") : null);
 }
 

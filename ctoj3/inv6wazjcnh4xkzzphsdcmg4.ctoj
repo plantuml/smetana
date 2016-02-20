@@ -1,0 +1,101 @@
+public static void reorder(Agraph_s g, int r, boolean reverse, boolean hasfixed) {
+    boolean changed = false;
+    int nelt;
+    boolean muststay, sawclust;
+    __ptr__ vlist = GD_rank(g).plus(r).getPtr("v");
+    __ptr__ lp, rp=null, ep = vlist.plus(GD_rank(g).plus(r).getInt("n"));
+    for (nelt = GD_rank(g).plus(r).getInt("n") - 1; nelt >= 0; nelt--) {
+	lp = vlist;
+	while (lp.comparePointer(ep)<0) {
+	    /* find leftmost node that can be compared */
+	    while ((lp.comparePointer(ep) < 0) && (ND_mval(lp.getPtr()) < 0))
+		lp = lp.plus(1);
+	    if (lp.comparePointer(ep) >= 0)
+		break;
+	    /* find the node that can be compared */
+	    sawclust = muststay = false;
+	    for (rp = lp.plus(1); rp.comparePointer(ep) < 0; rp=rp.plus(1)) {
+		if (sawclust && ND_clust(rp.getPtr())!=null)
+		    continue;	/* ### */
+		if (left2right(g, (Agnode_s) lp.getPtr(), (Agnode_s) rp.getPtr())) {
+		    muststay = NOT(false);
+		    break;
+		}
+		if (ND_mval(rp.getPtr()) >= 0)
+		    break;
+		if (ND_clust(rp.getPtr())!=null)
+		    sawclust = NOT(false);	/* ### */
+	    }
+	    if (rp.comparePointer(ep) >= 0)
+		break;
+	    if (muststay == false) {
+		int p1 = (int) (ND_mval(lp.getPtr()));
+		int p2 = (int) (ND_mval(rp.getPtr()));
+		if ((p1 > p2) || ((p1 == p2) && (reverse))) {
+		    exchange((Agnode_s)lp.getPtr(), (Agnode_s)rp.getPtr());
+		    changed=true;
+		}
+	    }
+	    lp = rp;
+	}
+	if ((hasfixed == false) && (reverse == false))
+	    ep = ep.plus(-1);
+    }
+    if (changed) {
+	GD_rank(Z._().Root).plus(r).setBoolean("valid", false);
+	if (r > 0)
+	    GD_rank(Z._().Root).plus(r - 1).setBoolean("valid", false);
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void reorder(graph_t * g, int r, int reverse, int hasfixed)
+{
+    int changed = 0, nelt;
+    boolean muststay, sawclust;
+    node_t **vlist = GD_rank(g)[r].v;
+    node_t **lp, **rp, **ep = vlist + GD_rank(g)[r].n;
+    for (nelt = GD_rank(g)[r].n - 1; nelt >= 0; nelt--) {
+	lp = vlist;
+	while (lp < ep) {
+	    /* find leftmost node that can be compared */
+	    while ((lp < ep) && (ND_mval(*lp) < 0))
+		lp++;
+	    if (lp >= ep)
+		break;
+	    /* find the node that can be compared */
+	    sawclust = muststay = 0;
+	    for (rp = lp + 1; rp < ep; rp++) {
+		if (sawclust && ND_clust(*rp))
+		    continue;	/* ### */
+		if (left2right(g, *lp, *rp)) {
+		    muststay = NOT(0);
+		    break;
+		}
+		if (ND_mval(*rp) >= 0)
+		    break;
+		if (ND_clust(*rp))
+		    sawclust = NOT(0);	/* ### */
+	    }
+	    if (rp >= ep)
+		break;
+	    if (muststay == 0) {
+		register int p1 = (ND_mval(*lp));
+		register int p2 = (ND_mval(*rp));
+		if ((p1 > p2) || ((p1 == p2) && (reverse))) {
+		    exchange(*lp, *rp);
+		    changed++;
+		}
+	    }
+	    lp = rp;
+	}
+	if ((hasfixed == 0) && (reverse == 0))
+	    ep--;
+    }
+    if (changed) {
+	GD_rank(Root)[r].valid = 0;
+	if (r > 0)
+	    GD_rank(Root)[r - 1].valid = 0;
+    }
+}
+

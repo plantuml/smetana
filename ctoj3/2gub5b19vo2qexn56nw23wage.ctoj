@@ -12,11 +12,11 @@ public static int Pshortestpath(Ppoly_t polyp, __array_of_struct__ eps, Ppoly_t 
 	return -2;
     /* make space */
     growpnls(polyp.getInt("pn"));
-    pnll = 0;
-    tril = 0;
+    Z._().pnll = 0;
+    Z._().tril = 0;
     growdq(polyp.getInt("pn") * 2);
-    dq.setInt("fpnlpi", dq.getInt("pnlpn") / 2);
-    dq.setInt("lpnlpi", dq.getInt("fpnlpi") - 1);
+    Z._().dq.setInt("fpnlpi", Z._().dq.getInt("pnlpn") / 2);
+    Z._().dq.setInt("lpnlpi", Z._().dq.getInt("fpnlpi") - 1);
     /* make sure polygon is CCW and load pnls array */
     for (pi = 0, minx = HUGE_VAL, minpi = -1; pi < polyp.getInt("pn"); pi++) {
 	if (minx > polyp.getPtr("ps").plus(pi).getDouble("x"))
@@ -33,10 +33,10 @@ public static int Pshortestpath(Ppoly_t polyp, __array_of_struct__ eps, Ppoly_t 
 		&& polyp.getPtr("ps").plus(pi).getDouble("x") == polyp.getPtr("ps").plus(pi+1).getDouble("x")
 		&& polyp.getPtr("ps").plus(pi).getDouble("y") == polyp.getPtr("ps").plus(pi+1).getDouble("y"))
 		continue;
-	    pnls.plus(pnll).setPtr("pp", polyp.getPtr("ps").plus(pi));
-	    pnls.plus(pnll).setPtr("link", pnls.plus(pnll % polyp.getInt("pn")));
-	    pnlps.plus(pnll).setPtr(pnls.plus(pnll).getPtr());
-	    pnll++;
+	    Z._().pnls.plus(Z._().pnll).setPtr("pp", polyp.getPtr("ps").plus(pi));
+	    Z._().pnls.plus(Z._().pnll).setPtr("link", Z._().pnls.plus(Z._().pnll % polyp.getInt("pn")));
+	    Z._().pnlps.plus(Z._().pnll).setPtr(Z._().pnls.plus(Z._().pnll).getPtr());
+	    Z._().pnll++;
 	}
     } else {
 UNSUPPORTED("6r16p93hkrjz2x5g64y5fvgp"); // 	for (pi = 0; pi < polyp->pn; pi++) {
@@ -50,24 +50,24 @@ UNSUPPORTED("91ms6j3km9gat978l2eswlq29"); // 	    pnll++;
 UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
     }
     /* generate list of triangles */
-    triangulate(pnlps, pnll);
+    triangulate(Z._().pnlps, Z._().pnll);
     /* connect all pairs of triangles that share an edge */
-    for (trii = 0; trii < tril; trii++)
-	for (trij = trii + 1; trij < tril; trij++)
+    for (trii = 0; trii < Z._().tril; trii++)
+	for (trij = trii + 1; trij < Z._().tril; trij++)
 	    connecttris(trii, trij);
     /* find first and last triangles */
-    for (trii = 0; trii < tril; trii++)
+    for (trii = 0; trii < Z._().tril; trii++)
 	if (pointintri(trii, eps.plus(0).getStruct().amp()))
 	    break;
-    if (trii == tril) {
+    if (trii == Z._().tril) {
 UNSUPPORTED("4ma3y8l4lmjcsw49kmsgknig6"); // 	fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\shortest.c", 26, ("source point not in any triangle"));
 UNSUPPORTED("8d9xfgejx5vgd6shva5wk5k06"); // 	return -1;
     }
     ftrii = trii;
-    for (trii = 0; trii < tril; trii++)
+    for (trii = 0; trii < Z._().tril; trii++)
 	if (pointintri(trii, eps.plus(1).getStruct().amp()))
 	    break;
-    if (trii == tril) {
+    if (trii == Z._().tril) {
 UNSUPPORTED("qofj6tr7dq65r0b7a12fhakq"); // 	fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\shortest.c", 26, ("destination point not in any triangle"));
 UNSUPPORTED("8d9xfgejx5vgd6shva5wk5k06"); // 	return -1;
     }
@@ -78,9 +78,9 @@ UNSUPPORTED("8d9xfgejx5vgd6shva5wk5k06"); // 	return -1;
 	/* a straight line is better than failing */
 	growops(2);
 	output.setInt("pn", 2);
-	ops.plus(0).setStruct(eps.plus(0).getStruct());
-	ops.plus(1).setStruct(eps.plus(1).getStruct());
-	output.setPtr("ps", ops);
+	Z._().ops_shortest.plus(0).setStruct(eps.plus(0).getStruct());
+	Z._().ops_shortest.plus(1).setStruct(eps.plus(1).getStruct());
+	output.setPtr("ps", Z._().ops_shortest);
 	return 0;
     }
     /* if endpoints in same triangle, use a single line */
@@ -97,10 +97,10 @@ UNSUPPORTED("c9ckhc8veujmwcw0ar3u3zld4"); // 	return 0;
     epnls.plus(1).getStruct().setPtr("pp", eps.plus(1).asPtr());
     epnls.plus(1).getStruct().setPtr("link", null);
     add2dq(1, epnls.plus(0).asPtr());
-    dq.setInt("apex", dq.getInt("fpnlpi"));
+    Z._().dq.setInt("apex", Z._().dq.getInt("fpnlpi"));
     trii = ftrii;
     while (trii != -1) {
-	trip = (triangle_t) tris.plus(trii);
+	trip = (triangle_t) Z._().tris.plus(trii);
 	trip.setInt("mark", 2);
 	/* find the left and right points of the exiting edge */
 	for (ei = 0; ei < 3; ei++)
@@ -108,14 +108,14 @@ UNSUPPORTED("c9ckhc8veujmwcw0ar3u3zld4"); // 	return 0;
 	      trip.getArrayOfStruct("e").plus(ei).getStruct().getPtr("rtp").getInt("mark") == 1)
 		break;
 	if (ei == 3) {		/* in last triangle */
-	    if (ccw(eps.plus(1).asPtr(), dq.getPtr("pnlps").plus(dq.getInt("fpnlpi")).getPtr().getPtr("pp"),
-		    dq.getPtr("pnlps").plus(dq.getInt("lpnlpi")).getPtr().getPtr("pp")) == 1)
+	    if (ccw(eps.plus(1).asPtr(), Z._().dq.getPtr("pnlps").plus(Z._().dq.getInt("fpnlpi")).getPtr().getPtr("pp"),
+		    Z._().dq.getPtr("pnlps").plus(Z._().dq.getInt("lpnlpi")).getPtr().getPtr("pp")) == 1)
 		{
-		lpnlp = (pointnlink_t) dq.getPtr("pnlps").plus(dq.getInt("lpnlpi")).getPtr();
+		lpnlp = (pointnlink_t) Z._().dq.getPtr("pnlps").plus(Z._().dq.getInt("lpnlpi")).getPtr();
 		rpnlp = (pointnlink_t) epnls.plus(1).asPtr();
 	    } else {
 		lpnlp = (pointnlink_t) epnls.plus(1).asPtr();
-		rpnlp = (pointnlink_t) dq.getPtr("pnlps").plus(dq.getInt("lpnlpi")).getPtr();
+		rpnlp = (pointnlink_t) Z._().dq.getPtr("pnlps").plus(Z._().dq.getInt("lpnlpi")).getPtr();
 		}
 	} else {
 	    pnlp = (pointnlink_t) trip.getArrayOfStruct("e").plus((ei + 1) % 3).getStruct().getPtr("pnl1p");
@@ -133,30 +133,30 @@ UNSUPPORTED("2cii65lhw4wb8nyvjv702v7md"); // 		lpnlp = trip->e[ei].pnl1p, rpnlp 
 	    add2dq(2, lpnlp);
 	    add2dq(1, rpnlp);
 	} else {
-	    if (NEQ(dq.getPtr("pnlps").plus(dq.getInt("fpnlpi")).getPtr(), rpnlp)
-		&& NEQ(dq.getPtr("pnlps").plus(dq.getInt("lpnlpi")).getPtr(), rpnlp)) {
+	    if (NEQ(Z._().dq.getPtr("pnlps").plus(Z._().dq.getInt("fpnlpi")).getPtr(), rpnlp)
+		&& NEQ(Z._().dq.getPtr("pnlps").plus(Z._().dq.getInt("lpnlpi")).getPtr(), rpnlp)) {
 		/* add right point to deque */
 		splitindex = finddqsplit(rpnlp);
 		splitdq(2, splitindex);
 		add2dq(1, rpnlp);
 		/* if the split is behind the apex, then reset apex */
-		if (splitindex > dq.getInt("apex"))
-		    dq.setInt("apex", splitindex);
+		if (splitindex > Z._().dq.getInt("apex"))
+		    Z._().dq.setInt("apex", splitindex);
 	    } else {
 		/* add left point to deque */
 		splitindex = finddqsplit(lpnlp);
 		splitdq(1, splitindex);
 		add2dq(2, lpnlp);
 		/* if the split is in front of the apex, then reset apex */
-		if (splitindex < dq.getInt("apex"))
-		    dq.setInt("apex", splitindex);
+		if (splitindex < Z._().dq.getInt("apex"))
+		    Z._().dq.setInt("apex", splitindex);
 	    }
 	}
 	trii = -1;
 	for (ei = 0; ei < 3; ei++)
 	    if (trip.getArrayOfStruct("e").plus(ei).getStruct().getPtr("rtp")!=null && 
 	      trip.getArrayOfStruct("e").plus(ei).getStruct().getPtr("rtp").getInt("mark") == 1) {
-		trii = trip.getArrayOfStruct("e").plus(ei).getStruct().getPtr("rtp").minus(tris);
+		trii = trip.getArrayOfStruct("e").plus(ei).getStruct().getPtr("rtp").minus(Z._().tris);
 		break;
 	    }
     }
@@ -165,8 +165,8 @@ UNSUPPORTED("2cii65lhw4wb8nyvjv702v7md"); // 		lpnlp = trip->e[ei].pnl1p, rpnlp 
     growops(pi);
     output.setInt("pn", pi);
     for (pi = pi - 1, pnlp = (pointnlink_t) epnls.plus(1).asPtr(); pnlp!=null; pi--, pnlp = (pointnlink_t) pnlp.getPtr("link"))
-	ops.plus(pi).setPtr(pnlp.getPtr("pp"));
-    output.setPtr("ps", ops);
+	Z._().ops_shortest.plus(pi).setPtr(pnlp.getPtr("pp"));
+    output.setPtr("ps", Z._().ops_shortest);
     return 0;
 }
 

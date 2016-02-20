@@ -1,4 +1,4 @@
-static final public __struct__<Agdesc_s> ProtoDesc = __struct__.from(Agdesc_s.class);
+/*static final public __struct__<Agdesc_s> ProtoDesc = __struct__.from(Agdesc_s.class);
 static {
 	ProtoDesc.setInt("directed", 1);
 	ProtoDesc.setInt("strict", 0);
@@ -6,7 +6,7 @@ static {
 	ProtoDesc.setInt("maingraph", 0);
 	ProtoDesc.setInt("flatlock", 1);
 	ProtoDesc.setInt("no_write", 1);
-}
+}*/
 
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

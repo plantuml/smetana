@@ -1,4 +1,4 @@
-private static __ptr__ tris;
+//private static __ptr__ tris;
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static triangle_t *tris;

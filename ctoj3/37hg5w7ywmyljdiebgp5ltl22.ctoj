@@ -2,18 +2,18 @@ public static int init_graph(Agraph_s g) {
     int i, feasible;
     Agnode_s n;
     Agedge_s e;
-    G = g;
-    N_nodes = N_edges = S_i = 0;
+    Z._().G_ns = g;
+    Z._().N_nodes = Z._().N_edges = Z._().S_i = 0;
     for (n = GD_nlist(g); n!=null; n = ND_next(n)) {
 	ND_mark(n, 0);
-	N_nodes++;
+	Z._().N_nodes++;
 	for (i = 0; (e = (Agedge_s) ND_out(n).getArrayOfPtr("list").plus(i).getPtr())!=null; i++)
-	    N_edges++;
+	    Z._().N_edges++;
     }
-    Tree_node.setPtr("list", ALLOC_empty(N_nodes, Tree_node.getPtr("list"), Agnode_s.class));
-    Tree_node.setInt("size", 0);
-    Tree_edge.setPtr("list", ALLOC_empty(N_nodes, Tree_edge.getPtr("list"), Agedge_s.class));
-    Tree_edge.setInt("size", 0);
+    Z._().Tree_node.setPtr("list", ALLOC_empty(Z._().N_nodes, Z._().Tree_node.getPtr("list"), Agnode_s.class));
+    Z._().Tree_node.setInt("size", 0);
+    Z._().Tree_edge.setPtr("list", ALLOC_empty(Z._().N_nodes, Z._().Tree_edge.getPtr("list"), Agedge_s.class));
+    Z._().Tree_edge.setInt("size", 0);
     feasible = 1;
     for (n = GD_nlist(g); n!=null; n = ND_next(n)) {
 	ND_priority(n, 0);

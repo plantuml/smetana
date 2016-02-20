@@ -10,13 +10,13 @@ public static void enqueue_neighbors(nodequeue q, Agnode_s n0, int pass) {
 	    }
 	}
     } else {
-UNSUPPORTED("2fk8dihf9myclulmd51g41fn8"); // 	for (i = 0; i < ND_in(n0).size; i++) {
-UNSUPPORTED("8vxsji2yyf9q6dgwi3us9x4zb"); // 	    e = ND_in(n0).list[i];
-UNSUPPORTED("drvqrqu2uwicmu2ay486xagp0"); // 	    if (((ND_mark(agtail(e)))) == 0) {
-UNSUPPORTED("6i9d20jqol7kd3jyoctloi3hc"); // 		(ND_mark(agtail(e))) = NOT(0);
-UNSUPPORTED("6v38ky7ayxhwvasmh3408hzai"); // 		enqueue(q, agtail(e));
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+	for (i = 0; i < ND_in(n0).getInt("size"); i++) {
+	    e = (Agedge_s) ND_in(n0).getArrayOfPtr("list").plus(i).getPtr();
+	    if (((ND_mark(agtail(e)))) == 0) {
+		ND_mark(agtail(e), 1);
+		enqueue(q, agtail(e));
+	    }
+	}
     }
 }
 

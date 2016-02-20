@@ -1,14 +1,14 @@
 public static int finddqsplit(pointnlink_t pnlp) {
     int index;
-    for (index = dq.getInt("fpnlpi"); index < dq.getInt("apex"); index++)
-	if (ccw(dq.getPtr("pnlps").plus(index + 1).getPtr().getPtr("pp"), dq.getPtr("pnlps").plus(index).getPtr().getPtr("pp"), pnlp.getPtr("pp")) ==
+    for (index = Z._().dq.getInt("fpnlpi"); index < Z._().dq.getInt("apex"); index++)
+	if (ccw(Z._().dq.getPtr("pnlps").plus(index + 1).getPtr().getPtr("pp"), Z._().dq.getPtr("pnlps").plus(index).getPtr().getPtr("pp"), pnlp.getPtr("pp")) ==
 	    1)
 	    return index;
-    for (index = dq.getInt("lpnlpi"); index > dq.getInt("apex"); index--)
-	if (ccw(dq.getPtr("pnlps").plus(index - 1).getPtr().getPtr("pp"), dq.getPtr("pnlps").plus(index).getPtr().getPtr("pp"), pnlp.getPtr("pp")) ==
+    for (index = Z._().dq.getInt("lpnlpi"); index > Z._().dq.getInt("apex"); index--)
+	if (ccw(Z._().dq.getPtr("pnlps").plus(index - 1).getPtr().getPtr("pp"), Z._().dq.getPtr("pnlps").plus(index).getPtr().getPtr("pp"), pnlp.getPtr("pp")) ==
 	    2)
 	    return index;
-    return dq.getInt("apex");
+    return Z._().dq.getInt("apex");
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

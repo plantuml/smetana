@@ -1,4 +1,4 @@
-static final public __struct__<_dtdisc_s> Ag_subgraph_id_disc = __struct__.from(_dtdisc_s.class);
+/*static final public __struct__<_dtdisc_s> Ag_subgraph_id_disc = __struct__.from(_dtdisc_s.class);
 static {
 	Ag_subgraph_id_disc.setInt("key", 0);
 	Ag_subgraph_id_disc.setInt("size", 0);
@@ -9,7 +9,7 @@ static {
 	Ag_subgraph_id_disc.setPtr("hashf", null);
 	Ag_subgraph_id_disc.setPtr("memoryf", function(utils__c.class, "agdictobjmem"));
 	Ag_subgraph_id_disc.setPtr("eventf", null);
-}
+}*/
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Dtdisc_t Ag_subgraph_id_disc = {

@@ -1,4 +1,4 @@
-private static int N_nodes, N_edges;
+//private static int N_nodes, N_edges;
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static int N_nodes, N_edges;

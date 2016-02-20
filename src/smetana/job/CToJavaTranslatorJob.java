@@ -2,37 +2,39 @@
  * PlantUML : a free UML diagram generator
  * ========================================================================
  *
+ * Project Info:  http://plantuml.com
+ * 
+ * This file is part of Smetana.
+ * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
+ *
  * (C) Copyright 2009-2017, Arnaud Roques
  *
- * Project Info:  http://plantuml.sourceforge.net
+ * This translation is distributed under the same Licence as the original C program.
  * 
- * This file is part of PlantUML.
- *
- * PlantUML is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * PlantUML distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public
- * License for more details.
- *
- * You should have received a copy of the GNU General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
- * in the United States and other countries.]
- *
- * Original Author:  Arnaud Roques
+ * THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE PUBLIC
+ * LICENSE ("AGREEMENT"). [Eclipse Public License - v 1.0]
  * 
+ * ANY USE, REPRODUCTION OR DISTRIBUTION OF THE PROGRAM CONSTITUTES
+ * RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
+
 package smetana.job;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import smetana.job.jgenerator.CFile;
@@ -42,6 +44,8 @@ public class CToJavaTranslatorJob {
 	public static final String KGRAPHVIZ_2_38_0 = "kgraphviz-2.38.0";
 	final private File dir;
 
+	private final Collection<String> skipping = Arrays.asList("grammar.c", "y.tab.c");
+
 	public CToJavaTranslatorJob(File dir) {
 		this.dir = dir;
 	}
@@ -49,11 +53,14 @@ public class CToJavaTranslatorJob {
 	public void process(List<String> classes) throws Exception {
 		for (File f : dir.listFiles()) {
 			if (f.isDirectory()) {
-				new CToJavaTranslatorJob(f).process(classes);
-			} else if (f.isFile() && f.getName().endsWith(".c")) {
+				if (f.getName().equals("dotgen2") == false) {
+					new CToJavaTranslatorJob(f).process(classes);
+				}
+			} else if (f.isFile() && f.getName().endsWith(".c") && skipping.contains(f.getName()) == false) {
 				final CFile file = new CFile(f);
 				file.toJavaFile();
 				classes.add(file.getPackageName() + "." + file.getClassName());
+
 			}
 		}
 	}

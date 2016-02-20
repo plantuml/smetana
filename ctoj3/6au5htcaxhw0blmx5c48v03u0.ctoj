@@ -4,19 +4,19 @@ public static void add_tree_edge(Agedge_s e) {
 UNSUPPORTED("cq4nqjjxvb0dtdfy4c7pwpqai"); // 	agerr(AGERR, "add_tree_edge: missing tree edge\n");
 UNSUPPORTED("6fzmgjpkhmnx0a2cnt0q0rceg"); // 	longjmp (jbuf, 1);
     }
-    ED_tree_index(e, Tree_edge.getInt("size"));
+    ED_tree_index(e, Z._().Tree_edge.getInt("size"));
     
-    Tree_edge.getArrayOfPtr("list").plus(Tree_edge.getInt("size")).setPtr(e);
-    Tree_edge.setInt("size", 1+ Tree_edge.getInt("size"));
+    Z._().Tree_edge.getArrayOfPtr("list").plus(Z._().Tree_edge.getInt("size")).setPtr(e);
+    Z._().Tree_edge.setInt("size", 1+ Z._().Tree_edge.getInt("size"));
         
     if (ND_mark(agtail(e)) == 0) {
-	Tree_node.getArrayOfPtr("list").plus(Tree_node.getInt("size")).setPtr(agtail(e));
-    Tree_node.setInt("size", 1+ Tree_node.getInt("size"));
+	Z._().Tree_node.getArrayOfPtr("list").plus(Z._().Tree_node.getInt("size")).setPtr(agtail(e));
+    Z._().Tree_node.setInt("size", 1+ Z._().Tree_node.getInt("size"));
 	}
 	
     if (ND_mark(aghead(e)) == 0) {
-	Tree_node.getArrayOfPtr("list").plus(Tree_node.getInt("size")).setPtr(aghead(e));
-    Tree_node.setInt("size", 1+ Tree_node.getInt("size"));
+	Z._().Tree_node.getArrayOfPtr("list").plus(Z._().Tree_node.getInt("size")).setPtr(aghead(e));
+    Z._().Tree_node.setInt("size", 1+ Z._().Tree_node.getInt("size"));
 	}
     n = agtail(e);
     ND_mark(n, 1);

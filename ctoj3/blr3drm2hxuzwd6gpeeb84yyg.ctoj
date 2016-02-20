@@ -1,9 +1,9 @@
 public static Agsym_s agattr(Agraph_s g, int kind, CString name, CString value) {
     Agsym_s rv;
     if (g == null) {
-	if (ProtoGraph == null)
-	    ProtoGraph = agopen(null, ProtoDesc.copy(), null);
-	g = ProtoGraph;
+	if (Z._().ProtoGraph == null)
+	    Z._().ProtoGraph = agopen(null, Z._().ProtoDesc.copy(), null);
+	g = Z._().ProtoGraph;
     }
     if (value!=null)
 	rv = setattr(g, kind, name, value);

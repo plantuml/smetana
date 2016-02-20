@@ -1,8 +1,8 @@
-static final __struct__<splineInfo> sinfo = __struct__.from(splineInfo.class);
+/*static final __struct__<splineInfo> sinfo = __struct__.from(splineInfo.class);
 static {
 	sinfo.setPtr("swapEnds", function(dotsplines__c.class, "swap_ends_p"));
 	sinfo.setPtr("splineMerge", function(dotsplines__c.class, "spline_merge"));
-}
+}*/
 
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

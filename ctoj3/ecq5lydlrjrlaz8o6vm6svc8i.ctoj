@@ -14,9 +14,9 @@ UNSUPPORTED("6aw91xzjmqvmtdvt1di23af8y"); // 	break;
 	g = agroot(agraphof(n));
 	break;
     case AGEDGE:
-UNSUPPORTED("1i1ds1rzfhx4xwps1z0wbxiic"); //         e = (edge_t*)obj;
-UNSUPPORTED("5xngf7oi7jborlhses6yp7auo"); // 	g = agroot(agraphof(((((((Agobj_t*)(e))->tag).objtype) == 2? (e): ((e)-1))->node)));
-UNSUPPORTED("6aw91xzjmqvmtdvt1di23af8y"); // 	break;
+        e = (Agedge_s)obj.castTo(Agedge_s.class);
+	g = agroot(agraphof(aghead(e)));
+	break;
     }
     rv.setPtr("fontname", fontname);
     rv.setPtr("fontcolor", fontcolor);

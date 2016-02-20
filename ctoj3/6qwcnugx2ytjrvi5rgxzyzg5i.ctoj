@@ -1,0 +1,36 @@
+public static int straight_len(Agnode_s n) {
+    int cnt = 0;
+    Agnode_s v;
+    v = n;
+    while (true) {
+	v = (Agnode_s) aghead(ND_out(v).getArrayOfPtr("list").plus(0).getPtr());
+	if (ND_node_type(v) != 1)
+	    break;
+	if ((ND_out(v).getInt("size") != 1) || (ND_in(v).getInt("size") != 1))
+	    break;
+	if (ND_coord(v).getDouble("x") != ND_coord(n).getDouble("x"))
+	    break;
+	cnt++;
+    }
+    return cnt;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int straight_len(node_t * n)
+{
+    int cnt = 0;
+    node_t *v;
+    v = n;
+    while (1) {
+	v = aghead(ND_out(v).list[0]);
+	if (ND_node_type(v) != 1)
+	    break;
+	if ((ND_out(v).size != 1) || (ND_in(v).size != 1))
+	    break;
+	if (ND_coord(v).x != ND_coord(n).x)
+	    break;
+	cnt++;
+    }
+    return cnt;
+}
+

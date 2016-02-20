@@ -1,4 +1,4 @@
-static int ctr = 1;
+//static int ctr = 1;
 public static int idmap(Object state, int objtype, CString str, int id[], boolean createflag) {
     CString s;
     if (str!=null) {
@@ -10,8 +10,8 @@ public static int idmap(Object state, int objtype, CString str, int id[], boolea
 	    s = agstrbind(g, str);
 	id[0] = Memory.identityHashCode(s);
     } else {
-	id[0] = ctr;
-	ctr += 2;
+	id[0] = Z._().ctr;
+	Z._().ctr += 2;
     }
     return ASINT(N(0));
 }

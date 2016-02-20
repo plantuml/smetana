@@ -1,0 +1,32 @@
+public static void transpose(Agraph_s g, boolean reverse) {
+    int r, delta;
+    for (r = GD_minrank(g); r <= GD_maxrank(g); r++)
+	GD_rank(g).plus(r).getPtr().setBoolean("candidate", NOT(false));
+    do {
+	delta = 0;
+	for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
+	    if (GD_rank(g).plus(r).getPtr().getBoolean("candidate")) {
+		delta += transpose_step(g, r, reverse);
+	    }
+	}
+	/*} while (delta > ncross(g)*(1.0 - Convergence)); */
+    } while (delta >= 1);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void transpose(graph_t * g, int reverse)
+{
+    int r, delta;
+    for (r = GD_minrank(g); r <= GD_maxrank(g); r++)
+	GD_rank(g)[r].candidate = NOT(0);
+    do {
+	delta = 0;
+	for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
+	    if (GD_rank(g)[r].candidate) {
+		delta += transpose_step(g, r, reverse);
+	    }
+	}
+	/*} while (delta > ncross(g)*(1.0 - Convergence)); */
+    } while (delta >= 1);
+}
+

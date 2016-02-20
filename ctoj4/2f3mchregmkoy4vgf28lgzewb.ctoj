@@ -1,4 +1,4 @@
-public static Agsym_s
+/*public static Agsym_s
 	E_weight, E_minlen, E_color, E_fillcolor,
 	E_activepencolor, E_activefillcolor,
 	E_selectedpencolor, E_selectedfillcolor,
@@ -14,7 +14,7 @@ public static Agsym_s
 	E_labelfontsize, E_labelfontname, E_labelfontcolor,
 	E_labeldistance, E_labelangle,
 	E_tailclip, E_headclip,
-	E_penwidth;
+	E_penwidth;*/
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Agsym_t

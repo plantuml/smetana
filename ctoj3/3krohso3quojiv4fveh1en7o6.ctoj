@@ -1,18 +1,13 @@
 public static int portcmp(final __struct__<port> p0, final __struct__<port> p1) {
- UNSUPPORTED("5z8za80usa5hd0ak7mw0wwijz"); // int portcmp(port p0, port p1)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("ecz4e03zumggc8tfymqvirexq"); //     int rv;
-UNSUPPORTED("534natt2hd8netiokn53fgx5m"); //     if (p1.defined == 0)
-UNSUPPORTED("6qmr6rfb1p1pouncvsfwjavcg"); // 	return (p0.defined ? 1 : 0);
-UNSUPPORTED("b45ggic8hskue9tvrfi5ups4b"); //     if (p0.defined == 0)
-UNSUPPORTED("8d9xfgejx5vgd6shva5wk5k06"); // 	return -1;
-UNSUPPORTED("bdithc1ti7iamkf0i1k4fhem1"); //     rv = p0.p.x - p1.p.x;
-UNSUPPORTED("ekzmlszi3cak2rxk52b6wflrg"); //     if (rv == 0)
-UNSUPPORTED("f4m2076wulc1opx3kx3xght3n"); // 	rv = p0.p.y - p1.p.y;
-UNSUPPORTED("v7vqc9l7ge2bfdwnw11z7rzi"); //     return rv;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+    int rv;
+    if (p1.getBoolean("defined") == false)
+	return (p0.getBoolean("defined") ? 1 : 0);
+    if (p0.getBoolean("defined") == false)
+	return -1;
+    rv = (int) (p0.getStruct("p").getDouble("x") - p1.getStruct("p").getDouble("x"));
+    if (rv == 0)
+	rv = (int) (p0.getStruct("p").getDouble("y") - p1.getStruct("p").getDouble("y"));
+    return rv;
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

@@ -2,33 +2,15 @@
  * PlantUML : a free UML diagram generator
  * ========================================================================
  *
- * (C) Copyright 2009-2017, Arnaud Roques
- *
  * Project Info:  http://plantuml.com
  * 
- * This file is part of PlantUML.
+ * This file is part of Smetana.
+ * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * PlantUML is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * (C) Copyright 2009-2017, Arnaud Roques
  *
- * PlantUML distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- *
- * Original Author:  Arnaud Roques
- *
- *
- *
- *
+ * This translation is distributed under the same Licence as the original C program:
+ * 
  *************************************************************************
  * Copyright (c) 2011 AT&T Intellectual Property 
  * All rights reserved. This program and the accompanying materials
@@ -39,164 +21,63 @@
  * Contributors: See CVS logs. Details at http://www.graphviz.org/
  *************************************************************************
  *
+ * THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE PUBLIC
+ * LICENSE ("AGREEMENT"). [Eclipse Public License - v 1.0]
+ * 
+ * ANY USE, REPRODUCTION OR DISTRIBUTION OF THE PROGRAM CONSTITUTES
+ * RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 package gen.lib.common;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.grammar__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.cgraph.y_tab__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.common.y_tab__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.dotgen2.decomp__c.*;
-import static gen.lib.dotgen2.dotinit__c.*;
-import static gen.lib.dotgen2.groups__c.*;
-import static gen.lib.dotgen2.level__c.*;
-import static gen.lib.dotgen2.minc2__c.*;
-import static gen.lib.dotgen2.minc_utils__c.*;
-import static gen.lib.dotgen2.ns__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import static gen.lib.cgraph.edge__c.agfstout;
+import static gen.lib.cgraph.edge__c.agnxtout;
+import static gen.lib.cgraph.node__c.agfstnode;
+import static gen.lib.cgraph.node__c.agnxtnode;
+import static gen.lib.cgraph.obj__c.agroot;
+import static gen.lib.common.geom__c.ccwrotatepf;
+import static smetana.core.JUtils.NEQ;
+import static smetana.core.JUtilsDebug.ENTERING;
+import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.ED_head_label;
+import static smetana.core.Macro.ED_label;
+import static smetana.core.Macro.ED_spl;
+import static smetana.core.Macro.ED_tail_label;
+import static smetana.core.Macro.ED_xlabel;
+import static smetana.core.Macro.GD_bb;
+import static smetana.core.Macro.GD_clust;
+import static smetana.core.Macro.GD_flags;
+import static smetana.core.Macro.GD_flip;
+import static smetana.core.Macro.GD_has_labels;
+import static smetana.core.Macro.GD_label;
+import static smetana.core.Macro.GD_n_cluster;
+import static smetana.core.Macro.GD_rankdir;
+import static smetana.core.Macro.N;
+import static smetana.core.Macro.ND_coord;
+import static smetana.core.Macro.ND_xlabel;
+import static smetana.core.Macro.UNSUPPORTED;
+import h.Agedge_s;
+import h.Agnode_s;
+import h.Agraph_s;
+import h.Agsym_s;
+import h.bezier;
+import h.boxf;
+import h.label_params_t;
+import h.object_t;
+import h.pointf;
+import h.textlabel_t;
+import h.xlabel_t;
+import smetana.core.Z;
+import smetana.core.__struct__;
 
 public class postproc__c {
 //1 2digov3edok6d5srhgtlmrycs
@@ -838,15 +719,15 @@ throw new UnsupportedOperationException();
 
 //1 1b0s7t28jl5ftrxccb8fsopp4
 // static int Rankdir
-private static int Rankdir;
+//private static int Rankdir;
 
 //1 3oo1lt5jtd6kuqjr6qqlnkutt
 // static boolean Flip
-private static boolean Flip;
+//private static boolean Flip;
 
 //1 ejooa1m5uoq0ue852wtuerpy
 // static pointf Offset
-private final static __struct__<pointf> Offset = __struct__.from(pointf.class);
+//private final static __struct__<pointf> Offset = __struct__.from(pointf.class);
 
 
 
@@ -859,9 +740,9 @@ return map_point_w_(p.copy()).copy();
 private static __struct__<pointf> map_point_w_(final __struct__<pointf> p) {
 ENTERING("dajapw16wus3rwimkrk5ihi2b","map_point");
 try {
-    p.____(ccwrotatepf(p, Rankdir * 90));
-    p.setDouble("x", p.getDouble("x") - Offset.getDouble("x"));
-    p.setDouble("y", p.getDouble("y") - Offset.getDouble("y"));
+    p.____(ccwrotatepf(p, Z._().Rankdir * 90));
+    p.setDouble("x", p.getDouble("x") - Z._().Offset.getDouble("x"));
+    p.setDouble("y", p.getDouble("y") - Z._().Offset.getDouble("y"));
     return p;
 } finally {
 LEAVING("dajapw16wus3rwimkrk5ihi2b","map_point");
@@ -885,18 +766,18 @@ UNSUPPORTED("74pedndsd738qx562cc6mhr7i"); // 		  agnameof(aghead(e)));
 UNSUPPORTED("a7fgam0j0jm7bar0mblsv3no4"); // 	return;
     }
     for (j = 0; j < ED_spl(e).getInt("size"); j++) {
-	bz.____(ED_spl(e).getArray("list").plus(j).getStruct());
+	bz.____(ED_spl(e).getArrayOfPtr("list").plus(j).getStruct());
 	for (k = 0; k < bz.getInt("size"); k++) {
-	    bz.getArray("list").plus(k).setStruct(map_point(bz.getArray("list").plus(k).getStruct()));
+	    bz.getArrayOfPtr("list").plus(k).setStruct(map_point(bz.getArrayOfPtr("list").plus(k).getStruct()));
 	}
 	if (bz.getBoolean("sflag"))
 UNSUPPORTED("7894dgzvk2um2w1a5ph2r0bcc"); // 	    ED_spl(e)->list[j].sp = map_point(ED_spl(e)->list[j].sp);
 	if (bz.getBoolean("eflag")) {
-	    ED_spl(e).getArray("list").plus(j).getStruct("ep").____(map_point(ED_spl(e).getArray("list").plus(j).getStruct("ep")));
+	    ED_spl(e).getArrayOfPtr("list").plus(j).getStruct("ep").____(map_point(ED_spl(e).getArrayOfPtr("list").plus(j).getStruct("ep")));
     }
     }
     if (ED_label(e)!=null)
-UNSUPPORTED("6ce02fcueka4h69p368fmd5hm"); // 	ED_label(e)->pos = map_point(ED_label(e)->pos);
+	ED_label(e).getStruct("pos").____(map_point(ED_label(e).getStruct("pos")));
     if (ED_xlabel(e)!=null)
 UNSUPPORTED("al3tnq9zjjqeq1ll7qdxyu3ja"); // 	ED_xlabel(e)->pos = map_point(ED_xlabel(e)->pos);
     /* vladimir */
@@ -948,16 +829,16 @@ ENTERING("h4i5qxnd7hlrew919abswd13","translate_drawing");
 try {
     Agnode_s v;
     Agedge_s e;
-    boolean shift = (Offset.getDouble("x")!=0.0 || Offset.getDouble("y")!=0.0);
-    if (N(shift) && N(Rankdir))
+    boolean shift = (Z._().Offset.getDouble("x")!=0.0 || Z._().Offset.getDouble("y")!=0.0);
+    if (N(shift) && N(Z._().Rankdir))
 	return;
     for (v = agfstnode(g); v!=null; v = agnxtnode(g, v)) {
-	if (Rankdir!=0)
+	if (Z._().Rankdir!=0)
 UNSUPPORTED("e0j848r4j1j7sojfht5gwikvi"); // 	    gv_nodesize(v, 0);
 	ND_coord(v).____(map_point(ND_coord(v)));
 	if (ND_xlabel(v)!=null)
 UNSUPPORTED("3fy0l7w2v24hzrvlpstpknwl7"); // 	    ND_xlabel(v)->pos = map_point(ND_xlabel(v)->pos);
-	if (State == 1)
+	if (Z._().State == 1)
 	    for (e = agfstout(g, v); e!=null; e = agnxtout(g, e))
 		map_edge(e);
     }
@@ -1278,7 +1159,7 @@ try {
 	N(GD_has_labels(gp) & (1 << 5)) &&
 	N(GD_has_labels(gp) & (1 << 2)) &&
 	N(GD_has_labels(gp) & (1 << 1)) &&
-	(N(GD_has_labels(gp) & (1 << 0)) || EdgeLabelsDone!=0))
+	(N(GD_has_labels(gp) & (1 << 0)) || Z._().EdgeLabelsDone!=0))
 	return;
 UNSUPPORTED("27ppdplfezcqw6rdrkzyrr8yg"); //     for (np = agfstnode(gp); np; np = agnxtnode(gp, np)) {
 UNSUPPORTED("eezvruvdh9ueqsgad8k5xzbqi"); // 	if (ND_xlabel(np)) {
@@ -1452,10 +1333,10 @@ ENTERING("8fc0zxg8y7hec3n4evx3jw6cq","gv_postprocess");
 try {
     double diff;
     final __struct__<pointf> dimen = __struct__.from(pointf.class);
-    Rankdir = GD_rankdir(g);
-    Flip = GD_flip(g)!=0;
+    Z._().Rankdir = GD_rankdir(g);
+    Z._().Flip = GD_flip(g)!=0;
     /* Handle cluster labels */
-    if (Flip)
+    if (Z._().Flip)
 UNSUPPORTED("4hxky2sp978rmy6018sfmts6m"); // 	place_flip_graph_label(g);
     else
 	place_graph_label(g);
@@ -1500,9 +1381,9 @@ UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
 UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
     }
     if (allowTranslation!=0) {
-	switch (Rankdir) {
+	switch (Z._().Rankdir) {
 	case 0:
-	    Offset.____(GD_bb(g).getStruct("LL"));
+	    Z._().Offset.____(GD_bb(g).getStruct("LL"));
 	    break;
 	case 1:
 UNSUPPORTED("5t3j9lrc86kd5ouaqgzvz3qcm"); // 	    Offset = pointfof(-GD_bb(g).UR.y, GD_bb(g).LL.x);
@@ -1518,7 +1399,7 @@ UNSUPPORTED("3xtu7zkpqq7nsx9oe68oi6ebt"); // 	    Offset = pointfof(GD_bb(g).LL.
     }
     if (GD_label(g)!=null && N(GD_label(g).getPtr("set")))
 UNSUPPORTED("6dds0zsvqw48u510zcy954fh1"); // 	place_root_label(g, dimen);
-    if (Show_boxes!=null) {
+    if (Z._().Show_boxes!=null) {
 UNSUPPORTED("8c7x8di5w36ib05qan9z4sl9"); // 	char buf[BUFSIZ];
 UNSUPPORTED("83qqprhiseoxlwtwi991aag0c"); // 	if (Flip)
 UNSUPPORTED("86tova7pv19alt02nlk0d17oj"); // 	    sprintf(buf, "/pathbox {\n    /X exch neg %.5g sub def\n    /Y exch %.5g sub def\n    /x exch neg %.5g sub def\n    /y exch %.5g sub def\n    newpath x y moveto\n    X y lineto\n    X Y lineto\n    x Y lineto\n    closepath stroke\n} def\n", Offset.x, Offset.y, Offset.x, Offset.y);

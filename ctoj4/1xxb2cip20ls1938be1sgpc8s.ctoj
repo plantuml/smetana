@@ -1,4 +1,4 @@
-private static int S_i;
+//private static int S_i;
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static int S_i;

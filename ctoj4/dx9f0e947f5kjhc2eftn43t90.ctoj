@@ -1,4 +1,4 @@
-private static int Low, Lim, Slack;
+//private static int Low, Lim, Slack;
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static int Low, Lim, Slack;

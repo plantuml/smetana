@@ -6,18 +6,18 @@ public static void TB_balance() {
     int inweight, outweight;
     scan_and_normalize();
     /* find nodes that are not tight and move to less populated ranks */
-    nrank = zmalloc(size_t_array_of_integer(Maxrank + 1));
-    for (i = 0; i <= Maxrank; i++)
+    nrank = zmalloc(size_t_array_of_integer(Z._().Maxrank + 1));
+    for (i = 0; i <= Z._().Maxrank; i++)
 	nrank.plus(i).setInt(0);
-    for (n = GD_nlist(G); n!=null; n = ND_next(n))
+    for (n = GD_nlist(Z._().G_ns); n!=null; n = ND_next(n))
 	if (ND_node_type(n) == 0)
 	    nrank.plus(ND_rank(n)).setInt(1+nrank.plus(ND_rank(n)).getInt());
-    for (n = GD_nlist(G); n!=null; n = ND_next(n)) {
+    for (n = GD_nlist(Z._().G_ns); n!=null; n = ND_next(n)) {
 	if (ND_node_type(n) != 0)
 	    continue;
 	inweight = outweight = 0;
 	low = 0;
-	high = Maxrank;
+	high = Z._().Maxrank;
 	for (i = 0; (e = (Agedge_s) ND_in(n).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
 	    inweight += ED_weight(e);
 	    low = MAX(low, ND_rank(agtail(e)) + ED_minlen(e));

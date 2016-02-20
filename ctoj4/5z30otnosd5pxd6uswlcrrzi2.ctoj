@@ -1,4 +1,4 @@
-public static __ptr__ Show_boxes;
+//public static __ptr__ Show_boxes;
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 char** Show_boxes;

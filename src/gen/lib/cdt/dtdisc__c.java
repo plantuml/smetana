@@ -2,33 +2,15 @@
  * PlantUML : a free UML diagram generator
  * ========================================================================
  *
- * (C) Copyright 2009-2017, Arnaud Roques
- *
  * Project Info:  http://plantuml.com
  * 
- * This file is part of PlantUML.
+ * This file is part of Smetana.
+ * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * PlantUML is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * (C) Copyright 2009-2017, Arnaud Roques
  *
- * PlantUML distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- *
- * Original Author:  Arnaud Roques
- *
- *
- *
- *
+ * This translation is distributed under the same Licence as the original C program:
+ * 
  *************************************************************************
  * Copyright (c) 2011 AT&T Intellectual Property 
  * All rights reserved. This program and the accompanying materials
@@ -39,164 +21,34 @@
  * Contributors: See CVS logs. Details at http://www.graphviz.org/
  *************************************************************************
  *
+ * THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE PUBLIC
+ * LICENSE ("AGREEMENT"). [Eclipse Public License - v 1.0]
+ * 
+ * ANY USE, REPRODUCTION OR DISTRIBUTION OF THE PROGRAM CONSTITUTES
+ * RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 package gen.lib.cdt;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.grammar__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.cgraph.y_tab__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.common.y_tab__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.dotgen2.decomp__c.*;
-import static gen.lib.dotgen2.dotinit__c.*;
-import static gen.lib.dotgen2.groups__c.*;
-import static gen.lib.dotgen2.level__c.*;
-import static gen.lib.dotgen2.minc2__c.*;
-import static gen.lib.dotgen2.minc_utils__c.*;
-import static gen.lib.dotgen2.ns__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import static smetana.core.JUtils.function;
+import static smetana.core.JUtilsDebug.ENTERING;
+import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.N;
+import static smetana.core.Macro.UNSUPPORTED;
+import h.Dtsearch_f;
+import h._dt_s;
+import h._dtdisc_s;
+import h._dtlink_s;
+import smetana.core.CString;
 
 public class dtdisc__c {
 //1 9k44uhd5foylaeoekf3llonjq
@@ -301,56 +153,58 @@ try {
 			dt.setPtr("memoryf", function(dtdisc__c.class, "dtmemory"));
 		return disc;
 	}
-	throw new UnsupportedOperationException();
-//if(!disc)	/* only want to know current discipline */
-//	return old;
-//searchf = dt->meth->searchf;
-//((dt->data->type&010000) ? dtrestore(dt,((Dtlink_t*)0)) : 0);
-//if(old->eventf && (*old->eventf)(dt,3,(void*)disc,old) < 0)
-//	return ((Dtdisc_t*)0);
-//dt->disc = disc;
-//if(!(dt->memoryf = disc->memoryf) )
-//	dt->memoryf = dtmemory;
-//if(dt->data->type&(0000040|0000100|0000020))
-//	goto done;
-//else if(dt->data->type&0000002)
-//{	if(type&0000002)
-//		goto done;
-//	else	goto dt_renew;
-//}
-//else if(dt->data->type&(0000001|0000002))
-//{	if((type&0000002) && (type&0000001))
-//		goto done;
-//	else	goto dt_renew;
-//}
-//else /*if(dt->data->type&(DT_OSET|DT_OBAG))*/
-//{	if(type&0000001)
-//		goto done;
-//dt_renew:
-//	r = dtflatten(dt);
-//	dt->data->type &= ~010000;
-//	dt->data->here = ((Dtlink_t*)0);
-//	dt->data->size = 0;
-//	if(dt->data->type&(0000001|0000002))
-//	{	register Dtlink_t	**s, **ends;
-//		ends = (s = dt->data->hh._htab) + dt->data->ntab;
-//		while(s < ends)
-//			*s++ = ((Dtlink_t*)0);
-//	}
-//	/* reinsert them */
-//	while(r)
-//	{	t = r->right;
-//		if(!(type&0000002))	/* new hash value */
-//		{	k = (char*)(disc->link < 0 ? ((Dthold_t*)(r))->obj : (void*)((char*)(r) - disc->link) );
-//			k = (void*)(disc->size < 0 ? *((char**)((char*)((void*)k)+disc->key)) : ((char*)((void*)k)+disc->key));
-//			r->hl._hash = (disc->hashf ? (*disc->hashf)(dt,k,disc) : dtstrhash(0,k,disc->size) );
-//		}
-//		(void)(*searchf)(dt,(void*)r,0000040);
-//		r = t;
-//	}
-//}
-//done:
-//return old;
+	if(N(disc))	/* only want to know current discipline */
+		return old;
+UNSUPPORTED("6htlkpaqff61iwmsg1be47uci"); // 	searchf = dt->meth->searchf;
+UNSUPPORTED("ckjxpmega2z5oju8xk72wsy0q"); // 	((dt->data->type&010000) ? dtrestore(dt,((Dtlink_t*)0)) : 0);
+UNSUPPORTED("34klfi71a7k7iqdrvezqetdjg"); // 	if(old->eventf && (*old->eventf)(dt,3,(void*)disc,old) < 0)
+UNSUPPORTED("1cft3x8zrdzefdb93v3f1tuo7"); // 		return ((Dtdisc_t*)0);
+UNSUPPORTED("4e4gm32ypcbtlzkym7sh79rrd"); // 	dt->disc = disc;
+UNSUPPORTED("6nr96is5y2ct55pupgycwbjmt"); // 	if(!(dt->memoryf = disc->memoryf) )
+UNSUPPORTED("1prh3v6ko1v9w39hgk7wiknjc"); // 		dt->memoryf = dtmemory;
+UNSUPPORTED("epetks7tchxd027a5fogh5s8y"); // 	if(dt->data->type&(0000040|0000100|0000020))
+UNSUPPORTED("e2tzh95k1lvjl6wbtpwizam8q"); // 		goto done;
+UNSUPPORTED("9z4k8xq4t2p909fvi8gusmmww"); // 	else if(dt->data->type&0000002)
+UNSUPPORTED("3q5nyguq8mgdfwmm0yrzq2br8"); // 	{	if(type&0000002)
+UNSUPPORTED("93q6zqzlgfz2qd0yl6koyw99c"); // 			goto done;
+UNSUPPORTED("6d1rfacssm8768oz9fu5o66t8"); // 		else	goto dt_renew;
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("eu35368wm4jf6yedwkayoycx4"); // 	else if(dt->data->type&(0000001|0000002))
+UNSUPPORTED("8xmm1djjds55s86jodixkp72u"); // 	{	if((type&0000002) && (type&0000001))
+UNSUPPORTED("93q6zqzlgfz2qd0yl6koyw99c"); // 			goto done;
+UNSUPPORTED("6d1rfacssm8768oz9fu5o66t8"); // 		else	goto dt_renew;
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("1ww5saiqcss2tdx5nts4rxpou"); // 	else /*if(dt->data->type&(DT_OSET|DT_OBAG))*/
+UNSUPPORTED("4582pmh67cgbsphrw05tf0hmm"); // 	{	if(type&0000001)
+UNSUPPORTED("93q6zqzlgfz2qd0yl6koyw99c"); // 			goto done;
+UNSUPPORTED("8njey2jaa662w29s8zcqbjln5"); // 	dt_renew:
+UNSUPPORTED("assw6t0chu41lwws2ysqi4fgi"); // 		r = dtflatten(dt);
+UNSUPPORTED("1rry7yjzos90pgbf3li2qpa18"); // 		dt->data->type &= ~010000;
+UNSUPPORTED("6vkn7padspfbtju9g5b65b34w"); // 		dt->data->here = ((Dtlink_t*)0);
+UNSUPPORTED("2jfi30wa60xp7iqlk9yyf4k5j"); // 		dt->data->size = 0;
+UNSUPPORTED("1i3oayy7gy36lar9kfhuq6rur"); // 		if(dt->data->type&(0000001|0000002))
+UNSUPPORTED("ay51d19gimt3gpqjact2t0ypm"); // 		{	register Dtlink_t	**s, **ends;
+UNSUPPORTED("5p6g054kk7snvpwuxudelseir"); // 			ends = (s = dt->data->hh._htab) + dt->data->ntab;
+UNSUPPORTED("3zu1r6orkvmsvbjbzqqx9wedr"); // 			while(s < ends)
+UNSUPPORTED("9wq8eycc78fg8sqi6bjce4q7f"); // 				*s++ = ((Dtlink_t*)0);
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("3rfhc462a0qx53yecw933hkk8"); // 		/* reinsert them */
+UNSUPPORTED("ctmfjzioo5q7mzsmb6rf9mxoy"); // 		while(r)
+UNSUPPORTED("9qxb0eqp3ujnnuum1bggqarjh"); // 		{	t = r->right;
+UNSUPPORTED("ddltpk94i08fyy6x03ozyc7s1"); // 			if(!(type&0000002))	/* new hash value */
+UNSUPPORTED("8mj2vd7idro90tjnvl6b9trnc"); // 			{	k = (char*)(disc->link < 0 ? ((Dthold_t*)(r))->obj : (void*)((char*)(r) - disc->link) );
+UNSUPPORTED("1dvo2602az1wcigxx20czskv9"); // 				k = (void*)(disc->size < 0 ? *((char**)((char*)((void*)k)+disc->key)) : ((char*)((void*)k)+disc->key));
+UNSUPPORTED("269t5qi8m2ujfjvmbqvyjvr1s"); // 				r->hl._hash = (disc->hashf ? (*disc->hashf)(dt,k,disc) : dtstrhash(0,k,disc->size) );
+UNSUPPORTED("3to5h0rvqxdeqs38mhv47mm3o"); // 			}
+UNSUPPORTED("2e2tx3ch32oxo5y01bflgbf2h"); // 			(void)(*searchf)(dt,(void*)r,0000040);
+UNSUPPORTED("8tob14cb9u9q0mnud0wovaioi"); // 			r = t;
+UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("cerydbb7i6l7c4pgeygvwoqk2"); // done:
+UNSUPPORTED("bi0p581nen18ypj0ey48s6ete"); // 	return old;
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
 } finally {
 LEAVING("axpvuswclmi9bx3qtlh4quyah","dtdisc");
 }

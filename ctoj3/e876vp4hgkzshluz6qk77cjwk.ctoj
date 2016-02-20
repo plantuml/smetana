@@ -14,7 +14,7 @@ public static void dot_mincross(Agraph_s g, boolean doBalance) {
     if ((GD_n_cluster(g) > 0)
 	&& (N(s = agget(g, new CString("remincross"))) || (mapbool(s)))) {
 	mark_lowclusters(g);
-	ReMincross = NOT(0);
+	Z._().ReMincross = NOT(0);
 	nc = mincross_(g, 2, 2, doBalance);
     }
     cleanup2(g, nc);

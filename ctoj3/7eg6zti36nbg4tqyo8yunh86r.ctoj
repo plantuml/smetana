@@ -1,6 +1,6 @@
 public static void freeTreeList(Agraph_s g) {
     Agnode_s n;
-    for (n = GD_nlist(G); n!=null; n = ND_next(n)) {
+    for (n = GD_nlist(Z._().G_ns); n!=null; n = ND_next(n)) {
 	free_list(ND_tree_in(n));
 	free_list(ND_tree_out(n));
 	ND_mark(n, 0);

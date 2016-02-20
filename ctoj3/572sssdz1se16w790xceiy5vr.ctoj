@@ -1,8 +1,8 @@
 public static void splitdq(int side, int index) {
     if (side == 1)
-	dq.setInt("lpnlpi", index);
+	Z._().dq.setInt("lpnlpi", index);
     else
-	dq.setInt("fpnlpi", index);
+	Z._().dq.setInt("fpnlpi", index);
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

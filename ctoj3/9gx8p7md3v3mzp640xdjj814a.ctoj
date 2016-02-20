@@ -1,8 +1,8 @@
 public static void LR_balance() {
     int i, delta;
     Agedge_s e, f;
-    for (i = 0; i < Tree_edge.getInt("size"); i++) {
-	e = (Agedge_s) Tree_edge.getArrayOfPtr("list").plus(i).getPtr();
+    for (i = 0; i < Z._().Tree_edge.getInt("size"); i++) {
+	e = (Agedge_s) Z._().Tree_edge.getArrayOfPtr("list").plus(i).getPtr();
 	if (ED_cutvalue(e) == 0) {
 	    f = enter_edge(e);
 	    if (f == null)
@@ -16,7 +16,7 @@ public static void LR_balance() {
 		rerank(aghead(e), -delta / 2);
 	}
     }
-    freeTreeList (G);
+    freeTreeList (Z._().G_ns);
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

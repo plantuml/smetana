@@ -1,20 +1,20 @@
 public static int tight_tree() {
     int i;
     Agnode_s n;
-    for (n = GD_nlist(G); n!=null; n = ND_next(n)) {
+    for (n = GD_nlist(Z._().G_ns); n!=null; n = ND_next(n)) {
 	ND_mark(n, 0);
 	ND_tree_in(n).getArrayOfPtr("list").plus(0).setPtr(null);
 	ND_tree_out(n).getArrayOfPtr("list").plus(0).setPtr(null);
 	ND_tree_in(n).setInt("size", 0);
 	ND_tree_out(n).setInt("size", 0);
     }
-    for (i = 0; i < Tree_edge.getInt("size"); i++)
-	ED_tree_index(Tree_edge.getArrayOfPtr("list").plus(i).getPtr(), -1);
-    Tree_node.setInt("size", 0);
-    Tree_edge.setInt("size", 0);
-    for (n = GD_nlist(G); n!=null && (Tree_edge.getInt("size") == 0); n = ND_next(n))
+    for (i = 0; i < Z._().Tree_edge.getInt("size"); i++)
+	ED_tree_index(Z._().Tree_edge.getArrayOfPtr("list").plus(i).getPtr(), -1);
+    Z._().Tree_node.setInt("size", 0);
+    Z._().Tree_edge.setInt("size", 0);
+    for (n = GD_nlist(Z._().G_ns); n!=null && (Z._().Tree_edge.getInt("size") == 0); n = ND_next(n))
 	treesearch(n);
-    return Tree_node.getInt("size");
+    return Z._().Tree_node.getInt("size");
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

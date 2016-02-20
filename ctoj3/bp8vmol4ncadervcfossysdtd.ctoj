@@ -18,7 +18,7 @@ public static void set_ycoords(Agraph_s g) {
 		for (j = 0; (e = (Agedge_s) ND_other(n).getArrayOfPtr("list").plus(j).getPtr())!=null; j++) {
 		    if (EQ(agtail(e), aghead(e))) {
 			if (ED_label(e)!=null)
-			    ht2 = MAX(ht2, ED_label(e).getPtr("dimen").getDouble("y") / 2);
+			    ht2 = MAX(ht2, ED_label(e).getStruct("dimen").getDouble("y") / 2);
 		    }
 		}
 	    /* update global rank ht */
@@ -32,7 +32,7 @@ public static void set_ycoords(Agraph_s g) {
 		}
 	    /* update nearest enclosing cluster rank ht */
 	    if ((clust = ND_clust(n))!=null) {
-		int yoff = (clust == g ? 0 : late_int (clust, G_margin, 8, 0));
+		int yoff = (clust == g ? 0 : late_int (clust, Z._().G_margin, 8, 0));
 		if (ND_rank(n) == GD_minrank(clust))
 		    GD_ht2(clust, MAX(GD_ht2(clust), ht2 + yoff));
 		if (ND_rank(n) == GD_maxrank(clust))

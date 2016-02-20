@@ -42,7 +42,7 @@ public static __struct__<boxf> maximal_bbox(Agraph_s g, spline_info_t sp, Agnode
     } else
 	rv.getStruct("UR").setDouble("x", MAX(ROUND(b), sp.getInt("RightBound")));
     if ((ND_node_type(vn) == 1) && (ND_label(vn)!=null)) {
-	rv.getStruct("UR").setDouble("x", rv.getPtr("UR").getDouble("x") - ND_rw(vn));
+	rv.getStruct("UR").setDouble("x", rv.getStruct("UR").getDouble("x") - ND_rw(vn));
 	if (rv.getStruct("UR").getDouble("x") < rv.getStruct("LL").getDouble("x")) rv.getStruct("UR").setDouble("x", ND_coord(vn).getDouble("x"));
     }
     rv.getStruct("LL").setDouble("y", ND_coord(vn).getDouble("y") - GD_rank(g).plus(ND_rank(vn)).getDouble("ht1"));

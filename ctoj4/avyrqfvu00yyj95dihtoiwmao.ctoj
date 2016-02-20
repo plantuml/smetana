@@ -1,4 +1,4 @@
-public static _dtmethod_s Dttree = _Dttree.amp();
+//public static _dtmethod_s Dttree = _Dttree.amp();
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Dtmethod_t* Dttree = &_Dttree;
 

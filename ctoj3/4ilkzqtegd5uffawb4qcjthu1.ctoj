@@ -3,7 +3,7 @@ public static void recover_slack(Agedge_s e, path p) {
     Agnode_s vn;
     b = 0;			/* skip first rank box */
     for (vn = aghead(e);
-	 ND_node_type(vn) == 1 && N(sinfo.call("splineMerge", vn));
+	 ND_node_type(vn) == 1 && N(((Boolean)Z._().sinfo.call("splineMerge", vn)).booleanValue());
 	 vn = aghead(ND_out(vn).getArrayOfPtr("list").plus(0).getPtr())) {
 	while ((b < p.getInt("nbox")) && (p.getPtr("boxes").plus(b).getStruct("LL").getDouble("y") > ND_coord(vn).getDouble("y")))
 	    b++;
@@ -11,13 +11,13 @@ public static void recover_slack(Agedge_s e, path p) {
 	    break;
 	if (p.getPtr("boxes").plus(b).getStruct("UR").getDouble("y") < ND_coord(vn).getDouble("y"))
 	    continue;
-UNSUPPORTED("e1rjgfl9epaxfhw14lutk6wh9"); // 	if (ND_label(vn))
-UNSUPPORTED("afwly50wrf4xeexxa5gdejavd"); // 	    resize_vn(vn, p->boxes[b].LL.x, p->boxes[b].UR.x,
-UNSUPPORTED("9gtni7q7lr8eduoz4ziot8v31"); // 		      p->boxes[b].UR.x + ND_rw(vn));
-UNSUPPORTED("9352ql3e58qs4fzapgjfrms2s"); // 	else
-UNSUPPORTED("14kpbvc2zh1e59bsrfquggq66"); // 	    resize_vn(vn, p->boxes[b].LL.x, (p->boxes[b].LL.x +
-UNSUPPORTED("4th8wyvuigu3fidl74swkjvxv"); // 					     p->boxes[b].UR.x) / 2,
-UNSUPPORTED("f1sxbw01g5imnqnq1y0zy2nm6"); // 		      p->boxes[b].UR.x);
+	if (ND_label(vn)!=null)
+	    resize_vn(vn, (int)p.getPtr("boxes").plus(b).getStruct("LL").getDouble("x"), (int)p.getPtr("boxes").plus(b).getStruct("UR").getDouble("x"),
+		      (int)(p.getPtr("boxes").plus(b).getStruct("UR").getDouble("x") + ND_rw(vn)));
+	else
+	    resize_vn(vn, (int)p.getPtr("boxes").plus(b).getStruct("LL").getDouble("x"), (int)((p.getPtr("boxes").plus(b).getStruct("LL").getDouble("x") +
+					     p.getPtr("boxes").plus(b).getStruct("UR").getDouble("x")) / 2),
+		      (int)p.getPtr("boxes").plus(b).getStruct("UR").getDouble("x"));
     }
 }
 

@@ -1,0 +1,44 @@
+public static void swap_bezier(__ptr__ old, __ptr__ new_) {
+    __ptr__ list;
+    __ptr__ lp;
+    __ptr__ olp;
+    int i, sz;
+    sz = old.getInt("size");
+	list = gmalloc(sizeof(pointf.class, sz));
+    lp = list;
+    olp = old.getArrayOfPtr("list").plus(sz - 1).asPtr();
+    for (i = 0; i < sz; i++) {	/* reverse list of points */
+	lp.getStruct().____(olp.getStruct());
+	lp=lp.plus(1);
+	olp=olp.plus(-1);
+    }
+    new_.setPtr("list", list);
+    new_.setInt("size", sz);
+    new_.setInt("sflag", old.getInt("eflag"));
+    new_.setInt("eflag", old.getInt("sflag"));
+    new_.setStruct("sp", old.getStruct("ep"));
+    new_.setStruct("ep", old.getStruct("sp"));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void swap_bezier(bezier * old, bezier * new)
+{
+    pointf *list;
+    pointf *lp;
+    pointf *olp;
+    int i, sz;
+    sz = old->size;
+    list = (pointf*)gmalloc((sz)*sizeof(pointf));
+    lp = list;
+    olp = old->list + (sz - 1);
+    for (i = 0; i < sz; i++) {	/* reverse list of points */
+	*lp++ = *olp--;
+    }
+    new->list = list;
+    new->size = sz;
+    new->sflag = old->eflag;
+    new->eflag = old->sflag;
+    new->sp = old->ep;
+    new->ep = old->sp;
+}
+

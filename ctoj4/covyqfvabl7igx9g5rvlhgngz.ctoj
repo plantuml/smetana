@@ -1,4 +1,4 @@
-public static CString AgDataRecName = new CString("_AG_strdata");
+public final static CString AgDataRecName = new CString("_AG_strdata");
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 char *AgDataRecName = "_AG_strdata";

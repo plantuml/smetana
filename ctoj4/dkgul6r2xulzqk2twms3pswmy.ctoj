@@ -1,4 +1,4 @@
-public final static __struct__<shape_functions> poly_fns =  __struct__.from(shape_functions.class);
+/*public final static __struct__<shape_functions> poly_fns =  __struct__.from(shape_functions.class);
 static {
 poly_fns.setPtr("initfn", function(shapes__c.class, "poly_init"));
 poly_fns.setPtr("freefn", function(shapes__c.class, "poly_free"));
@@ -6,7 +6,7 @@ poly_fns.setPtr("portfn", function(shapes__c.class, "poly_port"));
 poly_fns.setPtr("insidefn", function(shapes__c.class, "poly_inside"));
 poly_fns.setPtr("pboxfn", function(shapes__c.class, "poly_path"));
 poly_fns.setPtr("codefn", function(shapes__c.class, "poly_gencode"));
-}
+}*/
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static shape_functions poly_fns = {

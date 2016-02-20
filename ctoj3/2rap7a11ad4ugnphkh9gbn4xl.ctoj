@@ -28,7 +28,7 @@ public static int solve3(double coeff[], double roots[]) {
 	if (disc > 0)
 	    rootn = 1;
 	else
-	    roots[1] = roots[2] = -.5 * roots[0]; rootn = 3;
+	    {roots[1] = roots[2] = -.5 * roots[0]; rootn = 3;}
     }
     for (i = 0; i < rootn; i++)
 	roots[i] -= b_over_3a;

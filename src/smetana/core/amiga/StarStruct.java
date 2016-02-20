@@ -2,33 +2,33 @@
  * PlantUML : a free UML diagram generator
  * ========================================================================
  *
+ * Project Info:  http://plantuml.com
+ * 
+ * This file is part of Smetana.
+ * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
+ *
  * (C) Copyright 2009-2017, Arnaud Roques
  *
- * Project Info:  http://plantuml.sourceforge.net
+ * This translation is distributed under the same Licence as the original C program.
  * 
- * This file is part of PlantUML.
- *
- * PlantUML is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * PlantUML distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public
- * License for more details.
- *
- * You should have received a copy of the GNU General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
- * in the United States and other countries.]
- *
- * Original Author:  Arnaud Roques
+ * THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE PUBLIC
+ * LICENSE ("AGREEMENT"). [Eclipse Public License - v 1.0]
  * 
+ * ANY USE, REPRODUCTION OR DISTRIBUTION OF THE PROGRAM CONSTITUTES
+ * RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
+
 package smetana.core.amiga;
 
 import java.util.HashSet;
@@ -37,6 +37,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import smetana.core.AllH;
 import smetana.core.Bucket;
 import smetana.core.CFunction;
 import smetana.core.CFunctionImpl;
@@ -53,7 +54,6 @@ import smetana.core.__array_of_ptr__;
 import smetana.core.__array_of_struct__;
 import smetana.core.__ptr__;
 import smetana.core.__struct__;
-import smetana.struct.AllH;
 
 public class StarStruct extends UnsupportedC implements Area, AllH {
 
@@ -113,7 +113,7 @@ public class StarStruct extends UnsupportedC implements Area, AllH {
 		this.theClass = theClass;
 		this.fields = new LinkedHashMap<String, Area>();
 		JUtils.LOG("Creation Struct " + getUID36());
-		if (getUID36().equals("ls")) {
+		if (getUID36().equals("2tg")) {
 			JUtils.LOG("It's me");
 		}
 		final StructureDefinition structureDefinition = StructureDefinition.from(theClass);
@@ -532,6 +532,8 @@ public class StarStruct extends UnsupportedC implements Area, AllH {
 			} else if (field instanceof AreaInt) {
 				field.memcopyFrom(otherField);
 			} else if (field instanceof AreaDouble) {
+				field.memcopyFrom(otherField);
+			} else if (field instanceof CString) {
 				field.memcopyFrom(otherField);
 			} else if (field instanceof StarStar) {
 				if (otherField == null) {

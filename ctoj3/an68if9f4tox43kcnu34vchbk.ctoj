@@ -1,4 +1,4 @@
-public static int splineisinside(__ptr__ edges, int edgen, __array_of_struct__ sps) {
+public static boolean splineisinside(__ptr__ edges, int edgen, __array_of_struct__ sps) {
     double roots[] = new double[4];
     int rooti, rootn;
     int ei;
@@ -27,10 +27,10 @@ public static int splineisinside(__ptr__ edges, int edgen, __array_of_struct__ s
 	    if (( ((ip.getDouble("x") - lps.plus(0).getStruct().getDouble("x")) * (ip.getDouble("x") - lps.plus(0).getStruct().getDouble("x"))) + ((ip.getDouble("y") - lps.plus(0).getStruct().getDouble("y")) * (ip.getDouble("y") - lps.plus(0).getStruct().getDouble("y"))) ) < 1E-3 ||
 		( ((ip.getDouble("x") - lps.plus(1).getStruct().getDouble("x")) * (ip.getDouble("x") - lps.plus(1).getStruct().getDouble("x"))) + ((ip.getDouble("y") - lps.plus(1).getStruct().getDouble("y")) * (ip.getDouble("y") - lps.plus(1).getStruct().getDouble("y"))) ) < 1E-3)
 		continue;
-	    return 0;
+	    return false;
 	}
     }
-    return 1;
+    return true;
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

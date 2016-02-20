@@ -2,9 +2,9 @@ public static void loadtriangle(__ptr__ pnlap, __ptr__ pnlbp, __ptr__ pnlcp) {
     triangle_t trip;
     int ei;
     /* make space */
-    if (tril >= trin)
-	growtris(trin + 20);
-    trip = (triangle_t) tris.plus(tril++);
+    if (Z._().tril >= Z._().trin)
+	growtris(Z._().trin + 20);
+    trip = (triangle_t) Z._().tris.plus(Z._().tril++);
     trip.setInt("mark", 0);
     trip.getArrayOfStruct("e").plus(0).getStruct().setPtr("pnl0p", pnlap);
     trip.getArrayOfStruct("e").plus(0).getStruct().setPtr("pnl1p", pnlbp);

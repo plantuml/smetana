@@ -1,4 +1,4 @@
-private static __ptr__ polypoints;
+//private static __ptr__ polypoints;
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static Ppoint_t *polypoints;

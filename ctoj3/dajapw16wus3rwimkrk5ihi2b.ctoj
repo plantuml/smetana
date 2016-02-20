@@ -1,7 +1,7 @@
 public static __struct__<pointf> map_point(final __struct__<pointf> p) {
-    p.____(ccwrotatepf(p, Rankdir * 90));
-    p.setDouble("x", p.getDouble("x") - Offset.getDouble("x"));
-    p.setDouble("y", p.getDouble("y") - Offset.getDouble("y"));
+    p.____(ccwrotatepf(p, Z._().Rankdir * 90));
+    p.setDouble("x", p.getDouble("x") - Z._().Offset.getDouble("x"));
+    p.setDouble("y", p.getDouble("y") - Z._().Offset.getDouble("y"));
     return p;
 }
 

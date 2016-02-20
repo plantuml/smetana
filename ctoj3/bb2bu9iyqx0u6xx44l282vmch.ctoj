@@ -3,13 +3,13 @@ public static Agclos_s agclos(Agdisc_s proto) {
 		__ptr__  memclosure;
 		Agclos_s rv;
 		/* establish an allocation arena */
-		memdisc = (Agmemdisc_s) ((proto != null && proto.getPtr("mem") != null) ? proto.getPtr("mem") : AgMemDisc.amp());
+		memdisc = (Agmemdisc_s) ((proto != null && proto.getPtr("mem") != null) ? proto.getPtr("mem") : Z._().AgMemDisc.amp());
 		memclosure = (__ptr__) memdisc.call("open", proto);
 		rv = (Agclos_s) memdisc.call("alloc", memclosure, sizeof(Agclos_s.class));
 		rv.getStruct("disc").setPtr("mem", memdisc);
 		rv.getStruct("state").setPtr("mem", memclosure);
-		rv.getStruct("disc").setPtr("id", ((proto != null && proto.getPtr("id") != null) ? proto.getPtr("id") : AgIdDisc.amp()));
-		rv.getStruct("disc").setPtr("io", ((proto != null && proto.getPtr("io") != null) ? proto.getPtr("io") : AgIdDisc.amp()));
+		rv.getStruct("disc").setPtr("id", ((proto != null && proto.getPtr("id") != null) ? proto.getPtr("id") : Z._().AgIdDisc.amp()));
+		rv.getStruct("disc").setPtr("io", ((proto != null && proto.getPtr("io") != null) ? proto.getPtr("io") : Z._().AgIdDisc.amp()));
 		rv.setBoolean("callbacks_enabled", (N(0)));
 		return rv;
 }

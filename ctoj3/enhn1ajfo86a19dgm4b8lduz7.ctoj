@@ -8,7 +8,7 @@ public static int agstrfree(Agraph_s g, CString s) {
     if (r!=null) r = (refstr_t) r.castTo(refstr_t.class);
     if (r!=null && (EQ(r.getPtr("s"), s))) {
 	r.setInt("refcnt", r.getInt("refcnt")-1);
-	if ((r.getInt("refcnt")!=0 && CNT_BITS!=0) == false) {
+	if ((r.getInt("refcnt")!=0 && Z._().CNT_BITS!=0) == false) {
 	    agdtdelete(g, strdict, r);
 	    /*
 	       if (g) agfree(g,r);

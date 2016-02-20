@@ -17,9 +17,9 @@ public static int rank2(Agraph_s g, int balance, int maxiter, int search_size) {
 	return 1;
     }
     if (search_size >= 0)
-	Search_size = search_size;
+	Z._().Search_size = search_size;
     else
-	Search_size = 30;
+	Z._().Search_size = 30;
     if (setjmp (jbuf)!=0) {
 	return 2;
     }
@@ -50,7 +50,7 @@ public static int rank2(Agraph_s g, int balance, int maxiter, int search_size) {
 	break;
     default:
 	scan_and_normalize();
-	freeTreeList (G);
+	freeTreeList (Z._().G_ns);
 	break;
     }
     /*if (Verbose) {

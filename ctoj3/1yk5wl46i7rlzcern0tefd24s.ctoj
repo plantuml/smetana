@@ -5,7 +5,7 @@ public static double arrow_length(Agedge_s e, int flag) {
     for (i = 0; i < 4; i++) {
         /* we don't simply index with flag because arrowtypes are not necessarily sorted */
         f = (flag >> (i * 8)) & ((1 << 4) - 1);
-        for (arrowtype = Arrowtypes.asPtr(); arrowtype.getPtr("gen")!=null; arrowtype=arrowtype.plus(1)) {
+        for (arrowtype = Z._().Arrowtypes.asPtr(); arrowtype.getPtr("gen")!=null; arrowtype=arrowtype.plus(1)) {
 	    if (f == arrowtype.getInt("type")) {
 	        lenfact += arrowtype.getDouble("lenfact");
 	        break;
@@ -14,7 +14,7 @@ public static double arrow_length(Agedge_s e, int flag) {
     }
     /* The original was missing the factor E_arrowsz, but I believe it
        should be here for correct arrow clipping */
-    return 10. * lenfact * late_double(e, E_arrowsz, 1.0, 0.0);
+    return 10. * lenfact * late_double(e, Z._().E_arrowsz, 1.0, 0.0);
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

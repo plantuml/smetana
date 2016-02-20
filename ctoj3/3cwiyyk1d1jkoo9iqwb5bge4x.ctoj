@@ -2,13 +2,13 @@ public static void cleanup2(Agraph_s g, int nc) {
     int i, j, r, c;
     Agnode_s v;
     Agedge_s e;
-    if (TI_list!=null) {
-	Memory.free(TI_list);
-	TI_list = null;
+    if (Z._().TI_list!=null) {
+	Memory.free(Z._().TI_list);
+	Z._().TI_list = null;
     }
-    if (TE_list!=null) {
-	Memory.free(TE_list);
-	TE_list = null;
+    if (Z._().TE_list!=null) {
+	Memory.free(Z._().TE_list);
+	Z._().TE_list = null;
     }
     /* fix vlists of clusters */
     for (c = 1; c <= GD_n_cluster(g); c++)

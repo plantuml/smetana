@@ -2,33 +2,15 @@
  * PlantUML : a free UML diagram generator
  * ========================================================================
  *
- * (C) Copyright 2009-2017, Arnaud Roques
- *
  * Project Info:  http://plantuml.com
  * 
- * This file is part of PlantUML.
+ * This file is part of Smetana.
+ * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * PlantUML is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * (C) Copyright 2009-2017, Arnaud Roques
  *
- * PlantUML distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- *
- * Original Author:  Arnaud Roques
- *
- *
- *
- *
+ * This translation is distributed under the same Licence as the original C program:
+ * 
  *************************************************************************
  * Copyright (c) 2011 AT&T Intellectual Property 
  * All rights reserved. This program and the accompanying materials
@@ -39,164 +21,39 @@
  * Contributors: See CVS logs. Details at http://www.graphviz.org/
  *************************************************************************
  *
+ * THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE PUBLIC
+ * LICENSE ("AGREEMENT"). [Eclipse Public License - v 1.0]
+ * 
+ * ANY USE, REPRODUCTION OR DISTRIBUTION OF THE PROGRAM CONSTITUTES
+ * RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 package gen.lib.common;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.grammar__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.cgraph.y_tab__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.common.y_tab__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.dotgen2.decomp__c.*;
-import static gen.lib.dotgen2.dotinit__c.*;
-import static gen.lib.dotgen2.groups__c.*;
-import static gen.lib.dotgen2.level__c.*;
-import static gen.lib.dotgen2.minc2__c.*;
-import static gen.lib.dotgen2.minc_utils__c.*;
-import static gen.lib.dotgen2.ns__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import static gen.lib.cgraph.attr__c.agget;
+import static gen.lib.common.geom__c.ptToLine2;
+import static gen.lib.common.utils__c.Bezier;
+import static smetana.core.JUtilsDebug.ENTERING;
+import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.N;
+import static smetana.core.Macro.UNSUPPORTED;
+import h.Agraph_s;
+import h.boxf;
+import h.pointf;
+import h.xdot;
+import smetana.core.CString;
+import smetana.core.__array_of_struct__;
+import smetana.core.__ptr__;
+import smetana.core.__struct__;
 
 public class emit__c {
 //1 2digov3edok6d5srhgtlmrycs
@@ -1534,18 +1391,18 @@ throw new UnsupportedOperationException();
 
 //3 7nqmdkcnal35ollpstkk707t8
 // static int check_control_points(pointf *cp) 
-public static Object check_control_points(Object... arg) {
-UNSUPPORTED("4i1ur4yi5y89cn0ru0wsfw451"); // static int check_control_points(pointf *cp)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("20amsaf686bflpehlqbhsbe47"); //     double dis1 = ptToLine2 (cp[0], cp[3], cp[1]);
-UNSUPPORTED("cxwb74x16ohq90t1m9rk1jlp7"); //     double dis2 = ptToLine2 (cp[0], cp[3], cp[2]);
-UNSUPPORTED("90gb0d86987iya7fgk2lz4c9s"); //     if (dis1 < 2.0*2.0 && dis2 < 2.0*2.0)
-UNSUPPORTED("3ywpya2w1bf4n909xcgre9wyy"); //         return 1;
-UNSUPPORTED("div10atae09n36x269sl208r1"); //     else
-UNSUPPORTED("egywkvzo2t847qnathqnanvcj"); //         return 0;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static boolean check_control_points(__ptr__ cp) {
+ENTERING("7nqmdkcnal35ollpstkk707t8","check_control_points");
+try {
+    double dis1 = ptToLine2 (cp.plus(0).getStruct(), cp.plus(3).getStruct(), cp.plus(1).getStruct());
+    double dis2 = ptToLine2 (cp.plus(0).getStruct(), cp.plus(3).getStruct(), cp.plus(2).getStruct());
+    if (dis1 < 2.0*2.0 && dis2 < 2.0*2.0)
+        return true;
+    else
+        return false;
+} finally {
+LEAVING("7nqmdkcnal35ollpstkk707t8","check_control_points");
+}
 }
 
 
@@ -1553,7 +1410,7 @@ throw new UnsupportedOperationException();
 
 //3 5wldemr88fdxl6101ugewclw9
 // void update_bb_bz(boxf *bb, pointf *cp) 
-public static void update_bb_bz(__ptr__ bb, __array__ cp) {
+public static void update_bb_bz(__ptr__ bb, __array_of_struct__ cp) {
 ENTERING("5wldemr88fdxl6101ugewclw9","update_bb_bz");
 try {
     /* if any control point of the segment is outside the bounding box */
@@ -1566,26 +1423,27 @@ try {
         cp.plus(3).getDouble("x") > bb.getStruct("UR").getDouble("x") || cp.plus(3).getDouble("x") < bb.getStruct("LL").getDouble("x") ||
         cp.plus(3).getDouble("y") > bb.getStruct("UR").getDouble("y") || cp.plus(3).getDouble("y") < bb.getStruct("LL").getDouble("y")) {
         /* if the segment is sufficiently refined */
-UNSUPPORTED("9i1xs40w5oehttgosk5zxkts7"); //         if (check_control_points(cp)) {        
-UNSUPPORTED("2ito24pnyaq3m8u2nlk39ke68"); //             int i;
-UNSUPPORTED("8pz3vmrxwml8d89fexfzfu1wn"); //             /* expand the bounding box */
-UNSUPPORTED("dgfun7pt7hn6ghd4s0wi0o5ut"); //             for (i = 0; i < 4; i++) {
-UNSUPPORTED("a6ku1nbag4e4x0ngj2mvnuwp9"); //                 if (cp[i].x > bb->UR.x)
-UNSUPPORTED("dxx7t17g1fd2v47gkoyfi0gr"); //                     bb->UR.x = cp[i].x;
-UNSUPPORTED("1178i8jimi4sw1hxfqhydut6m"); //                 else if (cp[i].x < bb->LL.x)
-UNSUPPORTED("703vu34afq9zwpj7x6ujf6p1b"); //                     bb->LL.x = cp[i].x;
-UNSUPPORTED("25vexwuf5hmw8wchiuoelvlip"); //                 if (cp[i].y > bb->UR.y)
-UNSUPPORTED("a8dq6om4dj0l7enuiptq1oahb"); //                     bb->UR.y = cp[i].y;
-UNSUPPORTED("a4czwif32r6z27zic916566bh"); //                 else if (cp[i].y < bb->LL.y)
-UNSUPPORTED("as0cgop5ty42laetnwj5rhwa7"); //                     bb->LL.y = cp[i].y;
-UNSUPPORTED("7g94ubxa48a1yi3mf9v521b7c"); //             }
-UNSUPPORTED("4mhlpjofolwivhm0tl8cxznly"); //         }
-UNSUPPORTED("4fo1iyyel4l87r0cmfd0ixgvu"); //         else { /* else refine the segment */
-UNSUPPORTED("4jszlr7j4l4a675pscen91y63"); //             pointf left[4], right[4];
-UNSUPPORTED("biazew32zzs01d3jsasn80xxz"); //             Bezier (cp, 3, 0.5, left, right);
-UNSUPPORTED("bn3c6hwhvrgywu0kgmqv88hx1"); //             update_bb_bz(bb, left);
-UNSUPPORTED("2j3wkcwvfpkgfay82xhuybadg"); //             update_bb_bz(bb, right);
-UNSUPPORTED("4mhlpjofolwivhm0tl8cxznly"); //         }
+        if (check_control_points(cp.asPtr())) {        
+            int i;
+            /* expand the bounding box */
+            for (i = 0; i < 4; i++) {
+                if (cp.plus(i).getDouble("x") > bb.getStruct("UR").getDouble("x"))
+                    bb.getStruct("UR").setDouble("x", cp.plus(i).getDouble("x"));
+                else if (cp.plus(i).getDouble("x") < bb.getStruct("LL").getDouble("x"))
+                    bb.getStruct("LL").setDouble("x", cp.plus(i).getDouble("x"));
+                if (cp.plus(i).getDouble("y") > bb.getStruct("UR").getDouble("y"))
+                    bb.getStruct("UR").setDouble("y", cp.plus(i).getDouble("y"));
+                else if (cp.plus(i).getDouble("y") < bb.getStruct("LL").getDouble("y"))
+                    bb.getStruct("LL").setDouble("y", cp.plus(i).getDouble("y"));
+            }
+        }
+        else { /* else refine the segment */
+		    final __array_of_struct__ left = __array_of_struct__.malloc(pointf.class, 4);
+		    final __array_of_struct__ right = __array_of_struct__.malloc(pointf.class, 4);
+            Bezier (cp, 3, 0.5, left.asPtr(), right.asPtr());
+            update_bb_bz(bb, left);
+            update_bb_bz(bb, right);
+        }
     }
 } finally {
 LEAVING("5wldemr88fdxl6101ugewclw9","update_bb_bz");

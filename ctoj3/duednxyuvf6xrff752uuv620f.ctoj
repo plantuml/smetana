@@ -27,10 +27,10 @@ UNSUPPORTED("4jl5028eiwqrnkrhwhsxk8hk7"); // 	tn = tmp;
 	hbox = (boxf) ED_head_port(orig).getPtr("bp");
     }
     else { /* fe and orig are reversed */
-UNSUPPORTED("4u3p5rc8z1yksdt6zfy4n8bdc"); // 	clipTail = ED_head_port(orig).clip;
-UNSUPPORTED("2ktqbtan79l0vcfvh2un805pn"); // 	clipHead = ED_tail_port(orig).clip;
-UNSUPPORTED("6698nlf4nkouwwv8xl3ew7pdl"); // 	hbox = ED_tail_port(orig).bp;
-UNSUPPORTED("aozvdkpsy0slwktlcywflyrwo"); // 	tbox = ED_head_port(orig).bp;
+ 	clipTail = ED_head_port(orig).getInt("clip");
+ 	clipHead = ED_tail_port(orig).getInt("clip");
+ 	hbox = (boxf) ED_tail_port(orig).getPtr("bp");
+ 	tbox = (boxf) ED_head_port(orig).getPtr("bp");
     }
     /* spline may be interior to node */
     if(clipHead!=0 && ND_shape(tn)!=null && ND_shape(tn).getPtr("fns").getPtr("insidefn")!=null) {
@@ -67,7 +67,6 @@ UNSUPPORTED("aozvdkpsy0slwktlcywflyrwo"); // 	tbox = ED_head_port(orig).bp;
     for (i = start[0]; i < end[0] + 4; ) {
 	final __array_of_struct__ cp = __array_of_struct__.malloc(pointf.class, 4);
 	newspl.getArrayOfPtr("list").plus(i - start[0]).setStruct(ps.plus(i).getStruct());
-	System.err.println("SUSPECT");
 	cp.plus(0).setStruct(ps.plus(i).getStruct());
 	i++;
 	if ( i >= end[0] + 4)

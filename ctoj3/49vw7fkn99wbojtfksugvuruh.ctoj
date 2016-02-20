@@ -2,10 +2,10 @@ public static void init_mccomp(Agraph_s g, int c) {
     int r;
     GD_nlist(g, GD_comp(g).getArrayOfPtr("list").plus(c).getPtr());
     if (c > 0) {
-UNSUPPORTED("34zoiglx6i533thnb09wet61g"); // 	for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
-UNSUPPORTED("d2j00itj7y30o090cs9t0s9ud"); // 	    GD_rank(g)[r].v = GD_rank(g)[r].v + GD_rank(g)[r].n;
-UNSUPPORTED("de9su5sye3e0a3pmioywi3fze"); // 	    GD_rank(g)[r].n = 0;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+	for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
+	    GD_rank(g).plus(r).setPtr("v", GD_rank(g).plus(r).getPtr("v").plus(GD_rank(g).plus(r).getInt("n")));
+	    GD_rank(g).plus(r).setInt("n", 0);
+	}
     }
 }
 

@@ -1,7 +1,7 @@
 public static CString arrow_match_shape(CString name, int flag[]) {
     CString next, rest;
     int f[] = new int[] {0};
-    rest = arrow_match_name_frag(name, Arrowsynonyms, f);
+    rest = arrow_match_name_frag(name, Z._().Arrowsynonyms, f);
 UNSUPPORTED("304yfmlt3qwn4zydpx1hgmf5o"); //     if (rest == name) {
 UNSUPPORTED("8vxyvy38lzpbd83cu26nejaan"); // 	do {
 UNSUPPORTED("do0zgfzipmk0sgv0q0u14es1c"); // 	    next = rest;

@@ -1,4 +1,4 @@
-public final static __struct__<Agiddisc_s> AgIdDisc = __struct__.from(Agiddisc_s.class);
+/*public final static __struct__<Agiddisc_s> AgIdDisc = __struct__.from(Agiddisc_s.class);
 static {
 	AgIdDisc.setPtr("open", function(id__c.class, "idopen"));
 	AgIdDisc.setPtr("map", function(id__c.class, "idmap"));
@@ -7,7 +7,7 @@ static {
 	AgIdDisc.setPtr("print", function(id__c.class, "idprint"));
 	AgIdDisc.setPtr("close", function(id__c.class, "idclose"));
 	AgIdDisc.setPtr("idregister", function(id__c.class, "idregister"));
-}
+}*/
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Agiddisc_t AgIdDisc = {

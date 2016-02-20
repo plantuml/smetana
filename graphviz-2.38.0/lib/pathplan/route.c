@@ -39,9 +39,11 @@ typedef struct tna_t {
 #define prerror(msg) \
         fprintf (stderr, "libpath/%s:%d: %s\n", __FILE__, __LINE__, (msg))
 
+#ifndef _I_AM_JAVA_
 #define DISTSQ(a, b) ( \
     (((a).x - (b).x) * ((a).x - (b).x)) + (((a).y - (b).y) * ((a).y - (b).y)) \
 )
+#endif /*_I_AM_JAVA_*/
 
 #define POINTSIZE sizeof (Ppoint_t)
 

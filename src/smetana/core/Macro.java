@@ -2,34 +2,37 @@
  * PlantUML : a free UML diagram generator
  * ========================================================================
  *
+ * Project Info:  http://plantuml.com
+ * 
+ * This file is part of Smetana.
+ * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
+ *
  * (C) Copyright 2009-2017, Arnaud Roques
  *
- * Project Info:  http://plantuml.sourceforge.net
+ * This translation is distributed under the same Licence as the original C program.
  * 
- * This file is part of PlantUML.
- *
- * PlantUML is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * PlantUML distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public
- * License for more details.
- *
- * You should have received a copy of the GNU General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
- * in the United States and other countries.]
- *
- * Original Author:  Arnaud Roques
+ * THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE PUBLIC
+ * LICENSE ("AGREEMENT"). [Eclipse Public License - v 1.0]
  * 
+ * ANY USE, REPRODUCTION OR DISTRIBUTION OF THE PROGRAM CONSTITUTES
+ * RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
+
 package smetana.core;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import h.Agedge_s;
 import h.Agedgeinfo_t;
@@ -48,6 +51,7 @@ import h.nlist_t;
 import h.pointf;
 import h.port;
 import h.splines;
+import h.textlabel_t;
 
 public class Macro {
 
@@ -72,6 +76,12 @@ public class Macro {
 	}
 
 	public static boolean N(Object o) {
+		if (o instanceof Boolean) {
+			throw new IllegalArgumentException();
+		}
+		if (o instanceof Integer) {
+			throw new IllegalArgumentException();
+		}
 		return o == null;
 	}
 
@@ -159,12 +169,12 @@ public class Macro {
 	}
 
 	// #define AGIN2OUT(e) ((e)-1)
-	public static __ptr__ AGIN2OUT(Agedge_s e) {
+	public static __ptr__ AGIN2OUT(__ptr__ e) {
 		return e.plus(-1);
 	}
 
 	// #define AGOUT2IN(e) ((e)+1)
-	public static __ptr__ AGOUT2IN(Agedge_s e) {
+	public static __ptr__ AGOUT2IN(__ptr__ e) {
 		return e.plus(1);
 	}
 
@@ -174,21 +184,21 @@ public class Macro {
 	}
 
 	// #define AGMKOUT(e) (AGTYPE(e) == AGOUTEDGE? (e): AGIN2OUT(e))
-	public static Agedge_s AGMKOUT(Agedge_s e) {
+	public static Agedge_s AGMKOUT(__ptr__ e) {
 		return (Agedge_s) (AGTYPE(e) == AGOUTEDGE ? (e) : AGIN2OUT(e));
 	}
 
 	// #define AGMKIN(e) (AGTYPE(e) == AGINEDGE? (e): AGOUT2IN(e))
-	public static Agedge_s AGMKIN(Agedge_s e) {
+	public static Agedge_s AGMKIN(__ptr__ e) {
 		return (Agedge_s) (AGTYPE(e) == AGINEDGE ? (e) : AGOUT2IN(e));
 	}
 
 	// #define AGTAIL(e) (AGMKIN(e)->node)
-	public static Agnode_s AGTAIL(Agedge_s e) {
+	public static Agnode_s AGTAIL(__ptr__ e) {
 		return (Agnode_s) AGMKIN(e).getPtr("node");
 	}
 
-	private static Agnode_s agtail(Agedge_s e) {
+	public static Agnode_s agtail(__ptr__ e) {
 		return (Agnode_s) AGMKIN(e).getPtr("node");
 	}
 
@@ -197,7 +207,7 @@ public class Macro {
 	}
 
 	// #define AGHEAD(e) (AGMKOUT(e)->node)
-	public static Agnode_s AGHEAD(Agedge_s e) {
+	public static Agnode_s AGHEAD(__ptr__ e) {
 		return (Agnode_s) AGMKOUT(e).getPtr("node");
 	}
 
@@ -261,6 +271,13 @@ public class Macro {
 	}
 
 	// #define GD_parent(g) (((Agraphinfo_t*)AGDATA(g))->parent)
+	public static __ptr__ GD_parent(Agraph_s g) {
+		return AGDATA(g).castTo(Agraphinfo_t.class).getPtr("parent");
+	}
+	public static void GD_parent(Agraph_s g, __ptr__ v) {
+		AGDATA(g).castTo(Agraphinfo_t.class).setPtr("parent", v);
+	}
+	
 	// #define GD_level(g) (((Agraphinfo_t*)AGDATA(g))->level)
 	// #define GD_drawing(g) (((Agraphinfo_t*)AGDATA(g))->drawing)
 	public static __ptr__ GD_drawing(Agraph_s g) {
@@ -289,7 +306,7 @@ public class Macro {
 	public static __ptr__ GD_cleanup(Agraph_s g) {
 		return AGDATA(g).castTo(Agraphinfo_t.class).getPtr("cleanup");
 	}
-	
+
 	// #define GD_dist(g) (((Agraphinfo_t*)AGDATA(g))->dist)
 	// #define GD_alg(g) (((Agraphinfo_t*)AGDATA(g))->alg)
 	// #define GD_border(g) (((Agraphinfo_t*)AGDATA(g))->border)
@@ -349,6 +366,10 @@ public class Macro {
 	// #define GD_has_labels(g) (((Agraphinfo_t*)AGDATA(g))->has_labels)
 	public static int GD_has_labels(Agraph_s g) {
 		return AGDATA(g).castTo(Agraphinfo_t.class).getInt("has_labels");
+	}
+
+	public static void GD_has_labels(Agraph_s g, int v) {
+		AGDATA(g).castTo(Agraphinfo_t.class).setInt("has_labels", v);
 	}
 
 	// #define GD_has_images(g) (((Agraphinfo_t*)AGDATA(g))->has_images)
@@ -499,6 +520,14 @@ public class Macro {
 
 	// #define GD_rn(g) (((Agraphinfo_t*)AGDATA(g))->rn)
 	// #define GD_set_type(g) (((Agraphinfo_t*)AGDATA(g))->set_type)
+	public static int GD_set_type(Agraph_s g) {
+		return AGDATA(g).castTo(Agraphinfo_t.class).getInt("set_type");
+	}
+	public static void GD_set_type(Agraph_s g, int v) {
+		AGDATA(g).castTo(Agraphinfo_t.class).setInt("set_type", v);
+	}
+	
+	
 	// #define GD_label_pos(g) (((Agraphinfo_t*)AGDATA(g))->label_pos)
 	// #define GD_showboxes(g) (((Agraphinfo_t*)AGDATA(g))->showboxes)
 	public static int GD_showboxes(Agraph_s g) {
@@ -545,7 +574,7 @@ public class Macro {
 
 	// #define ND_bb(n) (((Agnodeinfo_t*)AGDATA(n))->bb)
 	// #define ND_clust(n) (((Agnodeinfo_t*)AGDATA(n))->clust)
-	public static Agraph_s ND_clust(Agnode_s n) {
+	public static Agraph_s ND_clust(__ptr__ n) {
 		return (Agraph_s) AGDATA(n).castTo(Agnodeinfo_t.class).getPtr("clust");
 	}
 
@@ -612,8 +641,8 @@ public class Macro {
 	}
 
 	// #define ND_label(n) (((Agnodeinfo_t*)AGDATA(n))->label)
-	public static __ptr__ ND_label(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getPtr("label");
+	public static textlabel_t ND_label(Agnode_s n) {
+		return (textlabel_t) AGDATA(n).castTo(Agnodeinfo_t.class).getPtr("label");
 	}
 
 	public static void ND_label(Agnode_s n, __ptr__ v) {
@@ -624,7 +653,7 @@ public class Macro {
 	public static __ptr__ ND_xlabel(Agnode_s n) {
 		return AGDATA(n).castTo(Agnodeinfo_t.class).getPtr("xlabel");
 	}
-	
+
 	// #define ND_lim(n) (((Agnodeinfo_t*)AGDATA(n))->lim)
 	public static int ND_lim(Agnode_s n) {
 		return AGDATA(n).castTo(Agnodeinfo_t.class).getInt("lim");
@@ -662,7 +691,7 @@ public class Macro {
 	}
 
 	// #define ND_mval(n) (((Agnodeinfo_t*)AGDATA(n))->mval)
-	public static double ND_mval(Agnode_s n) {
+	public static double ND_mval(__ptr__ n) {
 		return AGDATA(n).castTo(Agnodeinfo_t.class).getDouble("mval");
 	}
 
@@ -699,7 +728,7 @@ public class Macro {
 	}
 
 	// #define ND_order(n) (((Agnodeinfo_t*)AGDATA(n))->order)
-	public static int ND_order(Agnode_s n) {
+	public static int ND_order(__ptr__ n) {
 		return AGDATA(n).castTo(Agnodeinfo_t.class).getInt("order");
 	}
 
@@ -898,7 +927,7 @@ public class Macro {
 	}
 
 	// #define ED_head_port(e) (((Agedgeinfo_t*)AGDATA(e))->head_port)
-	public static __struct__<port> ED_head_port(Agedge_s e) {
+	public static __struct__<port> ED_head_port(__ptr__ e) {
 		return (__struct__<port>) AGDATA(e).castTo(Agedgeinfo_t.class).getStruct("head_port");
 	}
 
@@ -907,16 +936,28 @@ public class Macro {
 	}
 
 	// #define ED_label(e) (((Agedgeinfo_t*)AGDATA(e))->label)
-	public static __ptr__ ED_label(Agedge_s e) {
-		return AGDATA(e).castTo(Agedgeinfo_t.class).getPtr("label");
+	public static textlabel_t ED_label(__ptr__ e) {
+		return (textlabel_t) AGDATA(e).castTo(Agedgeinfo_t.class).getPtr("label");
+	}
+
+	public static void ED_label(Agedge_s e, __ptr__ v) {
+		AGDATA(e).castTo(Agedgeinfo_t.class).setPtr("label", v);
 	}
 
 	// #define ED_xlabel(e) (((Agedgeinfo_t*)AGDATA(e))->xlabel)
 	public static __ptr__ ED_xlabel(Agedge_s e) {
 		return AGDATA(e).castTo(Agedgeinfo_t.class).getPtr("xlabel");
 	}
-	
+
 	// #define ED_label_ontop(e) (((Agedgeinfo_t*)AGDATA(e))->label_ontop)
+	public static boolean ED_label_ontop(Agedge_s e) {
+		return AGDATA(e).castTo(Agedgeinfo_t.class).getBoolean("label_ontop");
+	}
+
+	public static void ED_label_ontop(Agedge_s e, boolean v) {
+		AGDATA(e).castTo(Agedgeinfo_t.class).setBoolean("label_ontop", v);
+	}
+
 	// #define ED_minlen(e) (((Agedgeinfo_t*)AGDATA(e))->minlen)
 	public static int ED_minlen(Agedge_s e) {
 		return AGDATA(e).castTo(Agedgeinfo_t.class).getInt("minlen");
@@ -949,9 +990,9 @@ public class Macro {
 	public static __ptr__ ED_tail_label(Agedge_s e) {
 		return AGDATA(e).castTo(Agedgeinfo_t.class).getPtr("tail_label");
 	}
-	
+
 	// #define ED_tail_port(e) (((Agedgeinfo_t*)AGDATA(e))->tail_port)
-	public static __struct__<port> ED_tail_port(Agedge_s e) {
+	public static __struct__<port> ED_tail_port(__ptr__ e) {
 		return (__struct__<port>) AGDATA(e).castTo(Agedgeinfo_t.class).getStruct("tail_port");
 	}
 
@@ -987,7 +1028,7 @@ public class Macro {
 	}
 
 	// #define ED_xpenalty(e) (((Agedgeinfo_t*)AGDATA(e))->xpenalty)
-	public static int ED_xpenalty(Agedge_s e) {
+	public static int ED_xpenalty(__ptr__ e) {
 		return AGDATA(e).castTo(Agedgeinfo_t.class).getInt("xpenalty");
 	}
 
@@ -1152,8 +1193,23 @@ public class Macro {
 	// ED_to_orig(newp) = old; \
 
 	public static void MAKEFWDEDGE(__ptr__ new_, __ptr__ old) {
-		throw new UnsupportedOperationException();
+		Agedge_s newp;
+		Agedgeinfo_t info;
+		newp = (Agedge_s) new_;
+		info = (Agedgeinfo_t) newp.getStruct("base").getPtr("data");
+		info.copyDataFrom(old.getStruct("base").getPtr("data").castTo(Agedgeinfo_t.class).getStruct());
+		newp.copyDataFrom(old);
+		newp.getStruct("base").setPtr("data", info);
+		agtail(newp, AGHEAD(old));
+		aghead(newp, AGTAIL(old));
+		ED_tail_port(newp, ED_head_port(old));
+		ED_head_port(newp, ED_tail_port(old));
+		ED_edge_type(newp, VIRTUAL);
+		ED_to_orig(newp, old);
 	}
+
+	// #define VIRTUAL 1 /* virtual nodes in long edge chains */
+	public static final int VIRTUAL = 1;
 
 	// #define ZALLOC(size,ptr,type,osize) (ptr?
 	// (type*)zrealloc(ptr,size,sizeof(type),osize):(type*)zmalloc((size)*sizeof(type)))
@@ -1190,61 +1246,84 @@ public class Macro {
 		t = t / x;
 		return x * Math.sqrt(1 + t * t);
 	}
-	
+
 	// #define SQR(a) ((a) * (a))
 	public static double SQR(double a) {
 		return a * a;
 	}
 
-//	#define MILLIPOINT .001
-//	#define MICROPOINT .000001
+	// #define MILLIPOINT .001
+	// #define MICROPOINT .000001
 	public static double MILLIPOINT = .001;
 	public static double MICROPOINT = .000001;
-	
-	// #define APPROXEQPT(p,q,tol)	(DIST2((p),(q)) < SQR(tol))
+
+	// #define APPROXEQPT(p,q,tol) (DIST2((p),(q)) < SQR(tol))
 	public static boolean APPROXEQPT(__ptr__ p, __ptr__ q, double tol) {
-		return (DIST2((p),(q)) < SQR(tol));
+		return (DIST2((p), (q)) < SQR(tol));
 	}
-	
-//	#define LEN2(a,b)		(SQR(a) + SQR(b))
+
+	// #define LEN2(a,b) (SQR(a) + SQR(b))
 	public static double LEN2(double a, double b) {
 		return (SQR(a) + SQR(b));
 	}
-	
-//	#define LEN(a,b)		(sqrt(LEN2((a),(b))))
+
+	// #define LEN(a,b) (sqrt(LEN2((a),(b))))
 	public static double LEN(double a, double b) {
-		return (Math.sqrt(LEN2((a),(b))));
+		return (Math.sqrt(LEN2((a), (b))));
 	}
-//
-//	#define DIST2(p,q)		(LEN2(((p).x - (q).x),((p).y - (q).y)))
+
+	//
+	// #define DIST2(p,q) (LEN2(((p).x - (q).x),((p).y - (q).y)))
 	public static double DIST2(__ptr__ p, __ptr__ q) {
-		return (LEN2(((p).getDouble("x") - (q).getDouble("x")),((p).getDouble("y") - (q).getDouble("y"))));
+		return (LEN2(((p).getDouble("x") - (q).getDouble("x")), ((p).getDouble("y") - (q).getDouble("y"))));
 	}
+
 	public static double DIST2(__struct__ p, __ptr__ q) {
-		return (LEN2(((p).getDouble("x") - (q).getDouble("x")),((p).getDouble("y") - (q).getDouble("y"))));
+		return (LEN2(((p).getDouble("x") - (q).getDouble("x")), ((p).getDouble("y") - (q).getDouble("y"))));
 	}
-	
-//	#define DIST(p,q)		(sqrt(DIST2((p),(q))))
 
-
+	// #define DIST(p,q) (sqrt(DIST2((p),(q))))
 
 	// #define INSIDE(p,b) (BETWEEN((b).LL.x,(p).x,(b).UR.x) && BETWEEN((b).LL.y,(p).y,(b).UR.y))
 	public static boolean INSIDE(__struct__ b, __struct__ p) {
 		return (BETWEEN(b.getStruct("LL").getDouble("x"), p.getDouble("x"), b.getStruct("UR").getDouble("x")) && BETWEEN(
 				b.getStruct("LL").getDouble("y"), p.getDouble("y"), b.getStruct("UR").getDouble("y")));
 	}
-	
-	
+
 	public static final double M_PI = Math.PI;
-	// #define SQRT2		1.41421356237309504880
+	// #define SQRT2 1.41421356237309504880
 	public static final double SQRT2 = Math.sqrt(2);
-	
-	//#define RADIANS(deg)	((deg)/180.0 * M_PI)
+
+	// #define RADIANS(deg) ((deg)/180.0 * M_PI)
 	public static double RADIANS(double deg) {
-		return ((deg)/180.0 * M_PI);
+		return ((deg) / 180.0 * M_PI);
 	}
 
+	// #define DISTSQ(a, b) ( \
+	// (((a).x - (b).x) * ((a).x - (b).x)) + (((a).y - (b).y) * ((a).y - (b).y)) \
+	// )
 
+	public static double DISTSQ(__struct__ a, __struct__ b) {
+		return (((a).getDouble("x") - (b).getDouble("x")) * ((a).getDouble("x") - (b).getDouble("x")))
+				+ (((a).getDouble("y") - (b).getDouble("y")) * ((a).getDouble("y") - (b).getDouble("y")));
+	}
 
-
+	public static void hackInitDimensionFromLabel(__struct__<pointf> size, String label) {
+		if (label.matches("_dim_\\d+_\\d+_")) {
+			Pattern p = Pattern.compile("_dim_(\\d+)_(\\d+)_");
+			Matcher m = p.matcher(label);
+			if (m.matches() == false) {
+				throw new IllegalStateException();
+			}
+			int ww = Integer.parseInt(m.group(1));
+			int hh = Integer.parseInt(m.group(2));
+			size.setDouble("x", ww);
+			size.setDouble("y", hh);
+			System.err.println("Hacking dimension to width=" + ww + " height=" + hh);
+		}
+	}
+	
+	public static CString createHackInitDimensionFromLabel(int width, int height) {
+		return new CString("_dim_" + width + "_" + height + "_");
+	}
 }

@@ -1,0 +1,24 @@
+public static Agedge_s straight_path(Agedge_s e, int cnt, __ptr__ plist, int np[]) {
+    int n = np[0];
+    Agedge_s f = e;
+    while ((cnt--)!=0)
+	f = (Agedge_s) ND_out(aghead(f)).getArrayOfPtr("list").plus(0).getPtr();
+    plist.plus(np[0]++).setStruct(plist.plus(n - 1).getStruct());
+    plist.plus(np[0]++).setStruct(plist.plus(n - 1).getStruct());
+    plist.plus(np[0]).setStruct(ND_coord(agtail(f)));  /* will be overwritten by next spline */
+    return f;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static edge_t *straight_path(edge_t * e, int cnt, pointf * plist, int *np)
+{
+    int n = *np;
+    edge_t *f = e;
+    while (cnt--)
+	f = ND_out(aghead(f)).list[0];
+    plist[(*np)++] = plist[n - 1];
+    plist[(*np)++] = plist[n - 1];
+    plist[(*np)] = ND_coord(agtail(f));  /* will be overwritten by next spline */
+    return f;
+}
+

@@ -245,6 +245,8 @@ typedef struct tna_t {
 
 
 
+
+
 typedef struct p2e_t {
     Ppoint_t *pp;
     Pedge_t *ep;
@@ -603,8 +605,8 @@ static int splineisinside(Pedge_t * edges, int edgen, Ppoint_t * sps)
 		tc * sps[2].x + td * sps[3].x;
 	    ip.y = ta * sps[0].y + tb * sps[1].y +
 		tc * sps[2].y + td * sps[3].y;
-	    if (( (((ip).x - (lps[0]).x) * ((ip).x - (lps[0]).x)) + (((ip).y - (lps[0]).y) * ((ip).y - (lps[0]).y)) ) < 1E-3 ||
-		( (((ip).x - (lps[1]).x) * ((ip).x - (lps[1]).x)) + (((ip).y - (lps[1]).y) * ((ip).y - (lps[1]).y)) ) < 1E-3)
+	    if (DISTSQ(ip, lps[0]) < 1E-3 ||
+		DISTSQ(ip, lps[1]) < 1E-3)
 		continue;
 	    return 0;
 	}

@@ -1,6 +1,6 @@
 public static void ordered_edges(Agraph_s g) {
     CString ordering;
-    if (N(G_ordering) && N(N_ordering))
+    if (N(Z._().G_ordering) && N(Z._().N_ordering))
 	return;
 UNSUPPORTED("98iqppixxkdndoz210i5ejppy"); //     if ((ordering = late_string(g, G_ordering, NULL))) {
 UNSUPPORTED("lhhw62wj3on36enoy6ug6u1p"); // 	if ((*(ordering)==*("out")&&!strcmp(ordering,"out")))

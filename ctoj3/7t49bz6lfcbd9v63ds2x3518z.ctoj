@@ -28,18 +28,18 @@ public static void build_ranks(Agraph_s g, int pass) {
     if (dequeue(q)!=null)
 UNSUPPORTED("1b3hbd5artrq77i58q2o9kgz3"); // 	agerr(AGERR, "surprise\n");
     for (i = GD_minrank(g); i <= GD_maxrank(g); i++) {
-	GD_rank(Root).plus(i).setInt("valid", 0);
+	GD_rank(Z._().Root).plus(i).setInt("valid", 0);
 	if (GD_flip(g)!=0 && (GD_rank(g).plus(i).getInt("n") > 0)) {
 	    int nn, ndiv2;
 	    __ptr__ vlist = GD_rank(g).plus(i).getPtr("v");
 	    nn = GD_rank(g).plus(i).getInt("n") - 1;
 	    ndiv2 = nn / 2;
 	    for (j = 0; j <= ndiv2; j++)
-		exchange(vlist.plus(j), vlist.plus(nn - j));
+		exchange((Agnode_s)vlist.plus(j).getPtr(), (Agnode_s)vlist.plus(nn - j).getPtr());
 	}
     }
     if (EQ(g, dot_root(g)) && ncross(g) > 0)
-	transpose(g, 0);
+	transpose(g, false);
     free_queue(q);
 }
 

@@ -6,7 +6,7 @@ public static Agedge_s agedge(Agraph_s g, Agnode_s t, Agnode_s h, CString name, 
     if (have_id!=0 || ((name == null) && ((NOT(cflag)) || agisstrict(g)))) {
 	/* probe for pre-existing edge */
 	final __struct__<Agtag_s> key = __struct__.from(Agtag_s.class);
-	key.____(Tag);
+	key.____(Z._().Tag);
 	if (have_id!=0) {
 	    key.setInt("id", id[0]);
 	    key.setInt("objtype", AGEDGE);

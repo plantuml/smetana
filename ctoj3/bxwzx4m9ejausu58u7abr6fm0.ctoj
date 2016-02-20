@@ -1,0 +1,78 @@
+public static int transpose_step(Agraph_s g, int r, boolean reverse) {
+    int i, c0, c1, rv;
+    Agnode_s v, w;
+    rv = 0;
+    GD_rank(g).plus(r).getPtr().setBoolean("candidate", false);
+    for (i = 0; i < GD_rank(g).plus(r).getInt("n") - 1; i++) {
+	v = (Agnode_s) GD_rank(g).plus(r).getArrayOfPtr("v").plus(i).getPtr();
+	w = (Agnode_s) GD_rank(g).plus(r).getArrayOfPtr("v").plus(i + 1).getPtr();
+	//assert(ND_order(v) < ND_order(w));
+	if (left2right(g, v, w))
+	    continue;
+	c0 = c1 = 0;
+	if (r > 0) {
+	    c0 += in_cross(v, w);
+	    c1 += in_cross(w, v);
+	}
+	if (GD_rank(g).plus(r + 1).getInt("n") > 0) {
+	    c0 += out_cross(v, w);
+	    c1 += out_cross(w, v);
+	}
+	if ((c1 < c0) || ((c0 > 0) && reverse && (c1 == c0))) {
+	    exchange(v, w);
+	    rv += (c0 - c1);
+	    GD_rank(Z._().Root).plus(r).getPtr().setBoolean("valid", false);
+	    GD_rank(g).plus(r).getPtr().setBoolean("candidate", NOT(false));
+	    if (r > GD_minrank(g)) {
+		GD_rank(Z._().Root).plus(r - 1).getPtr().setBoolean("valid", false);
+		GD_rank(g).plus(r - 1).getPtr().setBoolean("candidate", NOT(false));
+	    }
+	    if (r < GD_maxrank(g)) {
+		GD_rank(Z._().Root).plus(r + 1).getPtr().setBoolean("valid", false);
+		GD_rank(g).plus(r + 1).getPtr().setBoolean("candidate", NOT(false));
+	    }
+	}
+    }
+    return rv;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int transpose_step(graph_t * g, int r, int reverse)
+{
+    int i, c0, c1, rv;
+    node_t *v, *w;
+    rv = 0;
+    GD_rank(g)[r].candidate = 0;
+    for (i = 0; i < GD_rank(g)[r].n - 1; i++) {
+	v = GD_rank(g)[r].v[i];
+	w = GD_rank(g)[r].v[i + 1];
+	assert(ND_order(v) < ND_order(w));
+	if (left2right(g, v, w))
+	    continue;
+	c0 = c1 = 0;
+	if (r > 0) {
+	    c0 += in_cross(v, w);
+	    c1 += in_cross(w, v);
+	}
+	if (GD_rank(g)[r + 1].n > 0) {
+	    c0 += out_cross(v, w);
+	    c1 += out_cross(w, v);
+	}
+	if ((c1 < c0) || ((c0 > 0) && reverse && (c1 == c0))) {
+	    exchange(v, w);
+	    rv += (c0 - c1);
+	    GD_rank(Root)[r].valid = 0;
+	    GD_rank(g)[r].candidate = NOT(0);
+	    if (r > GD_minrank(g)) {
+		GD_rank(Root)[r - 1].valid = 0;
+		GD_rank(g)[r - 1].candidate = NOT(0);
+	    }
+	    if (r < GD_maxrank(g)) {
+		GD_rank(Root)[r + 1].valid = 0;
+		GD_rank(g)[r + 1].candidate = NOT(0);
+	    }
+	}
+    }
+    return rv;
+}
+

@@ -2,33 +2,15 @@
  * PlantUML : a free UML diagram generator
  * ========================================================================
  *
- * (C) Copyright 2009-2017, Arnaud Roques
- *
  * Project Info:  http://plantuml.com
  * 
- * This file is part of PlantUML.
+ * This file is part of Smetana.
+ * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * PlantUML is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * (C) Copyright 2009-2017, Arnaud Roques
  *
- * PlantUML distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- *
- * Original Author:  Arnaud Roques
- *
- *
- *
- *
+ * This translation is distributed under the same Licence as the original C program:
+ * 
  *************************************************************************
  * Copyright (c) 2011 AT&T Intellectual Property 
  * All rights reserved. This program and the accompanying materials
@@ -39,164 +21,85 @@
  * Contributors: See CVS logs. Details at http://www.graphviz.org/
  *************************************************************************
  *
+ * THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE PUBLIC
+ * LICENSE ("AGREEMENT"). [Eclipse Public License - v 1.0]
+ * 
+ * ANY USE, REPRODUCTION OR DISTRIBUTION OF THE PROGRAM CONSTITUTES
+ * RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 package gen.lib.common;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.grammar__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.cgraph.y_tab__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.common.y_tab__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.dotgen2.decomp__c.*;
-import static gen.lib.dotgen2.dotinit__c.*;
-import static gen.lib.dotgen2.groups__c.*;
-import static gen.lib.dotgen2.level__c.*;
-import static gen.lib.dotgen2.minc2__c.*;
-import static gen.lib.dotgen2.minc_utils__c.*;
-import static gen.lib.dotgen2.ns__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import static gen.lib.cgraph.attr__c.agget;
+import static gen.lib.cgraph.obj__c.agraphof;
+import static gen.lib.common.geom__c.ccwrotatepf;
+import static gen.lib.common.memory__c.zmalloc;
+import static gen.lib.common.utils__c.late_double;
+import static gen.lib.common.utils__c.late_int;
+import static gen.lib.common.utils__c.late_string;
+import static gen.lib.common.utils__c.mapbool;
+import static gen.lib.common.utils__c.safefile;
+import static smetana.core.JUtils.NEQ;
+import static smetana.core.JUtils.abs;
+import static smetana.core.JUtils.atan2;
+import static smetana.core.JUtils.cos;
+import static smetana.core.JUtils.enumAsInt;
+import static smetana.core.JUtils.sin;
+import static smetana.core.JUtils.sizeof;
+import static smetana.core.JUtils.sqrt;
+import static smetana.core.JUtils.strcmp;
+import static smetana.core.JUtilsDebug.ENTERING;
+import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.GD_flip;
+import static smetana.core.Macro.GD_rankdir;
+import static smetana.core.Macro.INSIDE;
+import static smetana.core.Macro.MAX;
+import static smetana.core.Macro.M_PI;
+import static smetana.core.Macro.N;
+import static smetana.core.Macro.ND_has_port;
+import static smetana.core.Macro.ND_height;
+import static smetana.core.Macro.ND_ht;
+import static smetana.core.Macro.ND_label;
+import static smetana.core.Macro.ND_lw;
+import static smetana.core.Macro.ND_rw;
+import static smetana.core.Macro.ND_shape;
+import static smetana.core.Macro.ND_shape_info;
+import static smetana.core.Macro.ND_width;
+import static smetana.core.Macro.NOT;
+import static smetana.core.Macro.RADIANS;
+import static smetana.core.Macro.ROUND;
+import static smetana.core.Macro.SQR;
+import static smetana.core.Macro.SQRT2;
+import static smetana.core.Macro.UNSUPPORTED;
+import static smetana.core.Macro.fabs;
+import static smetana.core.Macro.hypot;
+import h.Agnode_s;
+import h.Agnodeinfo_t;
+import h.Agobj_s;
+import h.Agraphinfo_t;
+import h.boxf;
+import h.inside_t;
+import h.point;
+import h.pointf;
+import h.polygon_t;
+import h.port;
+import h.shape_desc;
+import h.shape_kind;
+import smetana.core.CFunctionImpl;
+import smetana.core.CString;
+import smetana.core.Memory;
+import smetana.core.Z;
+import smetana.core.__ptr__;
+import smetana.core.__struct__;
 
 public class shapes__c {
 //1 2digov3edok6d5srhgtlmrycs
@@ -838,7 +741,7 @@ throw new UnsupportedOperationException();
 
 //1 8h06z4a8bluhfqji3ysnlr3q8
 // static port Center = 
-private final static __struct__<port> Center = __struct__.from(port.class);
+/*private final static __struct__<port> Center = __struct__.from(port.class);
 static {
 Center.getStruct("p").setDouble("x", 0);
 Center.getStruct("p").setDouble("y", 0);
@@ -850,8 +753,8 @@ Center.setInt("clip", 1);
 Center.setInt("dyna", 0);
 Center.setInt("order", 0);
 Center.setInt("side", 0);
+}*/
 
-}
 //1 ankops6rt7vi2sp8uptwl13x8
 // static char *point_style[3] = 
 
@@ -866,7 +769,7 @@ Center.setInt("side", 0);
 
 //1 606ee1uued1p0d2o7h96efu9d
 // static polygon_t p_ellipse = 
-public static final __struct__<polygon_t> p_ellipse = __struct__.from(polygon_t.class);
+/*public static final __struct__<polygon_t> p_ellipse = __struct__.from(polygon_t.class);
 static {
 p_ellipse.setInt("regular", 0);
 p_ellipse.setInt("peripheries", 1);
@@ -874,7 +777,7 @@ p_ellipse.setInt("sides", 1);
 p_ellipse.setDouble("orientation", 0.);
 p_ellipse.setDouble("distortion", 0.);
 p_ellipse.setDouble("skew", 0.);
-}
+}*/
 
 //1 7tbw5besp7yern6vgsh7q9kop
 // static polygon_t p_circle = 
@@ -890,7 +793,7 @@ p_ellipse.setDouble("skew", 0.);
 
 //1 bw9fxu2ppyosdc0fayd10ik29
 // static polygon_t p_box = 
-public final static __struct__<polygon_t> p_box = __struct__.from(polygon_t.class);
+/*public final static __struct__<polygon_t> p_box = __struct__.from(polygon_t.class);
 static {
 p_box.setInt("regular", 0);
 p_box.setInt("peripheries", 1);
@@ -898,7 +801,7 @@ p_box.setInt("sides", 4);
 p_box.setDouble("orientation", 0.);
 p_box.setDouble("distortion", 0.);
 p_box.setDouble("skew", 0.);
-}
+}*/
 
 //1 8y2jx4eiuwgzz2taa1yvgkxrr
 // static polygon_t p_square = 
@@ -1086,7 +989,7 @@ p_box.setDouble("skew", 0.);
 
 //1 dkgul6r2xulzqk2twms3pswmy
 // static shape_functions poly_fns = 
-public final static __struct__<shape_functions> poly_fns =  __struct__.from(shape_functions.class);
+/*public final static __struct__<shape_functions> poly_fns =  __struct__.from(shape_functions.class);
 static {
 poly_fns.setPtr("initfn", function(shapes__c.class, "poly_init"));
 poly_fns.setPtr("freefn", function(shapes__c.class, "poly_free"));
@@ -1094,7 +997,7 @@ poly_fns.setPtr("portfn", function(shapes__c.class, "poly_port"));
 poly_fns.setPtr("insidefn", function(shapes__c.class, "poly_inside"));
 poly_fns.setPtr("pboxfn", function(shapes__c.class, "poly_path"));
 poly_fns.setPtr("codefn", function(shapes__c.class, "poly_gencode"));
-}
+}*/
 
 //1 10ii4j68l49hzbm38qspv8azn
 // static shape_functions point_fns = 
@@ -1114,7 +1017,7 @@ poly_fns.setPtr("codefn", function(shapes__c.class, "poly_gencode"));
 
 //1 dkylqbkoarh3lf3lwhnbg2k6n
 // static shape_desc Shapes[] = 
-public static shape_desc Shapes[] = {
+/*public static shape_desc Shapes[] = {
 __Shapes__("box", poly_fns.amp(), p_box.amp()),
 __Shapes__("ellipse", poly_fns.amp(), p_ellipse.amp()),
 __Shapes__(null, null, null)
@@ -1125,7 +1028,7 @@ private static shape_desc __Shapes__(String s, shape_functions shape_functions, 
 	result.setPtr("fns", shape_functions);
 	result.setPtr("polygon", polygon);
 	return result;
-}
+}*/
 
 
 
@@ -1163,21 +1066,25 @@ throw new UnsupportedOperationException();
 
 //3 eb4jyrh981apg1fy13fczexdl
 // static int same_side(pointf p0, pointf p1, pointf L0, pointf L1) 
-public static Object same_side(Object... arg) {
-UNSUPPORTED("4sqqlvdnwds36onvvzd46f92h"); // static int same_side(pointf p0, pointf p1, pointf L0, pointf L1)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("ae0bddnq0ynua7evgp3pmaxud"); //     int s0, s1;
-UNSUPPORTED("dg5q5yb8300dr5dtsyx9soj48"); //     double a, b, c;
-UNSUPPORTED("1qiscj6fpczji01xep8l8rtya"); //     /* a x + b y = c */
-UNSUPPORTED("6sb1nvfxb2a81zt3o71b85sms"); //     a = -(L1.y - L0.y);
-UNSUPPORTED("8221hnmhqldechn91432koezu"); //     b = (L1.x - L0.x);
-UNSUPPORTED("83df5zu1kkrkp9w6dadto8ezt"); //     c = a * L0.x + b * L0.y;
-UNSUPPORTED("c7r1jbyoss53k5kbuosgo9h3c"); //     s0 = (a * p0.x + b * p0.y - c >= 0);
-UNSUPPORTED("exj018q5ulxcn8k4xkwtrlbpk"); //     s1 = (a * p1.x + b * p1.y - c >= 0);
-UNSUPPORTED("6mfozdd4rb3vr89tsp57uzkdl"); //     return (s0 == s1);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static boolean same_side(final __struct__<pointf> p0, final __struct__<pointf> p1, final __struct__<pointf> L0, final __struct__<pointf> L1) {
+// WARNING!! STRUCT
+return same_side_w_(p0.copy(), p1.copy(), L0.copy(), L1.copy());
+}
+private static boolean same_side_w_(final __struct__<pointf> p0, final __struct__<pointf> p1, final __struct__<pointf> L0, final __struct__<pointf> L1) {
+ENTERING("eb4jyrh981apg1fy13fczexdl","same_side");
+try {
+    boolean s0, s1;
+    double a, b, c;
+    /* a x + b y = c */
+    a = -(L1.getDouble("y") - L0.getDouble("y"));
+    b = (L1.getDouble("x") - L0.getDouble("x"));
+    c = a * L0.getDouble("x") + b * L0.getDouble("y");
+    s0 = (a * p0.getDouble("x") + b * p0.getDouble("y") - c >= 0);
+    s1 = (a * p1.getDouble("x") + b * p1.getDouble("y") - c >= 0);
+    return (s0 == s1);
+} finally {
+LEAVING("eb4jyrh981apg1fy13fczexdl","same_side");
+}
 }
 
 
@@ -2665,7 +2572,7 @@ try {
     double temp, alpha, beta, gamma;
     double orientation, distortion, skew;
     double sectorangle, sidelength, skewdist, gdistortion, gskew;
-    double angle, sinx, cosx, xmax, ymax, scalex, scaley;
+    double angle, sinx, cosx, xmax=0, ymax=0, scalex, scaley;
     double width=0, height=0, marginx, marginy, spacex;
     boolean regular; int peripheries, sides;
     boolean isBox; int i, j, outp;
@@ -2696,8 +2603,8 @@ UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
 	width = (ROUND((ND_width(n))*72));
 	height = (ROUND((ND_height(n))*72));
     }
-    peripheries = late_int(n, N_peripheries, peripheries, 0);
-    orientation += late_double(n, N_orientation, 0.0, -360.0);
+    peripheries = late_int(n, Z._().N_peripheries, peripheries, 0);
+    orientation += late_double(n, Z._().N_orientation, 0.0, -360.0);
     if (sides == 0) {		/* not for builtins */
 UNSUPPORTED("dd178b113cb8130tl6q70lcp3"); // 	skew = late_double(n, N_skew, 0.0, -100.0);
 UNSUPPORTED("cp83hdn3dp0a7rp9bauc3bgki"); // 	sides = late_int(n, N_sides, 4, 0);
@@ -2817,7 +2724,7 @@ UNSUPPORTED("1fjwgzo5xkijo98ycmzhal8yv"); // 	bb = pd->size_gen(bb);
     /* at this point, bb is the minimum size of node that can hold the label */
     min_bb.____(bb);
     /* increase node size to width/height if needed */
-    fxd = late_string(n, N_fixed, new CString("false"));
+    fxd = late_string(n, Z._().N_fixed, new CString("false"));
     if ((fxd.charAt(0) == 's') && (N(strcmp(fxd,new CString("shape"))))) {
 	bb.setDouble("x", width);
 	bb.setDouble("y", height);
@@ -2847,7 +2754,7 @@ UNSUPPORTED("1fjwgzo5xkijo98ycmzhal8yv"); // 	bb = pd->size_gen(bb);
     bb.setDouble("y", width);
     }
     /* Compute space available for label.  Provides the justification borders */
-    if (N(mapbool(late_string(n, N_nojustify, new CString("false"))))) {
+    if (N(mapbool(late_string(n, Z._().N_nojustify, new CString("false"))))) {
 	if (isBox) {
 	    ND_label(n).getStruct("space").setDouble("x", MAX(dimen.getDouble("x"),bb.getDouble("x")) - spacex);
 	}
@@ -2905,72 +2812,73 @@ UNSUPPORTED("b5z0hw4dacenv33xsaex70g8d"); // 	    bb.y = 2. * P.y;
  *   It needs to find the point where the two lines, parallel to
  *   the current segments, and outside by GAP distance, intersect.   
  */
-UNSUPPORTED("4snhunxvhgqhjw3f3gxt0r5u7"); // 	vertices = (pointf*)zmalloc((outp * sides)*sizeof(pointf));
-UNSUPPORTED("72zc5p6squuowvfru1c85v6nh"); // 	if ((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->shape)->polygon->vertices) {
+	vertices = zmalloc(sizeof(pointf.class, outp * sides));
+	if (ND_shape(n).getPtr("polygon").getPtr("vertices")!=null) {
 UNSUPPORTED("3ghle84ieryaenfnlbzrfv7bw"); // 	    poly_desc_t* pd = (poly_desc_t*)(((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->shape)->polygon->vertices;
 UNSUPPORTED("227lpcg9dt83m2bm8yshb4djf"); // 	    pd->vertex_gen (vertices, &bb);
 UNSUPPORTED("cc3jvnwvbhjhro4adeet363yd"); // 	    xmax = bb.x/2;
 UNSUPPORTED("39rdmp8vl9muqtv7xs1xwtrwk"); // 	    ymax = bb.y/2;
-UNSUPPORTED("7yhr8hn3r6wohafwxrt85b2j2"); // 	} else {
-UNSUPPORTED("saig62jvwdw3vrc3io2qjedb"); // 	    sectorangle = 2. * 3.14159265358979323846 / sides;
-UNSUPPORTED("vncqtbdavil32l1x63kc30vv"); // 	    sidelength = sin(sectorangle / 2.);
-UNSUPPORTED("8bkg824emffoo2ip8kqckd9c0"); // 	    skewdist = hypot(fabs(distortion) + fabs(skew), 1.);
-UNSUPPORTED("3y5tlggftz1ifvwbtsvl7llvm"); // 	    gdistortion = distortion * 1.41421356237309504880 / cos(sectorangle / 2.);
-UNSUPPORTED("cv8x1a1omodgd8oxafh5lq2dm"); // 	    gskew = skew / 2.;
-UNSUPPORTED("5w72rfu6rjanmsk6ub77k09gi"); // 	    angle = (sectorangle - 3.14159265358979323846) / 2.;
-UNSUPPORTED("9rbjq9mq1kbvx9xlksxgqircz"); // 	    *&sinx = sin(angle); *&cosx = cos(angle);
-UNSUPPORTED("630nzhdmh77g1mq76kcehzjof"); // 	    R.x = .5 * cosx;
-UNSUPPORTED("8wklch1i9ovxc1mpiuqdqzp4s"); // 	    R.y = .5 * sinx;
-UNSUPPORTED("9d3od6m99gwddgwzcomp8do1o"); // 	    xmax = ymax = 0.;
-UNSUPPORTED("blahauv4mhc2lz2y0oqdgabj"); // 	    angle += (3.14159265358979323846 - sectorangle) / 2.;
-UNSUPPORTED("9mlrumbikcvketd18jx1ox7k7"); // 	    for (i = 0; i < sides; i++) {
-UNSUPPORTED("7u3jbzerk7wlpbqcv8sgvk97e"); // 	    /*next regular vertex */
-UNSUPPORTED("8mjgrm12fk6a0kq3ajr0r0sxf"); // 		angle += sectorangle;
-UNSUPPORTED("dywydjyaz5ffw47p5m8jfqtyh"); // 		*&sinx = sin(angle); *&cosx = cos(angle);
-UNSUPPORTED("9i45hh68wczx8g3uqrxnhywbk"); // 		R.x += sidelength * cosx;
-UNSUPPORTED("1g3tvsha4cqbchgorvfu4v8yb"); // 		R.y += sidelength * sinx;
-UNSUPPORTED("buoity5ys34nbfdi68n939i19"); // 	    /*distort and skew */
-UNSUPPORTED("1axurggeuegy7piff0sk84hxl"); // 		P.x = R.x * (skewdist + R.y * gdistortion) + R.y * gskew;
-UNSUPPORTED("b8xubhs1tmrsthuy5jcf4tdq5"); // 		P.y = R.y;
-UNSUPPORTED("7lfvd7tq57ebix7l2h56anjty"); // 	    /*orient P.x,P.y */
-UNSUPPORTED("f0yabfy3rqz200dwleux2hlmg"); // 		alpha = ((orientation)/180.0 * 3.14159265358979323846) + atan2(P.y, P.x);
-UNSUPPORTED("ewl38ts3h65m0u23heh6qt3em"); // 		*&sinx = sin(alpha); *&cosx = cos(alpha);
-UNSUPPORTED("elv5tjaq3zl6d01fuvzhm92aw"); // 		P.x = P.y = hypot(P.x, P.y);
-UNSUPPORTED("8ntomjufhkcfykkeqsl7fwaml"); // 		P.x *= cosx;
-UNSUPPORTED("88fbfhj9o3ur7pfw1f6snyvlx"); // 		P.y *= sinx;
-UNSUPPORTED("esm38igxlrder8ikb4o7lfdx1"); // 	    /*scale for label */
-UNSUPPORTED("e61iyn3yld1vlo9yydhnfjblx"); // 		P.x *= bb.x;
-UNSUPPORTED("2k1tiuhg03ar43bi1klo5wob5"); // 		P.y *= bb.y;
-UNSUPPORTED("dhfot3tew4c8tk71rs855inaa"); // 	    /*find max for bounding box */
-UNSUPPORTED("61k8hexe4riwx2r3i5op9qc9j"); // 		xmax = ((fabs(P.x))>(xmax)?(fabs(P.x)):(xmax));
-UNSUPPORTED("diodj355igvmd1oiwypfgacdh"); // 		ymax = ((fabs(P.y))>(ymax)?(fabs(P.y)):(ymax));
-UNSUPPORTED("4z2j61w5a0wx8tdr88wstcr5g"); // 	    /* store result in array of points */
-UNSUPPORTED("6fv27j87r2oit6ikuxklo5a0u"); // 		vertices[i] = P;
-UNSUPPORTED("374n43lwjq5wws4qq2b6hjsq9"); // 		if (isBox) { /* enforce exact symmetry of box */
-UNSUPPORTED("4gapvvfgp0vwab2t7ny4bcee8"); // 		    vertices[1].x = -P.x;
-UNSUPPORTED("3ldx3z01hukr1fa9ottttnyfs"); // 		    vertices[1].y = P.y;
-UNSUPPORTED("3ooxejyzzalier9kyb24ecnj2"); // 		    vertices[2].x = -P.x;
-UNSUPPORTED("bztbsnvgx2oogbmpb5p32e25w"); // 		    vertices[2].y = -P.y;
-UNSUPPORTED("arrf701vzh7lh5yguouo61nx7"); // 		    vertices[3].x = P.x;
-UNSUPPORTED("9a2rkhe9aomcxwxnuu2t7gtgd"); // 		    vertices[3].y = -P.y;
-UNSUPPORTED("czyohktf9bkx4udfqhx42f4lu"); // 		    break;
-UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("9gpmuqnq6b1v96ihgin4q5j2v"); // 	/* apply minimum dimensions */
-UNSUPPORTED("5ga5png37lxepkr251dh0rbnz"); // 	xmax *= 2.;
-UNSUPPORTED("514b4cjwe7lez17ktknud619n"); // 	ymax *= 2.;
-UNSUPPORTED("36f41061q2o9glw9lwhj24tps"); // 	bb.x = ((width)>(xmax)?(width):(xmax));
-UNSUPPORTED("egf2vtgm39iprn0nbh0sx9t6x"); // 	bb.y = ((height)>(ymax)?(height):(ymax));
-UNSUPPORTED("4vwgyfieo4h3n0go44qntfybw"); // 	scalex = bb.x / xmax;
-UNSUPPORTED("bkj5xdt82i6kne4qamttkvqd4"); // 	scaley = bb.y / ymax;
-UNSUPPORTED("bnlcutimilujroygrsjpbamec"); // 	for (i = 0; i < sides; i++) {
-UNSUPPORTED("5dznk69haxedww8ugav5ykrld"); // 	    P = vertices[i];
-UNSUPPORTED("2hj1salway3p9sstzfxvv7ur3"); // 	    P.x *= scalex;
-UNSUPPORTED("bf17f4ztvcy1898sgyfgkzsxu"); // 	    P.y *= scaley;
-UNSUPPORTED("6c6pwxutn336lcat32f25lci"); // 	    vertices[i] = P;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("dr2t455022wfwrxn48nygohen"); // 	if (peripheries > 1) {
+	} else {
+	    sectorangle = 2. * M_PI / sides;
+	    sidelength = sin(sectorangle / 2.);
+	    skewdist = hypot(fabs(distortion) + fabs(skew), 1.);
+	    gdistortion = distortion * SQRT2 / cos(sectorangle / 2.);
+	    gskew = skew / 2.;
+	    angle = (sectorangle - M_PI) / 2.;
+	    sinx = sin(angle); cosx = cos(angle);
+	    R.setDouble("x", .5 * cosx);
+	    R.setDouble("y", .5 * sinx);
+	    xmax = ymax = 0.;
+	    angle += (M_PI - sectorangle) / 2.;
+	    for (i = 0; i < sides; i++) {
+	    /*next regular vertex */
+		angle += sectorangle;
+	    sinx = sin(angle); cosx = cos(angle);
+		R.setDouble("x", R.getDouble("x") + sidelength * cosx);
+		R.setDouble("y", R.getDouble("y") + sidelength * sinx);
+	    /*distort and skew */
+		P.setDouble("x", R.getDouble("x") * (skewdist + R.getDouble("y") * gdistortion) + R.getDouble("y") * gskew);
+		P.setDouble("y", R.getDouble("y"));
+	    /*orient P.x,P.y */
+		alpha = RADIANS(orientation) + atan2(P.getDouble("y"), P.getDouble("x"));
+	    sinx = sin(alpha); cosx = cos(alpha);
+		P.setDouble("y", hypot(P.getDouble("x"), P.getDouble("y")));
+		P.setDouble("x", P.getDouble("y"));
+		P.setDouble("x", P.getDouble("x") * cosx);
+		P.setDouble("y", P.getDouble("y") * sinx);
+	    /*scale for label */
+		P.setDouble("x", P.getDouble("x") * bb.getDouble("x"));
+		P.setDouble("y", P.getDouble("y") * bb.getDouble("y"));
+	    /*find max for bounding box */
+		xmax = MAX(fabs(P.getDouble("x")), xmax);
+		ymax = MAX(fabs(P.getDouble("y")), ymax);
+	    /* store result in array of points */
+		vertices.plus(i).setStruct(P);
+		if (isBox) { /* enforce exact symmetry of box */
+		    vertices.plus(1).setDouble("x", -P.getDouble("x"));
+		    vertices.plus(1).setDouble("y", P.getDouble("y"));
+		    vertices.plus(2).setDouble("x", -P.getDouble("x"));
+		    vertices.plus(2).setDouble("y", -P.getDouble("y"));
+		    vertices.plus(3).setDouble("x", P.getDouble("x"));
+		    vertices.plus(3).setDouble("y", -P.getDouble("y"));
+		    break;
+		}
+	    }
+	}
+	/* apply minimum dimensions */
+	xmax *= 2.;
+	ymax *= 2.;
+	bb.setDouble("x", MAX(width, xmax));
+	bb.setDouble("y", MAX(height, ymax));
+	scalex = bb.getDouble("x") / xmax;
+	scaley = bb.getDouble("y") / ymax;
+	for (i = 0; i < sides; i++) {
+	    P.____(vertices.plus(i));
+	    P.setDouble("x", P.getDouble("x") * scalex);
+	    P.setDouble("y", P.getDouble("y") * scaley);
+	    vertices.plus(i).setStruct(P);
+	}
+	if (peripheries > 1) {
 UNSUPPORTED("3x6t3unoi91ezbh3iz168cm2t"); // 	    Q = vertices[(sides - 1)];
 UNSUPPORTED("8cm8js7jdmpakzujw3wo4h6jk"); // 	    R = vertices[0];
 UNSUPPORTED("5zpv8twf25wr8n71ql3lh8ku2"); // 	    beta = atan2(R.y - Q.y, R.x - Q.x);
@@ -3002,7 +2910,7 @@ UNSUPPORTED("aa5s79go4kwos2as72rcsdrxf"); // 		P = vertices[i + (peripheries - 1
 UNSUPPORTED("7ee9ageu4efyramsg9jn6klpb"); // 		bb.x = ((2. * fabs(P.x))>(bb.x)?(2. * fabs(P.x)):(bb.x));
 UNSUPPORTED("lklvdmn7xiqbxhpgdeufcvjj"); // 		bb.y = ((2. * fabs(P.y))>(bb.y)?(2. * fabs(P.y)):(bb.y));
 UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+	}
     }
     poly.setInt("regular", regular?1:0);
     poly.setInt("peripheries", peripheries);
@@ -3048,12 +2956,12 @@ throw new UnsupportedOperationException();
 
 //3 570t4xovyyfqipaikkf63crmk
 // static boolean poly_inside(inside_t * inside_context, pointf p) 
-static Agnode_s lastn;	/* last node argument */
-static polygon_t poly;
-static int last, outp, sides;
-static final __struct__<pointf> O = __struct__.from(pointf.class); /* point (0,0) */
-static pointf vertex;
-static double xsize, ysize, scalex, scaley, box_URx, box_URy;
+//static Agnode_s lastn;	/* last node argument */
+//static polygon_t poly;
+//static int last, outp, sides;
+//static final __struct__<pointf> O = __struct__.from(pointf.class); /* point (0,0) */
+//static pointf vertex;
+//static double xsize, ysize, scalex, scaley, box_URx, box_URy;
 public static boolean poly_inside(inside_t inside_context, final __struct__<pointf> p) {
 // WARNING!! STRUCT
 return poly_inside_w_(inside_context, p.copy());
@@ -3061,7 +2969,8 @@ return poly_inside_w_(inside_context, p.copy());
 private static boolean poly_inside_w_(inside_t inside_context, final __struct__<pointf> p) {
 ENTERING("570t4xovyyfqipaikkf63crmk","poly_inside");
 try {
-    int i, i1, j, s;
+    int i, i1, j;
+    boolean s;
     final __struct__<pointf> P = __struct__.from(pointf.class), Q = __struct__.from(pointf.class), R = __struct__.from(pointf.class);
     __ptr__ bp = inside_context.getPtr("s.bp");
     __ptr__ n = inside_context.getPtr("s.n");
@@ -3072,12 +2981,12 @@ try {
 	bbox.____(bp.getStruct());
 	return INSIDE(P, bbox);
     }
-    if (NEQ(n, lastn)) {
+    if (NEQ(n, Z._().lastn)) {
 	double n_width = 0, n_height = 0;
-	poly = (polygon_t) ND_shape_info(n);
-	vertex = (pointf) poly.getPtr("vertices");
-	sides = poly.getInt("sides");
-	if ((poly.getInt("option") & (1 << 11))!=0) {
+	Z._().poly = (polygon_t) ND_shape_info(n);
+	Z._().vertex = (pointf) Z._().poly.getPtr("vertices");
+	Z._().sides = Z._().poly.getInt("sides");
+	if ((Z._().poly.getInt("option") & (1 << 11))!=0) {
 UNSUPPORTED("18yw1scg4sol8bhyf1vedj9kn"); // 	   boxf bb = polyBB(poly); 
 UNSUPPORTED("7rz7vxyxao0efec2nvd6g19m1"); // 	    n_width = bb.UR.x - bb.LL.x;
 UNSUPPORTED("4h0k2wroz3xqx1ljokdbaqaad"); // 	    n_height = bb.UR.y - bb.LL.y;
@@ -3095,66 +3004,63 @@ UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
 UNSUPPORTED("dapvd4c0ggliaqcj08jvao221"); // 		ysize = ND_lw(n) + ND_rw(n);
 UNSUPPORTED("8t3g4d9acruono62leh5a8hxh"); // 		xsize = ND_ht(n);
 	    } else {
-		xsize = ND_lw(n) + ND_rw(n);
-		ysize = ND_ht(n);
+		Z._().xsize = ND_lw(n) + ND_rw(n);
+		Z._().ysize = ND_ht(n);
 	    }
 	    n_width = (ROUND((ND_width(n))*72));
 	    n_height = (ROUND((ND_height(n))*72));
 	}
 	/* scale */
-	if (xsize == 0.0)
-	    xsize = 1.0;
-	if (ysize == 0.0)
-	    ysize = 1.0;
-	scalex = n_width / xsize;
-	scaley = n_height / ysize;
-	box_URx = n_width / 2.0;
-	box_URy = n_height / 2.0;
+	if (Z._().xsize == 0.0)
+	    Z._().xsize = 1.0;
+	if (Z._().ysize == 0.0)
+	    Z._().ysize = 1.0;
+	Z._().scalex = n_width / Z._().xsize;
+	Z._().scaley = n_height / Z._().ysize;
+	Z._().box_URx = n_width / 2.0;
+	Z._().box_URy = n_height / 2.0;
 	/* index to outer-periphery */
-	outp = (poly.getInt("peripheries") - 1) * sides;
-	if (outp < 0)
-	    outp = 0;
-	lastn = (Agnode_s) n;
+	Z._().outp = (Z._().poly.getInt("peripheries") - 1) * Z._().sides;
+	if (Z._().outp < 0)
+	    Z._().outp = 0;
+	Z._().lastn = (Agnode_s) n;
     }
     /* scale */
-    P.setDouble("x", P.getDouble("x") * scalex);
-    P.setDouble("y", P.getDouble("y") * scaley);
+    P.setDouble("x", P.getDouble("x") * Z._().scalex);
+    P.setDouble("y", P.getDouble("y") * Z._().scaley);
     /* inside bounding box? */
-    if ((fabs(P.getDouble("x")) > box_URx) || (fabs(P.getDouble("y")) > box_URy))
+    if ((fabs(P.getDouble("x")) > Z._().box_URx) || (fabs(P.getDouble("y")) > Z._().box_URy))
 	return false;
     /* ellipses */
-    if (sides <= 2)
-	return (hypot(P.getDouble("x") / box_URx, P.getDouble("y") / box_URy) < 1.);
+    if (Z._().sides <= 2)
+	return (hypot(P.getDouble("x") / Z._().box_URx, P.getDouble("y") / Z._().box_URy) < 1.);
     /* use fast test in case we are converging on a segment */
-UNSUPPORTED("9vyejop78c0t0qmj1yyc7497d"); //     i = last % sides;		/* in case last left over from larger polygon */
-UNSUPPORTED("bdk6ggxp8hhbnivw73p6i83eh"); //     i1 = (i + 1) % sides;
-UNSUPPORTED("b0f22dju8lllo7zc8w9v2vgws"); //     Q = vertex[i + outp];
-UNSUPPORTED("5tiwwju761p1wilew2ktrvkej"); //     R = vertex[i1 + outp];
-UNSUPPORTED("4t0jzbf6z1aqkt135oyy0w73j"); //     if (!(same_side(P, O, Q, R)))   /* false if outside the segment's face */
-UNSUPPORTED("c9ckhc8veujmwcw0ar3u3zld4"); // 	return 0;
-UNSUPPORTED("60rppiipl7nb0dsq90beenmlq"); //     /* else inside the segment face... */
-UNSUPPORTED("8s06u2xgvxgwppg90vlqf01ir"); //     if ((s = same_side(P, Q, R, O)) && (same_side(P, R, O, Q))) /* true if between the segment's sides */
-UNSUPPORTED("bp2y18pqq5n09006utwifdyxo"); // 	return NOT(0);
-UNSUPPORTED("84dp024qc2l0cttpdyxe86g0"); //     /* else maybe in another segment */
-UNSUPPORTED("3215tp5ea4x9bed5bdt2ifhlx"); //     for (j = 1; j < sides; j++) { /* iterate over remaining segments */
-UNSUPPORTED("3qi4t2ykibzavxp3h22x2xsmf"); // 	if (s) { /* clockwise */
-UNSUPPORTED("3ytapbo1pvh6d5wpui9eh29ay"); // 	    i = i1;
-UNSUPPORTED("8k1yc1bulb27n08entp8vn9q"); // 	    i1 = (i + 1) % sides;
-UNSUPPORTED("1k1h7f5ek7jmj2eb95mb1vhvb"); // 	} else { /* counter clockwise */
-UNSUPPORTED("4cftbc2bwhq0mlmfrhlqi7rqk"); // 	    i1 = i;
-UNSUPPORTED("1x8vf0epg2i81vfls2gp4sgo4"); // 	    i = (i + sides - 1) % sides;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("lovo58p935103c3cwm4l309q"); // 	if (!(same_side(P, O, vertex[i + outp], vertex[i1 + outp]))) { /* false if outside any other segment's face */
-UNSUPPORTED("av4wg22ry8tvjtf8ok5vennmr"); // 	    last = i;
-UNSUPPORTED("6f1138i13x0xz1bf1thxgjgka"); // 	    return 0;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("7q8xhd46plvy58d65wwzhsm55"); //     /* inside all segments' faces */
-UNSUPPORTED("6atysvsu0cm9ytxwf9j5bmc96"); //     last = i;			/* in case next edge is to same side */
-UNSUPPORTED("8fwlqtemsmckleh6946lyd8mw"); //     return NOT(0);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+    i = Z._().last % Z._().sides;		/* in case last left over from larger polygon */
+    i1 = (i + 1) % Z._().sides;
+    Q.____(Z._().vertex.plus(i + Z._().outp).getStruct());
+    R.____(Z._().vertex.plus(i1 + Z._().outp).getStruct());
+    if (N(same_side(P, Z._().O, Q, R)))   /* false if outside the segment's face */
+	return false;
+    /* else inside the segment face... */
+    if ((s = same_side(P, Q, R, Z._().O)) && (same_side(P, R, Z._().O, Q))) /* true if between the segment's sides */
+	return NOT(0);
+    /* else maybe in another segment */
+    for (j = 1; j < Z._().sides; j++) { /* iterate over remaining segments */
+	if (s) { /* clockwise */
+	    i = i1;
+	    i1 = (i + 1) % Z._().sides;
+	} else { /* counter clockwise */
+	    i1 = i;
+	    i = (i + Z._().sides - 1) % Z._().sides;
+	}
+	if (N(same_side(P, Z._().O, Z._().vertex.plus(i + Z._().outp).getStruct(), Z._().vertex.plus(i1 + Z._().outp).getStruct()))) { /* false if outside any other segment's face */
+	    Z._().last = i;
+	    return false;
+	}
+    }
+    /* inside all segments' faces */
+    Z._().last = i;			/* in case next edge is to same side */
+    return NOT(0);
 } finally {
 LEAVING("570t4xovyyfqipaikkf63crmk","poly_inside");
 }
@@ -3523,7 +3429,7 @@ try {
     boxf bp;
     int sides;			/* bitmap of which sides the port lies along */
     if (portname.charAt(0) == '\0')
-	return Center.copy();
+	return Z._().Center.copy();
 UNSUPPORTED("cm99rhftfe8nq2suzac5fwbgp"); //     if (compass == NULL)
 UNSUPPORTED("238a13tlawcw3bixwliz859y5"); // 	compass = "_";
 UNSUPPORTED("ci2ge3idao9rokpvacvcspaxl"); //     sides = (1<<0) | (1<<1) | (1<<2) | (1<<3);
@@ -4685,7 +4591,7 @@ try {
     if (str!=null && UNSUPPORTED("!(*(name)==*(\"epsf\")&&!strcmp(name,\"epsf\"))")!=null)
 	name = new CString("custom");
     if (N(name.charAt(0)=='c' && N(strcmp(name,new CString("custom"))))) {
-	for (shape_desc ptr : Shapes) {
+	for (shape_desc ptr : Z._().Shapes) {
 	    if ((N(strcmp(ptr.getCString("name"),name)))) {
 		rv = ptr;
 		break;

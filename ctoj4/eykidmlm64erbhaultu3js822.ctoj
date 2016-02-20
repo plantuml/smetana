@@ -1,4 +1,4 @@
-private static double Convergence;
+//private static double Convergence;
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static double Convergence;

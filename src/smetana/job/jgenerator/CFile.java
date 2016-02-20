@@ -2,33 +2,33 @@
  * PlantUML : a free UML diagram generator
  * ========================================================================
  *
+ * Project Info:  http://plantuml.com
+ * 
+ * This file is part of Smetana.
+ * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
+ *
  * (C) Copyright 2009-2017, Arnaud Roques
  *
- * Project Info:  http://plantuml.sourceforge.net
+ * This translation is distributed under the same Licence as the original C program.
  * 
- * This file is part of PlantUML.
- *
- * PlantUML is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * PlantUML distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public
- * License for more details.
- *
- * You should have received a copy of the GNU General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
- * in the United States and other countries.]
- *
- * Original Author:  Arnaud Roques
+ * THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE PUBLIC
+ * LICENSE ("AGREEMENT"). [Eclipse Public License - v 1.0]
  * 
+ * ANY USE, REPRODUCTION OR DISTRIBUTION OF THE PROGRAM CONSTITUTES
+ * RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
+
 package smetana.job.jgenerator;
 
 import java.io.File;
@@ -46,15 +46,21 @@ public class CFile {
 
 	public CFile(File f) throws IOException {
 		this.f = f;
+		if (f.getAbsolutePath().contains("dotgen2")) {
+			throw new IllegalArgumentException();
+		}
 	}
 
 	public void toJavaFile() throws IOException {
 		final File javaFile = getJavaFile();
-		// System.err.println("javaFile=" + javaFile.getAbsolutePath());
 		javaFile.getParentFile().mkdirs();
 		final PrintWriter pw = new PrintWriter(javaFile);
 		toJavaFile(pw);
 		pw.close();
+
+		final PrintWriter pw2 = new PrintWriter(getJavaFile2());
+		toJavaFile(pw2);
+		pw2.close();
 	}
 
 	private File getJavaFile() {
@@ -71,6 +77,11 @@ public class CFile {
 		// path = path.replaceFirst("interface.java$", "interface_.java");
 		final File javaFile = new File(path);
 		return javaFile;
+	}
+
+	private File getJavaFile2() {
+		final File f = new File(getJavaFile().getAbsolutePath().replaceFirst("smetana2", "plantu"));
+		return f;
 	}
 
 	public String getClassName() {
@@ -135,6 +146,7 @@ public class CFile {
 		pw.println("import smetana.core.*;");
 		pw.println("import static smetana.core.Macro.*;");
 		pw.println("import static smetana.core.JUtils.*;");
+		pw.println("import static smetana.core.JUtilsDebug.*;");
 		pw.println(getAllImport());
 		pw.println("public class " + getClassName() + " {");
 

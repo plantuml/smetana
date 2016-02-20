@@ -1,0 +1,20 @@
+public static boolean check_control_points(__ptr__ cp) {
+    double dis1 = ptToLine2 (cp.plus(0).getStruct(), cp.plus(3).getStruct(), cp.plus(1).getStruct());
+    double dis2 = ptToLine2 (cp.plus(0).getStruct(), cp.plus(3).getStruct(), cp.plus(2).getStruct());
+    if (dis1 < 2.0*2.0 && dis2 < 2.0*2.0)
+        return true;
+    else
+        return false;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int check_control_points(pointf *cp)
+{
+    double dis1 = ptToLine2 (cp[0], cp[3], cp[1]);
+    double dis2 = ptToLine2 (cp[0], cp[3], cp[2]);
+    if (dis1 < 2.0*2.0 && dis2 < 2.0*2.0)
+        return 1;
+    else
+        return 0;
+}
+

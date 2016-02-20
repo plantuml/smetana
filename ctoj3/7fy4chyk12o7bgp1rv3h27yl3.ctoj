@@ -2,14 +2,14 @@ public static void init_mincross(Agraph_s g) {
     int size;
     //if (Verbose)
 	//start_timer();
-    ReMincross = false;
-    Root = g;
+    Z._().ReMincross = false;
+    Z._().Root = g;
     /* alloc +1 for the null terminator usage in do_ordering() */
     /* also, the +1 avoids attempts to alloc 0 sizes, something
        that efence complains about */
     size = agnedges(dot_root(g)) + 1;
-    TE_list = zmalloc(sizeof_starstar_empty(Agedge_s.class, size));
-    TI_list = zmalloc(size_t_array_of_integer(size));
+    Z._().TE_list = zmalloc(sizeof_starstar_empty(Agedge_s.class, size));
+    Z._().TI_list = zmalloc(size_t_array_of_integer(size));
     mincross_options(g);
     if ((GD_flags(g) & (1 << 4))!=0)
 	fillRanks (g);
@@ -17,8 +17,8 @@ public static void init_mincross(Agraph_s g) {
     decompose(g, 1);
     allocate_ranks(g);
     ordered_edges(g);
-    GlobalMinRank = GD_minrank(g);
-    GlobalMaxRank = GD_maxrank(g);
+    Z._().GlobalMinRank = GD_minrank(g);
+    Z._().GlobalMaxRank = GD_maxrank(g);
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

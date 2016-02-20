@@ -1,5 +1,7 @@
 public static Agraph_s agnxtsubg(Agraph_s subg) {
-	throw new UnsupportedOperationException();
+    Agraph_s g;
+    g = agparent(subg);
+    return g!=null ? (Agraph_s) g.getPtr("g_dict").castTo(_dt_s.class).call("searchf", g.getPtr("g_dict"), subg, 0000010) : null;
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

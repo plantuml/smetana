@@ -1,4 +1,4 @@
-static public final __struct__<_dtdisc_s> Refstrdisc = __struct__.from(_dtdisc_s.class);
+/*static public final __struct__<_dtdisc_s> Refstrdisc = __struct__.from(_dtdisc_s.class);
 static {
 	Refstrdisc.setInt("key", OFFSET.create(refstr_t.class, "s").toInt()); // *s is the third field in refstr_t
 	Refstrdisc.setInt("size", -1);
@@ -9,7 +9,7 @@ static {
 	Refstrdisc.setPtr("hashf", null);
 	Refstrdisc.setPtr("memoryf", function(utils__c.class, "agdictobjmem"));
 	Refstrdisc.setPtr("eventf", null);
-}
+}*/
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static Dtdisc_t Refstrdisc = {

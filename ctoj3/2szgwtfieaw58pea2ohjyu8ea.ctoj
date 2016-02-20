@@ -3,7 +3,7 @@ public static void arrow_flags(Agedge_s e, int sflag[], int eflag[]) {
     arrowdir_t arrowdir;
     sflag[0] = (0);
     eflag[0] = agisdirected(agraphof(e)) ? 1 : (0);
-    if (E_dir!=null && ((attr = agxget(e, E_dir))).charAt(0)!='\0') {
+    if (Z._().E_dir!=null && ((attr = agxget(e, Z._().E_dir))).charAt(0)!='\0') {
 UNSUPPORTED("em7x45v09orjeey5u06gf9b4s"); // 	for (arrowdir = Arrowdirs; arrowdir->dir; arrowdir++) {
 UNSUPPORTED("dhaookuw0a1xqmh07lldcvlgi"); // 	    if ((*(attr)==*(arrowdir->dir)&&!strcmp(attr,arrowdir->dir))) {
 UNSUPPORTED("1d32qbc447n7nmmvedj3bnhr4"); // 		*sflag = arrowdir->sflag;
@@ -12,9 +12,9 @@ UNSUPPORTED("9ekmvj13iaml5ndszqyxa8eq"); // 		break;
 UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
 UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
     }
-    if (E_arrowhead!=null && (eflag[0] == 1) && ((attr = agxget(e, E_arrowhead))).charAt(0)!='\0')
+    if (Z._().E_arrowhead!=null && (eflag[0] == 1) && ((attr = agxget(e,Z._(). E_arrowhead))).charAt(0)!='\0')
 	arrow_match_name(attr, eflag);
-    if (E_arrowtail!=null && (sflag[0] == 1) && ((attr = agxget(e, E_arrowtail))).charAt(0)!='\0')
+    if (Z._().E_arrowtail!=null && (sflag[0] == 1) && ((attr = agxget(e, Z._().E_arrowtail))).charAt(0)!='\0')
 	arrow_match_name(attr, sflag);
     if (ED_conc_opp_flag(e)) {
 UNSUPPORTED("1p2usipxeqlorwroqo37t3yfy"); // 	edge_t *f;

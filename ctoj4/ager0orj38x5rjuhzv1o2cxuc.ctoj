@@ -1,4 +1,4 @@
-private static int GlobalMinRank, GlobalMaxRank;
+//private static int GlobalMinRank, GlobalMaxRank;
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static int GlobalMinRank, GlobalMaxRank;

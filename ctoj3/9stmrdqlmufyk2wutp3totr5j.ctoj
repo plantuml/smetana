@@ -9,14 +9,14 @@ UNSUPPORTED("8d9xfgejx5vgd6shva5wk5k06"); // 	return -1;
     /* generate the splines */
     evs.plus(0).getStruct().____(normv(evs.plus(0).getStruct()));
     evs.plus(1).getStruct().____(normv(evs.plus(1).getStruct()));
-    opl = 0;
+    Z._().opl = 0;
     growops(4);
-    ops.plus(opl).setStruct(inps.plus(0).getStruct());
-    opl++;
+    Z._().ops_route.plus(Z._().opl).setStruct(inps.plus(0).getStruct());
+    Z._().opl++;
     if (reallyroutespline(edges, edgen, inps, inpn, evs.plus(0).getStruct(), evs.plus(1).getStruct()) == -1)
 	return -1;
-    output.setInt("pn", opl);
-    output.setPtr("ps", ops);
+    output.setInt("pn", Z._().opl);
+    output.setPtr("ps", Z._().ops_route);
     return 0;
 }
 

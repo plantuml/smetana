@@ -1,0 +1,73 @@
+public static void makeSelfEdge(path P, __ptr__ edges, int ind, int cnt, double sizex, double sizey, splineInfo sinfo) {
+    Agedge_s e;
+    e = (Agedge_s) edges.plus(ind).getPtr();
+    /* self edge without ports or
+     * self edge with all ports inside, on the right, or at most 1 on top 
+     * and at most 1 on bottom 
+     */
+    if ((N(ED_tail_port(e).getBoolean("defined")) && N(ED_head_port(e).getBoolean("defined"))) ||
+        (
+		N(ED_tail_port(e).getInt("side") & (1<<3)) && 
+         N(ED_head_port(e).getInt("side") & (1<<3)) &&
+          ((ED_tail_port(e).getInt("side") != ED_head_port(e).getInt("side")) || 
+          (N(ED_tail_port(e).getInt("side") & ((1<<2)|(1<<0))))))) {
+	selfRight(edges, ind, cnt, sizex, sizey, sinfo);
+    }
+    /* self edge with port on left side */
+    else if ((ED_tail_port(e).getInt("side") & (1<<3))!=0 || (ED_head_port(e).getInt("side") & (1<<3))!=0) {
+	/* handle L-R specially */
+	if ((ED_tail_port(e).getInt("side") & (1<<1))!=0 || (ED_head_port(e).getInt("side") & (1<<1))!=0) {
+	    selfTop(edges, ind, cnt, sizex, sizey, sinfo);
+	}
+	else {
+	    selfLeft(edges, ind, cnt, sizex, sizey, sinfo);
+	}
+    }
+    /* self edge with both ports on top side */
+    else if ((ED_tail_port(e).getInt("side") & (1<<2))!=0) {
+	selfTop(edges, ind, cnt, sizex, sizey, sinfo);
+    }
+    else if ((ED_tail_port(e).getInt("side") & (1<<0))!=0) {
+	selfBottom(edges, ind, cnt, sizex, sizey, sinfo);
+    }
+    else assert(false);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void
+makeSelfEdge(path * P, edge_t * edges[], int ind, int cnt, double sizex,
+	     double sizey, splineInfo * sinfo)
+{
+    edge_t *e;
+    e = edges[ind];
+    /* self edge without ports or
+     * self edge with all ports inside, on the right, or at most 1 on top 
+     * and at most 1 on bottom 
+     */
+    if (((!ED_tail_port(e).defined) && (!ED_head_port(e).defined)) ||
+        (!(ED_tail_port(e).side & (1<<3)) && 
+         !(ED_head_port(e).side & (1<<3)) &&
+          ((ED_tail_port(e).side != ED_head_port(e).side) || 
+          (!(ED_tail_port(e).side & ((1<<2)|(1<<0))))))) {
+	selfRight(edges, ind, cnt, sizex, sizey, sinfo);
+    }
+    /* self edge with port on left side */
+    else if ((ED_tail_port(e).side & (1<<3)) || (ED_head_port(e).side & (1<<3))) {
+	/* handle L-R specially */
+	if ((ED_tail_port(e).side & (1<<1)) || (ED_head_port(e).side & (1<<1))) {
+	    selfTop(edges, ind, cnt, sizex, sizey, sinfo);
+	}
+	else {
+	    selfLeft(edges, ind, cnt, sizex, sizey, sinfo);
+	}
+    }
+    /* self edge with both ports on top side */
+    else if (ED_tail_port(e).side & (1<<2)) {
+	selfTop(edges, ind, cnt, sizex, sizey, sinfo);
+    }
+    else if (ED_tail_port(e).side & (1<<0)) {
+	selfBottom(edges, ind, cnt, sizex, sizey, sinfo);
+    }
+    else assert(0);
+}
+

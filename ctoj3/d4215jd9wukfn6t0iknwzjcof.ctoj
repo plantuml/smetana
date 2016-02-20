@@ -20,7 +20,7 @@ public static void addXLabels(Agraph_s gp) {
 	N(GD_has_labels(gp) & (1 << 5)) &&
 	N(GD_has_labels(gp) & (1 << 2)) &&
 	N(GD_has_labels(gp) & (1 << 1)) &&
-	(N(GD_has_labels(gp) & (1 << 0)) || EdgeLabelsDone!=0))
+	(N(GD_has_labels(gp) & (1 << 0)) || Z._().EdgeLabelsDone!=0))
 	return;
 UNSUPPORTED("27ppdplfezcqw6rdrkzyrr8yg"); //     for (np = agfstnode(gp); np; np = agnxtnode(gp, np)) {
 UNSUPPORTED("eezvruvdh9ueqsgad8k5xzbqi"); // 	if (ND_xlabel(np)) {

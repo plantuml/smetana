@@ -1,4 +1,4 @@
-static public int CNT_BITS;
+//static public int CNT_BITS;
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static unsigned long CNT_BITS;

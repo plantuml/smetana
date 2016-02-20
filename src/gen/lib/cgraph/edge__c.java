@@ -2,33 +2,15 @@
  * PlantUML : a free UML diagram generator
  * ========================================================================
  *
- * (C) Copyright 2009-2017, Arnaud Roques
- *
  * Project Info:  http://plantuml.com
  * 
- * This file is part of PlantUML.
+ * This file is part of Smetana.
+ * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * PlantUML is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * (C) Copyright 2009-2017, Arnaud Roques
  *
- * PlantUML distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- *
- * Original Author:  Arnaud Roques
- *
- *
- *
- *
+ * This translation is distributed under the same Licence as the original C program:
+ * 
  *************************************************************************
  * Copyright (c) 2011 AT&T Intellectual Property 
  * All rights reserved. This program and the accompanying materials
@@ -39,164 +21,76 @@
  * Contributors: See CVS logs. Details at http://www.graphviz.org/
  *************************************************************************
  *
+ * THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE PUBLIC
+ * LICENSE ("AGREEMENT"). [Eclipse Public License - v 1.0]
+ * 
+ * ANY USE, REPRODUCTION OR DISTRIBUTION OF THE PROGRAM CONSTITUTES
+ * RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 package gen.lib.cgraph;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.grammar__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.cgraph.y_tab__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.common.y_tab__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.dotgen2.decomp__c.*;
-import static gen.lib.dotgen2.dotinit__c.*;
-import static gen.lib.dotgen2.groups__c.*;
-import static gen.lib.dotgen2.level__c.*;
-import static gen.lib.dotgen2.minc2__c.*;
-import static gen.lib.dotgen2.minc_utils__c.*;
-import static gen.lib.dotgen2.ns__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import static gen.lib.cdt.dtextract__c.dtextract;
+import static gen.lib.cdt.dtrestore__c.dtrestore;
+import static gen.lib.cgraph.attr__c.AgDataRecName;
+import static gen.lib.cgraph.attr__c.agedgeattr_init;
+import static gen.lib.cgraph.graph__c.agisstrict;
+import static gen.lib.cgraph.graph__c.agisundirected;
+import static gen.lib.cgraph.graph__c.agnextseq;
+import static gen.lib.cgraph.id__c.agmapnametoid;
+import static gen.lib.cgraph.id__c.agregister;
+import static gen.lib.cgraph.mem__c.agalloc;
+import static gen.lib.cgraph.node__c.agsubnode;
+import static gen.lib.cgraph.obj__c.agmethod_init;
+import static gen.lib.cgraph.obj__c.agroot;
+import static gen.lib.cgraph.rec__c.agbindrec;
+import static gen.lib.cgraph.subg__c.agparent;
+import static smetana.core.JUtils.EQ;
+import static smetana.core.JUtils.NEQ;
+import static smetana.core.JUtils.sizeof;
+import static smetana.core.JUtilsDebug.ENTERING;
+import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.AGEDGE;
+import static smetana.core.Macro.AGHEAD;
+import static smetana.core.Macro.AGID;
+import static smetana.core.Macro.AGINEDGE;
+import static smetana.core.Macro.AGMKIN;
+import static smetana.core.Macro.AGMKOUT;
+import static smetana.core.Macro.AGOPP;
+import static smetana.core.Macro.AGOUTEDGE;
+import static smetana.core.Macro.AGSEQ;
+import static smetana.core.Macro.AGTAG;
+import static smetana.core.Macro.AGTAIL;
+import static smetana.core.Macro.AGTYPE;
+import static smetana.core.Macro.N;
+import static smetana.core.Macro.NOT;
+import static smetana.core.Macro.UNSUPPORTED;
+import h.Agattr_s;
+import h.Agedge_s;
+import h.Agedgepair_s;
+import h.Agnode_s;
+import h.Agraph_s;
+import h.Agsubnode_s;
+import h.Agtag_s;
+import h._dt_s;
+import h._dtdisc_s;
+import h._dtlink_s;
+import smetana.core.ACCESS;
+import smetana.core.CString;
+import smetana.core.Memory;
+import smetana.core.STARSTAR;
+import smetana.core.Z;
+import smetana.core.__ptr__;
+import smetana.core.__struct__;
 
 public class edge__c {
 //1 9k44uhd5foylaeoekf3llonjq
@@ -333,7 +227,7 @@ public class edge__c {
 
 //1 cee3kc2m61ml4f8le5ueoyrjb
 // static Agtag_t Tag
-private final static __struct__<Agtag_s> Tag = __struct__.from(Agtag_s.class);
+//private final static __struct__<Agtag_s> Tag = __struct__.from(Agtag_s.class);
 
 
 
@@ -536,7 +430,7 @@ try {
 	if (EQ(g, n.getPtr("root"))) sn = (Agsubnode_s) n.getStruct("mainsub").amp();
 	else {
 			template.setPtr("node", n);
-			sn = (Agsubnode_s) g.getPtr("n_id").castTo(_dt_s.class).call("searchf", g.getPtr("n_id"),template,0000004);
+			sn = (Agsubnode_s) g.getPtr("n_id").castTo(_dt_s.class).call("searchf", g.getPtr("n_id"), template.amp(), 0000004);
 	}
     return sn;
 } finally {
@@ -705,7 +599,7 @@ try {
     if (agisstrict(g)) {
 	if (g.getPtr("desc").getBoolean("no_loop") && (EQ(t, h))) /* simple graphs */
 	    return false;
-	key.____(Tag);
+	key.____(Z._().Tag);
 	key.setInt("objtype", 0);	/* wild card */
 	if (agfindedge_by_key(g, t, h, key)!=null)
 	    return false;
@@ -761,7 +655,7 @@ try {
     if (have_id!=0 || ((name == null) && ((NOT(cflag)) || agisstrict(g)))) {
 	/* probe for pre-existing edge */
 	final __struct__<Agtag_s> key = __struct__.from(Agtag_s.class);
-	key.____(Tag);
+	key.____(Z._().Tag);
 	if (have_id!=0) {
 	    key.setInt("id", id[0]);
 	    key.setInt("objtype", AGEDGE);
@@ -901,10 +795,10 @@ try {
     e1 = (Agedge_s) arg_e1;
     v = AGID(e0.getPtr("node")) - AGID(e1.getPtr("node"));
     if (v == 0) {		/* same node */
-UNSUPPORTED("ehtddg5qmuiufgoj2gbag28en"); // 	if ((((((Agobj_t*)(e0))->tag).objtype) == 0) || (((((Agobj_t*)(e1))->tag).objtype) == 0))
-UNSUPPORTED("1k3e39kpc8hkrh2jtdmzy1tur"); // 	    v = 0;
-UNSUPPORTED("9352ql3e58qs4fzapgjfrms2s"); // 	else
-UNSUPPORTED("9rfiauukf1b9q77d98glvwsyx"); // 	    v = ((((Agobj_t*)(e0))->tag).id) - ((((Agobj_t*)(e1))->tag).id);
+	if ((AGTYPE(e0) == 0) || (AGTYPE(e1) == 0))
+	    v = 0;
+	else
+	    v = AGID(e0) - AGID(e1);
     }
     return ((v==0)?0:(v<0?-1:1));
 } finally {
@@ -935,7 +829,7 @@ LEAVING("b6jhzc16xvrknu4e7jp6zx0ue","agedgeseqcmpf");
 
 //1 d058zqckpiqls71p4vkuxe87o
 // Dtdisc_t Ag_mainedge_seq_disc = 
-static final public __struct__<_dtdisc_s> Ag_mainedge_seq_disc = __struct__.from(_dtdisc_s.class);
+/*static final public __struct__<_dtdisc_s> Ag_mainedge_seq_disc = __struct__.from(_dtdisc_s.class);
 static {
 	Ag_mainedge_seq_disc.setInt("key", 0);
 	Ag_mainedge_seq_disc.setInt("size", 0);
@@ -946,27 +840,27 @@ static {
 	Ag_mainedge_seq_disc.setPtr("hashf", null);
 	Ag_mainedge_seq_disc.setPtr("memoryf", function(utils__c.class, "agdictobjmem"));
 	Ag_mainedge_seq_disc.setPtr("eventf", null);
-}
+}*/
 
 //1 7n5e8w5zjp9b4oeecyvyl96il
 // Dtdisc_t Ag_subedge_seq_disc = 
-static public final __struct__<_dtdisc_s> Ag_subedge_seq_disc = __struct__.from(_dtdisc_s.class);
+/*static public final __struct__<_dtdisc_s> Ag_subedge_seq_disc = __struct__.from(_dtdisc_s.class);
 static {
-	Ag_mainedge_seq_disc.setInt("key", 0);
-	Ag_mainedge_seq_disc.setInt("size", 0);
-	Ag_mainedge_seq_disc.setInt("link", -1);
-	Ag_mainedge_seq_disc.setPtr("makef", null);
-	Ag_mainedge_seq_disc.setPtr("freef", null);
-	Ag_mainedge_seq_disc.setPtr("comparf", function(edge__c.class, "agedgeseqcmpf"));
-	Ag_mainedge_seq_disc.setPtr("hashf", null);
-	Ag_mainedge_seq_disc.setPtr("memoryf", function(utils__c.class, "agdictobjmem"));
-	Ag_mainedge_seq_disc.setPtr("eventf", null);
-}
+	Ag_subedge_seq_disc.setInt("key", 0);
+	Ag_subedge_seq_disc.setInt("size", 0);
+	Ag_subedge_seq_disc.setInt("link", -1);
+	Ag_subedge_seq_disc.setPtr("makef", null);
+	Ag_subedge_seq_disc.setPtr("freef", null);
+	Ag_subedge_seq_disc.setPtr("comparf", function(edge__c.class, "agedgeseqcmpf"));
+	Ag_subedge_seq_disc.setPtr("hashf", null);
+	Ag_subedge_seq_disc.setPtr("memoryf", function(utils__c.class, "agdictobjmem"));
+	Ag_subedge_seq_disc.setPtr("eventf", null);
+}*/
 
 
 //1 7grv8f2wvpg0db2pn1g7r5abv
 // Dtdisc_t Ag_mainedge_id_disc = 
-static final public __struct__<_dtdisc_s> Ag_mainedge_id_disc = __struct__.from(_dtdisc_s.class);
+/*static final public __struct__<_dtdisc_s> Ag_mainedge_id_disc = __struct__.from(_dtdisc_s.class);
 static {
 	Ag_mainedge_id_disc.setInt("key", 0);
 	Ag_mainedge_id_disc.setInt("size", 0);
@@ -977,11 +871,11 @@ static {
 	Ag_mainedge_id_disc.setPtr("hashf", null);
 	Ag_mainedge_id_disc.setPtr("memoryf", function(utils__c.class, "agdictobjmem"));
 	Ag_mainedge_id_disc.setPtr("eventf", null);
-}
+}*/
 
 //1 9u0ic8u2hrwlmlqalv37s053f
 // Dtdisc_t Ag_subedge_id_disc = 
-static public final __struct__<_dtdisc_s> Ag_subedge_id_disc = __struct__.from(_dtdisc_s.class);
+/*static public final __struct__<_dtdisc_s> Ag_subedge_id_disc = __struct__.from(_dtdisc_s.class);
 static {
 	Ag_subedge_id_disc.setInt("key", 0);
 	Ag_subedge_id_disc.setInt("size", 0);
@@ -992,7 +886,7 @@ static {
 	Ag_subedge_id_disc.setPtr("hashf", null);
 	Ag_subedge_id_disc.setPtr("memoryf", function(utils__c.class, "agdictobjmem"));
 	Ag_subedge_id_disc.setPtr("eventf", null);
-}
+}*/
 
 
 

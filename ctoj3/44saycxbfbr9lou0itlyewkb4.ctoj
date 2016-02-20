@@ -1,0 +1,32 @@
+public static Agraph_s localsubg(Agraph_s g, int id) {
+    Agraph_s subg;
+    subg = agfindsubg_by_id(g, id);
+    if (subg!=null)
+	return subg;
+    subg = (Agraph_s) agalloc(g, sizeof(Agraph_s.class));
+    subg.setPtr("clos", g.getPtr("clos"));
+    subg.setStruct("desc", g.getStruct("desc"));
+    subg.getStruct("desc").setBoolean("maingraph", false);
+    subg.setPtr("parent", g);
+    subg.setPtr("root", g.getPtr("root"));
+    AGID(subg, id);
+    return agopen1(subg);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static Agraph_t *localsubg(Agraph_t * g, unsigned long id)
+{
+    Agraph_t *subg;
+    subg = agfindsubg_by_id(g, id);
+    if (subg)
+	return subg;
+    subg = agalloc(g, sizeof(Agraph_t));
+    subg->clos = g->clos;
+    subg->desc = g->desc;
+    subg->desc.maingraph = (0);
+    subg->parent = g;
+    subg->root = g->root;
+    AGID(subg) = id;
+    return agopen1(subg);
+}
+

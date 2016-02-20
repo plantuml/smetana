@@ -7,7 +7,7 @@ public static int clust_ht(Agraph_s g) {
     if (EQ(g, dot_root(g))) 
 	margin = 8;
     else
-	margin = late_int (g, G_margin, 8, 0);
+	margin = late_int (g, Z._().G_margin, 8, 0);
     ht1 = GD_ht1(g);
     ht2 = GD_ht2(g);
     /* account for sub-clusters */
@@ -49,7 +49,7 @@ static int clust_ht(Agraph_t * g)
     if (g == dot_root(g)) 
 	margin = 8;
     else
-	margin = late_int (g, G_margin, 8, 0);
+	margin = late_int (g, Z._().G_margin, 8, 0);
     ht1 = GD_ht1(g);
     ht2 = GD_ht2(g);
     /* account for sub-clusters */

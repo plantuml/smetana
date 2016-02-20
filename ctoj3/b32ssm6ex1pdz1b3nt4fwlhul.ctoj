@@ -4,7 +4,7 @@ public static Agsubnode_s agsubrep(Agraph_s g, Agnode_s n) {
 	if (EQ(g, n.getPtr("root"))) sn = (Agsubnode_s) n.getStruct("mainsub").amp();
 	else {
 			template.setPtr("node", n);
-			sn = (Agsubnode_s) g.getPtr("n_id").castTo(_dt_s.class).call("searchf", g.getPtr("n_id"),template,0000004);
+			sn = (Agsubnode_s) g.getPtr("n_id").castTo(_dt_s.class).call("searchf", g.getPtr("n_id"), template.amp(), 0000004);
 	}
     return sn;
 }

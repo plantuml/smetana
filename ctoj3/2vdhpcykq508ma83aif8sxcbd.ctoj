@@ -1,0 +1,10 @@
+public static Object nodeposcmpf(__ptr__ n0, __ptr__ n1) {
+    return (ND_order(n0.getPtr()) - ND_order(n1.getPtr()));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int nodeposcmpf(node_t ** n0, node_t ** n1)
+{
+    return (ND_order(*n0) - ND_order(*n1));
+}
+

@@ -25,23 +25,23 @@ public static int splinefits(__ptr__ edges, int edgen, final __struct__<pointf> 
 	if (first!=0 && (dist_n(sps.asPtr(), 4) < (dist_n(inps, inpn) - 1E-3)))
 	    return 0;
 	first = 0;
-	if (splineisinside(edges, edgen, sps)!=0) {
-	    growops(opl + 4);
+	if (splineisinside(edges, edgen, sps)) {
+	    growops(Z._().opl + 4);
 	    for (pi = 1; pi < 4; pi++) {
-		ops.plus(opl).setDouble("x", sps.plus(pi).getStruct().getDouble("x"));
-		ops.plus(opl).setDouble("y", sps.plus(pi).getStruct().getDouble("y"));
-		opl++;
+		Z._().ops_route.plus(Z._().opl).setDouble("x", sps.plus(pi).getStruct().getDouble("x"));
+		Z._().ops_route.plus(Z._().opl).setDouble("y", sps.plus(pi).getStruct().getDouble("y"));
+		Z._().opl++;
 		}
 	    return 1;
 	}
 	if (a == 0 && b == 0) {
 	    if (forceflag!=0) {
-		growops(opl + 4);
+		growops(Z._().opl + 4);
 		for (pi = 1; pi < 4; pi++)
 		{
-			ops.plus(opl).setDouble("x", sps.plus(pi).getStruct().getDouble("x"));
-			ops.plus(opl).setDouble("y", sps.plus(pi).getStruct().getDouble("y"));
-		    opl++;
+			Z._().ops_route.plus(Z._().opl).setDouble("x", sps.plus(pi).getStruct().getDouble("x"));
+			Z._().ops_route.plus(Z._().opl).setDouble("y", sps.plus(pi).getStruct().getDouble("y"));
+		    Z._().opl++;
 		}
 		return 1;
 	    }

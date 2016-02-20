@@ -13,7 +13,7 @@ public static void search_component(Agraph_s g, Agnode_s n) {
 	    for (i = 0; (e = (Agedge_s) vec.plus(c).getStruct().getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
 		if (EQ(other = aghead(e), n))
 		    other = agtail(e);
-		if ((ND_mark(other) != Cmark) && (EQ(other, UF_find(other))))
+		if ((ND_mark(other) != Z._().Cmark) && (EQ(other, UF_find(other))))
 		    search_component(g, other);
 	    }
     }

@@ -2,33 +2,15 @@
  * PlantUML : a free UML diagram generator
  * ========================================================================
  *
- * (C) Copyright 2009-2017, Arnaud Roques
- *
  * Project Info:  http://plantuml.com
  * 
- * This file is part of PlantUML.
+ * This file is part of Smetana.
+ * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * PlantUML is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * (C) Copyright 2009-2017, Arnaud Roques
  *
- * PlantUML distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- *
- * Original Author:  Arnaud Roques
- *
- *
- *
- *
+ * This translation is distributed under the same Licence as the original C program:
+ * 
  *************************************************************************
  * Copyright (c) 2011 AT&T Intellectual Property 
  * All rights reserved. This program and the accompanying materials
@@ -39,29 +21,46 @@
  * Contributors: See CVS logs. Details at http://www.graphviz.org/
  *************************************************************************
  *
+ * THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE PUBLIC
+ * LICENSE ("AGREEMENT"). [Eclipse Public License - v 1.0]
+ * 
+ * ANY USE, REPRODUCTION OR DISTRIBUTION OF THE PROGRAM CONSTITUTES
+ * RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 package h;
-import smetana.core.*;
 import java.util.Arrays;
 import java.util.List;
 
-//2 4kfiu7k82g066fxsu50dj9y3d
+import smetana.core.__ptr__;
+
+//2 6pciw9nctk1zwl2yxkga3xn64
 
 public interface item extends __ptr__ {
 	public static List<String> DEFINITION = Arrays.asList(
-"typedef struct item_s",
+"typedef struct",
 "{",
-"int    tag",
-"val_t   u",
-"char   *str",
-"struct item_s *next",
+"Dtlink_t link",
+"void *p[2]",
+"node_t *t",
+"node_t *h",
 "}",
 "item");
 }
 
-// typedef struct item_s {		/* generic list */
-// 	int				tag;	/* T_node, T_subgraph, T_edge, T_attr */
-// 	val_t			u;		/* primary element */
-// 	char			*str;	/* secondary value - port or attr value */
-// 	struct item_s	*next;
+// typedef struct {
+//     Dtlink_t link;		/* cdt data */
+//     void *p[2];			/* key */
+//     node_t *t;
+//     node_t *h;
 // } item;

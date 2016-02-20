@@ -1,0 +1,137 @@
+public static void selfRight(__ptr__ edges, int ind, int cnt, double stepx, double sizey, splineInfo sinfo) {
+    int i, sgn, point_pair;
+    double hx, tx, stepy, dx, dy, width, height; 
+    final __struct__<pointf> tp = __struct__.from(pointf.class), hp = __struct__.from(pointf.class), np = __struct__.from(pointf.class);
+    Agnode_s n;
+    Agedge_s e;
+    final __array_of_struct__ points = __array_of_struct__.malloc(pointf.class, 1000);
+    int pointn;
+    e = (Agedge_s) edges.plus(ind).getPtr();
+    n = agtail(e);
+    stepy = (sizey / 2.) / cnt;
+    stepy = MAX(stepy, 2.);
+    pointn = 0;
+    np.____(ND_coord(n));
+    tp.____(ED_tail_port(e).getStruct("p"));
+    tp.setDouble("x", tp.getDouble("x") + np.getDouble("x"));
+    tp.setDouble("y", tp.getDouble("y") + np.getDouble("y"));
+    hp.____(ED_head_port(e).getStruct("p"));
+    hp.setDouble("x", hp.getDouble("x") + np.getDouble("x"));
+    hp.setDouble("y", hp.getDouble("y") + np.getDouble("y"));
+    if (tp.getDouble("y") >= hp.getDouble("y")) sgn = 1;
+    else sgn = -1;
+    dx = ND_rw(n);
+    dy = 0;
+    // certain adjustments are required for some point_pairs in order to improve the 
+    // display of the edge path between them
+    point_pair = convert_sides_to_points(ED_tail_port(e).getInt("side"),ED_head_port(e).getInt("side"));
+    switch(point_pair){
+      case 32: 
+      case 65:	if(tp.getDouble("y") == hp.getDouble("y"))
+		  sgn = -sgn;
+		break;
+      default:
+		break;
+    }
+    tx = MIN(dx, 3*(np.getDouble("x") + dx - tp.getDouble("x")));
+    hx = MIN(dx, 3*(np.getDouble("x") + dx - hp.getDouble("x")));
+    for (i = 0; i < cnt; i++) {
+        e = (Agedge_s) edges.plus(ind++).getPtr();
+        dx += stepx; tx += stepx; hx += stepx; dy += sgn*stepy;
+        pointn = 0;
+        points.plus(pointn++).setStruct(tp);
+        points.plus(pointn++).setStruct(pointfof(tp.getDouble("x") + tx / 3, tp.getDouble("y") + dy));
+        points.plus(pointn++).setStruct(pointfof(np.getDouble("x") + dx, tp.getDouble("y") + dy));
+        points.plus(pointn++).setStruct(pointfof(np.getDouble("x") + dx, (tp.getDouble("y")+hp.getDouble("y"))/2));
+        points.plus(pointn++).setStruct(pointfof(np.getDouble("x") + dx, hp.getDouble("y") - dy));
+        points.plus(pointn++).setStruct(pointfof(hp.getDouble("x") + hx / 3, hp.getDouble("y") - dy));
+        points.plus(pointn++).setStruct(hp);
+        if (ED_label(e)!=null) {
+	    if (GD_flip(agraphof(agtail(e)))!=0) {
+		width = ED_label(e).getStruct("dimen").getDouble("y");
+		height = ED_label(e).getStruct("dimen").getDouble("x");
+	    } else {
+		width = ED_label(e).getStruct("dimen").getDouble("x");
+		height = ED_label(e).getStruct("dimen").getDouble("y");
+	    }
+	    ED_label(e).getStruct("pos").setDouble("x", ND_coord(n).getDouble("x") + dx + width / 2.0);
+	    ED_label(e).getStruct("pos").setDouble("y", ND_coord(n).getDouble("y"));
+	    ED_label(e).setBoolean("set", NOT(false));
+	    if (width > stepx)
+		dx += width - stepx;
+        }
+	clip_and_install(e, aghead(e), points.asPtr(), pointn, sinfo);
+    }
+    return;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void
+selfRight (edge_t* edges[], int ind, int cnt, double stepx, double sizey,
+           splineInfo* sinfo) 
+{
+    int i, sgn, point_pair;
+    double hx, tx, stepy, dx, dy, width, height; 
+    pointf tp, hp, np;
+    node_t *n;
+    edge_t *e;
+    pointf points[1000];
+    int pointn;
+    e = edges[ind];
+    n = agtail(e);
+    stepy = (sizey / 2.) / cnt;
+    stepy = MAX(stepy, 2.);
+    pointn = 0;
+    np = ND_coord(n);
+    tp = ED_tail_port(e).p;
+    tp.x += np.x;
+    tp.y += np.y;
+    hp = ED_head_port(e).p;
+    hp.x += np.x;
+    hp.y += np.y;
+    if (tp.y >= hp.y) sgn = 1;
+    else sgn = -1;
+    dx = ND_rw(n), dy = 0;
+    // certain adjustments are required for some point_pairs in order to improve the 
+    // display of the edge path between them
+    point_pair = convert_sides_to_points(ED_tail_port(e).side,ED_head_port(e).side);
+    switch(point_pair){
+      case 32: 
+      case 65:	if(tp.y == hp.y)
+		  sgn = -sgn;
+		break;
+      default:
+		break;
+    }
+    tx = MIN(dx, 3*(np.x + dx - tp.x));
+    hx = MIN(dx, 3*(np.x + dx - hp.x));
+    for (i = 0; i < cnt; i++) {
+        e = edges[ind++];
+        dx += stepx, tx += stepx, hx += stepx, dy += sgn*stepy;
+        pointn = 0;
+        points[pointn++] = tp;
+        points[pointn++] = pointfof(tp.x + tx / 3, tp.y + dy);
+        points[pointn++] = pointfof(np.x + dx, tp.y + dy);
+        points[pointn++] = pointfof(np.x + dx, (tp.y+hp.y)/2);
+        points[pointn++] = pointfof(np.x + dx, hp.y - dy);
+        points[pointn++] = pointfof(hp.x + hx / 3, hp.y - dy);
+        points[pointn++] = hp;
+        if (ED_label(e)) {
+	    if (GD_flip(agraphof(agtail(e)))) {
+		width = ED_label(e)->dimen.y;
+		height = ED_label(e)->dimen.x;
+	    } else {
+		width = ED_label(e)->dimen.x;
+		height = ED_label(e)->dimen.y;
+	    }
+	    ED_label(e)->pos.x = ND_coord(n).x + dx + width / 2.0;
+	    ED_label(e)->pos.y = ND_coord(n).y;
+	    ED_label(e)->set = NOT(0);
+	    if (width > stepx)
+		dx += width - stepx;
+        }
+	clip_and_install(e, aghead(e), points, pointn, sinfo);
+    }
+    return;
+}
+

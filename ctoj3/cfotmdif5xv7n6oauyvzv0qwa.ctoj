@@ -14,7 +14,7 @@ public static void expand_leaves(Agraph_s g) {
 		    continue;
 		f = ED_to_orig(e);
 		if (ports_eq(e, f) == false) {
-		    zapinlist(ND_other(n), e);
+		    zapinlist(ND_other(n).amp(), e);
 		    if (d == 1)
 			fast_edge(e);
 		    /*else unitize(e); ### */

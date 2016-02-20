@@ -1,26 +1,20 @@
 public static Agnode_s label_vnode(Agraph_s g, Agedge_s orig) {
- UNSUPPORTED("b9dd3satxbh59hljdxzcxecc"); // static node_t*
-UNSUPPORTED("b1m8gyqzchhi3dgreqcujo1hz"); // label_vnode(graph_t * g, edge_t * orig)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("aigogf44ojtcesuy4xs7inqbn"); //     node_t *v;
-UNSUPPORTED("bgjjpl6jaaa122twwwd0vif6x"); //     pointf dimen;
-UNSUPPORTED("19gpzcuv1m3youp8g89z1af2o"); //     dimen = ED_label(orig)->dimen;
-UNSUPPORTED("ddbam9h1970eckdt1zdw6u2pq"); //     v = virtual_node(g);
-UNSUPPORTED("ac0m631d5g3a4frv9788p2993"); //     ND_label(v) = ED_label(orig);
-UNSUPPORTED("2f9dqt84g3ilddb4g68qnptdh"); //     ND_lw(v) = GD_nodesep(agroot(v));
-UNSUPPORTED("1s0n9r0cs69h87isodzkiws0y"); //     if (!ED_label_ontop(orig)) {
-UNSUPPORTED("7npet6x13sszwc19t80cxub88"); // 	if (GD_flip(agroot(g))) {
-UNSUPPORTED("1rhy6fmbgqug0cidfjabfnwo7"); // 	    ND_ht(v) = dimen.x;
-UNSUPPORTED("eq1nl5hxyqhal9ml73x0a261c"); // 	    ND_rw(v) = dimen.y;
-UNSUPPORTED("7yhr8hn3r6wohafwxrt85b2j2"); // 	} else {
-UNSUPPORTED("eg4epjey37pe6xyercjrjt0m1"); // 	    ND_ht(v) = dimen.y;
-UNSUPPORTED("3oquovst3lpym1p51id1b1liq"); // 	    ND_rw(v) = dimen.x;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("dpci52ct1zm8k1aasm170ru2j"); //     return v;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+    Agnode_s v;
+    final __struct__<pointf> dimen = __struct__.from(pointf.class);
+    dimen.____(ED_label(orig).getStruct("dimen"));
+    v = virtual_node(g);
+    ND_label(v, ED_label(orig));
+    ND_lw(v, GD_nodesep(agroot(v)));
+    if (N(ED_label_ontop(orig))) {
+	if (GD_flip(agroot(g))!=0) {
+	    ND_ht(v, dimen.getDouble("x"));
+	    ND_rw(v, dimen.getDouble("y"));
+	} else {
+	    ND_ht(v, dimen.getDouble("y"));
+	    ND_rw(v, dimen.getDouble("x"));
+	}
+    }
+    return v;
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

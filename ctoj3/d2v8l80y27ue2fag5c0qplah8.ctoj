@@ -1,0 +1,14 @@
+public static void initFontEdgeAttr(Agedge_s e, fontinfo fi) {
+    fi.setDouble("fontsize", late_double(e, Z._().E_fontsize, 14.0, 1.0));
+    fi.setPtr("fontname", late_nnstring(e, Z._().E_fontname, new CString("Times-Roman")));
+    fi.setPtr("fontcolor", late_nnstring(e, Z._().E_fontcolor, new CString("black")));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void initFontEdgeAttr(edge_t * e, struct fontinfo *fi)
+{
+    fi->fontsize = late_double(e, E_fontsize, 14.0, 1.0);
+    fi->fontname = late_nnstring(e, E_fontname, "Times-Roman");
+    fi->fontcolor = late_nnstring(e, E_fontcolor, "black");
+}
+

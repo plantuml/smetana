@@ -70,30 +70,30 @@ public static void make_flat_edge(Agraph_s g, spline_info_t sp, path P, __ptr__ 
 	e = (Agedge_s) edges.plus(ind + i).getPtr();
 	boxn = 0;
 	b.____(tend.getArrayOfPtr("boxes").plus(tend.getInt("boxn") - 1).getStruct());
- 	boxes.plus(boxn).getStruct().getStruct("LL").setDouble("x", b.getPtr("LL").getDouble("x")); 
-	boxes.plus(boxn).getStruct().getStruct("LL").setDouble("y", b.getPtr("UR").getDouble("y")); 
-	boxes.plus(boxn).getStruct().getStruct("UR").setDouble("x", b.getPtr("UR").getDouble("x") + (i + 1) * stepx);
-	boxes.plus(boxn).getStruct().getStruct("UR").setDouble("y", b.getPtr("UR").getDouble("y") + (i + 1) * stepy);
+ 	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("x", b.getPtr("LL").getDouble("x")); 
+	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("y", b.getPtr("UR").getDouble("y")); 
+	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("x", b.getPtr("UR").getDouble("x") + (i + 1) * stepx);
+	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("y", b.getPtr("UR").getDouble("y") + (i + 1) * stepy);
 	boxn++;
-	boxes.plus(boxn).getStruct().getStruct("LL").setDouble("x", tend.getArrayOfPtr("boxes").plus(tend.getInt("boxn") - 1).getPtr().getPtr("LL").getDouble("x")); 
-	boxes.plus(boxn).getStruct().getStruct("LL").setDouble("y", boxes.plus(boxn-1).getStruct().getStruct("UR").getDouble("y"));
-	boxes.plus(boxn).getStruct().getStruct("UR").setDouble("x", hend.getArrayOfPtr("boxes").plus(hend.getInt("boxn") - 1).getPtr().getPtr("UR").getDouble("x"));
-	boxes.plus(boxn).getStruct().getStruct("UR").setDouble("y", boxes.plus(boxn).getStruct().getStruct("LL").getDouble("y") + stepy);
+	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("x", tend.getArrayOfPtr("boxes").plus(tend.getInt("boxn") - 1).getPtr().getPtr("LL").getDouble("x")); 
+	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("y", Z._().boxes.plus(boxn-1).getStruct().getStruct("UR").getDouble("y"));
+	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("x", hend.getArrayOfPtr("boxes").plus(hend.getInt("boxn") - 1).getPtr().getPtr("UR").getDouble("x"));
+	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("y", Z._().boxes.plus(boxn).getStruct().getStruct("LL").getDouble("y") + stepy);
 	boxn++;
 	b.____(tend.getArrayOfPtr("boxes").plus(tend.getInt("boxn") - 1).getStruct());
-	boxes.plus(boxn).getStruct().getStruct("UR").setDouble("x", b.getPtr("UR").getDouble("x"));
-	boxes.plus(boxn).getStruct().getStruct("LL").setDouble("y", b.getPtr("UR").getDouble("y"));
-	boxes.plus(boxn).getStruct().getStruct("LL").setDouble("x", b.getPtr("LL").getDouble("x") - (i + 1) * stepx);
-	boxes.plus(boxn).getStruct().getStruct("UR").setDouble("y", boxes.plus(boxn-1).getStruct().getStruct("LL").getDouble("y"));
+	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("x", b.getPtr("UR").getDouble("x"));
+	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("y", b.getPtr("UR").getDouble("y"));
+	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("x", b.getPtr("LL").getDouble("x") - (i + 1) * stepx);
+	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("y", Z._().boxes.plus(boxn-1).getStruct().getStruct("LL").getDouble("y"));
 	boxn++;
 	for (j = 0; j < tend.getInt("boxn"); j++) add_box(P, tend.getArrayOfPtr("boxes").plus(j).getStruct());
-	for (j = 0; j < boxn; j++) add_box(P, boxes.plus(j).getStruct());
+	for (j = 0; j < boxn; j++) add_box(P, Z._().boxes.plus(j).getStruct());
 	for (j = hend.getInt("boxn") - 1; j >= 0; j--) add_box(P, hend.getArrayOfPtr("boxes").plus(j).getStruct());
 	if (et == (5 << 1)) ps = (pointf) routesplines(P, pn);
 	else ps = (pointf) routepolylines(P, pn);
 	if (pn[0] == 0)
 	    return;
-	clip_and_install(e, aghead(e), ps, pn[0], sinfo.amp());
+	clip_and_install(e, aghead(e), ps, pn[0], Z._().sinfo.amp());
 	P.setInt("nbox",  0);
     }
 }

@@ -1,4 +1,4 @@
-private final static __struct__<Agtag_s> Tag = __struct__.from(Agtag_s.class);
+//private final static __struct__<Agtag_s> Tag = __struct__.from(Agtag_s.class);
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static Agtag_t Tag;

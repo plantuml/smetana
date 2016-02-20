@@ -4,7 +4,7 @@ public static boolean ok_to_make_edge(Agraph_s g, Agnode_s t, Agnode_s h) {
     if (agisstrict(g)) {
 	if (g.getPtr("desc").getBoolean("no_loop") && (EQ(t, h))) /* simple graphs */
 	    return false;
-	key.____(Tag);
+	key.____(Z._().Tag);
 	key.setInt("objtype", 0);	/* wild card */
 	if (agfindedge_by_key(g, t, h, key)!=null)
 	    return false;

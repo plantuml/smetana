@@ -1,4 +1,4 @@
-private static int MinQuit;
+//private static int MinQuit;
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static int MinQuit;

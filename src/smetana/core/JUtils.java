@@ -2,33 +2,33 @@
  * PlantUML : a free UML diagram generator
  * ========================================================================
  *
+ * Project Info:  http://plantuml.com
+ * 
+ * This file is part of Smetana.
+ * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
+ *
  * (C) Copyright 2009-2017, Arnaud Roques
  *
- * Project Info:  http://plantuml.sourceforge.net
+ * This translation is distributed under the same Licence as the original C program.
  * 
- * This file is part of PlantUML.
- *
- * PlantUML is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * PlantUML distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public
- * License for more details.
- *
- * You should have received a copy of the GNU General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
- * in the United States and other countries.]
- *
- * Original Author:  Arnaud Roques
+ * THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE PUBLIC
+ * LICENSE ("AGREEMENT"). [Eclipse Public License - v 1.0]
  * 
+ * ANY USE, REPRODUCTION OR DISTRIBUTION OF THE PROGRAM CONSTITUTES
+ * RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
+
 package smetana.core;
 
 import h.Agedge_s;
@@ -37,18 +37,11 @@ import h.bezier;
 import h.boxf;
 import h.pointf;
 import h.splines;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.channels.UnsupportedAddressTypeException;
-
+import smetana.core.amiga.StarArrayOfInteger;
 import smetana.core.amiga.StarArrayOfPtr;
 import smetana.core.amiga.StarArrayOfStruct;
 import smetana.core.amiga.StarStar;
 import smetana.core.amiga.StarStruct;
-import smetana.core.debug.Debug;
 
 // http://docs.oracle.com/javase/specs/jls/se5.0/html/expressions.html#15.7.4
 // http://www.jbox.dk/sanos/source/lib/string.c.html
@@ -86,7 +79,10 @@ public class JUtils {
 
 	public static int strcmp(CString s1, CString s2) {
 		return s1.compareTo(s2);
-		// throw new UnsupportedOperationException("s1="+s1+" s2="+s2);
+	}
+
+	public static int strncmp(CString s1, CString s2, int n) {
+		return s1.compareTo(s2, n);
 	}
 
 	public static CString strstr(CString s1, CString s2) {
@@ -108,12 +104,11 @@ public class JUtils {
 		CString end = str;
 		throw new UnsupportedOperationException();
 	}
-	
-	public static double strtod (CString str, CString[] endptr) {
+
+	public static double strtod(CString str, CString[] endptr) {
 		final double result = Double.parseDouble(str.getContent());
 		return result;
 	}
-	
 
 	public static double atof(CString str) {
 		return Double.parseDouble(str.getContent());
@@ -144,7 +139,6 @@ public class JUtils {
 	public static double sin(double x) {
 		return Math.sin(x);
 	}
-	
 
 	public static double sqrt(double x) {
 		return Math.sqrt(x);
@@ -249,35 +243,14 @@ public class JUtils {
 		return EQ(o1, o2) == false;
 	}
 
-	public static void qsortOld(__ptr__ array, int nb, size_t size, CFunction compare) {
-		if (nb <= 1) {
-			return;
-		}
-		System.err.println("array=" + array);
-		System.err.println("nb=" + nb);
-		System.err.println("size=" + size);
-		System.err.println("compare=" + compare);
-		for (int i = 0; i < nb - 1; i++) {
-			__ptr__ element1 = array.plus(i);
-			__ptr__ element2 = array.plus(i + 1);
-			System.err.println("element1=" + element1);
-			System.err.println("element2=" + element2);
-			Integer cmp = (Integer) compare.exe(element1, element2);
-			System.err.println("cmp=" + cmp);
-			if (cmp.intValue() > 0) {
-				throw new UnsupportedOperationException();
-			}
-		}
-	}
-
 	public static void qsort(__ptr__ array, int nb, size_t size, CFunction compare) {
 		if (nb <= 1) {
 			return;
 		}
-		System.err.println("array=" + array);
-		System.err.println("nb=" + nb);
-		System.err.println("size=" + size);
-		System.err.println("compare=" + compare);
+		JUtils.LOG("array=" + array);
+		JUtils.LOG("nb=" + nb);
+		JUtils.LOG("size=" + size);
+		JUtils.LOG("compare=" + compare);
 		boolean change;
 		do {
 			change = false;
@@ -285,48 +258,28 @@ public class JUtils {
 				__ptr__ element1 = array.plus(i);
 				__ptr__ element2 = array.plus(i + 1);
 				Integer cmp = (Integer) compare.exe(element1, element2);
-				System.err.println("cmp=" + cmp);
+				JUtils.LOG("cmp=" + cmp);
 				if (cmp.intValue() > 0) {
 					change = true;
-					((StarStar) array).swap(i, i + 1);
+					if (array instanceof StarArrayOfInteger) {
+						((StarArrayOfInteger) array).swap(i, i + 1);
+					} else {
+						((StarStar) array).swap(i, i + 1);
+					}
 				}
 			}
 		} while (change);
 		for (int i = 0; i < nb - 1; i++) {
 			__ptr__ element1 = array.plus(i);
 			__ptr__ element2 = array.plus(i + 1);
-			System.err.println("element1=" + element1);
-			System.err.println("element2=" + element2);
+			JUtils.LOG("element1=" + element1);
+			JUtils.LOG("element2=" + element2);
 			Integer cmp = (Integer) compare.exe(element1, element2);
-			System.err.println("cmp=" + cmp);
+			JUtils.LOG("cmp=" + cmp);
 			if (cmp.intValue() > 0) {
 				throw new IllegalStateException();
 			}
 		}
-	}
-
-	private final static CallStack callStack = new CallStack();
-	private final static Debug debug = new Debug();
-
-	static public void ENTERING(String signature, String methodName) {
-		callStack.entering(signature, methodName);
-		debug.entering(signature, methodName);
-	}
-
-	static public void LEAVING(String signature, String methodName) {
-		callStack.leaving(signature, methodName);
-		debug.leaving(signature, methodName);
-	}
-
-	static public void printCallStack(File f) throws FileNotFoundException {
-		final PrintWriter pw = new PrintWriter(f);
-		pw.println("@startuml");
-		pw.println("digraph call {");
-		pw.println("rankdir=LR;");
-		callStack.printCallStack(pw);
-		pw.println("}");
-		pw.println("@enduml");
-		pw.close();
 	}
 
 	static public int setjmp(jmp_buf jmp) {
@@ -335,10 +288,6 @@ public class JUtils {
 		// }
 		jmp.saveCallingEnvironment();
 		return 0;
-	}
-
-	public static void printMethods() throws IOException {
-		callStack.printMethods();
 	}
 
 	// DEBUG

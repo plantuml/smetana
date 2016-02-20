@@ -1,4 +1,4 @@
-public static final __struct__<_dtdisc_s> Ag_subnode_seq_disc = __struct__.from(_dtdisc_s.class);
+/*public static final __struct__<_dtdisc_s> Ag_subnode_seq_disc = __struct__.from(_dtdisc_s.class);
 static {
 	Ag_subnode_seq_disc.setInt("key", 0);
 	Ag_subnode_seq_disc.setInt("size", 0);
@@ -9,7 +9,7 @@ static {
 	Ag_subnode_seq_disc.setPtr("hashf", null);
 	Ag_subnode_seq_disc.setPtr("memoryf", function(utils__c.class, "agdictobjmem"));
 	Ag_subnode_seq_disc.setPtr("eventf", null);
-}
+}*/
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Dtdisc_t Ag_subnode_seq_disc = {

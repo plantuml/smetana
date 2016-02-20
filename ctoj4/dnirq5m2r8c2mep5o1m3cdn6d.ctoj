@@ -1,4 +1,4 @@
-private static final __array_of_struct__ Arrowtypes = __array_of_struct__.malloc(arrowtype_t.class, 9);
+/*private static final __array_of_struct__ Arrowtypes = __array_of_struct__.malloc(arrowtype_t.class, 9);
 static {
 	Arrowtypes.plus(0).setStruct(createArrowtypes(1, 1.0, function(arrows__c.class, "arrow_type_normal")));
 	Arrowtypes.plus(1).setStruct(createArrowtypes(2, 1.0, function(arrows__c.class, "arrow_type_crow")));
@@ -16,7 +16,7 @@ private final static __struct__ createArrowtypes(int type, double lenfact, CFunc
 	result.setDouble("lenfact", lenfact);
 	result.setPtr("gen", function);
 	return result;
-}
+}*/
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static arrowtype_t Arrowtypes[] = {
     {1, 1.0, arrow_type_normal},

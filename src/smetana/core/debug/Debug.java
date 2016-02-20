@@ -2,62 +2,95 @@
  * PlantUML : a free UML diagram generator
  * ========================================================================
  *
+ * Project Info:  http://plantuml.com
+ * 
+ * This file is part of Smetana.
+ * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
+ *
  * (C) Copyright 2009-2017, Arnaud Roques
  *
- * Project Info:  http://plantuml.sourceforge.net
+ * This translation is distributed under the same Licence as the original C program.
  * 
- * This file is part of PlantUML.
- *
- * PlantUML is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * PlantUML distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public
- * License for more details.
- *
- * You should have received a copy of the GNU General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Java is a trademark or registered trademark of Sun Microsystems, Inc.
- * in the United States and other countries.]
- *
- * Original Author:  Arnaud Roques
+ * THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE PUBLIC
+ * LICENSE ("AGREEMENT"). [Eclipse Public License - v 1.0]
  * 
+ * ANY USE, REPRODUCTION OR DISTRIBUTION OF THE PROGRAM CONSTITUTES
+ * RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
+
 package smetana.core.debug;
 
 import h.Agedge_s;
 import h.Agedgeinfo_t;
+import h.Agnode_s;
+import h.Agnodeinfo_t;
 import h.bezier;
 import h.boxf;
 import h.splines;
 import smetana.core.Macro;
 import smetana.core.__ptr__;
 import smetana.core.__struct__;
-import demo.DemoUtils;
+import demo.DebugUtils;
 
 public class Debug {
 
 	static private Agedge_s e;
+	static private Agnode_s n;
 
 	public static void setOneEdge(Agedge_s some) {
 		e = some;
 	}
 
+	public static void setOneNode(Agnode_s some) {
+		n = some;
+	}
+
 	public void entering(String signature, String methodName) {
-		check(e);
+		// checkEdge(e);
+		checkNode(n);
 	}
 
 	public void leaving(String signature, String methodName) {
-		check(e);
+		// checkEdge(e);
+		checkNode(n);
 	}
 
-	private void check(Agedge_s e) {
+	private void checkNode(Agnode_s n) {
+		if (n == null)
+			return;
+		Agedgeinfo_t data = null;
+		try {
+			data = (Agedgeinfo_t) Macro.AGDATA(n).castTo(Agnodeinfo_t.class);
+			if (data == null)
+				return;
+		} catch (UnsupportedOperationException ex) {
+			return;
+		}
+		double x = data.getStruct("coord").getDouble("x");
+		String tmp = "x=" + x;
+		if (tmp.equals(last) == false) {
+			System.err.println("change!=" + tmp);
+			Throwable creation = new Throwable();
+			creation.fillInStackTrace();
+			creation.printStackTrace();
+		}
+
+		last = tmp;
+
+	}
+
+	private void checkEdge(Agedge_s e) {
 		if (e == null)
 			return;
 		Agedgeinfo_t data = null;
@@ -81,11 +114,13 @@ public class Debug {
 		if (bezier == null)
 			return;
 
-		if (bezier.getInt("size") != 4)
+		if (bezier.getInt("size") == 0)
 			return;
 
+		// System.err.println("ssssize=" + bezier.getInt("size"));
+
 		final __ptr__ pt = bezier.getPtr("list").plus(0).getPtr();
-		final String tmp = DemoUtils.pointftoString(pt);
+		final String tmp = DebugUtils.pointftoString(pt);
 		if (tmp.equals(last) == false) {
 			System.err.println("change!=" + tmp);
 			Throwable creation = new Throwable();

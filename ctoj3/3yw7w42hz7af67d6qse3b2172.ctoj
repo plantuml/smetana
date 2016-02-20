@@ -1,18 +1,18 @@
 public static void scan_and_normalize() {
     Agnode_s n;
-    Minrank = Integer.MAX_VALUE;
-    Maxrank = -Integer.MAX_VALUE;
-    for (n = GD_nlist(G); n!=null; n = ND_next(n)) {
+    Z._().Minrank = Integer.MAX_VALUE;
+    Z._().Maxrank = -Integer.MAX_VALUE;
+    for (n = GD_nlist(Z._().G_ns); n!=null; n = ND_next(n)) {
 	if (ND_node_type(n) == 0) {
-	    Minrank = MIN(Minrank, ND_rank(n));
-	    Maxrank = MAX(Maxrank, ND_rank(n));
+	    Z._().Minrank = MIN(Z._().Minrank, ND_rank(n));
+	    Z._().Maxrank = MAX(Z._().Maxrank, ND_rank(n));
 	}
     }
-    if (Minrank != 0) {
-	for (n = GD_nlist(G); n!=null; n = ND_next(n))
-	    ND_rank(n, ND_rank(n) - Minrank);
-	Maxrank -= Minrank;
-	Minrank = 0;
+    if (Z._().Minrank != 0) {
+	for (n = GD_nlist(Z._().G_ns); n!=null; n = ND_next(n))
+	    ND_rank(n, ND_rank(n) - Z._().Minrank);
+	Z._().Maxrank -= Z._().Minrank;
+	Z._().Minrank = 0;
     }
 }
 

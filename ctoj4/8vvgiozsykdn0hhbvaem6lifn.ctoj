@@ -1,4 +1,4 @@
-private static __array_of_struct__ boxes = __array_of_struct__.malloc(boxf.class, 1000);
+//private static __array_of_struct__ boxes = __array_of_struct__.malloc(boxf.class, 1000);
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static boxf boxes[1000];

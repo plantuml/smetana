@@ -3,7 +3,7 @@ public static __struct__<port> poly_port(Agnode_s n, CString portname, CString c
     boxf bp;
     int sides;			/* bitmap of which sides the port lies along */
     if (portname.charAt(0) == '\0')
-	return Center.copy();
+	return Z._().Center.copy();
 UNSUPPORTED("cm99rhftfe8nq2suzac5fwbgp"); //     if (compass == NULL)
 UNSUPPORTED("238a13tlawcw3bixwliz859y5"); // 	compass = "_";
 UNSUPPORTED("ci2ge3idao9rokpvacvcspaxl"); //     sides = (1<<0) | (1<<1) | (1<<2) | (1<<3);

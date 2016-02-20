@@ -38,8 +38,8 @@ UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
 	width = (ROUND((ND_width(n))*72));
 	height = (ROUND((ND_height(n))*72));
     }
-    peripheries = late_int(n, N_peripheries, peripheries, 0);
-    orientation += late_double(n, N_orientation, 0.0, -360.0);
+    peripheries = late_int(n, Z._().N_peripheries, peripheries, 0);
+    orientation += late_double(n, Z._().N_orientation, 0.0, -360.0);
     if (sides == 0) {		/* not for builtins */
 UNSUPPORTED("dd178b113cb8130tl6q70lcp3"); // 	skew = late_double(n, N_skew, 0.0, -100.0);
 UNSUPPORTED("cp83hdn3dp0a7rp9bauc3bgki"); // 	sides = late_int(n, N_sides, 4, 0);
@@ -159,7 +159,7 @@ UNSUPPORTED("1fjwgzo5xkijo98ycmzhal8yv"); // 	bb = pd->size_gen(bb);
     /* at this point, bb is the minimum size of node that can hold the label */
     min_bb.____(bb);
     /* increase node size to width/height if needed */
-    fxd = late_string(n, N_fixed, new CString("false"));
+    fxd = late_string(n, Z._().N_fixed, new CString("false"));
     if ((fxd.charAt(0) == 's') && (N(strcmp(fxd,new CString("shape"))))) {
 	bb.setDouble("x", width);
 	bb.setDouble("y", height);
@@ -189,7 +189,7 @@ UNSUPPORTED("1fjwgzo5xkijo98ycmzhal8yv"); // 	bb = pd->size_gen(bb);
     bb.setDouble("y", width);
     }
     /* Compute space available for label.  Provides the justification borders */
-    if (N(mapbool(late_string(n, N_nojustify, new CString("false"))))) {
+    if (N(mapbool(late_string(n, Z._().N_nojustify, new CString("false"))))) {
 	if (isBox) {
 	    ND_label(n).getStruct("space").setDouble("x", MAX(dimen.getDouble("x"),bb.getDouble("x")) - spacex);
 	}

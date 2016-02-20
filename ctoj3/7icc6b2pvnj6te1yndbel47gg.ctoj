@@ -1,14 +1,14 @@
 public static void add_to_component(Agnode_s n) {
-    GD_n_nodes(G, 1+GD_n_nodes(G));
-    ND_mark(n, Cmark);
-    if (Last_node!=null) {
-	ND_prev(n, Last_node);
-	ND_next(Last_node, n);
+    GD_n_nodes(Z._().G_decomp, 1+GD_n_nodes(Z._().G_decomp));
+    ND_mark(n, Z._().Cmark);
+    if (Z._().Last_node_decomp!=null) {
+	ND_prev(n, Z._().Last_node_decomp);
+	ND_next(Z._().Last_node_decomp, n);
     } else {
 	ND_prev(n, null);
-	GD_nlist(G, n);
+	GD_nlist(Z._().G_decomp, n);
     }
-    Last_node = n;
+    Z._().Last_node_decomp = n;
     ND_next(n, null);
 }
 
