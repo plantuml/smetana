@@ -83,7 +83,7 @@ public class Debug {
 			System.err.println("change!=" + tmp);
 			Throwable creation = new Throwable();
 			creation.fillInStackTrace();
-			creation.printStackTrace();
+			//creation.printStackTrace();
 		}
 
 		last = tmp;

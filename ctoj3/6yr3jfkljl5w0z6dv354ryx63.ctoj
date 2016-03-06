@@ -9,7 +9,7 @@ public static void make_flat_edge(Agraph_s g, spline_info_t sp, path P, __ptr__ 
     int pn[] = new int[] {0};
     pointf ps;
     final __struct__<pathend_t> tend = __struct__.from(pathend_t.class), hend = __struct__.from(pathend_t.class);
-    fwdedge.getPtr("out").getPtr("base").setPtr("data", fwdedgei.amp());
+    fwdedge.getStruct("out").getStruct("base").setPtr("data", fwdedgei.amp());
     /* Get sample edge; normalize to go from left to right */
     e = (Agedge_s) edges.plus(ind).getPtr();
     isAdjacent = ED_adjacent(e);

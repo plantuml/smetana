@@ -1,0 +1,34 @@
+public static int postorder(Agraph_s g, Agnode_s v, __ptr__ list, int r) {
+    Agedge_s e;
+    int i, cnt = 0;
+    ND_mark(v, NOT(false));
+    if (ND_flat_out(v).getInt("size") > 0) {
+	for (i = 0; (e = (Agedge_s) ND_flat_out(v).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
+	    if (N(constraining_flat_edge(g,v,e))) continue;
+	    if ((ND_mark(aghead(e))) == 0)
+		cnt += postorder(g, aghead(e), list.plus(cnt), r);
+	}
+    }
+    assert(ND_rank(v) == r);
+    list.plus(cnt++).setPtr(v);
+    return cnt;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int postorder(graph_t * g, node_t * v, node_t ** list, int r)
+{
+    edge_t *e;
+    int i, cnt = 0;
+    (ND_mark(v)) = NOT(0);
+    if (ND_flat_out(v).size > 0) {
+	for (i = 0; (e = ND_flat_out(v).list[i]); i++) {
+	    if (!constraining_flat_edge(g,v,e)) continue;
+	    if ((ND_mark(aghead(e))) == 0)
+		cnt += postorder(g, aghead(e), list + cnt, r);
+	}
+    }
+    assert(ND_rank(v) == r);
+    list[cnt++] = v;
+    return cnt;
+}
+

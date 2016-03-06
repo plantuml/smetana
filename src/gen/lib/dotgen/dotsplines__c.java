@@ -121,6 +121,7 @@ import h.Agedgeinfo_t;
 import h.Agedgepair_s;
 import h.Agnode_s;
 import h.Agraph_s;
+import h.attr_state_t;
 import h.bezier;
 import h.boxf;
 import h.path;
@@ -1847,31 +1848,31 @@ throw new UnsupportedOperationException();
 
 //3 8kqyzk43ovc2sq6jegua6ytp
 // static void makeSimpleFlat (node_t* tn, node_t* hn, edge_t** edges, int ind, int cnt, int et) 
-public static Object makeSimpleFlat(Object... arg) {
-UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
-UNSUPPORTED("7tz8nevpx003lqy4zm9dij6y6"); // makeSimpleFlat (node_t* tn, node_t* hn, edge_t** edges, int ind, int cnt, int et)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("1sbv7puw2gxpf4wfn0j0sbryp"); //     edge_t* e = edges[ind];
-UNSUPPORTED("4zygpgquezw8ojsvhkuyy17k6"); //     pointf points[10], tp, hp;
-UNSUPPORTED("ycdjk17r9giyszvvm822d3qk"); //     int i, pointn;
-UNSUPPORTED("azbnwt3qcs75t6ubvr1sychg1"); //     double stepy, dy;
-UNSUPPORTED("4cby0ahh52quqwtfa5byip17k"); //     tp = add_pointf(ND_coord(tn), ED_tail_port(e).p);
-UNSUPPORTED("dryhza442km38sgkf3zxgqg96"); //     hp = add_pointf(ND_coord(hn), ED_head_port(e).p);
-UNSUPPORTED("adc2d1bymmjywu53rri06n13w"); //     stepy = (cnt > 1) ? ND_ht(tn) / (double)(cnt - 1) : 0.;
-UNSUPPORTED("8fgjf9sdc13oynjr53ykrsftf"); //     dy = tp.y - ((cnt > 1) ? ND_ht(tn) / 2. : 0.);
-UNSUPPORTED("1psokm6w9e7qw7fm2g1cayuk7"); //     for (i = 0; i < cnt; i++) {
-UNSUPPORTED("8hwholxjp08y4q0zbb561684q"); // 	e = edges[ind + i];
-UNSUPPORTED("agfwbp0zk0w3x49q4m3tze38k"); // 	pointn = 0;
-UNSUPPORTED("bk63a1yhumxa9ls6cmt8ix4p1"); // 	if ((et == (5 << 1)) || (et == (1 << 1))) {
+public static void makeSimpleFlat(Agnode_s tn, Agnode_s hn, __ptr__ edges, int ind, int cnt, int et) {
+ENTERING("8kqyzk43ovc2sq6jegua6ytp","makeSimpleFlat");
+try {
+    Agedge_s e = (Agedge_s) edges.plus(ind).getPtr();
+    final __array_of_struct__ points = __array_of_struct__.malloc(pointf.class, 10);
+    final __struct__<pointf> tp = __struct__.from(pointf.class), hp = __struct__.from(pointf.class);
+    int i, pointn;
+    double stepy, dy;
+    tp.____(add_pointf(ND_coord(tn), ED_tail_port(e).getStruct("p")));
+    hp.____(add_pointf(ND_coord(hn), ED_head_port(e).getStruct("p")));
+    stepy = (cnt > 1) ? ND_ht(tn) / (double)(cnt - 1) : 0.;
+    dy = tp.getDouble("y") - ((cnt > 1) ? ND_ht(tn) / 2. : 0.);
+    for (i = 0; i < cnt; i++) {
+	e = (Agedge_s) edges.plus(ind + i).getPtr();
+	pointn = 0;
+	if ((et == (5 << 1)) || (et == (1 << 1))) {
+	    points.plus(pointn++).setStruct(tp);
+	    points.plus(pointn++).setStruct(pointfof((2 * tp.getDouble("x") + hp.getDouble("x")) / 3, dy));
+	    points.plus(pointn++).setStruct(pointfof((2 * hp.getDouble("x") + tp.getDouble("x")) / 3, dy));
+	    points.plus(pointn++).setStruct(hp);
+	}
+	else {   /* ET_PLINE */
+UNSUPPORTED("cai7diqq01v8vb92u4mx1xh38"); // 	    points[pointn++] = tp;
 UNSUPPORTED("cai7diqq01v8vb92u4mx1xh38"); // 	    points[pointn++] = tp;
 UNSUPPORTED("bnd7kao912fmo940u1gz3cmws"); // 	    points[pointn++] = pointfof((2 * tp.x + hp.x) / 3, dy);
-UNSUPPORTED("akir2i0ddpv2ombgdzzs9qqqa"); // 	    points[pointn++] = pointfof((2 * hp.x + tp.x) / 3, dy);
-UNSUPPORTED("59cwjy3j5e0igp278migykzi"); // 	    points[pointn++] = hp;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("4uw8i9imyuuv2l2rc3r8dlr4l"); // 	else {   /* ET_PLINE */
-UNSUPPORTED("cai7diqq01v8vb92u4mx1xh38"); // 	    points[pointn++] = tp;
-UNSUPPORTED("cai7diqq01v8vb92u4mx1xh38"); // 	    points[pointn++] = tp;
-UNSUPPORTED("bnd7kao912fmo940u1gz3cmws"); // 	    points[pointn++] = pointfof((2 * tp.x + hp.x) / 3, dy);
 UNSUPPORTED("bnd7kao912fmo940u1gz3cmws"); // 	    points[pointn++] = pointfof((2 * tp.x + hp.x) / 3, dy);
 UNSUPPORTED("bnd7kao912fmo940u1gz3cmws"); // 	    points[pointn++] = pointfof((2 * tp.x + hp.x) / 3, dy);
 UNSUPPORTED("akir2i0ddpv2ombgdzzs9qqqa"); // 	    points[pointn++] = pointfof((2 * hp.x + tp.x) / 3, dy);
@@ -1879,13 +1880,13 @@ UNSUPPORTED("akir2i0ddpv2ombgdzzs9qqqa"); // 	    points[pointn++] = pointfof((2
 UNSUPPORTED("akir2i0ddpv2ombgdzzs9qqqa"); // 	    points[pointn++] = pointfof((2 * hp.x + tp.x) / 3, dy);
 UNSUPPORTED("59cwjy3j5e0igp278migykzi"); // 	    points[pointn++] = hp;
 UNSUPPORTED("59cwjy3j5e0igp278migykzi"); // 	    points[pointn++] = hp;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("crcrf8q0e5kudslt1bx1w8lcb"); // 	dy += stepy;
-UNSUPPORTED("8pu2brqckru27o7finkun12l7"); // 	clip_and_install(e, aghead(e), points, pointn, &sinfo);
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+	}
+	dy += stepy;
+	clip_and_install(e, aghead(e), points.asPtr(), pointn, Z._().sinfo.amp());
+    }
+} finally {
+LEAVING("8kqyzk43ovc2sq6jegua6ytp","makeSimpleFlat");
+}
 }
 
 
@@ -1893,40 +1894,38 @@ throw new UnsupportedOperationException();
 
 //3 bhnjospwghq4plid12757c928
 // static void make_flat_adj_edges(graph_t* g, path* P, edge_t** edges, int ind, int cnt, edge_t* e0,                     int et) 
-public static Object make_flat_adj_edges(Object... arg) {
-UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
-UNSUPPORTED("dcgjvgitf74t5nb9c0txygdwz"); // make_flat_adj_edges(graph_t* g, path* P, edge_t** edges, int ind, int cnt, edge_t* e0,
-UNSUPPORTED("efqvqwt8thm48bn97v3lr3yp9"); //                     int et)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("7ma9kdgag30w5ofv1niitxbro"); //     node_t* n;
-UNSUPPORTED("5np4z3gp6cfmicyuz91nownp8"); //     node_t *tn, *hn;
-UNSUPPORTED("81kodm2cts9uf9w37cp7qzp6p"); //     edge_t* e;
-UNSUPPORTED("ejhg78x342p3wtu2ifol97as4"); //     int labels = 0, ports = 0;
-UNSUPPORTED("8scmnlh4aqjfli9hjn7snnhb2"); //     graph_t* auxg;
-UNSUPPORTED("33i6ihl97ygnd0nu3vshtyus2"); //     graph_t* subg;
-UNSUPPORTED("c49utoldudz48ju6mpbt7h9bn"); //     node_t *auxt, *auxh;
-UNSUPPORTED("7uuykt8gri2hdwtbiwgsdms6q"); //     edge_t* auxe;
-UNSUPPORTED("2dxmbdmviv784dgb8weoypdtb"); //     int     i, j, midx, midy, leftx, rightx;
-UNSUPPORTED("auxheqy2r70vnzlls0t9otl1j"); //     pointf   del;
-UNSUPPORTED("ejwkxw2uexwlcu3uu998hvvup"); //     edge_t* hvye = NULL;
-UNSUPPORTED("3qllftk4txro4roft69s7cynn"); //     attr_state_t* attrs;
-UNSUPPORTED("ec4lkrgeurm7wid5o3ntny428"); //     tn = agtail(e0), hn = aghead(e0);
-UNSUPPORTED("1psokm6w9e7qw7fm2g1cayuk7"); //     for (i = 0; i < cnt; i++) {
-UNSUPPORTED("8hwholxjp08y4q0zbb561684q"); // 	e = edges[ind + i];
-UNSUPPORTED("8w8h4d0t06tb5svksjqolx888"); // 	if (ED_label(e)) labels++;
-UNSUPPORTED("2kiwhaep67em6fm3c1l8gf3c5"); // 	if (ED_tail_port(e).defined || ED_head_port(e).defined) ports = 1;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("65hdyk08uakh6hrmwa7ab9upz"); //     if (ports == 0) {
-UNSUPPORTED("13uruv9w8lzoam1vs6tqzt6b5"); // 	/* flat edges without ports and labels can go straight left to right */
-UNSUPPORTED("jsnagax6z7b80khpezjkerie"); // 	if (labels == 0) {
-UNSUPPORTED("bpgnxcrhhaiwm7kuttr2rhxbn"); // 	    makeSimpleFlat (tn, hn, edges, ind, cnt, et);
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("wnk0dyri6by3z007o78efj48"); // 	/* flat edges without ports but with labels take more work */
-UNSUPPORTED("8k75h069sv2k9b6tgz77dscwd"); // 	else {
-UNSUPPORTED("camsiqvfijkyyix0hfaoi2r41"); // 	    makeSimpleFlatLabels (tn, hn, edges, ind, cnt, et, labels);
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("a7fgam0j0jm7bar0mblsv3no4"); // 	return;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+public static void make_flat_adj_edges(Agraph_s g, path P, __ptr__ edges, int ind, int cnt, Agedge_s e0, int et) {
+ENTERING("bhnjospwghq4plid12757c928","make_flat_adj_edges");
+try {
+    Agnode_s n;
+    Agnode_s tn, hn;
+    Agedge_s e;
+    int labels = 0, ports = 0;
+    Agraph_s auxg;
+    Agraph_s subg;
+    Agnode_s auxt, auxh;
+    Agedge_s auxe;
+    int     i, j, midx, midy, leftx, rightx;
+    final __struct__<pointf> del = __struct__.from(pointf.class);
+    Agedge_s hvye = null;
+    attr_state_t attrs;
+    tn = agtail(e0); hn = aghead(e0);
+    for (i = 0; i < cnt; i++) {
+	e = (Agedge_s) edges.plus(ind + i).getPtr();
+	if (ED_label(e)!=null) labels++;
+	if (ED_tail_port(e).getBoolean("defined") || ED_head_port(e).getBoolean("defined")) ports = 1;
+    }
+    if (ports == 0) {
+	/* flat edges without ports and labels can go straight left to right */
+	if (labels == 0) {
+	    makeSimpleFlat (tn, hn, edges, ind, cnt, et);
+	}
+	/* flat edges without ports but with labels take more work */
+	else {
+	    makeSimpleFlatLabels (tn, hn, edges, ind, cnt, et, labels);
+	}
+	return;
+    }
 UNSUPPORTED("3ua0mgcwxnpymnpiv77owaur2"); //     attrs = (attr_state_t*)zmalloc(sizeof(attr_state_t));
 UNSUPPORTED("5qcpchn65culafc5t2ibioksb"); //     auxg = cloneGraph (g, attrs);
 UNSUPPORTED("cwolismpef6l1w4xj5etx8w09"); //     subg = agsubg (auxg, "xxx",1);
@@ -2028,6 +2027,9 @@ UNSUPPORTED("22prbnbyxmapn1fcer1sktez7"); //     cleanupCloneGraph (auxg, attrs)
 UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
 
 throw new UnsupportedOperationException();
+} finally {
+LEAVING("bhnjospwghq4plid12757c928","make_flat_adj_edges");
+}
 }
 
 
@@ -2242,7 +2244,7 @@ try {
     int pn[] = new int[] {0};
     pointf ps;
     final __struct__<pathend_t> tend = __struct__.from(pathend_t.class), hend = __struct__.from(pathend_t.class);
-    fwdedge.getPtr("out").getPtr("base").setPtr("data", fwdedgei.amp());
+    fwdedge.getStruct("out").getStruct("base").setPtr("data", fwdedgei.amp());
     /* Get sample edge; normalize to go from left to right */
     e = (Agedge_s) edges.plus(ind).getPtr();
     isAdjacent = ED_adjacent(e);
@@ -3034,7 +3036,7 @@ try {
     b = (double)(ND_coord(vn).getDouble("x") - ND_lw(vn) - 4);
     if ((left = neighbor(g, vn, ie, oe, -1))!=null) {
 	if ((left_cl = cl_bound(g, vn, left))!=null)
-	    nb = GD_bb(left_cl).getPtr("UR").getDouble("x") + (double)(sp.getInt("Splinesep"));
+	    nb = GD_bb(left_cl).getStruct("UR").getDouble("x") + (double)(sp.getInt("Splinesep"));
 	else {
 	    nb = (double)(ND_coord(left).getDouble("x") + ND_mval(left));
 	    if (ND_node_type(left) == 0)

@@ -1,0 +1,35 @@
+public static void remove_rankleaders(Agraph_s g) {
+    int r;
+    Agnode_s v;
+    Agedge_s e;
+    for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
+	v = (Agnode_s) GD_rankleader(g).plus(r).getPtr();
+	/* remove the entire chain */
+	while ((e = (Agedge_s) ND_out(v).getArrayOfPtr("list").plus(0).getPtr())!=null)
+	    delete_fast_edge(e);
+	while ((e = (Agedge_s) ND_in(v).getArrayOfPtr("list").plus(0).getPtr())!=null)
+	    delete_fast_edge(e);
+	delete_fast_node(dot_root(g), v);
+	GD_rankleader(g).plus(r).setPtr(null);
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void 
+remove_rankleaders(graph_t * g)
+{
+    int r;
+    node_t *v;
+    edge_t *e;
+    for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
+	v = GD_rankleader(g)[r];
+	/* remove the entire chain */
+	while ((e = ND_out(v).list[0]))
+	    delete_fast_edge(e);
+	while ((e = ND_in(v).list[0]))
+	    delete_fast_edge(e);
+	delete_fast_node(dot_root(g), v);
+	GD_rankleader(g)[r] = NULL;
+    }
+}
+

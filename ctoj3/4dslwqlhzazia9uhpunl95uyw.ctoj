@@ -23,9 +23,9 @@ UNSUPPORTED("9m3xivr1b1cp50bejquadm3an"); // 	span->size.y = size.y = (int)(lp->
     }
     lp.setInt("u.txt.nspans", lp.getInt("u.txt.nspans")+1);
     /* width = max line width */
-    lp.getPtr("dimen").setDouble("x",  MAX(lp.getPtr("dimen").getDouble("x"), size.getDouble("x")));
+    lp.getStruct("dimen").setDouble("x",  MAX(lp.getStruct("dimen").getDouble("x"), size.getDouble("x")));
     /* accumulate height */
-    lp.getPtr("dimen").setDouble("y", lp.getPtr("dimen").getDouble("y") + size.getDouble("y"));
+    lp.getStruct("dimen").setDouble("y", lp.getStruct("dimen").getDouble("y") + size.getDouble("y"));
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

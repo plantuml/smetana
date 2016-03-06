@@ -44,7 +44,7 @@ import java.util.List;
 
 import smetana.core.__ptr__;
 
-//2 8reykx9ipp7zhrcjg3ymu8ypm
+//2 da1kcmh9tvz6n7xaqw78dn4h8
 
 public interface Agnodeinfo_t extends __ptr__ {
 	public static List<String> DEFINITION = Arrays.asList(
@@ -63,6 +63,9 @@ public interface Agnodeinfo_t extends __ptr__ {
 "char state",
 "unsigned char gui_state",
 "boolean clustnode",
+"unsigned char pinned",
+"int id, heapindex, hops",
+"double *pos, dist",
 "unsigned char showboxes",
 "boolean  has_port",
 "node_t* rep",
@@ -103,9 +106,9 @@ public interface Agnodeinfo_t extends __ptr__ {
 // 	boolean clustnode;
 // 
 // 
-// 	
-// 	
-// 	
+// 	unsigned char pinned;
+// 	int id, heapindex, hops;
+// 	double *pos, dist;
 // 
 // 
 // 	unsigned char showboxes;

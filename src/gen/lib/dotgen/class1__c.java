@@ -52,11 +52,19 @@ import static gen.lib.dotgen.cluster__c.mark_clusters;
 import static gen.lib.dotgen.fastgr__c.find_fast_edge;
 import static gen.lib.dotgen.fastgr__c.merge_oneway;
 import static gen.lib.dotgen.fastgr__c.virtual_edge;
+import static gen.lib.dotgen.fastgr__c.virtual_node;
+import static gen.lib.dotgen.position__c.make_aux_edge;
 import static smetana.core.JUtils.EQ;
 import static smetana.core.JUtilsDebug.ENTERING;
 import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.ED_minlen;
+import static smetana.core.Macro.ED_to_orig;
 import static smetana.core.Macro.ED_to_virt;
+import static smetana.core.Macro.ED_weight;
+import static smetana.core.Macro.GD_leader;
 import static smetana.core.Macro.ND_clust;
+import static smetana.core.Macro.ND_node_type;
+import static smetana.core.Macro.ND_rank;
 import static smetana.core.Macro.UNSUPPORTED;
 import h.Agedge_s;
 import h.Agnode_s;
@@ -728,39 +736,39 @@ LEAVING("2luyof8ca7ewf9r08z3os3lk7","nonconstraint_edge");
 
 //3 dpimuv55sylui7jx8fh3ic1qc
 // static void  interclust1(graph_t * g, node_t * t, node_t * h, edge_t * e) 
-public static Object interclust1(Object... arg) {
-UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
-UNSUPPORTED("a72lvrcm17k7pra2n5ciqejt8"); // interclust1(graph_t * g, node_t * t, node_t * h, edge_t * e)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("3x2n5wne7tgnjs0gsxb7csz5r"); //     node_t *v, *t0, *h0;
-UNSUPPORTED("bx068l5iptvhgzfmc2yc6l80u"); //     int offset, t_len, h_len, t_rank, h_rank;
-UNSUPPORTED("3sjwnnlk1xew79wvyvp6pjgy2"); //     edge_t *rt, *rh;
-UNSUPPORTED("5toxaipa5aqh4od6xm0slfsnh"); //     if (ND_clust(agtail(e)))
-UNSUPPORTED("blfdjw6hrfwxe9gwn8vn28kpv"); // 	t_rank = ND_rank(agtail(e)) - ND_rank(GD_leader(ND_clust(agtail(e))));
-UNSUPPORTED("div10atae09n36x269sl208r1"); //     else
-UNSUPPORTED("crsmqplbxcqu7bvp9oc1t0ssj"); // 	t_rank = 0;
-UNSUPPORTED("1xoijplgdu5ixpmoihlst3mhr"); //     if (ND_clust(aghead(e)))
-UNSUPPORTED("84pyiiup4v18x4emi2mvzykkj"); // 	h_rank = ND_rank(aghead(e)) - ND_rank(GD_leader(ND_clust(aghead(e))));
-UNSUPPORTED("div10atae09n36x269sl208r1"); //     else
-UNSUPPORTED("awa736s7driryqv9ywi0fv5oy"); // 	h_rank = 0;
-UNSUPPORTED("3frnli2086se9l35ew2qhvf0t"); //     offset = ED_minlen(e) + t_rank - h_rank;
-UNSUPPORTED("bk1074azjrp3b0xxr9w9o5rsp"); //     if (offset > 0) {
-UNSUPPORTED("3zmuoe4or78azeh3m31e21kxr"); // 	t_len = 0;
-UNSUPPORTED("6b03wn4c22zr92ll6yst57nsc"); // 	h_len = offset;
-UNSUPPORTED("c07up7zvrnu2vhzy6d7zcu94g"); //     } else {
-UNSUPPORTED("d4e3pmbjli4v7d0swvrj4tmlx"); // 	t_len = -offset;
-UNSUPPORTED("2f6h0ycdwiaynpv6bue727q32"); // 	h_len = 0;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("ddbam9h1970eckdt1zdw6u2pq"); //     v = virtual_node(g);
-UNSUPPORTED("8qyhdukhvwv5cjtlnkx0fvmzo"); //     ND_node_type(v) = 2;
-UNSUPPORTED("dvb7p6ecmxq5wnnl3m0aq0jte"); //     t0 = UF_find(t);
-UNSUPPORTED("3p5wf1h02805dl2hykj6huuuv"); //     h0 = UF_find(h);
-UNSUPPORTED("37kut25dntwhfzuugatt54uxj"); //     rt = make_aux_edge(v, t0, t_len, 10 * ED_weight(e));
-UNSUPPORTED("4jnv9n3ecvfzqbis01p2q0ego"); //     rh = make_aux_edge(v, h0, h_len, ED_weight(e));
-UNSUPPORTED("efhkcmstsvd122hx8jiyu75rp"); //     ED_to_orig(rt) = ED_to_orig(rh) = e;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static void interclust1(Agraph_s g, Agnode_s t, Agnode_s h, Agedge_s e) {
+ENTERING("dpimuv55sylui7jx8fh3ic1qc","interclust1");
+try {
+    Agnode_s v, t0, h0;
+    int offset, t_len, h_len, t_rank, h_rank;
+    Agedge_s rt, rh;
+    if (ND_clust(agtail(e))!=null)
+	t_rank = ND_rank(agtail(e)) - ND_rank(GD_leader(ND_clust(agtail(e))));
+    else
+	t_rank = 0;
+    if (ND_clust(aghead(e))!=null)
+	h_rank = ND_rank(aghead(e)) - ND_rank(GD_leader(ND_clust(aghead(e))));
+    else
+	h_rank = 0;
+    offset = ED_minlen(e) + t_rank - h_rank;
+    if (offset > 0) {
+	t_len = 0;
+	h_len = offset;
+    } else {
+	t_len = -offset;
+	h_len = 0;
+    }
+    v = virtual_node(g);
+    ND_node_type(v, 2);
+    t0 = UF_find(t);
+    h0 = UF_find(h);
+    rt = make_aux_edge(v, t0, t_len, 10 * ED_weight(e));
+    rh = make_aux_edge(v, h0, h_len, ED_weight(e));
+    ED_to_orig(rt, e);
+    ED_to_orig(rh, e);
+} finally {
+LEAVING("dpimuv55sylui7jx8fh3ic1qc","interclust1");
+}
 }
 
 

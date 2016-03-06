@@ -1,0 +1,19 @@
+public static void set_minmax(Agraph_s g) {
+    int c;
+    GD_minrank(g, GD_minrank(g) + ND_rank(GD_leader(g)));
+    GD_maxrank(g, GD_maxrank(g) + ND_rank(GD_leader(g)));
+    for (c = 1; c <= GD_n_cluster(g); c++)
+	set_minmax((Agraph_s) GD_clust(g).plus(c).getPtr());
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void 
+set_minmax(graph_t * g)
+{
+    int c;
+    GD_minrank(g) += ND_rank(GD_leader(g));
+    GD_maxrank(g) += ND_rank(GD_leader(g));
+    for (c = 1; c <= GD_n_cluster(g); c++)
+	set_minmax(GD_clust(g)[c]);
+}
+

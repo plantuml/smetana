@@ -1018,8 +1018,8 @@ try {
 	    for (i = 0; (e = (Agedge_s) ND_flat_out(n).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
 		if (ED_label(e)!=null) {
 		    if (ED_adjacent(e)!=0) {
-			if (GD_flip(g)!=0) ED_dist(e, ED_label(e).getPtr("dimen").getDouble("y"));
-			else ED_dist(e, ED_label(e).getPtr("dimen").getDouble("x")); 
+			if (GD_flip(g)!=0) ED_dist(e, ED_label(e).getStruct("dimen").getDouble("y"));
+			else ED_dist(e, ED_label(e).getStruct("dimen").getDouble("x")); 
 		    }
 		    else {
 			reset = 1;
@@ -1039,8 +1039,8 @@ try {
 		if (ED_label(e)!=null) {
 		    if (ED_adjacent(e)!=0) {
 			double lw;
-			if (GD_flip(g)!=0) lw = ED_label(e).getPtr("dimen").getDouble("y");
-			else lw = ED_label(e).getPtr("dimen").getDouble("x"); 
+			if (GD_flip(g)!=0) lw = ED_label(e).getStruct("dimen").getDouble("y");
+			else lw = ED_label(e).getStruct("dimen").getDouble("x"); 
 			ED_dist(le, MAX(lw,ED_dist(le)));
 		    }
 		    else {

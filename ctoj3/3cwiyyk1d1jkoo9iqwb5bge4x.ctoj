@@ -12,7 +12,7 @@ public static void cleanup2(Agraph_s g, int nc) {
     }
     /* fix vlists of clusters */
     for (c = 1; c <= GD_n_cluster(g); c++)
-	rec_reset_vlists(GD_clust(g).plus(c));
+	rec_reset_vlists((Agraph_s) GD_clust(g).plus(c).getPtr());
     /* remove node temporary edges for ordering nodes */
     for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
 	for (i = 0; i < GD_rank(g).plus(r).getInt("n"); i++) {

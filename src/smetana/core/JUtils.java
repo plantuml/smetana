@@ -102,7 +102,9 @@ public class JUtils {
 			throw new IllegalArgumentException();
 		}
 		CString end = str;
-		throw new UnsupportedOperationException();
+		int result = Integer.parseInt(end.getContent());
+		endptr[0] = end.plus(("" + result).length());
+		return result;
 	}
 
 	public static double strtod(CString str, CString[] endptr) {

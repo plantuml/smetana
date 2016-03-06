@@ -1,0 +1,26 @@
+public static boolean vnode_not_related_to(Agraph_s g, Agnode_s v) {
+    Agedge_s e;
+    if (ND_node_type(v) != 1)
+	return false;
+    for (e = (Agedge_s) ND_save_out(v).getArrayOfPtr("list").plus(0).getPtr(); ED_to_orig(e)!=null; e = ED_to_orig(e));
+    if (agcontains(g, agtail(e)))
+	return false;
+    if (agcontains(g, aghead(e)))
+	return false;
+    return NOT(false);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int vnode_not_related_to(graph_t * g, node_t * v)
+{
+    edge_t *e;
+    if (ND_node_type(v) != 1)
+	return 0;
+    for (e = ND_save_out(v).list[0]; ED_to_orig(e); e = ED_to_orig(e));
+    if (agcontains(g, agtail(e)))
+	return 0;
+    if (agcontains(g, aghead(e)))
+	return 0;
+    return NOT(0);
+}
+

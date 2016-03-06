@@ -52,8 +52,8 @@ public class PreprocFileC {
 		final List<String> arg = new ArrayList<String>();
 		arg.add("-DHAVE_CONFIG_H");
 		addPath(arg);
-		arg.add("-DDOT_ONLY");
-		addPath(arg);
+//		arg.add("-DDOT_ONLY");
+//		addPath(arg);
 		arg.add("-D__STD_C");
 		addPath(arg);
 		arg.add("-D_BEGIN_EXTERNS_");

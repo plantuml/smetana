@@ -22,7 +22,7 @@ public static void expand_ranksets(Agraph_s g, aspect_t asp) {
 	if (EQ(g, dot_root(g))) {
 	    if (Z._().CL_type == 100) {
 		for (c = 1; c <= GD_n_cluster(g); c++)
-		    set_minmax(GD_clust(g).plus(c).getPtr());
+		    set_minmax((Agraph_s) GD_clust(g).plus(c).getPtr());
 	    } else {
 		find_clusters(g);
 	    }

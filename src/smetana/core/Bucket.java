@@ -300,6 +300,15 @@ public class Bucket {
 			result.put(m1.group(2), new Bucket(m1.group(2), type, false));
 			return result;
 		}
+		if (def.equals("double **dist, **spring, **sum_t, ***t")) {
+			// Let's skip this one...
+			return result;
+		}
+		if (def.equals("double *pos, dist")) {
+			result.put("pos", new Bucket("pos", "double*", false));
+			result.put("dist", new Bucket("dist", "double", false));
+			return result;
+		}
 		// p1 = Pattern.compile("^unsigned\\s+long\\s+(\\w+)$");
 		// m1 = p1.matcher(def);
 		// if (m1.find()) {

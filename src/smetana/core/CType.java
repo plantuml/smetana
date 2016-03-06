@@ -31,6 +31,7 @@
 
 package smetana.core;
 
+import h.Ppoly_t;
 import h.htmllabel_t;
 import h.pointf;
 
@@ -107,6 +108,9 @@ public class CType {
 		if (isPrimitive()) {
 			return null;
 		}
+		if (type.equals("Ppolyline_t")) {
+			return Ppoly_t.class;
+		}
 		return getClassFrom(type);
 	}
 
@@ -159,7 +163,7 @@ public class CType {
 			final Field field = inter.getField("DEFINITION");
 			return (List<String>) field.get(null);
 		} catch (NoSuchFieldException e) {
-			System.err.println("inter="+inter);
+			System.err.println("inter=" + inter);
 			e.printStackTrace();
 			throw new UnsupportedOperationException();
 		} catch (SecurityException e) {
@@ -227,6 +231,10 @@ public class CType {
 
 	public boolean isIntStar() {
 		return "int*".equals(type);
+	}
+
+	public boolean isDoubleStar() {
+		return "double*".equals(type);
 	}
 
 	public boolean isVoidStar() {

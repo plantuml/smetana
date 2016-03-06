@@ -1,14 +1,9 @@
 public static adjmatrix_t new_matrix(int i, int j) {
- UNSUPPORTED("37r1dlkp6mirsyees58lby3m"); // static adjmatrix_t *new_matrix(int i, int j)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("78iohm462e4fhc71vtbx2hcko"); //     adjmatrix_t *rv = (adjmatrix_t*)zmalloc(sizeof(adjmatrix_t));
-UNSUPPORTED("b1jz4smxqpyhxhvybe6ei4h1x"); //     rv->nrows = i;
-UNSUPPORTED("1pzlhbyvsknggzt3bjjji7y1c"); //     rv->ncols = j;
-UNSUPPORTED("apn1shiflzuyh7giq7f5lul75"); //     rv->data = (char*)zmalloc((i * j)*sizeof(char));
-UNSUPPORTED("v7vqc9l7ge2bfdwnw11z7rzi"); //     return rv;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+    adjmatrix_t rv = (adjmatrix_t) Memory.malloc(adjmatrix_t.class);
+    rv.setInt("nrows", i);
+    rv.setInt("ncols", j);
+    rv.setPtr("data", zmalloc(size_t_array_of_integer(i*j)));
+    return rv;
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

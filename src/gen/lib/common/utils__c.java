@@ -72,10 +72,13 @@ import static smetana.core.Macro.GD_flip;
 import static smetana.core.Macro.GD_has_labels;
 import static smetana.core.Macro.N;
 import static smetana.core.Macro.ND_UF_parent;
+import static smetana.core.Macro.ND_UF_size;
 import static smetana.core.Macro.ND_height;
 import static smetana.core.Macro.ND_ht;
+import static smetana.core.Macro.ND_id;
 import static smetana.core.Macro.ND_label;
 import static smetana.core.Macro.ND_lw;
+import static smetana.core.Macro.ND_ranktype;
 import static smetana.core.Macro.ND_rw;
 import static smetana.core.Macro.ND_shape;
 import static smetana.core.Macro.ND_showboxes;
@@ -940,9 +943,9 @@ public static Agnode_s UF_find(Agnode_s n) {
 ENTERING("aeq0acpkhfv3gd5jx8op4jf18","UF_find");
 try {
     while (ND_UF_parent(n)!=null && NEQ(ND_UF_parent(n), n)) {
-UNSUPPORTED("y8hk25lt6b3gyaoq3wg8zf90"); // 	if (ND_UF_parent(ND_UF_parent(n)))
-UNSUPPORTED("aoz980f87j7302lg2bpt9qunj"); // 	    ND_UF_parent(n) = ND_UF_parent(ND_UF_parent(n));
-UNSUPPORTED("cdd7ddpmnm5aiecqteh3wgvpx"); // 	n = ND_UF_parent(n);
+	if (ND_UF_parent(ND_UF_parent(n))!=null)
+	    ND_UF_parent(n, ND_UF_parent(ND_UF_parent(n)));
+	n = ND_UF_parent(n);
     }
     return n;
 } finally {
@@ -955,33 +958,33 @@ LEAVING("aeq0acpkhfv3gd5jx8op4jf18","UF_find");
 
 //3 9ldxwfr4vvijrvfcvs1hvdzrt
 // node_t *UF_union(node_t * u, node_t * v) 
-public static Object UF_union(Object... arg) {
-UNSUPPORTED("x2remg1snubjo53tpzxn5hbu"); // node_t *UF_union(node_t * u, node_t * v)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("eveu2z2y0w7zqrw75i6lrylfh"); //     if (u == v)
-UNSUPPORTED("987yppqp28yowi65fhvfltcao"); // 	return u;
-UNSUPPORTED("6j8996ahfumkweudain80qhyg"); //     if (ND_UF_parent(u) == (void *)0) {
-UNSUPPORTED("dfsg73jv1v867dv3lc5msa6ki"); // 	ND_UF_parent(u) = u;
-UNSUPPORTED("enl41bve74e9zei3mfsq3jhy5"); // 	ND_UF_size(u) = 1;
-UNSUPPORTED("2lkbqgh2h6urnppaik3zo7ywi"); //     } else
+public static Agnode_s UF_union(Agnode_s u, Agnode_s v) {
+ENTERING("9ldxwfr4vvijrvfcvs1hvdzrt","UF_union");
+try {
+    if (EQ(u, v))
+	return u;
+    if (ND_UF_parent(u) == null) {
+	ND_UF_parent(u, u);
+	ND_UF_size(u, 1);
+    } else
 UNSUPPORTED("35c97tyk6tzw1g527j6rp6xoo"); // 	u = UF_find(u);
-UNSUPPORTED("60o0l92os5zq16ar3r7nqked7"); //     if (ND_UF_parent(v) == (void *)0) {
-UNSUPPORTED("ee1uwmq4p1bm149ybmj2x3r0y"); // 	ND_UF_parent(v) = v;
-UNSUPPORTED("exrfc6ak7sgea3773308l17tb"); // 	ND_UF_size(v) = 1;
-UNSUPPORTED("2lkbqgh2h6urnppaik3zo7ywi"); //     } else
+    if (ND_UF_parent(v) == null) {
+	ND_UF_parent(v, v);
+	ND_UF_size(v, 1);
+    } else
 UNSUPPORTED("ej1tfzdtk6s4n8diwx5i3e4ri"); // 	v = UF_find(v);
-UNSUPPORTED("c2h8xdfsynuf6wgznrkxgbwmx"); //     if (ND_id(u) > ND_id(v)) {
+    if (ND_id(u) > ND_id(v)) {
 UNSUPPORTED("2igr3ntnkm6svji4pbnjlp54e"); // 	ND_UF_parent(u) = v;
 UNSUPPORTED("3lht90i6tvxbr10meir8nvcic"); // 	ND_UF_size(v) += ND_UF_size(u);
-UNSUPPORTED("c07up7zvrnu2vhzy6d7zcu94g"); //     } else {
-UNSUPPORTED("cowa2w5gg25tk4vcs8648m7cs"); // 	ND_UF_parent(v) = u;
-UNSUPPORTED("9n526ssfp6ocdshks2w7d4man"); // 	ND_UF_size(u) += ND_UF_size(v);
-UNSUPPORTED("f0xw5fw21hwmgvqxh4tv2rodh"); // 	v = u;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("dpci52ct1zm8k1aasm170ru2j"); //     return v;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+    } else {
+	ND_UF_parent(v, u);
+	ND_UF_size(u, ND_UF_size(u) + ND_UF_size(v));
+	v = u;
+    }
+    return v;
+} finally {
+LEAVING("9ldxwfr4vvijrvfcvs1hvdzrt","UF_union");
+}
 }
 
 
@@ -1005,15 +1008,15 @@ throw new UnsupportedOperationException();
 
 //3 22k0u1imxyw06k9rizqlfz153
 // void UF_singleton(node_t * u) 
-public static Object UF_singleton(Object... arg) {
-UNSUPPORTED("7dn2yfew9zvzq3r78a5mccmyp"); // void UF_singleton(node_t * u)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("47gjsa1ooa58mvj7qrcrowlb2"); //     ND_UF_size(u) = 1;
-UNSUPPORTED("c0d3gid0qcymy6jm9ie8b1qsv"); //     ND_UF_parent(u) = (void *)0;
-UNSUPPORTED("5u6uwvpbagyo2sqnq8hsb9j4p"); //     ND_ranktype(u) = 0;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static void UF_singleton(Agnode_s u) {
+ENTERING("22k0u1imxyw06k9rizqlfz153","UF_singleton");
+try {
+    ND_UF_size(u, 1);
+    ND_UF_parent(u, null);
+    ND_ranktype(u, 0);
+} finally {
+LEAVING("22k0u1imxyw06k9rizqlfz153","UF_singleton");
+}
 }
 
 
@@ -1021,15 +1024,15 @@ throw new UnsupportedOperationException();
 
 //3 e0fn8xuzkdt0q8xoofl6j1txb
 // void UF_setname(node_t * u, node_t * v) 
-public static Object UF_setname(Object... arg) {
-UNSUPPORTED("arw2ft1w1vdp9u7f7l78kdhr9"); // void UF_setname(node_t * u, node_t * v)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("csbmpo9uzrgc85lf62j24zq9p"); //     assert(u == UF_find(u));
-UNSUPPORTED("2gc0stgj5x6c0vm30qo2qs04a"); //     ND_UF_parent(u) = v;
-UNSUPPORTED("cik9i4trrfvts7bu3hn1q09y3"); //     ND_UF_size(v) += ND_UF_size(u);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static void UF_setname(Agnode_s u, Agnode_s v) {
+ENTERING("e0fn8xuzkdt0q8xoofl6j1txb","UF_setname");
+try {
+    assert(EQ(u, UF_find(u)));
+    ND_UF_parent(u, v);
+    ND_UF_size(v, ND_UF_size(v) + ND_UF_size(u));
+} finally {
+LEAVING("e0fn8xuzkdt0q8xoofl6j1txb","UF_setname");
+}
 }
 
 

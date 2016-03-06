@@ -392,13 +392,13 @@ LEAVING("85bb9mezhsgtzar3kqz95mq1","initnode");
 
 //3 1m6sl9df2yaolmufyq5i577a3
 // Agnode_t *agidnode(Agraph_t * g, unsigned long id, int cflag) 
-public static Object agidnode(Object... arg) {
-UNSUPPORTED("4lg2wjaed3s4gcs53s9y57s3x"); // Agnode_t *agidnode(Agraph_t * g, unsigned long id, int cflag)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("2hs0004nnparj6tt7elslt4zj"); //     Agraph_t *root;
-UNSUPPORTED("2jcii9cclu1dijzqekzc175pe"); //     Agnode_t *n;
-UNSUPPORTED("cmwt1fdgg01i906sh0o2n4rdu"); //     n = agfindnode_by_id(g, id);
-UNSUPPORTED("e7alf2a1ssqlo3kfo6xgq62mk"); //     if ((n == ((Agnode_t*)0)) && cflag) {
+public static Agnode_s agidnode(Agraph_s g, int id, int cflag) {
+ENTERING("1m6sl9df2yaolmufyq5i577a3","agidnode");
+try {
+    Agraph_s root;
+    Agnode_s n;
+    n = agfindnode_by_id(g, id);
+    if ((n == null) && cflag!=0) {
 UNSUPPORTED("7zol2448bccu90sqoxkvnbuif"); // 	root = agroot(g);
 UNSUPPORTED("1zcb29h7sxm7axw8qeuz9f38w"); // 	if ((g != root) && ((n = agfindnode_by_id(root, id))))	/*old */
 UNSUPPORTED("9fusma9293koujpr79eyfhxn6"); // 	    agsubnode(g, n, (!(0)));	/* insert locally */
@@ -410,12 +410,12 @@ UNSUPPORTED("45uf6o7ubd9hy5s65g0f0bbgj"); // 		initnode(g, n);
 UNSUPPORTED("afk9bpom7x393euamnvwwkx6b"); // 	    } else
 UNSUPPORTED("5l8briolxhuic5avv0112aj90"); // 		n = ((Agnode_t*)0);	/* allocid for new node failed */
 UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("anuueaw6wchvxd8sru4i0mvnw"); //     /* else return probe result */
-UNSUPPORTED("69hc24ic55i66g8tf2ne42327"); //     return n;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+    }
+    /* else return probe result */
+    return n;
+} finally {
+LEAVING("1m6sl9df2yaolmufyq5i577a3","agidnode");
+}
 }
 
 

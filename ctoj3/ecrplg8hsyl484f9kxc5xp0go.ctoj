@@ -1,0 +1,28 @@
+public static void expand_cluster(Agraph_s subg) {
+    /* build internal structure of the cluster */
+    class2(subg);
+    GD_comp(subg).setInt("size", 1);
+    GD_comp(subg).getArrayOfPtr("list").plus(0).setPtr(GD_nlist(subg));
+    allocate_ranks(subg);
+    build_ranks(subg, 0);
+    merge_ranks(subg);
+    /* build external structure of the cluster */
+    interclexp(subg);
+    remove_rankleaders(subg);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void expand_cluster(graph_t * subg)
+{
+    /* build internal structure of the cluster */
+    class2(subg);
+    GD_comp(subg).size = 1;
+    GD_comp(subg).list[0] = GD_nlist(subg);
+    allocate_ranks(subg);
+    build_ranks(subg, 0);
+    merge_ranks(subg);
+    /* build external structure of the cluster */
+    interclexp(subg);
+    remove_rankleaders(subg);
+}
+

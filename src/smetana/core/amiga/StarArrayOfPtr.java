@@ -170,6 +170,10 @@ public class StarArrayOfPtr extends UnsupportedC implements Area, AllH {
 	}
 
 
+	public __ptr__ castTo(Class dest) {
+		return ((__ptr__) array.getInternal(0)).castTo(dest);
+	}
+
 
 	public double getDouble(String fieldName) {
 		final Area tmp1 = array.getInternal(0);

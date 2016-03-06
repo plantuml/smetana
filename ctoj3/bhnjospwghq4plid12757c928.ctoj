@@ -1,0 +1,267 @@
+public static void make_flat_adj_edges(Agraph_s g, path P, __ptr__ edges, int ind, int cnt, Agedge_s e0, int et) {
+    Agnode_s n;
+    Agnode_s tn, hn;
+    Agedge_s e;
+    int labels = 0, ports = 0;
+    Agraph_s auxg;
+    Agraph_s subg;
+    Agnode_s auxt, auxh;
+    Agedge_s auxe;
+    int     i, j, midx, midy, leftx, rightx;
+    final __struct__<pointf> del = __struct__.from(pointf.class);
+    Agedge_s hvye = null;
+    attr_state_t attrs;
+    tn = agtail(e0); hn = aghead(e0);
+    for (i = 0; i < cnt; i++) {
+	e = (Agedge_s) edges.plus(ind + i).getPtr();
+	if (ED_label(e)!=null) labels++;
+	if (ED_tail_port(e).getBoolean("defined") || ED_head_port(e).getBoolean("defined")) ports = 1;
+    }
+    if (ports == 0) {
+	/* flat edges without ports and labels can go straight left to right */
+	if (labels == 0) {
+	    makeSimpleFlat (tn, hn, edges, ind, cnt, et);
+	}
+	/* flat edges without ports but with labels take more work */
+	else {
+	    makeSimpleFlatLabels (tn, hn, edges, ind, cnt, et, labels);
+	}
+	return;
+    }
+UNSUPPORTED("3ua0mgcwxnpymnpiv77owaur2"); //     attrs = (attr_state_t*)zmalloc(sizeof(attr_state_t));
+UNSUPPORTED("5qcpchn65culafc5t2ibioksb"); //     auxg = cloneGraph (g, attrs);
+UNSUPPORTED("cwolismpef6l1w4xj5etx8w09"); //     subg = agsubg (auxg, "xxx",1);
+UNSUPPORTED("eocu0fte9egz381w3t8y5m64t"); //     agbindrec(subg, "Agraphinfo_t", sizeof(Agraphinfo_t), NOT(0));
+UNSUPPORTED("er19m8huvnjjn1v6rreiisdf6"); //     agset (subg, "rank", "source");
+UNSUPPORTED("du7zwfglureqnv5g2wiammuuu"); //     rightx = ND_coord(hn).x;
+UNSUPPORTED("5qa24lmumrg29fbtl0fo4d4z1"); //     leftx = ND_coord(tn).x;
+UNSUPPORTED("b2x6j7m1cmmkcmdl5jo9wn0ap"); //     if (GD_flip(g)) {
+UNSUPPORTED("2elvc001uux0vbe7sv4098e0c"); //         node_t* n;
+UNSUPPORTED("6m8k99c09zmhwgcdsgo33dugz"); //         n = tn;
+UNSUPPORTED("cenlfgoeymhe1am5z6632xniq"); //         tn = hn;
+UNSUPPORTED("cp2gf6c1xawd2yjbqerw98we3"); //         hn = n;
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("1e98fnf9lsk7hwgjt70gh5r55"); //     auxt = cloneNode(subg, tn, GD_flip(g)); 
+UNSUPPORTED("a4xa8i1nw83hhnknv84280z00"); //     auxh = cloneNode(auxg, hn, GD_flip(g)); 
+UNSUPPORTED("1psokm6w9e7qw7fm2g1cayuk7"); //     for (i = 0; i < cnt; i++) {
+UNSUPPORTED("8hwholxjp08y4q0zbb561684q"); // 	e = edges[ind + i];
+UNSUPPORTED("b3w40fpgfj0j66yi6j582thq2"); // 	for (; ED_edge_type(e) != 0; e = ED_to_orig(e));
+UNSUPPORTED("bcu59ji1apn0rvv7aisl6e4pw"); // 	if (agtail(e) == tn)
+UNSUPPORTED("4o3mq2ztiyxlbkpgcyygj4lny"); // 	    auxe = cloneEdge (auxg, auxt, auxh, e);
+UNSUPPORTED("9352ql3e58qs4fzapgjfrms2s"); // 	else
+UNSUPPORTED("3a7m578mxun4c8zv0jurzh7ox"); // 	    auxe = cloneEdge (auxg, auxh, auxt, e);
+UNSUPPORTED("e6khamu7fhu5m7il9r2v06mui"); // 	ED_alg(e) = auxe;
+UNSUPPORTED("64u9xrw8iwy3mtuupoktw7xoz"); // 	if (!hvye && !ED_tail_port(e).defined && !ED_head_port(e).defined) {
+UNSUPPORTED("6t23nfzzldtl419g582pr0wjn"); // 	    hvye = auxe;
+UNSUPPORTED("3fi2uxwkmau5664gnhzyosan5"); // 	    ED_alg(hvye) = e;
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("co4n3cv6ybhgvm341r3re61vu"); //     if (!hvye) {
+UNSUPPORTED("a0sxhnruv0ip65j05wt7dciak"); // 	hvye = agedge (auxg, auxt, auxh,NULL,1);
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("26l323zwxztuc6sfnh36x7i9f"); //     agxset (hvye, E_weight, "10000");
+UNSUPPORTED("4pj2d4pwf7wi9fcu4v0byk83z"); //     GD_gvc(auxg) = GD_gvc(g);
+UNSUPPORTED("b6dpjp9wgjzgoy0tq7b9kms74"); //     GD_dotroot(auxg) = auxg;
+UNSUPPORTED("e08t9bx8ldb1d5e0582wg82sx"); //     setEdgeType (auxg, et);
+UNSUPPORTED("8y4433lgybq35f4t7viqsvz5v"); //     dot_init_node_edge(auxg);
+UNSUPPORTED("13c2nt4jwumpvtwudz38a4sb3"); //     dot_rank(auxg, 0);
+UNSUPPORTED("6onnznyz9fof6r8we5z1e4r63"); //     dot_mincross(auxg, 0);
+UNSUPPORTED("4ry85qx5xmahkm0mdv9s65azo"); //     dot_position(auxg, 0);
+UNSUPPORTED("9921qakdgil2jvrvinke44xsz"); //     /* reposition */
+UNSUPPORTED("ang8wy78872hvqkzvgfjwqwfl"); //     midx = (ND_coord(tn).x - ND_rw(tn) + ND_coord(hn).x + ND_lw(hn))/2;
+UNSUPPORTED("2r2ywte92l423tbcdfvbhz3zh"); //     midy = (ND_coord(auxt).x + ND_coord(auxh).x)/2;
+UNSUPPORTED("b8juh1dggb6sz4d9df42i150k"); //     for (n = GD_nlist(auxg); n; n = ND_next(n)) {
+UNSUPPORTED("4prtyy13ox1fif8vil3g86g87"); // 	if (n == auxt) {
+UNSUPPORTED("7gvpia4yo3bfvh5dl7uwr3dbe"); // 	    ND_coord(n).y = rightx;
+UNSUPPORTED("2zsspnn0nfrdf9fx8sh3ld8j4"); // 	    ND_coord(n).x = midy;
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("ba2aaoh9ujy4ww9luial39sya"); // 	else if (n == auxh) {
+UNSUPPORTED("aoy1ze6hhjuym44mkasdt19qp"); // 	    ND_coord(n).y = leftx;
+UNSUPPORTED("2zsspnn0nfrdf9fx8sh3ld8j4"); // 	    ND_coord(n).x = midy;
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("80o8q2qh1hr671ladbyqzglnt"); // 	else ND_coord(n).y = midx;
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("48hn94qz2y2kb6lqc3462vlco"); //     dot_sameports(auxg);
+UNSUPPORTED("bglhuc9grqkk9ozb97oeh0m3b"); //     _dot_splines(auxg, 0);
+UNSUPPORTED("euvfot8f7xxnibd223qgsylew"); //     dotneato_postprocess(auxg);
+UNSUPPORTED("4mg60pszj0s1anwg8zp0tq0ra"); //        /* copy splines */
+UNSUPPORTED("b2x6j7m1cmmkcmdl5jo9wn0ap"); //     if (GD_flip(g)) {
+UNSUPPORTED("baukf0b2l91bkgnfdc04rvuxe"); // 	del.x = ND_coord(tn).x - ND_coord(auxt).y;
+UNSUPPORTED("96sq686mw9bvj7dli7wb241au"); // 	del.y = ND_coord(tn).y + ND_coord(auxt).x;
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("1nyzbeonram6636b1w955bypn"); //     else {
+UNSUPPORTED("bxg8i1hqms0izrryxh2at6p7b"); // 	del.x = ND_coord(tn).x - ND_coord(auxt).x;
+UNSUPPORTED("3xqgvdcxmu8e4eqtnhaa256tk"); // 	del.y = ND_coord(tn).y - ND_coord(auxt).y;
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("1psokm6w9e7qw7fm2g1cayuk7"); //     for (i = 0; i < cnt; i++) {
+UNSUPPORTED("47ogn0fae1yuy3kefpawcgcmx"); // 	bezier* auxbz;
+UNSUPPORTED("4mujfxtr0wy7m1rbm57rwigo4"); // 	bezier* bz;
+UNSUPPORTED("8hwholxjp08y4q0zbb561684q"); // 	e = edges[ind + i];
+UNSUPPORTED("b3w40fpgfj0j66yi6j582thq2"); // 	for (; ED_edge_type(e) != 0; e = ED_to_orig(e));
+UNSUPPORTED("3ii7nnxg3x8jpdk6lcijbizvf"); // 	auxe = (edge_t*)ED_alg(e);
+UNSUPPORTED("5rc7uvn4xqfetekcci1uwri5v"); // 	if ((auxe == hvye) & !ED_alg(auxe)) continue; /* pseudo-edge */
+UNSUPPORTED("52vy3jbu67nebznqkhxxqthih"); // 	auxbz = ED_spl(auxe)->list;
+UNSUPPORTED("azr1tv8blnu3i6b7wstpqv2tc"); // 	bz = new_spline(e, auxbz->size);
+UNSUPPORTED("df84ie4egl6l1i82tz1zp7hg"); // 	bz->sflag = auxbz->sflag;
+UNSUPPORTED("49bzonc32mbuchcsmw7csexdw"); // 	bz->sp = transformf(auxbz->sp, del, GD_flip(g));
+UNSUPPORTED("9g1glpjjy5wmh7dyr6u0nb2cn"); // 	bz->eflag = auxbz->eflag;
+UNSUPPORTED("44tftrsdjjuh1qjmxjpysmee3"); // 	bz->ep = transformf(auxbz->ep, del, GD_flip(g));
+UNSUPPORTED("w0xl6ghxoii2ze2xmbbunv4d"); // 	for (j = 0; j <  auxbz->size; ) {
+UNSUPPORTED("22zm6ljvhpz7j2kiqee31nx61"); // 	    pointf cp[4];
+UNSUPPORTED("4c88sva3ojadip5w3ehu782tp"); // 	    cp[0] = bz->list[j] = transformf(auxbz->list[j], del, GD_flip(g));
+UNSUPPORTED("5jqtd9htl25cd3if3pjtl8dpo"); // 	    j++;
+UNSUPPORTED("duk541biqshfomah8rlxeyigr"); // 	    if ( j >= auxbz->size ) 
+UNSUPPORTED("9ekmvj13iaml5ndszqyxa8eq"); // 		break;
+UNSUPPORTED("2qrbm7mhicvoxzk91h9x3gq64"); // 	    cp[1] = bz->list[j] = transformf(auxbz->list[j], del, GD_flip(g));
+UNSUPPORTED("5jqtd9htl25cd3if3pjtl8dpo"); // 	    j++;
+UNSUPPORTED("f4x9unnnofgnvy91ejtm90kw"); // 	    cp[2] = bz->list[j] = transformf(auxbz->list[j], del, GD_flip(g));
+UNSUPPORTED("5jqtd9htl25cd3if3pjtl8dpo"); // 	    j++;
+UNSUPPORTED("6pldfj31dg88qzsa012v8auxn"); // 	    cp[3] = transformf(auxbz->list[j], del, GD_flip(g));
+UNSUPPORTED("2xvehdctlpogpd7xhdf1pku00"); // 	    update_bb_bz(&GD_bb(g), cp);
+UNSUPPORTED("4mhlpjofolwivhm0tl8cxznly"); //         }
+UNSUPPORTED("8bokoh0vcnmvjcahn7de1z0kd"); // 	if (ED_label(e)) {
+UNSUPPORTED("8ido4wfhvlqvczqfq5xz33kak"); // 	    ED_label(e)->pos = transformf(ED_label(auxe)->pos, del, GD_flip(g));
+UNSUPPORTED("3tkba5lhpnujfu8lcz8lewsyn"); // 	    ED_label(e)->set = NOT(0);
+UNSUPPORTED("c62p0r1jj71ceakgzrv2gorvu"); // 	    updateBB(g, ED_label(e));
+UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+UNSUPPORTED("22prbnbyxmapn1fcer1sktez7"); //     cleanupCloneGraph (auxg, attrs);
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void
+make_flat_adj_edges(graph_t* g, path* P, edge_t** edges, int ind, int cnt, edge_t* e0,
+                    int et)
+{
+    node_t* n;
+    node_t *tn, *hn;
+    edge_t* e;
+    int labels = 0, ports = 0;
+    graph_t* auxg;
+    graph_t* subg;
+    node_t *auxt, *auxh;
+    edge_t* auxe;
+    int     i, j, midx, midy, leftx, rightx;
+    pointf   del;
+    edge_t* hvye = NULL;
+    attr_state_t* attrs;
+    tn = agtail(e0), hn = aghead(e0);
+    for (i = 0; i < cnt; i++) {
+	e = edges[ind + i];
+	if (ED_label(e)) labels++;
+	if (ED_tail_port(e).defined || ED_head_port(e).defined) ports = 1;
+    }
+    if (ports == 0) {
+	/* flat edges without ports and labels can go straight left to right */
+	if (labels == 0) {
+	    makeSimpleFlat (tn, hn, edges, ind, cnt, et);
+	}
+	/* flat edges without ports but with labels take more work */
+	else {
+	    makeSimpleFlatLabels (tn, hn, edges, ind, cnt, et, labels);
+	}
+	return;
+    }
+    attrs = (attr_state_t*)zmalloc(sizeof(attr_state_t));
+    auxg = cloneGraph (g, attrs);
+    subg = agsubg (auxg, "xxx",1);
+    agbindrec(subg, "Agraphinfo_t", sizeof(Agraphinfo_t), NOT(0));
+    agset (subg, "rank", "source");
+    rightx = ND_coord(hn).x;
+    leftx = ND_coord(tn).x;
+    if (GD_flip(g)) {
+        node_t* n;
+        n = tn;
+        tn = hn;
+        hn = n;
+    }
+    auxt = cloneNode(subg, tn, GD_flip(g)); 
+    auxh = cloneNode(auxg, hn, GD_flip(g)); 
+    for (i = 0; i < cnt; i++) {
+	e = edges[ind + i];
+	for (; ED_edge_type(e) != 0; e = ED_to_orig(e));
+	if (agtail(e) == tn)
+	    auxe = cloneEdge (auxg, auxt, auxh, e);
+	else
+	    auxe = cloneEdge (auxg, auxh, auxt, e);
+	ED_alg(e) = auxe;
+	if (!hvye && !ED_tail_port(e).defined && !ED_head_port(e).defined) {
+	    hvye = auxe;
+	    ED_alg(hvye) = e;
+	}
+    }
+    if (!hvye) {
+	hvye = agedge (auxg, auxt, auxh,NULL,1);
+    }
+    agxset (hvye, E_weight, "10000");
+    GD_gvc(auxg) = GD_gvc(g);
+    GD_dotroot(auxg) = auxg;
+    setEdgeType (auxg, et);
+    dot_init_node_edge(auxg);
+    dot_rank(auxg, 0);
+    dot_mincross(auxg, 0);
+    dot_position(auxg, 0);
+    /* reposition */
+    midx = (ND_coord(tn).x - ND_rw(tn) + ND_coord(hn).x + ND_lw(hn))/2;
+    midy = (ND_coord(auxt).x + ND_coord(auxh).x)/2;
+    for (n = GD_nlist(auxg); n; n = ND_next(n)) {
+	if (n == auxt) {
+	    ND_coord(n).y = rightx;
+	    ND_coord(n).x = midy;
+	}
+	else if (n == auxh) {
+	    ND_coord(n).y = leftx;
+	    ND_coord(n).x = midy;
+	}
+	else ND_coord(n).y = midx;
+    }
+    dot_sameports(auxg);
+    _dot_splines(auxg, 0);
+    dotneato_postprocess(auxg);
+       /* copy splines */
+    if (GD_flip(g)) {
+	del.x = ND_coord(tn).x - ND_coord(auxt).y;
+	del.y = ND_coord(tn).y + ND_coord(auxt).x;
+    }
+    else {
+	del.x = ND_coord(tn).x - ND_coord(auxt).x;
+	del.y = ND_coord(tn).y - ND_coord(auxt).y;
+    }
+    for (i = 0; i < cnt; i++) {
+	bezier* auxbz;
+	bezier* bz;
+	e = edges[ind + i];
+	for (; ED_edge_type(e) != 0; e = ED_to_orig(e));
+	auxe = (edge_t*)ED_alg(e);
+	if ((auxe == hvye) & !ED_alg(auxe)) continue; /* pseudo-edge */
+	auxbz = ED_spl(auxe)->list;
+	bz = new_spline(e, auxbz->size);
+	bz->sflag = auxbz->sflag;
+	bz->sp = transformf(auxbz->sp, del, GD_flip(g));
+	bz->eflag = auxbz->eflag;
+	bz->ep = transformf(auxbz->ep, del, GD_flip(g));
+	for (j = 0; j <  auxbz->size; ) {
+	    pointf cp[4];
+	    cp[0] = bz->list[j] = transformf(auxbz->list[j], del, GD_flip(g));
+	    j++;
+	    if ( j >= auxbz->size ) 
+		break;
+	    cp[1] = bz->list[j] = transformf(auxbz->list[j], del, GD_flip(g));
+	    j++;
+	    cp[2] = bz->list[j] = transformf(auxbz->list[j], del, GD_flip(g));
+	    j++;
+	    cp[3] = transformf(auxbz->list[j], del, GD_flip(g));
+	    update_bb_bz(&GD_bb(g), cp);
+        }
+	if (ED_label(e)) {
+	    ED_label(e)->pos = transformf(ED_label(auxe)->pos, del, GD_flip(g));
+	    ED_label(e)->set = NOT(0);
+	    updateBB(g, ED_label(e));
+	}
+    }
+    cleanupCloneGraph (auxg, attrs);
+}
+

@@ -61,15 +61,18 @@ public class Memory {
 	}
 
 	public static int identityHashCode(Object data) {
-		int result = System.identityHashCode(data);
+		int result = 2 * System.identityHashCode(data);
 		Z._().all.put(result, data);
 		// System.err.println("Memory::identityHashCode data=" + data);
-		// System.err.println("Memory::identityHashCode " + result + " " + all.size());
+		// System.err.println("Memory::identityHashCode result=" + result + " " + Z._().all.size());
 		return result;
 	}
 
 	public static Object fromIdentityHashCode(int hash) {
 		// System.err.println("Memory::fromIdentityHashCode hash=" + hash);
+		if (hash % 2 != 0) {
+			throw new IllegalArgumentException();
+		}
 		Object result = Z._().all.get(hash);
 		// System.err.println("Memory::fromIdentityHashCode result=" + result);
 		if (result == null) {

@@ -39,28 +39,71 @@
  *
  */
 package gen.lib.dotgen;
+import static gen.lib.cgraph.edge__c.agfstedge;
 import static gen.lib.cgraph.edge__c.agfstout;
 import static gen.lib.cgraph.edge__c.aghead;
+import static gen.lib.cgraph.edge__c.agnxtedge;
 import static gen.lib.cgraph.edge__c.agnxtout;
+import static gen.lib.cgraph.edge__c.agtail;
 import static gen.lib.cgraph.node__c.agfstnode;
 import static gen.lib.cgraph.node__c.agnxtnode;
+import static gen.lib.cgraph.obj__c.agcontains;
+import static gen.lib.cgraph.obj__c.agroot;
+import static gen.lib.common.memory__c.zmalloc;
+import static gen.lib.common.utils__c.UF_setname;
+import static gen.lib.common.utils__c.UF_singleton;
+import static gen.lib.dotgen.class2__c.class2;
+import static gen.lib.dotgen.class2__c.mergeable;
+import static gen.lib.dotgen.dotinit__c.dot_root;
+import static gen.lib.dotgen.fastgr__c.delete_fast_edge;
+import static gen.lib.dotgen.fastgr__c.delete_fast_node;
+import static gen.lib.dotgen.fastgr__c.fast_node;
+import static gen.lib.dotgen.fastgr__c.find_fast_edge;
+import static gen.lib.dotgen.fastgr__c.virtual_edge;
+import static gen.lib.dotgen.fastgr__c.virtual_node;
+import static gen.lib.dotgen.mincross__c.allocate_ranks;
+import static gen.lib.dotgen.mincross__c.build_ranks;
+import static gen.lib.dotgen.mincross__c.enqueue_neighbors;
+import static gen.lib.dotgen.mincross__c.install_in_rank;
+import static gen.lib.dotgen.position__c.ports_eq;
+import static smetana.core.JUtils.EQ;
+import static smetana.core.JUtils.sizeof_starstar_empty;
 import static smetana.core.JUtilsDebug.ENTERING;
 import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.AGMKOUT;
+import static smetana.core.Macro.ED_count;
+import static smetana.core.Macro.ED_edge_type;
 import static smetana.core.Macro.ED_to_virt;
+import static smetana.core.Macro.ED_xpenalty;
 import static smetana.core.Macro.GD_clust;
+import static smetana.core.Macro.GD_comp;
+import static smetana.core.Macro.GD_expanded;
+import static smetana.core.Macro.GD_installed;
+import static smetana.core.Macro.GD_leader;
+import static smetana.core.Macro.GD_maxrank;
+import static smetana.core.Macro.GD_minrank;
 import static smetana.core.Macro.GD_n_cluster;
+import static smetana.core.Macro.GD_n_nodes;
+import static smetana.core.Macro.GD_nlist;
+import static smetana.core.Macro.GD_rank;
+import static smetana.core.Macro.GD_rankleader;
+import static smetana.core.Macro.ND_UF_size;
 import static smetana.core.Macro.ND_clust;
+import static smetana.core.Macro.ND_in;
 import static smetana.core.Macro.ND_node_type;
+import static smetana.core.Macro.ND_order;
 import static smetana.core.Macro.ND_out;
+import static smetana.core.Macro.ND_rank;
 import static smetana.core.Macro.ND_ranktype;
+import static smetana.core.Macro.NOT;
 import static smetana.core.Macro.UNSUPPORTED;
 import h.Agedge_s;
 import h.Agnode_s;
-import h.Agobj_s;
 import h.Agraph_s;
-import h.Agraphinfo_t;
 import h.boxf;
+import h.nodequeue;
 import h.pointf;
+import smetana.core.__ptr__;
 import smetana.core.__struct__;
 
 public class cluster__c {
@@ -705,19 +748,18 @@ throw new UnsupportedOperationException();
 
 //3 8bd317q0mykfu6wpr3e4cxmh2
 // static node_t* map_interclust_node(node_t * n) 
-public static Object map_interclust_node(Object... arg) {
-UNSUPPORTED("b9dd3satxbh59hljdxzcxecc"); // static node_t*
-UNSUPPORTED("c9elz74ksl4vz5qjvtsb1s5e"); // map_interclust_node(node_t * n)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("4302bhte4qzbdabx61n5e2rim"); //     node_t *rv;
-UNSUPPORTED("6oahlbbnqi8owe6dxxhrtjz0r"); //     if ((ND_clust(n) == NULL) || (  GD_expanded(ND_clust(n))) )
-UNSUPPORTED("b9ebidcvs6sci0jn0jt6g952w"); // 	rv = n;
-UNSUPPORTED("div10atae09n36x269sl208r1"); //     else
-UNSUPPORTED("725asxjnihmx9ak4biqsn5au9"); // 	rv = GD_rankleader(ND_clust(n))[ND_rank(n)];
-UNSUPPORTED("v7vqc9l7ge2bfdwnw11z7rzi"); //     return rv;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static Agnode_s map_interclust_node(Agnode_s n) {
+ENTERING("8bd317q0mykfu6wpr3e4cxmh2","map_interclust_node");
+try {
+    Agnode_s rv;
+    if ((ND_clust(n) == null) || (  GD_expanded(ND_clust(n))) )
+	rv = n;
+    else
+	rv = (Agnode_s) GD_rankleader(ND_clust(n)).plus(ND_rank(n)).getPtr();
+    return rv;
+} finally {
+LEAVING("8bd317q0mykfu6wpr3e4cxmh2","map_interclust_node");
+}
 }
 
 
@@ -725,14 +767,14 @@ throw new UnsupportedOperationException();
 
 //3 5ib4nnt2ah5fdd22zs0xds29r
 // static void  make_slots(graph_t * root, int r, int pos, int d) 
-public static Object make_slots(Object... arg) {
-UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
-UNSUPPORTED("dse5mknojwwieag50nb54af2"); // make_slots(graph_t * root, int r, int pos, int d)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("b17di9c7wgtqm51bvsyxz6e2f"); //     int i;
-UNSUPPORTED("ebrvvj6vkj6zj5oarcz1o14bc"); //     node_t *v, **vlist;
-UNSUPPORTED("6za61n9cpedeb3rcs57d8lv29"); //     vlist = GD_rank(root)[r].v;
-UNSUPPORTED("6rffs9egg2lli9120emdwdh85"); //     if (d <= 0) {
+public static void make_slots(Agraph_s root, int r, int pos, int d) {
+ENTERING("5ib4nnt2ah5fdd22zs0xds29r","make_slots");
+try {
+    int i;
+    Agnode_s v;
+    __ptr__ vlist;
+    vlist = GD_rank(root).plus(r).getPtr().getArrayOfPtr("v").asPtr();
+    if (d <= 0) {
 UNSUPPORTED("4j1uy4i8jmj8ky4pnhqdp3hu"); // 	for (i = pos - d + 1; i < GD_rank(root)[r].n; i++) {
 UNSUPPORTED("c2bblbvuyzu278hg73e0v9ias"); // 	    v = vlist[i];
 UNSUPPORTED("8z4668r4wjhdszu5exo9uv4bx"); // 	    ND_order(v) = i + d - 1;
@@ -740,20 +782,20 @@ UNSUPPORTED("68gyj82gqshz5j6cagzfm6qow"); // 	    vlist[ND_order(v)] = v;
 UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
 UNSUPPORTED("1w3sxuwhqr49qyynhkxqh9m68"); // 	for (i = GD_rank(root)[r].n + d - 1; i < GD_rank(root)[r].n; i++)
 UNSUPPORTED("9vbx5od7t2kzw09v2mfyihu61"); // 	    vlist[i] = NULL;
-UNSUPPORTED("c07up7zvrnu2vhzy6d7zcu94g"); //     } else {
-UNSUPPORTED("3x0o6lb6lygb5kged7d95z3zf"); // /*assert(ND_rank(root)[r].n + d - 1 <= ND_rank(root)[r].an);*/
-UNSUPPORTED("5a7v9mm4ilyci9e3p2a2xk1kp"); // 	for (i = GD_rank(root)[r].n - 1; i > pos; i--) {
-UNSUPPORTED("c2bblbvuyzu278hg73e0v9ias"); // 	    v = vlist[i];
-UNSUPPORTED("8z4668r4wjhdszu5exo9uv4bx"); // 	    ND_order(v) = i + d - 1;
-UNSUPPORTED("68gyj82gqshz5j6cagzfm6qow"); // 	    vlist[ND_order(v)] = v;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("espci28tl0ev3b5z093f4xp5i"); // 	for (i = pos + 1; i < pos + d; i++)
-UNSUPPORTED("9vbx5od7t2kzw09v2mfyihu61"); // 	    vlist[i] = NULL;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("1b53yvi9ni0s6rneuasppbjgl"); //     GD_rank(root)[r].n += d - 1;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+    } else {
+/*assert(ND_rank(root)[r].n + d - 1 <= ND_rank(root)[r].an);*/
+	for (i = GD_rank(root).plus(r).getPtr().getInt("n") - 1; i > pos; i--) {
+	    v = (Agnode_s) vlist.plus(i).getPtr();
+	    ND_order(v, i + d - 1);
+	    vlist.plus(ND_order(v)).setPtr(v);
+	}
+	for (i = pos + 1; i < pos + d; i++)
+	    vlist.plus(i).setPtr(null);
+    }
+    GD_rank(root).plus(r).getPtr().setInt("n", GD_rank(root).plus(r).getPtr().getInt("n") + d - 1);
+} finally {
+LEAVING("5ib4nnt2ah5fdd22zs0xds29r","make_slots");
+}
 }
 
 
@@ -786,17 +828,16 @@ throw new UnsupportedOperationException();
 
 //3 6o86r59v2ujlxqcw7761y6o5b
 // static void  map_path(node_t * from, node_t * to, edge_t * orig, edge_t * ve, int type) 
-public static Object map_path(Object... arg) {
-UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
-UNSUPPORTED("6rfj1n9bqywbyr91hjf701jc4"); // map_path(node_t * from, node_t * to, edge_t * orig, edge_t * ve, int type)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("p6jnh7nvcpnl3zbz636pskbs"); //     int r;
-UNSUPPORTED("5yrhx4blosxo5xnc1nh1kzhfs"); //     node_t *u, *v;
-UNSUPPORTED("5gypxs09iuryx5a2eho9lgdcp"); //     edge_t *e;
-UNSUPPORTED("aqnqskxwazx5uf38wjkwl25xe"); //     assert(ND_rank(from) < ND_rank(to));
-UNSUPPORTED("etl7gohr4vcqj10zhnggsc9p3"); //     if ((agtail(ve) == from) && (aghead(ve) == to))
-UNSUPPORTED("a7fgam0j0jm7bar0mblsv3no4"); // 	return;
-UNSUPPORTED("dxggiu6cw3ahqtgyogx9cbeui"); //     if (ED_count(ve) > 1) {
+public static void map_path(Agnode_s from, Agnode_s to, Agedge_s orig, Agedge_s ve, int type) {
+ENTERING("6o86r59v2ujlxqcw7761y6o5b","map_path");
+try {
+    int r;
+    Agnode_s u, v;
+    Agedge_s e;
+    assert(ND_rank(from) < ND_rank(to));
+    if (EQ(agtail(ve), from) && EQ(aghead(ve), to))
+	return;
+    if (ED_count(ve) > 1) {
 UNSUPPORTED("amzisjlzyd7kcnykhwm3emzsw"); // 	ED_to_virt(orig) = NULL;
 UNSUPPORTED("3usjzgkkiqzrkacya4l5x1wwv"); // 	if (ND_rank(to) - ND_rank(from) == 1) {
 UNSUPPORTED("7rikcljs70u4mv2pl0nxrkozq"); // 	    if ((e = find_fast_edge(from, to)) && (ports_eq(orig, e))) {
@@ -819,23 +860,23 @@ UNSUPPORTED("7lybui6nu0sgimvycjyy3685h"); // 	    u = v;
 UNSUPPORTED("6jjh353s9hrfwqh6yru1b875w"); // 	    ED_count(ve)--;
 UNSUPPORTED("5evemf4tm2qpxh7ii2pzs3ba8"); // 	    ve = ND_out(aghead(ve)).list[0];
 UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("c07up7zvrnu2vhzy6d7zcu94g"); //     } else {
-UNSUPPORTED("3usjzgkkiqzrkacya4l5x1wwv"); // 	if (ND_rank(to) - ND_rank(from) == 1) {
-UNSUPPORTED("89xtdt8atqaubsc33ijpumhxl"); // 	    if ((ve = find_fast_edge(from, to)) && (ports_eq(orig, ve))) {
-UNSUPPORTED("apnwi8n66mi1x31jb54puo76j"); // 		/*ED_to_orig(ve) = orig; */
+    } else {
+	if (ND_rank(to) - ND_rank(from) == 1) {
+	    if ((ve = find_fast_edge(from, to))!=null && (ports_eq(orig, ve))) {
+		/*ED_to_orig(ve) = orig; */
 UNSUPPORTED("5p2khszrc6g7ru07ssw0mqrdj"); // 		ED_to_virt(orig) = ve;
 UNSUPPORTED("2s25e03vchcien0roipesjdmf"); // 		ED_edge_type(ve) = type;
 UNSUPPORTED("23p8k5rg6ca82g2enw2wyuxkq"); // 		ED_count(ve)++;
 UNSUPPORTED("3wix4edrrj20l71i08ckve4ao"); // 		if ((ND_node_type(from) == 0)
 UNSUPPORTED("blnvalvptm73qbqedzi8o5qx2"); // 		    && (ND_node_type(to) == 0))
 UNSUPPORTED("1qiw6v20ddsxgj17i5pnlvjyn"); // 		    other_edge(orig);
-UNSUPPORTED("175pyfe8j8mbhdwvrbx3gmew9"); // 	    } else {
-UNSUPPORTED("b87s1z4ymup7pt4ttlit23147"); // 		ED_to_virt(orig) = NULL;
-UNSUPPORTED("9h2527fpci2klhg27op1s0nyc"); // 		ve = virtual_edge(from, to, orig);
-UNSUPPORTED("2s25e03vchcien0roipesjdmf"); // 		ED_edge_type(ve) = type;
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("2jqkm0ejpsdek6yviw2qxpob5"); // 	if (ND_rank(to) - ND_rank(from) > 1) {
+	    } else {
+		ED_to_virt(orig, null);
+		ve = virtual_edge(from, to, orig);
+		ED_edge_type(ve, type);
+	    }
+	}
+	if (ND_rank(to) - ND_rank(from) > 1) {
 UNSUPPORTED("atpqi8htn5pfsp83jsjnpya6u"); // 	    e = ve;
 UNSUPPORTED("48q2i88h3eiwyvatk52go1qk3"); // 	    if (agtail(ve) != from) {
 UNSUPPORTED("b87s1z4ymup7pt4ttlit23147"); // 		ED_to_virt(orig) = NULL;
@@ -851,11 +892,11 @@ UNSUPPORTED("cdtd6iwjostde5uuwlole4e9m"); // 		e = virtual_edge(agtail(e), to, o
 UNSUPPORTED("25nmda3y8wn495w90p98e8f3k"); // 		ED_edge_type(e) = type;
 UNSUPPORTED("a57axdi6yo27zbr1wjhy83ulz"); // 		delete_fast_edge(ve);
 UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+	}
+    }
+} finally {
+LEAVING("6o86r59v2ujlxqcw7761y6o5b","map_path");
+}
 }
 
 
@@ -863,22 +904,21 @@ throw new UnsupportedOperationException();
 
 //3 69xbflgja0gvrsl5xcv7o7dia
 // static void  make_interclust_chain(graph_t * g, node_t * from, node_t * to, edge_t * orig) 
-public static Object make_interclust_chain(Object... arg) {
-UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
-UNSUPPORTED("1pxoz295ynl8uxtunzhn9zcw8"); // make_interclust_chain(graph_t * g, node_t * from, node_t * to, edge_t * orig)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("8bqdnnjl4p07socckb619ym2j"); //     int newtype;
-UNSUPPORTED("5yrhx4blosxo5xnc1nh1kzhfs"); //     node_t *u, *v;
-UNSUPPORTED("1yvk68e79nwflqeh30vwxcly1"); //     u = map_interclust_node(from);
-UNSUPPORTED("3y6r8q80thsmgr8dhaq0cv618"); //     v = map_interclust_node(to);
-UNSUPPORTED("7ktl4809y1fjd4k87vzs54rvl"); //     if ((u == from) && (v == to))
-UNSUPPORTED("77sur6hpxgjihky9t3wc268xm"); // 	newtype = 1;
-UNSUPPORTED("div10atae09n36x269sl208r1"); //     else
-UNSUPPORTED("2soi2ep4ey6fcum9km26q8c66"); // 	newtype = 5;
-UNSUPPORTED("eoasdiwdbadedh52fxjv9e63f"); //     map_path(u, v, orig, ED_to_virt(orig), newtype);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static void make_interclust_chain(Agraph_s g, Agnode_s from, Agnode_s to, Agedge_s orig) {
+ENTERING("69xbflgja0gvrsl5xcv7o7dia","make_interclust_chain");
+try {
+    int newtype;
+    Agnode_s u, v;
+    u = map_interclust_node(from);
+    v = map_interclust_node(to);
+    if (EQ(u, from) && EQ(v, to))
+	newtype = 1;
+    else
+	newtype = 5;
+    map_path(u, v, orig, ED_to_virt(orig), newtype);
+} finally {
+LEAVING("69xbflgja0gvrsl5xcv7o7dia","make_interclust_chain");
+}
 }
 
 
@@ -886,24 +926,24 @@ throw new UnsupportedOperationException();
 
 //3 6g2m2y44x66lajznvnon2gubv
 // void interclexp(graph_t * subg) 
-public static Object interclexp(Object... arg) {
-UNSUPPORTED("ek3ccf3xw36pv6uezqcoiu8si"); // void interclexp(graph_t * subg)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("djl3ek9tn11htu3vj4zglczzz"); //     graph_t *g;
-UNSUPPORTED("cjx5v6hayed3q8eeub1cggqca"); //     node_t *n;
-UNSUPPORTED("7zrvjlifb8nyt9ju38q8be944"); //     edge_t *e, *prev, *next;
-UNSUPPORTED("8zhb1u0rnu694g9xz1yjbrklh"); //     g = dot_root(subg);
-UNSUPPORTED("6ewipai3bqonhmh4h826lvwyi"); //     for (n = agfstnode(subg); n; n = agnxtnode(subg, n)) {
-UNSUPPORTED("9848g2kernqnb0vegrrbdjnkk"); // 	/* N.B. n may be in a sub-cluster of subg */
-UNSUPPORTED("6sx2tx6c4b42f42jdzwezkjhu"); // 	prev = NULL;
-UNSUPPORTED("uvhzvbyt6tz7fks2bc1erbjh"); // 	for (e = agfstedge(g, n); e; e = next) {
-UNSUPPORTED("6vbil9er6xviwxl0k2j3mofa9"); // 	    next = agnxtedge(g, e, n);
-UNSUPPORTED("6huxivhyl5frz7rckfyi3c333"); // 	    if (agcontains(subg, e))
-UNSUPPORTED("6hyelvzskqfqa07xtgjtvg2is"); // 		continue;
-UNSUPPORTED("2iq6hn134gv9re3c4vk73effz"); // 	    /* canonicalize edge */
-UNSUPPORTED("9z44vigbeogxr42xga2jtuftb"); // 	    e = AGMKOUT(e);
-UNSUPPORTED("698a1f4cinuc4jzv1c1anatwp"); // 	    /* short/flat multi edges */
-UNSUPPORTED("7c8hcxkl4k6tzjbvuv6zm7i8m"); // 	    if (mergeable(prev, e)) {
+public static void interclexp(Agraph_s subg) {
+ENTERING("6g2m2y44x66lajznvnon2gubv","interclexp");
+try {
+    Agraph_s g;
+    Agnode_s n;
+    Agedge_s e, prev, next;
+    g = dot_root(subg);
+    for (n = agfstnode(subg); n!=null; n = agnxtnode(subg, n)) {
+	/* N.B. n may be in a sub-cluster of subg */
+	prev = null;
+	for (e = agfstedge(g, n); e!=null; e = next) {
+	    next = agnxtedge(g, e, n);
+	    if (agcontains(subg, e))
+		continue;
+	    /* canonicalize edge */
+	    e = AGMKOUT(e);
+	    /* short/flat multi edges */
+	    if (mergeable(prev, e)) {
 UNSUPPORTED("1pv8kbb78w6fs8m3i4x1mrsfv"); // 		if (ND_rank(agtail(e)) == ND_rank(aghead(e)))
 UNSUPPORTED("dzrp230epur5myrngxf86icdl"); // 		    ED_to_virt(e) = prev;
 UNSUPPORTED("7e1uy5mzei37p66t8jp01r3mk"); // 		else
@@ -913,9 +953,9 @@ UNSUPPORTED("10wljk1lfxrvhkb8y6bzvxz35"); // 		    continue;	/* internal edge */
 UNSUPPORTED("8d5mw7m9lzlseqbyx8a8mncgs"); // 		merge_chain(subg, e, ED_to_virt(prev), 0);
 UNSUPPORTED("87mmnlsj8quzlzg0vxax15kt2"); // 		safe_other_edge(e);
 UNSUPPORTED("6hyelvzskqfqa07xtgjtvg2is"); // 		continue;
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("1nads3zouz9kt3i1cowzty7qg"); // 	    /* flat edges */
-UNSUPPORTED("f41nqpgmu0v4g3in9iye5hqmk"); // 	    if (ND_rank(agtail(e)) == ND_rank(aghead(e))) {
+	    }
+	    /* flat edges */
+	    if (ND_rank(agtail(e)) == ND_rank(aghead(e))) {
 UNSUPPORTED("7btwg6u7g9qqpsrjkx8kgqaxb"); // 		edge_t* fe;
 UNSUPPORTED("19u95m77ae7zrrhs7zgxr1hg2"); // 		if ((fe = find_flat_edge(agtail(e), aghead(e))) == NULL) {
 UNSUPPORTED("bpkb1088t7rphe02enn72qn3r"); // 		    flat_edge(g, e);
@@ -925,28 +965,28 @@ UNSUPPORTED("ckfinb4h4twp1ry02y9peyhz"); // 		    safe_other_edge(e);
 UNSUPPORTED("dg3e0udctqa7xtfynplc7wdpj"); // 		    if (!ED_to_virt(e)) merge_oneway(e, fe);
 UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
 UNSUPPORTED("6hyelvzskqfqa07xtgjtvg2is"); // 		continue;
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("77de1lt12166bjdzemq1qzzge"); // 	    /* forward edges */
-UNSUPPORTED("d6wijn1x6tz3ui2hmdcoqeutm"); // 	    if (ND_rank(aghead(e)) > ND_rank(agtail(e))) {
-UNSUPPORTED("cya82rykkk8ltdjur9d0t4y06"); // 		make_interclust_chain(g, agtail(e), aghead(e), e);
-UNSUPPORTED("dpsnmca44s1cfw35axk4m0slg"); // 		prev = e;
-UNSUPPORTED("6hyelvzskqfqa07xtgjtvg2is"); // 		continue;
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("en84wkh5tegcnfn2uxkoeq3ii"); // 	    /* backward edges */
-UNSUPPORTED("6q044im7742qhglc4553noina"); // 	    else {
-UNSUPPORTED("4v614d3uabme2jyn0anuritbb"); // /*
-UNSUPPORTED("f4205odrpzllkukgs8jw11wil"); // I think that make_interclust_chain should create call other_edge(e) anyway 
-UNSUPPORTED("971rp6el9lv2c5ky83kzchybk"); // 				if (agcontains(subg,agtail(e))
-UNSUPPORTED("246ron78q2ynw6t81l76r1hlu"); // 					&& agfindedge(g,aghead(e),agtail(e))) other_edge(e);
-UNSUPPORTED("bnetqzovnscxile7ao44kc0qd"); // */
+	    }
+	    /* forward edges */
+	    if (ND_rank(aghead(e)) > ND_rank(agtail(e))) {
+		make_interclust_chain(g, agtail(e), aghead(e), e);
+		prev = e;
+		continue;
+	    }
+	    /* backward edges */
+	    else {
+/*
+I think that make_interclust_chain should create call other_edge(e) anyway 
+				if (agcontains(subg,agtail(e))
+					&& agfindedge(g,aghead(e),agtail(e))) other_edge(e);
+*/
 UNSUPPORTED("f3vsjiyhij046afu7hd6mozsu"); // 		make_interclust_chain(g, aghead(e), agtail(e), e);
 UNSUPPORTED("dpsnmca44s1cfw35axk4m0slg"); // 		prev = e;
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+	    }
+	}
+    }
+} finally {
+LEAVING("6g2m2y44x66lajznvnon2gubv","interclexp");
+}
 }
 
 
@@ -954,39 +994,39 @@ throw new UnsupportedOperationException();
 
 //3 85nhs7tnmwunw0fsjj1kxao7l
 // static void  merge_ranks(graph_t * subg) 
-public static Object merge_ranks(Object... arg) {
-UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
-UNSUPPORTED("cyb9t6avlre01zdfj130sqw0b"); // merge_ranks(graph_t * subg)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("e8t9d1nntl7tg3zgic525u2c7"); //     int i, d, r, pos, ipos;
-UNSUPPORTED("aigogf44ojtcesuy4xs7inqbn"); //     node_t *v;
-UNSUPPORTED("7vns7h9lh77tzfv2yang9mlhc"); //     graph_t *root;
-UNSUPPORTED("2rnxnc122mftowo5oputs53mt"); //     root = dot_root(subg);
-UNSUPPORTED("61uj2zobhnw5nq0wzggnllp5n"); //     if (GD_minrank(subg) > 0)
+public static void merge_ranks(Agraph_s subg) {
+ENTERING("85nhs7tnmwunw0fsjj1kxao7l","merge_ranks");
+try {
+    int i, d, r, pos, ipos;
+    Agnode_s v;
+    Agraph_s root;
+    root = dot_root(subg);
+    if (GD_minrank(subg) > 0)
 UNSUPPORTED("6joeb28tqhza9srpo118g386i"); // 	GD_rank(root)[GD_minrank(subg) - 1].valid = 0;
-UNSUPPORTED("7hd1fq1q29nkhy8m7fmb59kvh"); //     for (r = GD_minrank(subg); r <= GD_maxrank(subg); r++) {
-UNSUPPORTED("9arx2wwkcirjnha87g9v9dkke"); // 	d = GD_rank(subg)[r].n;
-UNSUPPORTED("87ho7258ejyscg51fhceuiv4n"); // 	ipos = pos = ND_order(GD_rankleader(subg)[r]);
-UNSUPPORTED("9z797uh5gsro2tm5cfaun9pjf"); // 	make_slots(root, r, pos, d);
-UNSUPPORTED("e02587sxo73pzptiwtkcu2iy2"); // 	for (i = 0; i < GD_rank(subg)[r].n; i++) {
-UNSUPPORTED("86c3q8t12dy95j43z5ubvpmt2"); // 	    v = GD_rank(root)[r].v[pos] = GD_rank(subg)[r].v[i];
-UNSUPPORTED("6zmrwbor9adlqj38xj53hrhay"); // 	    ND_order(v) = pos++;
-UNSUPPORTED("bb75iqztzwwlnpnbn3ixplijk"); // 	/* real nodes automatically have v->root = root graph */
-UNSUPPORTED("2uc4w73phbo5ke63c0npuxut1"); // 	    if (ND_node_type(v) == 1)
-UNSUPPORTED("cmd75ufuy2zn4g67mf16vkfvc"); // 		v->root = agroot(root);
-UNSUPPORTED("9iu2aqgzpk1yqsk2idltcqovf"); // 	    delete_fast_node(subg, v);
-UNSUPPORTED("4ix79uz0bjwb7vmb36i7993k0"); // 	    fast_node(root, v);
-UNSUPPORTED("6y4gzecxwbjvyz0fuozxnwjdy"); // 	    GD_n_nodes(root)++;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("cpfyslvmh6ahlcss0um5lonuu"); // 	GD_rank(subg)[r].v = GD_rank(root)[r].v + ipos;
-UNSUPPORTED("7xfzmsitn6y5kd96oh5ggoc9s"); // 	GD_rank(root)[r].valid = 0;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("4fw9j2o28aal06zu5chof5hsr"); //     if (r < GD_maxrank(root))
-UNSUPPORTED("7xfzmsitn6y5kd96oh5ggoc9s"); // 	GD_rank(root)[r].valid = 0;
-UNSUPPORTED("5zubpemwj3covioxuzfu3x6mj"); //     GD_expanded(subg) = NOT(0);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+    for (r = GD_minrank(subg); r <= GD_maxrank(subg); r++) {
+	d = GD_rank(subg).plus(r).getPtr().getInt("n");
+	ipos = pos = ND_order(GD_rankleader(subg).plus(r).getPtr());
+	make_slots(root, r, pos, d);
+	for (i = 0; i < GD_rank(subg).plus(r).getPtr().getInt("n"); i++) {
+	    v = (Agnode_s) GD_rank(subg).plus(r).getArrayOfPtr("v").plus(i).getPtr();
+	    GD_rank(root).plus(r).getArrayOfPtr("v").plus(pos).setPtr(v);
+	    ND_order(v, pos++);
+	/* real nodes automatically have v->root = root graph */
+	    if (ND_node_type(v) == 1)
+		v.setPtr("root", agroot(root));
+	    delete_fast_node(subg, v);
+	    fast_node(root, v);
+	    GD_n_nodes(root, GD_n_nodes(root)+1);
+	}
+	GD_rank(subg).plus(r).getPtr().setPtr("v", GD_rank(root).plus(r).getPtr().getPtr("v").plus(ipos));
+	GD_rank(root).plus(r).getPtr().setInt("valid", 0);
+    }
+    if (r < GD_maxrank(root))
+	GD_rank(root).plus(r).getPtr().setInt("valid", 0);
+    GD_expanded(subg, NOT(false));
+} finally {
+LEAVING("85nhs7tnmwunw0fsjj1kxao7l","merge_ranks");
+}
 }
 
 
@@ -994,26 +1034,25 @@ throw new UnsupportedOperationException();
 
 //3 c9p7dm16i13qktnh95os0sv58
 // static void  remove_rankleaders(graph_t * g) 
-public static Object remove_rankleaders(Object... arg) {
-UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
-UNSUPPORTED("8s6jkfzpo1hvg6z54ebnxbz55"); // remove_rankleaders(graph_t * g)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("p6jnh7nvcpnl3zbz636pskbs"); //     int r;
-UNSUPPORTED("aigogf44ojtcesuy4xs7inqbn"); //     node_t *v;
-UNSUPPORTED("5gypxs09iuryx5a2eho9lgdcp"); //     edge_t *e;
-UNSUPPORTED("60nab7gyukq3bs8e6dizhbacy"); //     for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
-UNSUPPORTED("bvep2g583wy7vlgwrwguznvf8"); // 	v = GD_rankleader(g)[r];
-UNSUPPORTED("7nnrokg22q8adjqnbexka6d7u"); // 	/* remove the entire chain */
-UNSUPPORTED("7t0cmtp6p0n6ps5bs8bwqqtri"); // 	while ((e = ND_out(v).list[0]))
-UNSUPPORTED("7hjrudu87t0hj5xv24vhlf3k6"); // 	    delete_fast_edge(e);
-UNSUPPORTED("6k2ppe945lkljbp2c5g49788c"); // 	while ((e = ND_in(v).list[0]))
-UNSUPPORTED("7hjrudu87t0hj5xv24vhlf3k6"); // 	    delete_fast_edge(e);
-UNSUPPORTED("3r9r1pgpihp0gzk930h5hmqbp"); // 	delete_fast_node(dot_root(g), v);
-UNSUPPORTED("2rpy1wfe6lhmak6ce4v24v4ao"); // 	GD_rankleader(g)[r] = NULL;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static void remove_rankleaders(Agraph_s g) {
+ENTERING("c9p7dm16i13qktnh95os0sv58","remove_rankleaders");
+try {
+    int r;
+    Agnode_s v;
+    Agedge_s e;
+    for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
+	v = (Agnode_s) GD_rankleader(g).plus(r).getPtr();
+	/* remove the entire chain */
+	while ((e = (Agedge_s) ND_out(v).getArrayOfPtr("list").plus(0).getPtr())!=null)
+	    delete_fast_edge(e);
+	while ((e = (Agedge_s) ND_in(v).getArrayOfPtr("list").plus(0).getPtr())!=null)
+	    delete_fast_edge(e);
+	delete_fast_node(dot_root(g), v);
+	GD_rankleader(g).plus(r).setPtr(null);
+    }
+} finally {
+LEAVING("c9p7dm16i13qktnh95os0sv58","remove_rankleaders");
+}
 }
 
 
@@ -1021,22 +1060,22 @@ throw new UnsupportedOperationException();
 
 //3 ecrplg8hsyl484f9kxc5xp0go
 // void expand_cluster(graph_t * subg) 
-public static Object expand_cluster(Object... arg) {
-UNSUPPORTED("8r09nj1ydndz2sbuv5a3cs0yw"); // void expand_cluster(graph_t * subg)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("20v0p57hvmh0ijvbozfex75b2"); //     /* build internal structure of the cluster */
-UNSUPPORTED("124308nt4wlqvenj2kgo1kpfd"); //     class2(subg);
-UNSUPPORTED("65g8taekjkoquq087637lvha6"); //     GD_comp(subg).size = 1;
-UNSUPPORTED("25xzzho8d0p44on9aeoy3ees7"); //     GD_comp(subg).list[0] = GD_nlist(subg);
-UNSUPPORTED("8ogubd5qfa352hiig4rypuk62"); //     allocate_ranks(subg);
-UNSUPPORTED("b7bzidwsi0pi848v6w318ggg4"); //     build_ranks(subg, 0);
-UNSUPPORTED("27ob5amzldrayj64omx544g9q"); //     merge_ranks(subg);
-UNSUPPORTED("alp5n2wnkn3xqz3yk6ild0qo7"); //     /* build external structure of the cluster */
-UNSUPPORTED("d1p59qtuqhsq6ij3ewqukocaa"); //     interclexp(subg);
-UNSUPPORTED("ag2d9unvlsdc0spx00c99ha27"); //     remove_rankleaders(subg);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static void expand_cluster(Agraph_s subg) {
+ENTERING("ecrplg8hsyl484f9kxc5xp0go","expand_cluster");
+try {
+    /* build internal structure of the cluster */
+    class2(subg);
+    GD_comp(subg).setInt("size", 1);
+    GD_comp(subg).getArrayOfPtr("list").plus(0).setPtr(GD_nlist(subg));
+    allocate_ranks(subg);
+    build_ranks(subg, 0);
+    merge_ranks(subg);
+    /* build external structure of the cluster */
+    interclexp(subg);
+    remove_rankleaders(subg);
+} finally {
+LEAVING("ecrplg8hsyl484f9kxc5xp0go","expand_cluster");
+}
 }
 
 
@@ -1048,42 +1087,41 @@ public static void mark_clusters(Agraph_s g) {
 ENTERING("cxuirggihlap2iv2khmb1w5l5","mark_clusters");
 try {
     int c;
-    Agnode_s n, nn, vn;
+    Agnode_s n, nn=null, vn;
     Agedge_s orig, e;
     Agraph_s clust;
     /* remove sub-clusters below this level */
     for (n = agfstnode(g); n!=null; n = agnxtnode(g, n)) {
 	if (ND_ranktype(n) == 7)
-UNSUPPORTED("9e3nevyzc6v99gtbi3gafblda"); // 	    UF_singleton(n);
+	    UF_singleton(n);
 	ND_clust(n, null);
     }
-    for (c = 1; c <= g.castTo(Agobj_s.class).getPtr("data").castTo(Agraphinfo_t.class).getInt("n_cluster"); c++) {
-UNSUPPORTED("8r7swlrdrtz33331zz7i881hl"); // 	clust = (((Agraphinfo_t*)(((Agobj_t*)(g))->data))->clust)[c];
-UNSUPPORTED("4q2t0lecjlhl7t9890360w9lw"); // 	for (n = agfstnode(clust); n; n = nn) {
-UNSUPPORTED("3xxccr7xo6ty5mjkmnwtxh8gu"); // 		nn = agnxtnode(clust,n);
-UNSUPPORTED("1szgjebapdug0xvr4acnn2p3"); // 	    if ((((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->ranktype) != 0) {
+    for (c = 1; c <= GD_n_cluster(g); c++) {
+	clust = (Agraph_s) GD_clust(g).plus(c).getPtr();
+	for (n = agfstnode(clust); n!=null; n = nn) {
+		nn = agnxtnode(clust,n);
+	    if (ND_ranktype(n) != 0) {
 UNSUPPORTED("5l8jenkv77ax02t47zzxyv1k0"); // 		agerr(AGWARN,
 UNSUPPORTED("2ipl4umxgijawr7756ysp9hhd"); // 		      "%s was already in a rankset, deleted from cluster %s\n",
 UNSUPPORTED("7r0ulsiau9cygesawzzjnpt5j"); // 		      agnameof(n), agnameof(g));
 UNSUPPORTED("4zqc8357rwnd9xe7zaoqooqv3"); // 		agdelete(clust,n);
 UNSUPPORTED("6hyelvzskqfqa07xtgjtvg2is"); // 		continue;
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("6niuq4wd0y8ruh63q1xccpw28"); // 	    UF_setname(n, (((Agraphinfo_t*)(((Agobj_t*)(clust))->data))->leader));
-UNSUPPORTED("61itmk4dnhbj1n37d634m5krc"); // 	    (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->clust) = clust;
-UNSUPPORTED("8g66yuls81gjk48hgjx6ii6x7"); // 	    (((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->ranktype) = 7;
-UNSUPPORTED("13shsx4neo5028pgb2bgspyww"); // 	    /* here we mark the vnodes of edges in the cluster */
-UNSUPPORTED("ah1lxylwa1lwt2qkkrhhecpa0"); // 	    for (orig = agfstout(clust, n); orig;
-UNSUPPORTED("8jhi70ejxq9dhch07hza05ggv"); // 		 orig = agnxtout(clust, orig)) {
-UNSUPPORTED("mhkeqqxmg4mfscr6dwhh0pej"); // 		if ((e = (((Agedgeinfo_t*)(((Agobj_t*)(orig))->data))->to_virt))) {
-UNSUPPORTED("dnt9308cavxi23curv62ugigz"); // 		    while (e && (((Agnodeinfo_t*)(((Agobj_t*)(vn =((((((Agobj_t*)(e))->tag).objtype) == 2?(e):((e)-1))->node)))->data))->node_type) == 1) {
-UNSUPPORTED("2i0k1w9na0rckvtw8ce7duahe"); // 			(((Agnodeinfo_t*)(((Agobj_t*)(vn))->data))->clust) = clust;
-UNSUPPORTED("861k8sepchf319k6dm3lp7y5i"); // 			e = (((Agnodeinfo_t*)(((Agobj_t*)(((((((Agobj_t*)(e))->tag).objtype) == 2?(e):((e)-1))->node)))->data))->out).list[0];
-UNSUPPORTED("426z9apdzwnaqujjg6zur4msi"); // 			/* trouble if concentrators and clusters are mixed */
-UNSUPPORTED("dkxvw03k2gg9anv4dbze06axd"); // 		    }
-UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+	    }
+	    UF_setname(n, GD_leader(clust));
+	    ND_clust(n, clust);
+	    ND_ranktype(n, 7);
+	    /* here we mark the vnodes of edges in the cluster */
+	    for (orig = agfstout(clust, n); orig!=null;
+		 orig = agnxtout(clust, orig)) {
+		if ((e = ED_to_virt(orig))!=null) {
+		    while (e!=null && ND_node_type(vn =aghead(e)) == 1) {
+			ND_clust(vn, clust);
+			e = (Agedge_s) ND_out(aghead(e)).getArrayOfPtr("list").plus(0).getPtr();
+			/* trouble if concentrators and clusters are mixed */
+		    }
+		}
+	    }
+	}
     }
 } finally {
 LEAVING("cxuirggihlap2iv2khmb1w5l5","mark_clusters");
@@ -1095,43 +1133,44 @@ LEAVING("cxuirggihlap2iv2khmb1w5l5","mark_clusters");
 
 //3 bwrw5u0gi2rgah1cn9h0glpse
 // void build_skeleton(graph_t * g, graph_t * subg) 
-public static Object build_skeleton(Object... arg) {
-UNSUPPORTED("ao1aco399y25n5ksddo2c54dw"); // void build_skeleton(graph_t * g, graph_t * subg)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("p6jnh7nvcpnl3zbz636pskbs"); //     int r;
-UNSUPPORTED("ei2qpnzm9f28n8ro1fvjsu9t9"); //     node_t *v, *prev, *rl;
-UNSUPPORTED("5gypxs09iuryx5a2eho9lgdcp"); //     edge_t *e;
-UNSUPPORTED("9pg1u5lrva4tjoa207r87y7uu"); //     prev = NULL;
-UNSUPPORTED("9rf17a5hbod5714tv6f6vc3u3"); //     GD_rankleader(subg) = (node_t **)zmalloc((GD_maxrank(subg) + 2)*sizeof(node_t *));
-UNSUPPORTED("7hd1fq1q29nkhy8m7fmb59kvh"); //     for (r = GD_minrank(subg); r <= GD_maxrank(subg); r++) {
-UNSUPPORTED("f1wbki3uvoo71smx5ut3v5d5f"); // 	v = GD_rankleader(subg)[r] = virtual_node(g);
-UNSUPPORTED("4eax8ygh6aiknrsbkt9lzvim0"); // 	ND_rank(v) = r;
-UNSUPPORTED("3j3as00imhqeuh0j3u77c336s"); // 	ND_ranktype(v) = 7;
-UNSUPPORTED("8llv8wb95398cf9of3e9a7tms"); // 	ND_clust(v) = subg;
-UNSUPPORTED("a6y33oymxwxiry6hk21xjsdio"); // 	if (prev) {
-UNSUPPORTED("1jdfsu1u8czmk8zfl5eejy8mw"); // 	    e = virtual_edge(prev, v, NULL);
-UNSUPPORTED("7tjnxnp2clg1s80azh3tkv0gx"); // 	    ED_xpenalty(e) *= 1000;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("2cgerzj9mx9ggx0i7qmtxsgka"); // 	prev = v;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("2es6ll1uukehmlb34ak9gbyzx"); //     /* set the counts on virtual edges of the cluster skeleton */
-UNSUPPORTED("8j5hk6r5r7ook6wlepspab3ck"); //     for (v = agfstnode(subg); v; v = agnxtnode(subg, v)) {
-UNSUPPORTED("5lk6z8eqhs2zsztqh9s4c3vqv"); // 	rl = GD_rankleader(subg)[ND_rank(v)];
-UNSUPPORTED("6xmclrgtmdhcrt0ay2q7oid3c"); // 	ND_UF_size(rl)++;
-UNSUPPORTED("echtfywp192aih0pqkybw9oxs"); // 	for (e = agfstout(subg, v); e; e = agnxtout(subg, e)) {
-UNSUPPORTED("dkn2kqjyljhbrkiu7cy5jdciq"); // 	    for (r = ND_rank(agtail(e)); r < ND_rank(aghead(e)); r++) {
-UNSUPPORTED("8ddnt8snwkgl54jtxgat96g5i"); // 		ED_count(ND_out(rl).list[0])++;
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("7hd1fq1q29nkhy8m7fmb59kvh"); //     for (r = GD_minrank(subg); r <= GD_maxrank(subg); r++) {
-UNSUPPORTED("bi5fzkix4p8p0y6etydfxg843"); // 	rl = GD_rankleader(subg)[r];
-UNSUPPORTED("25pg4la4o3wucrsiqa7s1z4cr"); // 	if (ND_UF_size(rl) > 1)
-UNSUPPORTED("b3u2psknvy2i1zv4e9jau73zm"); // 	    ND_UF_size(rl)--;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static void build_skeleton(Agraph_s g, Agraph_s subg) {
+ENTERING("bwrw5u0gi2rgah1cn9h0glpse","build_skeleton");
+try {
+    int r;
+    Agnode_s v, prev, rl;
+    Agedge_s e;
+    prev = null;
+    GD_rankleader(subg, zmalloc(sizeof_starstar_empty(Agnode_s.class, GD_maxrank(subg) + 2)));
+    for (r = GD_minrank(subg); r <= GD_maxrank(subg); r++) {
+	v = virtual_node(g);
+	GD_rankleader(subg).plus(r).setPtr(v);
+	ND_rank(v, r);
+	ND_ranktype(v, 7);
+	ND_clust(v, subg);
+	if (prev!=null) {
+	    e = virtual_edge(prev, v, null);
+	    ED_xpenalty(e, ED_xpenalty(e) * 1000);
+	}
+	prev = v;
+    }
+    /* set the counts on virtual edges of the cluster skeleton */
+    for (v = agfstnode(subg); v!=null; v = agnxtnode(subg, v)) {
+	rl = (Agnode_s) GD_rankleader(subg).plus(ND_rank(v)).getPtr();
+	ND_UF_size(rl, ND_UF_size(rl)+1);
+	for (e = agfstout(subg, v); e!=null; e = agnxtout(subg, e)) {
+	    for (r = ND_rank(agtail(e)); r < ND_rank(aghead(e)); r++) {
+		ED_count(ND_out(rl).getArrayOfPtr("list").plus(0).getPtr(), ED_count(ND_out(rl).getArrayOfPtr("list").plus(0).getPtr())+1);
+	    }
+	}
+    }
+    for (r = GD_minrank(subg); r <= GD_maxrank(subg); r++) {
+	rl = (Agnode_s) GD_rankleader(subg).plus(r).getPtr();
+	if (ND_UF_size(rl) > 1)
+	    ND_UF_size(rl, ND_UF_size(rl)-1);
+    }
+} finally {
+LEAVING("bwrw5u0gi2rgah1cn9h0glpse","build_skeleton");
+}
 }
 
 
@@ -1139,22 +1178,22 @@ throw new UnsupportedOperationException();
 
 //3 75yt3xwcwnxipi827t1r8zcmn
 // void install_cluster(graph_t * g, node_t * n, int pass, nodequeue * q) 
-public static Object install_cluster(Object... arg) {
-UNSUPPORTED("bj15esm8qgk83ki9s3rplwwr5"); // void install_cluster(graph_t * g, node_t * n, int pass, nodequeue * q)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("p6jnh7nvcpnl3zbz636pskbs"); //     int r;
-UNSUPPORTED("ebd98tetp980s8p4muyc7dg1"); //     graph_t *clust;
-UNSUPPORTED("dctaf4e5gafgf0uxc1y5nqg6o"); //     clust = ND_clust(n);
-UNSUPPORTED("ewgx34dkqxrkg8zyiasav756w"); //     if (GD_installed(clust) != pass + 1) {
-UNSUPPORTED("a3qxlur50f73ztxv673pgrai9"); // 	for (r = GD_minrank(clust); r <= GD_maxrank(clust); r++)
-UNSUPPORTED("ds90u2fboesjeokfn98mvo5ac"); // 	    install_in_rank(g, GD_rankleader(clust)[r]);
-UNSUPPORTED("a3qxlur50f73ztxv673pgrai9"); // 	for (r = GD_minrank(clust); r <= GD_maxrank(clust); r++)
-UNSUPPORTED("bacyglrcfdqgsopu9amth490p"); // 	    enqueue_neighbors(q, GD_rankleader(clust)[r], pass);
-UNSUPPORTED("3j0j4hihdiv48ov24vynj45av"); // 	GD_installed(clust) = pass + 1;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static void install_cluster(Agraph_s g, Agnode_s n, int pass, nodequeue q) {
+ENTERING("75yt3xwcwnxipi827t1r8zcmn","install_cluster");
+try {
+    int r;
+    Agraph_s clust;
+    clust = ND_clust(n);
+    if (GD_installed(clust) != pass + 1) {
+	for (r = GD_minrank(clust); r <= GD_maxrank(clust); r++)
+	    install_in_rank(g, (Agnode_s) GD_rankleader(clust).plus(r).getPtr());
+	for (r = GD_minrank(clust); r <= GD_maxrank(clust); r++)
+	    enqueue_neighbors(q, (Agnode_s) GD_rankleader(clust).plus(r).getPtr(), pass);
+	GD_installed(clust, pass + 1);
+    }
+} finally {
+LEAVING("75yt3xwcwnxipi827t1r8zcmn","install_cluster");
+}
 }
 
 

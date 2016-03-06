@@ -1,0 +1,64 @@
+public static void keepout_othernodes(Agraph_s g) {
+    int i, c, r, margin;
+    Agnode_s u, v;
+    margin = late_int (g, Z._().G_margin, 8, 0);
+    for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
+	if (GD_rank(g).plus(r).getInt("n") == 0)
+	    continue;
+	v = (Agnode_s) GD_rank(g).plus(r).getArrayOfPtr("v").plus(0).getPtr();
+	if (v == null)
+	    continue;
+	for (i = ND_order(v) - 1; i >= 0; i--) {
+	    u = (Agnode_s) GD_rank(dot_root(g)).plus(r).getArrayOfPtr("v").plus(i).getPtr();
+	    /* can't use "is_a_vnode_of" because elists are swapped */
+UNSUPPORTED("1u1psf6u6uvy7d3qjlwojrkgp"); // 	    if ((ND_node_type(u) == 0) || vnode_not_related_to(g, u)) {
+UNSUPPORTED("76fuk1ed83l1ghp7j9rmhrfcy"); // 		make_aux_edge(u, GD_ln(g), margin + ND_rw(u), 0);
+UNSUPPORTED("9ekmvj13iaml5ndszqyxa8eq"); // 		break;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+	}
+	for (i = ND_order(v) + GD_rank(g).plus(r).getInt("n"); i < GD_rank(dot_root(g)).plus(r).getInt("n");
+	     i++) {
+	    u = (Agnode_s) GD_rank(dot_root(g)).plus(r).getArrayOfPtr("v").plus(i).getPtr();
+	    if ((ND_node_type(u) == 0) || vnode_not_related_to(g, u)) {
+		make_aux_edge(GD_rn(g), u, margin + ND_lw(u), 0);
+		break;
+	    }
+	}
+    }
+    for (c = 1; c <= GD_n_cluster(g); c++)
+	keepout_othernodes((Agraph_s) GD_clust(g).plus(c).getPtr());
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void keepout_othernodes(graph_t * g)
+{
+    int i, c, r, margin;
+    node_t *u, *v;
+    margin = late_int (g, G_margin, 8, 0);
+    for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
+	if (GD_rank(g)[r].n == 0)
+	    continue;
+	v = GD_rank(g)[r].v[0];
+	if (v == NULL)
+	    continue;
+	for (i = ND_order(v) - 1; i >= 0; i--) {
+	    u = GD_rank(dot_root(g))[r].v[i];
+	    /* can't use "is_a_vnode_of" because elists are swapped */
+	    if ((ND_node_type(u) == 0) || vnode_not_related_to(g, u)) {
+		make_aux_edge(u, GD_ln(g), margin + ND_rw(u), 0);
+		break;
+	    }
+	}
+	for (i = ND_order(v) + GD_rank(g)[r].n; i < GD_rank(dot_root(g))[r].n;
+	     i++) {
+	    u = GD_rank(dot_root(g))[r].v[i];
+	    if ((ND_node_type(u) == 0) || vnode_not_related_to(g, u)) {
+		make_aux_edge(GD_rn(g), u, margin + ND_lw(u), 0);
+		break;
+	    }
+	}
+    }
+    for (c = 1; c <= GD_n_cluster(g); c++)
+	keepout_othernodes(GD_clust(g)[c]);
+}
+

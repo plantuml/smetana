@@ -1,0 +1,29 @@
+public static Agnode_s leader_of(Agraph_s g, Agnode_s v) {
+    Agraph_s clust;
+    Agnode_s rv;
+    if (ND_ranktype(v) != 7) {
+	/*assert(v == UF_find(v));  could be leaf, so comment out */
+	rv = UF_find(v);
+    } else {
+	clust = ND_clust(v);
+	rv = (Agnode_s) GD_rankleader(clust).plus(ND_rank(v)).getPtr();
+    }
+    return rv;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static node_t*
+leader_of(graph_t * g, node_t * v)
+{
+    graph_t *clust;
+    node_t *rv;
+    if (ND_ranktype(v) != 7) {
+	/*assert(v == UF_find(v));  could be leaf, so comment out */
+	rv = UF_find(v);
+    } else {
+	clust = ND_clust(v);
+	rv = GD_rankleader(clust)[ND_rank(v)];
+    }
+    return rv;
+}
+

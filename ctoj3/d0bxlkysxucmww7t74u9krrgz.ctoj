@@ -6,7 +6,7 @@ public static void class2(Agraph_s g) {
     GD_n_nodes(g, 0);		/* new */
     mark_clusters(g);
     for (c = 1; c <= GD_n_cluster(g); c++)
-	build_skeleton(g, GD_clust(g).plus(c).getPtr());
+	build_skeleton(g, (Agraph_s) GD_clust(g).plus(c).getPtr());
     for (n = agfstnode(g); n!=null; n = agnxtnode(g, n))
 	for (e = agfstout(g, n); e!=null; e = agnxtout(g, e)) {
 	    if (ND_weight_class(aghead(e)) <= 2)

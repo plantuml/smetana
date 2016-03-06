@@ -1,0 +1,34 @@
+public static void make_lrvn(Agraph_s g) {
+    Agnode_s ln, rn;
+    if (GD_ln(g)!=null)
+	return;
+    ln = virtual_node(dot_root(g));
+    ND_node_type(ln, 2);
+    rn = virtual_node(dot_root(g));
+    ND_node_type(rn, 2);
+    if (GD_label(g)!=null && NEQ(g, dot_root(g)) && N(GD_flip(agroot(g)))) {
+UNSUPPORTED("470nwt9sh3uwq56a0edpk2hzs"); // 	int w = MAX(GD_border(g)[0].x, GD_border(g)[2].x);
+UNSUPPORTED("b91l57rpte7zb5f3pknr7bnm0"); // 	make_aux_edge(ln, rn, w, 0);
+    }
+    GD_ln(g, ln);
+    GD_rn(g, rn);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void make_lrvn(graph_t * g)
+{
+    node_t *ln, *rn;
+    if (GD_ln(g))
+	return;
+    ln = virtual_node(dot_root(g));
+    ND_node_type(ln) = 2;
+    rn = virtual_node(dot_root(g));
+    ND_node_type(rn) = 2;
+    if (GD_label(g) && (g != dot_root(g)) && !GD_flip(agroot(g))) {
+	int w = MAX(GD_border(g)[0].x, GD_border(g)[2].x);
+	make_aux_edge(ln, rn, w, 0);
+    }
+    GD_ln(g) = ln;
+    GD_rn(g) = rn;
+}
+

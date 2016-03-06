@@ -52,6 +52,7 @@ import static gen.lib.dotgen.cluster__c.build_skeleton;
 import static gen.lib.dotgen.cluster__c.mark_clusters;
 import static gen.lib.dotgen.dotinit__c.dot_root;
 import static gen.lib.dotgen.fastgr__c.fast_node;
+import static gen.lib.dotgen.fastgr__c.find_fast_edge;
 import static gen.lib.dotgen.fastgr__c.flat_edge;
 import static gen.lib.dotgen.fastgr__c.merge_oneway;
 import static gen.lib.dotgen.fastgr__c.other_edge;
@@ -79,6 +80,7 @@ import static smetana.core.Macro.GD_n_cluster;
 import static smetana.core.Macro.GD_n_nodes;
 import static smetana.core.Macro.GD_nlist;
 import static smetana.core.Macro.GD_nodesep;
+import static smetana.core.Macro.GD_rankleader;
 import static smetana.core.Macro.MAX;
 import static smetana.core.Macro.N;
 import static smetana.core.Macro.ND_clust;
@@ -805,23 +807,22 @@ LEAVING("xujihq6vep3ez275shtrbilo","plain_vnode");
 
 //3 9fmfj1b2jik7skv6ms0657t8r
 // static node_t* leader_of(graph_t * g, node_t * v) 
-public static Object leader_of(Object... arg) {
-UNSUPPORTED("b9dd3satxbh59hljdxzcxecc"); // static node_t*
-UNSUPPORTED("e7ovbkm0bep5wyballqmglf7z"); // leader_of(graph_t * g, node_t * v)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("ebd98tetp980s8p4muyc7dg1"); //     graph_t *clust;
-UNSUPPORTED("4302bhte4qzbdabx61n5e2rim"); //     node_t *rv;
-UNSUPPORTED("6oedff3o6dla8dj9aajq1qngi"); //     if (ND_ranktype(v) != 7) {
-UNSUPPORTED("f2opozdglwd4389iefngtlf9b"); // 	/*assert(v == UF_find(v));  could be leaf, so comment out */
-UNSUPPORTED("1q855l99idnuw013mkd7i7npm"); // 	rv = UF_find(v);
-UNSUPPORTED("c07up7zvrnu2vhzy6d7zcu94g"); //     } else {
-UNSUPPORTED("1t7xzeyli76sfg3xunm9827da"); // 	clust = ND_clust(v);
-UNSUPPORTED("ixzayuv35l38ox0srz2xdou9"); // 	rv = GD_rankleader(clust)[ND_rank(v)];
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("v7vqc9l7ge2bfdwnw11z7rzi"); //     return rv;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static Agnode_s leader_of(Agraph_s g, Agnode_s v) {
+ENTERING("9fmfj1b2jik7skv6ms0657t8r","leader_of");
+try {
+    Agraph_s clust;
+    Agnode_s rv;
+    if (ND_ranktype(v) != 7) {
+	/*assert(v == UF_find(v));  could be leaf, so comment out */
+	rv = UF_find(v);
+    } else {
+	clust = ND_clust(v);
+	rv = (Agnode_s) GD_rankleader(clust).plus(ND_rank(v)).getPtr();
+    }
+    return rv;
+} finally {
+LEAVING("9fmfj1b2jik7skv6ms0657t8r","leader_of");
+}
 }
 
 
@@ -865,36 +866,35 @@ LEAVING("6sbvlvurvkodunw2qt1ug70c2","make_chain");
 
 //3 659ld5tcseo3l0hopxb3pf0vv
 // static void  interclrep(graph_t * g, edge_t * e) 
-public static Object interclrep(Object... arg) {
-UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
-UNSUPPORTED("5b1go63bhm3dz4kerbv48swlt"); // interclrep(graph_t * g, edge_t * e)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("ebzzn9x8y9ongsb6gap4x5y9a"); //     node_t *t, *h;
-UNSUPPORTED("5wf092biicw6tx6dwyi4yipi0"); //     edge_t *ve;
-UNSUPPORTED("2r48g2algefb8kza21vgcrpyt"); //     t = leader_of(g, agtail(e));
-UNSUPPORTED("7m1nfouvguqxw467vi7jcfnte"); //     h = leader_of(g, aghead(e));
-UNSUPPORTED("16dou6f7o1i01im8djafkupmm"); //     if (ND_rank(t) > ND_rank(h)) {
-UNSUPPORTED("s5x5neggq9s3corwkbovxtvg"); // 	node_t *t0 = t;
-UNSUPPORTED("xo3px3hijp17toszrxjhzc30"); // 	t = h;
-UNSUPPORTED("9ai6pf7dgica2ou98e5ja1x6e"); // 	h = t0;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("1pvbn57w8iyu0ilck83le4w7y"); //     if (ND_clust(t) != ND_clust(h)) {
-UNSUPPORTED("2yztxhn165ok7k9ikje6pte9m"); // 	if ((ve = find_fast_edge(t, h))) {
-UNSUPPORTED("ewttrwx2hat6ot9h4tsdsnxhk"); // 	    merge_chain(g, e, ve, NOT(0));
-UNSUPPORTED("6cprbghvenu9ldc0ez1ifc63q"); // 	    return;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("8eyo4895sv5p6vp0t8vbs9074"); // 	if (ND_rank(t) == ND_rank(h))
-UNSUPPORTED("6cprbghvenu9ldc0ez1ifc63q"); // 	    return;
-UNSUPPORTED("6spjrjclecw43my3fmoqjvj71"); // 	make_chain(g, t, h, e);
-UNSUPPORTED("avemkp4l3pivyna0skquvwbh5"); // 	/* mark as cluster edge */
-UNSUPPORTED("dpt44du7ahec327nmpk4balkf"); // 	for (ve = ED_to_virt(e); ve && (ND_rank(aghead(ve)) <= ND_rank(h));
-UNSUPPORTED("8ckyupwov1v2k4lsjvnfpjz2u"); // 	     ve = ND_out(aghead(ve)).list[0])
-UNSUPPORTED("47ajqo96f56hpec82clxb5q1w"); // 	    ED_edge_type(ve) = 5;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("deuskjn2ppacrgipbx3nix3im"); //     /* else ignore intra-cluster edges at this point */
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static void interclrep(Agraph_s g, Agedge_s e) {
+ENTERING("659ld5tcseo3l0hopxb3pf0vv","interclrep");
+try {
+    Agnode_s t, h;
+    Agedge_s ve;
+    t = leader_of(g, agtail(e));
+    h = leader_of(g, aghead(e));
+    if (ND_rank(t) > ND_rank(h)) {
+	Agnode_s t0 = t;
+	t = h;
+	h = t0;
+    }
+    if (NEQ(ND_clust(t), ND_clust(h))) {
+	if ((ve = find_fast_edge(t, h))!=null) {
+	    merge_chain(g, e, ve, NOT(false));
+	    return;
+	}
+	if (ND_rank(t) == ND_rank(h))
+	    return;
+	make_chain(g, t, h, e);
+	/* mark as cluster edge */
+	for (ve = ED_to_virt(e); ve!=null && (ND_rank(aghead(ve)) <= ND_rank(h));
+	     ve = (Agedge_s) ND_out(aghead(ve)).getArrayOfPtr("list").plus(0).getPtr())
+	    ED_edge_type(ve, 5);
+    }
+    /* else ignore intra-cluster edges at this point */
+} finally {
+LEAVING("659ld5tcseo3l0hopxb3pf0vv","interclrep");
+}
 }
 
 
@@ -973,7 +973,7 @@ try {
     GD_n_nodes(g, 0);		/* new */
     mark_clusters(g);
     for (c = 1; c <= GD_n_cluster(g); c++)
-	build_skeleton(g, GD_clust(g).plus(c).getPtr());
+	build_skeleton(g, (Agraph_s) GD_clust(g).plus(c).getPtr());
     for (n = agfstnode(g); n!=null; n = agnxtnode(g, n))
 	for (e = agfstout(g, n); e!=null; e = agnxtout(g, e)) {
 	    if (ND_weight_class(aghead(e)) <= 2)

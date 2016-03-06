@@ -734,7 +734,7 @@ try {
     ND_onstack(n, 1);
     for (i = 0; (e = (Agedge_s) ND_out(n).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
 	w = aghead(e);
-	if (ND_onstack(w)!=0) {
+	if (ND_onstack(w)) {
 	    reverse_edge(e);
 	    i--;
 	} else {

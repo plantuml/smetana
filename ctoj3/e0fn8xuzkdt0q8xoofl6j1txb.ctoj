@@ -1,0 +1,14 @@
+public static void UF_setname(Agnode_s u, Agnode_s v) {
+    assert(EQ(u, UF_find(u)));
+    ND_UF_parent(u, v);
+    ND_UF_size(v, ND_UF_size(v) + ND_UF_size(u));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void UF_setname(node_t * u, node_t * v)
+{
+    assert(u == UF_find(u));
+    ND_UF_parent(u) = v;
+    ND_UF_size(v) += ND_UF_size(u);
+}
+

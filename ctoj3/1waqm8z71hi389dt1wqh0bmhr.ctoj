@@ -1,0 +1,10 @@
+public static boolean is_a_normal_node_of(Agraph_s g, Agnode_s v) {
+    return ((ND_node_type(v) == 0) && agcontains(g, v));
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int is_a_normal_node_of(graph_t * g, node_t * v)
+{
+    return ((ND_node_type(v) == 0) && agcontains(g, v));
+}
+

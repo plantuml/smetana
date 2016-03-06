@@ -53,6 +53,9 @@ public class BucketToAreaFactory {
 		if (bucket.ctype.isIntStar()) {
 			return null;
 		}
+		if (bucket.ctype.isDoubleStar()) {
+			return null;
+		}
 		if (bucket.ctype.isVoidStar()) {
 			return null;
 			// return PointerToNull.nullPointerTo();

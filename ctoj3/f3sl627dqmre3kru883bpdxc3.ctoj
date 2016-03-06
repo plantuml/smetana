@@ -7,14 +7,11 @@ public static void collapse_cluster(Agraph_s g, Agraph_s subg) {
     if (agfstnode(subg) == null)
 	return;
     make_new_cluster(g, subg);
-UNSUPPORTED("9iujmvgau8ahy7ovdt9nzlqvm"); //     if (CL_type == 100) {
-UNSUPPORTED("6p4g531n3vbklpcdzd8un8ii"); // 	dot1_rank(subg, 0);
-UNSUPPORTED("8x0fv652al9nj8n23fp3ijz98"); // 	cluster_leader(subg);
-UNSUPPORTED("2lkbqgh2h6urnppaik3zo7ywi"); //     } else
+    if (Z._().CL_type == 100) {
+	dot1_rank(subg, null);
+	cluster_leader(subg);
+    } else
 UNSUPPORTED("1os84mtyrb110i4sd8bdjrwk"); // 	dot_scan_ranks(subg);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

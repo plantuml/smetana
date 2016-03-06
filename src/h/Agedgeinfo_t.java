@@ -44,7 +44,7 @@ import java.util.List;
 
 import smetana.core.__ptr__;
 
-//2 8bbm4zech9chcnqmpad6eq1gv
+//2 c1b3tf6cmbwk2cvu1u6j2rduc
 
 public interface Agedgeinfo_t extends __ptr__ {
 	public static List<String> DEFINITION = Arrays.asList(
@@ -60,6 +60,9 @@ public interface Agedgeinfo_t extends __ptr__ {
 "unsigned char gui_state",
 "edge_t *to_orig",
 "void *alg",
+"double factor",
+"double dist",
+"Ppolyline_t path",
 "unsigned char showboxes",
 "boolean conc_opp_flag",
 "short xpenalty",
@@ -85,9 +88,9 @@ public interface Agedgeinfo_t extends __ptr__ {
 // 	void *alg;
 // 
 // 
-// 	
-// 	
-// 	
+// 	double factor;
+// 	double dist;
+// 	Ppolyline_t path;
 // 
 // 
 // 	unsigned char showboxes;

@@ -1,0 +1,28 @@
+public static Agnode_s neighbor(Agnode_s v, int dir) {
+    Agnode_s rv;
+    rv = null;
+assert(v!=null);
+    if (dir < 0) {
+	if (ND_order(v) > 0)
+	    rv = (Agnode_s) GD_rank(Z._().Root).plus(ND_rank(v)).getArrayOfPtr("v").plus(ND_order(v) - 1).getPtr();
+    } else
+	rv = (Agnode_s) GD_rank(Z._().Root).plus(ND_rank(v)).getArrayOfPtr("v").plus(ND_order(v) + 1).getPtr();
+assert((rv == null) || (ND_order(rv)-ND_order(v))*dir > 0);
+    return rv;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static node_t *neighbor(node_t * v, int dir)
+{
+    node_t *rv;
+    rv = NULL;
+assert(v);
+    if (dir < 0) {
+	if (ND_order(v) > 0)
+	    rv = GD_rank(Root)[ND_rank(v)].v[ND_order(v) - 1];
+    } else
+	rv = GD_rank(Root)[ND_rank(v)].v[ND_order(v) + 1];
+assert((rv == 0) || (ND_order(rv)-ND_order(v))*dir > 0);
+    return rv;
+}
+

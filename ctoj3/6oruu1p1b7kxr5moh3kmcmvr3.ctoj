@@ -1,0 +1,66 @@
+public static void separate_subclust(Agraph_s g) {
+    int i, j, margin;
+    Agraph_s low, high;
+    Agraph_s left, right;
+    margin = late_int (g, Z._().G_margin, 8, 0);
+    for (i = 1; i <= GD_n_cluster(g); i++)
+	make_lrvn((Agraph_s) GD_clust(g).plus(i).getPtr());
+    for (i = 1; i <= GD_n_cluster(g); i++) {
+	for (j = i + 1; j <= GD_n_cluster(g); j++) {
+UNSUPPORTED("b48z8w7dnun90uu22eubqf3ba"); // 	    low = GD_clust(g)[i];
+UNSUPPORTED("b4bomfgcbfoeb0x86ajnx3rtj"); // 	    high = GD_clust(g)[j];
+UNSUPPORTED("vo4qmqyvzlhhbt0j7ug6t0ko"); // 	    if (GD_minrank(low) > GD_minrank(high)) {
+UNSUPPORTED("8lj913vkr5f3g8lhn0j3jns04"); // 		graph_t *temp = low;
+UNSUPPORTED("30p2o6g0q9ig9oxjny2uotj7x"); // 		low = high;
+UNSUPPORTED("a15s004bpmrww58h27n7hccfc"); // 		high = temp;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("276toniyxhad8vepjexcictjb"); // 	    if (GD_maxrank(low) < GD_minrank(high))
+UNSUPPORTED("6hyelvzskqfqa07xtgjtvg2is"); // 		continue;
+UNSUPPORTED("7qjv295ka7fo6i7wdqnfzgxgf"); // 	    if (ND_order(GD_rank(low)[GD_minrank(high)].v[0])
+UNSUPPORTED("2ssyjgg7hi2c8lxyahi0vpvag"); // 		< ND_order(GD_rank(high)[GD_minrank(high)].v[0])) {
+UNSUPPORTED("8mbnhsgk6ygbfbtr0ub1ua8hm"); // 		left = low;
+UNSUPPORTED("6a0lq4h8rsmgdgdhmojhwjjoz"); // 		right = high;
+UNSUPPORTED("175pyfe8j8mbhdwvrbx3gmew9"); // 	    } else {
+UNSUPPORTED("9bglj5z5yjbj7kdxit59pg9nn"); // 		left = high;
+UNSUPPORTED("cccouqr9pvz3dlpiqjaiqpfeh"); // 		right = low;
+UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+UNSUPPORTED("4y4h66g0xeki0v3ihql3aw6ii"); // 	    make_aux_edge(GD_rn(left), GD_ln(right), margin, 0);
+	}
+	separate_subclust((Agraph_s) GD_clust(g).plus(i).getPtr());
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void separate_subclust(graph_t * g)
+{
+    int i, j, margin;
+    graph_t *low, *high;
+    graph_t *left, *right;
+    margin = late_int (g, G_margin, 8, 0);
+    for (i = 1; i <= GD_n_cluster(g); i++)
+	make_lrvn(GD_clust(g)[i]);
+    for (i = 1; i <= GD_n_cluster(g); i++) {
+	for (j = i + 1; j <= GD_n_cluster(g); j++) {
+	    low = GD_clust(g)[i];
+	    high = GD_clust(g)[j];
+	    if (GD_minrank(low) > GD_minrank(high)) {
+		graph_t *temp = low;
+		low = high;
+		high = temp;
+	    }
+	    if (GD_maxrank(low) < GD_minrank(high))
+		continue;
+	    if (ND_order(GD_rank(low)[GD_minrank(high)].v[0])
+		< ND_order(GD_rank(high)[GD_minrank(high)].v[0])) {
+		left = low;
+		right = high;
+	    } else {
+		left = high;
+		right = low;
+	    }
+	    make_aux_edge(GD_rn(left), GD_ln(right), margin, 0);
+	}
+	separate_subclust(GD_clust(g)[i]);
+    }
+}
+

@@ -2293,12 +2293,12 @@ typedef enum {NATIVEFONTS,PSFONTS,SVGFONTS} fontname_kind;
 	void (*cleanup) (graph_t * g);   /* function to deallocate layout-specific data */
 
 
-	
-	
-	
-	
-	
-	
+	/* to place nodes */
+	node_t **neato_nlist;
+	int move;
+	double **dist, **spring, **sum_t, ***t;
+	unsigned short ndim;
+	unsigned short odim;
 
 
 	/* to have subgraphs */
@@ -2420,9 +2420,9 @@ typedef enum {NATIVEFONTS,PSFONTS,SVGFONTS} fontname_kind;
 	boolean clustnode;
 
 
-	
-	
-	
+	unsigned char pinned;
+	int id, heapindex, hops;
+	double *pos, dist;
 
 
 	unsigned char showboxes;
@@ -2530,9 +2530,9 @@ typedef enum {NATIVEFONTS,PSFONTS,SVGFONTS} fontname_kind;
 	void *alg;
 
 
-	
-	
-	
+	double factor;
+	double dist;
+	Ppolyline_t path;
 
 
 	unsigned char showboxes;

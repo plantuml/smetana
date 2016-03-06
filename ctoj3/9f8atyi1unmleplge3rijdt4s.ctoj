@@ -1,0 +1,26 @@
+public static boolean is_a_vnode_of_an_edge_of(Agraph_s g, Agnode_s v) {
+    if ((ND_node_type(v) == 1)
+	&& (ND_in(v).getInt("size") == 1) && (ND_out(v).getInt("size") == 1)) {
+	Agedge_s e = (Agedge_s) ND_out(v).getArrayOfPtr("list").plus(0).getPtr();
+	while (ED_edge_type(e) != 0)
+	    e = ED_to_orig(e);
+	if (agcontains(g, e))
+	    return NOT(false);
+    }
+    return false;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int is_a_vnode_of_an_edge_of(graph_t * g, node_t * v)
+{
+    if ((ND_node_type(v) == 1)
+	&& (ND_in(v).size == 1) && (ND_out(v).size == 1)) {
+	edge_t *e = ND_out(v).list[0];
+	while (ED_edge_type(e) != 0)
+	    e = ED_to_orig(e);
+	if (agcontains(g, e))
+	    return NOT(0);
+    }
+    return 0;
+}
+

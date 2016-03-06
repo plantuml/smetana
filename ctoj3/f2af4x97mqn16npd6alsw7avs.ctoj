@@ -1,0 +1,30 @@
+public static Agedge_s agnxtin(Agraph_s g, Agedge_s e) {
+    Agnode_s n;
+    Agsubnode_s sn;
+    Agedge_s f = null;
+    n = AGHEAD(e);
+    sn = agsubrep(g, n);
+	if (sn!=null) {
+		dtrestore((_dt_s)g.getPtr("e_seq"), (_dtlink_s)sn.getPtr("in_seq"));
+		f = (Agedge_s) g.getPtr("e_seq").castTo(_dt_s.class).call("searchf", g.getPtr("e_seq"),e,0000010);
+		sn.setPtr("in_seq", dtextract((_dt_s)g.getPtr("e_seq")));
+	}
+	return f;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agedge_t *agnxtin(Agraph_t * g, Agedge_t * e)
+{
+    Agnode_t *n;
+    Agsubnode_t *sn;
+    Agedge_t *f = ((Agedge_t*)0);
+    n = AGHEAD(e);
+    sn = agsubrep(g, n);
+	if (sn) {
+		dtrestore(g->e_seq, sn->in_seq);
+		f = (Agedge_t *) (*(((Dt_t*)(g->e_seq))->searchf))((g->e_seq),(void*)(e),0000010);
+		sn->in_seq = dtextract(g->e_seq);
+	}
+	return f;
+}
+

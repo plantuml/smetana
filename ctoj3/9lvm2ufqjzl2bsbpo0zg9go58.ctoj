@@ -20,7 +20,7 @@ public static void node_induce(Agraph_s par, Agraph_s g) {
     for (n = agfstnode(g); n!=null; n = agnxtnode(g, n)) {
 	for (e = agfstout(dot_root(g), n); e!=null; e = agnxtout(dot_root(g), e)) {
 	    if (agcontains(g, aghead(e)))
-		agsubedge(g,e,1);
+		agsubedge(g,e,true);
 	}
     }
 }

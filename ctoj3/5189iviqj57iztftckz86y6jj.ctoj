@@ -1,0 +1,22 @@
+public static int make_new_cluster(Agraph_s g, Agraph_s subg) {
+    int cno;
+    GD_n_cluster(g, GD_n_cluster(g)+1);
+    cno = GD_n_cluster(g);
+    GD_clust(g, ZALLOC(cno + 1, GD_clust(g), Agraph_s.class, GD_n_cluster(g)));
+    GD_clust(g).plus(cno).setPtr(subg);
+    do_graph_label(subg);
+    return cno;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static int 
+make_new_cluster(graph_t * g, graph_t * subg)
+{
+    int cno;
+    cno = ++(GD_n_cluster(g));
+    GD_clust(g) = ZALLOC(cno + 1, GD_clust(g), graph_t *, GD_n_cluster(g));
+    GD_clust(g)[cno] = subg;
+    do_graph_label(subg);
+    return cno;
+}
+

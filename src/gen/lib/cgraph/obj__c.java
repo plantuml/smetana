@@ -39,10 +39,13 @@
  *
  */
 package gen.lib.cgraph;
+import static gen.lib.cgraph.edge__c.agsubedge;
+import static gen.lib.cgraph.node__c.agidnode;
 import static gen.lib.cgraph.pend__c.agrecord_callback;
 import static smetana.core.JUtils.NEQ;
 import static smetana.core.JUtilsDebug.ENTERING;
 import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.AGID;
 import static smetana.core.Macro.AGINEDGE;
 import static smetana.core.Macro.AGNODE;
 import static smetana.core.Macro.AGOUTEDGE;
@@ -538,24 +541,19 @@ public static boolean agcontains(Agraph_s g, __ptr__ obj) {
 ENTERING("91ej8cxcc0kzgkg2yk3pdiifs","agcontains");
 try {
     Agraph_s subg;
-    System.err.println("agcontains A");
     if (NEQ(agroot(g), agroot(obj))) return false;
-    System.err.println("agcontains PAS CAA!!!");
-UNSUPPORTED("3kwdmn4ezymvab9oercol2gfj"); //     switch (AGTYPE(obj)) {
-UNSUPPORTED("eyna33dobiebmtd0nihpgura4"); //     case AGRAPH:
+    switch (AGTYPE(obj)) {
+    case AGRAPH:
 UNSUPPORTED("5fyr1r26q15uog4pl9eo2iohc"); // 	subg = (Agraph_t *) obj;
 UNSUPPORTED("8vxyvy38lzpbd83cu26nejaan"); // 	do {
 UNSUPPORTED("dqlpdwxfm3o0e4atzaam04f9m"); // 	    if (subg == g) return 1;
 UNSUPPORTED("4oqg7vqjjx3n3761fp7f2xld9"); // 	} while ((subg = agparent (subg)));
 UNSUPPORTED("c9ckhc8veujmwcw0ar3u3zld4"); // 	return 0;
-UNSUPPORTED("okhalz07p4k1n8z38d6gsxae"); //     case AGNODE: 
-UNSUPPORTED("a88kb5mtps50qe50k0138pgqo"); //         return (agidnode(g, AGID(obj), 0) != 0);
-UNSUPPORTED("8l3rwj6ctswoa4gvh2j4poq70"); //     default:
-UNSUPPORTED("f29k5hy3r2iho2i4v0qyo99ul"); //         return (agsubedge(g, (Agedge_t *) obj, 0) != 0);
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+    case AGNODE: 
+        return (agidnode(g, AGID(obj), 0) != null);
+    default:
+        return (agsubedge(g, (Agedge_s) obj, false) != null);
+    }
 } finally {
 LEAVING("91ej8cxcc0kzgkg2yk3pdiifs","agcontains");
 }

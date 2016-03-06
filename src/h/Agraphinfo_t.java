@@ -44,7 +44,7 @@ import java.util.List;
 
 import smetana.core.__ptr__;
 
-//2 z6er5w4b36ot9sh8q7zz99ye
+//2 2mtqmob86ayzjvuxgvhlg4ctl
 
 public interface Agraphinfo_t extends __ptr__ {
 	public static List<String> DEFINITION = Arrays.asList(
@@ -65,6 +65,11 @@ public interface Agraphinfo_t extends __ptr__ {
 "void *alg",
 "GVC_t *gvc",
 "void (*cleanup) (graph_t * g)",
+"node_t **neato_nlist",
+"int move",
+"double **dist, **spring, **sum_t, ***t",
+"unsigned short ndim",
+"unsigned short odim",
 "int n_cluster",
 "graph_t **clust",
 "graph_t *dotroot",
@@ -113,12 +118,12 @@ public interface Agraphinfo_t extends __ptr__ {
 // 	void (*cleanup) (graph_t * g);   /* function to deallocate layout-specific data */
 // 
 // 
-// 	
-// 	
-// 	
-// 	
-// 	
-// 	
+// 	/* to place nodes */
+// 	node_t **neato_nlist;
+// 	int move;
+// 	double **dist, **spring, **sum_t, ***t;
+// 	unsigned short ndim;
+// 	unsigned short odim;
 // 
 // 
 // 	/* to have subgraphs */

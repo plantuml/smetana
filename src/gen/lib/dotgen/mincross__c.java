@@ -47,6 +47,7 @@ import static gen.lib.cgraph.edge__c.agtail;
 import static gen.lib.cgraph.graph__c.agnedges;
 import static gen.lib.cgraph.node__c.agfstnode;
 import static gen.lib.cgraph.node__c.agnxtnode;
+import static gen.lib.cgraph.obj__c.agcontains;
 import static gen.lib.common.memory__c.zmalloc;
 import static gen.lib.common.utils__c.dequeue;
 import static gen.lib.common.utils__c.enqueue;
@@ -70,10 +71,12 @@ import static smetana.core.JUtils.sizeof;
 import static smetana.core.JUtils.sizeof_starstar_empty;
 import static smetana.core.JUtilsDebug.ENTERING;
 import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.ALLOC;
 import static smetana.core.Macro.ALLOC_INT;
 import static smetana.core.Macro.ED_edge_type;
 import static smetana.core.Macro.ED_head_port;
 import static smetana.core.Macro.ED_tail_port;
+import static smetana.core.Macro.ED_to_orig;
 import static smetana.core.Macro.ED_weight;
 import static smetana.core.Macro.ED_xpenalty;
 import static smetana.core.Macro.GD_clust;
@@ -877,16 +880,11 @@ LEAVING("e876vp4hgkzshluz6qk77cjwk","dot_mincross");
 public static adjmatrix_t new_matrix(int i, int j) {
 ENTERING("756bre1tpxb1tq68p7xhkrxkc","new_matrix");
 try {
- UNSUPPORTED("37r1dlkp6mirsyees58lby3m"); // static adjmatrix_t *new_matrix(int i, int j)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("78iohm462e4fhc71vtbx2hcko"); //     adjmatrix_t *rv = (adjmatrix_t*)zmalloc(sizeof(adjmatrix_t));
-UNSUPPORTED("b1jz4smxqpyhxhvybe6ei4h1x"); //     rv->nrows = i;
-UNSUPPORTED("1pzlhbyvsknggzt3bjjji7y1c"); //     rv->ncols = j;
-UNSUPPORTED("apn1shiflzuyh7giq7f5lul75"); //     rv->data = (char*)zmalloc((i * j)*sizeof(char));
-UNSUPPORTED("v7vqc9l7ge2bfdwnw11z7rzi"); //     return rv;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+    adjmatrix_t rv = (adjmatrix_t) Memory.malloc(adjmatrix_t.class);
+    rv.setInt("nrows", i);
+    rv.setInt("ncols", j);
+    rv.setPtr("data", zmalloc(size_t_array_of_integer(i*j)));
+    return rv;
 } finally {
 LEAVING("756bre1tpxb1tq68p7xhkrxkc","new_matrix");
 }
@@ -1090,13 +1088,10 @@ try {
     flat_breakcycles(g);
     flat_reorder(g);
     nc = mincross_(g, 2, 2, doBalance);
-UNSUPPORTED("7z5fb6iyowsosn1hiz7opeoc6"); //     for (c = 1; c <= GD_n_cluster(g); c++)
-UNSUPPORTED("9rf0oc3d6vv2etoxo9lfaafjv"); // 	nc += mincross_clust(g, GD_clust(g)[c], doBalance);
-UNSUPPORTED("epdz9wujhh3y1k5vt6a57dwqv"); //     save_vlist(g);
-UNSUPPORTED("bvmnch84b0w6a8b52fsv3my85"); //     return nc;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+    for (c = 1; c <= GD_n_cluster(g); c++)
+	nc += mincross_clust(g, (Agraph_s) GD_clust(g).plus(c).getPtr(), doBalance);
+    save_vlist(g);
+    return nc;
 } finally {
 LEAVING("crwc5qe7fmrpgcqh1a80toyvo","mincross_clust");
 }
@@ -1618,7 +1613,7 @@ try {
     }
     /* fix vlists of clusters */
     for (c = 1; c <= GD_n_cluster(g); c++)
-	rec_reset_vlists(GD_clust(g).plus(c));
+	rec_reset_vlists((Agraph_s) GD_clust(g).plus(c).getPtr());
     /* remove node temporary edges for ordering nodes */
     for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
 	for (i = 0; i < GD_rank(g).plus(r).getInt("n"); i++) {
@@ -1649,22 +1644,22 @@ LEAVING("3cwiyyk1d1jkoo9iqwb5bge4x","cleanup2");
 
 //3 arax68kzcf86dr2xu0gp962gq
 // static node_t *neighbor(node_t * v, int dir) 
-public static Object neighbor(Object... arg) {
-UNSUPPORTED("cooo3yper06ar0p024wzw4rec"); // static node_t *neighbor(node_t * v, int dir)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("4302bhte4qzbdabx61n5e2rim"); //     node_t *rv;
-UNSUPPORTED("e5il3lx8mzixp6isrux07m6se"); //     rv = NULL;
-UNSUPPORTED("78bfdlcgyjuhlbg1l7zkbmevd"); // assert(v);
-UNSUPPORTED("avri04dgsqilu4rrfrwhgiaxq"); //     if (dir < 0) {
-UNSUPPORTED("6amd14bdtwjhj0w4ltmpgf65n"); // 	if (ND_order(v) > 0)
-UNSUPPORTED("94qfi7a7w4143o7mtc2knxasm"); // 	    rv = GD_rank(Root)[ND_rank(v)].v[ND_order(v) - 1];
-UNSUPPORTED("2lkbqgh2h6urnppaik3zo7ywi"); //     } else
-UNSUPPORTED("8ou3jyxqleoiw8so2acxjahzo"); // 	rv = GD_rank(Root)[ND_rank(v)].v[ND_order(v) + 1];
-UNSUPPORTED("ahr38d5bwiucncpw94b08hq53"); // assert((rv == 0) || (ND_order(rv)-ND_order(v))*dir > 0);
-UNSUPPORTED("v7vqc9l7ge2bfdwnw11z7rzi"); //     return rv;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static Agnode_s neighbor(Agnode_s v, int dir) {
+ENTERING("arax68kzcf86dr2xu0gp962gq","neighbor");
+try {
+    Agnode_s rv;
+    rv = null;
+assert(v!=null);
+    if (dir < 0) {
+	if (ND_order(v) > 0)
+	    rv = (Agnode_s) GD_rank(Z._().Root).plus(ND_rank(v)).getArrayOfPtr("v").plus(ND_order(v) - 1).getPtr();
+    } else
+	rv = (Agnode_s) GD_rank(Z._().Root).plus(ND_rank(v)).getArrayOfPtr("v").plus(ND_order(v) + 1).getPtr();
+assert((rv == null) || (ND_order(rv)-ND_order(v))*dir > 0);
+    return rv;
+} finally {
+LEAVING("arax68kzcf86dr2xu0gp962gq","neighbor");
+}
 }
 
 
@@ -1672,13 +1667,13 @@ throw new UnsupportedOperationException();
 
 //3 1waqm8z71hi389dt1wqh0bmhr
 // static int is_a_normal_node_of(graph_t * g, node_t * v) 
-public static Object is_a_normal_node_of(Object... arg) {
-UNSUPPORTED("4hdjbdsma9mewci4guq1hpte7"); // static int is_a_normal_node_of(graph_t * g, node_t * v)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("8ymqzibljaldgeeby0jom6dxl"); //     return ((ND_node_type(v) == 0) && agcontains(g, v));
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static boolean is_a_normal_node_of(Agraph_s g, Agnode_s v) {
+ENTERING("1waqm8z71hi389dt1wqh0bmhr","is_a_normal_node_of");
+try {
+    return ((ND_node_type(v) == 0) && agcontains(g, v));
+} finally {
+LEAVING("1waqm8z71hi389dt1wqh0bmhr","is_a_normal_node_of");
+}
 }
 
 
@@ -1686,21 +1681,21 @@ throw new UnsupportedOperationException();
 
 //3 9f8atyi1unmleplge3rijdt4s
 // static int is_a_vnode_of_an_edge_of(graph_t * g, node_t * v) 
-public static Object is_a_vnode_of_an_edge_of(Object... arg) {
-UNSUPPORTED("38ex9shu3wd3h9skc3acx2shg"); // static int is_a_vnode_of_an_edge_of(graph_t * g, node_t * v)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("aeyctz12qt4vsfk55ps3poobh"); //     if ((ND_node_type(v) == 1)
-UNSUPPORTED("djp3j0dche599iyes70aeah55"); // 	&& (ND_in(v).size == 1) && (ND_out(v).size == 1)) {
-UNSUPPORTED("577ti4mp6m8ah2cgkpjxgrjbj"); // 	edge_t *e = ND_out(v).list[0];
-UNSUPPORTED("1aitgidttep2eipfffwj3quk9"); // 	while (ED_edge_type(e) != 0)
-UNSUPPORTED("1zvlxrjosiabmje0gsi1lrzrg"); // 	    e = ED_to_orig(e);
-UNSUPPORTED("8uahjxmk6qf2accyjtefccvxd"); // 	if (agcontains(g, e))
-UNSUPPORTED("9qhn9m3123s8n6wwxjfo8awlm"); // 	    return NOT(0);
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("5oxhd3fvp0gfmrmz12vndnjt"); //     return 0;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static boolean is_a_vnode_of_an_edge_of(Agraph_s g, Agnode_s v) {
+ENTERING("9f8atyi1unmleplge3rijdt4s","is_a_vnode_of_an_edge_of");
+try {
+    if ((ND_node_type(v) == 1)
+	&& (ND_in(v).getInt("size") == 1) && (ND_out(v).getInt("size") == 1)) {
+	Agedge_s e = (Agedge_s) ND_out(v).getArrayOfPtr("list").plus(0).getPtr();
+	while (ED_edge_type(e) != 0)
+	    e = ED_to_orig(e);
+	if (agcontains(g, e))
+	    return NOT(false);
+    }
+    return false;
+} finally {
+LEAVING("9f8atyi1unmleplge3rijdt4s","is_a_vnode_of_an_edge_of");
+}
 }
 
 
@@ -1708,13 +1703,13 @@ throw new UnsupportedOperationException();
 
 //3 eo7ulc8vwmoaig0j479yapve2
 // static int inside_cluster(graph_t * g, node_t * v) 
-public static Object inside_cluster(Object... arg) {
-UNSUPPORTED("hhgxveigmhjybmvy9o2bhrze"); // static int inside_cluster(graph_t * g, node_t * v)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("blv976n9gf9884dc8ntd5t8bv"); //     return (is_a_normal_node_of(g, v) | is_a_vnode_of_an_edge_of(g, v));
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static boolean inside_cluster(Agraph_s g, Agnode_s v) {
+ENTERING("eo7ulc8vwmoaig0j479yapve2","inside_cluster");
+try {
+    return (is_a_normal_node_of(g, v) | is_a_vnode_of_an_edge_of(g, v));
+} finally {
+LEAVING("eo7ulc8vwmoaig0j479yapve2","inside_cluster");
+}
 }
 
 
@@ -1722,21 +1717,21 @@ throw new UnsupportedOperationException();
 
 //3 8xkmkt4r6gfqj8gk0mokszoz0
 // static node_t *furthestnode(graph_t * g, node_t * v, int dir) 
-public static Object furthestnode(Object... arg) {
-UNSUPPORTED("838099xnxpt1xofa9q8ns830q"); // static node_t *furthestnode(graph_t * g, node_t * v, int dir)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("38d1vdgo9f29sl2n8hxoa5fly"); //     node_t *u, *rv;
-UNSUPPORTED("b0bxockvt1b6rdxv4alpldj86"); //     rv = u = v;
-UNSUPPORTED("92byw2dnqctnb5fpe5f5q5frs"); //     while ((u = neighbor(u, dir))) {
-UNSUPPORTED("e9u7t9t0wblx71idh0x4etxjg"); // 	if (is_a_normal_node_of(g, u))
-UNSUPPORTED("8aikgc5yj8lie66ovgptsts0e"); // 	    rv = u;
-UNSUPPORTED("eew0i83hxfefyo0q6nl289l85"); // 	else if (is_a_vnode_of_an_edge_of(g, u))
-UNSUPPORTED("8aikgc5yj8lie66ovgptsts0e"); // 	    rv = u;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("v7vqc9l7ge2bfdwnw11z7rzi"); //     return rv;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static Agnode_s furthestnode(Agraph_s g, Agnode_s v, int dir) {
+ENTERING("8xkmkt4r6gfqj8gk0mokszoz0","furthestnode");
+try {
+    Agnode_s u, rv;
+    rv = u = v;
+    while ((u = neighbor(u, dir))!=null) {
+	if (is_a_normal_node_of(g, u))
+	    rv = u;
+	else if (is_a_vnode_of_an_edge_of(g, u))
+	    rv = u;
+    }
+    return rv;
+} finally {
+LEAVING("8xkmkt4r6gfqj8gk0mokszoz0","furthestnode");
+}
 }
 
 
@@ -1779,26 +1774,26 @@ LEAVING("hwdxg97sefkuyd25x2q4pgzg","rec_save_vlists");
 
 //3 f3b4wat4uxn5oil720i5mwq4v
 // void rec_reset_vlists(graph_t * g) 
-public static Object rec_reset_vlists(Object... arg) {
-UNSUPPORTED("beg7h6f4142m5q539hfs559qe"); // void rec_reset_vlists(graph_t * g)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("3uj2h26d8pqkuu2k0mjvkeol9"); //     int r, c;
-UNSUPPORTED("25x2fk32ib5gwpvp05iqj8e99"); //     node_t *u, *v, *w;
-UNSUPPORTED("6hexl9haonf79yscag1bkd2hp"); //     /* fix vlists of sub-clusters */
-UNSUPPORTED("7z5fb6iyowsosn1hiz7opeoc6"); //     for (c = 1; c <= GD_n_cluster(g); c++)
-UNSUPPORTED("9g20g9n2zy1e32hvrsrkt4jaq"); // 	rec_reset_vlists(GD_clust(g)[c]);
-UNSUPPORTED("bejp0glz6rd31y42pmvg9jd1d"); //     if (GD_rankleader(g))
-UNSUPPORTED("34zoiglx6i533thnb09wet61g"); // 	for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
-UNSUPPORTED("2f5rj012q7k8l1dwrvcria9h9"); // 	    v = GD_rankleader(g)[r];
-UNSUPPORTED("dk29ytd6j0s8ahqrloyiih4gs"); // 	    u = furthestnode(g, v, -1);
-UNSUPPORTED("ei0k1qdcoaxw4ss8pggyvyjf3"); // 	    w = furthestnode(g, v, 1);
-UNSUPPORTED("chlootgcd8tkc8lwtp4uge3ub"); // 	    GD_rankleader(g)[r] = u;
-UNSUPPORTED("bwthbwy901g64csqdlq41txgx"); // 	    GD_rank(g)[r].v = GD_rank(dot_root(g))[r].v + ND_order(u);
-UNSUPPORTED("dv3k3p7wtwnl7ok7g7ym67weo"); // 	    GD_rank(g)[r].n = ND_order(w) - ND_order(u) + 1;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static void rec_reset_vlists(Agraph_s g) {
+ENTERING("f3b4wat4uxn5oil720i5mwq4v","rec_reset_vlists");
+try {
+    int r, c;
+    Agnode_s u, v, w;
+    /* fix vlists of sub-clusters */
+    for (c = 1; c <= GD_n_cluster(g); c++)
+	rec_reset_vlists((Agraph_s) GD_clust(g).plus(c).getPtr());
+    if (GD_rankleader(g)!=null)
+	for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
+	    v = (Agnode_s) GD_rankleader(g).plus(r).getPtr();
+	    u = furthestnode(g, v, -1);
+	    w = furthestnode(g, v, 1);
+	    GD_rankleader(g).plus(r).setPtr(u);
+	    GD_rank(g).plus(r).setPtr("v", GD_rank(dot_root(g)).plus(r).getPtr("v").plus(ND_order(u)));
+	    GD_rank(g).plus(r).setInt("n", ND_order(w) - ND_order(u) + 1);
+	}
+} finally {
+LEAVING("f3b4wat4uxn5oil720i5mwq4v","rec_reset_vlists");
+}
 }
 
 
@@ -1946,24 +1941,24 @@ throw new UnsupportedOperationException();
 
 //3 63ol0ch6cgln1nvl5oiz6n1v0
 // static void flat_search(graph_t * g, node_t * v) 
-public static Object flat_search(Object... arg) {
-UNSUPPORTED("3dplv8liqps606lyji49cwyto"); // static void flat_search(graph_t * g, node_t * v)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("b17di9c7wgtqm51bvsyxz6e2f"); //     int i;
-UNSUPPORTED("uz4bkd9jmc1izkfypacwrm7x"); //     boolean hascl;
-UNSUPPORTED("5gypxs09iuryx5a2eho9lgdcp"); //     edge_t *e;
-UNSUPPORTED("1x3lyeyf56cjta47z17ggq7r"); //     adjmatrix_t *M = GD_rank(g)[ND_rank(v)].flat;
-UNSUPPORTED("3dxrqgsmycugkp3qprexbuawx"); //     ND_mark(v) = NOT(0);
-UNSUPPORTED("9z9a3g70rwq874kmknu0re0w0"); //     ND_onstack(v) = NOT(0);
-UNSUPPORTED("f3owhsa283q0fffno3u255bbs"); //     hascl = (GD_n_cluster(dot_root(g)) > 0);
-UNSUPPORTED("2k0tyeb9985izamv9zgtdcn2b"); //     if (ND_flat_out(v).list)
-UNSUPPORTED("bjd1q4wrt334u4l37r6wyvk9x"); // 	for (i = 0; (e = ND_flat_out(v).list[i]); i++) {
-UNSUPPORTED("46ccyp7sfts1arfi6gcmyl47h"); // 	    if (hascl
-UNSUPPORTED("9nrg1sdmsv8dvjcnzy3hxl311"); // 		&& NOT(agcontains(g, agtail(e)) && agcontains(g, aghead(e))))
-UNSUPPORTED("6hyelvzskqfqa07xtgjtvg2is"); // 		continue;
-UNSUPPORTED("8o06h6b27felekpkiczuce1a5"); // 	    if (ED_weight(e) == 0)
-UNSUPPORTED("6hyelvzskqfqa07xtgjtvg2is"); // 		continue;
-UNSUPPORTED("9g5fd0gd8z6kt7wqo87u93e7r"); // 	    if (ND_onstack(aghead(e)) == NOT(0)) {
+public static void flat_search(Agraph_s g, Agnode_s v) {
+ENTERING("63ol0ch6cgln1nvl5oiz6n1v0","flat_search");
+try {
+    int i;
+    boolean hascl;
+    Agedge_s e;
+    adjmatrix_t M = (adjmatrix_t) GD_rank(g).plus(ND_rank(v)).getPtr("flat");
+    ND_mark(v, NOT(false));
+    ND_onstack(v, NOT(false));
+    hascl = (GD_n_cluster(dot_root(g)) > 0);
+    if (ND_flat_out(v).getArrayOfPtr("list")!=null)
+	for (i = 0; (e = (Agedge_s) ND_flat_out(v).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
+	    if (hascl
+		&& NOT(agcontains(g, agtail(e)) && agcontains(g, aghead(e))))
+		continue;
+	    if (ED_weight(e) == 0)
+		continue;
+	    if (ND_onstack(aghead(e)) == NOT(false)) {
 UNSUPPORTED("cgkgsq3cgt6yvpwsn9st1phym"); // 		assert(ND_low(aghead(e)) < M->nrows);
 UNSUPPORTED("38hoycfuki3wuy5cj039e3b00"); // 		assert(ND_low(agtail(e)) < M->ncols);
 UNSUPPORTED("ehj17yz9fge33i8h1scw4m7q6"); // 		(M->data[((ND_low(aghead(e)))*M->ncols)+(ND_low(agtail(e)))]) = 1;
@@ -1972,18 +1967,18 @@ UNSUPPORTED("b5737gtfqocrc9dqgtvfuz5e7"); // 		i--;
 UNSUPPORTED("8x0ryen4203ncnio11ie1rl6o"); // 		if (ED_edge_type(e) == 4)
 UNSUPPORTED("2yi9az7ibt7j9bwztjilyo0v2"); // 		    continue;
 UNSUPPORTED("8nnedzb0mcoepaac60ovylf44"); // 		flat_rev(g, e);
-UNSUPPORTED("175pyfe8j8mbhdwvrbx3gmew9"); // 	    } else {
-UNSUPPORTED("cgkgsq3cgt6yvpwsn9st1phym"); // 		assert(ND_low(aghead(e)) < M->nrows);
-UNSUPPORTED("38hoycfuki3wuy5cj039e3b00"); // 		assert(ND_low(agtail(e)) < M->ncols);
-UNSUPPORTED("5tglo5l92e3vo4ojcrpswx0ot"); // 		(M->data[((ND_low(agtail(e)))*M->ncols)+(ND_low(aghead(e)))]) = 1;
-UNSUPPORTED("ausndrmwuhuwnm7w5zwx9oy82"); // 		if (ND_mark(aghead(e)) == 0)
-UNSUPPORTED("7ocuk5j7l24eda0x312i8tdb1"); // 		    flat_search(g, aghead(e));
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("8o0qmsv6vkvey8j3nrtn0z3nd"); //     ND_onstack(v) = 0;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+	    } else {
+		assert(ND_low(aghead(e)) < M.getInt("nrows"));
+		assert(ND_low(agtail(e)) < M.getInt("ncols"));
+		M.getArrayOfInteger("data").plus(ND_low(agtail(e))*M.getInt("ncols")+ND_low(aghead(e))).setInt(1);
+		if (ND_mark(aghead(e)) == 0)
+		    flat_search(g, aghead(e));
+	    }
+	}
+    ND_onstack(v, 0);
+} finally {
+LEAVING("63ol0ch6cgln1nvl5oiz6n1v0","flat_search");
+}
 }
 
 
@@ -2198,16 +2193,16 @@ LEAVING("bmjlneqxex6a9silzkkidkx6s","enqueue_neighbors");
 
 //3 c8nqj0v20api63pikohsbx92u
 // static int constraining_flat_edge(Agraph_t *g, Agnode_t *v, Agedge_t *e) 
-public static Object constraining_flat_edge(Object... arg) {
-UNSUPPORTED("zto1c4xs81uku2ye7zbhlwoz"); // static int constraining_flat_edge(Agraph_t *g, Agnode_t *v, Agedge_t *e)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("3960kx8v8i1zer793t4zlswdw"); // 	if (ED_weight(e) == 0) return 0;
-UNSUPPORTED("4w7xujlzgd2uf0aontsqv3lb2"); // 	if (!inside_cluster(g,agtail(e))) return 0;
-UNSUPPORTED("2bv0xsji024l93pkethdfl7hr"); // 	if (!inside_cluster(g,aghead(e))) return 0;
-UNSUPPORTED("bp2y18pqq5n09006utwifdyxo"); // 	return NOT(0);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static boolean constraining_flat_edge(Agraph_s g, Agnode_s v, Agedge_s e) {
+ENTERING("c8nqj0v20api63pikohsbx92u","constraining_flat_edge");
+try {
+	if (ED_weight(e) == 0) return false;
+	if (N(inside_cluster(g,agtail(e)))) return false;
+	if (N(inside_cluster(g,aghead(e)))) return false;
+	return NOT(false);
+} finally {
+LEAVING("c8nqj0v20api63pikohsbx92u","constraining_flat_edge");
+}
 }
 
 
@@ -2215,25 +2210,25 @@ throw new UnsupportedOperationException();
 
 //3 46to0pkk188af2dlkik2ab7e3
 // static int postorder(graph_t * g, node_t * v, node_t ** list, int r) 
-public static Object postorder(Object... arg) {
-UNSUPPORTED("7a0o8pgfbtca0tg8dyqfvrskf"); // static int postorder(graph_t * g, node_t * v, node_t ** list, int r)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("5gypxs09iuryx5a2eho9lgdcp"); //     edge_t *e;
-UNSUPPORTED("b5a93beg34iiqtnufv9wanh2r"); //     int i, cnt = 0;
-UNSUPPORTED("7sjtek8z32exmy4kt4swrpl04"); //     (ND_mark(v)) = NOT(0);
-UNSUPPORTED("1k9cx50evf472qao05ebg91ng"); //     if (ND_flat_out(v).size > 0) {
-UNSUPPORTED("bjd1q4wrt334u4l37r6wyvk9x"); // 	for (i = 0; (e = ND_flat_out(v).list[i]); i++) {
-UNSUPPORTED("89s7oi9bkkajr6bf39b13szbo"); // 	    if (!constraining_flat_edge(g,v,e)) continue;
-UNSUPPORTED("11adn0zmpyabt4ufn2agotiig"); // 	    if ((ND_mark(aghead(e))) == 0)
-UNSUPPORTED("7afj95boikzsh6ue7dnez5wn6"); // 		cnt += postorder(g, aghead(e), list + cnt, r);
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("2tblnb9814cstqf6qtbzoubtx"); //     assert(ND_rank(v) == r);
-UNSUPPORTED("6yxq51zz7jjlven205qqx37d5"); //     list[cnt++] = v;
-UNSUPPORTED("3zkt5kbq3sockq663o3s3ync7"); //     return cnt;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static int postorder(Agraph_s g, Agnode_s v, __ptr__ list, int r) {
+ENTERING("46to0pkk188af2dlkik2ab7e3","postorder");
+try {
+    Agedge_s e;
+    int i, cnt = 0;
+    ND_mark(v, NOT(false));
+    if (ND_flat_out(v).getInt("size") > 0) {
+	for (i = 0; (e = (Agedge_s) ND_flat_out(v).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
+	    if (N(constraining_flat_edge(g,v,e))) continue;
+	    if ((ND_mark(aghead(e))) == 0)
+		cnt += postorder(g, aghead(e), list.plus(cnt), r);
+	}
+    }
+    assert(ND_rank(v) == r);
+    list.plus(cnt++).setPtr(v);
+    return cnt;
+} finally {
+LEAVING("46to0pkk188af2dlkik2ab7e3","postorder");
+}
 }
 
 
@@ -2251,77 +2246,75 @@ try {
     Agedge_s flat_e, e;
     if (GD_has_flat_edges(g) == 0)
 	return;
-UNSUPPORTED("60nab7gyukq3bs8e6dizhbacy"); //     for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
-UNSUPPORTED("2xm6bhb8x1bdvvm79rdx4ih8k"); // 	if (GD_rank(g)[r].n == 0) continue;
-UNSUPPORTED("43wkd0u4gt5f22bo4b81tpj18"); // 	base_order = ND_order(GD_rank(g)[r].v[0]);
-UNSUPPORTED("930yyqztt6dbtgwp49heo6aa7"); // 	for (i = 0; i < GD_rank(g)[r].n; i++)
-UNSUPPORTED("dz61yb90hbycduz1zl0palr7i"); // 	    (ND_mark(GD_rank(g)[r].v[i])) = 0;
-UNSUPPORTED("8bg3a9yayjyik2zurmxun7b2a"); // 	temprank = ALLOC(i + 1, temprank, node_t *);
-UNSUPPORTED("ptj0sxywmshehzmr5058z3ld"); // 	pos = 0;
-UNSUPPORTED("heovdmfd7dmyls9n93y5ao8w"); // 	/* construct reverse topological sort order in temprank */
-UNSUPPORTED("6eix918gmfs16624x6omusuhm"); // 	for (i = 0; i < GD_rank(g)[r].n; i++) {
-UNSUPPORTED("phr38thvtlbcjq1u87vo3r23"); // 	    if (GD_flip(g)) v = GD_rank(g)[r].v[i];
-UNSUPPORTED("6y4xt5s32t191ksegr3it73b2"); // 	    else v = GD_rank(g)[r].v[GD_rank(g)[r].n - i - 1];
-UNSUPPORTED("80lfdxbk10vp5rvtxkk5wj5ds"); // 	    local_in_cnt = local_out_cnt = 0;
-UNSUPPORTED("bl3do7s57na7xpv6f1vdbmyve"); // 	    for (j = 0; j < ND_flat_in(v).size; j++) {
-UNSUPPORTED("e96fdaq6dg03b925jfjo2kpx9"); // 		flat_e = ND_flat_in(v).list[j];
-UNSUPPORTED("larig8jnxb7ncytin6qrhq59"); // 		if (constraining_flat_edge(g,v,flat_e)) local_in_cnt++;
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("3dy5d7z3uazd4h4yyct78ghnu"); // 	    for (j = 0; j < ND_flat_out(v).size; j++) {
-UNSUPPORTED("dva1y1bkf4j66nkebj52la0i6"); // 		flat_e = ND_flat_out(v).list[j];
-UNSUPPORTED("2rgbk1kji5v8o4ybrrs4ls262"); // 		if (constraining_flat_edge(g,v,flat_e)) local_out_cnt++;
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("8o4pi1ans4czypy73ni9zgsnx"); // 	    if ((local_in_cnt == 0) && (local_out_cnt == 0))
-UNSUPPORTED("9nashj3bi59s5cdaa5a7sto8i"); // 		temprank[pos++] = v;
-UNSUPPORTED("6q044im7742qhglc4553noina"); // 	    else {
-UNSUPPORTED("1ezp9srjuy982ufzobpcuuisu"); // 		if (((ND_mark(v)) == 0) && (local_in_cnt == 0)) {
-UNSUPPORTED("a0cdgbreyl50679zmodu8jcj7"); // 		    left = temprank + pos;
-UNSUPPORTED("ewczn7sv1xkn79j21j6y98nna"); // 		    n_search = postorder(g, v, left, r);
-UNSUPPORTED("9xx3k65ddahr2zhjqsy9k4d5e"); // 		    pos += n_search;
-UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("exh0x53ewc1trtk2sr9j89dlv"); // 	if (pos) {
-UNSUPPORTED("4qkwn54estl5dx8jlgzlyraqo"); // 	    if (GD_flip(g) == 0) {
-UNSUPPORTED("aoz8iesotnzpotyuf6ft5oifs"); // 		left = temprank;
-UNSUPPORTED("dvxhjx37ryagjnn8012r3lab8"); // 		right = temprank + pos - 1;
-UNSUPPORTED("1kao1dlkemj6wsxv5pn1h61uw"); // 		while (left < right) {
-UNSUPPORTED("47h36vbyykmhp4m0k8gf0hpmq"); // 		    t = *left;
-UNSUPPORTED("235bgn7jwjpkg14gvd07fhz7h"); // 		    *left = *right;
-UNSUPPORTED("979a47z6ouhljp1uf4l8y19pw"); // 		    *right = t;
-UNSUPPORTED("5abi92edlhj6xlcwxgcsi7nj4"); // 		    left++;
-UNSUPPORTED("4xtkerapdpuh4g359203xnbhh"); // 		    right--;
-UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("ekjgpp51cwp03bcjy2ujywyo9"); // 	    for (i = 0; i < GD_rank(g)[r].n; i++) {
-UNSUPPORTED("5s8v862nltdximeipdvny9y1f"); // 		v = GD_rank(g)[r].v[i] = temprank[i];
-UNSUPPORTED("5kb820ryu1ki992hjcxkz57or"); // 		ND_order(v) = i + base_order;
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("bi573dmi6584mc3zavlx7d3eq"); // 	    /* nonconstraint flat edges must be made LR */
-UNSUPPORTED("ekjgpp51cwp03bcjy2ujywyo9"); // 	    for (i = 0; i < GD_rank(g)[r].n; i++) {
-UNSUPPORTED("93xv71x0pyo09i8el5dtgsr5z"); // 		v = GD_rank(g)[r].v[i];
-UNSUPPORTED("2v2exvmxlze26y0d0kispv9fw"); // 		if (ND_flat_out(v).list) {
-UNSUPPORTED("dyi5yufj0afxef8enqddgd7uz"); // 		    for (j = 0; (e = ND_flat_out(v).list[j]); j++) {
-UNSUPPORTED("4b127pxbma7th1i5vtdmpsv0a"); // 			if ( ((GD_flip(g) == 0) && (ND_order(aghead(e)) < ND_order(agtail(e)))) ||
-UNSUPPORTED("9dc4vox9k8rdfjaqvaf0xnksx"); // 				 ( (GD_flip(g)) && (ND_order(aghead(e)) > ND_order(agtail(e)) ))) {
+    for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
+	if (GD_rank(g).plus(r).getInt("n") == 0) continue;
+	base_order = ND_order(GD_rank(g).plus(r).getArrayOfPtr("v").plus(0).getPtr());
+	for (i = 0; i < GD_rank(g).plus(r).getInt("n"); i++)
+	    ND_mark(GD_rank(g).plus(r).getArrayOfPtr("v").plus(i).getPtr(), 0);
+	temprank = ALLOC(i + 1, temprank, Agnode_s.class);
+	pos = 0;
+	/* construct reverse topological sort order in temprank */
+	for (i = 0; i < GD_rank(g).plus(r).getInt("n"); i++) {
+	    if (GD_flip(g)!=0) v = (Agnode_s) GD_rank(g).plus(r).getArrayOfPtr("v").plus(i).getPtr();
+	    else v = (Agnode_s) GD_rank(g).plus(r).getArrayOfPtr("v").plus(GD_rank(g).plus(r).getInt("n") - i - 1).getPtr();
+	    local_in_cnt = local_out_cnt = 0;
+	    for (j = 0; j < ND_flat_in(v).getInt("size"); j++) {
+		flat_e = (Agedge_s) ND_flat_in(v).getArrayOfPtr("list").plus(j).getPtr();
+		if (constraining_flat_edge(g,v,flat_e)) local_in_cnt++;
+	    }
+	    for (j = 0; j < ND_flat_out(v).getInt("size"); j++) {
+		flat_e = (Agedge_s) ND_flat_out(v).getArrayOfPtr("list").plus(j).getPtr();
+		if (constraining_flat_edge(g,v,flat_e)) local_out_cnt++;
+	    }
+	    if ((local_in_cnt == 0) && (local_out_cnt == 0))
+		temprank.plus(pos++).setPtr(v);
+	    else {
+		if (((ND_mark(v)) == 0) && (local_in_cnt == 0)) {
+		    left = temprank.plus(pos);
+		    n_search = postorder(g, v, left, r);
+		    pos += n_search;
+		}
+	    }
+	}
+	if (pos!=0) {
+	    if (GD_flip(g) == 0) {
+		left = temprank;
+		right = temprank.plus(pos - 1);
+		while (left.comparePointer(right) < 0) {
+		    t = (Agnode_s) left.getPtr();
+		    left.setPtr(right.getPtr());
+		    right.setPtr(t);
+		    left = left.plus(1);
+		    right = right.plus(-1);
+		}
+	    }
+	    for (i = 0; i < GD_rank(g).plus(r).getInt("n"); i++) {
+		v = (Agnode_s) temprank.plus(i).getPtr();
+		GD_rank(g).plus(r).getArrayOfPtr("v").plus(i).setPtr(v);
+		ND_order(v, i + base_order);
+	    }
+	    /* nonconstraint flat edges must be made LR */
+	    for (i = 0; i < GD_rank(g).plus(r).getInt("n"); i++) {
+		v = (Agnode_s) GD_rank(g).plus(r).getArrayOfPtr("v").plus(i).getPtr();
+		if (ND_flat_out(v).getArrayOfPtr("list")!=null) {
+		    for (j = 0; (e = (Agedge_s) ND_flat_out(v).getArrayOfPtr("list").plus(j).getPtr())!=null; j++) {
+			if ( ((GD_flip(g) == 0) && (ND_order(aghead(e)) < ND_order(agtail(e)))) ||
+				 ( (GD_flip(g)!=0) && (ND_order(aghead(e)) > ND_order(agtail(e)) ))) {
 UNSUPPORTED("3omkik04m6s1wn9lkk45pivko"); // 			    assert(constraining_flat_edge(g,v,e) == 0);
 UNSUPPORTED("7ebw4lyjfgu8v0is6gfktqm7x"); // 			    delete_flat_edge(e);
 UNSUPPORTED("39xps1d6e8rc55xmsxaunuia8"); // 			    j--;
 UNSUPPORTED("1w583swkkvuwckydgv3bcn71d"); // 			    flat_rev(g, e);
-UNSUPPORTED("3to5h0rvqxdeqs38mhv47mm3o"); // 			}
-UNSUPPORTED("dkxvw03k2gg9anv4dbze06axd"); // 		    }
-UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("cvr0qehm47iqjy6mr0gf98ezh"); // 	    /* postprocess to restore intended order */
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("cmw1tuaeuiic11679pz61lx30"); // 	/* else do no harm! */
-UNSUPPORTED("aiubcqxqgke7s3v2d7ukdxub4"); // 	GD_rank(Root)[r].valid = 0;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("eedt0djlt1d5wfxm9242oovdy"); //     if (temprank)
-UNSUPPORTED("32y50hmbvwlkczwe82ltwu0s5"); // 	free(temprank);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+			}
+		    }
+		}
+	    }
+	    /* postprocess to restore intended order */
+	}
+	/* else do no harm! */
+	GD_rank(Z._().Root).plus(r).setInt("valid", 0);
+    }
+    if (temprank!=null)
+	Memory.free(temprank);
 } finally {
 LEAVING("zuxoswju917kyl08a5f0gtp6","flat_reorder");
 }

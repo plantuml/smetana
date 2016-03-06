@@ -1,8 +1,8 @@
 public static Agnode_s UF_find(Agnode_s n) {
     while (ND_UF_parent(n)!=null && NEQ(ND_UF_parent(n), n)) {
-UNSUPPORTED("y8hk25lt6b3gyaoq3wg8zf90"); // 	if (ND_UF_parent(ND_UF_parent(n)))
-UNSUPPORTED("aoz980f87j7302lg2bpt9qunj"); // 	    ND_UF_parent(n) = ND_UF_parent(ND_UF_parent(n));
-UNSUPPORTED("cdd7ddpmnm5aiecqteh3wgvpx"); // 	n = ND_UF_parent(n);
+	if (ND_UF_parent(ND_UF_parent(n))!=null)
+	    ND_UF_parent(n, ND_UF_parent(ND_UF_parent(n)));
+	n = ND_UF_parent(n);
     }
     return n;
 }

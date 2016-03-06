@@ -1,0 +1,18 @@
+public static Agedge_s agfstedge(Agraph_s g, Agnode_s n) {
+    Agedge_s rv;
+    rv = agfstout(g, n);
+    if (rv == null)
+	rv = agfstin(g, n);
+    return rv;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Agedge_t *agfstedge(Agraph_t * g, Agnode_t * n)
+{
+    Agedge_t *rv;
+    rv = agfstout(g, n);
+    if (rv == ((Agedge_t*)0))
+	rv = agfstin(g, n);
+    return rv;
+}
+

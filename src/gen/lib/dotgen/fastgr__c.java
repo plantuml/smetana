@@ -43,6 +43,7 @@ import static gen.lib.cgraph.edge__c.aghead;
 import static gen.lib.cgraph.edge__c.agtail;
 import static gen.lib.cgraph.obj__c.agroot;
 import static gen.lib.common.memory__c.zmalloc;
+import static gen.lib.dotgen.dotinit__c.dot_root;
 import static smetana.core.JUtils.EQ;
 import static smetana.core.JUtils.sizeof;
 import static smetana.core.JUtilsDebug.ENTERING;
@@ -61,9 +62,12 @@ import static smetana.core.Macro.ED_to_orig;
 import static smetana.core.Macro.ED_to_virt;
 import static smetana.core.Macro.ED_weight;
 import static smetana.core.Macro.ED_xpenalty;
+import static smetana.core.Macro.GD_has_flat_edges;
 import static smetana.core.Macro.GD_n_nodes;
 import static smetana.core.Macro.GD_nlist;
 import static smetana.core.Macro.ND_UF_size;
+import static smetana.core.Macro.ND_flat_in;
+import static smetana.core.Macro.ND_flat_out;
 import static smetana.core.Macro.ND_ht;
 import static smetana.core.Macro.ND_in;
 import static smetana.core.Macro.ND_lw;
@@ -73,6 +77,7 @@ import static smetana.core.Macro.ND_other;
 import static smetana.core.Macro.ND_out;
 import static smetana.core.Macro.ND_prev;
 import static smetana.core.Macro.ND_rw;
+import static smetana.core.Macro.NOT;
 import static smetana.core.Macro.UNSUPPORTED;
 import static smetana.core.Macro.aghead;
 import static smetana.core.Macro.agtail;
@@ -778,18 +783,17 @@ LEAVING("1uygfrgur73lfy9vsjozwwupm","find_fast_edge");
 
 //3 1yw7ahdnxnexnicj552zqyyej
 // static node_t* find_fast_node(graph_t * g, node_t * n) 
-public static Object find_fast_node(Object... arg) {
-UNSUPPORTED("b9dd3satxbh59hljdxzcxecc"); // static node_t*
-UNSUPPORTED("9yjgskupljj9hfy5lamjlhuww"); // find_fast_node(graph_t * g, node_t * n)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("aigogf44ojtcesuy4xs7inqbn"); //     node_t *v;
-UNSUPPORTED("7ye5scwztucyuo0lnci8nrj3y"); //     for (v = GD_nlist(g); v; v = ND_next(v))
-UNSUPPORTED("3ufvvs13kexyqakl5f5soje2e"); // 	if (v == n)
-UNSUPPORTED("ai3czg6gaaxspsmndknpyvuiu"); // 	    break;
-UNSUPPORTED("dpci52ct1zm8k1aasm170ru2j"); //     return v;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static Agnode_s find_fast_node(Agraph_s g, Agnode_s n) {
+ENTERING("1yw7ahdnxnexnicj552zqyyej","find_fast_node");
+try {
+    Agnode_s v;
+    for (v = GD_nlist(g); v!=null; v = ND_next(v))
+	if (EQ(v, n))
+	    break;
+    return v;
+} finally {
+LEAVING("1yw7ahdnxnexnicj552zqyyej","find_fast_node");
+}
 }
 
 
@@ -1035,19 +1039,19 @@ throw new UnsupportedOperationException();
 
 //3 emsq7b6s5100lscckzy3ileqd
 // void delete_fast_node(graph_t * g, node_t * n) 
-public static Object delete_fast_node(Object... arg) {
-UNSUPPORTED("tgbrhus0sm31bn8p93clvcgu"); // void delete_fast_node(graph_t * g, node_t * n)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("21h09puk2owkvbuowhlhwvxny"); //     assert(find_fast_node(g, n));
-UNSUPPORTED("53d41ipaqxwcxk95xcn6ah9tr"); //     if (ND_next(n))
-UNSUPPORTED("66ki8ryjrzs7w0oow0b5nhxt3"); // 	ND_prev(ND_next(n)) = ND_prev(n);
-UNSUPPORTED("ad5teipsyue142d2kay6l8jy3"); //     if (ND_prev(n))
-UNSUPPORTED("7nmdgkvai3j8c79o53tcz31w"); // 	ND_next(ND_prev(n)) = ND_next(n);
-UNSUPPORTED("div10atae09n36x269sl208r1"); //     else
-UNSUPPORTED("8x2rt0mvos2mm7q0yudu4ul7g"); // 	GD_nlist(g) = ND_next(n);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static void delete_fast_node(Agraph_s g, Agnode_s n) {
+ENTERING("emsq7b6s5100lscckzy3ileqd","delete_fast_node");
+try {
+    assert(find_fast_node(g, n)!=null);
+    if (ND_next(n)!=null)
+	ND_prev(ND_next(n), ND_prev(n));
+    if (ND_prev(n)!=null)
+	ND_next(ND_prev(n), ND_next(n));
+    else
+	GD_nlist(g, ND_next(n));
+} finally {
+LEAVING("emsq7b6s5100lscckzy3ileqd","delete_fast_node");
+}
 }
 
 
@@ -1084,15 +1088,16 @@ LEAVING("eg08ajzojsm0224btmfi7kdxt","virtual_node");
 
 //3 8dvukicq96g5t3xgdl0ue35mj
 // void flat_edge(graph_t * g, edge_t * e) 
-public static Object flat_edge(Object... arg) {
-UNSUPPORTED("57le5er03o8asnw613fl08rt4"); // void flat_edge(graph_t * g, edge_t * e)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("3ymbm5fpv4ywj27gr9wxbl96"); //     elist_append(e, ND_flat_out(agtail(e)));
-UNSUPPORTED("1yem7p5bra7qe2f48io1edptw"); //     elist_append(e, ND_flat_in(aghead(e)));
-UNSUPPORTED("87kiuca7sud42ttvvvl25jnp7"); //     GD_has_flat_edges(dot_root(g)) = GD_has_flat_edges(g) = NOT(0);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static void flat_edge(Agraph_s g, Agedge_s e) {
+ENTERING("8dvukicq96g5t3xgdl0ue35mj","flat_edge");
+try {
+    elist_append(e, ND_flat_out(agtail(e)));
+    elist_append(e, ND_flat_in(aghead(e)));
+    GD_has_flat_edges(g, NOT(false));
+    GD_has_flat_edges(dot_root(g), NOT(false));
+} finally {
+LEAVING("8dvukicq96g5t3xgdl0ue35mj","flat_edge");
+}
 }
 
 

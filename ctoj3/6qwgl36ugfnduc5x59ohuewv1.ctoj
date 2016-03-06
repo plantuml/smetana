@@ -8,7 +8,7 @@ public static __struct__<boxf> maximal_bbox(Agraph_s g, spline_info_t sp, Agnode
     b = (double)(ND_coord(vn).getDouble("x") - ND_lw(vn) - 4);
     if ((left = neighbor(g, vn, ie, oe, -1))!=null) {
 	if ((left_cl = cl_bound(g, vn, left))!=null)
-	    nb = GD_bb(left_cl).getPtr("UR").getDouble("x") + (double)(sp.getInt("Splinesep"));
+	    nb = GD_bb(left_cl).getStruct("UR").getDouble("x") + (double)(sp.getInt("Splinesep"));
 	else {
 	    nb = (double)(ND_coord(left).getDouble("x") + ND_mval(left));
 	    if (ND_node_type(left) == 0)

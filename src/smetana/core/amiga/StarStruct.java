@@ -294,6 +294,9 @@ public class StarStruct extends UnsupportedC implements Area, AllH {
 
 	public __array_of_integer__ getArrayOfInteger(String fieldName) {
 		Area area = getArea(fieldName);
+		if (area instanceof StarArrayOfInteger) {
+			return ((StarArrayOfInteger) area).getInternalArray();
+		}
 		return (__array_of_integer__) area;
 	}
 
@@ -302,7 +305,8 @@ public class StarStruct extends UnsupportedC implements Area, AllH {
 		// return ((__array__) getArea(fieldName)).getStruct(0);
 		// }
 		if (getArea(fieldName) != null && getArea(fieldName) instanceof __ptr__ == false) {
-			throw new IllegalArgumentException("Issue in getStruct with " + fieldName);
+			throw new IllegalArgumentException("Issue in getStruct with " + fieldName + " "
+					+ getArea(fieldName).getClass());
 		}
 		final __ptr__ area = (__ptr__) getArea(fieldName);
 		// if (area instanceof StarArray) {
@@ -320,8 +324,8 @@ public class StarStruct extends UnsupportedC implements Area, AllH {
 
 	public __ptr__ getPtr(String fieldName) {
 		if (getArea(fieldName) != null && getArea(fieldName) instanceof __ptr__ == false) {
-			throw new IllegalArgumentException("Issue with " + fieldName);
-
+			throw new IllegalArgumentException("Issue in getStruct with " + fieldName + " "
+					+ getArea(fieldName).getClass());
 		}
 		final __ptr__ area = (__ptr__) getArea(fieldName);
 		if (area == null) {
@@ -330,7 +334,7 @@ public class StarStruct extends UnsupportedC implements Area, AllH {
 		if (area instanceof StarStruct == false && area instanceof CFunctionImpl == false
 				&& area instanceof CString == false && area instanceof StarStar == false
 				&& area instanceof StarArrayOfPtr == false && area instanceof StarArrayOfStruct == false
-				&& area instanceof MutableDoublePtr == false
+				&& area instanceof StarArrayOfInteger == false && area instanceof MutableDoublePtr == false
 		/* && area instanceof AreaArray == false */) {
 			throw new IllegalStateException(area.getClass().toString());
 		}
@@ -406,6 +410,10 @@ public class StarStruct extends UnsupportedC implements Area, AllH {
 			return newData;
 		}
 		if (newData instanceof MutableDoublePtr) {
+			fields.put(fieldName, (Area) newData);
+			return newData;
+		}
+		if (newData instanceof StarArrayOfInteger) {
 			fields.put(fieldName, (Area) newData);
 			return newData;
 		}
