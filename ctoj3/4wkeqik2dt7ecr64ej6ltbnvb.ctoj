@@ -10,9 +10,7 @@ public static void storeline(GVC_s gvc, textlabel_t lp, CString line, char termi
     if (line!=null && line.charAt(0)!='\0') {
 	Z._().tf.setPtr("name", lp.getPtr("fontname"));
 	Z._().tf.setDouble("size", lp.getDouble("fontsize"));
-	
 	// WE CHEAT
-	System.err.println("WE CHEAT");
 	size.setDouble("x", 0.0);
 	size.setDouble("y", (int)(lp.getDouble("fontsize") * 1.20));
 	hackInitDimensionFromLabel(size, line.getContent());
@@ -29,8 +27,6 @@ public static void storeline(GVC_s gvc, textlabel_t lp, CString line, char termi
     lp.getStruct("dimen").setDouble("x", MAX(lp.getStruct("dimen").getDouble("x"), size.getDouble("x")));
     /* accumulate height */
     lp.getStruct("dimen").setDouble("y", lp.getStruct("dimen").getDouble("y") + size.getDouble("y"));
-    	System.err.println("storeline "+lp.getStruct("dimen").getDouble("x")+" "+lp.getStruct("dimen").getDouble("y"));
-    
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

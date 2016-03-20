@@ -39,10 +39,9 @@
  *
  */
 package h;
+import smetana.core.*;
 import java.util.Arrays;
 import java.util.List;
-
-import smetana.core.__ptr__;
 
 //2 6f8ug3prsw7z33swixem3j76r
 

@@ -39,61 +39,153 @@
  *
  */
 package gen.lib.dotgen;
-import static gen.lib.cgraph.edge__c.aghead;
-import static gen.lib.cgraph.edge__c.agtail;
-import static gen.lib.cgraph.obj__c.agroot;
-import static gen.lib.common.memory__c.zmalloc;
-import static gen.lib.dotgen.dotinit__c.dot_root;
-import static smetana.core.JUtils.EQ;
-import static smetana.core.JUtils.sizeof;
-import static smetana.core.JUtilsDebug.ENTERING;
-import static smetana.core.JUtilsDebug.LEAVING;
-import static smetana.core.Macro.AGINEDGE;
-import static smetana.core.Macro.AGNODE;
-import static smetana.core.Macro.AGOUTEDGE;
-import static smetana.core.Macro.AGSEQ;
-import static smetana.core.Macro.AGTYPE;
-import static smetana.core.Macro.ED_count;
-import static smetana.core.Macro.ED_edge_type;
-import static smetana.core.Macro.ED_head_port;
-import static smetana.core.Macro.ED_minlen;
-import static smetana.core.Macro.ED_tail_port;
-import static smetana.core.Macro.ED_to_orig;
-import static smetana.core.Macro.ED_to_virt;
-import static smetana.core.Macro.ED_weight;
-import static smetana.core.Macro.ED_xpenalty;
-import static smetana.core.Macro.GD_has_flat_edges;
-import static smetana.core.Macro.GD_n_nodes;
-import static smetana.core.Macro.GD_nlist;
-import static smetana.core.Macro.ND_UF_size;
-import static smetana.core.Macro.ND_flat_in;
-import static smetana.core.Macro.ND_flat_out;
-import static smetana.core.Macro.ND_ht;
-import static smetana.core.Macro.ND_in;
-import static smetana.core.Macro.ND_lw;
-import static smetana.core.Macro.ND_next;
-import static smetana.core.Macro.ND_node_type;
-import static smetana.core.Macro.ND_other;
-import static smetana.core.Macro.ND_out;
-import static smetana.core.Macro.ND_prev;
-import static smetana.core.Macro.ND_rw;
-import static smetana.core.Macro.NOT;
-import static smetana.core.Macro.UNSUPPORTED;
-import static smetana.core.Macro.aghead;
-import static smetana.core.Macro.agtail;
-import static smetana.core.Macro.alloc_elist;
-import static smetana.core.Macro.elist_append;
-import h.Agedge_s;
-import h.Agedgeinfo_t;
-import h.Agedgepair_s;
-import h.Agnode_s;
-import h.Agnodeinfo_t;
-import h.Agraph_s;
-import h.Agrec_s;
-import h.boxf;
-import h.elist;
-import h.pointf;
-import smetana.core.__struct__;
+import h.*;
+import smetana.core.*;
+import static smetana.core.Macro.*;
+import static smetana.core.JUtils.*;
+import static smetana.core.JUtilsDebug.*;
+import static gen.lib.cdt.dtclose__c.*;
+import static gen.lib.cdt.dtdisc__c.*;
+import static gen.lib.cdt.dtextract__c.*;
+import static gen.lib.cdt.dtflatten__c.*;
+import static gen.lib.cdt.dthash__c.*;
+import static gen.lib.cdt.dtlist__c.*;
+import static gen.lib.cdt.dtmethod__c.*;
+import static gen.lib.cdt.dtopen__c.*;
+import static gen.lib.cdt.dtrenew__c.*;
+import static gen.lib.cdt.dtrestore__c.*;
+import static gen.lib.cdt.dtsize__c.*;
+import static gen.lib.cdt.dtstat__c.*;
+import static gen.lib.cdt.dtstrhash__c.*;
+import static gen.lib.cdt.dttreeset__c.*;
+import static gen.lib.cdt.dttree__c.*;
+import static gen.lib.cdt.dtview__c.*;
+import static gen.lib.cdt.dtwalk__c.*;
+import static gen.lib.cgraph.agerror__c.*;
+import static gen.lib.cgraph.agxbuf__c.*;
+import static gen.lib.cgraph.apply__c.*;
+import static gen.lib.cgraph.attr__c.*;
+import static gen.lib.cgraph.cmpnd__c.*;
+import static gen.lib.cgraph.edge__c.*;
+import static gen.lib.cgraph.flatten__c.*;
+import static gen.lib.cgraph.graph__c.*;
+import static gen.lib.cgraph.id__c.*;
+import static gen.lib.cgraph.imap__c.*;
+import static gen.lib.cgraph.io__c.*;
+import static gen.lib.cgraph.main__c.*;
+import static gen.lib.cgraph.mem__c.*;
+import static gen.lib.cgraph.node__c.*;
+import static gen.lib.cgraph.obj__c.*;
+import static gen.lib.cgraph.pend__c.*;
+import static gen.lib.cgraph.rec__c.*;
+import static gen.lib.cgraph.refstr__c.*;
+import static gen.lib.cgraph.scan__c.*;
+import static gen.lib.cgraph.subg__c.*;
+import static gen.lib.cgraph.tester__c.*;
+import static gen.lib.cgraph.utils__c.*;
+import static gen.lib.cgraph.write__c.*;
+import static gen.lib.circogen.blockpath__c.*;
+import static gen.lib.circogen.blocktree__c.*;
+import static gen.lib.circogen.block__c.*;
+import static gen.lib.circogen.circpos__c.*;
+import static gen.lib.circogen.circularinit__c.*;
+import static gen.lib.circogen.circular__c.*;
+import static gen.lib.circogen.deglist__c.*;
+import static gen.lib.circogen.edgelist__c.*;
+import static gen.lib.circogen.nodelist__c.*;
+import static gen.lib.circogen.nodeset__c.*;
+import static gen.lib.common.args__c.*;
+import static gen.lib.common.arrows__c.*;
+import static gen.lib.common.colxlate__c.*;
+import static gen.lib.common.ellipse__c.*;
+import static gen.lib.common.emit__c.*;
+import static gen.lib.common.geom__c.*;
+import static gen.lib.common.globals__c.*;
+import static gen.lib.common.htmllex__c.*;
+import static gen.lib.common.htmlparse__c.*;
+import static gen.lib.common.htmltable__c.*;
+import static gen.lib.common.input__c.*;
+import static gen.lib.common.intset__c.*;
+import static gen.lib.common.labels__c.*;
+import static gen.lib.common.memory__c.*;
+import static gen.lib.common.ns__c.*;
+import static gen.lib.common.output__c.*;
+import static gen.lib.common.pointset__c.*;
+import static gen.lib.common.postproc__c.*;
+import static gen.lib.common.psusershape__c.*;
+import static gen.lib.common.routespl__c.*;
+import static gen.lib.common.shapes__c.*;
+import static gen.lib.common.splines__c.*;
+import static gen.lib.common.strcasecmp__c.*;
+import static gen.lib.common.strncasecmp__c.*;
+import static gen.lib.common.taper__c.*;
+import static gen.lib.common.textspan__c.*;
+import static gen.lib.common.timing__c.*;
+import static gen.lib.common.utils__c.*;
+import static gen.lib.dotgen.acyclic__c.*;
+import static gen.lib.dotgen.aspect__c.*;
+import static gen.lib.dotgen.class1__c.*;
+import static gen.lib.dotgen.class2__c.*;
+import static gen.lib.dotgen.cluster__c.*;
+import static gen.lib.dotgen.compound__c.*;
+import static gen.lib.dotgen.conc__c.*;
+import static gen.lib.dotgen.decomp__c.*;
+import static gen.lib.dotgen.dotinit__c.*;
+import static gen.lib.dotgen.dotsplines__c.*;
+import static gen.lib.dotgen.fastgr__c.*;
+import static gen.lib.dotgen.flat__c.*;
+import static gen.lib.dotgen.mincross__c.*;
+import static gen.lib.dotgen.position__c.*;
+import static gen.lib.dotgen.rank__c.*;
+import static gen.lib.dotgen.sameport__c.*;
+import static gen.lib.fdpgen.clusteredges__c.*;
+import static gen.lib.fdpgen.comp__c.*;
+import static gen.lib.fdpgen.dbg__c.*;
+import static gen.lib.fdpgen.fdpinit__c.*;
+import static gen.lib.fdpgen.grid__c.*;
+import static gen.lib.fdpgen.layout__c.*;
+import static gen.lib.fdpgen.tlayout__c.*;
+import static gen.lib.fdpgen.xlayout__c.*;
+import static gen.lib.gvc.gvbuffstderr__c.*;
+import static gen.lib.gvc.gvconfig__c.*;
+import static gen.lib.gvc.gvcontext__c.*;
+import static gen.lib.gvc.gvc__c.*;
+import static gen.lib.gvc.gvdevice__c.*;
+import static gen.lib.gvc.gvevent__c.*;
+import static gen.lib.gvc.gvjobs__c.*;
+import static gen.lib.gvc.gvlayout__c.*;
+import static gen.lib.gvc.gvloadimage__c.*;
+import static gen.lib.gvc.gvplugin__c.*;
+import static gen.lib.gvc.gvrender__c.*;
+import static gen.lib.gvc.gvtextlayout__c.*;
+import static gen.lib.gvc.gvusershape__c.*;
+import static gen.lib.gvc.regex_win32__c.*;
+import static gen.lib.label.index__c.*;
+import static gen.lib.label.node__c.*;
+import static gen.lib.label.nrtmain__c.*;
+import static gen.lib.label.rectangle__c.*;
+import static gen.lib.label.split_q__c.*;
+import static gen.lib.label.xlabels__c.*;
+import static gen.lib.ortho.fPQ__c.*;
+import static gen.lib.ortho.maze__c.*;
+import static gen.lib.ortho.ortho__c.*;
+import static gen.lib.ortho.partition__c.*;
+import static gen.lib.ortho.rawgraph__c.*;
+import static gen.lib.ortho.sgraph__c.*;
+import static gen.lib.ortho.trapezoid__c.*;
+import static gen.lib.pack.ccomps__c.*;
+import static gen.lib.pack.pack__c.*;
+import static gen.lib.pack.ptest__c.*;
+import static gen.lib.pathplan.cvt__c.*;
+import static gen.lib.pathplan.inpoly__c.*;
+import static gen.lib.pathplan.route__c.*;
+import static gen.lib.pathplan.shortestpth__c.*;
+import static gen.lib.pathplan.shortest__c.*;
+import static gen.lib.pathplan.solvers__c.*;
+import static gen.lib.pathplan.triang__c.*;
+import static gen.lib.pathplan.util__c.*;
+import static gen.lib.pathplan.visibility__c.*;
+import static gen.lib.xdot.xdot__c.*;
 
 public class fastgr__c {
 //1 2digov3edok6d5srhgtlmrycs
@@ -801,13 +893,13 @@ LEAVING("1yw7ahdnxnexnicj552zqyyej","find_fast_node");
 
 //3 bf1j97keudu416avridkj9fpb
 // edge_t *find_flat_edge(node_t * u, node_t * v) 
-public static Object find_flat_edge(Object... arg) {
-UNSUPPORTED("7vpm7qea310e9m7awi46kfwai"); // edge_t *find_flat_edge(node_t * u, node_t * v)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("18qalexpxkuadlxy4m2s0n3kj"); //     return ffe(u, ND_flat_out(u), v, ND_flat_in(v));
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static Agedge_s find_flat_edge(Agnode_s u, Agnode_s v) {
+ENTERING("bf1j97keudu416avridkj9fpb","find_flat_edge");
+try {
+    return ffe(u, ND_flat_out(u), v, ND_flat_in(v));
+} finally {
+LEAVING("bf1j97keudu416avridkj9fpb","find_flat_edge");
+}
 }
 
 
@@ -1105,17 +1197,17 @@ LEAVING("8dvukicq96g5t3xgdl0ue35mj","flat_edge");
 
 //3 clspalhiuedfnk9g9rlvfqpg7
 // void delete_flat_edge(edge_t * e) 
-public static Object delete_flat_edge(Object... arg) {
-UNSUPPORTED("aqfnj6ol88hxku6kp95jau3of"); // void delete_flat_edge(edge_t * e)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("axei6r4pdvrumkaqc9p82yzjh"); //     assert(e != NULL);
-UNSUPPORTED("9v6s5qnulknm8ocmw3u5trsva"); //     if (ED_to_orig(e) && ED_to_virt(ED_to_orig(e)) == e)
-UNSUPPORTED("c888zxlacyihq4c88giw4nx8t"); // 	ED_to_virt(ED_to_orig(e)) = NULL;
-UNSUPPORTED("2xqnpgrhajmcb90rpbjdy5rvg"); //     zapinlist(&(ND_flat_out(agtail(e))), e);
-UNSUPPORTED("j90opr99k7w1rnczlsb5e6es"); //     zapinlist(&(ND_flat_in(aghead(e))), e);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static void delete_flat_edge(Agedge_s e) {
+ENTERING("clspalhiuedfnk9g9rlvfqpg7","delete_flat_edge");
+try {
+    assert(e != null);
+    if (ED_to_orig(e)!=null && EQ(ED_to_virt(ED_to_orig(e)), e))
+	ED_to_virt(ED_to_orig(e), null);
+    zapinlist((ND_flat_out(agtail(e))).amp(), e);
+    zapinlist((ND_flat_in(aghead(e))).amp(), e);
+} finally {
+LEAVING("clspalhiuedfnk9g9rlvfqpg7","delete_flat_edge");
+}
 }
 
 

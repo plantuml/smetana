@@ -6,28 +6,28 @@ public static void map_path(Agnode_s from, Agnode_s to, Agedge_s orig, Agedge_s 
     if (EQ(agtail(ve), from) && EQ(aghead(ve), to))
 	return;
     if (ED_count(ve) > 1) {
-UNSUPPORTED("amzisjlzyd7kcnykhwm3emzsw"); // 	ED_to_virt(orig) = NULL;
-UNSUPPORTED("3usjzgkkiqzrkacya4l5x1wwv"); // 	if (ND_rank(to) - ND_rank(from) == 1) {
-UNSUPPORTED("7rikcljs70u4mv2pl0nxrkozq"); // 	    if ((e = find_fast_edge(from, to)) && (ports_eq(orig, e))) {
-UNSUPPORTED("15imfa3fwa9eecqbv04gdlz9g"); // 		merge_oneway(orig, e);
-UNSUPPORTED("3wix4edrrj20l71i08ckve4ao"); // 		if ((ND_node_type(from) == 0)
-UNSUPPORTED("blnvalvptm73qbqedzi8o5qx2"); // 		    && (ND_node_type(to) == 0))
-UNSUPPORTED("1qiw6v20ddsxgj17i5pnlvjyn"); // 		    other_edge(orig);
-UNSUPPORTED("6bj8inpmr5ulm16jmfxsstjtn"); // 		return;
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("1x35hzfwt92fmliibo5v89m7c"); // 	u = from;
-UNSUPPORTED("e0x5b4qz9ijzzy3o87otbxuq9"); // 	for (r = ND_rank(from); r < ND_rank(to); r++) {
-UNSUPPORTED("4u4cndjol9mjoizaxexkijz6b"); // 	    if (r < ND_rank(to) - 1)
-UNSUPPORTED("7nfktz3r8rlmo2rcg7y075ufe"); // 		v = clone_vn(dot_root(from), aghead(ve));
-UNSUPPORTED("5c97f6vfxny0zz35l2bu4maox"); // 	    else
-UNSUPPORTED("cirictno38xls9e6dhksdpmp2"); // 		v = to;
-UNSUPPORTED("6ghi2o0a6dgb9jlk96ydus4c"); // 	    e = virtual_edge(u, v, orig);
-UNSUPPORTED("6q6y62qde57z3lsb2801pkn7b"); // 	    ED_edge_type(e) = type;
-UNSUPPORTED("7lybui6nu0sgimvycjyy3685h"); // 	    u = v;
-UNSUPPORTED("6jjh353s9hrfwqh6yru1b875w"); // 	    ED_count(ve)--;
-UNSUPPORTED("5evemf4tm2qpxh7ii2pzs3ba8"); // 	    ve = ND_out(aghead(ve)).list[0];
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
+	ED_to_virt(orig, null);
+	if (ND_rank(to) - ND_rank(from) == 1) {
+	    if ((e = find_fast_edge(from, to))!=null && (ports_eq(orig, e))) {
+		merge_oneway(orig, e);
+		if ((ND_node_type(from) == 0)
+		    && (ND_node_type(to) == 0))
+		    other_edge(orig);
+		return;
+	    }
+	}
+	u = from;
+	for (r = ND_rank(from); r < ND_rank(to); r++) {
+	    if (r < ND_rank(to) - 1)
+		v = clone_vn(dot_root(from), aghead(ve));
+	    else
+		v = to;
+	    e = virtual_edge(u, v, orig);
+	    ED_edge_type(e, type);
+	    u = v;
+	    ED_count(ve, ED_count(ve) - 1);
+	    ve = (Agedge_s) ND_out(aghead(ve)).getArrayOfPtr("list").plus(0).getPtr();
+	}
     } else {
 	if (ND_rank(to) - ND_rank(from) == 1) {
 	    if ((ve = find_fast_edge(from, to))!=null && (ports_eq(orig, ve))) {
@@ -45,21 +45,22 @@ UNSUPPORTED("1qiw6v20ddsxgj17i5pnlvjyn"); // 		    other_edge(orig);
 	    }
 	}
 	if (ND_rank(to) - ND_rank(from) > 1) {
-UNSUPPORTED("atpqi8htn5pfsp83jsjnpya6u"); // 	    e = ve;
-UNSUPPORTED("48q2i88h3eiwyvatk52go1qk3"); // 	    if (agtail(ve) != from) {
-UNSUPPORTED("b87s1z4ymup7pt4ttlit23147"); // 		ED_to_virt(orig) = NULL;
-UNSUPPORTED("artn59emuxdx7iczkltmrkps0"); // 		e = ED_to_virt(orig) = virtual_edge(from, aghead(ve), orig);
-UNSUPPORTED("a57axdi6yo27zbr1wjhy83ulz"); // 		delete_fast_edge(ve);
-UNSUPPORTED("afk9bpom7x393euamnvwwkx6b"); // 	    } else
-UNSUPPORTED("8q8ufoa5cnfya3803on8l3iqi"); // 		e = ve;
-UNSUPPORTED("841onu13nrkagywfwcs5ym6wy"); // 	    while (ND_rank(aghead(e)) != ND_rank(to))
-UNSUPPORTED("7zjq6cetd2j3icvu5rdxk4f0d"); // 		e = ND_out(aghead(e)).list[0];
-UNSUPPORTED("4b6isfwr3ag7crntdsdg7uewy"); // 	    if (aghead(e) != to) {
-UNSUPPORTED("22buahogyeh9ri5tkqe69qsur"); // 		ve = e;
-UNSUPPORTED("cdtd6iwjostde5uuwlole4e9m"); // 		e = virtual_edge(agtail(e), to, orig);
-UNSUPPORTED("25nmda3y8wn495w90p98e8f3k"); // 		ED_edge_type(e) = type;
-UNSUPPORTED("a57axdi6yo27zbr1wjhy83ulz"); // 		delete_fast_edge(ve);
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
+	    e = ve;
+	    if (NEQ(agtail(ve), from)) {
+		ED_to_virt(orig, null);
+		e = virtual_edge(from, aghead(ve), orig);
+		ED_to_virt(orig, e);
+		delete_fast_edge(ve);
+	    } else
+		e = ve;
+	    while (ND_rank(aghead(e)) != ND_rank(to))
+		e = (Agedge_s) ND_out(aghead(e)).getArrayOfPtr("list").plus(0).getPtr();
+	    if (NEQ(aghead(e), to)) {
+		ve = e;
+		e = virtual_edge(agtail(e), to, orig);
+		ED_edge_type(e, type);
+		delete_fast_edge(ve);
+	    }
 	}
     }
 }

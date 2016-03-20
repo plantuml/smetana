@@ -31,9 +31,6 @@
 
 package smetana.core;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import h.Agedge_s;
 import h.Agedgeinfo_t;
 import h.Agnode_s;
@@ -52,6 +49,9 @@ import h.pointf;
 import h.port;
 import h.splines;
 import h.textlabel_t;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Macro {
 
@@ -607,6 +607,9 @@ public class Macro {
 	public static __ptr__ ND_alg(Agnode_s n) {
 		return AGDATA(n).castTo(Agnodeinfo_t.class).getPtr("alg");
 	}
+	public static void ND_alg(Agnode_s n, __ptr__ value) {
+		AGDATA(n).castTo(Agnodeinfo_t.class).setPtr("alg", value);
+	}
 
 	// #define ND_UF_parent(n) (((Agnodeinfo_t*)AGDATA(n))->UF_parent)
 	public static Agnode_s ND_UF_parent(__ptr__ n) {
@@ -785,7 +788,7 @@ public class Macro {
 	public static int ND_order(__ptr__ n) {
 		return AGDATA(n).castTo(Agnodeinfo_t.class).getInt("order");
 	}
-	public static void ND_order(Agnode_s n, int v) {
+	public static void ND_order(__ptr__ n, int v) {
 		AGDATA(n).castTo(Agnodeinfo_t.class).setInt("order", v);
 	}
 
@@ -1142,7 +1145,7 @@ public class Macro {
 		if (ptr == null) {
 			return (__ptr__) JUtils.sizeof(type, nb).malloc();
 		}
-		return (__ptr__) JUtils.sizeof(type, nb).malloc();
+		return (__ptr__) JUtils.sizeof(type, nb).realloc(ptr);
 	}
 
 	// #define elist_append(item,L) do {L.list = ALLOC(L.size + 2,L.list,edge_t*); L.list[L.size++] = item;
@@ -1242,7 +1245,7 @@ public class Macro {
 	// (type*)zrealloc(ptr,size,sizeof(type),osize):(type*)zmalloc((size)*sizeof(type)))
 	public static __ptr__ ZALLOC(int size, __ptr__ ptr, Class type, int osize) {
 		if (ptr != null) {
-			throw new UnsupportedOperationException();
+			return Memory.realloc(ptr, JUtils.sizeof(type, size));
 		}
 		return (__ptr__) JUtils.sizeof(type, size).malloc();
 	}

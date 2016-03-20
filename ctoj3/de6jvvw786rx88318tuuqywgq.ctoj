@@ -1,4 +1,4 @@
-public static int mkspacep(int size) {
+public static boolean mkspacep(int size) {
     if (size > Z._().maxpn) {
 	int newmax = Z._().maxpn + (size / 300 + 1) * 300;
 	Z._().ps = RALLOC(newmax, Z._().ps, pointf.class);
@@ -8,7 +8,7 @@ UNSUPPORTED("btmwubugs9vkexo4yb7a5nqel"); // 	    return 1;
 	}
 	Z._().maxpn = newmax;
     }
-    return 0;
+    return false;
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

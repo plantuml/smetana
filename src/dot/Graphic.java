@@ -30,17 +30,19 @@
  */
 package dot;
 
+import static gen.lib.cgraph.attr__c.agget;
 import h.Agedge_s;
 import h.Agedgeinfo_t;
 import h.Agnode_s;
 import h.Agnodeinfo_t;
-import h.bezier;
-import h.splines;
+import h.Agraph_s;
+import h.Agraphinfo_t;
+import h.boxf;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -50,8 +52,10 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import smetana.core.CString;
 import smetana.core.Macro;
 import smetana.core.__ptr__;
+import smetana.core.__struct__;
 
 public class Graphic {
 
@@ -59,6 +63,7 @@ public class Graphic {
 
 	private final List<Agnode_s> nodes = new ArrayList<Agnode_s>();
 	private final List<Curve> curves = new ArrayList<Curve>();
+	private final List<Agraph_s> clusters = new ArrayList<Agraph_s>();
 	private double maxX, maxY;
 
 	public void addEdge(Agedge_s e) {
@@ -100,6 +105,10 @@ public class Graphic {
 		at.concatenate(AffineTransform.getTranslateInstance(margin, margin - totalHeight));
 		g.setTransform(at);
 
+		g.setColor(Color.RED);
+		for (Agraph_s c : clusters) {
+			drawCluster(g, c);
+		}
 		g.setColor(Color.BLUE);
 		for (Agnode_s n : nodes) {
 			drawNode(g, n);
@@ -116,6 +125,17 @@ public class Graphic {
 		}
 	}
 
+	private void drawCluster(Graphics2D g, Agraph_s c) {
+		final __ptr__ data = Macro.AGDATA(c).castTo(Agraphinfo_t.class);
+		final __struct__<boxf> bb = data.getStruct("bb");
+		double llx = bb.getStruct("LL").getDouble("x");
+		double lly = bb.getStruct("LL").getDouble("y");
+		double urx = bb.getStruct("UR").getDouble("x");
+		double ury = bb.getStruct("UR").getDouble("y");
+		g.draw(new Rectangle2D.Double(llx, lly, urx - llx, ury - lly));
+
+	}
+
 	private void drawNode(Graphics2D g, Agnode_s n) {
 		final Agnodeinfo_t data = (Agnodeinfo_t) Macro.AGDATA(n).castTo(Agnodeinfo_t.class);
 		final double width = data.getDouble("width") * 72;
@@ -123,8 +143,18 @@ public class Graphic {
 		double x = data.getStruct("coord").getDouble("x");
 		double y = data.getStruct("coord").getDouble("y");
 
-		g.draw(new Rectangle2D.Double(x - width / 2, y - height / 2, width, height));
+		final CString shape = agget(n, new CString("shape"));
 
+		if (shape != null && "box".equalsIgnoreCase(shape.getContent())) {
+			g.draw(new Rectangle2D.Double(x - width / 2, y - height / 2, width, height));
+		} else {
+			g.draw(new Ellipse2D.Double(x - width / 2, y - height / 2, width, height));
+		}
+
+	}
+
+	public void addCluster(Agraph_s c) {
+		clusters.add(c);
 	}
 
 }

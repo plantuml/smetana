@@ -14,8 +14,8 @@ public static void make_flat_edge(Agraph_s g, spline_info_t sp, path P, __ptr__ 
     e = (Agedge_s) edges.plus(ind).getPtr();
     isAdjacent = ED_adjacent(e);
     if ((ED_tree_index(e) & 32)!=0) {
-	MAKEFWDEDGE(fwdedge.getPtr("out"), e);
-	e = (Agedge_s) fwdedge.getPtr("out");
+	MAKEFWDEDGE(fwdedge.getStruct("out").amp(), e);
+	e = (Agedge_s) fwdedge.getStruct("out").amp();
     }
     for (i = 1; i < cnt; i++) {
 	if (ED_adjacent(edges.plus(ind+i).getPtr())!=0) {
@@ -69,26 +69,26 @@ public static void make_flat_edge(Agraph_s g, spline_info_t sp, path P, __ptr__ 
 	final __struct__<boxf> b = __struct__.from(boxf.class);
 	e = (Agedge_s) edges.plus(ind + i).getPtr();
 	boxn = 0;
-	b.____(tend.getArrayOfPtr("boxes").plus(tend.getInt("boxn") - 1).getStruct());
- 	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("x", b.getPtr("LL").getDouble("x")); 
-	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("y", b.getPtr("UR").getDouble("y")); 
-	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("x", b.getPtr("UR").getDouble("x") + (i + 1) * stepx);
-	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("y", b.getPtr("UR").getDouble("y") + (i + 1) * stepy);
+	b.____(tend.getArrayOfStruct("boxes").plus(tend.getInt("boxn") - 1).getStruct());
+ 	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("x", b.getStruct("LL").getDouble("x")); 
+	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("y", b.getStruct("UR").getDouble("y")); 
+	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("x", b.getStruct("UR").getDouble("x") + (i + 1) * stepx);
+	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("y", b.getStruct("UR").getDouble("y") + (i + 1) * stepy);
 	boxn++;
-	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("x", tend.getArrayOfPtr("boxes").plus(tend.getInt("boxn") - 1).getPtr().getPtr("LL").getDouble("x")); 
+	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("x", tend.getArrayOfStruct("boxes").plus(tend.getInt("boxn") - 1).getStruct().getStruct("LL").getDouble("x")); 
 	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("y", Z._().boxes.plus(boxn-1).getStruct().getStruct("UR").getDouble("y"));
-	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("x", hend.getArrayOfPtr("boxes").plus(hend.getInt("boxn") - 1).getPtr().getPtr("UR").getDouble("x"));
+	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("x", hend.getArrayOfStruct("boxes").plus(hend.getInt("boxn") - 1).getStruct().getStruct("UR").getDouble("x"));
 	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("y", Z._().boxes.plus(boxn).getStruct().getStruct("LL").getDouble("y") + stepy);
 	boxn++;
-	b.____(tend.getArrayOfPtr("boxes").plus(tend.getInt("boxn") - 1).getStruct());
-	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("x", b.getPtr("UR").getDouble("x"));
-	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("y", b.getPtr("UR").getDouble("y"));
-	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("x", b.getPtr("LL").getDouble("x") - (i + 1) * stepx);
+	b.____(hend.getArrayOfStruct("boxes").plus(hend.getInt("boxn") - 1).getStruct());
+	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("x", b.getStruct("UR").getDouble("x"));
+	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("y", b.getStruct("UR").getDouble("y"));
+	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("x", b.getStruct("LL").getDouble("x") - (i + 1) * stepx);
 	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("y", Z._().boxes.plus(boxn-1).getStruct().getStruct("LL").getDouble("y"));
 	boxn++;
-	for (j = 0; j < tend.getInt("boxn"); j++) add_box(P, tend.getArrayOfPtr("boxes").plus(j).getStruct());
+	for (j = 0; j < tend.getInt("boxn"); j++) add_box(P, tend.getArrayOfStruct("boxes").plus(j).getStruct());
 	for (j = 0; j < boxn; j++) add_box(P, Z._().boxes.plus(j).getStruct());
-	for (j = hend.getInt("boxn") - 1; j >= 0; j--) add_box(P, hend.getArrayOfPtr("boxes").plus(j).getStruct());
+	for (j = hend.getInt("boxn") - 1; j >= 0; j--) add_box(P, hend.getArrayOfStruct("boxes").plus(j).getStruct());
 	if (et == (5 << 1)) ps = (pointf) routesplines(P, pn);
 	else ps = (pointf) routepolylines(P, pn);
 	if (pn[0] == 0)

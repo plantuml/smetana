@@ -67,10 +67,10 @@ UNSUPPORTED("2bfai79qe7cec0rljrn56jg2f"); // 		polypoints[pi].x = boxes[bi].LL.x
 UNSUPPORTED("99xeozpks5v0iza4sv2occuuq"); // 		polypoints[pi++].y = boxes[bi].LL.y;
 	    } 
 	    else {
-UNSUPPORTED("9sy5lvqkjszaj7mkb3qk3izfi"); // 		if (!(prev == -1 && next == -1)) {
+ 		if (N(prev == -1 && next == -1)) {
 UNSUPPORTED("cgpvvfb9phbipyhij0cjh1nmi"); // 		    agerr(AGERR, "in routesplines, illegal values of prev %d and next %d, line %d\n", prev, next, 444);
 UNSUPPORTED("9idk92zg2ysz316lfwzvvvde6"); // 		    return NULL;
-UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
+ 		}
 	    }
 	}
 	for (bi = boxn - 1; bi >= 0; bi--) {
@@ -176,7 +176,7 @@ UNSUPPORTED("elkeyywrfd4hq75w7toc94rzs"); // 	    agerr(AGERR, "in routesplines,
 UNSUPPORTED("7t3fvwp9cv90qu5bdjdglcgtk"); // 	    return NULL;
 	}
     }
-    if (mkspacep(spl.getInt("pn"))!=0)
+    if (mkspacep(spl.getInt("pn")))
 UNSUPPORTED("7x5kpcbvg4va887hky7ufm45y"); // 	return NULL;  /* Bailout if no memory left */
     for (bi = 0; bi < boxn; bi++) {
 	boxes.plus(bi).getStruct("LL").setDouble("x", INT_MAX);
@@ -212,11 +212,11 @@ UNSUPPORTED("7x5kpcbvg4va887hky7ufm45y"); // 	return NULL;  /* Bailout if no mem
 	 * to bound the boxes. This will probably mean a bad edge, but we avoid an infinite
 	 * loop and we can see the bad edge, and even use the showboxes scaffolding.
 	 */
-UNSUPPORTED("dq4scgmq09tpzdpj3ypsvucuk"); // 	Ppolyline_t polyspl;
-UNSUPPORTED("7vpdw0fivvxuto2e92dmczab4"); // 	agerr(AGWARN, "Unable to reclaim box space in spline routing for edge \"%s\" -> \"%s\". Something is probably seriously wrong.\n", agnameof(agtail(realedge)), agnameof(aghead(realedge)));
-UNSUPPORTED("9ap97qkchbjhqg0jc1eqy4hh0"); // 	make_polyline (pl, &polyspl);
-UNSUPPORTED("bfoej0f2mcz7xexavgjym2kgg"); // 	limitBoxes (boxes, boxn, polyspl.ps, polyspl.pn, 10);
-UNSUPPORTED("a8f7pwzw79z7tbespuoicwlxz"); // 	free (polyspl.ps);
+	final __struct__<Ppoly_t> polyspl = __struct__.from(Ppoly_t.class);
+	System.err.println("Unable to reclaim box space in spline routing for edge \"%s\" -> \"%s\". Something is probably seriously wrong.\n");
+	make_polyline (pl, polyspl.amp());
+	limitBoxes (boxes, boxn, polyspl.getPtr("ps"), polyspl.getInt("pn"), 10);
+	Memory.free (polyspl.getPtr("ps"));
     }
     npoints[0] = spl.getInt("pn");
     return Z._().ps;

@@ -2,10 +2,10 @@ public static void map_edge(Agedge_s e) {
     int j, k;
     final __struct__<bezier> bz = __struct__.from(bezier.class);
     if (ED_spl(e) == null) {
-UNSUPPORTED("pk4pq268vlnm46hq9osu453d"); // 	if ((Concentrate == 0) && (ED_edge_type(e) != 6))
-UNSUPPORTED("9z8dzb6h2lyt2qzqjofeqql09"); // 	    agerr(AGERR, "lost %s %s edge\n", agnameof(agtail(e)),
-UNSUPPORTED("74pedndsd738qx562cc6mhr7i"); // 		  agnameof(aghead(e)));
-UNSUPPORTED("a7fgam0j0jm7bar0mblsv3no4"); // 	return;
+	if ((Z._().Concentrate == false) && (ED_edge_type(e) != 6))
+	    System.err.println("lost %s %s edge\n"+ agnameof(agtail(e))+
+		  agnameof(aghead(e)));
+	return;
     }
     for (j = 0; j < ED_spl(e).getInt("size"); j++) {
 	bz.____(ED_spl(e).getArrayOfPtr("list").plus(j).getStruct());

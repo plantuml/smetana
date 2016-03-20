@@ -1,0 +1,91 @@
+public static void setbounds(Agnode_s v, int bounds[], int lpos[], int rpos[]) {
+    int i, ord;
+    int[] l = new int[1], r = new int[1];
+    Agedge_s f;
+    if (ND_node_type(v) == 1) {
+	ord = ND_order(v);
+	if (ND_in(v).getInt("size") == 0) {	/* flat */
+	    assert(ND_out(v).getInt("size") == 2);
+	    findlr((Agnode_s) aghead(ND_out(v).getArrayOfPtr("list").plus(0).getPtr()), (Agnode_s) aghead(ND_out(v).getArrayOfPtr("list").plus(1).getPtr()), l,
+		   r);
+	    /* the other flat edge could be to the left or right */
+	    if (r[0] <= lpos[0])
+		bounds[2] = bounds[0] = ord;
+	    else if (l[0] >= rpos[0])
+		bounds[3] = bounds[1] = ord;
+	    /* could be spanning this one */
+	    else if ((l[0] < lpos[0]) && (r[0] > rpos[0]));	/* ignore */
+	    /* must have intersecting ranges */
+	    else {
+		if ((l[0] < lpos[0]) || ((l[0] == lpos[0]) && (r[0] < rpos[0])))
+		    bounds[2] = ord;
+		if ((r[0] > rpos[0]) || ((r[0] == rpos[0]) && (l[0] > lpos[0])))
+		    bounds[3] = ord;
+	    }
+	} else {		/* forward */
+	    boolean onleft, onright;
+	    onleft = onright = false;
+	    for (i = 0; (f = (Agedge_s) ND_out(v).getArrayOfPtr("list").plus(i).getPtr())!=null; i++) {
+		if (ND_order(aghead(f)) <= lpos[0]) {
+		    onleft = NOT(false);
+		    continue;
+		}
+		if (ND_order(aghead(f)) >= rpos[0]) {
+		    onright = NOT(false);
+		    continue;
+		}
+	    }
+	    if (onleft && (onright == false))
+		bounds[0] = ord + 1;
+	    if (onright && (onleft == false))
+		bounds[1] = ord - 1;
+	}
+    }
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void setbounds(node_t * v, int *bounds, int lpos, int rpos)
+{
+    int i, l, r, ord;
+    edge_t *f;
+    if (ND_node_type(v) == 1) {
+	ord = ND_order(v);
+	if (ND_in(v).size == 0) {	/* flat */
+	    assert(ND_out(v).size == 2);
+	    findlr(aghead(ND_out(v).list[0]), aghead(ND_out(v).list[1]), &l,
+		   &r);
+	    /* the other flat edge could be to the left or right */
+	    if (r <= lpos)
+		bounds[2] = bounds[0] = ord;
+	    else if (l >= rpos)
+		bounds[3] = bounds[1] = ord;
+	    /* could be spanning this one */
+	    else if ((l < lpos) && (r > rpos));	/* ignore */
+	    /* must have intersecting ranges */
+	    else {
+		if ((l < lpos) || ((l == lpos) && (r < rpos)))
+		    bounds[2] = ord;
+		if ((r > rpos) || ((r == rpos) && (l > lpos)))
+		    bounds[3] = ord;
+	    }
+	} else {		/* forward */
+	    boolean onleft, onright;
+	    onleft = onright = 0;
+	    for (i = 0; (f = ND_out(v).list[i]); i++) {
+		if (ND_order(aghead(f)) <= lpos) {
+		    onleft = NOT(0);
+		    continue;
+		}
+		if (ND_order(aghead(f)) >= rpos) {
+		    onright = NOT(0);
+		    continue;
+		}
+	    }
+	    if (onleft && (onright == 0))
+		bounds[0] = ord + 1;
+	    if (onright && (onleft == 0))
+		bounds[1] = ord - 1;
+	}
+    }
+}
+

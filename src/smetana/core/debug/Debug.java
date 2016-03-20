@@ -37,6 +37,7 @@ import h.Agnode_s;
 import h.Agnodeinfo_t;
 import h.bezier;
 import h.boxf;
+import h.path;
 import h.splines;
 import smetana.core.Macro;
 import smetana.core.__ptr__;
@@ -47,6 +48,7 @@ public class Debug {
 
 	static private Agedge_s e;
 	static private Agnode_s n;
+	static public path P;
 
 	public static void setOneEdge(Agedge_s some) {
 		e = some;
@@ -59,11 +61,29 @@ public class Debug {
 	public void entering(String signature, String methodName) {
 		// checkEdge(e);
 		checkNode(n);
+		checkPath();
 	}
 
 	public void leaving(String signature, String methodName) {
 		// checkEdge(e);
-		checkNode(n);
+		checkPath();
+	}
+
+	private void checkPath() {
+		if (P==null) return;
+		__ptr__ boxes =  P.getPtr("boxes");
+		if (boxes==null) return;
+		double x = boxes.plus(3).getStruct("UR").getDouble("x");
+		String tmp = "x=" + x;
+		if (tmp.equals(last) == false) {
+			System.err.println("change!=" + tmp);
+			Throwable creation = new Throwable();
+			creation.fillInStackTrace();
+			creation.printStackTrace();
+		}
+		last = tmp;
+		
+		
 	}
 
 	private void checkNode(Agnode_s n) {

@@ -1,0 +1,18 @@
+public static void delete_flat_edge(Agedge_s e) {
+    assert(e != null);
+    if (ED_to_orig(e)!=null && EQ(ED_to_virt(ED_to_orig(e)), e))
+	ED_to_virt(ED_to_orig(e), null);
+    zapinlist((ND_flat_out(agtail(e))).amp(), e);
+    zapinlist((ND_flat_in(aghead(e))).amp(), e);
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void delete_flat_edge(edge_t * e)
+{
+    assert(e != NULL);
+    if (ED_to_orig(e) && ED_to_virt(ED_to_orig(e)) == e)
+	ED_to_virt(ED_to_orig(e)) = NULL;
+    zapinlist(&(ND_flat_out(agtail(e))), e);
+    zapinlist(&(ND_flat_in(aghead(e))), e);
+}
+

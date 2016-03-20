@@ -1,5 +1,6 @@
 public static void triangulate(__ptr__ pnlps, int pnln) {
     int pnli, pnlip1, pnlip2;
+    System.err.println("triangulate "+pnln);
 	if (pnln > 3) 
 	{
 		for (pnli = 0; pnli < pnln; pnli++) 
@@ -15,7 +16,7 @@ public static void triangulate(__ptr__ pnlps, int pnln) {
 				return;
 			}
 		}
-UNSUPPORTED("b7cubu75mkrcno7zj7e0t4dqk"); // 		fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\shortest.c", 26, ("triangulation failed"));
+		throw new IllegalStateException("libpath/%s:%d: %s\n" + "graphviz-2.38.0\\lib\\pathplan\\shortest.c" + 26 + ("triangulation failed"));
     } 
 	else
 		loadtriangle(pnlps.plus(0).getPtr(), pnlps.plus(1).getPtr(), pnlps.plus(2).getPtr());

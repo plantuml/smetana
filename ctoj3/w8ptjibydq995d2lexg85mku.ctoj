@@ -1,0 +1,128 @@
+public static void make_flat_labeled_edge(Agraph_s g, spline_info_t sp, path P, Agedge_s e, int et) {
+    Agnode_s tn, hn, ln;
+    pointf ps = null;
+    final __struct__<pathend_t> tend = __struct__.from(pathend_t.class), hend = __struct__.from(pathend_t.class);
+    final __struct__<boxf> lb = __struct__.from(boxf.class);
+    int boxn, i, ydelta;
+    int pn[] = new int[1];
+    Agedge_s f;
+    final __array_of_struct__ points = __array_of_struct__.malloc(pointf.class, 7);
+    tn = agtail(e);
+    hn = aghead(e);
+    for (f = ED_to_virt(e); ED_to_virt(f)!=null; f = ED_to_virt(f));
+    ln = agtail(f);
+    ED_label(e).setStruct("pos", ND_coord(ln));
+    ED_label(e).setBoolean("set", NOT(false));
+    if (et == (1 << 1)) {
+UNSUPPORTED("ataaqkehwb736ts2x6olzqokx"); // 	pointf startp, endp, lp;
+UNSUPPORTED("48h6vk2e5niep4dmpua377248"); // 	startp = add_pointf(ND_coord(tn), ED_tail_port(e).p);
+UNSUPPORTED("8fokfn1629eyiqnzi7mey9o2q"); // 	endp = add_pointf(ND_coord(hn), ED_head_port(e).p);
+UNSUPPORTED("8zpih1olxdgp3sxk2br3lezzx"); //         lp = ED_label(e)->pos;
+UNSUPPORTED("1sblcap44288tmc3cr80iqpj5"); // 	lp.y -= (ED_label(e)->dimen.y)/2.0;
+UNSUPPORTED("8ew9p3k3j0b33dnq0ntgbb6x8"); // 	points[1] = points[0] = startp;
+UNSUPPORTED("16h577fdghqtaeot735guew4e"); // 	points[2] = points[3] = points[4] = lp;
+UNSUPPORTED("9zjfovamhwwehbviws68s5woy"); // 	points[5] = points[6] = endp;
+UNSUPPORTED("68ojpcos92c96bc0i5ag1yb6v"); // 	ps = points;
+UNSUPPORTED("1uunj4jbr2uhiqxwor6rzmr3j"); // 	pn = 7;
+    }
+    else {
+	lb.getStruct("LL").setDouble("x", ND_coord(ln).getDouble("x") - ND_lw(ln));
+	lb.getStruct("UR").setDouble("x", ND_coord(ln).getDouble("x") + ND_rw(ln));
+	lb.getStruct("UR").setDouble("y", ND_coord(ln).getDouble("y") + ND_ht(ln)/2);
+	ydelta = (int)(ND_coord(ln).getDouble("y") - GD_rank(g).plus(ND_rank(tn)).getDouble("ht1") -
+		ND_coord(tn).getDouble("y") + GD_rank(g).plus(ND_rank(tn)).getDouble("ht2"));
+	ydelta = (int)(ydelta / 6.);
+	lb.getStruct("LL").setDouble("y", lb.getStruct("UR").getDouble("y") - MAX(5.,ydelta)); 
+	boxn = 0;
+	makeFlatEnd (g, sp, P, tn, e, tend.amp(), NOT(false));
+	makeFlatEnd (g, sp, P, hn, e, hend.amp(), false);
+	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("x", tend.getArrayOfStruct("boxes").plus(tend.getInt("boxn") - 1).getStruct().getStruct("LL").getDouble("x")); 
+	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("y", tend.getArrayOfStruct("boxes").plus(tend.getInt("boxn") - 1).getStruct().getStruct("UR").getDouble("y")); 
+	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("x", lb.getStruct("LL").getDouble("x"));
+	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("y", lb.getStruct("LL").getDouble("y"));
+	boxn++;
+	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("x", tend.getArrayOfStruct("boxes").plus(tend.getInt("boxn") - 1).getStruct().getStruct("LL").getDouble("x")); 
+	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("y", lb.getStruct("LL").getDouble("y"));
+	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("x", hend.getArrayOfStruct("boxes").plus(hend.getInt("boxn") - 1).getStruct().getStruct("UR").getDouble("x"));
+	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("y", lb.getStruct("UR").getDouble("y"));
+	boxn++;
+	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("x", lb.getStruct("UR").getDouble("x"));
+	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("y", lb.getStruct("LL").getDouble("y"));
+	Z._().boxes.plus(boxn).getStruct().getStruct("LL").setDouble("y", hend.getArrayOfStruct("boxes").plus(hend.getInt("boxn") - 1).getStruct().getStruct("UR").getDouble("y")); 
+	Z._().boxes.plus(boxn).getStruct().getStruct("UR").setDouble("x", hend.getArrayOfStruct("boxes").plus(hend.getInt("boxn") - 1).getStruct().getStruct("UR").getDouble("x"));
+	boxn++;
+	for (i = 0; i < tend.getInt("boxn"); i++) add_box(P, tend.getArrayOfStruct("boxes").plus(i).getStruct());
+	for (i = 0; i < boxn; i++) add_box(P, Z._().boxes.plus(i).getStruct());
+	for (i = hend.getInt("boxn") - 1; i >= 0; i--) add_box(P, hend.getArrayOfStruct("boxes").plus(i).getStruct());
+	if (et == (5 << 1)) ps = routesplines(P, pn);
+	else ps = routepolylines(P, pn);
+	if (pn[0] == 0) return;
+    }
+    clip_and_install(e, aghead(e), ps, pn[0], Z._().sinfo.amp());
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static void
+make_flat_labeled_edge(graph_t* g, spline_info_t* sp, path* P, edge_t* e, int et)
+{
+    node_t *tn, *hn, *ln;
+    pointf *ps;
+    pathend_t tend, hend;
+    boxf lb;
+    int boxn, i, pn, ydelta;
+    edge_t *f;
+    pointf points[7];
+    tn = agtail(e);
+    hn = aghead(e);
+    for (f = ED_to_virt(e); ED_to_virt(f); f = ED_to_virt(f));
+    ln = agtail(f);
+    ED_label(e)->pos = ND_coord(ln);
+    ED_label(e)->set = NOT(0);
+    if (et == (1 << 1)) {
+	pointf startp, endp, lp;
+	startp = add_pointf(ND_coord(tn), ED_tail_port(e).p);
+	endp = add_pointf(ND_coord(hn), ED_head_port(e).p);
+        lp = ED_label(e)->pos;
+	lp.y -= (ED_label(e)->dimen.y)/2.0;
+	points[1] = points[0] = startp;
+	points[2] = points[3] = points[4] = lp;
+	points[5] = points[6] = endp;
+	ps = points;
+	pn = 7;
+    }
+    else {
+	lb.LL.x = ND_coord(ln).x - ND_lw(ln);
+	lb.UR.x = ND_coord(ln).x + ND_rw(ln);
+	lb.UR.y = ND_coord(ln).y + ND_ht(ln)/2;
+	ydelta = ND_coord(ln).y - GD_rank(g)[ND_rank(tn)].ht1 -
+		ND_coord(tn).y + GD_rank(g)[ND_rank(tn)].ht2;
+	ydelta /= 6.;
+	lb.LL.y = lb.UR.y - MAX(5.,ydelta); 
+	boxn = 0;
+	makeFlatEnd (g, sp, P, tn, e, &tend, NOT(0));
+	makeFlatEnd (g, sp, P, hn, e, &hend, 0);
+	boxes[boxn].LL.x = tend.boxes[tend.boxn - 1].LL.x; 
+	boxes[boxn].LL.y = tend.boxes[tend.boxn - 1].UR.y; 
+	boxes[boxn].UR.x = lb.LL.x;
+	boxes[boxn].UR.y = lb.LL.y;
+	boxn++;
+	boxes[boxn].LL.x = tend.boxes[tend.boxn - 1].LL.x; 
+	boxes[boxn].LL.y = lb.LL.y;
+	boxes[boxn].UR.x = hend.boxes[hend.boxn - 1].UR.x;
+	boxes[boxn].UR.y = lb.UR.y;
+	boxn++;
+	boxes[boxn].LL.x = lb.UR.x;
+	boxes[boxn].UR.y = lb.LL.y;
+	boxes[boxn].LL.y = hend.boxes[hend.boxn - 1].UR.y; 
+	boxes[boxn].UR.x = hend.boxes[hend.boxn - 1].UR.x;
+	boxn++;
+	for (i = 0; i < tend.boxn; i++) add_box(P, tend.boxes[i]);
+	for (i = 0; i < boxn; i++) add_box(P, boxes[i]);
+	for (i = hend.boxn - 1; i >= 0; i--) add_box(P, hend.boxes[i]);
+	if (et == (5 << 1)) ps = routesplines(P, &pn);
+	else ps = routepolylines(P, &pn);
+	if (pn == 0) return;
+    }
+    clip_and_install(e, aghead(e), ps, pn, &sinfo);
+}
+

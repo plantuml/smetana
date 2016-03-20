@@ -34,7 +34,6 @@ import static gen.lib.cgraph.attr__c.agsafeset;
 import static gen.lib.cgraph.edge__c.agedge;
 import static gen.lib.cgraph.graph__c.agopen;
 import static gen.lib.cgraph.node__c.agnode;
-import static gen.lib.cgraph.subg__c.*;
 import static gen.lib.gvc.gvc__c.gvContext;
 import static gen.lib.gvc.gvlayout__c.gvLayoutJobs;
 import h.Agedge_s;

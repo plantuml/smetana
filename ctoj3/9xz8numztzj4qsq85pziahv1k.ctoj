@@ -1,10 +1,5 @@
-public static int canreach(Agnode_s u, Agnode_s v) {
- UNSUPPORTED("3s0ewlrlu43uwu0l0qufqx5cv"); // static int canreach(node_t * u, node_t * v)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("7y60k9o06xiya28w59cc3pe0"); //     return go(u, v);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+public static boolean canreach(Agnode_s u, Agnode_s v) {
+    return go(u, v);
 }
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

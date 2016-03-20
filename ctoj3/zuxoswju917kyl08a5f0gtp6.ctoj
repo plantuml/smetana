@@ -60,10 +60,10 @@ public static void flat_reorder(Agraph_s g) {
 		    for (j = 0; (e = (Agedge_s) ND_flat_out(v).getArrayOfPtr("list").plus(j).getPtr())!=null; j++) {
 			if ( ((GD_flip(g) == 0) && (ND_order(aghead(e)) < ND_order(agtail(e)))) ||
 				 ( (GD_flip(g)!=0) && (ND_order(aghead(e)) > ND_order(agtail(e)) ))) {
-UNSUPPORTED("3omkik04m6s1wn9lkk45pivko"); // 			    assert(constraining_flat_edge(g,v,e) == 0);
-UNSUPPORTED("7ebw4lyjfgu8v0is6gfktqm7x"); // 			    delete_flat_edge(e);
-UNSUPPORTED("39xps1d6e8rc55xmsxaunuia8"); // 			    j--;
-UNSUPPORTED("1w583swkkvuwckydgv3bcn71d"); // 			    flat_rev(g, e);
+			    assert(constraining_flat_edge(g,v,e) == false);
+			    delete_flat_edge(e);
+			    j--;
+			    flat_rev(g, e);
 			}
 		    }
 		}

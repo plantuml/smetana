@@ -4,7 +4,7 @@ public static void merge_ranks(Agraph_s subg) {
     Agraph_s root;
     root = dot_root(subg);
     if (GD_minrank(subg) > 0)
-UNSUPPORTED("6joeb28tqhza9srpo118g386i"); // 	GD_rank(root)[GD_minrank(subg) - 1].valid = 0;
+	GD_rank(root).plus(GD_minrank(subg) - 1).getPtr().setInt("valid", 0);
     for (r = GD_minrank(subg); r <= GD_maxrank(subg); r++) {
 	d = GD_rank(subg).plus(r).getPtr().getInt("n");
 	ipos = pos = ND_order(GD_rankleader(subg).plus(r).getPtr());

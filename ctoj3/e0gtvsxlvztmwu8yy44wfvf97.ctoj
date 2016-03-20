@@ -1,0 +1,37 @@
+public static Agnode_s make_vn_slot(Agraph_s g, int r, int pos) {
+    int i;
+    __ptr__ v;
+    Agnode_s n;
+	v = ALLOC(GD_rank(g).plus(r).getInt("n") + 2, GD_rank(g).plus(r).getPtr("v"), Agnode_s.class);
+    GD_rank(g).plus(r).setPtr("v", v);
+    for (i = GD_rank(g).plus(r).getInt("n"); i > pos; i--) {
+	v.plus(i).setPtr(v.plus(i - 1).getPtr());
+	ND_order(v.plus(i).getPtr(), ND_order(v.plus(i).getPtr())+1);
+    }
+    n = virtual_node(g);
+    v.plus(pos).setPtr(n);
+    ND_order(n, pos);
+    ND_rank(n, r);
+    GD_rank(g).plus(r).setInt("n", GD_rank(g).plus(r).getInt("n")+1);
+    v.plus(GD_rank(g).plus(r).getInt("n")).setPtr(null);
+    return (Agnode_s) v.plus(pos).getPtr();
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+static node_t *make_vn_slot(graph_t * g, int r, int pos)
+{
+    int i;
+    node_t **v, *n;
+    v = GD_rank(g)[r].v =
+	ALLOC(GD_rank(g)[r].n + 2, GD_rank(g)[r].v, node_t *);
+    for (i = GD_rank(g)[r].n; i > pos; i--) {
+	v[i] = v[i - 1];
+	ND_order(v[i])++;
+    }
+    n = v[pos] = virtual_node(g);
+    ND_order(n) = pos;
+    ND_rank(n) = r;
+    v[++(GD_rank(g)[r].n)] = NULL;
+    return v[pos];
+}
+

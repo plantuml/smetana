@@ -39,24 +39,153 @@
  *
  */
 package gen.lib.cdt;
-import static gen.lib.cdt.dtrestore__c.dtrestore;
-import static smetana.core.JUtils.NEQ;
-import static smetana.core.JUtils.sizeof;
-import static smetana.core.JUtils.strcmp;
-import static smetana.core.JUtilsDebug.ENTERING;
-import static smetana.core.JUtilsDebug.LEAVING;
-import static smetana.core.Macro.N;
-import static smetana.core.Macro.UNSUPPORTED;
-import static smetana.core.Macro.UNSUPPORTED_INT;
-import h.Dtcompar_f;
-import h._dt_s;
-import h._dtdisc_s;
-import h._dthold_s;
-import h._dtlink_s;
-import smetana.core.CFunction;
-import smetana.core.CString;
-import smetana.core.Memory;
-import smetana.core.__ptr__;
+import h.*;
+import smetana.core.*;
+import static smetana.core.Macro.*;
+import static smetana.core.JUtils.*;
+import static smetana.core.JUtilsDebug.*;
+import static gen.lib.cdt.dtclose__c.*;
+import static gen.lib.cdt.dtdisc__c.*;
+import static gen.lib.cdt.dtextract__c.*;
+import static gen.lib.cdt.dtflatten__c.*;
+import static gen.lib.cdt.dthash__c.*;
+import static gen.lib.cdt.dtlist__c.*;
+import static gen.lib.cdt.dtmethod__c.*;
+import static gen.lib.cdt.dtopen__c.*;
+import static gen.lib.cdt.dtrenew__c.*;
+import static gen.lib.cdt.dtrestore__c.*;
+import static gen.lib.cdt.dtsize__c.*;
+import static gen.lib.cdt.dtstat__c.*;
+import static gen.lib.cdt.dtstrhash__c.*;
+import static gen.lib.cdt.dttreeset__c.*;
+import static gen.lib.cdt.dttree__c.*;
+import static gen.lib.cdt.dtview__c.*;
+import static gen.lib.cdt.dtwalk__c.*;
+import static gen.lib.cgraph.agerror__c.*;
+import static gen.lib.cgraph.agxbuf__c.*;
+import static gen.lib.cgraph.apply__c.*;
+import static gen.lib.cgraph.attr__c.*;
+import static gen.lib.cgraph.cmpnd__c.*;
+import static gen.lib.cgraph.edge__c.*;
+import static gen.lib.cgraph.flatten__c.*;
+import static gen.lib.cgraph.graph__c.*;
+import static gen.lib.cgraph.id__c.*;
+import static gen.lib.cgraph.imap__c.*;
+import static gen.lib.cgraph.io__c.*;
+import static gen.lib.cgraph.main__c.*;
+import static gen.lib.cgraph.mem__c.*;
+import static gen.lib.cgraph.node__c.*;
+import static gen.lib.cgraph.obj__c.*;
+import static gen.lib.cgraph.pend__c.*;
+import static gen.lib.cgraph.rec__c.*;
+import static gen.lib.cgraph.refstr__c.*;
+import static gen.lib.cgraph.scan__c.*;
+import static gen.lib.cgraph.subg__c.*;
+import static gen.lib.cgraph.tester__c.*;
+import static gen.lib.cgraph.utils__c.*;
+import static gen.lib.cgraph.write__c.*;
+import static gen.lib.circogen.blockpath__c.*;
+import static gen.lib.circogen.blocktree__c.*;
+import static gen.lib.circogen.block__c.*;
+import static gen.lib.circogen.circpos__c.*;
+import static gen.lib.circogen.circularinit__c.*;
+import static gen.lib.circogen.circular__c.*;
+import static gen.lib.circogen.deglist__c.*;
+import static gen.lib.circogen.edgelist__c.*;
+import static gen.lib.circogen.nodelist__c.*;
+import static gen.lib.circogen.nodeset__c.*;
+import static gen.lib.common.args__c.*;
+import static gen.lib.common.arrows__c.*;
+import static gen.lib.common.colxlate__c.*;
+import static gen.lib.common.ellipse__c.*;
+import static gen.lib.common.emit__c.*;
+import static gen.lib.common.geom__c.*;
+import static gen.lib.common.globals__c.*;
+import static gen.lib.common.htmllex__c.*;
+import static gen.lib.common.htmlparse__c.*;
+import static gen.lib.common.htmltable__c.*;
+import static gen.lib.common.input__c.*;
+import static gen.lib.common.intset__c.*;
+import static gen.lib.common.labels__c.*;
+import static gen.lib.common.memory__c.*;
+import static gen.lib.common.ns__c.*;
+import static gen.lib.common.output__c.*;
+import static gen.lib.common.pointset__c.*;
+import static gen.lib.common.postproc__c.*;
+import static gen.lib.common.psusershape__c.*;
+import static gen.lib.common.routespl__c.*;
+import static gen.lib.common.shapes__c.*;
+import static gen.lib.common.splines__c.*;
+import static gen.lib.common.strcasecmp__c.*;
+import static gen.lib.common.strncasecmp__c.*;
+import static gen.lib.common.taper__c.*;
+import static gen.lib.common.textspan__c.*;
+import static gen.lib.common.timing__c.*;
+import static gen.lib.common.utils__c.*;
+import static gen.lib.dotgen.acyclic__c.*;
+import static gen.lib.dotgen.aspect__c.*;
+import static gen.lib.dotgen.class1__c.*;
+import static gen.lib.dotgen.class2__c.*;
+import static gen.lib.dotgen.cluster__c.*;
+import static gen.lib.dotgen.compound__c.*;
+import static gen.lib.dotgen.conc__c.*;
+import static gen.lib.dotgen.decomp__c.*;
+import static gen.lib.dotgen.dotinit__c.*;
+import static gen.lib.dotgen.dotsplines__c.*;
+import static gen.lib.dotgen.fastgr__c.*;
+import static gen.lib.dotgen.flat__c.*;
+import static gen.lib.dotgen.mincross__c.*;
+import static gen.lib.dotgen.position__c.*;
+import static gen.lib.dotgen.rank__c.*;
+import static gen.lib.dotgen.sameport__c.*;
+import static gen.lib.fdpgen.clusteredges__c.*;
+import static gen.lib.fdpgen.comp__c.*;
+import static gen.lib.fdpgen.dbg__c.*;
+import static gen.lib.fdpgen.fdpinit__c.*;
+import static gen.lib.fdpgen.grid__c.*;
+import static gen.lib.fdpgen.layout__c.*;
+import static gen.lib.fdpgen.tlayout__c.*;
+import static gen.lib.fdpgen.xlayout__c.*;
+import static gen.lib.gvc.gvbuffstderr__c.*;
+import static gen.lib.gvc.gvconfig__c.*;
+import static gen.lib.gvc.gvcontext__c.*;
+import static gen.lib.gvc.gvc__c.*;
+import static gen.lib.gvc.gvdevice__c.*;
+import static gen.lib.gvc.gvevent__c.*;
+import static gen.lib.gvc.gvjobs__c.*;
+import static gen.lib.gvc.gvlayout__c.*;
+import static gen.lib.gvc.gvloadimage__c.*;
+import static gen.lib.gvc.gvplugin__c.*;
+import static gen.lib.gvc.gvrender__c.*;
+import static gen.lib.gvc.gvtextlayout__c.*;
+import static gen.lib.gvc.gvusershape__c.*;
+import static gen.lib.gvc.regex_win32__c.*;
+import static gen.lib.label.index__c.*;
+import static gen.lib.label.node__c.*;
+import static gen.lib.label.nrtmain__c.*;
+import static gen.lib.label.rectangle__c.*;
+import static gen.lib.label.split_q__c.*;
+import static gen.lib.label.xlabels__c.*;
+import static gen.lib.ortho.fPQ__c.*;
+import static gen.lib.ortho.maze__c.*;
+import static gen.lib.ortho.ortho__c.*;
+import static gen.lib.ortho.partition__c.*;
+import static gen.lib.ortho.rawgraph__c.*;
+import static gen.lib.ortho.sgraph__c.*;
+import static gen.lib.ortho.trapezoid__c.*;
+import static gen.lib.pack.ccomps__c.*;
+import static gen.lib.pack.pack__c.*;
+import static gen.lib.pack.ptest__c.*;
+import static gen.lib.pathplan.cvt__c.*;
+import static gen.lib.pathplan.inpoly__c.*;
+import static gen.lib.pathplan.route__c.*;
+import static gen.lib.pathplan.shortestpth__c.*;
+import static gen.lib.pathplan.shortest__c.*;
+import static gen.lib.pathplan.solvers__c.*;
+import static gen.lib.pathplan.triang__c.*;
+import static gen.lib.pathplan.util__c.*;
+import static gen.lib.pathplan.visibility__c.*;
+import static gen.lib.xdot.xdot__c.*;
 
 public class dttree__c {
 //1 9k44uhd5foylaeoekf3llonjq
@@ -138,7 +267,8 @@ ENTERING("abqfzg1d1vkzk51225tcdlik5","dttree");
 try {
 	_dtlink_s	root, t;
 	int		cmp, lk, sz, ky;
-	_dtlink_s	l, r, me=null, link = (_dtlink_s) Memory.malloc(_dtlink_s.class);
+	_dtlink_s	l, r, me=null;
+	final __struct__<_dtlink_s> link = __struct__.from(_dtlink_s.class);
 	Object		o, k, key = null;
 	int		n, minp; //, turn[(sizeof(size_t)*8 - 2)];
 	Dtcompar_f	cmpf;
@@ -191,7 +321,7 @@ try {
 		}
 	}
 	/* note that link.right is LEFT tree and link.left is RIGHT tree */
-	l = r = link;
+	l = r = link.amp();
 	/* allow apps to delete an object "actually" in the dictionary */
 	try {
 	if(dt.getPtr("meth").getInt("type") == 0000010 && ((type&(0000002|0010000))!=0) ) {
@@ -319,7 +449,7 @@ try {
 			else /* if(cmp > 0) */
 			{	if ((t = (_dtlink_s) root.getPtr("right"))!=null )
 				{
-					k = (lk < 0 ? UNSUPPORTED("((Dthold_t*)(t))->obj") : t.addVirtualBytes(-lk) ); 
+					k = (lk < 0 ? t.castTo(_dthold_s.class).getPtr("obj") : t.addVirtualBytes(-lk) ); 
  					k = sz < 0 ? ((__ptr__)k).addVirtualBytes(ky) : ((__ptr__)k).addVirtualBytes(ky);
 					if((cmp = (cmpf!=null ? (Integer)((CFunction)cmpf).exe(dt,key,k,disc) 
  					 : (sz <= 0 ? strcmp((CString)key,(CString)k) : UNSUPPORTED_INT("memcmp(key,k,sz))") ))) > 0)
@@ -407,11 +537,10 @@ try {
 //				dt->data->size = -1;
 //			goto no_root;
 		}
-		else if((type&(0000001|0004000))!=0) {
-		throw new UnsupportedOperationException();
-//		{	if(dt->meth->type&0000004)
-//				goto has_root;
-//			else
+		else if((type&(0000001|0004000))!=0)
+		{	if((dt.getPtr("meth").getInt("type")&0000004)!=0)
+				throw new has_root();
+			else throw new UnsupportedOperationException();
 //			{	root->hl._left = ((Dtlink_t*)0);
 //				root->right = link.hl._left;
 //				link.hl._left = root;
@@ -440,7 +569,20 @@ try {
 		r.setPtr("hl._left", null);
 		l.setPtr("right", null);
 		if((type&0000010)!=0)
-			throw new UnsupportedOperationException("goto dt_next");
+		{
+		    //goto dt_next:
+			if((root = (_dtlink_s) link.getPtr("hl._left"))!=null )	
+			{	while((t = (_dtlink_s) root.getPtr("hl._left"))!=null ) {
+					root.setPtr("hl._left", t.getPtr("right"));
+					t.setPtr("right", root);
+					root = t;
+				}
+				link.setPtr("hl._left", root.getPtr("right"));
+				throw new has_root();
+			}
+			else	throw new no_root();
+		
+		}
 		else if((type&0000020)!=0)
 			throw new UnsupportedOperationException("goto dt_prev");
 		else if((type&(0000004|0001000))!=0)

@@ -14,14 +14,14 @@ public static void flat_search(Agraph_s g, Agnode_s v) {
 	    if (ED_weight(e) == 0)
 		continue;
 	    if (ND_onstack(aghead(e)) == NOT(false)) {
-UNSUPPORTED("cgkgsq3cgt6yvpwsn9st1phym"); // 		assert(ND_low(aghead(e)) < M->nrows);
-UNSUPPORTED("38hoycfuki3wuy5cj039e3b00"); // 		assert(ND_low(agtail(e)) < M->ncols);
-UNSUPPORTED("ehj17yz9fge33i8h1scw4m7q6"); // 		(M->data[((ND_low(aghead(e)))*M->ncols)+(ND_low(agtail(e)))]) = 1;
-UNSUPPORTED("1iwplhbmvtv3d8gseqen1bn52"); // 		delete_flat_edge(e);
-UNSUPPORTED("b5737gtfqocrc9dqgtvfuz5e7"); // 		i--;
-UNSUPPORTED("8x0ryen4203ncnio11ie1rl6o"); // 		if (ED_edge_type(e) == 4)
-UNSUPPORTED("2yi9az7ibt7j9bwztjilyo0v2"); // 		    continue;
-UNSUPPORTED("8nnedzb0mcoepaac60ovylf44"); // 		flat_rev(g, e);
+		assert(ND_low(aghead(e)) < M.getInt("nrows"));
+		assert(ND_low(agtail(e)) < M.getInt("ncols"));
+		M.getArrayOfInteger("data").plus(ND_low(aghead(e))*M.getInt("ncols")+ND_low(agtail(e))).setInt(1);
+		delete_flat_edge(e);
+		i--;
+		if (ED_edge_type(e) == 4)
+		    continue;
+		flat_rev(g, e);
 	    } else {
 		assert(ND_low(aghead(e)) < M.getInt("nrows"));
 		assert(ND_low(agtail(e)) < M.getInt("ncols"));

@@ -5,14 +5,14 @@ public static boolean left2right(Agraph_s g, Agnode_s v, Agnode_s w) {
     if (Z._().ReMincross == false) {
 	if (NEQ(ND_clust(v), ND_clust(w)) && (ND_clust(v)!=null) && (ND_clust(w)!=null)) {
 	    /* the following allows cluster skeletons to be swapped */
-UNSUPPORTED("91bhygw897qpxvqf8l18732s1"); // 	    if ((ND_ranktype(v) == 7)
-UNSUPPORTED("a283wt6pnchihxx1zk7i9oc0f"); // 		&& (ND_node_type(v) == 1))
-UNSUPPORTED("5izxoao5ryte71964f8yjfd5y"); // 		return 0;
-UNSUPPORTED("6hjnzko0r1bxentznakcjjl7w"); // 	    if ((ND_ranktype(w) == 7)
-UNSUPPORTED("5zaowq2gpa6nw67z1nexnl1b9"); // 		&& (ND_node_type(w) == 1))
-UNSUPPORTED("5izxoao5ryte71964f8yjfd5y"); // 		return 0;
-UNSUPPORTED("9qhn9m3123s8n6wwxjfo8awlm"); // 	    return NOT(0);
-UNSUPPORTED("f1wmsam8cmwci21kvsofgc0ex"); // 	    /*return ((ND_ranktype(v) != CLUSTER) && (ND_ranktype(w) != CLUSTER)); */
+	    if ((ND_ranktype(v) == 7)
+		&& (ND_node_type(v) == 1))
+		return false;
+	    if ((ND_ranktype(w) == 7)
+		&& (ND_node_type(w) == 1))
+		return false;
+	    return NOT(false);
+	    /*return ((ND_ranktype(v) != CLUSTER) && (ND_ranktype(w) != CLUSTER)); */
 	}
     } else {
 UNSUPPORTED("8lltx4lxwrqossx8qw1khzwf9"); // 	if ((ND_clust(v)) != (ND_clust(w)))
@@ -22,12 +22,12 @@ UNSUPPORTED("9qhn9m3123s8n6wwxjfo8awlm"); // 	    return NOT(0);
     if (M == null)
 	rv = false;
     else {
-UNSUPPORTED("21zvq2qx1j34j1i1879zyhzpj"); // 	if (GD_flip(g)) {
-UNSUPPORTED("7hejrtprimtp2cmdj1zhhjiw4"); // 	    node_t *t = v;
-UNSUPPORTED("at1y9wq7tpqtpgge0vh0j1b4g"); // 	    v = w;
-UNSUPPORTED("e24z7zdnyun249iha0nfhw4s"); // 	    w = t;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("at8hgk5lstgpydu7gbt31yxvk"); // 	rv = (M->data[((ND_low(v))*M->ncols)+(ND_low(w))]);
+	if (GD_flip(g)!=0) {
+	    Agnode_s t = v;
+	    v = w;
+	    w = t;
+	}
+	rv = (M.getArrayOfInteger("data").plus(((ND_low(v))*M.getInt("ncols"))+(ND_low(w))).getInt())!=0;
     }
     return rv;
 }

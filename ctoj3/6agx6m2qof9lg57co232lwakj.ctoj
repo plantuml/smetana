@@ -49,10 +49,10 @@ UNSUPPORTED("46btiag50nczzur103eqhjcup"); // 	goto finish;
 		 * the label.
 		 */
 	    if (ND_alg(n)!=null) {
-UNSUPPORTED("5ccfgna84rl1jtgmuk8nbffqy"); // 		edge_t* fe = (edge_t*)ND_alg(n);
-UNSUPPORTED("491vob6ykt7vk18zsgjm6l2zr"); // 		assert (ED_label(fe));
-UNSUPPORTED("dmdpxf403p3cj5res72ow5qir"); // 		ED_label(fe)->pos = ND_coord(n);
-UNSUPPORTED("equ6t5h0u8rkyhzp6p1aq8pvo"); // 		ED_label(fe)->set = NOT(0);
+		Agedge_s fe = (Agedge_s) ND_alg(n);
+		assert (ED_label(fe)!=null);
+		ED_label(fe).setStruct("pos", ND_coord(n));
+		ED_label(fe).setBoolean("set", NOT(false));
 	    }
 	    if ((ND_node_type(n) != 0) &&
 		((Boolean)Z._().sinfo.call("splineMerge", n) == false))
@@ -127,8 +127,8 @@ UNSUPPORTED("equ6t5h0u8rkyhzp6p1aq8pvo"); // 		ED_label(fe)->set = NOT(0);
 	    ea =  le0;
 	}
 	if ((ED_tree_index(ea) & 32)!=0) {
-	    MAKEFWDEDGE(fwdedgea.getPtr("out"), ea);
-	    ea = (Agedge_s) fwdedgea.getPtr("out");
+	    MAKEFWDEDGE(fwdedgea.getStruct("out").amp(), ea);
+	    ea = (Agedge_s) fwdedgea.getStruct("out").amp();
 	}
 	for (cnt = 1; i < n_edges; cnt++, i++) {
 	    if (NEQ(le0, (le1 = getmainedge((e1 = (Agedge_s) edges.plus(i).getPtr())))))
@@ -144,8 +144,8 @@ UNSUPPORTED("equ6t5h0u8rkyhzp6p1aq8pvo"); // 		ED_label(fe)->set = NOT(0);
 		    eb = le1;
 	    }
 	    if ((ED_tree_index(eb) & 32)!=0) {
-		MAKEFWDEDGE(fwdedgeb.getPtr("out"), eb);
-		eb = (Agedge_s) fwdedgeb.getPtr("out");
+		MAKEFWDEDGE(fwdedgeb.getStruct("out").amp(), eb);
+		eb = (Agedge_s) fwdedgeb.getStruct("out").amp();
 	    }
 	    if (portcmp(ED_tail_port(ea), ED_tail_port(eb))!=0)
 		break;

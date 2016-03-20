@@ -1,0 +1,78 @@
+public static pointf simpleSplineRoute(final __struct__<pointf> tp, final __struct__<pointf> hp, final __struct__<Ppoly_t> poly, int[] n_spl_pts, boolean polyline) {
+    final __struct__<Ppoly_t> pl = __struct__.from(Ppoly_t.class), spl = __struct__.from(Ppoly_t.class);
+    final __array_of_struct__ eps = __array_of_struct__.malloc(pointf.class, 2);
+    final __array_of_struct__ evs = __array_of_struct__.malloc(pointf.class, 2);
+    int i;
+    eps.plus(0).setDouble("x", tp.getDouble("x"));
+    eps.plus(0).setDouble("y", tp.getDouble("y"));
+    eps.plus(1).setDouble("x", hp.getDouble("x"));
+    eps.plus(1).setDouble("y", hp.getDouble("y"));
+    if (Pshortestpath(poly.amp(), eps, pl.amp()) < 0)
+        return null;
+    if (polyline)
+	make_polyline (pl, spl.amp());
+    else {
+	if (poly.getInt("pn") > Z._().edgen) {
+	    Z._().edges = ALLOC(poly.getInt("pn"), Z._().edges, Pedge_t.class);
+	    Z._().edgen = poly.getInt("pn");
+	}
+	for (i = 0; i < poly.getInt("pn"); i++) {
+	    Z._().edges.plus(i).setStruct("a", poly.getArrayOfStruct("ps").plus(i).getStruct());
+	    Z._().edges.plus(i).setStruct("b", poly.getArrayOfStruct("ps").plus((i + 1) % poly.getInt("pn")).getStruct());
+	}
+	    evs.plus(0).setDouble("x", 0);
+	    evs.plus(0).setDouble("y", 0);
+	    evs.plus(1).setDouble("x", 0);
+	    evs.plus(1).setDouble("y", 0);
+	if (Proutespline(Z._().edges, poly.getInt("pn"), pl, evs.asPtr(), spl.amp()) < 0)
+            return null;
+    }
+    if (mkspacep(spl.getInt("pn")))
+	return null;
+    for (i = 0; i < spl.getInt("pn"); i++) {
+        Z._().ps.plus(i).setStruct(spl.getArrayOfPtr("ps").plus(i).getStruct());
+    }
+    n_spl_pts[0] = spl.getInt("pn");
+    return (pointf) Z._().ps;
+}
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+pointf*
+simpleSplineRoute (pointf tp, pointf hp, Ppoly_t poly, int* n_spl_pts,
+    int polyline)
+{
+    Ppolyline_t pl, spl;
+    Ppoint_t eps[2];
+    Pvector_t evs[2];
+    int i;
+    eps[0].x = tp.x;
+    eps[0].y = tp.y;
+    eps[1].x = hp.x;
+    eps[1].y = hp.y;
+    if (Pshortestpath(&poly, eps, &pl) < 0)
+        return NULL;
+    if (polyline)
+	make_polyline (pl, &spl);
+    else {
+	if (poly.pn > edgen) {
+	    edges = ALLOC(poly.pn, edges, Pedge_t);
+	    edgen = poly.pn;
+	}
+	for (i = 0; i < poly.pn; i++) {
+	    edges[i].a = poly.ps[i];
+	    edges[i].b = poly.ps[(i + 1) % poly.pn];
+	}
+	    evs[0].x = evs[0].y = 0;
+	    evs[1].x = evs[1].y = 0;
+	if (Proutespline(edges, poly.pn, pl, evs, &spl) < 0)
+            return NULL;
+    }
+    if (mkspacep(spl.pn))
+	return NULL;
+    for (i = 0; i < spl.pn; i++) {
+        ps[i] = spl.ps[i];
+    }
+    *n_spl_pts = spl.pn;
+    return ps;
+}
+

@@ -30,8 +30,6 @@
  */
 package smetana.job.jgenerator;
 
-import gen.lib.cgraph.main__c;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

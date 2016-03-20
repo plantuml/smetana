@@ -36,11 +36,11 @@ import h.Agraph_s;
 import java.io.File;
 import java.io.IOException;
 
-import dot.Digraph;
-import dot.Graphic;
 import smetana.core.CString;
 import smetana.core.JUtilsDebug;
 import smetana.core.Z;
+import dot.Digraph;
+import dot.Graphic;
 
 public class Demo11 {
 

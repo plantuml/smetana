@@ -10,7 +10,7 @@ UNSUPPORTED("35c97tyk6tzw1g527j6rp6xoo"); // 	u = UF_find(u);
 	ND_UF_parent(v, v);
 	ND_UF_size(v, 1);
     } else
-UNSUPPORTED("ej1tfzdtk6s4n8diwx5i3e4ri"); // 	v = UF_find(v);
+	v = UF_find(v);
     if (ND_id(u) > ND_id(v)) {
 UNSUPPORTED("2igr3ntnkm6svji4pbnjlp54e"); // 	ND_UF_parent(u) = v;
 UNSUPPORTED("3lht90i6tvxbr10meir8nvcic"); // 	ND_UF_size(v) += ND_UF_size(u);

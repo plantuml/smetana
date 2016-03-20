@@ -62,11 +62,11 @@ public static void make_LR_constraints(Agraph_s g) {
 		m1 = m0 + ((int)(ND_rw(aghead(e0)) + ND_lw(agtail(e0))));
 		/* these guards are needed because the flat edges
 		 * work very poorly with cluster layout */
-		if (canreach(agtail(e0), aghead(e0)) == 0)
+		if (canreach(agtail(e0), aghead(e0)) == false)
 		    make_aux_edge(aghead(e0), agtail(e0), m1,
 			ED_weight(e));
 		m1 = m0 + ((int)(ND_rw(agtail(e1)) + ND_lw(aghead(e1))));
-		if (canreach(aghead(e1), agtail(e1)) == 0)
+		if (canreach(aghead(e1), agtail(e1)) == false)
 		    make_aux_edge(agtail(e1), aghead(e1), m1,
 			ED_weight(e));
 	    }
