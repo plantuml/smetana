@@ -1,3 +1,23 @@
+# Important Notice
+
+This project is not updated anymore because it is now integrated into the main stream of PlantUML.
+
+Code is hosted there :
+
+* https://github.com/plantuml/plantuml/tree/master/src/gen
+* https://github.com/plantuml/plantuml/tree/master/src/smetana/core
+* https://github.com/plantuml/plantuml/tree/master/src/h
+
+The initial goal of the project was to test and prove the feasability of the C to Java port.
+This goal has been achieved, as the portability is working.
+
+So the work is going on into PlantUML itself.
+
+Tell us if this port is important for you !
+
+
+# Previous content
+
 Smetana is a partial translation of Graphviz/Dot sources from C to Java. More precisely, the intent is to create a Java library (and not a program) like http://www.graphviz.org/doc/libguide/libguide.pdf .
 
 The idea is to translate each C function to a Java static method. Each C struct is also translated to a Java class. If it works in C, it should work in Java (that’s the theory).
