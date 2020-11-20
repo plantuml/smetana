@@ -38,6 +38,4 @@ package smetana.core.amiga;
 
 public interface Area {
 
-	void memcopyFrom(Area source);
-
 }

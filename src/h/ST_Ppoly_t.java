@@ -72,13 +72,6 @@ public class ST_Ppoly_t extends UnsupportedStructAndPtr {
 	}
 
 	@Override
-	public void memcopyFrom(Area source) {
-		ST_Ppoly_t source2 = (ST_Ppoly_t) source;
-		this.ps = source2.ps;
-		this.pn = source2.pn;
-	}
-
-	@Override
 	public void setInt(String fieldName, int data) {
 		if (fieldName.equals("pn")) {
 			this.pn = data;

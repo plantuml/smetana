@@ -62,8 +62,6 @@ public interface StarStruct extends Area, AllH {
 
 	public __ptr__ setPtr(String fieldName, __ptr__ newData);
 
-	public void memcopyFrom(Area source);
-
 	public void copyDataFrom(__struct__ other);
 
 	public void setStruct(__struct__ value);

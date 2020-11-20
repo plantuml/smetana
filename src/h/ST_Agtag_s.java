@@ -99,16 +99,6 @@ public class ST_Agtag_s extends UnsupportedStructAndPtr {
 	}
 
 	@Override
-	public void memcopyFrom(Area source) {
-		final ST_Agtag_s other2 = (ST_Agtag_s) source;
-		objtype = other2.objtype;
-		mtflock = other2.mtflock;
-		attrwf = other2.attrwf;
-		seq = other2.seq;
-		id = other2.id;
-	}
-
-	@Override
 	public void ___(__struct__ other) {
 		copyDataFrom(other);
 	}

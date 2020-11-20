@@ -124,10 +124,6 @@ public class UnsupportedStarStruct implements StarStruct {
 		throw new UnsupportedOperationException(fieldName + " " + getClass().toString());
 	}
 
-	public void memcopyFrom(Area source) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
 	public void copyDataFrom(__struct__ other) {
 		throw new UnsupportedOperationException(getClass().toString());
 	}

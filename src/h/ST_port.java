@@ -101,21 +101,6 @@ public class ST_port extends UnsupportedStructAndPtr {
 	}
 
 	@Override
-	public void memcopyFrom(Area other) {
-		ST_port other2 = (ST_port) other;
-		this.p.___(other2.p);
-		this.theta = other2.theta;
-		this.bp = other2.bp;
-		this.defined = other2.defined;
-		this.constrained = other2.constrained;
-		this.clip = other2.clip;
-		this.dyna = other2.dyna;
-		this.order = other2.order;
-		this.side = other2.side;
-		this.name = other2.name;
-	}
-
-	@Override
 	public ST_port copy() {
 		final ST_port result = new ST_port();
 		result.p.___(this.p);

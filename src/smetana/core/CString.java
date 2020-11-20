@@ -60,12 +60,6 @@ public class CString extends UnsupportedC implements __ptr__, Area {
 
 	}
 
-	public void memcopyFrom(Area source) {
-		final CString other = (CString) source;
-		this.data2.clear();
-		this.data2.addAll(other.data2);
-	}
-
 	public CString(String string) {
 		this(new ArrayList<Character>(), 0);
 		for (int i = 0; i < string.length(); i++) {

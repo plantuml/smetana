@@ -57,10 +57,6 @@ public class UnsupportedStruct implements __struct__ {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 
-	public void memcopyFrom(Area source) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
 	public __struct__ copy() {
 		throw new UnsupportedOperationException(getClass().toString());
 	}

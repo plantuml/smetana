@@ -93,8 +93,5 @@ public class CFunctionImpl extends UnsupportedC implements CFunction, Area {
 		return name;
 	}
 
-	public void memcopyFrom(Area source) {
-		throw new UnsupportedOperationException();
-	}
 	
 }
