@@ -37,14 +37,14 @@ import static gen.lib.cgraph.node__c.agnode;
 import static gen.lib.cgraph.subg__c.agsubg;
 import static gen.lib.gvc.gvc__c.gvContext;
 import static gen.lib.gvc.gvlayout__c.gvLayoutJobs;
-import h.ST_Agedge_s;
-import h.ST_Agnode_s;
-import h.ST_Agraph_s;
-import h.ST_GVC_s;
 
 import java.io.File;
 import java.io.IOException;
 
+import h.ST_Agedge_s;
+import h.ST_Agnode_s;
+import h.ST_Agraph_s;
+import h.ST_GVC_s;
 import smetana.core.CString;
 import smetana.core.Macro;
 import smetana.core.Z;

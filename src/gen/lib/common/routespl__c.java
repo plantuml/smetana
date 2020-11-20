@@ -44,9 +44,6 @@
  *
  */
 package gen.lib.common;
-import gen.annotation.Original;
-import gen.annotation.Reviewed;
-import gen.annotation.Unused;
 import static gen.lib.cgraph.edge__c.aghead;
 import static gen.lib.cgraph.edge__c.agtail;
 import static gen.lib.pathplan.route__c.Proutespline;
@@ -64,8 +61,10 @@ import static smetana.core.Macro.INT_MAX;
 import static smetana.core.Macro.INT_MIN;
 import static smetana.core.Macro.MIN;
 import static smetana.core.Macro.N;
-import static smetana.core.Macro.NOT;
 import static smetana.core.Macro.UNSUPPORTED;
+
+import gen.annotation.Original;
+import gen.annotation.Unused;
 import h.ST_Agedge_s;
 import h.ST_Pedge_t;
 import h.ST_Ppoly_t;
@@ -75,7 +74,6 @@ import h.ST_pointf;
 import smetana.core.CStar;
 import smetana.core.Memory;
 import smetana.core.Z;
-import smetana.core.__ptr__;
 
 public class routespl__c {
 

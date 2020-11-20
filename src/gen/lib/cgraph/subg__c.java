@@ -54,8 +54,6 @@ import static smetana.core.JUtilsDebug.ENTERING;
 import static smetana.core.JUtilsDebug.LEAVING;
 import static smetana.core.Macro.AGID;
 import static smetana.core.Macro.AGRAPH;
-import static smetana.core.Macro.N;
-import static smetana.core.Macro.UNSUPPORTED;
 import static smetana.core.Macro.dtfirst;
 import static smetana.core.Macro.dtnext;
 
@@ -67,7 +65,6 @@ import h.ST_Agraph_s;
 import h.ST_dt_s;
 import smetana.core.CString;
 import smetana.core.Z;
-import smetana.core.__ptr__;
 
 public class subg__c {
 

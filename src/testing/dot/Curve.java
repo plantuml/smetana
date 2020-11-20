@@ -30,18 +30,18 @@
  */
 package testing.dot;
 
-import h.ST_Agedgeinfo_t;
-import h.ST_bezier;
-import h.ST_pointf;
-import h.ST_splines;
-import h.ST_textlabel_t;
-
 import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
+
+import h.ST_Agedgeinfo_t;
+import h.ST_bezier;
+import h.ST_pointf;
+import h.ST_splines;
+import h.ST_textlabel_t;
 
 public class Curve {
 

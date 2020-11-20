@@ -98,7 +98,6 @@ import static smetana.core.Macro.ND_rank;
 import static smetana.core.Macro.ND_ranktype;
 import static smetana.core.Macro.ND_rw;
 import static smetana.core.Macro.ND_weight_class;
-import static smetana.core.Macro.UNSUPPORTED;
 import static smetana.core.Macro.agfindedge;
 
 import gen.annotation.Difficult;

@@ -44,7 +44,6 @@
  *
  */
 package gen.lib.cdt;
-import gen.annotation.Unused;
 import static gen.lib.cdt.dtrestore__c.dtrestore;
 import static smetana.core.JUtils.EQ;
 import static smetana.core.JUtils.sizeof;

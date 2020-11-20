@@ -44,9 +44,6 @@
  *
  */
 package gen.lib.gvc;
-import gen.annotation.Original;
-import gen.annotation.Reviewed;
-import gen.annotation.Unused;
 import static gen.lib.cgraph.attr__c.agattr;
 import static gen.lib.common.textspan__c.textfont_dict_open;
 import static gen.lib.gvc.gvcontext__c.gvNEWcontext;
@@ -55,7 +52,9 @@ import static smetana.core.JUtilsDebug.ENTERING;
 import static smetana.core.JUtilsDebug.LEAVING;
 import static smetana.core.Macro.AGNODE;
 import static smetana.core.Macro.NOT;
-import static smetana.core.Macro.UNSUPPORTED;
+
+import gen.annotation.Original;
+import gen.annotation.Unused;
 import h.ST_GVC_s;
 import smetana.core.CString;
 

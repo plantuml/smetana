@@ -44,9 +44,6 @@
  *
  */
 package gen.lib.dotgen;
-import gen.annotation.Original;
-import gen.annotation.Reviewed;
-import gen.annotation.Unused;
 import static gen.lib.cgraph.attr__c.agxget;
 import static gen.lib.cgraph.edge__c.agfstout;
 import static gen.lib.cgraph.edge__c.aghead;
@@ -73,11 +70,13 @@ import static smetana.core.Macro.GD_leader;
 import static smetana.core.Macro.ND_clust;
 import static smetana.core.Macro.ND_node_type;
 import static smetana.core.Macro.ND_rank;
-import static smetana.core.Macro.UNSUPPORTED;
+
+import gen.annotation.Original;
+import gen.annotation.Reviewed;
+import gen.annotation.Unused;
 import h.ST_Agedge_s;
 import h.ST_Agnode_s;
 import h.ST_Agraph_s;
-import h.ST_pointf;
 import smetana.core.CString;
 import smetana.core.Z;
 

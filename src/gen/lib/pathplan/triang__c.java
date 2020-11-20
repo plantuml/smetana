@@ -44,10 +44,10 @@
  *
  */
 package gen.lib.pathplan;
-import gen.annotation.Original;
-import gen.annotation.Reviewed;
-import gen.annotation.Unused;
 import static smetana.core.Macro.UNSUPPORTED;
+
+import gen.annotation.Original;
+import gen.annotation.Unused;
 import smetana.core.jmp_buf;
 
 public class triang__c {

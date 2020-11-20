@@ -121,7 +121,6 @@ import h.ST_Agedge_s;
 import h.ST_Agnode_s;
 import h.ST_Agraph_s;
 import h.ST_nodequeue;
-import h.ST_pointf;
 import smetana.core.CStarStar;
 
 public class cluster__c {

@@ -102,7 +102,6 @@ import h.ST_Agnodeinfo_t;
 import h.ST_Agraph_s;
 import h.ST_Agrec_s;
 import h.ST_elist;
-import h.ST_pointf;
 
 public class fastgr__c {
 

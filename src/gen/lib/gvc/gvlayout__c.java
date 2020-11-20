@@ -50,7 +50,6 @@ import static gen.lib.common.emit__c.gv_fixLocale;
 import static gen.lib.common.input__c.graph_init;
 import static smetana.core.JUtils.LOG2;
 import static smetana.core.JUtils.NEQ;
-import static smetana.core.JUtils.enumAsInt;
 import static smetana.core.JUtils.function;
 import static smetana.core.JUtils.sizeof;
 import static smetana.core.JUtilsDebug.ENTERING;
@@ -65,14 +64,13 @@ import static smetana.core.Macro.UNSUPPORTED;
 
 import gen.annotation.Original;
 import gen.annotation.Reviewed;
-import gen.annotation.Unused;
+import h.EN_layout_type;
 import h.ST_Agraph_s;
 import h.ST_Agraphinfo_t;
 import h.ST_GVC_s;
 import h.ST_gvlayout_engine_s;
 import h.ST_gvlayout_features_t;
 import h.ST_gvplugin_installed_t;
-import h.EN_layout_type;
 import smetana.core.CString;
 
 public class gvlayout__c {

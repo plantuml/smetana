@@ -44,9 +44,6 @@
  *
  */
 package gen.lib.label;
-import gen.annotation.Original;
-import gen.annotation.Reviewed;
-import gen.annotation.Unused;
 import static gen.lib.cdt.dtclose__c.dtclose;
 import static gen.lib.cdt.dtopen__c.dtopen;
 import static gen.lib.label.index__c.RTreeClose;
@@ -59,6 +56,9 @@ import static smetana.core.JUtilsDebug.ENTERING;
 import static smetana.core.JUtilsDebug.LEAVING;
 import static smetana.core.Macro.N;
 import static smetana.core.Macro.UNSUPPORTED;
+
+import gen.annotation.Original;
+import gen.annotation.Unused;
 import h.ST_BestPos_t;
 import h.ST_HDict_t;
 import h.ST_LeafList_t;
@@ -76,7 +76,6 @@ import h.ST_xlabel_t;
 import smetana.core.CStar;
 import smetana.core.Memory;
 import smetana.core.Z;
-import smetana.core.__ptr__;
 public class xlabels__c {
 //1 9k44uhd5foylaeoekf3llonjq
 // extern Dtmethod_t* 	Dtset

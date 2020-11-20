@@ -44,10 +44,6 @@
  *
  */
 package gen.lib.cgraph;
-import gen.annotation.Difficult;
-import gen.annotation.Original;
-import gen.annotation.Reviewed;
-import gen.annotation.Unused;
 import static gen.lib.cdt.dtextract__c.dtextract;
 import static gen.lib.cdt.dtrestore__c.dtrestore;
 import static gen.lib.cdt.dtsize__c.dtsize_;
@@ -72,7 +68,11 @@ import static smetana.core.Macro.AGTYPE;
 import static smetana.core.Macro.ASINT;
 import static smetana.core.Macro.N;
 import static smetana.core.Macro.NOT;
-import static smetana.core.Macro.UNSUPPORTED;
+
+import gen.annotation.Difficult;
+import gen.annotation.Original;
+import gen.annotation.Reviewed;
+import gen.annotation.Unused;
 import h.ST_Agclos_s;
 import h.ST_Agdesc_s;
 import h.ST_Agdisc_s;
@@ -83,7 +83,6 @@ import h.ST_Agsubnode_s;
 import h.ST_dt_s;
 import h.ST_dtdisc_s;
 import h.ST_dtlink_s;
-import smetana.core.ACCESS;
 import smetana.core.CString;
 import smetana.core.STARSTAR;
 import smetana.core.Z;

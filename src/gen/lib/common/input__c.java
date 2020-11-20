@@ -108,11 +108,10 @@ import static smetana.core.Macro.agfindnodeattr;
 
 import gen.annotation.Original;
 import gen.annotation.Reviewed;
-import gen.annotation.Unused;
+import h.EN_fontname_kind;
 import h.ST_Agraph_s;
 import h.ST_layout_t;
 import h.ST_pointf;
-import h.EN_fontname_kind;
 import smetana.core.CString;
 import smetana.core.Z;
 

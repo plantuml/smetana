@@ -44,9 +44,6 @@
  *
  */
 package gen.lib.pathplan;
-import gen.annotation.Original;
-import gen.annotation.Reviewed;
-import gen.annotation.Unused;
 import static smetana.core.JUtils.EQ;
 import static smetana.core.JUtils.LOG2;
 import static smetana.core.JUtils.NEQ;
@@ -56,6 +53,9 @@ import static smetana.core.JUtilsDebug.LEAVING;
 import static smetana.core.Macro.HUGE_VAL;
 import static smetana.core.Macro.N;
 import static smetana.core.Macro.UNSUPPORTED;
+
+import gen.annotation.Original;
+import gen.annotation.Unused;
 import h.ST_Ppoly_t;
 import h.ST_pointf;
 import h.ST_pointnlink_t;

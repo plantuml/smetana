@@ -44,18 +44,17 @@
  *
  */
 package gen.lib.gvc;
-import gen.annotation.Original;
-import gen.annotation.Reviewed;
-import gen.annotation.Unused;
 import static gen.lib.gvc.gvplugin__c.gvplugin_load;
-import static smetana.core.JUtils.enumAsInt;
 import static smetana.core.JUtilsDebug.ENTERING;
 import static smetana.core.JUtilsDebug.LEAVING;
 import static smetana.core.Macro.UNSUPPORTED;
+
+import gen.annotation.Original;
+import gen.annotation.Unused;
+import h.EN_api_t;
 import h.ST_GVC_s;
 import h.ST_gvplugin_available_s;
 import h.ST_gvplugin_installed_t;
-import h.EN_api_t;
 import smetana.core.CString;
 
 public class gvtextlayout__c {

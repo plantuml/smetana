@@ -44,9 +44,6 @@
  *
  */
 package gen.lib.cgraph;
-import gen.annotation.Original;
-import gen.annotation.Reviewed;
-import gen.annotation.Unused;
 import static gen.lib.cgraph.subg__c.agfstsubg;
 import static gen.lib.cgraph.subg__c.agnxtsubg;
 import static smetana.core.JUtils.function;
@@ -59,6 +56,9 @@ import static smetana.core.Macro.AGRAPH;
 import static smetana.core.Macro.AGTYPE;
 import static smetana.core.Macro.N;
 import static smetana.core.Macro.UNSUPPORTED;
+
+import gen.annotation.Original;
+import gen.annotation.Unused;
 import h.ST_Agobj_s;
 import h.ST_Agraph_s;
 import smetana.core.CFunction;

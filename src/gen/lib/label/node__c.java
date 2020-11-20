@@ -44,9 +44,6 @@
  *
  */
 package gen.lib.label;
-import gen.annotation.Original;
-import gen.annotation.Reviewed;
-import gen.annotation.Unused;
 import static gen.lib.label.rectangle__c.CombineRect;
 import static gen.lib.label.rectangle__c.InitRect;
 import static gen.lib.label.rectangle__c.RectArea;
@@ -54,6 +51,9 @@ import static gen.lib.label.split_q__c.SplitNode;
 import static smetana.core.JUtilsDebug.ENTERING;
 import static smetana.core.JUtilsDebug.LEAVING;
 import static smetana.core.Macro.UNSUPPORTED;
+
+import gen.annotation.Original;
+import gen.annotation.Unused;
 import h.ST_Branch_t;
 import h.ST_Node_t___;
 import h.ST_RTree;

@@ -44,13 +44,12 @@
  *
  */
 package gen.lib.common;
-import gen.annotation.Original;
-import gen.annotation.Reviewed;
-import gen.annotation.Unused;
 import static smetana.core.JUtilsDebug.ENTERING;
 import static smetana.core.JUtilsDebug.LEAVING;
 import static smetana.core.Macro.UNSUPPORTED;
-import h.ST_pointf;
+
+import gen.annotation.Original;
+import gen.annotation.Unused;
 import h.ST_textlabel_t;
 import smetana.core.__ptr__;
 

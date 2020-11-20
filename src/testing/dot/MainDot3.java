@@ -53,7 +53,6 @@ import smetana.core.CString;
 import smetana.core.JUtilsDebug;
 import smetana.core.Macro;
 import smetana.core.Z;
-import smetana.core.__ptr__;
 
 public class MainDot3 {
 

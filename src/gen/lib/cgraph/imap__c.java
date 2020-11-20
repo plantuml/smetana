@@ -44,14 +44,15 @@
  *
  */
 package gen.lib.cgraph;
-import gen.annotation.Original;
-import gen.annotation.Reviewed;
-import gen.annotation.Unused;
 import static smetana.core.JUtilsDebug.ENTERING;
 import static smetana.core.JUtilsDebug.LEAVING;
 import static smetana.core.Macro.AGEDGE;
 import static smetana.core.Macro.AGINEDGE;
 import static smetana.core.Macro.UNSUPPORTED;
+
+import gen.annotation.Original;
+import gen.annotation.Reviewed;
+import gen.annotation.Unused;
 import h.ST_Agraph_s;
 import h.ST_IMapEntry_t;
 import h.ST_dt_s;

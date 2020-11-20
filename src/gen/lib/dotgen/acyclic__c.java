@@ -44,9 +44,6 @@
  *
  */
 package gen.lib.dotgen;
-import gen.annotation.Original;
-import gen.annotation.Reviewed;
-import gen.annotation.Unused;
 import static gen.lib.cgraph.edge__c.aghead;
 import static gen.lib.cgraph.edge__c.agtail;
 import static gen.lib.dotgen.fastgr__c.delete_fast_edge;
@@ -61,11 +58,13 @@ import static smetana.core.Macro.ND_mark;
 import static smetana.core.Macro.ND_next;
 import static smetana.core.Macro.ND_onstack;
 import static smetana.core.Macro.ND_out;
-import static smetana.core.Macro.UNSUPPORTED;
+
+import gen.annotation.Original;
+import gen.annotation.Reviewed;
+import gen.annotation.Unused;
 import h.ST_Agedge_s;
 import h.ST_Agnode_s;
 import h.ST_Agraph_s;
-import h.ST_pointf;
 
 public class acyclic__c {
 

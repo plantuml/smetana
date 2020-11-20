@@ -87,8 +87,6 @@ import static smetana.core.Macro.ND_out;
 import static smetana.core.Macro.ND_rank;
 import static smetana.core.Macro.ND_rw;
 import static smetana.core.Macro.NORMAL;
-import static smetana.core.Macro.NOT;
-import static smetana.core.Macro.UNSUPPORTED;
 import static smetana.core.Macro.VIRTUAL;
 
 import gen.annotation.Difficult;

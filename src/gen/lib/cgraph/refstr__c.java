@@ -49,13 +49,11 @@ import static gen.lib.cgraph.utils__c.agdtopen;
 import static smetana.core.JUtils.EQ;
 import static smetana.core.JUtilsDebug.ENTERING;
 import static smetana.core.JUtilsDebug.LEAVING;
-import static smetana.core.Macro.UNSUPPORTED;
 import static smetana.core.Macro.dtinsert;
 import static smetana.core.Macro.dtsearch;
 
 import gen.annotation.Original;
 import gen.annotation.Reviewed;
-import gen.annotation.Unused;
 import h.ST_Agraph_s;
 import h.ST_dt_s;
 import h.ST_refstr_t;

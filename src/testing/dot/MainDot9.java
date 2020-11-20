@@ -48,12 +48,10 @@ import h.ST_Agnode_s;
 import h.ST_Agnodeinfo_t;
 import h.ST_Agraph_s;
 import h.ST_GVC_s;
-import h.ST_field_t;
 import smetana.core.CString;
 import smetana.core.JUtilsDebug;
 import smetana.core.Macro;
 import smetana.core.Z;
-import smetana.core.__ptr__;
 
 public class MainDot9 {
 

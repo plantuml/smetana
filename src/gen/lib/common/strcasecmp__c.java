@@ -44,12 +44,12 @@
  *
  */
 package gen.lib.common;
-import gen.annotation.Original;
-import gen.annotation.Reviewed;
-import gen.annotation.Unused;
 import static smetana.core.JUtils.tolower;
 import static smetana.core.JUtilsDebug.ENTERING;
 import static smetana.core.JUtilsDebug.LEAVING;
+
+import gen.annotation.Original;
+import gen.annotation.Reviewed;
 import smetana.core.CString;
 
 public class strcasecmp__c {

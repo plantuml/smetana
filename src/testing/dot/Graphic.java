@@ -31,14 +31,6 @@
 package testing.dot;
 
 import static gen.lib.cgraph.attr__c.agget;
-import h.ST_Agedge_s;
-import h.ST_Agnode_s;
-import h.ST_Agraph_s;
-import h.ST_Agraphinfo_t;
-import h.ST_Agedgeinfo_t;
-import h.ST_Agnodeinfo_t;
-import h.ST_boxf;
-import h.ST_field_t;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -53,9 +45,16 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import h.ST_Agedge_s;
+import h.ST_Agedgeinfo_t;
+import h.ST_Agnode_s;
+import h.ST_Agnodeinfo_t;
+import h.ST_Agraph_s;
+import h.ST_Agraphinfo_t;
+import h.ST_boxf;
+import h.ST_field_t;
 import smetana.core.CString;
 import smetana.core.Macro;
-import smetana.core.__ptr__;
 
 public class Graphic {
 

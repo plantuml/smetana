@@ -44,9 +44,6 @@
  *
  */
 package gen.lib.label;
-import gen.annotation.Original;
-import gen.annotation.Reviewed;
-import gen.annotation.Unused;
 import static gen.lib.label.node__c.AddBranch;
 import static gen.lib.label.node__c.DisconBranch;
 import static gen.lib.label.node__c.NodeCover;
@@ -58,6 +55,9 @@ import static smetana.core.JUtilsDebug.ENTERING;
 import static smetana.core.JUtilsDebug.LEAVING;
 import static smetana.core.Macro.N;
 import static smetana.core.Macro.UNSUPPORTED;
+
+import gen.annotation.Original;
+import gen.annotation.Unused;
 import h.ST_Branch_t;
 import h.ST_LeafList_t;
 import h.ST_Node_t___;

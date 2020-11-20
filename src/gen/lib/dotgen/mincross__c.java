@@ -145,7 +145,6 @@ import smetana.core.CStarStar;
 import smetana.core.CString;
 import smetana.core.Memory;
 import smetana.core.Z;
-import smetana.core.__ptr__;
 
 /* 
  * dot_mincross(g) takes a ranked graphs, and finds an ordering

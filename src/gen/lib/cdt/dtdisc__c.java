@@ -44,9 +44,6 @@
  *
  */
 package gen.lib.cdt;
-import gen.annotation.Original;
-import gen.annotation.Reviewed;
-import gen.annotation.Unused;
 import static gen.lib.cdt.dtflatten__c.dtflatten;
 import static gen.lib.cdt.dtrestore__c.dtrestore;
 import static smetana.core.JUtils.function;
@@ -54,6 +51,9 @@ import static smetana.core.JUtilsDebug.ENTERING;
 import static smetana.core.JUtilsDebug.LEAVING;
 import static smetana.core.Macro.N;
 import static smetana.core.Macro.UNSUPPORTED;
+
+import gen.annotation.Original;
+import gen.annotation.Unused;
 import h.Dtsearch_f;
 import h.ST_dt_s;
 import h.ST_dtdisc_s;

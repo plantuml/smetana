@@ -124,7 +124,6 @@ import h.ST_Agraph_s;
 import h.ST_aspect_t;
 import h.ST_elist;
 import h.ST_point;
-import h.ST_pointf;
 import smetana.core.CStarStar;
 import smetana.core.CString;
 import smetana.core.Memory;

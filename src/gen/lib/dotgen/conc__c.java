@@ -44,13 +44,10 @@
  *
  */
 package gen.lib.dotgen;
-import gen.annotation.Original;
-import gen.annotation.Reviewed;
-import gen.annotation.Unused;
-import static smetana.core.JUtilsDebug.ENTERING;
-import static smetana.core.JUtilsDebug.LEAVING;
 import static smetana.core.Macro.UNSUPPORTED;
-import h.ST_pointf;
+
+import gen.annotation.Original;
+import gen.annotation.Unused;
 import smetana.core.jmp_buf;
 
 public class conc__c {
@@ -59,110 +56,6 @@ public class conc__c {
 //1 540u5gu9i0x1wzoxqqx5n2vwp
 // static jmp_buf jbuf
 private static jmp_buf jbuf = new jmp_buf();
-
-
-
-//3 hiohl94lfxzfx1mjrwsqz37c
-// static boolean samedir(edge_t * e, edge_t * f) 
-@Unused
-@Original(version="2.38.0", path="lib/dotgen/conc.c", name="samedir", key="hiohl94lfxzfx1mjrwsqz37c", definition="static boolean samedir(edge_t * e, edge_t * f)")
-public static Object samedir(Object... arg) {
-UNSUPPORTED("29nu0bleg7r6obvwg17es3eva"); // static boolean samedir(edge_t * e, edge_t * f)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("5prsmuiayujknpr12ysexceww"); //     edge_t *e0, *f0;
-UNSUPPORTED("a87jx348k6dr2owi2ge2e9r86"); //     for (e0 = e; ED_edge_type(e0) != 0; e0 = ED_to_orig(e0));
-UNSUPPORTED("cws6ess4x4o5kp609fhzl087m"); //     for (f0 = f; ED_edge_type(f0) != 0; f0 = ED_to_orig(f0));
-UNSUPPORTED("ay9e2jfde73nguyfs214f5pif"); //     if (ED_conc_opp_flag(e0))
-UNSUPPORTED("c9ckhc8veujmwcw0ar3u3zld4"); // 	return 0;
-UNSUPPORTED("3qs48pp09z881fbxjwqfm4u1r"); //     if (ED_conc_opp_flag(f0))
-UNSUPPORTED("c9ckhc8veujmwcw0ar3u3zld4"); // 	return 0;
-UNSUPPORTED("5p8e0qmobo1inow3m2l1iis5t"); //     return ((ND_rank(agtail(f0)) - ND_rank(aghead(f0)))
-UNSUPPORTED("6n93ns5ibdr64eugmmuj5rn02"); // 	    * (ND_rank(agtail(e0)) - ND_rank(aghead(e0))) > 0);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
-//3 6pb0av8sjhmso4mrttaqsuv6h
-// static boolean downcandidate(node_t * v) 
-@Unused
-@Original(version="2.38.0", path="lib/dotgen/conc.c", name="downcandidate", key="6pb0av8sjhmso4mrttaqsuv6h", definition="static boolean downcandidate(node_t * v)")
-public static Object downcandidate(Object... arg) {
-UNSUPPORTED("5rcx94deeexsyuzu3uu8v1yk2"); // static boolean downcandidate(node_t * v)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("6jfx7802edvf66slrrtiwdr3x"); //     return ((ND_node_type(v) == 1) && (ND_in(v).size == 1)
-UNSUPPORTED("bc5c94xpimskyg4uxfcpjzjbk"); // 	    && (ND_out(v).size == 1) && (ND_label(v) == NULL));
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
-//3 5yy2uwgnjzdmsqjig6m7pi4dh
-// static boolean bothdowncandidates(node_t * u, node_t * v) 
-@Unused
-@Original(version="2.38.0", path="lib/dotgen/conc.c", name="bothdowncandidates", key="5yy2uwgnjzdmsqjig6m7pi4dh", definition="static boolean bothdowncandidates(node_t * u, node_t * v)")
-public static Object bothdowncandidates(Object... arg) {
-UNSUPPORTED("70c1exdtu7f7a0g2xvtjf1h4v"); // static boolean bothdowncandidates(node_t * u, node_t * v)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("9b48a157azcrz2ihzqehhpsvs"); //     edge_t *e, *f;
-UNSUPPORTED("n6nd0vbfveotd6ua08vaz9kc"); //     e = ND_in(u).list[0];
-UNSUPPORTED("a1yoae6m61u88abwgei4iwrv6"); //     f = ND_in(v).list[0];
-UNSUPPORTED("1igpcdu1bpbjym8gly2bydxmp"); //     if (downcandidate(v) && (agtail(e) == agtail(f))) {
-UNSUPPORTED("b0c3dm89khvdfaecz8vndzs4g"); // 	return samedir(e, f)
-UNSUPPORTED("b65ygvpn73rc7xtl4ogmyfdc3"); // 	    && (portcmp(ED_tail_port(e), ED_tail_port(f)) == 0);
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("5oxhd3fvp0gfmrmz12vndnjt"); //     return 0;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
-//3 pnmyeaeyufqhbdt9phmr34w8
-// static boolean upcandidate(node_t * v) 
-@Unused
-@Original(version="2.38.0", path="lib/dotgen/conc.c", name="upcandidate", key="pnmyeaeyufqhbdt9phmr34w8", definition="static boolean upcandidate(node_t * v)")
-public static Object upcandidate(Object... arg) {
-UNSUPPORTED("1bwv2llboqrh45zw5aau3g8wy"); // static boolean upcandidate(node_t * v)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("8cpz8jcws7vc5ljvhpqsvtr95"); //     return ((ND_node_type(v) == 1) && (ND_out(v).size == 1)
-UNSUPPORTED("3h8pm2cl2yek27t8a1r51vwwm"); // 	    && (ND_in(v).size == 1) && (ND_label(v) == NULL));
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
-//3 eoltukpbxfjnxh04nr63ockc2
-// static boolean bothupcandidates(node_t * u, node_t * v) 
-@Unused
-@Original(version="2.38.0", path="lib/dotgen/conc.c", name="bothupcandidates", key="eoltukpbxfjnxh04nr63ockc2", definition="static boolean bothupcandidates(node_t * u, node_t * v)")
-public static Object bothupcandidates(Object... arg) {
-UNSUPPORTED("cqzsemphpsgvcisjr9bifnbar"); // static boolean bothupcandidates(node_t * u, node_t * v)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("9b48a157azcrz2ihzqehhpsvs"); //     edge_t *e, *f;
-UNSUPPORTED("9zpg3620h4heznn3b6mf3rkzc"); //     e = ND_out(u).list[0];
-UNSUPPORTED("1vg7brvscwl8tqwcwgf2vc1iu"); //     f = ND_out(v).list[0];
-UNSUPPORTED("232o0u3m0hk33kom12ddv5cf5"); //     if (upcandidate(v) && (aghead(e) == aghead(f))) {
-UNSUPPORTED("b0c3dm89khvdfaecz8vndzs4g"); // 	return samedir(e, f)
-UNSUPPORTED("2sbh73r3hanfplu15qi49xx9e"); // 	    && (portcmp(ED_head_port(e), ED_head_port(f)) == 0);
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("5oxhd3fvp0gfmrmz12vndnjt"); //     return 0;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
 
 
 

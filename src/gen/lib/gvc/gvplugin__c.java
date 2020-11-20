@@ -44,7 +44,6 @@
  *
  */
 package gen.lib.gvc;
-import static smetana.core.JUtils.enumAsInt;
 import static smetana.core.JUtils.strchr;
 import static smetana.core.JUtils.strncpy;
 import static smetana.core.JUtilsDebug.ENTERING;
@@ -53,138 +52,14 @@ import static smetana.core.Macro.UNSUPPORTED;
 
 import gen.annotation.Original;
 import gen.annotation.Unused;
+import h.EN_api_t;
 import h.ST_GVC_s;
 import h.ST_gvplugin_available_s;
 import h.ST_gvplugin_installed_t;
-import h.EN_api_t;
 import smetana.core.CString;
 import smetana.core.__ptr__;
 
 public class gvplugin__c {
-//1 2digov3edok6d5srhgtlmrycs
-// extern lt_symlist_t lt_preloaded_symbols[]
-
-
-//1 baedz5i9est5csw3epz3cv7z
-// typedef Ppoly_t Ppolyline_t
-
-
-//1 9k44uhd5foylaeoekf3llonjq
-// extern Dtmethod_t* 	Dtset
-
-
-//1 1ahfywsmzcpcig2oxm7pt9ihj
-// extern Dtmethod_t* 	Dtbag
-
-
-//1 anhghfj3k7dmkudy2n7rvt31v
-// extern Dtmethod_t* 	Dtoset
-
-
-//1 5l6oj1ux946zjwvir94ykejbc
-// extern Dtmethod_t* 	Dtobag
-
-
-//1 2wtf222ak6cui8cfjnw6w377z
-// extern Dtmethod_t*	Dtlist
-
-
-//1 d1s1s6ibtcsmst88e3057u9r7
-// extern Dtmethod_t*	Dtstack
-
-
-//1 axa7mflo824p6fspjn1rdk0mt
-// extern Dtmethod_t*	Dtqueue
-
-
-//1 ega812utobm4xx9oa9w9ayij6
-// extern Dtmethod_t*	Dtdeque
-
-
-//1 cyfr996ur43045jv1tjbelzmj
-// extern Dtmethod_t*	Dtorder
-
-
-//1 wlofoiftbjgrrabzb2brkycg
-// extern Dtmethod_t*	Dttree
-
-
-//1 12bds94t7voj7ulwpcvgf6agr
-// extern Dtmethod_t*	Dthash
-
-
-//1 9lqknzty480cy7zsubmabkk8h
-// extern Dtmethod_t	_Dttree
-
-
-//1 bvn6zkbcp8vjdhkccqo1xrkrb
-// extern Dtmethod_t	_Dthash
-
-
-//1 9lidhtd6nsmmv3e7vjv9e10gw
-// extern Dtmethod_t	_Dtlist
-
-
-//1 34ujfamjxo7xn89u90oh2k6f8
-// extern Dtmethod_t	_Dtqueue
-
-
-//1 3jy4aceckzkdv950h89p4wjc8
-// extern Dtmethod_t	_Dtstack
-
-
-//1 8dfqgf3u1v830qzcjqh9o8ha7
-// extern Agmemdisc_t AgMemDisc
-
-
-//1 18k2oh2t6llfsdc5x0wlcnby8
-// extern Agiddisc_t AgIdDisc
-
-
-//1 a4r7hi80gdxtsv4hdoqpyiivn
-// extern Agiodisc_t AgIoDisc
-
-
-//1 bnzt5syjb7mgeru19114vd6xx
-// extern Agdisc_t AgDefaultDisc
-
-
-//1 35y2gbegsdjilegaribes00mg
-// extern Agdesc_t Agdirected, Agstrictdirected, Agundirected,     Agstrictundirected
-
-
-//1 c2rygslq6bcuka3awmvy2b3ow
-// typedef Agsubnode_t	Agnoderef_t
-
-
-//1 xam6yv0dcsx57dtg44igpbzn
-// typedef Dtlink_t	Agedgeref_t
-
-
-//1 aemimfultk1u2w9cxr60mx9t8
-// static char *api_names[] = 
-
-
-
-
-//3 eevhjwoa4cqgsdjixuro98kl0
-// api_t gvplugin_api(char *str) 
-@Unused
-@Original(version="2.38.0", path="lib/gvc/gvplugin.c", name="gvplugin_api", key="eevhjwoa4cqgsdjixuro98kl0", definition="api_t gvplugin_api(char *str)")
-public static Object gvplugin_api(Object... arg) {
-UNSUPPORTED("cszu4juqkncv208751dxi10l3"); // api_t gvplugin_api(char *str)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("6ugrq6sc21ihshl3bbzco6fos"); //     int api;
-UNSUPPORTED("c57imqe71hagsxekx4tv822e"); //     for (api = 0; api < (sizeof(api_names)/sizeof(api_names[0])); api++) {
-UNSUPPORTED("cypzroibwqkkeifp7b9ciyrfx"); //         if (strcmp(str, api_names[api]) == 0)
-UNSUPPORTED("ap3yvrg5ko19s5z8pvkh2f64b"); //             return (api_t) api;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("16zkyf3ijnqqhod6luqgoqzd0"); //     return -1;                  /* invalid api */
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
 
 
 

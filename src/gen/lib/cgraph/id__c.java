@@ -66,7 +66,6 @@ import gen.annotation.Original;
 import gen.annotation.Reviewed;
 import gen.annotation.Unused;
 import h.ST_Agdisc_s;
-import h.ST_Agobj_s;
 import h.ST_Agraph_s;
 import smetana.core.CString;
 import smetana.core.Memory;

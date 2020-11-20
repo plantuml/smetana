@@ -44,18 +44,16 @@
  *
  */
 package gen.lib.pack;
-import gen.annotation.Original;
-import gen.annotation.Reviewed;
-import gen.annotation.Unused;
 import static gen.lib.cgraph.attr__c.agget;
 import static smetana.core.JUtilsDebug.ENTERING;
 import static smetana.core.JUtilsDebug.LEAVING;
 import static smetana.core.Macro.UNSUPPORTED;
 
+import gen.annotation.Original;
+import gen.annotation.Reviewed;
 import h.EN_pack_mode;
 import h.ST_Agraph_s;
 import h.ST_pack_info;
-import h.ST_pointf;
 import smetana.core.CString;
 
 public class pack__c {

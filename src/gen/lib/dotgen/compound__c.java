@@ -44,13 +44,10 @@
  *
  */
 package gen.lib.dotgen;
-import gen.annotation.Original;
-import gen.annotation.Reviewed;
-import gen.annotation.Unused;
-import static smetana.core.JUtilsDebug.ENTERING;
-import static smetana.core.JUtilsDebug.LEAVING;
 import static smetana.core.Macro.UNSUPPORTED;
-import h.ST_pointf;
+
+import gen.annotation.Original;
+import gen.annotation.Unused;
 
 public class compound__c {
 //1 2digov3edok6d5srhgtlmrycs

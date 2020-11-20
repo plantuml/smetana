@@ -47,7 +47,6 @@ package gen.lib.gvc;
 import static smetana.core.JUtils.function;
 import static smetana.core.JUtilsDebug.ENTERING;
 import static smetana.core.JUtilsDebug.LEAVING;
-import static smetana.core.Macro.UNSUPPORTED;
 
 import gen.annotation.Original;
 import gen.annotation.Unused;

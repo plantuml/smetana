@@ -59,7 +59,6 @@ import static smetana.core.JUtils.NEQ;
 import static smetana.core.JUtils.abs;
 import static smetana.core.JUtils.atan2;
 import static smetana.core.JUtils.cos;
-import static smetana.core.JUtils.enumAsInt;
 import static smetana.core.JUtils.sin;
 import static smetana.core.JUtils.sqrt;
 import static smetana.core.JUtils.strcmp;
@@ -110,6 +109,7 @@ import gen.annotation.Difficult;
 import gen.annotation.Original;
 import gen.annotation.Reviewed;
 import gen.annotation.Unused;
+import h.EN_shape_kind;
 import h.ST_Agnode_s;
 import h.ST_boxf;
 import h.ST_field_t;
@@ -120,7 +120,6 @@ import h.ST_polygon_t;
 import h.ST_port;
 import h.ST_shape_desc;
 import h.ST_textlabel_t;
-import h.EN_shape_kind;
 import smetana.core.ACCESS;
 import smetana.core.CFunctionImpl;
 import smetana.core.CStar;
@@ -128,8 +127,6 @@ import smetana.core.CStarStar;
 import smetana.core.CString;
 import smetana.core.Memory;
 import smetana.core.Z;
-import smetana.core.__ptr__;
-import smetana.core.__struct__;
 
 public class shapes__c {
 
