@@ -75,25 +75,6 @@ public class obj__c {
 @Original(version="2.38.0", path="lib/cgraph/obj.c", name="agdelete", key="6wm1l0y857iajfoa6ywpotkld", definition = "int agdelete(Agraph_t * g, void *obj)")
 public static Object agdelete(Object... arg) {
 UNSUPPORTED("26js2ch8px4mwz3gqvjehanq1"); // int agdelete(Agraph_t * g, void *obj)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("9w2ooy12wluvhcufehln1sob3"); //     if ((AGTYPE((Agobj_t *) obj) == AGRAPH) && (g != agparent(obj))) {
-UNSUPPORTED("8iap36ny5lwbj2qog193slebp"); // 	agerr(AGERR, "agdelete on wrong graph");
-UNSUPPORTED("8d9xfgejx5vgd6shva5wk5k06"); // 	return -1;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("bldax4f6o5yyujcnonbszc0kv"); //     switch (AGTYPE((Agobj_t *) obj)) {
-UNSUPPORTED("6x7ztvlgv763oeop84udp1egg"); //     case AGNODE:
-UNSUPPORTED("4fefei0lku9f461nifc1j9d6j"); // 	return agdelnode(g, obj);
-UNSUPPORTED("c9o8hr6x8n5dty1y3eej1fept"); //     case AGINEDGE:
-UNSUPPORTED("a6ls4lkgjoheqwo2e7yqt9zz8"); //     case AGOUTEDGE:
-UNSUPPORTED("5g9ficurorxyixy3ipj7d410l"); // 	return agdeledge(g, obj);
-UNSUPPORTED("eyna33dobiebmtd0nihpgura4"); //     case AGRAPH:
-UNSUPPORTED("bbhf83j2cbqobo0q3vhbqmjnt"); // 	return agclose(obj);
-UNSUPPORTED("8l3rwj6ctswoa4gvh2j4poq70"); //     default:
-UNSUPPORTED("23wxcrpaiuw9ahrx92r6h8z42"); // 	agerr(AGERR, "agdelete on bad object");
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("6z6pjcdqmwle9axtu8m7zzsbc"); //     return 0;		/* not reached */
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
 throw new UnsupportedOperationException();
 }
 
