@@ -69,39 +69,7 @@ private static final int DEF_PASSES = 5;
 @Original(version="2.38.0", path="lib/dotgen/aspect.c", name="rank3", key="25p8yyx732fa1dwxany5vkmqv", definition="void rank3(graph_t * g, aspect_t * asp)")
 public static Object rank3(Object... arg) {
 UNSUPPORTED("ey9g3c61eb7j5dnz3gbhvflt3"); // void rank3(graph_t * g, aspect_t * asp)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("2jcii9cclu1dijzqekzc175pe"); //     Agnode_t *n;
-UNSUPPORTED("b17di9c7wgtqm51bvsyxz6e2f"); //     int i;
-UNSUPPORTED("752slid56zrpl98vchhyeqpj"); //     int iterations = asp->nextIter;
-UNSUPPORTED("6wfeyz2bw1fm15jb5qg3a79a2"); //     double lastAR = MAXDOUBLE;
-UNSUPPORTED("5bvy7rsy7sf1krbn35gmd888x"); //     computeNodeGroups(g);	/* groups of UF DS nodes */
-UNSUPPORTED("cn5dqgh2amp70r1jzq8d7v75x"); //     for (i = 0; (i < iterations) || (iterations == -1); i++) {
-UNSUPPORTED("42uwgh3dkewf6zkd83xt1wzjd"); // 	/* initialize all ranks to be 0 */
-UNSUPPORTED("attp4bsjqe99xnhi7lr7pszar"); // 	for (n = agfstnode(g); n; n = agnxtnode(g, n)) {
-UNSUPPORTED("f429zn3r84ceckfatzshenxzo"); // 	    ND_rank(n) = 0;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("d7qgdx3iixit5pdzj1yfw5vc8"); // 	/* need to compute ranking first--- by Network flow */
-UNSUPPORTED("1um989w8mqkye2u0q3wbc8dgb"); // 	rank1(g);
-UNSUPPORTED("cou59yxqf69o7kpjwdkc0vdth"); // 	asp->combiAR = computeCombiAR(g);
-UNSUPPORTED("a0xpyoq74njvdwc9lcvgyfc0p"); // 	if (Verbose)
-UNSUPPORTED("5ndbkluuhatxcz2bwngcywbhc"); // 	    fprintf(stderr, "combiAR = %lf\n", asp->combiAR);
-UNSUPPORTED("53w2avskexaf6hjssoeplgz0o"); // 	/* Uncomment the following codes, for working with narrow graphs */
-UNSUPPORTED("am6dg6wfejg71244n1zzvaed6"); //         /* Success or if no improvement */
-UNSUPPORTED("7qroolj8ezwbbkwrss9k1q5mc"); // 	if ((asp->combiAR <= asp->targetAR) || ((iterations == -1) && (lastAR <= asp->combiAR))) {
-UNSUPPORTED("11dozd7gvruvmd3x164caqmgz"); // 	    asp->prevIterations = asp->curIterations;
-UNSUPPORTED("bm7zpotfxeku2ydqqsd6twzm6"); // 	    asp->curIterations = i;
-UNSUPPORTED("ai3czg6gaaxspsmndknpyvuiu"); // 	    break;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("7r2hn8bkthpfcf03lu4vnje0f"); // 	lastAR = asp->combiAR;
-UNSUPPORTED("9tsz1ho0itczonzjb308rql0m"); // 	/* Apply the FFDH algorithm to reduce the aspect ratio; */
-UNSUPPORTED("7jlj2ab1tf2kzdmzf0f14epg4"); // 	applyPacking2(g);
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("9zv64kjrcw7u09t5lm2qsg4fw"); //     /* do network flow once again... incorporating the added edges */
-UNSUPPORTED("393qo3g8b50gvp5o0tpqh29v1"); //     rank1(g);
-UNSUPPORTED("ekdavoqh7w4imu35z1hk4cr27"); //     computeLayerWidths(g);
-UNSUPPORTED("b1ukbsj4nhxbvn64fx7zbx7sn"); //     zapLayers(g);
-UNSUPPORTED("3b5copquo4t13fbkmtbbkvo8j"); //     asp->combiAR = computeCombiAR(g);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
 
 throw new UnsupportedOperationException();
 }

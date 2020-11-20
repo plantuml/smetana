@@ -143,23 +143,6 @@ LEAVING("bnxqpsmvz6tyekstfjte4pzwj","getPackModeInfo");
 
 
 
-//3 7drbmsd08zij375icggr3egvy
-// pack_mode  getPackMode(Agraph_t * g, pack_mode dflt) 
-@Unused
-@Original(version="2.38.0", path="lib/pack/pack.c", name="getPackMode", key="7drbmsd08zij375icggr3egvy", definition="pack_mode  getPackMode(Agraph_t * g, pack_mode dflt)")
-public static Object getPackMode(Object... arg) {
-UNSUPPORTED("c1prvosj3g3y8yq8z6btufyr1"); // pack_mode 
-UNSUPPORTED("acjweauaygv7o5gppq7c33mp7"); // getPackMode(Agraph_t * g, pack_mode dflt)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("c0d79ghjhm6kl6qz811tqj0ip"); //   pack_info info;
-UNSUPPORTED("3abevvtclwlzp8dcg3zhzsnll"); //   return getPackModeInfo (g, dflt, &info);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
 
 /* getPack:
  * Return "pack" attribute of g.

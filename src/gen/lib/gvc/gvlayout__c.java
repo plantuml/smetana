@@ -172,26 +172,5 @@ LEAVING("991b7t7n0x8ifkp49zotjs78x","gvLayoutJobs");
 
 
 
-@Unused
-@Original(version="2.38.0", path="lib/gvc/gvlayout.c", name="gvFreeLayout", key="3c99zdwpmvsunk8fuj6my9c14", definition="int gvFreeLayout(GVC_t * gvc, Agraph_t * g)")
-public static Object gvFreeLayout(Object... arg) {
-UNSUPPORTED("miztaqpyzsrx0tzflsbk18df"); // int gvFreeLayout(GVC_t * gvc, Agraph_t * g)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("an78d0x2t0pcnm5p7x0nsyl8o"); //     /* skip if no Agraphinfo_t yet */
-UNSUPPORTED("y9n04abevv5wkts4l75cl1au"); //     if (! agbindrec(g, "Agraphinfo_t", 0, NOT(0)))
-UNSUPPORTED("6f1138i13x0xz1bf1thxgjgka"); // 	    return 0;
-UNSUPPORTED("3tq49gfbuixakj7ae5tf9mzxz"); //     if (GD_cleanup(g)) {
-UNSUPPORTED("66fe8hcy8mktqozsl94u84wy4"); // 	(GD_cleanup(g))(g);
-UNSUPPORTED("9otfc4inu4hywb5uzke8hroh8"); // 	GD_cleanup(g) = NULL;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("6o4u7hjlds1wsu4tuaotw2xvr"); //     if (GD_drawing(g)) {
-UNSUPPORTED("614pp135h9hyyoa6quv172ent"); // 	graph_cleanup(g);
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("5oxhd3fvp0gfmrmz12vndnjt"); //     return 0;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
 
 }
