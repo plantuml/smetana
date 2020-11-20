@@ -44,20 +44,9 @@
  *
  */
 package h;
-import java.util.Arrays;
-import java.util.List;
 
-import smetana.core.__ptr__;
-
-//2 1ptr5q16rzf9tt2rxbfqjxump
-
-public interface EN_pack_mode extends __ptr__ {
-	public static List<String> DEFINITION = Arrays.asList(
-"typedef enum",
-"{",
-"l_undef, l_clust, l_node, l_graph, l_array, l_aspect",
-"}",
-"pack_mode");
+public enum EN_pack_mode {
+	l_undef, l_clust, l_node, l_graph, l_array, l_aspect
 }
 
 // typedef enum { l_undef, l_clust, l_node, l_graph, l_array, l_aspect } pack_mode;

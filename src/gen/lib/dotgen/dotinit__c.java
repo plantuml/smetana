@@ -595,9 +595,9 @@ try {
     int i;
     final ST_pack_info pinfo = new ST_pack_info();
     int Pack = getPack(g, -1, CL_OFFSET);
-    int mode = getPackModeInfo (g, enumAsInt(EN_pack_mode.class, "l_undef"), pinfo);
-    getPackInfo(g, enumAsInt(EN_pack_mode.class, "l_node"), 8, pinfo);
-    if ((mode == enumAsInt(EN_pack_mode.class, "l_undef")) && (Pack < 0)) {
+    EN_pack_mode mode = getPackModeInfo (g, EN_pack_mode.l_undef, pinfo);
+    getPackInfo(g, EN_pack_mode.l_node, 8, pinfo);
+    if ((mode == EN_pack_mode.l_undef) && (Pack < 0)) {
 	/* No pack information; use old dot with components
          * handled during layout
          */

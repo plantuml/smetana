@@ -51,6 +51,8 @@ import static gen.lib.cgraph.attr__c.agget;
 import static smetana.core.JUtilsDebug.ENTERING;
 import static smetana.core.JUtilsDebug.LEAVING;
 import static smetana.core.Macro.UNSUPPORTED;
+
+import h.EN_pack_mode;
 import h.ST_Agraph_s;
 import h.ST_pack_info;
 import h.ST_pointf;
@@ -66,7 +68,7 @@ public class pack__c {
  */
 @Reviewed(when = "12/11/2020")
 @Original(version="2.38.0", path="lib/pack/pack.c", name="parsePackModeInfo", key="dyb1n3lhbi0wnr9kvmu6onux9", definition="pack_mode  parsePackModeInfo(char* p, pack_mode dflt, pack_info* pinfo)")
-public static int parsePackModeInfo(CString p, int dflt, ST_pack_info pinfo) {
+public static EN_pack_mode parsePackModeInfo(CString p, EN_pack_mode dflt, ST_pack_info pinfo) {
 ENTERING("dyb1n3lhbi0wnr9kvmu6onux9","parsePackModeInfo");
 try {
     float v;
@@ -131,7 +133,7 @@ LEAVING("dyb1n3lhbi0wnr9kvmu6onux9","parsePackModeInfo");
  */
 @Reviewed(when = "12/11/2020")
 @Original(version="2.38.0", path="lib/pack/pack.c", name="getPackModeInfo", key="bnxqpsmvz6tyekstfjte4pzwj", definition="pack_mode  getPackModeInfo(Agraph_t * g, pack_mode dflt, pack_info* pinfo)")
-public static int getPackModeInfo(ST_Agraph_s g, int dflt, ST_pack_info pinfo) {
+public static EN_pack_mode getPackModeInfo(ST_Agraph_s g, EN_pack_mode dflt, ST_pack_info pinfo) {
 ENTERING("bnxqpsmvz6tyekstfjte4pzwj","getPackModeInfo");
 try {
     return parsePackModeInfo (agget(g, new CString("packmode")), dflt, pinfo);
@@ -174,7 +176,7 @@ LEAVING("ata97fmix5q1oikrmk5pezvrf","getPack");
 
 @Reviewed(when = "12/11/2020")
 @Original(version="2.38.0", path="lib/pack/pack.c", name="getPackInfo", key="ce4a70w8ddkj4l9efi74h61s6", definition="pack_mode  getPackInfo(Agraph_t * g, pack_mode dflt, int dfltMargin, pack_info* pinfo)")
-public static int getPackInfo(ST_Agraph_s g, int dflt, int dfltMargin, ST_pack_info pinfo) {
+public static EN_pack_mode getPackInfo(ST_Agraph_s g, EN_pack_mode dflt, int dfltMargin, ST_pack_info pinfo) {
 ENTERING("ce4a70w8ddkj4l9efi74h61s6","getPackInfo");
 try {
     pinfo.margin = getPack(g, dfltMargin, dfltMargin);

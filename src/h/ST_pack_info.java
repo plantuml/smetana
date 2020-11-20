@@ -68,7 +68,7 @@ public class ST_pack_info extends UnsupportedStructAndPtr {
 	public int margin;
 	public int doSplines;
 	// "pack_mode mode",
-	public int mode;
+	public EN_pack_mode mode;
 	public __ptr__ fixed;
 	// "boolean *fixed",
 	// "packval_t* vals",
@@ -82,10 +82,6 @@ public class ST_pack_info extends UnsupportedStructAndPtr {
 	public void setInt(String fieldName, int data) {
 		if (fieldName.equals("flags")) {
 			this.flags = data;
-			return;
-		}
-		if (fieldName.equals("mode")) {
-			this.mode = data;
 			return;
 		}
 		if (fieldName.equals("sz")) {
