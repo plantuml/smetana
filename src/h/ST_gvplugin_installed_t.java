@@ -62,7 +62,7 @@ public class ST_gvplugin_installed_t extends UnsupportedStructAndPtr {
 		this.parent = parent;
 	}
 
-	public int id;
+	public EN_layout_type id;
 	public CString type;
 	public int quality;
 
@@ -71,10 +71,6 @@ public class ST_gvplugin_installed_t extends UnsupportedStructAndPtr {
 
 	@Override
 	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("id")) {
-			this.id = data;
-			return;
-		}
 		if (fieldName.equals("quality")) {
 			this.quality = data;
 			return;

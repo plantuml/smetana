@@ -44,20 +44,9 @@
  *
  */
 package h;
-import java.util.Arrays;
-import java.util.List;
 
-import smetana.core.__ptr__;
-
-//2 jt0nf4pbk6zp8gpe1a9abjx9
-
-public interface EN_api_t extends __ptr__ {
-	public static List<String> DEFINITION = Arrays.asList(
-"typedef enum",
-"{",
-"API_render, API_layout, API_textlayout, API_device, API_loadimage, _DUMMY_ELEM_=0",
-"}",
-"api_t");
+public enum EN_api_t {
+	API_render, API_layout, API_textlayout, API_device, API_loadimage, _DUMMY_ELEM_
 }
 
 // typedef enum { API_render, API_layout, API_textlayout, API_device, API_loadimage, _DUMMY_ELEM_=0 } api_t;

@@ -94,7 +94,7 @@ public static int gvlayout_select(ST_GVC_s gvc, CString layout) {
 ENTERING("2g20jitdi8afuoei8p1mcfg9l","gvlayout_select");
 try {
 	ST_gvplugin_installed_t gvlayout_dot_layout = new ST_gvplugin_installed_t();
-	gvlayout_dot_layout.id = enumAsInt(EN_layout_type.class, "LAYOUT_DOT");
+	gvlayout_dot_layout.id = EN_layout_type.LAYOUT_DOT;
 	gvlayout_dot_layout.type = new CString("dot");
 	gvlayout_dot_layout.quality = 0;
 	gvlayout_dot_layout.engine = dotgen_engine;

@@ -308,7 +308,7 @@ throw new UnsupportedOperationException();
 // gvplugin_available_t *gvplugin_load(GVC_t * gvc, api_t api, const char *str) 
 @Unused
 @Original(version="2.38.0", path="lib/gvc/gvplugin.c", name="", key="dh7wri9ra8xvm9ur14gd95xjj", definition="gvplugin_available_t *gvplugin_load(GVC_t * gvc, api_t api, const char *str)")
-public static ST_gvplugin_available_s gvplugin_load(ST_GVC_s gvc, int api, CString str) {
+public static ST_gvplugin_available_s gvplugin_load(ST_GVC_s gvc, EN_api_t api, CString str) {
 ENTERING("dh7wri9ra8xvm9ur14gd95xjj","gvplugin_load");
 try {
     //gvplugin_available_s **pnext;
@@ -319,10 +319,10 @@ try {
     CString reqtyp = new CString(64), typ = new CString(64);
     CString reqdep, dep , reqpkg;
     int i;
-    int apidep;
-    if (api == enumAsInt(EN_api_t.class, "API_device") || api == enumAsInt(EN_api_t.class, "API_loadimage"))
+    EN_api_t apidep;
+    if (api == EN_api_t.API_device || api == EN_api_t.API_loadimage)
         /* api dependencies - FIXME - find better way to code these *s */
-        apidep = enumAsInt(EN_api_t.class, "API_render");
+        apidep = EN_api_t.API_render;
     else
         apidep = api;
     strncpy(reqtyp, str, 64 - 1);

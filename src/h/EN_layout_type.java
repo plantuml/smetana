@@ -44,20 +44,8 @@
  *
  */
 package h;
-import java.util.Arrays;
-import java.util.List;
 
-import smetana.core.__ptr__;
-
-//2 6g73ng9kl31nlub97di73mpi3
-
-public interface EN_layout_type extends __ptr__ {
-	public static List<String> DEFINITION = Arrays.asList(
-"typedef enum",
-"{",
-"LAYOUT_DOT,",
-"}",
-"layout_type");
+public enum EN_layout_type {
+	LAYOUT_DOT
 }
-
 // typedef enum { LAYOUT_DOT, } layout_type;
