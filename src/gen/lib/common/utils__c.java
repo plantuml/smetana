@@ -377,24 +377,6 @@ LEAVING("9ldxwfr4vvijrvfcvs1hvdzrt","UF_union");
 
 
 
-//3 3j3pbee3o14ctlm51gqul3y1b
-// void UF_remove(node_t * u, node_t * v) 
-@Unused
-@Original(version="2.38.0", path="lib/common/utils.c", name="UF_remove", key="3j3pbee3o14ctlm51gqul3y1b", definition="void UF_remove(node_t * u, node_t * v)")
-public static Object UF_remove(Object... arg) {
-UNSUPPORTED("4mdu14gpibvzmm5t9g0h7oaek"); // void UF_remove(node_t * u, node_t * v)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("dnvt20f8swe5kyjjj2g4vpx46"); //     assert(ND_UF_size(u) == 1);
-UNSUPPORTED("crtqvbx6u5amvtj4nhuhui0p0"); //     ND_UF_parent(u) = u;
-UNSUPPORTED("4gdqcsr8w5gtc1qbdht2l23g2"); //     ND_UF_size(v) -= ND_UF_size(u);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
 @Reviewed(when = "14/11/2020")
 @Original(version="2.38.0", path="lib/common/utils.c", name="UF_singleton", key="22k0u1imxyw06k9rizqlfz153", definition="void UF_singleton(node_t * u)")
 public static void UF_singleton(ST_Agnode_s u) {

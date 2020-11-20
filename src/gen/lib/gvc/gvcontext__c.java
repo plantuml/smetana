@@ -66,7 +66,7 @@ ENTERING("8jwauh4lo3kcvxhomy40s94b","gvNEWcontext");
 try {
 	ST_GVC_s gvc = new ST_GVC_s();
     if (gvc!=null) {
-	gvc.common.setPtr("info", LibInfo);
+	gvc.common.setPtr("info", null);
 	gvc.common.setPtr("errorfn", function(gen.lib.cgraph.agerror__c.class, "agerrorf"));
 	gvc.common.setPtr("builtins", builtins);
 	gvc.common.demand_loading = demand_loading;

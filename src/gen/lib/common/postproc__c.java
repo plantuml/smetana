@@ -276,44 +276,6 @@ LEAVING("2i713kmewjct2igf3lwm80462","centerPt");
 
 
 
-
-//3 2ozwtuocg4cz5ghqemmche3vt
-// static int printData (object_t* objs, int n_objs, xlabel_t* lbls, int n_lbls, 	   label_params_t* params) 
-@Unused
-@Original(version="2.38.0", path="lib/common/postproc.c", name="printData", key="2ozwtuocg4cz5ghqemmche3vt", definition="static int printData (object_t* objs, int n_objs, xlabel_t* lbls, int n_lbls, 	   label_params_t* params)")
-public static Object printData(Object... arg) {
-UNSUPPORTED("eyp5xkiyummcoc88ul2b6tkeg"); // static int
-UNSUPPORTED("ckiu0galpa1852h3cty8ba6r7"); // printData (object_t* objs, int n_objs, xlabel_t* lbls, int n_lbls,
-UNSUPPORTED("dzs60ka6anviw625w47fdcq2z"); // 	   label_params_t* params) {
-UNSUPPORTED("327a0i7b6rqjqj8wdl0h29mnc"); //   int i;
-UNSUPPORTED("2v2z0ng0lije7nd5xnnwpvhsk"); //   xlabel_t* xp;
-UNSUPPORTED("8b4vu28i0jzto8xj8y5xidmfi"); //   fprintf (stderr, "%d objs %d xlabels force=%d bb=(%.02f,%.02f) (%.02f,%.02f)\n",
-UNSUPPORTED("4brfvoc74eb0wrjbv0jim84br"); // 	   n_objs, n_lbls, params->force, params->bb.LL.x, params->bb.LL.y,
-UNSUPPORTED("bg9iybxqjpzhrq7ake4qd022a"); // 	   params->bb.UR.x, params->bb.UR.y);
-UNSUPPORTED("cqr6z8w761iogdatyx6tujxrj"); //   if (Verbose < 2) return 0;
-UNSUPPORTED("3k661zowi8f52at88thx4gq3c"); //   fprintf(stderr, "objects\n");
-UNSUPPORTED("a0du2scf7lcyviw12x1mpntj5"); //   for (i = 0; i < n_objs; i++) {
-UNSUPPORTED("7ljpm4lk7dhgz8jneyiurqcqj"); //     xp = objs->lbl;
-UNSUPPORTED("6synbitl0b8qre39c8hfx9ji7"); //     fprintf (stderr, " [%d] (%.02f,%.02f) (%.02f,%.02f) %p \"%s\"\n",
-UNSUPPORTED("5fncs0x8f05ep5nr4lds4lyfi"); // 	    i, objs->pos.x,objs->pos.y,objs->sz.x,objs->sz.y, objs->lbl, 
-UNSUPPORTED("csy4r7zdyqrnbp3yvfpm66w59"); // 	    (xp?((textlabel_t*)(xp->lbl))->text:""));
-UNSUPPORTED("bd3gftycfqozopsoe1ptqueov"); //     objs++;
-UNSUPPORTED("7ijd6pszsxnoopppf6xwo8wdl"); //   }
-UNSUPPORTED("2kq3xkqpgi5kr4141ab3bukkd"); //   fprintf(stderr, "xlabels\n");
-UNSUPPORTED("9dzxzlqrz9th6wohjjvd93rtd"); //   for (i = 0; i < n_lbls; i++) {
-UNSUPPORTED("6e093u52b50denwzlx0m7a36a"); //     fprintf (stderr, " [%d] %p set %d (%.02f,%.02f) (%.02f,%.02f) %s\n",
-UNSUPPORTED("bb908gbwccyotc72hfeopef2e"); // 	     i, lbls,  lbls->set, lbls->pos.x,lbls->pos.y, lbls->sz.x,lbls->sz.y, ((textlabel_t*)lbls->lbl)->text);  
-UNSUPPORTED("30hn2ulrrh2sxlt3rd89e1nja"); //     lbls++;
-UNSUPPORTED("7ijd6pszsxnoopppf6xwo8wdl"); //   }
-UNSUPPORTED("bid671dovx1rdiquw5vm3fttj"); //   return 0;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
 //3 95pnpuiq4khinrz2bqkci9nfg
 // static pointf edgeTailpoint (Agedge_t* e) 
 @Unused
