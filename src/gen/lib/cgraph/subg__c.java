@@ -117,26 +117,6 @@ LEAVING("44saycxbfbr9lou0itlyewkb4","localsubg");
 
 
 
-//3 6wqxmivgp34bobzqacmsj7lcv
-// Agraph_t *agidsubg(Agraph_t * g, unsigned long id, int cflag) 
-@Unused
-@Original(version="2.38.0", path="lib/cgraph/subg.c", name="", key="6wqxmivgp34bobzqacmsj7lcv", definition="Agraph_t *agidsubg(Agraph_t * g, unsigned long id, int cflag)")
-public static Object agidsubg(Object... arg) {
-UNSUPPORTED("9vhen1flll6k35g72uuroky0z"); // Agraph_t *agidsubg(Agraph_t * g, unsigned long id, int cflag)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("c3tourf5k7groqyh71yjd5xec"); //     Agraph_t *subg;
-UNSUPPORTED("elpselocwvpfk3o27nejqo6dl"); //     subg = agfindsubg_by_id(g, id);
-UNSUPPORTED("cf9t4fxh9z5rmv58441ne0ysa"); //     if ((subg == ((Agraph_t*)0)) && cflag && agallocid(g, AGRAPH, id))
-UNSUPPORTED("ecrqdk8b7debftn6d8bbmh0s4"); // 	subg = localsubg(g, id);
-UNSUPPORTED("17jmp11l2jzc1v9qpaqkzkauj"); //     return subg;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
 //3 a24jd4r2sdyb4lb2hyababrda
 // Agraph_t *agsubg(Agraph_t * g, char *name, int cflag) 
 @Unused
@@ -207,21 +187,6 @@ LEAVING("7kbp6j03hd7u6nnlivi0vt3ja","agparent");
 }
 }
 
-
-
-
-//3 37trxrsv69a3pl08f5awwj3tq
-// long agdelsubg(Agraph_t * g, Agraph_t * subg) 
-@Unused
-@Original(version="2.38.0", path="lib/cgraph/subg.c", name="agdelsubg", key="37trxrsv69a3pl08f5awwj3tq", definition="long agdelsubg(Agraph_t * g, Agraph_t * subg)")
-public static Object agdelsubg(Object... arg) {
-UNSUPPORTED("bjcimcpi0qag1hc37no67mct5"); // long agdelsubg(Agraph_t * g, Agraph_t * subg)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("dugmh24ptzgxuj3204p7n39m4"); //     return (long) (*(((Dt_t*)(g->g_dict))->searchf))((g->g_dict),(void*)(subg),0000002);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
 
 
 }
