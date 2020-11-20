@@ -36,7 +36,6 @@
 
 package smetana.core;
 
-import smetana.core.amiga.Area;
 import smetana.core.amiga.StarStruct;
 
 public class UnsupportedStruct implements __struct__ {

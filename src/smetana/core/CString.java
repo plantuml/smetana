@@ -40,9 +40,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import h.ST_refstr_t;
-import smetana.core.amiga.Area;
 
-public class CString extends UnsupportedC implements __ptr__, Area {
+public class CString extends UnsupportedC implements __ptr__ {
 
 	private static int UID = 100;
 

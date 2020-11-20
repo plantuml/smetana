@@ -36,7 +36,6 @@
 
 package smetana.core;
 
-import smetana.core.amiga.Area;
 import smetana.core.amiga.StarStruct;
 
 public class UnsupportedStarStruct implements StarStruct {
@@ -90,10 +89,6 @@ public class UnsupportedStarStruct implements StarStruct {
 
 	public __struct__ getStruct() {
 		throw new UnsupportedOperationException(getClass().toString());
-	}
-
-	public Area getArea(String name) {
-		throw new UnsupportedOperationException(name + " " + getClass().toString());
 	}
 
 	public String getUID36() {

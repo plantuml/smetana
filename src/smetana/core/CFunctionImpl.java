@@ -39,9 +39,7 @@ package smetana.core;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import smetana.core.amiga.Area;
-
-public class CFunctionImpl extends UnsupportedC implements CFunction, Area {
+public class CFunctionImpl extends UnsupportedC implements CFunction {
 
 	private final Class codingClass;
 	private final String name;

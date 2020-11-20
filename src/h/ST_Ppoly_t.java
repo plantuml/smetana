@@ -48,7 +48,6 @@ package h;
 import smetana.core.CStar;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__struct__;
-import smetana.core.amiga.Area;
 import smetana.core.amiga.StarStruct;
 
 public class ST_Ppoly_t extends UnsupportedStructAndPtr {
