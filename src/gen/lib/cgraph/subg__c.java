@@ -98,7 +98,7 @@ try {
     subg = agfindsubg_by_id(g, id);
     if (subg!=null)
 	return subg;
-    subg = (ST_Agraph_s) agalloc(g, sizeof(ST_Agraph_s.class));
+    subg = (ST_Agraph_s) new ST_Agraph_s();
     subg.setPtr("clos", g.clos);
     subg.setStruct("desc", g.desc);
     ((ST_Agdesc_s)subg.desc).maingraph = 0;
