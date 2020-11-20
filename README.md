@@ -1,7 +1,5 @@
 # Important Notice
 
-This project is not updated anymore because it is now integrated into the main stream of PlantUML.
-
 Code is hosted there :
 
 * https://github.com/plantuml/plantuml/tree/master/src/gen
@@ -11,19 +9,15 @@ Code is hosted there :
 The initial goal of the project was to test and prove the feasability of the C to Java port.
 This goal has been achieved, as the portability is working.
 
-So the work is going on into PlantUML itself.
-
-Tell us if this port is important for you !
+There are now some issues in some cases. We are working hard to fix them.
 
 
-# Previous content
+# Explanation
 
 Smetana is a partial translation of Graphviz/Dot sources from C to Java. More precisely, the intent is to create a Java library (and not a program) like http://www.graphviz.org/doc/libguide/libguide.pdf .
 
 The idea is to translate each C function to a Java static method. Each C struct is also translated to a Java class. If it works in C, it should work in Java (that’s the theory).
 A special thanks to Peter Kümmel which provide a CMake friendly version of libcgraphviz (https://github.com/syntheticpp/libcgraphviz)!
-
-Because even if C and Java syntaxes are somehow close, many C features do not exist in Java. A low layer has then been written to mimic/emulate some C features (pointer arithmetic, casting...). This layer is far from perfect (for example, it does treat union as struct, which is not correct), but it seems close enough to give working results with Graphviz/dot.
 
 Even if this is a library, a minimal program is included to demonstrate the capabilities of the library. You can invoke the program on the command line: `java -jar jdot.jar`
 
@@ -55,15 +49,7 @@ digraph foo {
 The input file is a regular DOT language file, although only a tiny portion of DOT language is supported. The included parser is really simple (and again just written for demonstration).
 
 As you can see, output from regular GraphViz/Dot and Smetana library are close:
-![Smetana output](https://raw.githubusercontent.com/plantuml/smetana/master/foo1.png)
-![Graphviz output](https://raw.githubusercontent.com/plantuml/smetana/master/foo1_graphviz.png)
+![Smetana output](https://raw.githubusercontent.com/plantuml/smetana/legacy/foo1.png)
+![Graphviz output](https://raw.githubusercontent.com/plantuml/smetana/legacy/foo1_graphviz.png)
 
-
-Right now, only few attributes for edges and nodes are implemented: shape (with only box and ellipse values allowed), width, height and minlen. You can also have clusters. But labels and decorations on edges are not supported yet. So few features... but it works!
-
-Performance is quite bad because C structures are interpreted in Java and that slows down the whole execution. Another reason is that the standard "qsort" function has been implemented as a bubble sort (for simplicity, but this could and will be easily change to the standard Collections.sort() method in some future version).
-
-Some refactoring will be started in some future when the translation will be complete enough. The idea is to have regular Java class and to throw away the C emulation layer.
-
-**Stay tuned!**
 
