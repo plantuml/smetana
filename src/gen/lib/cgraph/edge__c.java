@@ -419,7 +419,7 @@ try {
     int seq;
     agsubnode(g,t,(N(0)));
     agsubnode(g,h,(N(0)));
-    e2 = (ST_Agedgepair_s) new ST_Agedgepair_s();
+    e2 = (ST_Agedgepair_s) agalloc(g, sizeof(ST_Agedgepair_s.class));
     in = (ST_Agedge_s) e2.in;
     out = (ST_Agedge_s) e2.out;
     seq = agnextseq(g, AGEDGE);

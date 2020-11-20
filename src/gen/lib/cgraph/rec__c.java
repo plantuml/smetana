@@ -176,7 +176,9 @@ try {
     g = agraphof(obj);
     rec = aggetrec(obj, recname, false);
     if ((rec == null && recsize.isStrictPositive())) {
-    rec = new ST_Agrec_s();
+    rec = (ST_Agrec_s) ((__ptr__)recsize.malloc()).castTo(ST_Agrec_s.class);
+	// rec = (ST_Agrec_s) ((__ptr__)agalloc(g, recsize)).castTo(ST_Agrec_s.class);
+    // rec = (Agrec_s) Memory.malloc(Agrec_s.class);
 	rec.name = agstrdup(g, recname);
 	switch (((ST_Agtag_s)obj.tag).objtype) {
 	case AGRAPH:

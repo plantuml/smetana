@@ -171,7 +171,7 @@ public static ST_Agsym_s agnewsym(ST_Agraph_s g, CString name, CString value, in
 ENTERING("dbhw2q2jfsz9qwawchy0hxj4i","agnewsym");
 try {
     ST_Agsym_s sym;
-    sym = (ST_Agsym_s) new ST_Agsym_s();
+    sym = (ST_Agsym_s) agalloc(g, sizeof(ST_Agsym_s.class));
     sym.kind = kind;
     sym.name = agstrdup(g, name);
     sym.defval = agstrdup(g, value);

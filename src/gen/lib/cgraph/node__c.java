@@ -207,7 +207,7 @@ public static ST_Agnode_s newnode(ST_Agraph_s g, int id, int seq) {
 ENTERING("dzb7m0p5xsngvtyr8zs912og4","newnode");
 try {
     ST_Agnode_s n;
-    n = new ST_Agnode_s();
+    n = (ST_Agnode_s) ((__ptr__)agalloc(g, sizeof(ST_Agnode_s.class))).castTo(ST_Agnode_s.class);
     AGTYPE(n, AGNODE);
     AGID(n, id);
     AGSEQ(n, seq);
@@ -237,7 +237,7 @@ try {
     int osize;
     osize = dtsize_((ST_dt_s)g.n_id);
     if (EQ(g, agroot(g))) sn = (ST_Agsubnode_s) n.mainsub;
-    else sn = (ST_Agsubnode_s) ((__ptr__)new ST_Agsubnode_s()).castTo(ST_Agsubnode_s.class);
+    else sn = (ST_Agsubnode_s) ((__ptr__)agalloc(g, sizeof(ST_Agsubnode_s.class))).castTo(ST_Agsubnode_s.class);
     sn.setPtr("node", n);
     g.n_id.searchf.exe(g.n_id,sn,0000001);
     g.n_seq.searchf.exe(g.n_seq,sn,0000001);
