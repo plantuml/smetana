@@ -49,15 +49,15 @@ import java.util.List;
 
 import smetana.core.__ptr__;
 
-//2 b9cjioxrhs04ztwegqflwrjk9
+//2 6g73ng9kl31nlub97di73mpi3
 
-public interface fontname_kind extends __ptr__ {
+public interface EN_layout_type extends __ptr__ {
 	public static List<String> DEFINITION = Arrays.asList(
 "typedef enum",
 "{",
-"NATIVEFONTS,PSFONTS,SVGFONTS",
+"LAYOUT_DOT,",
 "}",
-"fontname_kind");
+"layout_type");
 }
 
-// typedef enum {NATIVEFONTS,PSFONTS,SVGFONTS} fontname_kind;
+// typedef enum { LAYOUT_DOT, } layout_type;

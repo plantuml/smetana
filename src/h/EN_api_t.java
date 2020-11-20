@@ -49,16 +49,15 @@ import java.util.List;
 
 import smetana.core.__ptr__;
 
-//2 6n9jcxa02dyqa57pkcrd73otm
+//2 jt0nf4pbk6zp8gpe1a9abjx9
 
-public interface ratio_t extends __ptr__ {
+public interface EN_api_t extends __ptr__ {
 	public static List<String> DEFINITION = Arrays.asList(
 "typedef enum",
 "{",
-"R_NONE =      0, R_VALUE, R_FILL, R_COMPRESS, R_AUTO, R_EXPAND",
+"API_render, API_layout, API_textlayout, API_device, API_loadimage, _DUMMY_ELEM_=0",
 "}",
-"ratio_t");
+"api_t");
 }
 
-// typedef enum { R_NONE =
-// 	    0, R_VALUE, R_FILL, R_COMPRESS, R_AUTO, R_EXPAND } ratio_t;
+// typedef enum { API_render, API_layout, API_textlayout, API_device, API_loadimage, _DUMMY_ELEM_=0 } api_t;

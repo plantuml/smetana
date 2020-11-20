@@ -116,7 +116,7 @@ import h.ST_Agraphinfo_t;
 import h.ST_aspect_t;
 import h.ST_pack_info;
 import h.ST_pointf;
-import h.pack_mode;
+import h.EN_pack_mode;
 import smetana.core.CString;
 import smetana.core.Z;
 import smetana.core.__ptr__;
@@ -595,9 +595,9 @@ try {
     int i;
     final ST_pack_info pinfo = new ST_pack_info();
     int Pack = getPack(g, -1, CL_OFFSET);
-    int mode = getPackModeInfo (g, enumAsInt(pack_mode.class, "l_undef"), pinfo);
-    getPackInfo(g, enumAsInt(pack_mode.class, "l_node"), 8, pinfo);
-    if ((mode == enumAsInt(pack_mode.class, "l_undef")) && (Pack < 0)) {
+    int mode = getPackModeInfo (g, enumAsInt(EN_pack_mode.class, "l_undef"), pinfo);
+    getPackInfo(g, enumAsInt(EN_pack_mode.class, "l_node"), 8, pinfo);
+    if ((mode == enumAsInt(EN_pack_mode.class, "l_undef")) && (Pack < 0)) {
 	/* No pack information; use old dot with components
          * handled during layout
          */

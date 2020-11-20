@@ -55,7 +55,7 @@ import static smetana.core.Macro.UNSUPPORTED;
 import h.ST_GVC_s;
 import h.ST_gvplugin_available_s;
 import h.ST_gvplugin_installed_t;
-import h.api_t;
+import h.EN_api_t;
 import smetana.core.CString;
 
 public class gvtextlayout__c {
@@ -170,7 +170,7 @@ ENTERING("f1oiyeonoigwygyq8c88wl8tz","gvtextlayout_select");
 try {
 	ST_gvplugin_available_s plugin;
     ST_gvplugin_installed_t typeptr;
-    plugin = gvplugin_load(gvc, enumAsInt(api_t.class, "API_textlayout"), new CString("textlayout"));
+    plugin = gvplugin_load(gvc, enumAsInt(EN_api_t.class, "API_textlayout"), new CString("textlayout"));
     if (plugin!=null) {
 UNSUPPORTED("8cnmkxanogd09zc24faarugvo"); // 	typeptr = plugin->typeptr;
 UNSUPPORTED("cihmstdaldbultct48d4klpzn"); // 	gvc->textlayout.engine = (gvtextlayout_engine_t *) (typeptr->engine);

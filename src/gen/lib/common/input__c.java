@@ -112,7 +112,7 @@ import gen.annotation.Unused;
 import h.ST_Agraph_s;
 import h.ST_layout_t;
 import h.ST_pointf;
-import h.fontname_kind;
+import h.EN_fontname_kind;
 import smetana.core.CString;
 import smetana.core.Z;
 
@@ -224,8 +224,8 @@ LEAVING("3bnmjpvynh1j9oh2p2vi0vh2m","setRatio");
 static CString rankname[] = new CString[] { new CString("local"), new CString("global"), new CString("none"), null };
 static int rankcode[] = { LOCAL, GLOBAL, NOCLUST, LOCAL };
 static CString fontnamenames[] = new CString[] {new CString("gd"),new CString("ps"),new CString("svg"), null};
-static int fontnamecodes[] = {enumAsInt(fontname_kind.class, "NATIVEFONTS"),enumAsInt(fontname_kind.class, "PSFONTS"),
-enumAsInt(fontname_kind.class, "SVGFONTS"),-1};
+static int fontnamecodes[] = {enumAsInt(EN_fontname_kind.class, "NATIVEFONTS"),enumAsInt(EN_fontname_kind.class, "PSFONTS"),
+enumAsInt(EN_fontname_kind.class, "SVGFONTS"),-1};
 
 @Reviewed(when = "11/11/2020")
 @Original(version="2.38.0", path="lib/common/input.c", name="graph_init", key="8gzdr3oil2d0e2o7m84wsszfg", definition="void graph_init(graph_t * g, boolean use_rankdir)")

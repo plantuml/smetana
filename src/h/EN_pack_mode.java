@@ -49,15 +49,15 @@ import java.util.List;
 
 import smetana.core.__ptr__;
 
-//2 br7wf04petqrkv3jy73x2hnfl
+//2 1ptr5q16rzf9tt2rxbfqjxump
 
-public interface shape_kind extends __ptr__ {
+public interface EN_pack_mode extends __ptr__ {
 	public static List<String> DEFINITION = Arrays.asList(
 "typedef enum",
 "{",
-"SH_UNSET, SH_POLY, SH_RECORD, SH_POINT, SH_EPSF",
+"l_undef, l_clust, l_node, l_graph, l_array, l_aspect",
 "}",
-"shape_kind");
+"pack_mode");
 }
 
-// typedef enum { SH_UNSET, SH_POLY, SH_RECORD, SH_POINT, SH_EPSF} shape_kind;
+// typedef enum { l_undef, l_clust, l_node, l_graph, l_array, l_aspect } pack_mode;

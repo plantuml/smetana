@@ -120,7 +120,7 @@ import h.ST_polygon_t;
 import h.ST_port;
 import h.ST_shape_desc;
 import h.ST_textlabel_t;
-import h.shape_kind;
+import h.EN_shape_kind;
 import smetana.core.ACCESS;
 import smetana.core.CFunctionImpl;
 import smetana.core.CStar;
@@ -172,12 +172,12 @@ try {
     CFunctionImpl ifn; //void (*ifn) (node_t *);
     
     if (N(sh))
-	return enumAsInt(shape_kind.class, "SH_UNSET");
+	return enumAsInt(EN_shape_kind.class, "SH_UNSET");
     ifn = (CFunctionImpl) ND_shape(n).fns.initfn;
     if (ifn.getName().equals("poly_init"))
-	return enumAsInt(shape_kind.class, "SH_POLY");
+	return enumAsInt(EN_shape_kind.class, "SH_POLY");
     if (ifn.getName().equals("record_init"))
-	return enumAsInt(shape_kind.class, "SH_RECORD");
+	return enumAsInt(EN_shape_kind.class, "SH_RECORD");
 UNSUPPORTED("cpzx2lwu889clk2f1d0k4c9jd"); //     else if (ifn == point_init)
 UNSUPPORTED("f4x4vap21dff1trk1lrzzb8u5"); // 	return SH_POINT;
 UNSUPPORTED("alkskrmw3fjn82qi1t2kyi6uh"); //     else if (ifn == epsf_init)

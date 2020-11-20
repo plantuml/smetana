@@ -56,7 +56,7 @@ import gen.annotation.Unused;
 import h.ST_GVC_s;
 import h.ST_gvplugin_available_s;
 import h.ST_gvplugin_installed_t;
-import h.api_t;
+import h.EN_api_t;
 import smetana.core.CString;
 import smetana.core.__ptr__;
 
@@ -320,9 +320,9 @@ try {
     CString reqdep, dep , reqpkg;
     int i;
     int apidep;
-    if (api == enumAsInt(api_t.class, "API_device") || api == enumAsInt(api_t.class, "API_loadimage"))
+    if (api == enumAsInt(EN_api_t.class, "API_device") || api == enumAsInt(EN_api_t.class, "API_loadimage"))
         /* api dependencies - FIXME - find better way to code these *s */
-        apidep = enumAsInt(api_t.class, "API_render");
+        apidep = enumAsInt(EN_api_t.class, "API_render");
     else
         apidep = api;
     strncpy(reqtyp, str, 64 - 1);

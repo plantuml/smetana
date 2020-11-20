@@ -49,15 +49,16 @@ import java.util.List;
 
 import smetana.core.__ptr__;
 
-//2 6g73ng9kl31nlub97di73mpi3
+//2 6n9jcxa02dyqa57pkcrd73otm
 
-public interface layout_type extends __ptr__ {
+public interface EN_ratio_t extends __ptr__ {
 	public static List<String> DEFINITION = Arrays.asList(
 "typedef enum",
 "{",
-"LAYOUT_DOT,",
+"R_NONE =      0, R_VALUE, R_FILL, R_COMPRESS, R_AUTO, R_EXPAND",
 "}",
-"layout_type");
+"ratio_t");
 }
 
-// typedef enum { LAYOUT_DOT, } layout_type;
+// typedef enum { R_NONE =
+// 	    0, R_VALUE, R_FILL, R_COMPRESS, R_AUTO, R_EXPAND } ratio_t;
