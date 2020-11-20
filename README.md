@@ -2,9 +2,9 @@
 
 Code is hosted there :
 
-* https://github.com/plantuml/plantuml/tree/master/src/gen
-* https://github.com/plantuml/plantuml/tree/master/src/smetana/core
-* https://github.com/plantuml/plantuml/tree/master/src/h
+* https://github.com/plantuml/plantuml/tree/V2_38/src/gen
+* https://github.com/plantuml/plantuml/tree/V2_38/src/smetana/core
+* https://github.com/plantuml/plantuml/tree/V2_38/src/h
 
 The initial goal of the project was to test and prove the feasability of the C to Java port.
 This goal has been achieved, as the portability is working.
