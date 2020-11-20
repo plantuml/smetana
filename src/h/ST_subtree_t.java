@@ -45,11 +45,10 @@
  */
 package h;
 
-import smetana.core.HardcodedStruct;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.amiga.StarStruct;
 
-public class ST_subtree_t extends UnsupportedStructAndPtr implements HardcodedStruct {
+public class ST_subtree_t extends UnsupportedStructAndPtr {
 
 	public ST_Agnode_s rep;		/* some node in the tree */
 	public int size; 			/* total tight tree size */

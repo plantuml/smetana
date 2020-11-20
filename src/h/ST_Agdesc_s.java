@@ -45,12 +45,11 @@
  */
 package h;
 
-import smetana.core.HardcodedStruct;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__struct__;
 import smetana.core.amiga.StarStruct;
 
-public class ST_Agdesc_s extends UnsupportedStructAndPtr implements HardcodedStruct {
+public class ST_Agdesc_s extends UnsupportedStructAndPtr {
 	public int directed; /* if edges are asymmetric */
 	public int strict; /* if multi-edges forbidden */
 	public int no_loop; /* if no loops */

@@ -46,10 +46,9 @@
 package h;
 
 import smetana.core.CStarStar;
-import smetana.core.HardcodedStruct;
 import smetana.core.UnsupportedStructAndPtr;
 
-public class ST_stk_t extends UnsupportedStructAndPtr implements HardcodedStruct {
+public class ST_stk_t extends UnsupportedStructAndPtr {
 	
 	public ST_blk_t fstblk;
 	public ST_blk_t curblk;

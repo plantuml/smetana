@@ -45,13 +45,12 @@
  */
 package h;
 
-import smetana.core.HardcodedStruct;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__struct__;
 import smetana.core.amiga.Area;
 import smetana.core.amiga.StarStruct;
 
-public class ST_Agtag_s extends UnsupportedStructAndPtr implements HardcodedStruct {
+public class ST_Agtag_s extends UnsupportedStructAndPtr {
 	public int objtype;
 	public int mtflock;
 	public int attrwf;

@@ -46,14 +46,13 @@
 package h;
 
 import smetana.core.ACCESS;
-import smetana.core.HardcodedStruct;
 import smetana.core.OFFSET;
 import smetana.core.STARSTAR;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
 import smetana.core.amiga.StarStruct;
 
-public class ST_Agsubnode_s extends UnsupportedStructAndPtr implements HardcodedStruct {
+public class ST_Agsubnode_s extends UnsupportedStructAndPtr {
 
 	public final ST_dtlink_s seq_link = new ST_dtlink_s(this);
 	public final ST_dtlink_s id_link = new ST_dtlink_s(this);

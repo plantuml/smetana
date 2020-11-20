@@ -46,7 +46,6 @@
 package h;
 
 import smetana.core.CString;
-import smetana.core.HardcodedStruct;
 import smetana.core.OFFSET;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
@@ -54,7 +53,7 @@ import smetana.core.amiga.StarStruct;
 
 //2 38c2s12koxcpi2c7vwl72qrsp
 
-public class ST_Agsym_s extends UnsupportedStructAndPtr implements HardcodedStruct {
+public class ST_Agsym_s extends UnsupportedStructAndPtr {
 	public final ST_dtlink_s link = new ST_dtlink_s(this);
 
 	public CString name; /* attribute's name */

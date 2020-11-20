@@ -48,12 +48,11 @@ package h;
 import smetana.core.CFunction;
 import smetana.core.CStar;
 import smetana.core.CStarStar;
-import smetana.core.HardcodedStruct;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
 import smetana.core.amiga.StarStruct;
 
-public class ST_Agraphinfo_t extends UnsupportedStructAndPtr implements HardcodedStruct {
+public class ST_Agraphinfo_t extends UnsupportedStructAndPtr {
 
 	public final ST_Agrec_s hdr = new ST_Agrec_s(this);
 	// /* to generate code */

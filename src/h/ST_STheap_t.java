@@ -46,10 +46,9 @@
 package h;
 
 import smetana.core.CStarStar;
-import smetana.core.HardcodedStruct;
 import smetana.core.UnsupportedStructAndPtr;
 
-public class ST_STheap_t extends UnsupportedStructAndPtr implements HardcodedStruct {
+public class ST_STheap_t extends UnsupportedStructAndPtr {
 
 	public CStarStar<ST_subtree_t> elt;
 	public int size;

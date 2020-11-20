@@ -47,13 +47,12 @@ package h;
 
 import smetana.core.CStarStar;
 import smetana.core.CString;
-import smetana.core.HardcodedStruct;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
 import smetana.core.__struct__;
 import smetana.core.amiga.StarStruct;
 
-public class ST_field_t extends UnsupportedStructAndPtr implements HardcodedStruct {
+public class ST_field_t extends UnsupportedStructAndPtr {
 
 	public final ST_pointf size = new ST_pointf(this);		/* its dimension */
 	public final ST_boxf b = new ST_boxf(this);			/* its placement in node's coordinates */

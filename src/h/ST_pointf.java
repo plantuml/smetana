@@ -45,14 +45,13 @@
  */
 package h;
 
-import smetana.core.HardcodedStruct;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
 import smetana.core.__struct__;
 import smetana.core.amiga.Area;
 import smetana.core.amiga.StarStruct;
 
-public class ST_pointf extends UnsupportedStructAndPtr implements HardcodedStruct {
+public class ST_pointf extends UnsupportedStructAndPtr {
 	
 	public static ST_pointf pointfof(double x, double y) {
 		final ST_pointf result = new ST_pointf();

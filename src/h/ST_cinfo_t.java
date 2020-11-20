@@ -46,12 +46,11 @@
 package h;
 
 import smetana.core.CStar;
-import smetana.core.HardcodedStruct;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__struct__;
 import smetana.core.amiga.StarStruct;
 
-public class ST_cinfo_t extends UnsupportedStructAndPtr implements HardcodedStruct {
+public class ST_cinfo_t extends UnsupportedStructAndPtr {
 
 	public final ST_boxf bb = new ST_boxf(this);
 	public CStar<ST_object_t> objp;

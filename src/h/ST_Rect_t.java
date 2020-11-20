@@ -45,12 +45,11 @@
  */
 package h;
 
-import smetana.core.HardcodedStruct;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__struct__;
 import smetana.core.amiga.StarStruct;
 
-public class ST_Rect_t extends UnsupportedStructAndPtr implements HardcodedStruct {
+public class ST_Rect_t extends UnsupportedStructAndPtr {
 
 	public final int[] boundary = new int[2 * 2];
 

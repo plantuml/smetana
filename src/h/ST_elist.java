@@ -46,12 +46,11 @@
 package h;
 
 import smetana.core.CStarStar;
-import smetana.core.HardcodedStruct;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__struct__;
 import smetana.core.amiga.StarStruct;
 
-public class ST_elist extends UnsupportedStructAndPtr implements HardcodedStruct {
+public class ST_elist extends UnsupportedStructAndPtr {
 
 	public int size;
 	public CStarStar<ST_Agedge_s> list;

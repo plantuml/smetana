@@ -45,12 +45,11 @@
  */
 package h;
 
-import smetana.core.HardcodedStruct;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
 import smetana.core.__struct__;
 
-public class ST_Branch_t extends UnsupportedStructAndPtr implements HardcodedStruct {
+public class ST_Branch_t extends UnsupportedStructAndPtr {
 
 	// Warning : could be a "ST_Leaf_t" from C Version
 	public final ST_Rect_t rect = new ST_Rect_t(this);

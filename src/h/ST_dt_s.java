@@ -46,12 +46,11 @@
 package h;
 
 import smetana.core.CFunction;
-import smetana.core.HardcodedStruct;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
 import smetana.core.amiga.StarStruct;
 
-public class ST_dt_s extends UnsupportedStructAndPtr implements HardcodedStruct {
+public class ST_dt_s extends UnsupportedStructAndPtr {
 
 	public CFunction searchf;/* search function */
 

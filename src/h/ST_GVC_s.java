@@ -45,11 +45,10 @@
  */
 package h;
 
-import smetana.core.HardcodedStruct;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.amiga.StarStruct;
 
-public class ST_GVC_s extends UnsupportedStructAndPtr implements HardcodedStruct {
+public class ST_GVC_s extends UnsupportedStructAndPtr {
 
 	// "struct GVC_s",
 	// "{",

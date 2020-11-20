@@ -46,12 +46,11 @@
 package h;
 
 import smetana.core.CString;
-import smetana.core.HardcodedStruct;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
 import smetana.core.amiga.StarStruct;
 
-public class ST_shape_desc extends UnsupportedStructAndPtr implements HardcodedStruct {
+public class ST_shape_desc extends UnsupportedStructAndPtr {
 
 	public ST_shape_desc(StarStruct parent) {
 	}

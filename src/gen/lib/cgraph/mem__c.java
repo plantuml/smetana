@@ -101,6 +101,21 @@ LEAVING("18v2hhjculhnb3b7fc4tx3yjw","memresize");
 
 
 
+
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/mem.c", name="memfree", key="c320bstcg5nctel3onh2pserl", definition="static void memfree(void *heap, void *ptr)")
+public static Object memfree(Object... arg) {
+UNSUPPORTED("5yxdf2sc5xnic9d5j24m0a7yf"); // static void memfree(void *heap, void *ptr)
+UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
+UNSUPPORTED("74rq74mh7lnfr9i3qmwsbx2hd"); //     (void) heap;
+UNSUPPORTED("f0evk2zajcoprskea22bm18e8"); //     free(ptr);
+UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+
+throw new UnsupportedOperationException();
+}
+
+
+
 @Reviewed(when = "11/11/2020")
 @Original(version="2.38.0", path="lib/cgraph/mem.c", name="agalloc", key="7newv1hmzvt4vtttc9cxdxfpn", definition="void *agalloc(Agraph_t * g, size_t size)")
 public static __ptr__ agalloc(ST_Agraph_s g, size_t size) {

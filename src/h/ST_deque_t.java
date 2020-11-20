@@ -45,11 +45,10 @@
  */
 package h;
 
-import smetana.core.HardcodedStruct;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.amiga.StarStruct;
 
-public class ST_deque_t extends UnsupportedStructAndPtr implements HardcodedStruct {
+public class ST_deque_t extends UnsupportedStructAndPtr {
 
 	// ---------------
 	public ST_pointnlink_t pnlps[];

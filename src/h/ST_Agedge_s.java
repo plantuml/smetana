@@ -45,14 +45,13 @@
  */
 package h;
 
-import smetana.core.HardcodedStruct;
 import smetana.core.OFFSET;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
 import smetana.core.__struct__;
 import smetana.core.amiga.StarStruct;
 
-public class ST_Agedge_s extends UnsupportedStructAndPtr implements HardcodedStruct {
+public class ST_Agedge_s extends UnsupportedStructAndPtr {
 
 	private final StarStruct parent;
 

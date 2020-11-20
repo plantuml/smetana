@@ -45,13 +45,12 @@
  */
 package h;
 
-import smetana.core.HardcodedStruct;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
 import smetana.core.__struct__;
 import smetana.core.amiga.StarStruct;
 
-public class ST_Agobj_s extends UnsupportedStructAndPtr implements WithParent, HardcodedStruct {
+public class ST_Agobj_s extends UnsupportedStructAndPtr implements WithParent {
 
 	public final ST_Agtag_s tag = new ST_Agtag_s(this);
 	public ST_Agrec_s data;

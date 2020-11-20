@@ -46,13 +46,12 @@
 package h;
 
 import smetana.core.CString;
-import smetana.core.HardcodedStruct;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__struct__;
 import smetana.core.amiga.Area;
 import smetana.core.amiga.StarStruct;
 
-public class ST_port extends UnsupportedStructAndPtr implements HardcodedStruct {
+public class ST_port extends UnsupportedStructAndPtr {
 
 	public final ST_pointf p = new ST_pointf(this);
 	public double theta;
