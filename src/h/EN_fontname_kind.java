@@ -44,20 +44,11 @@
  *
  */
 package h;
-import java.util.Arrays;
-import java.util.List;
 
-import smetana.core.__ptr__;
 
-//2 b9cjioxrhs04ztwegqflwrjk9
-
-public interface EN_fontname_kind extends __ptr__ {
-	public static List<String> DEFINITION = Arrays.asList(
-"typedef enum",
-"{",
-"NATIVEFONTS,PSFONTS,SVGFONTS",
-"}",
-"fontname_kind");
+public enum EN_fontname_kind {
+	NATIVEFONTS, PSFONTS, SVGFONTS
 }
+
 
 // typedef enum {NATIVEFONTS,PSFONTS,SVGFONTS} fontname_kind;

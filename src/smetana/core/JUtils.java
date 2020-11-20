@@ -211,13 +211,6 @@ public class JUtils {
 		return CFunctionImpl.create(codingClass, name);
 	}
 
-	public static int enumAsInt(Class enumClass, String name) {
-		CEnumInterpretor interpretor = new CEnumInterpretor(enumClass);
-		final int result = interpretor.valueOf(name);
-		JUtils.LOG("result for " + name + " is " + result);
-		return result;
-	}
-
 	public static CString getenv(CString var) {
 		return null;
 	}

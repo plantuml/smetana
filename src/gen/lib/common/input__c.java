@@ -61,7 +61,6 @@ import static smetana.core.JUtils.EQ;
 import static smetana.core.JUtils.NEQ;
 import static smetana.core.JUtils.atof;
 import static smetana.core.JUtils.atoi;
-import static smetana.core.JUtils.enumAsInt;
 import static smetana.core.JUtils.getenv;
 import static smetana.core.JUtils.strstr;
 import static smetana.core.JUtilsDebug.ENTERING;
@@ -223,8 +222,7 @@ LEAVING("3bnmjpvynh1j9oh2p2vi0vh2m","setRatio");
 static CString rankname[] = new CString[] { new CString("local"), new CString("global"), new CString("none"), null };
 static int rankcode[] = { LOCAL, GLOBAL, NOCLUST, LOCAL };
 static CString fontnamenames[] = new CString[] {new CString("gd"),new CString("ps"),new CString("svg"), null};
-static int fontnamecodes[] = {enumAsInt(EN_fontname_kind.class, "NATIVEFONTS"),enumAsInt(EN_fontname_kind.class, "PSFONTS"),
-enumAsInt(EN_fontname_kind.class, "SVGFONTS"),-1};
+static int fontnamecodes[] = {EN_fontname_kind.NATIVEFONTS.ordinal(), EN_fontname_kind.PSFONTS.ordinal(), EN_fontname_kind.SVGFONTS.ordinal(),-1};
 
 @Reviewed(when = "11/11/2020")
 @Original(version="2.38.0", path="lib/common/input.c", name="graph_init", key="8gzdr3oil2d0e2o7m84wsszfg", definition="void graph_init(graph_t * g, boolean use_rankdir)")
