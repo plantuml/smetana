@@ -632,7 +632,7 @@ try {
     fi.fontname = late_nnstring(n, Z.z().N_fontname, new CString("Times-Roman"));
     fi.fontcolor = late_nnstring(n, Z.z().N_fontcolor, new CString("black"));
     ND_label(n, make_label(n, str,
-	        ((aghtmlstr(str)!=0 ? LT_HTML : LT_NONE) | ( (shapeOf(n) == enumAsInt(EN_shape_kind.class, "SH_RECORD")) ? LT_RECD : LT_NONE)),
+	        ((aghtmlstr(str)!=0 ? LT_HTML : LT_NONE) | ( (shapeOf(n) == EN_shape_kind.SH_RECORD) ? LT_RECD : LT_NONE)),
 		fi.fontsize, fi.fontname, fi.fontcolor));
     if (Z.z().N_xlabel!=null && (str = agxget(n, Z.z().N_xlabel))!=null && (str.charAt(0)!='\0')) {
 UNSUPPORTED("4ua9vld76wpovsm1celv2ff6e"); // 	ND_xlabel(n) = make_label((void*)n, str, (aghtmlstr(str) ? (1 << 1) : (0 << 1)),

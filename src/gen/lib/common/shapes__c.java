@@ -165,19 +165,19 @@ LEAVING("eb4jyrh981apg1fy13fczexdl","same_side");
 
 @Reviewed(when = "12/11/2020")
 @Original(version="2.38.0", path="lib/common/shapes.c", name="shapeOf", key="5gahokttzv65lspm84ao1le37", definition="shape_kind shapeOf(node_t * n)")
-public static int shapeOf(ST_Agnode_s n) {
+public static EN_shape_kind shapeOf(ST_Agnode_s n) {
 ENTERING("5gahokttzv65lspm84ao1le37","shapeOf");
 try {
 	ST_shape_desc sh = (ST_shape_desc) ND_shape(n);
     CFunctionImpl ifn; //void (*ifn) (node_t *);
     
     if (N(sh))
-	return enumAsInt(EN_shape_kind.class, "SH_UNSET");
+	return EN_shape_kind.SH_UNSET;
     ifn = (CFunctionImpl) ND_shape(n).fns.initfn;
     if (ifn.getName().equals("poly_init"))
-	return enumAsInt(EN_shape_kind.class, "SH_POLY");
+	return EN_shape_kind.SH_POLY;
     if (ifn.getName().equals("record_init"))
-	return enumAsInt(EN_shape_kind.class, "SH_RECORD");
+	return EN_shape_kind.SH_RECORD;
 UNSUPPORTED("cpzx2lwu889clk2f1d0k4c9jd"); //     else if (ifn == point_init)
 UNSUPPORTED("f4x4vap21dff1trk1lrzzb8u5"); // 	return SH_POINT;
 UNSUPPORTED("alkskrmw3fjn82qi1t2kyi6uh"); //     else if (ifn == epsf_init)

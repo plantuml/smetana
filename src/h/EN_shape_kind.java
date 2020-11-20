@@ -44,20 +44,9 @@
  *
  */
 package h;
-import java.util.Arrays;
-import java.util.List;
 
-import smetana.core.__ptr__;
-
-//2 br7wf04petqrkv3jy73x2hnfl
-
-public interface EN_shape_kind extends __ptr__ {
-	public static List<String> DEFINITION = Arrays.asList(
-"typedef enum",
-"{",
-"SH_UNSET, SH_POLY, SH_RECORD, SH_POINT, SH_EPSF",
-"}",
-"shape_kind");
+public enum EN_shape_kind {
+	SH_UNSET, SH_POLY, SH_RECORD, SH_POINT, SH_EPSF
 }
 
 // typedef enum { SH_UNSET, SH_POLY, SH_RECORD, SH_POINT, SH_EPSF} shape_kind;
