@@ -40,7 +40,7 @@ import smetana.core.AllH;
 import smetana.core.__ptr__;
 import smetana.core.__struct__;
 
-public interface StarStruct extends Area, AllH, InternalData {
+public interface StarStruct extends Area, AllH {
 
 	public boolean isSameThan(StarStruct other);
 
