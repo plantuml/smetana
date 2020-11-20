@@ -46,7 +46,6 @@ package smetana.core;
 public class size_t_struct implements size_t {
 
 	public final Class tobeAllocated;
-	final private boolean positive = true;
 
 	public size_t_struct(Class tobeAllocated) {
 		this.tobeAllocated = tobeAllocated;
@@ -55,9 +54,6 @@ public class size_t_struct implements size_t {
 
 	public size_t_struct negate() {
 		throw new UnsupportedOperationException();
-//		final size_t_struct result = new size_t_struct(tobeAllocated);
-//		result.positive = !result.positive;
-//		return result;
 	}
 
 
@@ -66,12 +62,11 @@ public class size_t_struct implements size_t {
 	}
 
 	public boolean isStrictPositive() {
-		return positive;
+		return true;
 	}
 
 	public boolean isStrictNegative() {
 		throw new UnsupportedOperationException();
-//		return !positive;
 	}
 
 
@@ -88,8 +83,7 @@ public class size_t_struct implements size_t {
 	}
 
 	public size_t_struct plus(int strlen) {
-		JUtils.LOG("adding " + strlen + " to " + this);
-		return this;
+		throw new UnsupportedOperationException();
 	}
 
 	public boolean isZero() {
