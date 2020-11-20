@@ -65,7 +65,6 @@ import static smetana.core.JUtils.EQ;
 import static smetana.core.JUtils.NEQ;
 import static smetana.core.JUtils.USHRT_MAX;
 import static smetana.core.JUtils.atof;
-import static smetana.core.JUtils.enumAsInt;
 import static smetana.core.JUtilsDebug.ENTERING;
 import static smetana.core.JUtilsDebug.LEAVING;
 import static smetana.core.Macro.AGINEDGE;
@@ -126,7 +125,6 @@ import static smetana.core.Macro.ND_ranktype;
 import static smetana.core.Macro.ND_rw;
 import static smetana.core.Macro.ND_save_in;
 import static smetana.core.Macro.ND_save_out;
-import static smetana.core.Macro.NOT;
 import static smetana.core.Macro.ROUND;
 import static smetana.core.Macro.TOP_IX;
 import static smetana.core.Macro.UNSUPPORTED;
@@ -142,6 +140,7 @@ import gen.annotation.Original;
 import gen.annotation.Reviewed;
 import gen.annotation.Todo;
 import gen.annotation.Unused;
+import h.EN_ratio_t;
 import h.ST_Agedge_s;
 import h.ST_Agedgeinfo_t;
 import h.ST_Agedgepair_s;
@@ -151,7 +150,6 @@ import h.ST_aspect_t;
 import h.ST_point;
 import h.ST_pointf;
 import h.ST_rank_t;
-import h.EN_ratio_t;
 import smetana.core.CStar;
 import smetana.core.CStarStar;
 import smetana.core.CString;
@@ -755,7 +753,7 @@ ENTERING("fywsxto7yvl5wa2dfu7u7jj1","compress_graph");
 try {
     double x;
     ST_pointf p = new ST_pointf();
-    if (GD_drawing(g).ratio_kind != enumAsInt(EN_ratio_t.class, "R_COMPRESS"))
+    if (GD_drawing(g).ratio_kind != EN_ratio_t.R_COMPRESS)
 	return;
 UNSUPPORTED("79oeaf0u32si2chjcpas5whjl"); //     p = GD_drawing(g)->size;
 UNSUPPORTED("6a2ue1i6kvwvpgapb4z8l27jn"); //     if (p.x * p.y <= 1)
@@ -1286,7 +1284,7 @@ try {
     boolean scale_it, filled;
     ST_point sz = new ST_point();
     rec_bb(g, g);
-    if ((GD_maxrank(g) > 0) && (GD_drawing(g).ratio_kind!=0)) {
+    if ((GD_maxrank(g) > 0) && (GD_drawing(g).ratio_kind!=EN_ratio_t.R_NONE)) {
 UNSUPPORTED("5wbmy4x78flo2ztfabki9lyjf"); // 	sz.x = GD_bb(g).UR.x - GD_bb(g).LL.x;
 UNSUPPORTED("catd6eu5oc282ln95k9zz52f3"); // 	sz.y = GD_bb(g).UR.y - GD_bb(g).LL.y;	/* normalize */
 UNSUPPORTED("21zvq2qx1j34j1i1879zyhzpj"); // 	if (GD_flip(g)) {

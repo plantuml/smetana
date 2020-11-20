@@ -76,7 +76,7 @@ public class ST_layout_t extends UnsupportedStructAndPtr {
 	public boolean centered;
 
 	// "ratio_t ratio_kind",
-	public int ratio_kind;
+	public EN_ratio_t ratio_kind;
 	public __ptr__ xdots; // Always null
 	public CString id; // Not used
 

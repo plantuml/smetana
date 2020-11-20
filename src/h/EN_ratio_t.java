@@ -44,20 +44,10 @@
  *
  */
 package h;
-import java.util.Arrays;
-import java.util.List;
 
-import smetana.core.__ptr__;
 
-//2 6n9jcxa02dyqa57pkcrd73otm
-
-public interface EN_ratio_t extends __ptr__ {
-	public static List<String> DEFINITION = Arrays.asList(
-"typedef enum",
-"{",
-"R_NONE =      0, R_VALUE, R_FILL, R_COMPRESS, R_AUTO, R_EXPAND",
-"}",
-"ratio_t");
+public enum EN_ratio_t {
+	R_NONE, R_VALUE, R_FILL, R_COMPRESS, R_AUTO, R_EXPAND
 }
 
 // typedef enum { R_NONE =
