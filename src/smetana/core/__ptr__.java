@@ -4,10 +4,15 @@
  *
  * Project Info:  http://plantuml.com
  * 
+ * If you like this project or if you find it useful, you can support us at:
+ * 
+ * http://plantuml.com/patreon (only 1$ per month!)
+ * http://plantuml.com/paypal
+ * 
  * This file is part of Smetana.
  * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * (C) Copyright 2009-2017, Arnaud Roques
+ * (C) Copyright 2009-2020, Arnaud Roques
  *
  * This translation is distributed under the same Licence as the original C program.
  * 
@@ -40,7 +45,6 @@ public interface __ptr__ extends __c__fields {
 	public __ptr__ unsupported();
 	public __ptr__ plus(int pointerMove);
 	public int comparePointer(__ptr__ other);
-	public int minus(__ptr__ other);
 
 	public String getDebug(String fieldName);
 
@@ -55,8 +59,6 @@ public interface __ptr__ extends __c__fields {
 	public void setPtr(__ptr__ value);
 	public __struct__ getStruct();
 	public void setStruct(__struct__ value);
-	
-	public Object call(String name, Object... args);
 	
 
 }

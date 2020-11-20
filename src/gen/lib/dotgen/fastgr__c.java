@@ -4,10 +4,15 @@
  *
  * Project Info:  http://plantuml.com
  * 
+ * If you like this project or if you find it useful, you can support us at:
+ * 
+ * http://plantuml.com/patreon (only 1$ per month!)
+ * http://plantuml.com/paypal
+ * 
  * This file is part of Smetana.
  * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * (C) Copyright 2009-2017, Arnaud Roques
+ * (C) Copyright 2009-2022, Arnaud Roques
  *
  * This translation is distributed under the same Licence as the original C program:
  * 
@@ -39,395 +44,72 @@
  *
  */
 package gen.lib.dotgen;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static smetana.core.JUtilsDebug.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import static gen.lib.cgraph.edge__c.aghead;
+import static gen.lib.cgraph.edge__c.agtail;
+import static gen.lib.cgraph.obj__c.agroot;
+import static gen.lib.dotgen.dotinit__c.dot_root;
+import static smetana.core.JUtils.EQ;
+import static smetana.core.JUtils.NEQ;
+import static smetana.core.JUtilsDebug.ENTERING;
+import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.AGINEDGE;
+import static smetana.core.Macro.AGNODE;
+import static smetana.core.Macro.AGOUTEDGE;
+import static smetana.core.Macro.AGSEQ;
+import static smetana.core.Macro.AGTYPE;
+import static smetana.core.Macro.ED_count;
+import static smetana.core.Macro.ED_edge_type;
+import static smetana.core.Macro.ED_head_port;
+import static smetana.core.Macro.ED_minlen;
+import static smetana.core.Macro.ED_tail_port;
+import static smetana.core.Macro.ED_to_orig;
+import static smetana.core.Macro.ED_to_virt;
+import static smetana.core.Macro.ED_weight;
+import static smetana.core.Macro.ED_xpenalty;
+import static smetana.core.Macro.GD_has_flat_edges;
+import static smetana.core.Macro.GD_n_nodes;
+import static smetana.core.Macro.GD_nlist;
+import static smetana.core.Macro.ND_UF_size;
+import static smetana.core.Macro.ND_flat_in;
+import static smetana.core.Macro.ND_flat_out;
+import static smetana.core.Macro.ND_ht;
+import static smetana.core.Macro.ND_in;
+import static smetana.core.Macro.ND_lw;
+import static smetana.core.Macro.ND_next;
+import static smetana.core.Macro.ND_node_type;
+import static smetana.core.Macro.ND_other;
+import static smetana.core.Macro.ND_out;
+import static smetana.core.Macro.ND_prev;
+import static smetana.core.Macro.ND_rw;
+import static smetana.core.Macro.UNSUPPORTED;
+import static smetana.core.Macro.UNSURE_ABOUT;
+import static smetana.core.Macro.VIRTUAL;
+import static smetana.core.Macro.aghead;
+import static smetana.core.Macro.agtail;
+import static smetana.core.Macro.alloc_elist;
+import static smetana.core.Macro.elist_append;
+
+import gen.annotation.Difficult;
+import gen.annotation.Original;
+import gen.annotation.Reviewed;
+import gen.annotation.Todo;
+import gen.annotation.Unused;
+import h.ST_Agedge_s;
+import h.ST_Agedgeinfo_t;
+import h.ST_Agedgepair_s;
+import h.ST_Agnode_s;
+import h.ST_Agnodeinfo_t;
+import h.ST_Agraph_s;
+import h.ST_Agrec_s;
+import h.ST_elist;
+import h.ST_pointf;
 
 public class fastgr__c {
-//1 2digov3edok6d5srhgtlmrycs
-// extern lt_symlist_t lt_preloaded_symbols[]
-
-
-//1 baedz5i9est5csw3epz3cv7z
-// typedef Ppoly_t Ppolyline_t
-
-
-//1 9k44uhd5foylaeoekf3llonjq
-// extern Dtmethod_t* 	Dtset
-
-
-//1 1ahfywsmzcpcig2oxm7pt9ihj
-// extern Dtmethod_t* 	Dtbag
-
-
-//1 anhghfj3k7dmkudy2n7rvt31v
-// extern Dtmethod_t* 	Dtoset
-
-
-//1 5l6oj1ux946zjwvir94ykejbc
-// extern Dtmethod_t* 	Dtobag
-
-
-//1 2wtf222ak6cui8cfjnw6w377z
-// extern Dtmethod_t*	Dtlist
-
-
-//1 d1s1s6ibtcsmst88e3057u9r7
-// extern Dtmethod_t*	Dtstack
-
-
-//1 axa7mflo824p6fspjn1rdk0mt
-// extern Dtmethod_t*	Dtqueue
-
-
-//1 ega812utobm4xx9oa9w9ayij6
-// extern Dtmethod_t*	Dtdeque
-
-
-//1 cyfr996ur43045jv1tjbelzmj
-// extern Dtmethod_t*	Dtorder
-
-
-//1 wlofoiftbjgrrabzb2brkycg
-// extern Dtmethod_t*	Dttree
-
-
-//1 12bds94t7voj7ulwpcvgf6agr
-// extern Dtmethod_t*	Dthash
-
-
-//1 9lqknzty480cy7zsubmabkk8h
-// extern Dtmethod_t	_Dttree
-
-
-//1 bvn6zkbcp8vjdhkccqo1xrkrb
-// extern Dtmethod_t	_Dthash
-
-
-//1 9lidhtd6nsmmv3e7vjv9e10gw
-// extern Dtmethod_t	_Dtlist
-
-
-//1 34ujfamjxo7xn89u90oh2k6f8
-// extern Dtmethod_t	_Dtqueue
-
-
-//1 3jy4aceckzkdv950h89p4wjc8
-// extern Dtmethod_t	_Dtstack
-
-
-//1 8dfqgf3u1v830qzcjqh9o8ha7
-// extern Agmemdisc_t AgMemDisc
-
-
-//1 18k2oh2t6llfsdc5x0wlcnby8
-// extern Agiddisc_t AgIdDisc
-
-
-//1 a4r7hi80gdxtsv4hdoqpyiivn
-// extern Agiodisc_t AgIoDisc
-
-
-//1 bnzt5syjb7mgeru19114vd6xx
-// extern Agdisc_t AgDefaultDisc
-
-
-//1 35y2gbegsdjilegaribes00mg
-// extern Agdesc_t Agdirected, Agstrictdirected, Agundirected,     Agstrictundirected
-
-
-//1 c2rygslq6bcuka3awmvy2b3ow
-// typedef Agsubnode_t	Agnoderef_t
-
-
-//1 xam6yv0dcsx57dtg44igpbzn
-// typedef Dtlink_t	Agedgeref_t
-
-
-//1 nye6dsi1twkbddwo9iffca1j
-// extern char *Version
-
-
-//1 65mu6k7h7lb7bx14jpiw7iyxr
-// extern char **Files
-
-
-//1 2rpjdzsdyrvomf00zcs3u3dyn
-// extern const char **Lib
-
-
-//1 6d2f111lntd2rsdt4gswh5909
-// extern char *CmdName
-
-
-//1 a0ltq04fpeg83soa05a2fkwb2
-// extern char *specificFlags
-
-
-//1 1uv30qeqq2jh6uznlr4dziv0y
-// extern char *specificItems
-
-
-//1 7i4hkvngxe3x7lmg5h6b3t9g3
-// extern char *Gvfilepath
-
-
-//1 9jp96pa73kseya3w6sulxzok6
-// extern char *Gvimagepath
-
-
-//1 40ylumfu7mrvawwf4v2asvtwk
-// extern unsigned char Verbose
-
-
-//1 93st8awjy1z0h07n28qycbaka
-// extern unsigned char Reduce
-
-
-//1 f2vs67ts992erf8onwfglurzp
-// extern int MemTest
-
-
-//1 c6f8whijgjwwagjigmxlwz3gb
-// extern char *HTTPServerEnVar
-
-
-//1 cp4hzj7p87m7arw776d3bt7aj
-// extern char *Output_file_name
-
-
-//1 a3rqagofsgraie6mx0krzkgsy
-// extern int graphviz_errors
-
-
-//1 5up05203r4kxvjn1m4njcgq5x
-// extern int Nop
-
-
-//1 umig46cco431x14b3kosde2t
-// extern double PSinputscale
-
-
-//1 52bj6v8fqz39khasobljfukk9
-// extern int Syntax_errors
-
-
-//1 9ekf2ina8fsjj6y6i0an6somj
-// extern int Show_cnt
-
-
-//1 38di5qi3nkxkq65onyvconk3r
-// extern char** Show_boxes
-
-
-//1 6ri6iu712m8mpc7t2670etpcw
-// extern int CL_type
-
-
-//1 bomxiw3gy0cgd1ydqtek7fpxr
-// extern unsigned char Concentrate
-
-
-//1 cqy3gqgcq8empdrbnrhn84058
-// extern double Epsilon
-
-
-//1 64slegfoouqeg0rmbyjrm8wgr
-// extern int MaxIter
-
-
-//1 88wdinpnmfs4mab4aw62yb0bg
-// extern int Ndim
-
-
-//1 8bbad3ogcelqnnvo5br5s05gq
-// extern int State
-
-
-//1 17rnd8q45zclfn68qqst2vxxn
-// extern int EdgeLabelsDone
-
-
-//1 ymx1z4s8cznjifl2d9f9m8jr
-// extern double Initial_dist
-
-
-//1 a33bgl0c3uqb3trx419qulj1x
-// extern double Damping
-
-
-//1 d9lvrpjg1r0ojv40pod1xwk8n
-// extern int Y_invert
-
-
-//1 71efkfs77q5tq9ex6y0f4kanh
-// extern int GvExitOnUsage
-
-
-//1 4xy2dkdkv0acs2ue9eca8hh2e
-// extern Agsym_t 	*G_activepencolor, *G_activefillcolor, 	*G_selectedpencolor, *G_selectedfillcolor, 	*G_visitedpencolor, *G_visitedfillcolor, 	*G_deletedpencolor, *G_deletedfillcolor, 	*G_ordering, *G_peripheries, *G_penwidth, 	*G_gradientangle, *G_margin
-
-
-//1 9js5gxgzr74eakgtfhnbws3t9
-// extern Agsym_t 	*N_height, *N_width, *N_shape, *N_color, *N_fillcolor, 	*N_activepencolor, *N_activefillcolor, 	*N_selectedpencolor, *N_selectedfillcolor, 	*N_visitedpencolor, *N_visitedfillcolor, 	*N_deletedpencolor, *N_deletedfillcolor, 	*N_fontsize, *N_fontname, *N_fontcolor, *N_margin, 	*N_label, *N_xlabel, *N_nojustify, *N_style, *N_showboxes, 	*N_sides, *N_peripheries, *N_ordering, *N_orientation, 	*N_skew, *N_distortion, *N_fixed, *N_imagescale, *N_layer, 	*N_group, *N_comment, *N_vertices, *N_z, 	*N_penwidth, *N_gradientangle
-
-
-//1 anqllp9sj7wo45w6bm11j8trn
-// extern Agsym_t 	*E_weight, *E_minlen, *E_color, *E_fillcolor, 	*E_activepencolor, *E_activefillcolor, 	*E_selectedpencolor, *E_selectedfillcolor, 	*E_visitedpencolor, *E_visitedfillcolor, 	*E_deletedpencolor, *E_deletedfillcolor, 	*E_fontsize, *E_fontname, *E_fontcolor, 	*E_label, *E_xlabel, *E_dir, *E_style, *E_decorate, 	*E_showboxes, *E_arrowsz, *E_constr, *E_layer, 	*E_comment, *E_label_float, 	*E_samehead, *E_sametail, 	*E_arrowhead, *E_arrowtail, 	*E_headlabel, *E_taillabel, 	*E_labelfontsize, *E_labelfontname, *E_labelfontcolor, 	*E_labeldistance, *E_labelangle, 	*E_tailclip, *E_headclip, 	*E_penwidth
-
-
-//1 bh0z9puipqw7gymjd5h5b8s6i
-// extern struct fdpParms_s* fdp_parms
-
-
-
 
 //3 ciez0pfggxdljedzsbklq49f0
 // static inline point pointof(int x, int y) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="pointof", key="ciez0pfggxdljedzsbklq49f0", definition="static inline point pointof(int x, int y)")
 public static Object pointof(Object... arg) {
 UNSUPPORTED("8e4tj258yvfq5uhsdpk37n5eq"); // static inline point pointof(int x, int y)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -443,29 +125,12 @@ throw new UnsupportedOperationException();
 
 
 
-//3 c1s4k85p1cdfn176o3uryeros
-// static inline pointf pointfof(double x, double y) 
-public static __struct__<pointf> pointfof(double x, double y) {
-// WARNING!! STRUCT
-return pointfof_w_(x, y).copy();
-}
-private static __struct__<pointf> pointfof_w_(double x, double y) {
-ENTERING("c1s4k85p1cdfn176o3uryeros","pointfof");
-try {
-    final __struct__<pointf> r = __struct__.from(pointf.class);
-    r.setDouble("x", x);
-    r.setDouble("y", y);
-    return r;
-} finally {
-LEAVING("c1s4k85p1cdfn176o3uryeros","pointfof");
-}
-}
-
-
 
 
 //3 7cufnfitrh935ew093mw0i4b7
 // static inline box boxof(int llx, int lly, int urx, int ury) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="boxof", key="7cufnfitrh935ew093mw0i4b7", definition="static inline box boxof(int llx, int lly, int urx, int ury)")
 public static Object boxof(Object... arg) {
 UNSUPPORTED("3lzesfdd337h31jrlib1czocm"); // static inline box boxof(int llx, int lly, int urx, int ury)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -481,31 +146,14 @@ throw new UnsupportedOperationException();
 
 
 
-//3 1vvsta5i8of59frav6uymguav
-// static inline boxf boxfof(double llx, double lly, double urx, double ury) 
-public static __struct__<boxf> boxfof(double llx, double lly, double urx, double ury) {
-// WARNING!! STRUCT
-return boxfof_w_(llx, lly, urx, ury).copy();
-}
-private static __struct__<boxf> boxfof_w_(double llx, double lly, double urx, double ury) {
-ENTERING("1vvsta5i8of59frav6uymguav","boxfof");
-try {
-    final __struct__<boxf> b = __struct__.from(boxf.class);
-    b.getStruct("LL").setDouble("x", llx);
-    b.getStruct("LL").setDouble("y", lly);
-    b.getStruct("UR").setDouble("x", urx);
-    b.getStruct("UR").setDouble("y", ury);
-    return b;
-} finally {
-LEAVING("1vvsta5i8of59frav6uymguav","boxfof");
-}
-}
 
 
 
 
 //3 1n5xl70wxuabyf97mclvilsm6
 // static inline point add_point(point p, point q) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="add_point", key="1n5xl70wxuabyf97mclvilsm6", definition="static inline point add_point(point p, point q)")
 public static Object add_point(Object... arg) {
 UNSUPPORTED("6iamka1fx8fk1rohzzse8phte"); // static inline point add_point(point p, point q)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -521,29 +169,12 @@ throw new UnsupportedOperationException();
 
 
 
-//3 arrsbik9b5tnfcbzsm8gr2chx
-// static inline pointf add_pointf(pointf p, pointf q) 
-public static __struct__<pointf> add_pointf(final __struct__<pointf> p, final __struct__<pointf> q) {
-// WARNING!! STRUCT
-return add_pointf_w_(p.copy(), q.copy()).copy();
-}
-private static __struct__<pointf> add_pointf_w_(final __struct__<pointf> p, final __struct__<pointf> q) {
-ENTERING("arrsbik9b5tnfcbzsm8gr2chx","add_pointf");
-try {
-    final __struct__<pointf> r = __struct__.from(pointf.class);
-    r.setDouble("x", p.getDouble("x") + q.getDouble("x"));
-    r.setDouble("y", p.getDouble("y") + q.getDouble("y"));
-    return r;
-} finally {
-LEAVING("arrsbik9b5tnfcbzsm8gr2chx","add_pointf");
-}
-}
-
-
 
 
 //3 ai2dprak5y6obdsflguh5qbd7
 // static inline point sub_point(point p, point q) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="sub_point", key="ai2dprak5y6obdsflguh5qbd7", definition="static inline point sub_point(point p, point q)")
 public static Object sub_point(Object... arg) {
 UNSUPPORTED("cd602849h0bce8lu9xegka0ia"); // static inline point sub_point(point p, point q)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -561,6 +192,8 @@ throw new UnsupportedOperationException();
 
 //3 16f6pyogcv3j7n2p0n8giqqgh
 // static inline pointf sub_pointf(pointf p, pointf q) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="sub_pointf", key="16f6pyogcv3j7n2p0n8giqqgh", definition="static inline pointf sub_pointf(pointf p, pointf q)")
 public static Object sub_pointf(Object... arg) {
 UNSUPPORTED("dmufj44lddsnj0wjyxsg2fcso"); // static inline pointf sub_pointf(pointf p, pointf q)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -578,6 +211,8 @@ throw new UnsupportedOperationException();
 
 //3 9k50jgrhc4f9824vf8ony74rw
 // static inline point mid_point(point p, point q) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="mid_point", key="9k50jgrhc4f9824vf8ony74rw", definition="static inline point mid_point(point p, point q)")
 public static Object mid_point(Object... arg) {
 UNSUPPORTED("evy44tdsmu3erff9dp2x835u2"); // static inline point mid_point(point p, point q)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -595,6 +230,8 @@ throw new UnsupportedOperationException();
 
 //3 59c4f7im0ftyowhnzzq2v9o1x
 // static inline pointf mid_pointf(pointf p, pointf q) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="mid_pointf", key="59c4f7im0ftyowhnzzq2v9o1x", definition="static inline pointf mid_pointf(pointf p, pointf q)")
 public static Object mid_pointf(Object... arg) {
 UNSUPPORTED("381o63o9kb04d7gzg65v0r3q"); // static inline pointf mid_pointf(pointf p, pointf q)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -612,6 +249,8 @@ throw new UnsupportedOperationException();
 
 //3 5r18p38gisvcx3zsvbb9saixx
 // static inline pointf interpolate_pointf(double t, pointf p, pointf q) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="interpolate_pointf", key="5r18p38gisvcx3zsvbb9saixx", definition="static inline pointf interpolate_pointf(double t, pointf p, pointf q)")
 public static Object interpolate_pointf(Object... arg) {
 UNSUPPORTED("894yimn33kmtm454llwdaotu8"); // static inline pointf interpolate_pointf(double t, pointf p, pointf q)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -629,6 +268,8 @@ throw new UnsupportedOperationException();
 
 //3 bxzrv2ghq04qk5cbyy68s4mol
 // static inline point exch_xy(point p) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="exch_xy", key="bxzrv2ghq04qk5cbyy68s4mol", definition="static inline point exch_xy(point p)")
 public static Object exch_xy(Object... arg) {
 UNSUPPORTED("2vxya0v2fzlv5e0vjaa8d414"); // static inline point exch_xy(point p)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -646,6 +287,8 @@ throw new UnsupportedOperationException();
 
 //3 9lt3e03tac6h6sydljrcws8fd
 // static inline pointf exch_xyf(pointf p) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="exch_xyf", key="9lt3e03tac6h6sydljrcws8fd", definition="static inline pointf exch_xyf(pointf p)")
 public static Object exch_xyf(Object... arg) {
 UNSUPPORTED("8qamrobrqi8jsvvfrxkimrsnw"); // static inline pointf exch_xyf(pointf p)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -663,6 +306,8 @@ throw new UnsupportedOperationException();
 
 //3 8l9qhieokthntzdorlu5zn29b
 // static inline box box_bb(box b0, box b1) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="box_bb", key="8l9qhieokthntzdorlu5zn29b", definition="static inline box box_bb(box b0, box b1)")
 public static Object box_bb(Object... arg) {
 UNSUPPORTED("36et5gmnjrby6o7bq9sgh1hx6"); // static inline box box_bb(box b0, box b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -682,6 +327,8 @@ throw new UnsupportedOperationException();
 
 //3 clws9h3bbjm0lw3hexf8nl4c4
 // static inline boxf boxf_bb(boxf b0, boxf b1) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="boxf_bb", key="clws9h3bbjm0lw3hexf8nl4c4", definition="static inline boxf boxf_bb(boxf b0, boxf b1)")
 public static Object boxf_bb(Object... arg) {
 UNSUPPORTED("dyrqu4ww9osr9c86gqgmifcp6"); // static inline boxf boxf_bb(boxf b0, boxf b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -701,6 +348,8 @@ throw new UnsupportedOperationException();
 
 //3 bit6ycxo1iqd2al92y8gkzlvb
 // static inline box box_intersect(box b0, box b1) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="box_intersect", key="bit6ycxo1iqd2al92y8gkzlvb", definition="static inline box box_intersect(box b0, box b1)")
 public static Object box_intersect(Object... arg) {
 UNSUPPORTED("34gv28cldst09bl71itjgviue"); // static inline box box_intersect(box b0, box b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -720,6 +369,8 @@ throw new UnsupportedOperationException();
 
 //3 8gfybie7k6pgb3o1a6llgpwng
 // static inline boxf boxf_intersect(boxf b0, boxf b1) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="boxf_intersect", key="8gfybie7k6pgb3o1a6llgpwng", definition="static inline boxf boxf_intersect(boxf b0, boxf b1)")
 public static Object boxf_intersect(Object... arg) {
 UNSUPPORTED("ape22b8z6jfg17gvo42hok9eb"); // static inline boxf boxf_intersect(boxf b0, boxf b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -739,6 +390,8 @@ throw new UnsupportedOperationException();
 
 //3 7z8j2quq65govaaejrz7b4cvb
 // static inline int box_overlap(box b0, box b1) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="box_overlap", key="7z8j2quq65govaaejrz7b4cvb", definition="static inline int box_overlap(box b0, box b1)")
 public static Object box_overlap(Object... arg) {
 UNSUPPORTED("1e9k599x7ygct7r4cfdxlk9u9"); // static inline int box_overlap(box b0, box b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -753,6 +406,8 @@ throw new UnsupportedOperationException();
 
 //3 4z0suuut2acsay5m8mg9dqjdu
 // static inline int boxf_overlap(boxf b0, boxf b1) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="boxf_overlap", key="4z0suuut2acsay5m8mg9dqjdu", definition="static inline int boxf_overlap(boxf b0, boxf b1)")
 public static Object boxf_overlap(Object... arg) {
 UNSUPPORTED("905nejsewihwhhc3bhnrz9nwo"); // static inline int boxf_overlap(boxf b0, boxf b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -767,6 +422,8 @@ throw new UnsupportedOperationException();
 
 //3 dd34swz5rmdgu3a2np2a4h1dy
 // static inline int box_contains(box b0, box b1) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="box_contains", key="dd34swz5rmdgu3a2np2a4h1dy", definition="static inline int box_contains(box b0, box b1)")
 public static Object box_contains(Object... arg) {
 UNSUPPORTED("aputfc30fjkvy6jx4otljaczq"); // static inline int box_contains(box b0, box b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -781,6 +438,8 @@ throw new UnsupportedOperationException();
 
 //3 8laj1bspbu2i1cjd9upr7xt32
 // static inline int boxf_contains(boxf b0, boxf b1) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="boxf_contains", key="8laj1bspbu2i1cjd9upr7xt32", definition="static inline int boxf_contains(boxf b0, boxf b1)")
 public static Object boxf_contains(Object... arg) {
 UNSUPPORTED("7ccnttkiwt834yfyw0evcm18v"); // static inline int boxf_contains(boxf b0, boxf b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -795,6 +454,8 @@ throw new UnsupportedOperationException();
 
 //3 4wf5swkz24xx51ja2dynbycu1
 // static inline pointf perp (pointf p) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="perp", key="4wf5swkz24xx51ja2dynbycu1", definition="static inline pointf perp (pointf p)")
 public static Object perp(Object... arg) {
 UNSUPPORTED("567wpqlg9rv63ynyvxd9sgkww"); // static inline pointf perp (pointf p)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -812,6 +473,8 @@ throw new UnsupportedOperationException();
 
 //3 6dtlpzv4mvgzb9o0b252yweuv
 // static inline pointf scale (double c, pointf p) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="scale", key="6dtlpzv4mvgzb9o0b252yweuv", definition="static inline pointf scale (double c, pointf p)")
 public static Object scale(Object... arg) {
 UNSUPPORTED("c1ngytew34bmkdb7vps5h3dh8"); // static inline pointf scale (double c, pointf p)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -824,27 +487,28 @@ UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
 throw new UnsupportedOperationException();
 }
 
-
-
-
-//3 econbrl314rr46qnvvw5e32j7
-// static edge_t *ffe(node_t * u, elist uL, node_t * v, elist vL) 
-public static Agedge_s ffe(Agnode_s u, final __struct__<elist> uL, Agnode_s v, final __struct__<elist> vL) {
+/*
+ * operations on the fast internal graph.
+ */
+@Reviewed(when = "13/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="", key="econbrl314rr46qnvvw5e32j7", definition="static edge_t *ffe(node_t * u, elist uL, node_t * v, elist vL)")
+public static ST_Agedge_s ffe(ST_Agnode_s u, final ST_elist uL, ST_Agnode_s v, final ST_elist vL) {
 // WARNING!! STRUCT
 return ffe_w_(u, uL.copy(), v, vL.copy());
 }
-private static Agedge_s ffe_w_(Agnode_s u, final __struct__<elist> uL, Agnode_s v, final __struct__<elist> vL) {
+private static ST_Agedge_s ffe_w_(ST_Agnode_s u, final ST_elist uL, ST_Agnode_s v, final ST_elist vL) {
 ENTERING("econbrl314rr46qnvvw5e32j7","ffe");
 try {
     int i;
-    Agedge_s e = null;
-    if ((uL.getInt("size") > 0) && (vL.getInt("size") > 0)) {
-	if (uL.getInt("size") < vL.getInt("size")) {
-	    for (i = 0; (e = (Agedge_s) uL.getArrayOfPtr("list").plus(i).getPtr())!=null; i++)
+    ST_Agedge_s e = null;
+    
+    if ((uL.size > 0) && (vL.size > 0)) {
+	if (uL.size < vL.size) {
+	    for (i = 0; (e = (ST_Agedge_s) uL.list.get_(i))!=null; i++)
 		if (EQ(aghead(e), v))
 		    break;
 	} else {
-	    for (i = 0; (e = (Agedge_s) vL.getArrayOfPtr("list").plus(i).getPtr())!=null; i++)
+	    for (i = 0; (e = (ST_Agedge_s) vL.list.get_(i))!=null; i++)
 		if (EQ(agtail(e), u))
 		    break;
 	}
@@ -858,10 +522,9 @@ LEAVING("econbrl314rr46qnvvw5e32j7","ffe");
 
 
 
-
-//3 1uygfrgur73lfy9vsjozwwupm
-// edge_t *find_fast_edge(node_t * u, node_t * v) 
-public static Agedge_s find_fast_edge(Agnode_s u, Agnode_s v) {
+@Reviewed(when = "13/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="", key="1uygfrgur73lfy9vsjozwwupm", definition="edge_t *find_fast_edge(node_t * u, node_t * v)")
+public static ST_Agedge_s find_fast_edge(ST_Agnode_s u, ST_Agnode_s v) {
 ENTERING("1uygfrgur73lfy9vsjozwwupm","find_fast_edge");
 try {
     return ffe(u, ND_out(u), v, ND_in(v));
@@ -873,12 +536,12 @@ LEAVING("1uygfrgur73lfy9vsjozwwupm","find_fast_edge");
 
 
 
-//3 1yw7ahdnxnexnicj552zqyyej
-// static node_t* find_fast_node(graph_t * g, node_t * n) 
-public static Agnode_s find_fast_node(Agraph_s g, Agnode_s n) {
+@Reviewed(when = "15/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="find_fast_node", key="1yw7ahdnxnexnicj552zqyyej", definition="static node_t* find_fast_node(graph_t * g, node_t * n)")
+public static ST_Agnode_s find_fast_node(ST_Agraph_s g, ST_Agnode_s n) {
 ENTERING("1yw7ahdnxnexnicj552zqyyej","find_fast_node");
 try {
-    Agnode_s v;
+    ST_Agnode_s v;
     for (v = GD_nlist(g); v!=null; v = ND_next(v))
 	if (EQ(v, n))
 	    break;
@@ -891,9 +554,9 @@ LEAVING("1yw7ahdnxnexnicj552zqyyej","find_fast_node");
 
 
 
-//3 bf1j97keudu416avridkj9fpb
-// edge_t *find_flat_edge(node_t * u, node_t * v) 
-public static Agedge_s find_flat_edge(Agnode_s u, Agnode_s v) {
+@Reviewed(when = "15/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="", key="bf1j97keudu416avridkj9fpb", definition="edge_t *find_flat_edge(node_t * u, node_t * v)")
+public static ST_Agedge_s find_flat_edge(ST_Agnode_s u, ST_Agnode_s v) {
 ENTERING("bf1j97keudu416avridkj9fpb","find_flat_edge");
 try {
     return ffe(u, ND_flat_out(u), v, ND_flat_in(v));
@@ -904,29 +567,29 @@ LEAVING("bf1j97keudu416avridkj9fpb","find_flat_edge");
 
 
 
-
-//3 cttswsffgmw1g710jzvdd3wzn
-// static void  safe_list_append(edge_t * e, elist * L) 
-public static Object safe_list_append(Object... arg) {
-UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
-UNSUPPORTED("3kdqf9wvozj4zu6wrv6ur2k47"); // safe_list_append(edge_t * e, elist * L)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("b17di9c7wgtqm51bvsyxz6e2f"); //     int i;
-UNSUPPORTED("dhvbzrcz6s76mme3x94begmvr"); //     for (i = 0; i < L->size; i++)
-UNSUPPORTED("c0a4ruccwt5263vw39xrttm0y"); // 	if (e == L->list[i])
-UNSUPPORTED("6cprbghvenu9ldc0ez1ifc63q"); // 	    return;
-UNSUPPORTED("cslejjtgepjdwlcykfas4fmvz"); //     elist_append(e, (*L));
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Todo(what = "Strange that elist_append(e, (*L)) is never called")
+@Reviewed(when = "15/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="safe_list_append", key="cttswsffgmw1g710jzvdd3wzn", definition="static void  safe_list_append(edge_t * e, elist * L)")
+public static void safe_list_append(ST_Agedge_s e, ST_elist L) {
+ENTERING("cttswsffgmw1g710jzvdd3wzn","safe_list_append");
+try {
+     int i;
+     
+     for (i = 0; i < L.size; i++)
+     if (EQ(e, L.list.get_(i)))
+ 	 	return;
+     UNSUPPORTED("cslejjtgepjdwlcykfas4fmvz"); //     elist_append(e, (*L));
+} finally {
+LEAVING("cttswsffgmw1g710jzvdd3wzn","safe_list_append");
+}
 }
 
 
 
 
-//3 8t6gpubo908pz1pqnt1s88lnt
-// edge_t *fast_edge(edge_t * e) 
-public static Agedge_s fast_edge(Agedge_s e) {
+@Reviewed(when = "14/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="", key="8t6gpubo908pz1pqnt1s88lnt", definition="edge_t *fast_edge(edge_t * e)")
+public static ST_Agedge_s fast_edge(ST_Agedge_s e) {
 ENTERING("8t6gpubo908pz1pqnt1s88lnt","fast_edge");
 try {
     elist_append(e, ND_out(agtail(e)));
@@ -942,15 +605,17 @@ LEAVING("8t6gpubo908pz1pqnt1s88lnt","fast_edge");
 
 //3 dxb0q8ajb7iv25aj6zdqnbwh5
 // void zapinlist(elist * L, edge_t * e) 
-public static void zapinlist(elist L, Agedge_s e) {
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="zapinlist", key="dxb0q8ajb7iv25aj6zdqnbwh5", definition="void zapinlist(elist * L, edge_t * e)")
+public static void zapinlist(ST_elist L, ST_Agedge_s e) {
 ENTERING("dxb0q8ajb7iv25aj6zdqnbwh5","zapinlist");
 try {
     int i;
-    for (i = 0; i < L.getInt("size"); i++) {
-	if (EQ(L.getArrayOfPtr("list").plus(i).getPtr(), e)) {
-	    L.setInt("size", L.getInt("size")-1);
-	    L.getArrayOfPtr("list").plus(i).setPtr(L.getArrayOfPtr("list").plus(L.getInt("size")).getPtr());
-	    L.getArrayOfPtr("list").plus(L.getInt("size")).setPtr(null);
+    for (i = 0; i < L.size; i++) {
+	if (EQ(L.list.get_(i), e)) {
+	    L.size = L.size-1;
+	    L.list.set_(i, L.list.get_(L.size));
+	    L.list.set_(L.size, null);
 	    break;
 	}
     }
@@ -964,12 +629,14 @@ LEAVING("dxb0q8ajb7iv25aj6zdqnbwh5","zapinlist");
 
 //3 dkv97rr4ytpehp291etaxe9gc
 // void delete_fast_edge(edge_t * e) 
-public static void delete_fast_edge(Agedge_s e) {
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="delete_fast_edge", key="dkv97rr4ytpehp291etaxe9gc", definition="void delete_fast_edge(edge_t * e)")
+public static void delete_fast_edge(ST_Agedge_s e) {
 ENTERING("dkv97rr4ytpehp291etaxe9gc","delete_fast_edge");
 try {
     //assert(e != NULL);
-    zapinlist((ND_out(agtail(e))).amp(), e);
-    zapinlist((ND_in(aghead(e))).amp(), e);
+    zapinlist((ND_out(agtail(e))), e);
+    zapinlist((ND_in(aghead(e))), e);
 } finally {
 LEAVING("dkv97rr4ytpehp291etaxe9gc","delete_fast_edge");
 }
@@ -980,6 +647,8 @@ LEAVING("dkv97rr4ytpehp291etaxe9gc","delete_fast_edge");
 
 //3 b8a9hlxts1y43x7r4f31vwee6
 // static void  safe_delete_fast_edge(edge_t * e) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="safe_delete_fast_edge", key="b8a9hlxts1y43x7r4f31vwee6", definition="static void  safe_delete_fast_edge(edge_t * e)")
 public static Object safe_delete_fast_edge(Object... arg) {
 UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
 UNSUPPORTED("bw8hdfe3bql5qxhdyxjh12iaf"); // safe_delete_fast_edge(edge_t * e)
@@ -1001,9 +670,9 @@ throw new UnsupportedOperationException();
 
 
 
-//3 73oebfcfiescklohgt8mddswc
-// void other_edge(edge_t * e) 
-public static void other_edge(Agedge_s e) {
+@Reviewed(when = "15/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="other_edge", key="73oebfcfiescklohgt8mddswc", definition="void other_edge(edge_t * e)")
+public static void other_edge(ST_Agedge_s e) {
 ENTERING("73oebfcfiescklohgt8mddswc","other_edge");
 try {
     elist_append(e, ND_other(agtail(e)));
@@ -1015,37 +684,50 @@ LEAVING("73oebfcfiescklohgt8mddswc","other_edge");
 
 
 
-//3 4zg1fp1b7bhnx2tbeaij8yeel
-// void safe_other_edge(edge_t * e) 
-public static Object safe_other_edge(Object... arg) {
-UNSUPPORTED("3cc9ux78ad0yjajm0nkpos345"); // void safe_other_edge(edge_t * e)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("bn816jsdz3qke6htvbwvztrpc"); //     safe_list_append(e, &(ND_other(agtail(e))));
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Difficult
+@Reviewed(when = "15/11/2020")
+@Todo(what = "Review &(ND_other(agtail(e))")
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="safe_other_edge", key="4zg1fp1b7bhnx2tbeaij8yeel", definition="void safe_other_edge(edge_t * e)")
+public static void safe_other_edge(ST_Agedge_s e) {
+ENTERING("4zg1fp1b7bhnx2tbeaij8yeel","safe_other_edge");
+try {
+	UNSURE_ABOUT("safe_list_append(e, &(ND_other(agtail(e))));");
+	// Review &(ND_other(agtail(e))
+    safe_list_append(e, ND_other(agtail(e)));	
+} finally {
+LEAVING("4zg1fp1b7bhnx2tbeaij8yeel","safe_other_edge");
+}
 }
 
 
 
-
-//3 4gd9tmpq70q0rij5otj0k6sn2
-// edge_t *new_virtual_edge(node_t * u, node_t * v, edge_t * orig) 
-public static Agedge_s new_virtual_edge(Agnode_s u, Agnode_s v, Agedge_s orig) {
+/* new_virtual_edge:
+ * Create and return a new virtual edge e attached to orig.
+ * ED_to_orig(e) = orig
+ * ED_to_virt(orig) = e if e is the first virtual edge attached.
+ * orig might be an input edge, reverse of an input edge, or virtual edge
+ */
+@Reviewed(when = "14/11/2020")
+@Difficult
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="", key="4gd9tmpq70q0rij5otj0k6sn2", definition="edge_t *new_virtual_edge(node_t * u, node_t * v, edge_t * orig)")
+public static ST_Agedge_s new_virtual_edge(ST_Agnode_s u, ST_Agnode_s v, ST_Agedge_s orig) {
 ENTERING("4gd9tmpq70q0rij5otj0k6sn2","new_virtual_edge");
 try {
-    Agedge_s e;
-    Agedgepair_s e2 = (Agedgepair_s)zmalloc(sizeof(Agedgepair_s.class));
-    AGTYPE(e2.getStruct("in").amp(), AGINEDGE);
-    AGTYPE(e2.getStruct("out").amp(), AGOUTEDGE);
-    e2.getStruct("out").getStruct("base").setPtr("data", zmalloc(sizeof(Agedgeinfo_t.class)).castTo(Agedgeinfo_t.class).castTo(Agrec_s.class));
-    e = (Agedge_s) e2.getStruct("out").amp();
+    ST_Agedge_s e;
+    
+    ST_Agedgepair_s e2 = new ST_Agedgepair_s();
+    AGTYPE(e2.in, AGINEDGE);
+    AGTYPE(e2.out, AGOUTEDGE);
+    e2.out.base.data = (ST_Agrec_s) new ST_Agedgeinfo_t().castTo(ST_Agrec_s.class);
+    e = e2.out;
     agtail(e, u);
     aghead(e, v);
-    ED_edge_type(e, 1);
+    ED_edge_type(e, VIRTUAL);
+    
+    
     if (orig!=null) {
 	AGSEQ(e, AGSEQ(orig));
-	AGSEQ(e2.getStruct("in").amp(), AGSEQ(orig));
+	AGSEQ(e2.in, AGSEQ(orig));
 	ED_count(e, ED_count(orig));
 	ED_xpenalty(e, ED_xpenalty(orig));
 	ED_weight(e, ED_weight(orig));
@@ -1058,6 +740,8 @@ try {
 	    ED_head_port(e, ED_head_port(orig));
 	else if (EQ(aghead(e), agtail(orig)))
 	    ED_head_port(e, ED_tail_port(orig));
+	
+	
 	if (ED_to_virt(orig) == null)
 	    ED_to_virt(orig, e);
 	ED_to_orig(e, orig);
@@ -1076,9 +760,9 @@ LEAVING("4gd9tmpq70q0rij5otj0k6sn2","new_virtual_edge");
 
 
 
-//3 9obdfflzw4cs2z9r0dng26mvw
-// edge_t *virtual_edge(node_t * u, node_t * v, edge_t * orig) 
-public static Agedge_s virtual_edge(Agnode_s u, Agnode_s v, Agedge_s orig) {
+@Reviewed(when = "13/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="", key="9obdfflzw4cs2z9r0dng26mvw", definition="edge_t *virtual_edge(node_t * u, node_t * v, edge_t * orig)")
+public static ST_Agedge_s virtual_edge(ST_Agnode_s u, ST_Agnode_s v, ST_Agedge_s orig) {
 ENTERING("9obdfflzw4cs2z9r0dng26mvw","virtual_edge");
 try {
     return fast_edge(new_virtual_edge(u, v, orig));
@@ -1090,9 +774,9 @@ LEAVING("9obdfflzw4cs2z9r0dng26mvw","virtual_edge");
 
 
 
-//3 98hkec8t6fjk10bjpstumw0ey
-// void fast_node(graph_t * g, Agnode_t * n) 
-public static void fast_node(Agraph_s g, Agnode_s n) {
+@Reviewed(when = "15/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="fast_node", key="98hkec8t6fjk10bjpstumw0ey", definition="void fast_node(graph_t * g, Agnode_t * n)")
+public static void fast_node(ST_Agraph_s g, ST_Agnode_s n) {
 ENTERING("98hkec8t6fjk10bjpstumw0ey","fast_node");
 try {
     ND_next(n, GD_nlist(g));
@@ -1100,7 +784,7 @@ try {
 	ND_prev(ND_next(n), n);
     GD_nlist(g, n);
     ND_prev(n, null);
-    //assert(n != ND_next(n));
+    assert(NEQ(n, ND_next(n)));
 } finally {
 LEAVING("98hkec8t6fjk10bjpstumw0ey","fast_node");
 }
@@ -1111,6 +795,8 @@ LEAVING("98hkec8t6fjk10bjpstumw0ey","fast_node");
 
 //3 66jdzhjfa6kx3ntfyl5t7cehm
 // void fast_nodeapp(node_t * u, node_t * v) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="fast_nodeapp", key="66jdzhjfa6kx3ntfyl5t7cehm", definition="void fast_nodeapp(node_t * u, node_t * v)")
 public static Object fast_nodeapp(Object... arg) {
 UNSUPPORTED("24rf80znlmwn6xx6m03vqyykr"); // void fast_nodeapp(node_t * u, node_t * v)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -1129,9 +815,9 @@ throw new UnsupportedOperationException();
 
 
 
-//3 emsq7b6s5100lscckzy3ileqd
-// void delete_fast_node(graph_t * g, node_t * n) 
-public static void delete_fast_node(Agraph_s g, Agnode_s n) {
+@Reviewed(when = "15/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="delete_fast_node", key="emsq7b6s5100lscckzy3ileqd", definition="void delete_fast_node(graph_t * g, node_t * n)")
+public static void delete_fast_node(ST_Agraph_s g, ST_Agnode_s n) {
 ENTERING("emsq7b6s5100lscckzy3ileqd","delete_fast_node");
 try {
     assert(find_fast_node(g, n)!=null);
@@ -1149,24 +835,24 @@ LEAVING("emsq7b6s5100lscckzy3ileqd","delete_fast_node");
 
 
 
-//3 eg08ajzojsm0224btmfi7kdxt
-// node_t *virtual_node(graph_t * g) 
-public static Agnode_s virtual_node(Agraph_s g) {
+@Reviewed(when = "15/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="", key="eg08ajzojsm0224btmfi7kdxt", definition="node_t *virtual_node(graph_t * g)")
+public static ST_Agnode_s virtual_node(ST_Agraph_s g) {
 ENTERING("eg08ajzojsm0224btmfi7kdxt","virtual_node");
 try {
-    Agnode_s n;
-    n = (Agnode_s)zmalloc(sizeof(Agnode_s.class));
+	ST_Agnode_s n;
+	
+    n = new ST_Agnode_s();
 //  agnameof(n) = "virtual";
     AGTYPE(n, AGNODE);
-    n.getStruct("base").setPtr("data", (Agnodeinfo_t)zmalloc(sizeof(Agnodeinfo_t.class)));
-    n.setPtr("root", agroot(g));
-    ND_node_type(n, 1);
-    ND_rw(n, 1);
-    ND_lw(n, 1);
+    n.base.data = (ST_Agrec_s) new ST_Agnodeinfo_t().castTo(ST_Agrec_s.class);
+    n.root = agroot(g);
+    ND_node_type(n, VIRTUAL);
+    ND_rw(n, 1); ND_lw(n, 1);
     ND_ht(n, 1);
     ND_UF_size(n, 1);
-    alloc_elist(4, ND_in(n), Agnode_s.class);
-    alloc_elist(4, ND_out(n), Agnode_s.class);
+    alloc_elist(4, ND_in(n));
+    alloc_elist(4, ND_out(n));
     fast_node(g, n);
     GD_n_nodes(g, GD_n_nodes(g)+1);
     return n;
@@ -1178,15 +864,16 @@ LEAVING("eg08ajzojsm0224btmfi7kdxt","virtual_node");
 
 
 
-//3 8dvukicq96g5t3xgdl0ue35mj
-// void flat_edge(graph_t * g, edge_t * e) 
-public static void flat_edge(Agraph_s g, Agedge_s e) {
+@Difficult
+@Reviewed(when = "15/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="flat_edge", key="8dvukicq96g5t3xgdl0ue35mj", definition="void flat_edge(graph_t * g, edge_t * e)")
+public static void flat_edge(ST_Agraph_s g, ST_Agedge_s e) {
 ENTERING("8dvukicq96g5t3xgdl0ue35mj","flat_edge");
 try {
     elist_append(e, ND_flat_out(agtail(e)));
     elist_append(e, ND_flat_in(aghead(e)));
-    GD_has_flat_edges(g, NOT(false));
-    GD_has_flat_edges(dot_root(g), NOT(false));
+    GD_has_flat_edges(g, true);
+    GD_has_flat_edges(dot_root(g), true);
 } finally {
 LEAVING("8dvukicq96g5t3xgdl0ue35mj","flat_edge");
 }
@@ -1197,14 +884,16 @@ LEAVING("8dvukicq96g5t3xgdl0ue35mj","flat_edge");
 
 //3 clspalhiuedfnk9g9rlvfqpg7
 // void delete_flat_edge(edge_t * e) 
-public static void delete_flat_edge(Agedge_s e) {
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="delete_flat_edge", key="clspalhiuedfnk9g9rlvfqpg7", definition="void delete_flat_edge(edge_t * e)")
+public static void delete_flat_edge(ST_Agedge_s e) {
 ENTERING("clspalhiuedfnk9g9rlvfqpg7","delete_flat_edge");
 try {
     assert(e != null);
     if (ED_to_orig(e)!=null && EQ(ED_to_virt(ED_to_orig(e)), e))
 	ED_to_virt(ED_to_orig(e), null);
-    zapinlist((ND_flat_out(agtail(e))).amp(), e);
-    zapinlist((ND_flat_in(aghead(e))).amp(), e);
+    zapinlist((ND_flat_out(agtail(e))), e);
+    zapinlist((ND_flat_in(aghead(e))), e);
 } finally {
 LEAVING("clspalhiuedfnk9g9rlvfqpg7","delete_flat_edge");
 }
@@ -1213,16 +902,16 @@ LEAVING("clspalhiuedfnk9g9rlvfqpg7","delete_flat_edge");
 
 
 
-//3 dcfpol11cvlt6aaa6phqbp6fo
-// static void  basic_merge(edge_t * e, edge_t * rep) 
-public static void basic_merge(Agedge_s e, Agedge_s rep) {
+@Reviewed(when = "14/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="basic_merge", key="dcfpol11cvlt6aaa6phqbp6fo", definition="static void  basic_merge(edge_t * e, edge_t * rep)")
+public static void basic_merge(ST_Agedge_s e, ST_Agedge_s rep) {
 ENTERING("dcfpol11cvlt6aaa6phqbp6fo","basic_merge");
 try {
     if (ED_minlen(rep) < ED_minlen(e))
 	ED_minlen(rep, ED_minlen(e));
     while (rep!=null) {
 	ED_count(rep, ED_count(rep) + ED_count(e));
-	ED_xpenalty(rep, ED_xpenalty(rep) +ED_xpenalty(e));
+	ED_xpenalty(rep, ED_xpenalty(rep) + ED_xpenalty(e));
 	ED_weight(rep, ED_weight(rep) + ED_weight(e));
 	rep = ED_to_virt(rep);
     }
@@ -1234,9 +923,9 @@ LEAVING("dcfpol11cvlt6aaa6phqbp6fo","basic_merge");
 
 
 
-//3 6dxgtoii76tmonlnvz4rmiytd
-// void  merge_oneway(edge_t * e, edge_t * rep) 
-public static void merge_oneway(Agedge_s e, Agedge_s rep) {
+@Reviewed(when = "14/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="merge_oneway", key="6dxgtoii76tmonlnvz4rmiytd", definition="void  merge_oneway(edge_t * e, edge_t * rep)")
+public static void merge_oneway(ST_Agedge_s e, ST_Agedge_s rep) {
 ENTERING("6dxgtoii76tmonlnvz4rmiytd","merge_oneway");
 try {
     if (EQ(rep, ED_to_virt(e))) {
@@ -1256,6 +945,8 @@ LEAVING("6dxgtoii76tmonlnvz4rmiytd","merge_oneway");
 
 //3 656h1u18x3gommk50i4bak8wi
 // static void  unrep(edge_t * rep, edge_t * e) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="unrep", key="656h1u18x3gommk50i4bak8wi", definition="static void  unrep(edge_t * rep, edge_t * e)")
 public static Object unrep(Object... arg) {
 UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
 UNSUPPORTED("1cysdqgx90krtmp6pc8358byz"); // unrep(edge_t * rep, edge_t * e)
@@ -1273,6 +964,8 @@ throw new UnsupportedOperationException();
 
 //3 62io7qyqg9kqthfkbotnjdq49
 // void unmerge_oneway(edge_t * e) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="unmerge_oneway", key="62io7qyqg9kqthfkbotnjdq49", definition="void unmerge_oneway(edge_t * e)")
 public static Object unmerge_oneway(Object... arg) {
 UNSUPPORTED("3rlflkkd29cm53ssikvrqx06v"); // void unmerge_oneway(edge_t * e)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {

@@ -4,10 +4,15 @@
  *
  * Project Info:  http://plantuml.com
  * 
+ * If you like this project or if you find it useful, you can support us at:
+ * 
+ * http://plantuml.com/patreon (only 1$ per month!)
+ * http://plantuml.com/paypal
+ * 
  * This file is part of Smetana.
  * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * (C) Copyright 2009-2017, Arnaud Roques
+ * (C) Copyright 2009-2022, Arnaud Roques
  *
  * This translation is distributed under the same Licence as the original C program:
  * 
@@ -39,153 +44,10 @@
  *
  */
 package gen.lib.common;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static smetana.core.JUtilsDebug.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import gen.annotation.Original;
+import gen.annotation.Reviewed;
+import gen.annotation.Unused;
+import static smetana.core.Macro.UNSUPPORTED;
 
 public class taper__c {
 //1 2digov3edok6d5srhgtlmrycs
@@ -296,6 +158,8 @@ public class taper__c {
 
 //3 37hx3k37anj8r9mjvso4soefw
 // static void addto (stroke_t* p, double x, double y) 
+@Unused
+@Original(version="2.38.0", path="lib/common/taper.c", name="addto", key="37hx3k37anj8r9mjvso4soefw", definition="static void addto (stroke_t* p, double x, double y)")
 public static Object addto(Object... arg) {
 UNSUPPORTED("cxe7x5zvdqcgljx0c0ct5kj7v"); // static void addto (stroke_t* p, double x, double y)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -317,6 +181,8 @@ throw new UnsupportedOperationException();
 
 //3 5rbblyx7l2j8x4skajzxqiwaf
 // static void arcn (stroke_t* p, double x, double y, double r, double a1, double a2) 
+@Unused
+@Original(version="2.38.0", path="lib/common/taper.c", name="arcn", key="5rbblyx7l2j8x4skajzxqiwaf", definition="static void arcn (stroke_t* p, double x, double y, double r, double a1, double a2)")
 public static Object arcn(Object... arg) {
 UNSUPPORTED("3jgc82gtsuvmp7kj1sfwtf5uv"); // static void arcn (stroke_t* p, double x, double y, double r, double a1, double a2)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -340,6 +206,8 @@ throw new UnsupportedOperationException();
 
 //3 dw4giwrdkygo30ux7h9vqoni5
 // static double myatan (double y, double x) 
+@Unused
+@Original(version="2.38.0", path="lib/common/taper.c", name="myatan", key="dw4giwrdkygo30ux7h9vqoni5", definition="static double myatan (double y, double x)")
 public static Object myatan(Object... arg) {
 UNSUPPORTED("51twbyur0a3vygc4lht7f3yal"); // static double myatan (double y, double x)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -361,6 +229,8 @@ throw new UnsupportedOperationException();
 
 //3 apxlatl0g1hcl36pozo9rbijz
 // static double mymod (double original, double modulus) 
+@Unused
+@Original(version="2.38.0", path="lib/common/taper.c", name="mymod", key="apxlatl0g1hcl36pozo9rbijz", definition="static double mymod (double original, double modulus)")
 public static Object mymod(Object... arg) {
 UNSUPPORTED("4lzz822wr9xogvbkxwq2p4djj"); // static double mymod (double original, double modulus)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -380,6 +250,8 @@ throw new UnsupportedOperationException();
 
 //3 3vkg7w3ke5ee59segqqkwid17
 // static vararr_t* newArr (void) 
+@Unused
+@Original(version="2.38.0", path="lib/common/taper.c", name="newArr", key="3vkg7w3ke5ee59segqqkwid17", definition="static vararr_t* newArr (void)")
 public static Object newArr(Object... arg) {
 UNSUPPORTED("6oi8ug46evw6d3gxiiqkxwu30"); // static vararr_t*
 UNSUPPORTED("4vfh8nqxhykygdmg0ifzha82l"); // newArr (void)
@@ -399,6 +271,8 @@ throw new UnsupportedOperationException();
 
 //3 emanczpl0fr5cs8t1tgvka2ua
 // static void insertArr (vararr_t* arr, pointf p, double l) 
+@Unused
+@Original(version="2.38.0", path="lib/common/taper.c", name="insertArr", key="emanczpl0fr5cs8t1tgvka2ua", definition="static void insertArr (vararr_t* arr, pointf p, double l)")
 public static Object insertArr(Object... arg) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("8v67nvmyz4yxnupb82f54jk9g"); // insertArr (vararr_t* arr, pointf p, double l)
@@ -420,6 +294,8 @@ throw new UnsupportedOperationException();
 
 //3 djrl04e0hnm9z4c9mygp3kdjn
 // static void fixArr (vararr_t* arr) 
+@Unused
+@Original(version="2.38.0", path="lib/common/taper.c", name="fixArr", key="djrl04e0hnm9z4c9mygp3kdjn", definition="static void fixArr (vararr_t* arr)")
 public static Object fixArr(Object... arg) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("82xx4q98200g4y3mpp3pal2li"); // fixArr (vararr_t* arr)
@@ -436,6 +312,8 @@ throw new UnsupportedOperationException();
 
 //3 dkncnskx3m00uje3cgv41ijdt
 // static void freeArr (vararr_t* arr) 
+@Unused
+@Original(version="2.38.0", path="lib/common/taper.c", name="freeArr", key="dkncnskx3m00uje3cgv41ijdt", definition="static void freeArr (vararr_t* arr)")
 public static Object freeArr(Object... arg) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("54u81fh95rxlpha3qyk9ehb7c"); // freeArr (vararr_t* arr)
@@ -452,6 +330,8 @@ throw new UnsupportedOperationException();
 
 //3 2vfkvxso8rdk46al15j439ju
 // static double l2dist (pointf p0, pointf p1) 
+@Unused
+@Original(version="2.38.0", path="lib/common/taper.c", name="l2dist", key="2vfkvxso8rdk46al15j439ju", definition="static double l2dist (pointf p0, pointf p1)")
 public static Object l2dist(Object... arg) {
 UNSUPPORTED("1pz4c8sn3juc1g2fhezjnpmd2"); // static double l2dist (pointf p0, pointf p1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -468,6 +348,8 @@ throw new UnsupportedOperationException();
 
 //3 e8z50dab6k0lk9eru6tpkypvs
 // static vararr_t* pathtolines (bezier* bez, double initwid) 
+@Unused
+@Original(version="2.38.0", path="lib/common/taper.c", name="pathtolines", key="e8z50dab6k0lk9eru6tpkypvs", definition="static vararr_t* pathtolines (bezier* bez, double initwid)")
 public static Object pathtolines(Object... arg) {
 UNSUPPORTED("4co20l0j4xlm1zv7bjwz9elqo"); // static vararr_t* pathtolines (bezier* bez, double initwid)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -511,6 +393,8 @@ throw new UnsupportedOperationException();
 
 //3 5tozuy492rmd5etcp98dlqt1y
 // static void drawbevel(double x, double y, double lineout, int forward, double dir, double dir2, int linejoin, stroke_t* p) 
+@Unused
+@Original(version="2.38.0", path="lib/common/taper.c", name="drawbevel", key="5tozuy492rmd5etcp98dlqt1y", definition="static void drawbevel(double x, double y, double lineout, int forward, double dir, double dir2, int linejoin, stroke_t* p)")
 public static Object drawbevel(Object... arg) {
 UNSUPPORTED("2qy6fcr5q2i7bkdxvzzwrz570"); // static void drawbevel(double x, double y, double lineout, int forward, double dir, double dir2, int linejoin, stroke_t* p)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -544,6 +428,8 @@ throw new UnsupportedOperationException();
 
 //3 67jgk3x4cvr5g5sjkktz9hv3p
 // stroke_t* taper (bezier* bez, radfunc_t radfunc, double initwid, int linejoin, int linecap) 
+@Unused
+@Original(version="2.38.0", path="lib/common/taper.c", name="taper", key="67jgk3x4cvr5g5sjkktz9hv3p", definition="stroke_t* taper (bezier* bez, radfunc_t radfunc, double initwid, int linejoin, int linecap)")
 public static Object taper(Object... arg) {
 UNSUPPORTED("92uf8ujxvbmb009ow0y2ylc28"); // stroke_t* taper (bezier* bez, radfunc_t radfunc, double initwid, int linejoin, int linecap)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -691,6 +577,8 @@ throw new UnsupportedOperationException();
 
 //3 5p2ry36pn9erx76ct8agwj29j
 // static double halffunc (double curlen, double totallen, double initwid) 
+@Unused
+@Original(version="2.38.0", path="lib/common/taper.c", name="halffunc", key="5p2ry36pn9erx76ct8agwj29j", definition="static double halffunc (double curlen, double totallen, double initwid)")
 public static Object halffunc(Object... arg) {
 UNSUPPORTED("9tja24cimn4bxxvgebqx1p7g6"); // static double halffunc (double curlen, double totallen, double initwid)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -705,6 +593,8 @@ throw new UnsupportedOperationException();
 
 //3 9atumni48eq11oedwpruqobkj
 // stroke_t* taper0 (bezier* bez, double initwid) 
+@Unused
+@Original(version="2.38.0", path="lib/common/taper.c", name="taper0", key="9atumni48eq11oedwpruqobkj", definition="stroke_t* taper0 (bezier* bez, double initwid)")
 public static Object taper0(Object... arg) {
 UNSUPPORTED("8flvjq0yy9wk9rlpxmqius1l1"); // stroke_t* taper0 (bezier* bez, double initwid)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {

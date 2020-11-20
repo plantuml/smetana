@@ -4,10 +4,15 @@
  *
  * Project Info:  http://plantuml.com
  * 
+ * If you like this project or if you find it useful, you can support us at:
+ * 
+ * http://plantuml.com/patreon (only 1$ per month!)
+ * http://plantuml.com/paypal
+ * 
  * This file is part of Smetana.
  * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * (C) Copyright 2009-2017, Arnaud Roques
+ * (C) Copyright 2009-2020, Arnaud Roques
  *
  * This translation is distributed under the same Licence as the original C program.
  * 
@@ -31,41 +36,39 @@
 
 package smetana.core;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import smetana.core.debug.Debug;
+import smetana.core.debug.SmetanaDebug;
 
 public class JUtilsDebug {
 
-	private final static CallStack callStack = new CallStack();
-	private final static Debug debug = new Debug();
+	private final static boolean TRACE = false;
+	public final static boolean VERY_VERBOSE = false;
+
+	private final static SmetanaDebug debug = TRACE ? new SmetanaDebug() : null;
+
+	static public void LOG(String s) {
+		if (debug != null)
+			debug.logline(s);
+
+	}
 
 	static public void ENTERING(String signature, String methodName) {
-		callStack.entering(signature, methodName);
-		debug.entering(signature, methodName);
+		if (debug != null)
+			debug.entering(signature, methodName);
 	}
 
 	static public void LEAVING(String signature, String methodName) {
-		callStack.leaving(signature, methodName);
-		debug.leaving(signature, methodName);
+		if (debug != null)
+			debug.leaving(signature, methodName);
 	}
 
-	static public void printCallStack(File f) throws FileNotFoundException {
-		final PrintWriter pw = new PrintWriter(f);
-		pw.println("@startuml");
-		pw.println("digraph call {");
-		pw.println("rankdir=LR;");
-		callStack.printCallStack(pw);
-		pw.println("}");
-		pw.println("@enduml");
-		pw.close();
+	public static void reset() {
+		if (debug != null)
+			debug.reset();
 	}
 
-	public static void printMethods() throws IOException {
-		callStack.printMethods();
+	public static void printMe() {
+		if (debug != null)
+			debug.printMe();
 	}
 
 }

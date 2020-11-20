@@ -4,10 +4,15 @@
  *
  * Project Info:  http://plantuml.com
  * 
+ * If you like this project or if you find it useful, you can support us at:
+ * 
+ * http://plantuml.com/patreon (only 1$ per month!)
+ * http://plantuml.com/paypal
+ * 
  * This file is part of Smetana.
  * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * (C) Copyright 2009-2017, Arnaud Roques
+ * (C) Copyright 2009-2022, Arnaud Roques
  *
  * This translation is distributed under the same Licence as the original C program:
  * 
@@ -39,153 +44,13 @@
  *
  */
 package gen.lib.common;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static smetana.core.JUtilsDebug.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import gen.annotation.Original;
+import gen.annotation.Reviewed;
+import gen.annotation.Unused;
+import static smetana.core.JUtilsDebug.ENTERING;
+import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.UNSUPPORTED;
+import h.ST_pointf;
 
 public class htmlparse__c {
 //1 2digov3edok6d5srhgtlmrycs
@@ -428,6 +293,8 @@ public class htmlparse__c {
 
 //3 ciez0pfggxdljedzsbklq49f0
 // static inline point pointof(int x, int y) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="pointof", key="ciez0pfggxdljedzsbklq49f0", definition="static inline point pointof(int x, int y)")
 public static Object pointof(Object... arg) {
 UNSUPPORTED("8e4tj258yvfq5uhsdpk37n5eq"); // static inline point pointof(int x, int y)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -443,29 +310,13 @@ throw new UnsupportedOperationException();
 
 
 
-//3 c1s4k85p1cdfn176o3uryeros
-// static inline pointf pointfof(double x, double y) 
-public static __struct__<pointf> pointfof(double x, double y) {
-// WARNING!! STRUCT
-return pointfof_w_(x, y).copy();
-}
-private static __struct__<pointf> pointfof_w_(double x, double y) {
-ENTERING("c1s4k85p1cdfn176o3uryeros","pointfof");
-try {
-    final __struct__<pointf> r = __struct__.from(pointf.class);
-    r.setDouble("x", x);
-    r.setDouble("y", y);
-    return r;
-} finally {
-LEAVING("c1s4k85p1cdfn176o3uryeros","pointfof");
-}
-}
-
 
 
 
 //3 7cufnfitrh935ew093mw0i4b7
 // static inline box boxof(int llx, int lly, int urx, int ury) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="boxof", key="7cufnfitrh935ew093mw0i4b7", definition="static inline box boxof(int llx, int lly, int urx, int ury)")
 public static Object boxof(Object... arg) {
 UNSUPPORTED("3lzesfdd337h31jrlib1czocm"); // static inline box boxof(int llx, int lly, int urx, int ury)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -481,31 +332,13 @@ throw new UnsupportedOperationException();
 
 
 
-//3 1vvsta5i8of59frav6uymguav
-// static inline boxf boxfof(double llx, double lly, double urx, double ury) 
-public static __struct__<boxf> boxfof(double llx, double lly, double urx, double ury) {
-// WARNING!! STRUCT
-return boxfof_w_(llx, lly, urx, ury).copy();
-}
-private static __struct__<boxf> boxfof_w_(double llx, double lly, double urx, double ury) {
-ENTERING("1vvsta5i8of59frav6uymguav","boxfof");
-try {
-    final __struct__<boxf> b = __struct__.from(boxf.class);
-    b.getStruct("LL").setDouble("x", llx);
-    b.getStruct("LL").setDouble("y", lly);
-    b.getStruct("UR").setDouble("x", urx);
-    b.getStruct("UR").setDouble("y", ury);
-    return b;
-} finally {
-LEAVING("1vvsta5i8of59frav6uymguav","boxfof");
-}
-}
-
 
 
 
 //3 1n5xl70wxuabyf97mclvilsm6
 // static inline point add_point(point p, point q) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="add_point", key="1n5xl70wxuabyf97mclvilsm6", definition="static inline point add_point(point p, point q)")
 public static Object add_point(Object... arg) {
 UNSUPPORTED("6iamka1fx8fk1rohzzse8phte"); // static inline point add_point(point p, point q)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -521,29 +354,13 @@ throw new UnsupportedOperationException();
 
 
 
-//3 arrsbik9b5tnfcbzsm8gr2chx
-// static inline pointf add_pointf(pointf p, pointf q) 
-public static __struct__<pointf> add_pointf(final __struct__<pointf> p, final __struct__<pointf> q) {
-// WARNING!! STRUCT
-return add_pointf_w_(p.copy(), q.copy()).copy();
-}
-private static __struct__<pointf> add_pointf_w_(final __struct__<pointf> p, final __struct__<pointf> q) {
-ENTERING("arrsbik9b5tnfcbzsm8gr2chx","add_pointf");
-try {
-    final __struct__<pointf> r = __struct__.from(pointf.class);
-    r.setDouble("x", p.getDouble("x") + q.getDouble("x"));
-    r.setDouble("y", p.getDouble("y") + q.getDouble("y"));
-    return r;
-} finally {
-LEAVING("arrsbik9b5tnfcbzsm8gr2chx","add_pointf");
-}
-}
-
 
 
 
 //3 ai2dprak5y6obdsflguh5qbd7
 // static inline point sub_point(point p, point q) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="sub_point", key="ai2dprak5y6obdsflguh5qbd7", definition="static inline point sub_point(point p, point q)")
 public static Object sub_point(Object... arg) {
 UNSUPPORTED("cd602849h0bce8lu9xegka0ia"); // static inline point sub_point(point p, point q)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -561,6 +378,8 @@ throw new UnsupportedOperationException();
 
 //3 16f6pyogcv3j7n2p0n8giqqgh
 // static inline pointf sub_pointf(pointf p, pointf q) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="sub_pointf", key="16f6pyogcv3j7n2p0n8giqqgh", definition="static inline pointf sub_pointf(pointf p, pointf q)")
 public static Object sub_pointf(Object... arg) {
 UNSUPPORTED("dmufj44lddsnj0wjyxsg2fcso"); // static inline pointf sub_pointf(pointf p, pointf q)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -578,6 +397,8 @@ throw new UnsupportedOperationException();
 
 //3 9k50jgrhc4f9824vf8ony74rw
 // static inline point mid_point(point p, point q) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="mid_point", key="9k50jgrhc4f9824vf8ony74rw", definition="static inline point mid_point(point p, point q)")
 public static Object mid_point(Object... arg) {
 UNSUPPORTED("evy44tdsmu3erff9dp2x835u2"); // static inline point mid_point(point p, point q)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -595,6 +416,8 @@ throw new UnsupportedOperationException();
 
 //3 59c4f7im0ftyowhnzzq2v9o1x
 // static inline pointf mid_pointf(pointf p, pointf q) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="mid_pointf", key="59c4f7im0ftyowhnzzq2v9o1x", definition="static inline pointf mid_pointf(pointf p, pointf q)")
 public static Object mid_pointf(Object... arg) {
 UNSUPPORTED("381o63o9kb04d7gzg65v0r3q"); // static inline pointf mid_pointf(pointf p, pointf q)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -612,6 +435,8 @@ throw new UnsupportedOperationException();
 
 //3 5r18p38gisvcx3zsvbb9saixx
 // static inline pointf interpolate_pointf(double t, pointf p, pointf q) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="interpolate_pointf", key="5r18p38gisvcx3zsvbb9saixx", definition="static inline pointf interpolate_pointf(double t, pointf p, pointf q)")
 public static Object interpolate_pointf(Object... arg) {
 UNSUPPORTED("894yimn33kmtm454llwdaotu8"); // static inline pointf interpolate_pointf(double t, pointf p, pointf q)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -629,6 +454,8 @@ throw new UnsupportedOperationException();
 
 //3 bxzrv2ghq04qk5cbyy68s4mol
 // static inline point exch_xy(point p) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="exch_xy", key="bxzrv2ghq04qk5cbyy68s4mol", definition="static inline point exch_xy(point p)")
 public static Object exch_xy(Object... arg) {
 UNSUPPORTED("2vxya0v2fzlv5e0vjaa8d414"); // static inline point exch_xy(point p)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -646,6 +473,8 @@ throw new UnsupportedOperationException();
 
 //3 9lt3e03tac6h6sydljrcws8fd
 // static inline pointf exch_xyf(pointf p) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="exch_xyf", key="9lt3e03tac6h6sydljrcws8fd", definition="static inline pointf exch_xyf(pointf p)")
 public static Object exch_xyf(Object... arg) {
 UNSUPPORTED("8qamrobrqi8jsvvfrxkimrsnw"); // static inline pointf exch_xyf(pointf p)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -663,6 +492,8 @@ throw new UnsupportedOperationException();
 
 //3 8l9qhieokthntzdorlu5zn29b
 // static inline box box_bb(box b0, box b1) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="box_bb", key="8l9qhieokthntzdorlu5zn29b", definition="static inline box box_bb(box b0, box b1)")
 public static Object box_bb(Object... arg) {
 UNSUPPORTED("36et5gmnjrby6o7bq9sgh1hx6"); // static inline box box_bb(box b0, box b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -682,6 +513,8 @@ throw new UnsupportedOperationException();
 
 //3 clws9h3bbjm0lw3hexf8nl4c4
 // static inline boxf boxf_bb(boxf b0, boxf b1) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="boxf_bb", key="clws9h3bbjm0lw3hexf8nl4c4", definition="static inline boxf boxf_bb(boxf b0, boxf b1)")
 public static Object boxf_bb(Object... arg) {
 UNSUPPORTED("dyrqu4ww9osr9c86gqgmifcp6"); // static inline boxf boxf_bb(boxf b0, boxf b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -701,6 +534,8 @@ throw new UnsupportedOperationException();
 
 //3 bit6ycxo1iqd2al92y8gkzlvb
 // static inline box box_intersect(box b0, box b1) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="box_intersect", key="bit6ycxo1iqd2al92y8gkzlvb", definition="static inline box box_intersect(box b0, box b1)")
 public static Object box_intersect(Object... arg) {
 UNSUPPORTED("34gv28cldst09bl71itjgviue"); // static inline box box_intersect(box b0, box b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -720,6 +555,8 @@ throw new UnsupportedOperationException();
 
 //3 8gfybie7k6pgb3o1a6llgpwng
 // static inline boxf boxf_intersect(boxf b0, boxf b1) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="boxf_intersect", key="8gfybie7k6pgb3o1a6llgpwng", definition="static inline boxf boxf_intersect(boxf b0, boxf b1)")
 public static Object boxf_intersect(Object... arg) {
 UNSUPPORTED("ape22b8z6jfg17gvo42hok9eb"); // static inline boxf boxf_intersect(boxf b0, boxf b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -739,6 +576,8 @@ throw new UnsupportedOperationException();
 
 //3 7z8j2quq65govaaejrz7b4cvb
 // static inline int box_overlap(box b0, box b1) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="box_overlap", key="7z8j2quq65govaaejrz7b4cvb", definition="static inline int box_overlap(box b0, box b1)")
 public static Object box_overlap(Object... arg) {
 UNSUPPORTED("1e9k599x7ygct7r4cfdxlk9u9"); // static inline int box_overlap(box b0, box b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -753,6 +592,8 @@ throw new UnsupportedOperationException();
 
 //3 4z0suuut2acsay5m8mg9dqjdu
 // static inline int boxf_overlap(boxf b0, boxf b1) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="boxf_overlap", key="4z0suuut2acsay5m8mg9dqjdu", definition="static inline int boxf_overlap(boxf b0, boxf b1)")
 public static Object boxf_overlap(Object... arg) {
 UNSUPPORTED("905nejsewihwhhc3bhnrz9nwo"); // static inline int boxf_overlap(boxf b0, boxf b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -767,6 +608,8 @@ throw new UnsupportedOperationException();
 
 //3 dd34swz5rmdgu3a2np2a4h1dy
 // static inline int box_contains(box b0, box b1) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="box_contains", key="dd34swz5rmdgu3a2np2a4h1dy", definition="static inline int box_contains(box b0, box b1)")
 public static Object box_contains(Object... arg) {
 UNSUPPORTED("aputfc30fjkvy6jx4otljaczq"); // static inline int box_contains(box b0, box b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -781,6 +624,8 @@ throw new UnsupportedOperationException();
 
 //3 8laj1bspbu2i1cjd9upr7xt32
 // static inline int boxf_contains(boxf b0, boxf b1) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="boxf_contains", key="8laj1bspbu2i1cjd9upr7xt32", definition="static inline int boxf_contains(boxf b0, boxf b1)")
 public static Object boxf_contains(Object... arg) {
 UNSUPPORTED("7ccnttkiwt834yfyw0evcm18v"); // static inline int boxf_contains(boxf b0, boxf b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -795,6 +640,8 @@ throw new UnsupportedOperationException();
 
 //3 4wf5swkz24xx51ja2dynbycu1
 // static inline pointf perp (pointf p) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="perp", key="4wf5swkz24xx51ja2dynbycu1", definition="static inline pointf perp (pointf p)")
 public static Object perp(Object... arg) {
 UNSUPPORTED("567wpqlg9rv63ynyvxd9sgkww"); // static inline pointf perp (pointf p)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -812,6 +659,8 @@ throw new UnsupportedOperationException();
 
 //3 6dtlpzv4mvgzb9o0b252yweuv
 // static inline pointf scale (double c, pointf p) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="scale", key="6dtlpzv4mvgzb9o0b252yweuv", definition="static inline pointf scale (double c, pointf p)")
 public static Object scale(Object... arg) {
 UNSUPPORTED("c1ngytew34bmkdb7vps5h3dh8"); // static inline pointf scale (double c, pointf p)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -829,6 +678,8 @@ throw new UnsupportedOperationException();
 
 //3 z596gpwi24gl7hh3seyp0gck
 // static void free_ritem(Dt_t* d, pitem* p,Dtdisc_t* ds) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="free_ritem", key="z596gpwi24gl7hh3seyp0gck", definition="static void free_ritem(Dt_t* d, pitem* p,Dtdisc_t* ds)")
 public static Object free_ritem(Object... arg) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("d1sfyoxiqpnl52w8y4ogbcpx4"); // free_ritem(Dt_t* d, pitem* p,Dtdisc_t* ds)
@@ -845,6 +696,8 @@ throw new UnsupportedOperationException();
 
 //3 agf3jzkrkzu95vturq4ruirl1
 // static void free_item(Dt_t* d, void* p,Dtdisc_t* ds) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="free_item", key="agf3jzkrkzu95vturq4ruirl1", definition="static void free_item(Dt_t* d, void* p,Dtdisc_t* ds)")
 public static Object free_item(Object... arg) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("aeylv2tqn9jclpx81wzo8jna8"); // free_item(Dt_t* d, void* p,Dtdisc_t* ds)
@@ -860,6 +713,8 @@ throw new UnsupportedOperationException();
 
 //3 53er8pztmugi7aaoo8w6xwmtt
 // static void cleanTbl (htmltbl_t* tp) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="cleanTbl", key="53er8pztmugi7aaoo8w6xwmtt", definition="static void cleanTbl (htmltbl_t* tp)")
 public static Object cleanTbl(Object... arg) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("ejt6odqhq24f0w764y6ycw02q"); // cleanTbl (htmltbl_t* tp)
@@ -877,6 +732,8 @@ throw new UnsupportedOperationException();
 
 //3 5fdbv5ru77dtss1pgwxt2dviz
 // static void cleanCell (htmlcell_t* cp) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="cleanCell", key="5fdbv5ru77dtss1pgwxt2dviz", definition="static void cleanCell (htmlcell_t* cp)")
 public static Object cleanCell(Object... arg) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("a2mzu2huku49nng3e0xjq7gly"); // cleanCell (htmlcell_t* cp)
@@ -895,6 +752,8 @@ throw new UnsupportedOperationException();
 
 //3 8ipdkk14qkzxks3qfhcg430xd
 // static void free_citem(Dt_t* d, pitem* p,Dtdisc_t* ds) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="free_citem", key="8ipdkk14qkzxks3qfhcg430xd", definition="static void free_citem(Dt_t* d, pitem* p,Dtdisc_t* ds)")
 public static Object free_citem(Object... arg) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("bixe5avd0uejldfgeyicnxgak"); // free_citem(Dt_t* d, pitem* p,Dtdisc_t* ds)
@@ -919,6 +778,8 @@ throw new UnsupportedOperationException();
 
 //3 4vewb2db7impvcvf47z3wia3j
 // static void  free_fitem(Dt_t* d, fitem* p, Dtdisc_t* ds) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="free_fitem", key="4vewb2db7impvcvf47z3wia3j", definition="static void  free_fitem(Dt_t* d, fitem* p, Dtdisc_t* ds)")
 public static Object free_fitem(Object... arg) {
 UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
 UNSUPPORTED("26gmt3uykv7jwzz4zsuhzmh6c"); // free_fitem(Dt_t* d, fitem* p, Dtdisc_t* ds)
@@ -936,6 +797,8 @@ throw new UnsupportedOperationException();
 
 //3 49a1cavr0uwsfiywr4vlx1j9a
 // static void  free_fspan(Dt_t* d, fspan* p, Dtdisc_t* ds) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="free_fspan", key="49a1cavr0uwsfiywr4vlx1j9a", definition="static void  free_fspan(Dt_t* d, fspan* p, Dtdisc_t* ds)")
 public static Object free_fspan(Object... arg) {
 UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
 UNSUPPORTED("8jhubbnlsdmf8fbpmzgat0ym2"); // free_fspan(Dt_t* d, fspan* p, Dtdisc_t* ds)
@@ -969,6 +832,8 @@ throw new UnsupportedOperationException();
 
 //3 5mdfgv2hdexhdfc83v70ruckg
 // static void appendFItemList (agxbuf *ag) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="appendFItemList", key="5mdfgv2hdexhdfc83v70ruckg", definition="static void appendFItemList (agxbuf *ag)")
 public static Object appendFItemList(Object... arg) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("3bn87tz9mrrkcgn2ilvrticxw"); // appendFItemList (agxbuf *ag)
@@ -987,6 +852,8 @@ throw new UnsupportedOperationException();
 
 //3 4famoxxlv0pr1b2fcrf0jgu7s
 // static void  appendFLineList (int v) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="appendFLineList", key="4famoxxlv0pr1b2fcrf0jgu7s", definition="static void  appendFLineList (int v)")
 public static Object appendFLineList(Object... arg) {
 UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
 UNSUPPORTED("1azzbwypafe22124r30oc4gda"); // appendFLineList (int v)
@@ -1028,6 +895,8 @@ throw new UnsupportedOperationException();
 
 //3 az5nhw9enic3fddz8gnedxcju
 // static htmltxt_t* mkText(void) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="mkText", key="az5nhw9enic3fddz8gnedxcju", definition="static htmltxt_t* mkText(void)")
 public static Object mkText(Object... arg) {
 UNSUPPORTED("ey6kc3f9ltt691wqrfmypaozl"); // static htmltxt_t*
 UNSUPPORTED("cjs0uzhgqb2fc7756tzv0vojf"); // mkText(void)
@@ -1060,6 +929,8 @@ throw new UnsupportedOperationException();
 
 //3 23wdl6n60rq8jhsrdhgamjwls
 // static pitem* lastRow (void) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="lastRow", key="23wdl6n60rq8jhsrdhgamjwls", definition="static pitem* lastRow (void)")
 public static Object lastRow(Object... arg) {
 UNSUPPORTED("d6gug3eud9z5l6tlnca1w8use"); // static pitem* lastRow (void)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -1076,6 +947,8 @@ throw new UnsupportedOperationException();
 
 //3 8t79v9x9xl9lbtpdi34ff3phe
 // static pitem* addRow (void) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="addRow", key="8t79v9x9xl9lbtpdi34ff3phe", definition="static pitem* addRow (void)")
 public static Object addRow(Object... arg) {
 UNSUPPORTED("743f44ql6wbf8utttlgok2tms"); // static pitem* addRow (void)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -1097,6 +970,8 @@ throw new UnsupportedOperationException();
 
 //3 bdjjvqfdlg0yrp580jpv43hw4
 // static void setCell (htmlcell_t* cp, void* obj, int kind) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="setCell", key="bdjjvqfdlg0yrp580jpv43hw4", definition="static void setCell (htmlcell_t* cp, void* obj, int kind)")
 public static Object setCell(Object... arg) {
 UNSUPPORTED("a6ymak98eyh09432vmvpogipt"); // static void setCell (htmlcell_t* cp, void* obj, int kind)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -1125,6 +1000,8 @@ throw new UnsupportedOperationException();
 
 //3 86xg3md174m9d0hdj7lm1r8h8
 // static htmllabel_t* mkLabel (void* obj, int kind) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="mkLabel", key="86xg3md174m9d0hdj7lm1r8h8", definition="static htmllabel_t* mkLabel (void* obj, int kind)")
 public static Object mkLabel(Object... arg) {
 UNSUPPORTED("68olevx5qr27d1plva3kh6e5d"); // static htmllabel_t* mkLabel (void* obj, int kind)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -1145,6 +1022,8 @@ throw new UnsupportedOperationException();
 
 //3 cidlq4a037zcw1viv3yj5dm3o
 // static void freeFontstack(void) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="freeFontstack", key="cidlq4a037zcw1viv3yj5dm3o", definition="static void freeFontstack(void)")
 public static Object freeFontstack(Object... arg) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("5n6hadg2nnxbykkls8yuljrux"); // freeFontstack(void)
@@ -1164,6 +1043,8 @@ throw new UnsupportedOperationException();
 
 //3 ewyzfsvy1gms3jg0repa41hey
 // static void cleanup (void) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="cleanup", key="ewyzfsvy1gms3jg0repa41hey", definition="static void cleanup (void)")
 public static Object cleanup(Object... arg) {
 UNSUPPORTED("4udlidhjhh186l60tnwrndods"); // static void cleanup (void)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -1197,6 +1078,8 @@ throw new UnsupportedOperationException();
 
 //3 8bl8i4l3vq6849ak8bwey6mzk
 // static int nonSpace (char* s) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="nonSpace", key="8bl8i4l3vq6849ak8bwey6mzk", definition="static int nonSpace (char* s)")
 public static Object nonSpace(Object... arg) {
 UNSUPPORTED("48jbmcx7d591k3p9ro9ty0m3g"); // static int nonSpace (char* s)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -1215,6 +1098,8 @@ throw new UnsupportedOperationException();
 
 //3 87ios5hi5757k5miu6wlrum5w
 // static void pushFont (textfont_t *fp) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="pushFont", key="87ios5hi5757k5miu6wlrum5w", definition="static void pushFont (textfont_t *fp)")
 public static Object pushFont(Object... arg) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("a9n2aesdy1bywbrbze7gmkn17"); // pushFont (textfont_t *fp)
@@ -1245,6 +1130,8 @@ throw new UnsupportedOperationException();
 
 //3 9p42c6b9fpbzacsbf6pelg18i
 // static void  popFont (void) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="popFont", key="9p42c6b9fpbzacsbf6pelg18i", definition="static void  popFont (void)")
 public static Object popFont(Object... arg) {
 UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
 UNSUPPORTED("hvm5yavuo5ntqsxkc2wna9oi"); // popFont (void)
@@ -1323,6 +1210,8 @@ throw new UnsupportedOperationException();
 
 //3 efmks9lkxb4y34urxsqx4bs0
 // static void htmldestruct (htmlmsg, htmltype, htmlvaluep)     const char *htmlmsg
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="htmldestruct", key="efmks9lkxb4y34urxsqx4bs0", definition="static void htmldestruct (htmlmsg, htmltype, htmlvaluep)     const char *htmlmsg")
 public static Object htmldestruct(Object... arg) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("bfzx4tu82rlmwjppehpr1dqu5"); // htmldestruct (htmlmsg, htmltype, htmlvaluep)
@@ -1361,6 +1250,8 @@ throw new UnsupportedOperationException();
 
 //3 c3v0uk0nmo3q2j3wobf6794sb
 // int htmlparse ()    
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="htmlparse", key="c3v0uk0nmo3q2j3wobf6794sb", definition="int htmlparse ()")
 public static Object htmlparse(Object... arg) {
 UNSUPPORTED("etrjsq5w49uo9jq5pzifohkqw"); // int
 UNSUPPORTED("1h4o50xtpcoa3y6zlpkkxk6ib"); // htmlparse ()
@@ -1400,7 +1291,7 @@ UNSUPPORTED("3nswekisilyfverb25pazm044"); //   ;
 UNSUPPORTED("10i7gkv6rg0m7qpxuazy9xffi"); //   htmlstate = 0;
 UNSUPPORTED("1rk2q02feqw4cthy5e57fmf2g"); //   htmlerrstatus = 0;
 UNSUPPORTED("8id8dfn6laac87otcxbnhm1jn"); //   htmlnerrs = 0;
-UNSUPPORTED("3jqhe6ta2bm9bcf4w2963okw2"); //   htmlchar = (-2); /* Cause a token to be read.  */
+UNSUPPORTED("3jqhe6ta2bm9bcf4w2963okw2"); //   htmlchar = -2; /* Cause a token to be read.  */
 UNSUPPORTED("f0kbtpk40bbe7m53uwx0eezp4"); //   /* Initialize stack pointers.
 UNSUPPORTED("d8dtor5u60ag1mqqgil372nvk"); //      Waste one element of value and location stack
 UNSUPPORTED("7ev6rqep9cwoby6w6f1tx2osc"); //      so that they stay on the same level as the state stack.
@@ -1495,7 +1386,7 @@ UNSUPPORTED("93m3v5anc75abn6e089zd23lt"); //     htmlerrstatus--;
 UNSUPPORTED("bg4fkvjteodqrz0juw1viqqjp"); //   /* Shift the lookahead token.  */
 UNSUPPORTED("3nswekisilyfverb25pazm044"); //   ;
 UNSUPPORTED("vmreafe95a9c5qif2txdddol"); //   /* Discard the shifted token.  */
-UNSUPPORTED("c82uun4vuxwvsul28tm7jaekj"); //   htmlchar = (-2);
+UNSUPPORTED("c82uun4vuxwvsul28tm7jaekj"); //   htmlchar = -2;
 UNSUPPORTED("c7lyo4hbtrr9qa5r64z6spufb"); //   htmlstate = htmln;
 UNSUPPORTED("769m6xe129uc5szy8zzxdhv2d"); //   *++htmlvsp = htmllval;
 UNSUPPORTED("c663h0k0l1p8coybbax2cprhf"); //   goto htmlnewstate;
@@ -1797,7 +1688,7 @@ UNSUPPORTED("e2koj2xocq76awegpydpyu62m"); //       else
 UNSUPPORTED("98gvqspn5y1bfyr14rwoaqk67"); // 	{
 UNSUPPORTED("6ckiucqebiz712rdwog4hsrrz"); // 	  htmldestruct ("Error: discarding",
 UNSUPPORTED("csou9g15a99mvw0r7cibdqx9h"); // 		      htmltoken, &htmllval);
-UNSUPPORTED("ch9nagg8nbc7qnffa8prfjqye"); // 	  htmlchar = (-2);
+UNSUPPORTED("ch9nagg8nbc7qnffa8prfjqye"); // 	  htmlchar = -2;
 UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
 UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
 UNSUPPORTED("cngu0btwjacz5b793e8yvi9m1"); //   /* Else will try to reuse lookahead token after shifting the error
@@ -1903,6 +1794,8 @@ throw new UnsupportedOperationException();
 
 //3 dagfnuu2rb04nuow8simrvqdg
 // htmllabel_t* parseHTML (char* txt, int* warn, htmlenv_t *env) 
+@Unused
+@Original(version="2.38.0", path="lib/common/htmlparse.c", name="parseHTML", key="dagfnuu2rb04nuow8simrvqdg", definition="htmllabel_t* parseHTML (char* txt, int* warn, htmlenv_t *env)")
 public static Object parseHTML(Object... arg) {
 UNSUPPORTED("226x3zxbn3f7kzhqucskm0uoq"); // htmllabel_t*
 UNSUPPORTED("8cvtnulc9n3wdvcnyz42lwhzy"); // parseHTML (char* txt, int* warn, htmlenv_t *env)

@@ -4,10 +4,15 @@
  *
  * Project Info:  http://plantuml.com
  * 
+ * If you like this project or if you find it useful, you can support us at:
+ * 
+ * http://plantuml.com/patreon (only 1$ per month!)
+ * http://plantuml.com/paypal
+ * 
  * This file is part of Smetana.
  * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * (C) Copyright 2009-2017, Arnaud Roques
+ * (C) Copyright 2009-2020, Arnaud Roques
  *
  * This translation is distributed under the same Licence as the original C program.
  * 
@@ -34,15 +39,18 @@ package smetana.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import h.ST_refstr_t;
 import smetana.core.amiga.Area;
-import smetana.core.amiga.StarStruct;
 
 public class CString extends UnsupportedC implements __ptr__, Area {
+
+	private static int UID = 100;
 
 	private final Throwable creation = new Throwable();
 	private final List<Character> data2;
 	private final int currentStart;
-	private final List<__ptr__> fathers = new ArrayList<__ptr__>();
+
+	private final int uid;
 
 	public boolean isSameThan(CString other) {
 		if (this.data2 != other.data2) {
@@ -81,6 +89,11 @@ public class CString extends UnsupportedC implements __ptr__, Area {
 	public CString strdup() {
 		return duplicate();
 	}
+	
+	public static CString gmalloc(int nbytes) {
+		return new CString(nbytes);
+		}
+
 
 	public CString(int size) {
 		this(new ArrayList<Character>(), 0);
@@ -92,37 +105,69 @@ public class CString extends UnsupportedC implements __ptr__, Area {
 	private CString(List<Character> data2, int currentStart) {
 		this.data2 = data2;
 		this.currentStart = currentStart;
+		this.uid = UID;
+		UID += 2;
 		creation.fillInStackTrace();
 	}
 
 	public __ptr__ addVirtualBytes(int bytes) {
 		JUtils.LOG("CString::addVirtualBytes " + bytes);
 		JUtils.LOG("AM " + this);
-		if (bytes < 0) {
-			OFFSET offset = OFFSET.fromInt(-bytes);
-			JUtils.LOG("offset=" + offset);
-			for (__ptr__ f : fathers) {
-				JUtils.LOG("f=" + f);
-				if (f instanceof StarStruct && ((StarStruct) f).getRealClass() == offset.getTheClass()) {
-					JUtils.LOG("FOUND1!!");
-					if (f.getPtr(offset.getField()).equals(this)) {
-						JUtils.LOG("FOUND2!!");
-						return f;
-					}
-				}
-			}
-		} else {
-			JUtils.LOG("father=" + fathers);
-			JUtils.LOG("CString created on the following place:");
-			creation.printStackTrace();
+		// if (bytes < 0) {
+		// OFFSET offset = OFFSET.fromInt(-bytes);
+		// JUtils.LOG("offset=" + offset);
+		// for (__ptr__ f : fathers) {
+		// JUtils.LOG("f=" + f);
+		// if (f instanceof StarStruct && ((StarStruct) f).getRealClass() == offset.getTheClass()) {
+		// JUtils.LOG("FOUND1!!");
+		// if (f.getPtr(offset.getField()).equals(this)) {
+		// JUtils.LOG("FOUND2!!");
+		// return f;
+		// }
+		// }
+		// }
+		// } else {
+		// JUtils.LOG("father=" + fathers);
+		// JUtils.LOG("CString created on the following place:");
+		// creation.printStackTrace();
+		// }
+		throw new UnsupportedOperationException();
+	}
+
+	private ST_refstr_t parent;
+
+	public ST_refstr_t getParent() {
+		if (parent != null) {
+			return parent;
 		}
 		throw new UnsupportedOperationException();
+	}
+
+	public void setParent(ST_refstr_t struct) {
+//		if (parent != null && parent != struct) {
+//			throw new IllegalStateException();
+//		}
+		if (struct == null) {
+			throw new IllegalStateException();
+		}
+		this.parent = struct;
 	}
 
 	@Override
 	public CString plus(int pointerMove) {
 		return new CString(data2, currentStart + pointerMove);
 	}
+	
+	@Override
+	public int comparePointer(__ptr__ other) {
+		final CString this2 = (CString) other;
+		if (this.data2 != this2.data2) {
+			throw new IllegalArgumentException();
+		}
+		return this.currentStart - this2.currentStart;
+	}
+
+
 
 	@Override
 	public String toString() {
@@ -155,9 +200,12 @@ public class CString extends UnsupportedC implements __ptr__, Area {
 
 	public char charAt(int i) {
 		if (i >= getData().size()) {
-			return '\0';
+			throw new UnsupportedOperationException();
+			// return '\0';
 		}
-		return getData().get(i);
+		return data2.get(currentStart + i);
+		// when i<0
+		// return data2.subList(currentStart, data2.size()).get(i);
 	}
 
 	public char setCharAt(int i, char c) {
@@ -176,7 +224,7 @@ public class CString extends UnsupportedC implements __ptr__, Area {
 		throw new IllegalStateException();
 	}
 
-	public int compareTo(CString other) {
+	public int strcmp(CString other) {
 		for (int i = 0; i < data2.size() - currentStart; i++) {
 			final int diff = this.charAt(i) - other.charAt(i);
 			if (this.charAt(i) == '\0' || diff != 0) {
@@ -186,8 +234,8 @@ public class CString extends UnsupportedC implements __ptr__, Area {
 		throw new IllegalStateException();
 	}
 
-	public int compareTo(CString other, int num) {
-		for (int i = 0; i < data2.size() - currentStart && i<num; i++) {
+	public int strcmp(CString other, int num) {
+		for (int i = 0; i < data2.size() - currentStart && i < num; i++) {
 			final int diff = this.charAt(i) - other.charAt(i);
 			if (this.charAt(i) == '\0' || diff != 0) {
 				return diff;
@@ -215,11 +263,8 @@ public class CString extends UnsupportedC implements __ptr__, Area {
 		return getContent().equals(other.getContent());
 	}
 
-	public void setMyFather(__ptr__ struct) {
-		if (this.toString().equals("black(0)")) {
-			JUtils.LOG("CString::setMyFather " + this + "  " + fathers.size());
-		}
-		this.fathers.add(struct);
+	public int getUid() {
+		return uid;
 	}
 
 }

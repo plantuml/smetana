@@ -4,10 +4,15 @@
  *
  * Project Info:  http://plantuml.com
  * 
+ * If you like this project or if you find it useful, you can support us at:
+ * 
+ * http://plantuml.com/patreon (only 1$ per month!)
+ * http://plantuml.com/paypal
+ * 
  * This file is part of Smetana.
  * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * (C) Copyright 2009-2017, Arnaud Roques
+ * (C) Copyright 2009-2020, Arnaud Roques
  *
  * This translation is distributed under the same Licence as the original C program.
  * 
@@ -31,27 +36,44 @@
 
 package smetana.core;
 
-import h.Agedge_s;
-import h.Agedgeinfo_t;
-import h.Agnode_s;
-import h.Agnodeinfo_t;
-import h.Agobj_s;
-import h.Agraph_s;
-import h.Agraphinfo_t;
-import h.Agtag_s;
-import h.GVC_s;
-import h.boxf;
-import h.elist;
-import h.nlist_t;
-// http://docs.oracle.com/javase/specs/jls/se5.0/html/expressions.html#15.7.4
-// http://www.jbox.dk/sanos/source/lib/string.c.html
-import h.pointf;
-import h.port;
-import h.splines;
-import h.textlabel_t;
+import static gen.lib.cdt.dtrestore__c.dtrestore;
+import static gen.lib.cgraph.attr__c.agattr;
+import static gen.lib.cgraph.edge__c.agedge;
+import static smetana.core.JUtils.strcmp;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import h.Dtcompar_f;
+import h.ST_Agedge_s;
+import h.ST_Agedgeinfo_t;
+import h.ST_Agiddisc_s;
+import h.ST_Agiodisc_s;
+import h.ST_Agmemdisc_s;
+import h.ST_Agnode_s;
+import h.ST_Agnodeinfo_t;
+import h.ST_Agobj_s;
+import h.ST_Agraph_s;
+import h.ST_Agraphinfo_t;
+import h.ST_Agrec_s;
+import h.ST_Agsym_s;
+import h.ST_Agtag_s;
+import h.ST_GVC_s;
+import h.ST_boxf;
+import h.ST_dt_s;
+import h.ST_dtdisc_s;
+import h.ST_dtlink_s;
+import h.ST_elist;
+import h.ST_layout_t;
+import h.ST_nlist_t;
+import h.ST_point;
+import h.ST_pointf;
+import h.ST_port;
+import h.ST_rank_t;
+import h.ST_shape_desc;
+import h.ST_splines;
+import h.ST_subtree_t;
+import h.ST_textlabel_t;
 
 public class Macro {
 
@@ -89,6 +111,10 @@ public class Macro {
 		return v == false;
 	}
 
+	public static int NOTI(boolean v) {
+		return v ? 0 : 1;
+	}
+
 	public static boolean NOT(int i) {
 		return i == 0;
 	}
@@ -103,6 +129,10 @@ public class Macro {
 
 	public static void TRACE(String functionName) {
 		// System.err.println(functionName);
+	}
+
+	public static void UNSURE_ABOUT(String comment) {
+		System.err.println("UNSURE_ABOUT: "+comment);
 	}
 
 	public static __ptr__ UNSUPPORTED(String comment) {
@@ -127,45 +157,45 @@ public class Macro {
 	public final static int AGEDGE = AGOUTEDGE;
 
 	// #define AGTAG(obj) (((Agobj_t*)(obj))->tag)
-	public static __struct__<Agtag_s> AGTAG(__ptr__ obj) {
-		return obj.castTo(Agobj_s.class).getStruct("tag");
+	public static ST_Agtag_s AGTAG(__ptr__ obj) {
+		return (ST_Agtag_s) ((ST_Agobj_s) obj.castTo(ST_Agobj_s.class)).tag;
 	}
 
 	// #define AGTYPE(obj) (AGTAG(obj).objtype)
 	public static int AGTYPE(__ptr__ obj) {
-		return AGTAG(obj).getInt("objtype");
+		return AGTAG(obj).objtype;
 	}
 
 	public static void AGTYPE(__ptr__ obj, int v) {
-		AGTAG(obj).setInt("objtype", v);
+		AGTAG(obj).objtype = v;
 	}
 
 	// #define AGID(obj) (AGTAG(obj).id)
 	public static int AGID(__ptr__ obj) {
-		return AGTAG(obj).getInt("id");
+		return AGTAG(obj).id;
 	}
 
 	public static void AGID(__ptr__ obj, int v) {
-		AGTAG(obj).setInt("id", v);
+		AGTAG(obj).id = v;
 	}
 
 	// #define AGSEQ(obj) (AGTAG(obj).seq)
 	public static int AGSEQ(__ptr__ obj) {
-		return AGTAG(obj).getInt("seq");
+		return AGTAG(obj).seq;
 	}
 
 	public static void AGSEQ(__ptr__ obj, int v) {
-		AGTAG(obj).setInt("seq", v);
+		AGTAG(obj).seq = v;
 	}
 
 	// #define AGATTRWF(obj) (AGTAG(obj).attrwf)
 	// #define AGDATA(obj) (((Agobj_t*)(obj))->data)
-	public static __ptr__ AGDATA(__ptr__ obj) {
-		return obj.castTo(Agobj_s.class).getPtr("data");
+	public static ST_Agrec_s AGDATA(__ptr__ obj) {
+		return ((ST_Agobj_s) obj.castTo(ST_Agobj_s.class)).data;
 	}
 
 	public static void AGDATA(__ptr__ obj, __ptr__ v) {
-		obj.castTo(Agobj_s.class).setPtr("data", v);
+		obj.castTo(ST_Agobj_s.class).setPtr("data", v);
 	}
 
 	// #define AGIN2OUT(e) ((e)-1)
@@ -179,43 +209,43 @@ public class Macro {
 	}
 
 	// #define AGOPP(e) ((AGTYPE(e)==AGINEDGE)?AGIN2OUT(e):AGOUT2IN(e))
-	public static Agedge_s AGOPP(Agedge_s e) {
-		return (Agedge_s) (AGTYPE(e) == AGINEDGE ? AGIN2OUT(e) : AGOUT2IN(e));
+	public static ST_Agedge_s AGOPP(ST_Agedge_s e) {
+		return (ST_Agedge_s) (AGTYPE(e) == AGINEDGE ? AGIN2OUT(e) : AGOUT2IN(e));
 	}
 
 	// #define AGMKOUT(e) (AGTYPE(e) == AGOUTEDGE? (e): AGIN2OUT(e))
-	public static Agedge_s AGMKOUT(__ptr__ e) {
-		return (Agedge_s) (AGTYPE(e) == AGOUTEDGE ? (e) : AGIN2OUT(e));
+	public static ST_Agedge_s AGMKOUT(__ptr__ e) {
+		return (ST_Agedge_s) (AGTYPE(e) == AGOUTEDGE ? (e) : AGIN2OUT(e));
 	}
 
 	// #define AGMKIN(e) (AGTYPE(e) == AGINEDGE? (e): AGOUT2IN(e))
-	public static Agedge_s AGMKIN(__ptr__ e) {
-		return (Agedge_s) (AGTYPE(e) == AGINEDGE ? (e) : AGOUT2IN(e));
+	public static ST_Agedge_s AGMKIN(__ptr__ e) {
+		return (ST_Agedge_s) (AGTYPE(e) == AGINEDGE ? (e) : AGOUT2IN(e));
 	}
 
 	// #define AGTAIL(e) (AGMKIN(e)->node)
-	public static Agnode_s AGTAIL(__ptr__ e) {
-		return (Agnode_s) AGMKIN(e).getPtr("node");
+	public static ST_Agnode_s AGTAIL(__ptr__ e) {
+		return (ST_Agnode_s) AGMKIN(e).node;
 	}
 
-	public static Agnode_s agtail(__ptr__ e) {
-		return (Agnode_s) AGMKIN(e).getPtr("node");
+	public static ST_Agnode_s agtail(__ptr__ e) {
+		return (ST_Agnode_s) AGMKIN(e).node;
 	}
 
-	public static void agtail(Agedge_s e, __ptr__ v) {
+	public static void agtail(ST_Agedge_s e, __ptr__ v) {
 		AGMKIN(e).setPtr("node", v);
 	}
 
 	// #define AGHEAD(e) (AGMKOUT(e)->node)
-	public static Agnode_s AGHEAD(__ptr__ e) {
-		return (Agnode_s) AGMKOUT(e).getPtr("node");
+	public static ST_Agnode_s AGHEAD(__ptr__ e) {
+		return (ST_Agnode_s) AGMKOUT(e).node;
 	}
 
-	private static Agnode_s aghead(Agedge_s e) {
-		return (Agnode_s) AGMKOUT(e).getPtr("node");
+	private static ST_Agnode_s aghead(ST_Agedge_s e) {
+		return (ST_Agnode_s) AGMKOUT(e).node;
 	}
 
-	public static void aghead(Agedge_s e, __ptr__ v) {
+	public static void aghead(ST_Agedge_s e, __ptr__ v) {
 		AGMKOUT(e).setPtr("node", v);
 	}
 
@@ -251,12 +281,12 @@ public class Macro {
 	// ((Dthold_t*)(rep))->obj)
 
 	// #define LENGTH(e) (ND_rank(aghead(e)) - ND_rank(agtail(e)))
-	public static int LENGTH(Agedge_s e) {
+	public static int LENGTH(ST_Agedge_s e) {
 		return ND_rank(aghead(e)) - ND_rank(agtail(e));
 	}
 
 	// #define SLACK(e) (LENGTH(e) - ED_minlen(e))
-	public static int SLACK(Agedge_s e) {
+	public static int SLACK(ST_Agedge_s e) {
 		return LENGTH(e) - ED_minlen(e);
 	}
 
@@ -266,332 +296,365 @@ public class Macro {
 	}
 
 	// #define TREE_EDGE(e) (ED_tree_index(e) >= 0)
-	public static boolean TREE_EDGE(Agedge_s e) {
+	public static boolean TREE_EDGE(ST_Agedge_s e) {
 		return ED_tree_index(e) >= 0;
 	}
 
 	// #define GD_parent(g) (((Agraphinfo_t*)AGDATA(g))->parent)
-	public static __ptr__ GD_parent(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getPtr("parent");
-	}
-	public static void GD_parent(Agraph_s g, __ptr__ v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setPtr("parent", v);
-	}
-	
-	// #define GD_level(g) (((Agraphinfo_t*)AGDATA(g))->level)
-	// #define GD_drawing(g) (((Agraphinfo_t*)AGDATA(g))->drawing)
-	public static __ptr__ GD_drawing(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getPtr("drawing");
+	public static __ptr__ GD_parent(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).parent;
 	}
 
-	public static void GD_drawing(Agraph_s g, __ptr__ v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setPtr("drawing", v);
+	public static void GD_parent(ST_Agraph_s g, __ptr__ v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("parent", v);
+	}
+
+	// #define GD_level(g) (((Agraphinfo_t*)AGDATA(g))->level)
+	// #define GD_drawing(g) (((Agraphinfo_t*)AGDATA(g))->drawing)
+	public static ST_layout_t GD_drawing(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).drawing;
+	}
+
+	public static void GD_drawing(ST_Agraph_s g, __ptr__ v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("drawing", v);
 	}
 
 	// #define GD_bb(g) (((Agraphinfo_t*)AGDATA(g))->bb)
-	public static __struct__<boxf> GD_bb(__ptr__ g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getStruct("bb");
+	public static ST_boxf GD_bb(__ptr__ g) {
+		return (ST_boxf) ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).bb;
 	}
 
 	// #define GD_gvc(g) (((Agraphinfo_t*)AGDATA(g))->gvc)
-	public static GVC_s GD_gvc(Agraph_s g) {
-		return (GVC_s) AGDATA(g).castTo(Agraphinfo_t.class).getPtr("gvc");
+	public static ST_GVC_s GD_gvc(ST_Agraph_s g) {
+		return (ST_GVC_s) ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).gvc;
 	}
 
-	public static void GD_gvc(Agraph_s g, GVC_s v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setPtr("gvc", v);
+	public static void GD_gvc(ST_Agraph_s g, ST_GVC_s v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("gvc", v);
 	}
 
 	// #define GD_cleanup(g) (((Agraphinfo_t*)AGDATA(g))->cleanup)
-	public static __ptr__ GD_cleanup(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getPtr("cleanup");
+	public static __ptr__ GD_cleanup(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).cleanup;
 	}
 
 	// #define GD_dist(g) (((Agraphinfo_t*)AGDATA(g))->dist)
 	// #define GD_alg(g) (((Agraphinfo_t*)AGDATA(g))->alg)
 	// #define GD_border(g) (((Agraphinfo_t*)AGDATA(g))->border)
-	public static __array_of_struct__ GD_border(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getArrayOfStruct("border");
+	public static ST_pointf[] GD_border(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t) AGDATA(g).castTo(ST_Agraphinfo_t.class)).border;
 	}
 
 	// #define GD_cl_cnt(g) (((Agraphinfo_t*)AGDATA(g))->cl_nt)
 	// #define GD_clust(g) (((Agraphinfo_t*)AGDATA(g))->clust)
-	public static __ptr__ GD_clust(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getPtr("clust");
+	public static CStarStar<ST_Agraph_s> GD_clust(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).clust;
 	}
-	public static void GD_clust(Agraph_s g, __ptr__ v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setPtr("clust", v);
+
+	public static void GD_clust(ST_Agraph_s g, __ptr__ v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("clust", v);
 	}
 
 	// #define GD_dotroot(g) (((Agraphinfo_t*)AGDATA(g))->dotroot)
-	public static Agraph_s GD_dotroot(Agraph_s g) {
-		return (Agraph_s) AGDATA(g).castTo(Agraphinfo_t.class).getPtr("dotroot");
+	public static ST_Agraph_s GD_dotroot(ST_Agraph_s g) {
+		return (ST_Agraph_s) ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).dotroot;
 	}
 
-	public static void GD_dotroot(Agraph_s g, __ptr__ v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setPtr("dotroot", v);
+	public static void GD_dotroot(ST_Agraph_s g, __ptr__ v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("dotroot", v);
 	}
 
 	// #define GD_comp(g) (((Agraphinfo_t*)AGDATA(g))->comp)
-	public static __struct__<nlist_t> GD_comp(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getStruct("comp");
+	public static ST_nlist_t GD_comp(ST_Agraph_s g) {
+		return (ST_nlist_t) ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).comp;
 	}
 
 	// #define GD_exact_ranksep(g) (((Agraphinfo_t*)AGDATA(g))->exact_ranksep)
-	public static int GD_exact_ranksep(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getInt("exact_ranksep");
+	public static int GD_exact_ranksep(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).exact_ranksep;
 	}
 
-	public static void GD_exact_ranksep(Agraph_s g, int v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setInt("exact_ranksep", v);
+	public static void GD_exact_ranksep(ST_Agraph_s g, int v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setInt("exact_ranksep", v);
 	}
 
 	// #define GD_expanded(g) (((Agraphinfo_t*)AGDATA(g))->expanded)
-	public static boolean GD_expanded(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getBoolean("expanded");
-	}
-	public static void GD_expanded(Agraph_s g, boolean v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setBoolean("expanded", v);
-	}
-	
-	// #define GD_flags(g) (((Agraphinfo_t*)AGDATA(g))->flags)
-	public static int GD_flags(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getInt("flags");
+	public static boolean GD_expanded(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).expanded;
 	}
 
-	public static void GD_flags(Agraph_s g, int v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setInt("flags", v);
+	public static void GD_expanded(ST_Agraph_s g, boolean v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).expanded = v;
+	}
+
+	// #define GD_flags(g) (((Agraphinfo_t*)AGDATA(g))->flags)
+	public static int GD_flags(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).flags;
+	}
+
+	public static void GD_flags(ST_Agraph_s g, int v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setInt("flags", v);
 	}
 
 	// #define GD_gui_state(g) (((Agraphinfo_t*)AGDATA(g))->gui_state)
 	// #define GD_charset(g) (((Agraphinfo_t*)AGDATA(g))->charset)
-	public static int GD_charset(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getInt("charset");
+	public static int GD_charset(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).charset;
 	}
 
-	public static void GD_charset(Agraph_s g, int v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setInt("charset", v);
+	public static void GD_charset(ST_Agraph_s g, int v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setInt("charset", v);
 	}
 
 	// #define GD_has_labels(g) (((Agraphinfo_t*)AGDATA(g))->has_labels)
-	public static int GD_has_labels(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getInt("has_labels");
+	public static int GD_has_labels(__ptr__ g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).has_labels;
 	}
 
-	public static void GD_has_labels(Agraph_s g, int v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setInt("has_labels", v);
+	public static void GD_has_labels(__ptr__ g, int v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setInt("has_labels", v);
 	}
 
 	// #define GD_has_images(g) (((Agraphinfo_t*)AGDATA(g))->has_images)
 	// #define GD_has_flat_edges(g) (((Agraphinfo_t*)AGDATA(g))->has_flat_edges)
-	public static int GD_has_flat_edges(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getInt("has_flat_edges");
+	public static int GD_has_flat_edges(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).has_flat_edges;
 	}
-	public static void GD_has_flat_edges(Agraph_s g, boolean v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setBoolean("has_flat_edges", v);
+
+	public static void GD_has_flat_edges(ST_Agraph_s g, boolean v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).has_flat_edges = v?1:0;
 	}
 
 	// #define GD_has_sourcerank(g) (((Agraphinfo_t*)AGDATA(g))->has_sourcerank)
 	// #define GD_has_sinkrank(g) (((Agraphinfo_t*)AGDATA(g))->has_sinkrank)
 	// #define GD_ht1(g) (((Agraphinfo_t*)AGDATA(g))->ht1)
-	public static double GD_ht1(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getDouble("ht1");
+	public static double GD_ht1(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).ht1;
 	}
 
-	public static void GD_ht1(Agraph_s g, double v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setDouble("ht1", v);
+	public static void GD_ht1(ST_Agraph_s g, double v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setDouble("ht1", v);
 	}
 
 	// #define GD_ht2(g) (((Agraphinfo_t*)AGDATA(g))->ht2)
-	public static double GD_ht2(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getDouble("ht2");
+	public static double GD_ht2(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).ht2;
 	}
 
-	public static void GD_ht2(Agraph_s g, double v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setDouble("ht2", v);
+	public static void GD_ht2(ST_Agraph_s g, double v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setDouble("ht2", v);
 	}
 
 	// #define GD_inleaf(g) (((Agraphinfo_t*)AGDATA(g))->inleaf)
 	// #define GD_installed(g) (((Agraphinfo_t*)AGDATA(g))->installed)
-	public static int GD_installed(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getInt("installed");
+	public static int GD_installed(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).installed;
 	}
-	public static void GD_installed(Agraph_s g, int v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setInt("installed", v);
+
+	public static void GD_installed(ST_Agraph_s g, int v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setInt("installed", v);
 	}
 
 	// #define GD_label(g) (((Agraphinfo_t*)AGDATA(g))->label)
-	public static __ptr__ GD_label(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getPtr("label");
+	public static ST_textlabel_t GD_label(__ptr__ g) {
+		return (ST_textlabel_t) ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).label;
+	}
+
+	public static void GD_label(__ptr__ g, __ptr__ v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("label", v);
 	}
 
 	// #define GD_leader(g) (((Agraphinfo_t*)AGDATA(g))->leader)
-	public static Agnode_s GD_leader(Agraph_s g) {
-		return (Agnode_s) AGDATA(g).castTo(Agraphinfo_t.class).getPtr("leader");
-	}
-	public static void GD_leader(Agraph_s g, __ptr__ v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setPtr("leader", v);
-	}
-	
-	// #define GD_rankdir2(g) (((Agraphinfo_t*)AGDATA(g))->rankdir)
-	public static int GD_rankdir2(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getInt("rankdir");
+	public static ST_Agnode_s GD_leader(ST_Agraph_s g) {
+		return (ST_Agnode_s) ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).leader;
 	}
 
-	public static void GD_rankdir2(Agraph_s g, int v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setInt("rankdir", v);
+	public static void GD_leader(ST_Agraph_s g, __ptr__ v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("leader", v);
+	}
+
+	// #define GD_rankdir2(g) (((Agraphinfo_t*)AGDATA(g))->rankdir)
+	public static int GD_rankdir2(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).rankdir;
+	}
+
+	public static void GD_rankdir2(ST_Agraph_s g, int v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setInt("rankdir", v);
 	}
 
 	// #define GD_rankdir(g) (((Agraphinfo_t*)AGDATA(g))->rankdir & 0x3)
-	public static int GD_rankdir(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getInt("rankdir") & 0x3;
+	public static int GD_rankdir(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).rankdir & 0x3;
 	}
 
 	// #define GD_flip(g) (GD_rankdir(g) & 1)
-	public static int GD_flip(Agraph_s g) {
-		return GD_rankdir(g) & 1;
+	public static boolean GD_flip(ST_Agraph_s g) {
+		return (GD_rankdir(g) & 1) != 0;
 	}
 
 	// #define GD_realrankdir(g) ((((Agraphinfo_t*)AGDATA(g))->rankdir) >> 2)
-	// #define GD_realflip(g) (GD_realrankdir(g) & 1)
-	// #define GD_ln(g) (((Agraphinfo_t*)AGDATA(g))->ln)
-	public static Agnode_s GD_ln(Agraph_s g) {
-		return (Agnode_s) AGDATA(g).castTo(Agraphinfo_t.class).getPtr("ln");
-	}
-	public static void GD_ln(Agraph_s g, __ptr__ v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setPtr("ln", v);
+	public static int GD_realrankdir(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).rankdir >> 2;
 	}
 	
-	// #define GD_maxrank(g) (((Agraphinfo_t*)AGDATA(g))->maxrank)
-	public static int GD_maxrank(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getInt("maxrank");
+	
+	// #define GD_realflip(g) (GD_realrankdir(g) & 1)
+	public static int GD_realflip(ST_Agraph_s g) {
+		return GD_realrankdir(g) & 1;
+	}
+	
+	
+	// #define GD_ln(g) (((Agraphinfo_t*)AGDATA(g))->ln)
+	public static ST_Agnode_s GD_ln(ST_Agraph_s g) {
+		return (ST_Agnode_s) ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).ln;
 	}
 
-	public static void GD_maxrank(Agraph_s g, int v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setInt("maxrank", v);
+	public static void GD_ln(ST_Agraph_s g, __ptr__ v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("ln", v);
+	}
+
+	// #define GD_maxrank(g) (((Agraphinfo_t*)AGDATA(g))->maxrank)
+	public static int GD_maxrank(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).maxrank;
+	}
+
+	public static void GD_maxrank(ST_Agraph_s g, int v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setInt("maxrank", v);
 	}
 
 	// #define GD_maxset(g) (((Agraphinfo_t*)AGDATA(g))->maxset)
-	public static __ptr__ GD_maxset(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getPtr("maxset");
+	public static __ptr__ GD_maxset(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).maxset;
 	}
 
 	// #define GD_minrank(g) (((Agraphinfo_t*)AGDATA(g))->minrank)
-	public static int GD_minrank(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getInt("minrank");
+	public static int GD_minrank(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).minrank;
 	}
 
-	public static void GD_minrank(Agraph_s g, int v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setInt("minrank", v);
+	public static void GD_minrank(ST_Agraph_s g, int v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setInt("minrank", v);
 	}
 
 	// #define GD_minset(g) (((Agraphinfo_t*)AGDATA(g))->minset)
-	public static __ptr__ GD_minset(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getPtr("minset");
+	public static __ptr__ GD_minset(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).minset;
 	}
 
 	// #define GD_minrep(g) (((Agraphinfo_t*)AGDATA(g))->minrep)
 	// #define GD_maxrep(g) (((Agraphinfo_t*)AGDATA(g))->maxrep)
 	// #define GD_move(g) (((Agraphinfo_t*)AGDATA(g))->move)
 	// #define GD_n_cluster(g) (((Agraphinfo_t*)AGDATA(g))->n_cluster)
-	public static int GD_n_cluster(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getInt("n_cluster");
+	public static int GD_n_cluster(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).n_cluster;
 	}
-	public static void GD_n_cluster(Agraph_s g, int v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setInt("n_cluster", v);
+
+	public static void GD_n_cluster(ST_Agraph_s g, int v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setInt("n_cluster", v);
 	}
 
 	// #define GD_n_nodes(g) (((Agraphinfo_t*)AGDATA(g))->n_nodes)
-	public static int GD_n_nodes(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getInt("n_nodes");
+	public static int GD_n_nodes(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).n_nodes;
 	}
 
-	public static void GD_n_nodes(Agraph_s g, int v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setInt("n_nodes", v);
+	public static void GD_n_nodes(ST_Agraph_s g, int v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setInt("n_nodes", v);
 	}
 
 	// #define GD_ndim(g) (((Agraphinfo_t*)AGDATA(g))->ndim)
 	// #define GD_odim(g) (((Agraphinfo_t*)AGDATA(g))->odim)
 	// #define GD_neato_nlist(g) (((Agraphinfo_t*)AGDATA(g))->neato_nlist)
 	// #define GD_nlist(g) (((Agraphinfo_t*)AGDATA(g))->nlist)
-	public static Agnode_s GD_nlist(Agraph_s g) {
-		return (Agnode_s) AGDATA(g).castTo(Agraphinfo_t.class).getPtr("nlist");
+	public static ST_Agnode_s GD_nlist(ST_Agraph_s g) {
+		return (ST_Agnode_s) ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).nlist;
 	}
 
-	public static void GD_nlist(Agraph_s g, __ptr__ v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setPtr("nlist", v);
+	public static void GD_nlist(ST_Agraph_s g, __ptr__ v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("nlist", v);
 	}
 
 	// #define GD_nodesep(g) (((Agraphinfo_t*)AGDATA(g))->nodesep)
-	public static int GD_nodesep(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getInt("nodesep");
+	public static int GD_nodesep(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).nodesep;
 	}
 
-	public static void GD_nodesep(Agraph_s g, int v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setInt("nodesep", v);
+	public static void GD_nodesep(ST_Agraph_s g, int v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setInt("nodesep", v);
 	}
 
 	// #define GD_outleaf(g) (((Agraphinfo_t*)AGDATA(g))->outleaf)
 	// #define GD_rank(g) (((Agraphinfo_t*)AGDATA(g))->rank)
-	public static __ptr__ GD_rank(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getPtr("rank");
+	public static CStar<ST_rank_t> GD_rank(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).rank;
 	}
 
-	public static void GD_rank(Agraph_s g, __ptr__ v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setPtr("rank", v);
+	public static void GD_rank(ST_Agraph_s g, CStar<ST_rank_t> v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("rank", v);
+		JUtilsDebug.LOG("set GD_rank "+v);
 	}
 
 	// #define GD_rankleader(g) (((Agraphinfo_t*)AGDATA(g))->rankleader)
-	public static __ptr__ GD_rankleader(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getPtr("rankleader");
+	public static CStarStar<ST_Agnode_s> GD_rankleader(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).rankleader;
 	}
-	public static void GD_rankleader(Agraph_s g, __ptr__ v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setPtr("rankleader", v);
+
+	public static void GD_rankleader(ST_Agraph_s g, CStarStar<ST_Agnode_s> v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("rankleader", v);
 	}
 
 	// #define GD_ranksep(g) (((Agraphinfo_t*)AGDATA(g))->ranksep)
-	public static int GD_ranksep(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getInt("ranksep");
+	public static int GD_ranksep(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).ranksep;
 	}
 
-	public static void GD_ranksep(Agraph_s g, int v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setInt("ranksep", v);
+	public static void GD_ranksep(ST_Agraph_s g, int v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setInt("ranksep", v);
 	}
 
 	// #define GD_rn(g) (((Agraphinfo_t*)AGDATA(g))->rn)
-	public static Agnode_s GD_rn(Agraph_s g) {
-		return (Agnode_s) AGDATA(g).castTo(Agraphinfo_t.class).getPtr("rn");
+	public static ST_Agnode_s GD_rn(ST_Agraph_s g) {
+		return (ST_Agnode_s) ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).rn;
 	}
-	public static void GD_rn(Agraph_s g, __ptr__ v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setPtr("rn", v);
+
+	public static void GD_rn(ST_Agraph_s g, __ptr__ v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("rn", v);
 	}
 
 	// #define GD_set_type(g) (((Agraphinfo_t*)AGDATA(g))->set_type)
-	public static int GD_set_type(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getInt("set_type");
-	}
-	public static void GD_set_type(Agraph_s g, int v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setInt("set_type", v);
-	}
-	
-	
-	// #define GD_label_pos(g) (((Agraphinfo_t*)AGDATA(g))->label_pos)
-	// #define GD_showboxes(g) (((Agraphinfo_t*)AGDATA(g))->showboxes)
-	public static int GD_showboxes(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getInt("showboxes");
+	public static int GD_set_type(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).set_type;
 	}
 
-	public static void GD_showboxes(Agraph_s g, int v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setInt("showboxes", v);
+	public static void GD_set_type(ST_Agraph_s g, int v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setInt("set_type", v);
+	}
+
+	// #define GD_label_pos(g) (((Agraphinfo_t*)AGDATA(g))->label_pos)
+	public static int GD_label_pos(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).label_pos;
+	}
+
+	public static void GD_label_pos(ST_Agraph_s g, int v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setInt("label_pos", v);
+	}
+
+	// #define GD_showboxes(g) (((Agraphinfo_t*)AGDATA(g))->showboxes)
+	public static int GD_showboxes(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).showboxes;
+	}
+
+	public static void GD_showboxes(ST_Agraph_s g, int v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setInt("showboxes", v);
 	}
 
 	// #define GD_fontnames(g) (((Agraphinfo_t*)AGDATA(g))->fontnames)
-	public static int GD_fontnames(Agraph_s g) {
-		return AGDATA(g).castTo(Agraphinfo_t.class).getInt("fontnames");
+	public static int GD_fontnames(ST_Agraph_s g) {
+		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).fontnames;
 	}
 
-	public static void GD_fontnames(Agraph_s g, int v) {
-		AGDATA(g).castTo(Agraphinfo_t.class).setInt("fontnames", v);
+	public static void GD_fontnames(ST_Agraph_s g, int v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setInt("fontnames", v);
 	}
 
 	// #define GD_spring(g) (((Agraphinfo_t*)AGDATA(g))->spring)
@@ -599,331 +662,364 @@ public class Macro {
 	// #define GD_t(g) (((Agraphinfo_t*)AGDATA(g))->t)
 
 	// #define ND_id(n) (((Agnodeinfo_t*)AGDATA(n))->id)
-	public static int ND_id(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getInt("id");
+	public static int ND_id(ST_Agnode_s n) {
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).id;
 	}
-	
+
 	// #define ND_alg(n) (((Agnodeinfo_t*)AGDATA(n))->alg)
-	public static __ptr__ ND_alg(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getPtr("alg");
+	public static __ptr__ ND_alg(ST_Agnode_s n) {
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).alg;
 	}
-	public static void ND_alg(Agnode_s n, __ptr__ value) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setPtr("alg", value);
+
+	public static void ND_alg(ST_Agnode_s n, __ptr__ value) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setPtr("alg", value);
 	}
 
 	// #define ND_UF_parent(n) (((Agnodeinfo_t*)AGDATA(n))->UF_parent)
-	public static Agnode_s ND_UF_parent(__ptr__ n) {
-		return (Agnode_s) AGDATA(n).castTo(Agnodeinfo_t.class).getPtr("UF_parent");
+	public static ST_Agnode_s ND_UF_parent(__ptr__ n) {
+		return (ST_Agnode_s) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).UF_parent;
 	}
+
 	public static void ND_UF_parent(__ptr__ n, __ptr__ v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setPtr("UF_parent", v);
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setPtr("UF_parent", v);
 	}
 
 	// #define ND_set(n) (((Agnodeinfo_t*)AGDATA(n))->set)
 	// #define ND_UF_size(n) (((Agnodeinfo_t*)AGDATA(n))->UF_size)
-	public static int ND_UF_size(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getInt("UF_size");
+	public static int ND_UF_size(ST_Agnode_s n) {
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).UF_size;
 	}
-	public static void ND_UF_size(Agnode_s n, int v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setInt("UF_size", v);
+
+	public static void ND_UF_size(ST_Agnode_s n, int v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setInt("UF_size", v);
 	}
 
 	// #define ND_bb(n) (((Agnodeinfo_t*)AGDATA(n))->bb)
 	// #define ND_clust(n) (((Agnodeinfo_t*)AGDATA(n))->clust)
-	public static Agraph_s ND_clust(__ptr__ n) {
-		return (Agraph_s) AGDATA(n).castTo(Agnodeinfo_t.class).getPtr("clust");
+	public static ST_Agraph_s ND_clust(__ptr__ n) {
+		return (ST_Agraph_s) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).clust;
 	}
 
-	public static void ND_clust(Agnode_s n, __ptr__ v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setPtr("clust", v);
+	public static void ND_clust(ST_Agnode_s n, __ptr__ v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setPtr("clust", v);
 	}
 
 	// #define ND_coord(n) (((Agnodeinfo_t*)AGDATA(n))->coord)
-	public static __struct__<pointf> ND_coord(__ptr__ n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getStruct("coord");
+	public static ST_pointf ND_coord(__ptr__ n) {
+		return (ST_pointf) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).coord;
 	}
 
 	// #define ND_dist(n) (((Agnodeinfo_t*)AGDATA(n))->dist)
 
 	// #define ND_flat_in(n) (((Agnodeinfo_t*)AGDATA(n))->flat_in)
-	public static __struct__<elist> ND_flat_in(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getStruct("flat_in");
+	public static ST_elist ND_flat_in(ST_Agnode_s n) {
+		return (ST_elist) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).flat_in;
 	}
 
 	// #define ND_flat_out(n) (((Agnodeinfo_t*)AGDATA(n))->flat_out)
-	public static __struct__<elist> ND_flat_out(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getStruct("flat_out");
+	public static ST_elist ND_flat_out(ST_Agnode_s n) {
+		return (ST_elist) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).flat_out;
 	}
 
 	// #define ND_gui_state(n) (((Agnodeinfo_t*)AGDATA(n))->gui_state)
 	// #define ND_has_port(n) (((Agnodeinfo_t*)AGDATA(n))->has_port)
-	public static boolean ND_has_port(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getBoolean("has_port");
+	public static boolean ND_has_port(ST_Agnode_s n) {
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).has_port;
+	}
+	public static void ND_has_port(ST_Agnode_s n, boolean v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).has_port = v;
 	}
 
 	// #define ND_rep(n) (((Agnodeinfo_t*)AGDATA(n))->rep)
 	// #define ND_heapindex(n) (((Agnodeinfo_t*)AGDATA(n))->heapindex)
 	// #define ND_height(n) (((Agnodeinfo_t*)AGDATA(n))->height)
 	public static double ND_height(__ptr__ n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getDouble("height");
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).height;
 	}
 
-	public static void ND_height(Agnode_s n, double v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setDouble("height", v);
+	public static void ND_height(ST_Agnode_s n, double v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setDouble("height", v);
 	}
 
 	// #define ND_hops(n) (((Agnodeinfo_t*)AGDATA(n))->hops)
 	// #define ND_ht(n) (((Agnodeinfo_t*)AGDATA(n))->ht)
 	public static double ND_ht(__ptr__ n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getDouble("ht");
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).ht;
 	}
 
-	public static void ND_ht(Agnode_s n, double v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setDouble("ht", v);
+	public static void ND_ht(ST_Agnode_s n, double v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setDouble("ht", v);
 	}
 
 	// #define ND_in(n) (((Agnodeinfo_t*)AGDATA(n))->in)
-	public static __struct__<elist> ND_in(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getStruct("in");
+	public static ST_elist ND_in(ST_Agnode_s n) {
+		return ((ST_Agnodeinfo_t) AGDATA(n).castTo(ST_Agnodeinfo_t.class)).in;
 	}
 
-	public static void ND_in(__ptr__ n, __struct__<elist> v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setStruct("in", v);
+	public static void ND_in(__ptr__ n, __struct__<ST_elist> v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setStruct("in", v);
 	}
 
 	// #define ND_inleaf(n) (((Agnodeinfo_t*)AGDATA(n))->inleaf)
-	public static __ptr__ ND_inleaf(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getPtr("inleaf");
+	public static __ptr__ ND_inleaf(ST_Agnode_s n) {
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).inleaf;
 	}
 
 	// #define ND_label(n) (((Agnodeinfo_t*)AGDATA(n))->label)
-	public static textlabel_t ND_label(Agnode_s n) {
-		return (textlabel_t) AGDATA(n).castTo(Agnodeinfo_t.class).getPtr("label");
+	public static ST_textlabel_t ND_label(ST_Agnode_s n) {
+		return (ST_textlabel_t) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).label;
 	}
 
-	public static void ND_label(Agnode_s n, __ptr__ v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setPtr("label", v);
+	public static void ND_label(ST_Agnode_s n, __ptr__ v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setPtr("label", v);
 	}
 
 	// #define ND_xlabel(n) (((Agnodeinfo_t*)AGDATA(n))->xlabel)
-	public static __ptr__ ND_xlabel(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getPtr("xlabel");
+	public static ST_textlabel_t ND_xlabel(ST_Agnode_s n) {
+		return (ST_textlabel_t) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).xlabel;
 	}
 
 	// #define ND_lim(n) (((Agnodeinfo_t*)AGDATA(n))->lim)
-	public static int ND_lim(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getInt("lim");
+	public static int ND_lim(ST_Agnode_s n) {
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).lim;
 	}
 
-	public static void ND_lim(Agnode_s n, int v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setInt("lim", v);
+	public static void ND_lim(ST_Agnode_s n, int v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setInt("lim", v);
 	}
 
 	// #define ND_low(n) (((Agnodeinfo_t*)AGDATA(n))->low)
-	public static int ND_low(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getInt("low");
+	public static int ND_low(ST_Agnode_s n) {
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).low;
 	}
 
-	public static void ND_low(Agnode_s n, int v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setInt("low", v);
+	public static void ND_low(ST_Agnode_s n, int v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setInt("low", v);
 	}
 
 	// #define ND_lw(n) (((Agnodeinfo_t*)AGDATA(n))->lw)
 	public static double ND_lw(__ptr__ n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getDouble("lw");
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).lw;
 	}
 
-	public static void ND_lw(Agnode_s n, double v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setDouble("lw", v);
+	public static void ND_lw(ST_Agnode_s n, double v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setDouble("lw", v);
 	}
 
 	// #define ND_mark(n) (((Agnodeinfo_t*)AGDATA(n))->mark)
 	public static int ND_mark(__ptr__ n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getInt("mark");
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).mark;
 	}
+
 	public static void ND_mark(__ptr__ n, int v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setInt("mark", v);
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setInt("mark", v);
 	}
+
 	public static void ND_mark(__ptr__ n, boolean v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setBoolean("mark", v);
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).mark = v?1:0;
 	}
 
 	// #define ND_mval(n) (((Agnodeinfo_t*)AGDATA(n))->mval)
 	public static double ND_mval(__ptr__ n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getDouble("mval");
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).mval;
 	}
-	public static void ND_mval(Agnode_s n, double v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setDouble("mval", v);
+
+	public static void ND_mval(ST_Agnode_s n, double v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setDouble("mval", v);
 	}
 
 	// #define ND_n_cluster(n) (((Agnodeinfo_t*)AGDATA(n))->n_cluster)
 	// #define ND_next(n) (((Agnodeinfo_t*)AGDATA(n))->next)
-	public static Agnode_s ND_next(Agnode_s n) {
-		return (Agnode_s) AGDATA(n).castTo(Agnodeinfo_t.class).getPtr("next");
+	public static ST_Agnode_s ND_next(ST_Agnode_s n) {
+		return (ST_Agnode_s) ((ST_Agnodeinfo_t) AGDATA(n).castTo(ST_Agnodeinfo_t.class)).next;
 	}
+
 	public static void ND_next(__ptr__ n, __ptr__ v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setPtr("next", v);
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setPtr("next", v);
 	}
 
 	// #define ND_node_type(n) (((Agnodeinfo_t*)AGDATA(n))->node_type)
-	public static int ND_node_type(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getInt("node_type");
+	public static int ND_node_type(ST_Agnode_s n) {
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).node_type;
 	}
-	public static void ND_node_type(Agnode_s n, int v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setInt("node_type", v);
+
+	public static void ND_node_type(ST_Agnode_s n, int v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setInt("node_type", v);
 	}
 
 	// #define ND_onstack(n) (((Agnodeinfo_t*)AGDATA(n))->onstack)
-	public static boolean ND_onstack(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getBoolean("onstack");
+	public static boolean ND_onstack(ST_Agnode_s n) {
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).onstack!=0;
 	}
-	public static void ND_onstack(Agnode_s n, int v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setInt("onstack", v);
+
+	public static void ND_onstack(ST_Agnode_s n, int v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setInt("onstack", v);
 	}
-	public static void ND_onstack(Agnode_s n, boolean v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setBoolean("onstack", v);
+
+	public static void ND_onstack(ST_Agnode_s n, boolean v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).onstack = v?1:0;
 	}
 
 	// #define ND_order(n) (((Agnodeinfo_t*)AGDATA(n))->order)
 	public static int ND_order(__ptr__ n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getInt("order");
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).order;
 	}
+
 	public static void ND_order(__ptr__ n, int v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setInt("order", v);
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setInt("order", v);
 	}
 
 	// #define ND_other(n) (((Agnodeinfo_t*)AGDATA(n))->other)
-	public static __struct__<elist> ND_other(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getStruct("other");
+	public static ST_elist ND_other(ST_Agnode_s n) {
+		return (ST_elist) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).other;
 	}
 
 	// #define ND_out(n) (((Agnodeinfo_t*)AGDATA(n))->out)
-	public static __struct__<elist> ND_out(__ptr__ n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getStruct("out");
+	public static ST_elist ND_out(__ptr__ n) {
+		return ((ST_Agnodeinfo_t) AGDATA(n).castTo(ST_Agnodeinfo_t.class)).out;
 	}
-	public static void ND_out(__ptr__ n, __struct__<elist> v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setStruct("out", v);
+
+	public static void ND_out(__ptr__ n, __struct__<ST_elist> v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setStruct("out", v);
 	}
 
 	// #define ND_outleaf(n) (((Agnodeinfo_t*)AGDATA(n))->outleaf)
-	public static __ptr__ ND_outleaf(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getPtr("outleaf");
+	public static __ptr__ ND_outleaf(ST_Agnode_s n) {
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).outleaf;
 	}
 
 	// #define ND_par(n) (((Agnodeinfo_t*)AGDATA(n))->par)
-	public static Agedge_s ND_par(Agnode_s n) {
-		return (Agedge_s) AGDATA(n).castTo(Agnodeinfo_t.class).getPtr("par");
+	public static ST_Agedge_s ND_par(ST_Agnode_s n) {
+		return (ST_Agedge_s) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).par;
 	}
-	public static void ND_par(Agnode_s n, __ptr__ v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setPtr("par", v);
+
+	public static void ND_par(ST_Agnode_s n, __ptr__ v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setPtr("par", v);
 	}
 
 	// #define ND_pinned(n) (((Agnodeinfo_t*)AGDATA(n))->pinned)
 	// #define ND_pos(n) (((Agnodeinfo_t*)AGDATA(n))->pos)
 	// #define ND_prev(n) (((Agnodeinfo_t*)AGDATA(n))->prev)
-	public static __ptr__ ND_prev(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getPtr("prev");
+	public static __ptr__ ND_prev(ST_Agnode_s n) {
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).prev;
 	}
-	public static void ND_prev(Agnode_s n, __ptr__ v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setPtr("prev", v);
+
+	public static void ND_prev(ST_Agnode_s n, __ptr__ v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setPtr("prev", v);
 	}
 
 	// #define ND_priority(n) (((Agnodeinfo_t*)AGDATA(n))->priority)
-	public static int ND_priority(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getInt("priority");
+	public static int ND_priority(ST_Agnode_s n) {
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).priority;
 	}
-	public static void ND_priority(Agnode_s n, int v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setInt("priority", v);
+
+	public static void ND_priority(ST_Agnode_s n, int v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setInt("priority", v);
 	}
 
 	// #define ND_rank(n) (((Agnodeinfo_t*)AGDATA(n))->rank)
-	public static int ND_rank(__ptr__ n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getInt("rank");
+	public static int ND_rank(ST_Agnode_s n) {
+		final int result = ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).rank;
+		// JUtilsDebug.LOG("ND_rank get "+result);
+		return result;
 	}
-	public static void ND_rank(__ptr__ n, int v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setInt("rank", v);
+
+	public static void ND_rank(ST_Agnode_s n, int v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setInt("rank", v);
+		JUtilsDebug.LOG("ND_rank set for " + n.NAME + " v=" + v);
+		int a = 0;
 	}
 
 	// #define ND_ranktype(n) (((Agnodeinfo_t*)AGDATA(n))->ranktype)
-	public static int ND_ranktype(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getInt("ranktype");
+	public static int ND_ranktype(ST_Agnode_s n) {
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).ranktype;
 	}
-	public static void ND_ranktype(Agnode_s n, int v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setInt("ranktype", v);
+
+	public static void ND_ranktype(ST_Agnode_s n, int v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setInt("ranktype", v);
 	}
 
 	// #define ND_rw(n) (((Agnodeinfo_t*)AGDATA(n))->rw)
-	public static double ND_rw(__ptr__ n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getDouble("rw");
+	public static double ND_rw(ST_Agnode_s n) {
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).rw;
 	}
-	public static void ND_rw(Agnode_s n, double v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setDouble("rw", v);
+
+	public static void ND_rw(ST_Agnode_s n, double v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setDouble("rw", v);
 	}
 
 	// #define ND_save_in(n) (((Agnodeinfo_t*)AGDATA(n))->save_in)
-	public static __struct__<elist> ND_save_in(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getStruct("save_in");
+	public static ST_elist ND_save_in(ST_Agnode_s n) {
+		return (ST_elist) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).save_in;
 	}
 
-	public static void ND_save_in(Agnode_s n, __struct__<elist> v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setStruct("save_in", v);
+	public static void ND_save_in(ST_Agnode_s n, __struct__<ST_elist> v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setStruct("save_in", v);
 	}
 
 	// #define ND_save_out(n) (((Agnodeinfo_t*)AGDATA(n))->save_out)
-	public static __struct__<elist> ND_save_out(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getStruct("save_out");
+	public static ST_elist ND_save_out(ST_Agnode_s n) {
+		return (ST_elist) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).save_out;
 	}
-	public static void ND_save_out(Agnode_s n, __struct__<elist> v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setStruct("save_out", v);
+
+	public static void ND_save_out(ST_Agnode_s n, __struct__<ST_elist> v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setStruct("save_out", v);
 	}
 
 	// #define ND_shape(n) (((Agnodeinfo_t*)AGDATA(n))->shape)
-	public static __ptr__ ND_shape(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getPtr("shape");
+	public static ST_shape_desc ND_shape(ST_Agnode_s n) {
+		return ((ST_Agnodeinfo_t) AGDATA(n).castTo(ST_Agnodeinfo_t.class)).shape;
 	}
-	public static void ND_shape(Agnode_s n, __ptr__ v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setPtr("shape", v);
+
+	public static void ND_shape(ST_Agnode_s n, __ptr__ v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setPtr("shape", v);
 	}
 
 	// #define ND_shape_info(n) (((Agnodeinfo_t*)AGDATA(n))->shape_info)
 	public static __ptr__ ND_shape_info(__ptr__ n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getPtr("shape_info");
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).shape_info;
+	}
+	public static void ND_shape_info(ST_Agnode_s n, __ptr__ v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setPtr("shape_info", v);
 	}
 
 	// #define ND_showboxes(n) (((Agnodeinfo_t*)AGDATA(n))->showboxes)
-	public static int ND_showboxes(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getInt("showboxes");
+	public static int ND_showboxes(ST_Agnode_s n) {
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).showboxes;
 	}
-	public static void ND_showboxes(Agnode_s n, int v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setInt("showboxes", v);
+
+	public static void ND_showboxes(ST_Agnode_s n, int v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setInt("showboxes", v);
 	}
 
 	// #define ND_state(n) (((Agnodeinfo_t*)AGDATA(n))->state)
 	// #define ND_clustnode(n) (((Agnodeinfo_t*)AGDATA(n))->clustnode)
 	// #define ND_tree_in(n) (((Agnodeinfo_t*)AGDATA(n))->tree_in)
-	public static __struct__<elist> ND_tree_in(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getStruct("tree_in");
+	public static ST_elist ND_tree_in(ST_Agnode_s n) {
+		return (ST_elist) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).tree_in;
 	}
 
 	// #define ND_tree_out(n) (((Agnodeinfo_t*)AGDATA(n))->tree_out)
-	public static __struct__<elist> ND_tree_out(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getStruct("tree_out");
+	public static ST_elist ND_tree_out(ST_Agnode_s n) {
+		return (ST_elist) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).tree_out;
 	}
 
 	// #define ND_weight_class(n) (((Agnodeinfo_t*)AGDATA(n))->weight_class)
-	public static int ND_weight_class(Agnode_s n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getInt("weight_class");
+	public static int ND_weight_class(ST_Agnode_s n) {
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).weight_class;
 	}
-	public static void ND_weight_class(Agnode_s n, int v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setInt("weight_class", v);
+
+	public static void ND_weight_class(ST_Agnode_s n, int v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setInt("weight_class", v);
 	}
 
 	// #define ND_width(n) (((Agnodeinfo_t*)AGDATA(n))->width)
 	public static double ND_width(__ptr__ n) {
-		return AGDATA(n).castTo(Agnodeinfo_t.class).getDouble("width");
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).width;
 	}
-	public static void ND_width(Agnode_s n, double v) {
-		AGDATA(n).castTo(Agnodeinfo_t.class).setDouble("width", v);
+
+	public static void ND_width(ST_Agnode_s n, double v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setDouble("width", v);
 	}
 
 	// #define ND_xsize(n) (ND_lw(n)+ND_rw(n))
@@ -931,158 +1027,183 @@ public class Macro {
 
 	// #define ED_alg(e) (((Agedgeinfo_t*)AGDATA(e))->alg)
 	// #define ED_conc_opp_flag(e) (((Agedgeinfo_t*)AGDATA(e))->conc_opp_flag)
-	public static boolean ED_conc_opp_flag(Agedge_s e) {
-		return AGDATA(e).castTo(Agedgeinfo_t.class).getBoolean("conc_opp_flag");
+	public static boolean ED_conc_opp_flag(ST_Agedge_s e) {
+		return ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).conc_opp_flag;
 	}
-	public static void ED_conc_opp_flag(Agedge_s e, boolean v) {
-		AGDATA(e).castTo(Agedgeinfo_t.class).setInt("conc_opp_flag", v ? 1 : 0);
+
+	public static void ED_conc_opp_flag(ST_Agedge_s e, boolean v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setInt("conc_opp_flag", v ? 1 : 0);
 	}
 
 	// #define ED_count(e) (((Agedgeinfo_t*)AGDATA(e))->count)
 	public static int ED_count(__ptr__ e) {
-		return AGDATA(e).castTo(Agedgeinfo_t.class).getInt("count");
+		return ((ST_Agedgeinfo_t) AGDATA(e).castTo(ST_Agedgeinfo_t.class)).count;
 	}
+
 	public static void ED_count(__ptr__ e, int v) {
-		AGDATA(e).castTo(Agedgeinfo_t.class).setInt("count", v);
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setInt("count", v);
 	}
 
 	// #define ED_cutvalue(e) (((Agedgeinfo_t*)AGDATA(e))->cutvalue)
-	public static int ED_cutvalue(Agedge_s e) {
-		return AGDATA(e).castTo(Agedgeinfo_t.class).getInt("cutvalue");
+	public static int ED_cutvalue(ST_Agedge_s e) {
+		return ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).cutvalue;
 	}
-	public static void ED_cutvalue(Agedge_s e, int v) {
-		AGDATA(e).castTo(Agedgeinfo_t.class).setInt("cutvalue", v);
+
+	public static void ED_cutvalue(ST_Agedge_s e, int v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setInt("cutvalue", v);
 	}
 
 	// #define ED_edge_type(e) (((Agedgeinfo_t*)AGDATA(e))->edge_type)
 	// #define ED_adjacent(e) (((Agedgeinfo_t*)AGDATA(e))->adjacent)
 	public static int ED_adjacent(__ptr__ e) {
-		return AGDATA(e).castTo(Agedgeinfo_t.class).getInt("adjacent");
+		return ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).adjacent;
 	}
-	public static void ED_adjacent(Agedge_s e, int v) {
-		AGDATA(e).castTo(Agedgeinfo_t.class).setInt("adjacent", v);
+
+	public static void ED_adjacent(ST_Agedge_s e, int v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setInt("adjacent", v);
 	}
 
 	// #define ED_factor(e) (((Agedgeinfo_t*)AGDATA(e))->factor)
 	// #define ED_gui_state(e) (((Agedgeinfo_t*)AGDATA(e))->gui_state)
 	// #define ED_head_label(e) (((Agedgeinfo_t*)AGDATA(e))->head_label)
-	public static __ptr__ ED_head_label(Agedge_s e) {
-		return AGDATA(e).castTo(Agedgeinfo_t.class).getPtr("head_label");
+	public static ST_textlabel_t ED_head_label(ST_Agedge_s e) {
+		return (ST_textlabel_t) ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).head_label;
+	}
+
+	public static void ED_head_label(ST_Agedge_s e, __ptr__ v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setPtr("head_label", v);
 	}
 
 	// #define ED_head_port(e) (((Agedgeinfo_t*)AGDATA(e))->head_port)
-	public static __struct__<port> ED_head_port(__ptr__ e) {
-		return (__struct__<port>) AGDATA(e).castTo(Agedgeinfo_t.class).getStruct("head_port");
+	public static ST_port ED_head_port(__ptr__ e) {
+		return (ST_port) ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).head_port;
 	}
-	public static void ED_head_port(Agedge_s e, __struct__<port> v) {
-		AGDATA(e).castTo(Agedgeinfo_t.class).setStruct("head_port", v);
+
+	public static void ED_head_port(ST_Agedge_s e, ST_port v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setStruct("head_port", v);
 	}
 
 	// #define ED_label(e) (((Agedgeinfo_t*)AGDATA(e))->label)
-	public static textlabel_t ED_label(__ptr__ e) {
-		return (textlabel_t) AGDATA(e).castTo(Agedgeinfo_t.class).getPtr("label");
+	public static ST_textlabel_t ED_label(__ptr__ e) {
+		return (ST_textlabel_t) ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).label;
 	}
-	public static void ED_label(Agedge_s e, __ptr__ v) {
-		AGDATA(e).castTo(Agedgeinfo_t.class).setPtr("label", v);
+
+	public static void ED_label(ST_Agedge_s e, __ptr__ v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setPtr("label", v);
 	}
 
 	// #define ED_xlabel(e) (((Agedgeinfo_t*)AGDATA(e))->xlabel)
-	public static __ptr__ ED_xlabel(Agedge_s e) {
-		return AGDATA(e).castTo(Agedgeinfo_t.class).getPtr("xlabel");
+	public static ST_textlabel_t ED_xlabel(ST_Agedge_s e) {
+		return (ST_textlabel_t) ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).xlabel;
 	}
 
 	// #define ED_label_ontop(e) (((Agedgeinfo_t*)AGDATA(e))->label_ontop)
-	public static boolean ED_label_ontop(Agedge_s e) {
-		return AGDATA(e).castTo(Agedgeinfo_t.class).getBoolean("label_ontop");
+	public static boolean ED_label_ontop(ST_Agedge_s e) {
+		return ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).label_ontop;
 	}
-	public static void ED_label_ontop(Agedge_s e, boolean v) {
-		AGDATA(e).castTo(Agedgeinfo_t.class).setBoolean("label_ontop", v);
+
+	public static void ED_label_ontop(ST_Agedge_s e, boolean v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).label_ontop = v;
 	}
 
 	// #define ED_minlen(e) (((Agedgeinfo_t*)AGDATA(e))->minlen)
-	public static int ED_minlen(Agedge_s e) {
-		return AGDATA(e).castTo(Agedgeinfo_t.class).getInt("minlen");
+	public static int ED_minlen(ST_Agedge_s e) {
+		return ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).minlen;
 	}
-	public static void ED_minlen(Agedge_s e, int v) {
-		AGDATA(e).castTo(Agedgeinfo_t.class).setInt("minlen", v);
+
+	public static void ED_minlen(ST_Agedge_s e, int v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setInt("minlen", v);
 	}
 
 	// #define ED_path(e) (((Agedgeinfo_t*)AGDATA(e))->path)
 	// #define ED_showboxes(e) (((Agedgeinfo_t*)AGDATA(e))->showboxes)
-	public static int ED_showboxes(Agedge_s e) {
-		return AGDATA(e).castTo(Agedgeinfo_t.class).getInt("showboxes");
+	public static int ED_showboxes(ST_Agedge_s e) {
+		return ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).showboxes;
 	}
-	public static void ED_showboxes(Agedge_s e, int v) {
-		AGDATA(e).castTo(Agedgeinfo_t.class).setInt("showboxes", v);
+
+	public static void ED_showboxes(ST_Agedge_s e, int v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setInt("showboxes", v);
 	}
 
 	// #define ED_spl(e) (((Agedgeinfo_t*)AGDATA(e))->spl)
-	public static splines ED_spl(Agedge_s e) {
-		return (splines) AGDATA(e).castTo(Agedgeinfo_t.class).getPtr("spl");
+	public static ST_splines ED_spl(ST_Agedge_s e) {
+		return ((ST_Agedgeinfo_t) AGDATA(e).castTo(ST_Agedgeinfo_t.class)).spl;
 	}
-	public static void ED_spl(Agedge_s e, __ptr__ v) {
-		AGDATA(e).castTo(Agedgeinfo_t.class).setPtr("spl", v);
+
+	public static void ED_spl(ST_Agedge_s e, ST_splines v) {
+		((ST_Agedgeinfo_t) AGDATA(e).castTo(ST_Agedgeinfo_t.class)).spl = v;
 	}
 
 	// #define ED_tail_label(e) (((Agedgeinfo_t*)AGDATA(e))->tail_label)
-	public static __ptr__ ED_tail_label(Agedge_s e) {
-		return AGDATA(e).castTo(Agedgeinfo_t.class).getPtr("tail_label");
+	public static ST_textlabel_t ED_tail_label(ST_Agedge_s e) {
+		return (ST_textlabel_t) ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).tail_label;
+	}
+
+	public static void ED_tail_label(ST_Agedge_s e, __ptr__ v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setPtr("tail_label", v);
 	}
 
 	// #define ED_tail_port(e) (((Agedgeinfo_t*)AGDATA(e))->tail_port)
-	public static __struct__<port> ED_tail_port(__ptr__ e) {
-		return (__struct__<port>) AGDATA(e).castTo(Agedgeinfo_t.class).getStruct("tail_port");
+	public static ST_port ED_tail_port(__ptr__ e) {
+		return (ST_port) ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).tail_port;
 	}
-	public static void ED_tail_port(Agedge_s e, __struct__<port> v) {
-		AGDATA(e).castTo(Agedgeinfo_t.class).setStruct("tail_port", v);
+
+	public static void ED_tail_port(ST_Agedge_s e, ST_port v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setStruct("tail_port", v);
 	}
 
 	// #define ED_to_orig(e) (((Agedgeinfo_t*)AGDATA(e))->to_orig)
-	public static Agedge_s ED_to_orig(__ptr__ e) {
-		return (Agedge_s) AGDATA(e).castTo(Agedgeinfo_t.class).getPtr("to_orig");
+	public static ST_Agedge_s ED_to_orig(__ptr__ e) {
+		return (ST_Agedge_s) ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).to_orig;
 	}
-	public static void ED_to_orig(Agedge_s e, __ptr__ v) {
-		AGDATA(e).castTo(Agedgeinfo_t.class).setPtr("to_orig", v);
+
+	public static void ED_to_orig(ST_Agedge_s e, __ptr__ v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setPtr("to_orig", v);
 	}
 
 	// #define ED_to_virt(e) (((Agedgeinfo_t*)AGDATA(e))->to_virt)
-	public static Agedge_s ED_to_virt(Agedge_s e) {
-		return (Agedge_s) AGDATA(e).castTo(Agedgeinfo_t.class).getPtr("to_virt");
+	public static ST_Agedge_s ED_to_virt(ST_Agedge_s e) {
+		return (ST_Agedge_s) ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).to_virt;
 	}
-	public static void ED_to_virt(Agedge_s e, __ptr__ v) {
-		AGDATA(e).castTo(Agedgeinfo_t.class).setPtr("to_virt", v);
+
+	public static void ED_to_virt(ST_Agedge_s e, __ptr__ v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setPtr("to_virt", v);
 	}
 
 	// #define ED_tree_index(e) (((Agedgeinfo_t*)AGDATA(e))->tree_index)
 	public static int ED_tree_index(__ptr__ e) {
-		return AGDATA(e).castTo(Agedgeinfo_t.class).getInt("tree_index");
+		return ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).tree_index;
 	}
+
 	public static void ED_tree_index(__ptr__ e, int v) {
-		AGDATA(e).castTo(Agedgeinfo_t.class).setInt("tree_index", v);
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setInt("tree_index", v);
 	}
 
 	// #define ED_xpenalty(e) (((Agedgeinfo_t*)AGDATA(e))->xpenalty)
 	public static int ED_xpenalty(__ptr__ e) {
-		return AGDATA(e).castTo(Agedgeinfo_t.class).getInt("xpenalty");
+		return ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).xpenalty;
 	}
-	public static void ED_xpenalty(Agedge_s e, int v) {
-		AGDATA(e).castTo(Agedgeinfo_t.class).setInt("xpenalty", v);
+
+	public static void ED_xpenalty(ST_Agedge_s e, int v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setInt("xpenalty", v);
 	}
 
 	// #define ED_dist(e) (((Agedgeinfo_t*)AGDATA(e))->dist)
-	public static double ED_dist(Agedge_s e) {
-		return AGDATA(e).castTo(Agedgeinfo_t.class).getDouble("dist");
+	public static double ED_dist(ST_Agedge_s e) {
+		return ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).dist;
 	}
-	public static void ED_dist(Agedge_s e, double v) {
-		AGDATA(e).castTo(Agedgeinfo_t.class).setDouble("dist", v);
+
+	public static void ED_dist(ST_Agedge_s e, double v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setDouble("dist", v);
 	}
 
 	// #define ED_weight(e) (((Agedgeinfo_t*)AGDATA(e))->weight)
-	public static int ED_weight(Agedge_s e) {
-		return AGDATA(e).castTo(Agedgeinfo_t.class).getInt("weight");
+	public static int ED_weight(ST_Agedge_s e) {
+		return ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).weight;
 	}
-	public static void ED_weight(Agedge_s e, int v) {
-		AGDATA(e).castTo(Agedgeinfo_t.class).setInt("weight", v);
+
+	public static void ED_weight(ST_Agedge_s e, int v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setInt("weight", v);
 	}
 
 	//
@@ -1091,11 +1212,12 @@ public class Macro {
 	// #define ED_count(e) (((Agedgeinfo_t*)AGDATA(e))->count)
 	// #define ED_cutvalue(e) (((Agedgeinfo_t*)AGDATA(e))->cutvalue)
 	// #define ED_edge_type(e) (((Agedgeinfo_t*)AGDATA(e))->edge_type)
-	public static int ED_edge_type(Agedge_s e) {
-		return AGDATA(e).castTo(Agedgeinfo_t.class).getInt("edge_type");
+	public static int ED_edge_type(ST_Agedge_s e) {
+		return ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).edge_type;
 	}
-	public static void ED_edge_type(Agedge_s e, int v) {
-		AGDATA(e).castTo(Agedgeinfo_t.class).setInt("edge_type", v);
+
+	public static void ED_edge_type(ST_Agedge_s e, int v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setInt("edge_type", v);
 	}
 
 	// #define ED_adjacent(e) (((Agedgeinfo_t*)AGDATA(e))->adjacent)
@@ -1122,18 +1244,44 @@ public class Macro {
 	// #define elist_fastapp(item,L) do {L.list[L.size++] = item; L.list[L.size] = NULL;} while(0)
 
 	// #define ALLOC(size,ptr,type) (ptr? (type*)realloc(ptr,(size)*sizeof(type)):(type*)malloc((size)*sizeof(type)))
-	public static __ptr__ ALLOC_empty(int size, __ptr__ ptr, Class type) {
-		return (__ptr__) (ptr != null ? JUtils.sizeof_starstar_empty(type, size).realloc(ptr) : JUtils
-				.sizeof_starstar_empty(type, size).malloc());
-	}
 
-	public static __ptr__ ALLOC_allocated2(int size, __ptr__ ptr, Class type) {
-		return (__ptr__) (ptr != null ? JUtils.sizeof(type, size).realloc(ptr) : JUtils.sizeof(type, size).malloc());
-	}
-
-	public static __ptr__ ALLOC_INT(int size, __ptr__ ptr) {
-		return (__ptr__) (ptr != null ? JUtils.size_t_array_of_integer(size).realloc(ptr) : JUtils
-				.size_t_array_of_integer(size).malloc());
+//	public static CStarStar<ST_Agnode_s> ALLOC_allocated_ST_Agnode_s(CStarStar<ST_Agnode_s> old, int size) {
+//		if (old == null) {
+//			return new CStarStar<ST_Agnode_s>(size);
+//		}
+//		old.realloc(size);
+//		return old;
+//	}
+//
+//	public static CStarStar<ST_Agnode_s> ALLOC_Agnode_s(int size, CStarStar<ST_Agnode_s> old) {
+//		if (old == null) {
+//			return new CStarStar<ST_Agnode_s>(size);
+//		}
+//		old.realloc(size);
+//		return old;
+//	}
+//	
+//	public static CStarStar<ST_Agedge_s> ALLOC_allocated_ST_Agedge_s(CStarStar<ST_Agedge_s> old, int size) {
+//		if (old == null) {
+//			return new CStarStar<ST_Agedge_s>(size);
+//		}
+//		old.realloc(size);
+//		return old;
+//	}
+	
+	public static int[] ALLOC_INT(int size, int[] old) {
+		if (old == null)
+			return new int[size];
+		
+		if (old.length > size)
+			return old;
+		
+		final int result[] = new int[size];
+		
+		for (int i=0; i<old.length; i++) result[i] = old[i];
+		return result;
+//		return (__ptr__) (ptr != null ? JUtils.size_t_array_of_integer(size).realloc(ptr) : JUtils
+//				.size_t_array_of_integer(size).malloc());
 	}
 
 	// #define RALLOC(size,ptr,type) ((type*)realloc(ptr,(size)*sizeof(type)))
@@ -1141,32 +1289,25 @@ public class Macro {
 		throw new UnsupportedOperationException();
 	}
 
-	public static __ptr__ ALLOC(int nb, __ptr__ ptr, Class type) {
-		if (ptr == null) {
-			return (__ptr__) JUtils.sizeof(type, nb).malloc();
-		}
-		return (__ptr__) JUtils.sizeof(type, nb).realloc(ptr);
-	}
-
 	// #define elist_append(item,L) do {L.list = ALLOC(L.size + 2,L.list,edge_t*); L.list[L.size++] = item;
 	// L.list[L.size] = NULL;} while(0)
-	public static void elist_append(__ptr__ item, __struct__ L) {
-		L.setPtr("list", ALLOC_empty(L.getInt("size") + 2, L.getPtr("list"), Agedge_s.class));
-		L.getArrayOfPtr("list").plus(L.getInt("size")).setPtr(item);
-		L.setInt("size", 1 + L.getInt("size"));
-		L.getArrayOfPtr("list").plus(L.getInt("size")).setPtr(null);
+	public static void elist_append(ST_Agedge_s item, ST_elist L) {
+		L.list = CStarStar.<ST_Agedge_s> REALLOC(L.size + 2, L.list, ST_Agedge_s.class);
+		L.list.set_(L.size++, item);
+		L.list.set_(L.size, null);
 	}
 
 	// #define alloc_elist(n,L) do {L.size = 0; L.list = N_NEW(n + 1,edge_t*); } while (0)
-	public static void alloc_elist(int n, __struct__ L, Class cl) {
-		L.setInt("size", 0);
-		L.setPtr("list", (__ptr__) JUtils.sizeof_starstar_empty(cl, n + 1).malloc());
+	public static void alloc_elist(int n, ST_elist L) {
+		L.size = 0;
+		L.list = CStarStar.<ST_Agedge_s> ALLOC(n + 1, ST_Agedge_s.class);
 	}
 
 	// #define free_list(L) do {if (L.list) free(L.list);} while (0)
-	public static void free_list(__struct__ L) {
-		if (L.getPtr("list") != null)
-			Memory.free(L.getPtr("list"));
+	public static void free_list(ST_elist L) {
+		if (L.list!=null)
+			Memory.free(L.list);
+		// Memory.free(L.getPtr("list"));
 	}
 
 	public static double ABS(double a) {
@@ -1222,14 +1363,14 @@ public class Macro {
 	// ED_edge_type(newp) = VIRTUAL; \
 	// ED_to_orig(newp) = old; \
 
-	public static void MAKEFWDEDGE(__ptr__ new_, __ptr__ old) {
-		Agedge_s newp;
-		Agedgeinfo_t info;
-		newp = (Agedge_s) new_;
-		info = (Agedgeinfo_t) newp.getStruct("base").getPtr("data");
-		info.copyDataFrom(old.getStruct("base").getPtr("data").castTo(Agedgeinfo_t.class).getStruct());
-		newp.copyDataFrom(old);
-		newp.getStruct("base").setPtr("data", info);
+	public static void MAKEFWDEDGE(ST_Agedge_s new_, ST_Agedge_s old) {
+		ST_Agedge_s newp;
+		ST_Agedgeinfo_t info;
+		newp = (ST_Agedge_s) new_.getPtr();
+		info = (ST_Agedgeinfo_t) newp.base.data.castTo(ST_Agedgeinfo_t.class);
+		info.copyDataFrom(old.base.data.castTo(ST_Agedgeinfo_t.class).getStruct());
+		newp.copyDataFrom((__ptr__)old);
+		newp.base.setPtr("data", info);
 		agtail(newp, AGHEAD(old));
 		aghead(newp, AGTAIL(old));
 		ED_tail_port(newp, ED_head_port(old));
@@ -1238,17 +1379,21 @@ public class Macro {
 		ED_to_orig(newp, old);
 	}
 
-	// #define VIRTUAL 1 /* virtual nodes in long edge chains */
-	public static final int VIRTUAL = 1;
+//	// #define ZALLOC(size,ptr,type,osize) (ptr?
+//	// (type*)zrealloc(ptr,size,sizeof(type),osize):(type*)zmalloc((size)*sizeof(type)))
+//
+//	public static CStar<ST_textspan_t> ZALLOC_ST_textspan_t(ST_textspan_t.Array old, int size) {
+//		return old != null ? old.reallocJ(size) : new ST_textspan_t.Array(size);
+//	}
 
-	// #define ZALLOC(size,ptr,type,osize) (ptr?
-	// (type*)zrealloc(ptr,size,sizeof(type),osize):(type*)zmalloc((size)*sizeof(type)))
-	public static __ptr__ ZALLOC(int size, __ptr__ ptr, Class type, int osize) {
-		if (ptr != null) {
-			return Memory.realloc(ptr, JUtils.sizeof(type, size));
-		}
-		return (__ptr__) JUtils.sizeof(type, size).malloc();
-	}
+//	public static CStarStar<ST_Agraph_s> ZALLOC_ST_Agraph_s(CStarStar<ST_Agraph_s> old, int size) {
+//		if (old == null) {
+//			return new CStarStar<ST_Agraph_s>(size);
+//		}
+//		old.realloc(size);
+//		return old;
+//		// return old != null ? old.reallocJ(size) : new ST_Agraph_s.Array(size);
+//	}
 
 	public static final int MAXSHORT = 0x7fff;
 
@@ -1288,7 +1433,7 @@ public class Macro {
 	public static double MICROPOINT = .000001;
 
 	// #define APPROXEQPT(p,q,tol) (DIST2((p),(q)) < SQR(tol))
-	public static boolean APPROXEQPT(__ptr__ p, __ptr__ q, double tol) {
+	public static boolean APPROXEQPT(ST_pointf p, ST_pointf q, double tol) {
 		return (DIST2((p), (q)) < SQR(tol));
 	}
 
@@ -1304,20 +1449,18 @@ public class Macro {
 
 	//
 	// #define DIST2(p,q) (LEN2(((p).x - (q).x),((p).y - (q).y)))
-	public static double DIST2(__ptr__ p, __ptr__ q) {
-		return (LEN2(((p).getDouble("x") - (q).getDouble("x")), ((p).getDouble("y") - (q).getDouble("y"))));
+	public static double DIST2(ST_pointf p, ST_pointf q) {
+		return (LEN2(((p).x - (q).x), ((p).y - (q).y)));
 	}
-
-	public static double DIST2(__struct__ p, __ptr__ q) {
-		return (LEN2(((p).getDouble("x") - (q).getDouble("x")), ((p).getDouble("y") - (q).getDouble("y"))));
+	public static double DIST2(ST_point p, ST_point q) {
+		return (LEN2(((p).x - (q).x), ((p).y - (q).y)));
 	}
 
 	// #define DIST(p,q) (sqrt(DIST2((p),(q))))
 
 	// #define INSIDE(p,b) (BETWEEN((b).LL.x,(p).x,(b).UR.x) && BETWEEN((b).LL.y,(p).y,(b).UR.y))
-	public static boolean INSIDE(__struct__ b, __struct__ p) {
-		return (BETWEEN(b.getStruct("LL").getDouble("x"), p.getDouble("x"), b.getStruct("UR").getDouble("x")) && BETWEEN(
-				b.getStruct("LL").getDouble("y"), p.getDouble("y"), b.getStruct("UR").getDouble("y")));
+	public static boolean INSIDE(ST_pointf p, ST_boxf b) {
+		return (BETWEEN(b.LL.x, p.x, b.UR.x) && BETWEEN(b.LL.y, p.y, b.UR.y));
 	}
 
 	public static final double M_PI = Math.PI;
@@ -1333,12 +1476,12 @@ public class Macro {
 	// (((a).x - (b).x) * ((a).x - (b).x)) + (((a).y - (b).y) * ((a).y - (b).y)) \
 	// )
 
-	public static double DISTSQ(__struct__ a, __struct__ b) {
-		return (((a).getDouble("x") - (b).getDouble("x")) * ((a).getDouble("x") - (b).getDouble("x")))
-				+ (((a).getDouble("y") - (b).getDouble("y")) * ((a).getDouble("y") - (b).getDouble("y")));
+	public static double DISTSQ(ST_pointf a, ST_pointf b) {
+		return (((a).x - (b).x) * ((a).x - (b).x))
+				+ (((a).y - (b).y) * ((a).y - (b).y));
 	}
 
-	public static void hackInitDimensionFromLabel(__struct__<pointf> size, String label) {
+	public static void hackInitDimensionFromLabel(ST_pointf size, String label) {
 		if (label.matches("_dim_\\d+_\\d+_")) {
 			Pattern p = Pattern.compile("_dim_(\\d+)_(\\d+)_");
 			Matcher m = p.matcher(label);
@@ -1347,13 +1490,411 @@ public class Macro {
 			}
 			int ww = Integer.parseInt(m.group(1));
 			int hh = Integer.parseInt(m.group(2));
-			size.setDouble("x", ww);
-			size.setDouble("y", hh);
-			System.err.println("Hacking dimension to width=" + ww + " height=" + hh);
+			size.x = ww;
+			size.y = hh;
+			JUtils.LOG2("Hacking dimension to width=" + ww + " height=" + hh);
+//		} else {
+//			throw new IllegalArgumentException(label);
 		}
 	}
-	
+
 	public static CString createHackInitDimensionFromLabel(int width, int height) {
 		return new CString("_dim_" + width + "_" + height + "_");
 	}
+	
+	
+	// geom.h
+	
+	//#define P2PF(p,pf)		((pf).x = (p).x,(pf).y = (p).y)
+	
+	
+	//#define PF2P(pf,p)		((p).x = ROUND((pf).x),(p).y = ROUND((pf).y))
+	public static void PF2P(ST_pointf pf, ST_pointf p) {
+		p.x = ROUND(pf.x);
+		p.y = ROUND(pf.y);
+	}
+	public static void PF2P(ST_pointf pf, ST_point p) {
+		p.x = ROUND(pf.x);
+		p.y = ROUND(pf.y);
+	}
+
+	//#define B2BF(b,bf)		(P2PF((b).LL,(bf).LL),P2PF((b).UR,(bf).UR))
+	//#define BF2B(bf,b)		(PF2P((bf).LL,(b).LL),PF2P((bf).UR,(b).UR))
+
+	//#define APPROXEQ(a,b,tol)	(ABS((a) - (b)) < (tol))
+	//#define APPROXEQPT(p,q,tol)	(DIST2((p),(q)) < SQR(tol))
+
+	/* some common tolerance values */
+	//#define MILLIPOINT .001
+	//#define MICROPOINT .000001
+	
+	// ADDED AFTER PREPROCESSING EXTRACTION
+	public static final int LEFT = (1<<3);
+	public static final int RIGHT = (1<<1);
+	public static final int BOTTOM = (1<<0);
+	public static final int TOP = (1<<2);
+
+
+	/* label types */
+	public static final int LT_NONE =	(0 << 1);
+	public static final int LT_HTML =	(1 << 1);
+	public static final int LT_RECD =	(2 << 1);
+
+	
+	/* existence of labels */
+	public static final int EDGE_LABEL =	(1 << 0);
+	public static final int HEAD_LABEL =	(1 << 1);
+	public static final int TAIL_LABEL =	(1 << 2);
+	public static final int GRAPH_LABEL =	(1 << 3);
+	public static final int NODE_XLABEL =	(1 << 4);
+	public static final int EDGE_XLABEL =	(1 << 5);
+//
+	
+	/* edge types */
+	public static final int ET_NONE =	(0 << 1);
+	public static final int ET_LINE =	(1 << 1);
+	public static final int ET_CURVED =	(2 << 1);
+	public static final int ET_PLINE =	(3 << 1);
+	public static final int ET_ORTHO =	(4 << 1);
+	public static final int ET_SPLINE =	(5 << 1);
+	public static final int ET_COMPOUND =	(6 << 1);
+	
+	/* New ranking is used */
+	public static final int NEW_RANK =  	(1 << 4);
+	
+	/*	node,edge types */
+	public static final int NORMAL =		0;	/* an original input node */
+	public static final int VIRTUAL =		1;	/* virtual nodes in long edge chains */
+	public static final int SLACKNODE =		2;	/* encode edges in node position phase */
+	public static final int REVERSED =		3;	/* reverse of an original edge */
+	public static final int FLATORDER =		4;	/* for ordered edges */
+	public static final int CLUSTER_EDGE = 	5;	/* for ranking clusters */
+	public static final int IGNORED =		6;	/* concentrated multi-edges */
+
+	/* collapsed node classifications */
+	public static final int NOCMD =			0;	/* default */
+	public static final int SAMERANK =		1;	/* place on same rank */
+	public static final int MINRANK =		2;	/* place on "least" rank */
+	public static final int SOURCERANK =	3;	/* strict version of MINRANK */
+	public static final int MAXRANK =		4;	/* place on "greatest" rank */
+	public static final int SINKRANK =		5;	/* strict version of MAXRANK */
+	public static final int LEAFSET =		6;	/* set of collapsed leaf nodes */
+	public static final int CLUSTER =		7;	/* set of clustered nodes */
+
+	/* type of graph label: GD_label_pos */
+	public static final int LABEL_AT_BOTTOM =	0;
+	public static final int LABEL_AT_TOP =		1;
+	public static final int LABEL_AT_LEFT =		2;
+	public static final int LABEL_AT_RIGHT =	4;
+
+	/* values specifying rankdir */
+	public static final int RANKDIR_TB = 0;
+	public static final int RANKDIR_LR = 1;
+	public static final int RANKDIR_BT = 2;
+	public static final int RANKDIR_RL = 3;
+
+	/* edge types */
+	public static final int REGULAREDGE 	= 1;
+	public static final int FLATEDGE    	= 2;
+	public static final int SELFWPEDGE  	= 4;
+	public static final int SELFNPEDGE  	= 8;
+	public static final int SELFEDGE    	= 8;
+	public static final int EDGETYPEMASK	= 15;	/* the OR of the above */
+	
+	
+	public static final int LAYOUT_USES_RANKDIR = (1<<0);
+
+	public static void dtinsert(ST_dt_s d, Object o) {
+		d.searchf.exe(d, o, DT_INSERT);
+	}
+	
+	public static Object dtsearch(ST_dt_s d, Object o) {
+		return d.searchf.exe(d, o, DT_SEARCH);
+	}
+	
+	public static Object dtfirst(ST_dt_s d) {
+		return d.searchf.exe(d, null, DT_FIRST);
+	}
+
+	public static Object dtnext(ST_dt_s d, Object o) {
+		return d.searchf.exe(d, o, DT_NEXT);
+	}
+
+
+
+//	#define dtlink(d,e)	(((Dtlink_t*)(e))->right)
+//	#define dtobj(d,e)	_DTOBJ((e), _DT(d)->disc->link)
+//	#define dtfinger(d)	(_DT(d)->data->here ? dtobj((d),_DT(d)->data->here):(Void_t*)(0))
+//
+//	#define dtfirst(d)	(*(_DT(d)->searchf))((d),(Void_t*)(0),DT_FIRST)
+//	#define dtnext(d,o)	(*(_DT(d)->searchf))((d),(Void_t*)(o),DT_NEXT)
+//	#define dtleast(d,o)	(*(_DT(d)->searchf))((d),(Void_t*)(o),DT_SEARCH|DT_NEXT)
+//	#define dtlast(d)	(*(_DT(d)->searchf))((d),(Void_t*)(0),DT_LAST)
+//	#define dtprev(d,o)	(*(_DT(d)->searchf))((d),(Void_t*)(o),DT_PREV)
+//	#define dtmost(d,o)	(*(_DT(d)->searchf))((d),(Void_t*)(o),DT_SEARCH|DT_PREV)
+//	#define dtsearch(d,o)	(*(_DT(d)->searchf))((d),(Void_t*)(o),DT_SEARCH)
+//	#define dtmatch(d,o)	(*(_DT(d)->searchf))((d),(Void_t*)(o),DT_MATCH)
+//	#define dtinsert(d,o)	(*(_DT(d)->searchf))((d),(Void_t*)(o),DT_INSERT)
+//	#define dtappend(d,o)	(*(_DT(d)->searchf))((d),(Void_t*)(o),DT_INSERT|DT_APPEND)
+//	#define dtdelete(d,o)	(*(_DT(d)->searchf))((d),(Void_t*)(o),DT_DELETE)
+//	#define dtattach(d,o)	(*(_DT(d)->searchf))((d),(Void_t*)(o),DT_ATTACH)
+//	#define dtdetach(d,o)	(*(_DT(d)->searchf))((d),(Void_t*)(o),DT_DETACH)
+//	#define dtclear(d)	(*(_DT(d)->searchf))((d),(Void_t*)(0),DT_CLEAR)
+//	#define dtfound(d)	(_DT(d)->type & DT_FOUND)
+	
+	
+
+/* flag set if the last search operation actually found the object */
+	public static final int DT_FOUND	= 0100000;
+
+/* supported storage methods */
+	public static final int DT_SET		= 0000001;	/* set with unique elements		*/
+	public static final int DT_BAG		= 0000002;	/* multiset				*/
+	public static final int DT_OSET		= 0000004;	/* ordered set (self-adjusting tree)	*/
+	public static final int DT_OBAG		= 0000010;	/* ordered multiset			*/
+	public static final int DT_LIST		= 0000020;	/* linked list				*/
+	public static final int DT_STACK	= 0000040;	/* stack: insert/delete at top		*/
+	public static final int DT_QUEUE	= 0000100;	/* queue: insert at top, delete at tail	*/
+	public static final int DT_DEQUE	= 0000200;  /* deque: insert at top, append at tail	*/
+	public static final int DT_METHODS	= 0000377;	/* all currently supported methods	*/
+
+/* asserts to dtdisc() */
+	public static final int DT_SAMECMP	= 0000001;	/* compare methods equivalent		*/
+	public static final int DT_SAMEHASH	= 0000002;	/* hash methods equivalent		*/
+
+/* types of search */
+	public static final int DT_INSERT	= 0000001;	/* insert object if not found		*/
+	public static final int DT_DELETE	= 0000002;	/* delete object if found		*/
+	public static final int DT_SEARCH	= 0000004;	/* look for an object			*/
+	public static final int DT_NEXT		= 0000010;	/* look for next element		*/
+	public static final int DT_PREV		= 0000020;	/* find previous element		*/
+	public static final int DT_RENEW	= 0000040;	/* renewing an object			*/
+	public static final int DT_CLEAR	= 0000100;	/* clearing all objects			*/
+	public static final int DT_FIRST	= 0000200;	/* get first object			*/
+	public static final int DT_LAST		= 0000400;	/* get last object			*/
+	public static final int DT_MATCH	= 0001000;	/* find object matching key		*/
+	public static final int DT_VSEARCH	= 0002000;	/* search using internal representation	*/
+	public static final int DT_ATTACH	= 0004000;	/* attach an object to the dictionary	*/
+	public static final int DT_DETACH	= 0010000;	/* detach an object from the dictionary	*/
+	public static final int DT_APPEND	= 0020000;	/* used on Dtlist to append an object	*/
+
+/* events */
+	public static final int DT_OPEN		= 1;	/* a dictionary is being opened		*/
+	public static final int DT_CLOSE	= 2;	/* a dictionary is being closed		*/
+	public static final int DT_DISC		= 3;	/* discipline is about to be changed	*/
+	public static final int DT_METH		= 4;	/* method is about to be changed	*/
+	public static final int DT_ENDOPEN	= 5;	/* dtopen() is done			*/
+	public static final int DT_ENDCLOSE	= 6;	/* dtclose() is done			*/
+	public static final int DT_HASHSIZE	= 7;	/* setting hash table size		*/
+
+	/* this must be disjoint from DT_METHODS */
+	public static final int  DT_FLATTEN =	010000;	/* dictionary already flattened	*/
+	public static final int  DT_WALK	=	020000;	/* hash table being walked	*/
+
+	/* how the Dt_t handle was allocated */
+	public static final int  DT_MALLOC	= 0;
+	public static final int  DT_MEMORYF	= 1;
+
+	/* tree rotation/linking functions */
+//	#define rrotate(x,y)	((x)->left  = (y)->right, (y)->right = (x))
+//	#define lrotate(x,y)	((x)->right = (y)->left,  (y)->left  = (x))
+//	#define rlink(r,x)	((r) = (r)->left   = (x) )
+//	#define llink(l,x)	((l) = (l)->right  = (x) )
+	public static void rrotate(ST_dtlink_s x, ST_dtlink_s y) {
+		x._left = y.right; y.right = x;
+	}
+	public static void lrotate(ST_dtlink_s x, ST_dtlink_s y) {
+		x.right = y._left; y._left = x;
+	}
+	public static ST_dtlink_s rlink____warning(ST_dtlink_s r, ST_dtlink_s x) {
+		r._left = x;
+		// r = x; WARNING THIS IS DIFFERENT FROM C: you must use returned value
+		return x;
+	}
+	public static ST_dtlink_s llink____warning(ST_dtlink_s l, ST_dtlink_s x) {
+		l.right = x;
+		// l = x; WARNING THIS IS DIFFERENT FROM C: you must use returned value
+		return x;
+	}
+
+	public static final int	GVRENDER_PLUGIN = 300;	/* a plugin supported language */
+	public static final int	NO_SUPPORT = 999;	/* no support */
+
+	/* type of cluster rank assignment */
+	public static final int			LOCAL	=	100;
+	public static final int			GLOBAL	=	101;
+	public static final int			NOCLUST	=	102;
+
+//	#define agfindedge(g,t,h) (agedge(g,t,h,NULL,0))
+//	#define agfindnode(g,n) (agnode(g,n,0))
+//	#define agfindgraphattr(g,a) (agattr(g,AGRAPH,a,NULL))
+//	#define agfindnodeattr(g,a) (agattr(g,AGNODE,a,NULL))
+//	#define agfindedgeattr(g,a) (agattr(g,AGEDGE,a,NULL))
+	
+	public static ST_Agsym_s agfindgraphattr(ST_Agraph_s g, final String a) {
+		return agattr(g, AGRAPH, new CString(a), null);
+	}
+	public static ST_Agsym_s agfindnodeattr(ST_Agraph_s g, final String a) {
+		return agattr(g, AGNODE, new CString(a), null);
+	}
+	public static ST_Agsym_s agfindedgeattr(ST_Agraph_s g, final String a) {
+		return agattr(g, AGEDGE, new CString(a), null);
+	}
+
+	public static final double			DEFAULT_NODESEP	= 0.25;
+	public static final double			MIN_NODESEP		= 0.02;
+	public static final double			DEFAULT_RANKSEP	= 0.5;
+	public static final double			MIN_RANKSEP		= 0.02;
+
+	public static final int			POINTS_PER_INCH		= 72;
+	
+	public static int POINTS(double a_inches) {
+		return ROUND((a_inches)*POINTS_PER_INCH);
+	}
+	public static double INCH2PS(double a_inches) {
+		return ((a_inches)*(double)POINTS_PER_INCH);
+	}
+	public static double PS2INCH(double a_points) {
+		return ((a_points)/(double)POINTS_PER_INCH);
+	}
+
+	/* drawing phases */
+	public static final int	 GVBEGIN        = 0;
+	public static final int	 GVSPLINES      = 1;
+
+	/* for neato */
+	public static final double	 Spring_coeff    = 1.0;
+	public static final double	 MYHUGE          = (1.0e+37);
+	public static final int	 MAXDIM			= 10;
+
+	public static final String NODENAME_ESC = "\\N";
+	public static final String DEFAULT_NODESHAPE = "ellipse";
+	
+	public static final double			DEFAULT_NODEHEIGHT 	= 0.5;
+	public static final double			MIN_NODEHEIGHT	   	= 0.02;
+	public static final double			DEFAULT_NODEWIDTH	= 0.75;
+	public static final double			MIN_NODEWIDTH		= 0.01;
+
+	
+	/* sides (e.g. of cluster margins) */
+	public static final int			BOTTOM_IX	= 0;
+	public static final int			RIGHT_IX	= 1;
+	public static final int			TOP_IX		= 2;
+	public static final int			LEFT_IX		= 3;
+
+	
+	public static final int			GAP		= 4;
+	
+	public static void PAD(ST_pointf d) {
+		XPAD(d);
+		YPAD(d);
+	}
+	public static void YPAD(ST_pointf d) {
+		d.y += 2*GAP;
+	}
+	public static void XPAD(ST_pointf d) {
+		d.x += 4*GAP;
+	}
+
+	public static void UNFLATTEN(ST_dt_s dt) {
+		if ((dt.data.type&DT_FLATTEN)!=0) dtrestore(dt,null);
+	}
+	
+	
+	public static final int	 CB_INITIALIZE	= 100;
+	public static final int	 CB_UPDATE		= 101;
+	public static final int	 CB_DELETION	= 102;
+
+	public static final int			CL_BACK		= 10;	/* cost of backward pointing edge */
+	public static final int			CL_OFFSET	= 8;	/* margin of cluster box in PS points */
+	public static final int			CL_CROSS	= 1000;	/* cost of cluster skeleton edge crossing */
+
+	
+	public static __ptr__ AGCLOS_id(ST_Agraph_s g) {
+		return g.clos.state.id;
+	}
+	public static ST_Agiddisc_s AGDISC_id(ST_Agraph_s g) {
+		return g.clos.disc.id;
+	}
+	public static __ptr__ AGCLOS_mem(ST_Agraph_s g) {
+		return g.clos.state.mem;
+	}
+	public static ST_Agmemdisc_s AGDISC_mem(ST_Agraph_s g) {
+		return g.clos.disc.mem;
+	}
+	public static ST_Agiodisc_s AGDISC_io(ST_Agraph_s g) {
+		return g.clos.disc.io;
+	}
+
+	public static final double			DEFAULT_FONTSIZE		= 14.00;
+	public static final double			DEFAULT_LABEL_FONTSIZE	= 11.0;	/* for head/taillabel */
+	public static final double			MIN_FONTSIZE			= 1.0;
+	
+	
+	/* style flags (0-23)*/
+	public static final int	 FILLED		= (1 << 0);
+	public static final int	 RADIAL		= (1 << 1);
+	public static final int	 ROUNDED		= (1 << 2);
+	public static final int	 DIAGONALS	= (1 << 3);
+	public static final int	 AUXLABELS	= (1 << 4);
+	public static final int	 INVISIBLE	= (1 << 5);
+	public static final int	 STRIPED		= (1 << 6);
+	public static final int	 DOTTED		= (1 << 7);
+	public static final int	 DASHED		= (1 << 8);
+	public static final int	 WEDGED		= (1 << 9);
+	public static final int	 UNDERLINE	= (1 << 10);
+	public static final int	 FIXEDSHAPE	= (1 << 11);
+
+	public static final int	 SHAPE_MASK	= (127 << 24);
+
+	public static final CString HEAD_ID = new CString("headport");
+	public static final CString TAIL_ID = new CString("tailport");
+
+	public static __ptr__ _DTKEY(__ptr__ o, int ky, int sz) {
+		return (__ptr__) (sz < 0 ? ((__ptr__)o).addVirtualBytes(ky) : ((__ptr__)o).addVirtualBytes(ky));
+	}
+	
+	public static int _DTCMP(ST_dt_s dt, __ptr__ k1, __ptr__ k2, final ST_dtdisc_s dc, Dtcompar_f cmpf, int sz) {
+		return cmpf!=null ? (Integer)((CFunction)cmpf).exe(dt,k1,k2,dc) : 
+			(sz <= 0 ? strcmp((CString)k1,(CString)k2) : UNSUPPORTED_INT("memcmp(ok,nk,sz)"));
+	}
+
+	public static final int SEARCHSIZE = 30;
+	
+	public static ST_Agedge_s agfindedge(ST_Agraph_s g, ST_Agnode_s t, ST_Agnode_s h) {
+		return agedge(g, t, h, null, false);
+	}
+	
+	public static int flatindex(ST_Agnode_s v) {
+		return ND_low(v);
+	}
+	public static void flatindex(ST_Agnode_s v, int data) {
+		ND_low(v, data);
+	}
+
+	public static final int NODECARD = 64;
+	public static final int SMALLBUF = 128;
+
+//	#define ND_subtree(n) (subtree_t*)ND_par(n)
+//	#define ND_subtree_set(n,value) (ND_par(n) = (edge_t*)value)
+	
+	
+	public static ST_subtree_t ND_subtree(ST_Agnode_s n) {
+		// return (ST_subtree_t) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).par;
+		throw new UnsupportedOperationException();
+	}
+	public static void ND_subtree_set(ST_Agnode_s n, ST_subtree_t value) {
+		// ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).par = value;
+		throw new UnsupportedOperationException();
+	}
+
+	// #define streq(a,b)		(*(a)==*(b)&&!strcmp(a,b))
+	public static boolean streq(CString a, CString b) {
+		return a.charAt(0)==b.charAt(0) && N(strcmp(a,b));
+	}
+	public static boolean streq(CString a, String b) {
+		return streq(a, new CString(b));
+	}
+
+
 }

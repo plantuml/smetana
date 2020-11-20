@@ -4,10 +4,15 @@
  *
  * Project Info:  http://plantuml.com
  * 
+ * If you like this project or if you find it useful, you can support us at:
+ * 
+ * http://plantuml.com/patreon (only 1$ per month!)
+ * http://plantuml.com/paypal
+ * 
  * This file is part of Smetana.
  * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * (C) Copyright 2009-2017, Arnaud Roques
+ * (C) Copyright 2009-2020, Arnaud Roques
  *
  * This translation is distributed under the same Licence as the original C program.
  * 
@@ -41,14 +46,6 @@ public class UnsupportedC implements __ptr__ {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 	
-	public void setCString(String fieldName, CString value) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
-
-	public int minus(__ptr__ other) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
 
 	public double getDouble() {
 		throw new UnsupportedOperationException(getClass().toString());
@@ -66,55 +63,11 @@ public class UnsupportedC implements __ptr__ {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 
-	public __ptr__ getPtr(String fieldName) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
 	public __struct__ getStruct() {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 
 	public void setStruct(__struct__ value) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
-	// public __array__ getArray(String fieldName) {
-	// throw new UnsupportedOperationException(getClass().toString());
-	// }
-
-	public __array_of_integer__ getArrayOfInteger(String fieldName) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
-	public __array_of_struct__ getArrayOfStruct(String fieldName) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
-	public __array_of_ptr__ getArrayOfPtr(String fieldName) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
-	public __array_of_cstring__ getArrayOfCString(String fieldName) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
-	public __struct__ getStruct(String fieldName) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
-	public boolean getBoolean(String fieldName) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
-	public double getDouble(String fieldName) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
-	public CString getCString(String fieldName) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
-	public int getInt(String fieldName) {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 
@@ -130,10 +83,6 @@ public class UnsupportedC implements __ptr__ {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 
-	public void setBoolean(String fieldName, boolean data) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
 	public void setDouble(String fieldName, double data) {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
@@ -142,9 +91,6 @@ public class UnsupportedC implements __ptr__ {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 
-	public Object call(String name, Object... args) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
 
 	public Object addVirtualBytes(int bytes) {
 		throw new UnsupportedOperationException(getClass().toString());

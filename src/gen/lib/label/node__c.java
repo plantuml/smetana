@@ -4,10 +4,15 @@
  *
  * Project Info:  http://plantuml.com
  * 
+ * If you like this project or if you find it useful, you can support us at:
+ * 
+ * http://plantuml.com/patreon (only 1$ per month!)
+ * http://plantuml.com/paypal
+ * 
  * This file is part of Smetana.
  * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * (C) Copyright 2009-2017, Arnaud Roques
+ * (C) Copyright 2009-2022, Arnaud Roques
  *
  * This translation is distributed under the same Licence as the original C program:
  * 
@@ -39,170 +44,39 @@
  *
  */
 package gen.lib.label;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static smetana.core.JUtilsDebug.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import gen.annotation.Original;
+import gen.annotation.Reviewed;
+import gen.annotation.Unused;
+import static gen.lib.label.rectangle__c.CombineRect;
+import static gen.lib.label.rectangle__c.InitRect;
+import static gen.lib.label.rectangle__c.RectArea;
+import static gen.lib.label.split_q__c.SplitNode;
+import static smetana.core.JUtilsDebug.ENTERING;
+import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.UNSUPPORTED;
+import h.ST_Branch_t;
+import h.ST_Node_t___;
+import h.ST_RTree;
+import h.ST_Rect_t;
 
 public class node__c {
 
 
 //3 9uj7ni1m6q6drtoh56w82d6m4
 // Node_t *RTreeNewNode(RTree_t * rtp) 
-public static Object RTreeNewNode(Object... arg) {
-UNSUPPORTED("6r87cuk0qgu4wqagr86fr5tts"); // Node_t *RTreeNewNode(RTree_t * rtp)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("7wl3hkaktfhqdqsm6ubxboo1q"); //     register Node_t *n;
-UNSUPPORTED("4bwg40kiiowl2obspxcr4saa2"); //     rtp->NodeCount++;
-UNSUPPORTED("azoy4bfuupxwp4mi8hfbfb78g"); //     n = (Node_t *) malloc(sizeof(Node_t));
-UNSUPPORTED("a4ey5uckjqallol1ktyqe35bv"); //     InitNode(n);
-UNSUPPORTED("69hc24ic55i66g8tf2ne42327"); //     return n;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/node.c", name="", key="9uj7ni1m6q6drtoh56w82d6m4", definition="Node_t *RTreeNewNode(RTree_t * rtp)")
+public static ST_Node_t___ RTreeNewNode(ST_RTree rtp) {
+ENTERING("9uj7ni1m6q6drtoh56w82d6m4","RTreeNewNode");
+try {
+	ST_Node_t___ n;
+	rtp.setInt("NodeCount", rtp.NodeCount + 1);
+	n = new ST_Node_t___();
+     InitNode(n);
+     return n;
+} finally {
+LEAVING("9uj7ni1m6q6drtoh56w82d6m4","RTreeNewNode");
+}
 }
 
 
@@ -210,6 +84,8 @@ throw new UnsupportedOperationException();
 
 //3 65wa5vy8i5k40218lbhdibrjx
 // void RTreeFreeNode(RTree_t * rtp, Node_t * p) 
+@Unused
+@Original(version="2.38.0", path="lib/label/node.c", name="RTreeFreeNode", key="65wa5vy8i5k40218lbhdibrjx", definition="void RTreeFreeNode(RTree_t * rtp, Node_t * p)")
 public static Object RTreeFreeNode(Object... arg) {
 UNSUPPORTED("e9yu9bfc7a1ihpoc5axpyg4eg"); // void RTreeFreeNode(RTree_t * rtp, Node_t * p)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -229,17 +105,20 @@ throw new UnsupportedOperationException();
 
 //3 4qk9wkm05q2pwf20ud6g2tufg
 // void InitNode(Node_t * n) 
-public static Object InitNode(Object... arg) {
-UNSUPPORTED("dlpky13v9fa11z9uukagldaj1"); // void InitNode(Node_t * n)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("pp6gyv6pecd6kik4hoguluwp"); //     register int i;
-UNSUPPORTED("7rbjc9psqd4hoib2lezl7pnh"); //     n->count = 0;
-UNSUPPORTED("55ukro5lb2mre4owzaww8q2hc"); //     n->level = -1;
-UNSUPPORTED("8v5nz5apd36odx9nwrk8p8jow"); //     for (i = 0; i < 64; i++)
-UNSUPPORTED("80i9o3c1pvhadp8xg5nka4k0z"); // 	InitBranch(&(n->branch[i]));
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/node.c", name="InitNode", key="4qk9wkm05q2pwf20ud6g2tufg", definition="void InitNode(Node_t * n)")
+public static void InitNode(ST_Node_t___ n) {
+ENTERING("4qk9wkm05q2pwf20ud6g2tufg","InitNode");
+try {
+     int i;
+     n.setInt("count", 0);
+     n.setInt("level", -1);
+     for (i = 0; i < 64; i++)
+    	 InitBranch(n.branch[i]);
+     // InitBranch(&(n->branch[i]));
+} finally {
+LEAVING("4qk9wkm05q2pwf20ud6g2tufg","InitNode");
+}
 }
 
 
@@ -247,14 +126,16 @@ throw new UnsupportedOperationException();
 
 //3 ruhxixxei7au9z1iaj0zggwo
 // void InitBranch(Branch_t * b) 
-public static Object InitBranch(Object... arg) {
-UNSUPPORTED("2ds4g44o2u9jlcjegxiplx78k"); // void InitBranch(Branch_t * b)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("7tixqnx33892tw39ys6j048c9"); //     InitRect(&(b->rect));
-UNSUPPORTED("6rffpszutr9tr32hwasnosx1l"); //     b->child = NULL;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/node.c", name="InitBranch", key="ruhxixxei7au9z1iaj0zggwo", definition="void InitBranch(Branch_t * b)")
+public static void InitBranch(ST_Branch_t b) {
+ENTERING("ruhxixxei7au9z1iaj0zggwo","InitBranch");
+try {
+	InitRect(b.rect);
+	b.child = null;
+} finally {
+LEAVING("ruhxixxei7au9z1iaj0zggwo","InitBranch");
+}
 }
 
 
@@ -262,26 +143,28 @@ throw new UnsupportedOperationException();
 
 //3 42vjqe8n5yeq2jjby00xzrotk
 // Rect_t NodeCover(Node_t * n) 
-public static Object NodeCover(Object... arg) {
-UNSUPPORTED("2khwamjri7uz3vu8fhl4bz8yr"); // Rect_t NodeCover(Node_t * n)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("e4wfnyowhq6r7cll9ebbr5pcr"); //     register int i, flag;
-UNSUPPORTED("9jotn4njsd13qx406m9otorg4"); //     Rect_t r;
-UNSUPPORTED("25fhmphgra40j368i6b09n5xz"); //     assert(n);
-UNSUPPORTED("7t0m2a3824uy7f5r4wu3p2no9"); //     InitRect(&r);
-UNSUPPORTED("e0yg2emzy8u4jgn9z7jdfpziq"); //     flag = 1;
-UNSUPPORTED("8v5nz5apd36odx9nwrk8p8jow"); //     for (i = 0; i < 64; i++)
-UNSUPPORTED("1ro7ykl3rxfkkcyghzozikkfc"); // 	if (n->branch[i].child) {
-UNSUPPORTED("ycid67impnxkwa9mvvkvdu0q"); // 	    if (flag) {
-UNSUPPORTED("ektombc80083wiu0lsj6kto83"); // 		r = n->branch[i].rect;
-UNSUPPORTED("6bejndin7u1ns7xicz114gqtn"); // 		flag = 0;
-UNSUPPORTED("afk9bpom7x393euamnvwwkx6b"); // 	    } else
-UNSUPPORTED("31n3s0xk5l7s3rhi9xeraiklo"); // 		r = CombineRect(&r, &(n->branch[i].rect));
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("a2hk6w52njqjx48nq3nnn2e5i"); //     return r;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/node.c", name="NodeCover", key="42vjqe8n5yeq2jjby00xzrotk", definition="Rect_t NodeCover(Node_t * n)")
+public static ST_Rect_t NodeCover(ST_Node_t___ n) {
+ENTERING("42vjqe8n5yeq2jjby00xzrotk","NodeCover");
+try {
+     int i, flag;
+     final ST_Rect_t r = new ST_Rect_t();
+     //     assert(n);
+     InitRect(r);
+     flag = 1;
+     for (i = 0; i < 64; i++)
+ 	if (n.branch[i].child!=null) {
+ 	    if (flag!=0) {
+ 		r.___(n.branch[i].rect);
+ 		flag = 0;
+ 	    } else
+ 		r.___(CombineRect(r, (ST_Rect_t) n.branch[i].rect));
+ 	}
+     return r;
+} finally {
+LEAVING("42vjqe8n5yeq2jjby00xzrotk","NodeCover");
+}
 }
 
 
@@ -289,37 +172,39 @@ throw new UnsupportedOperationException();
 
 //3 bek56v2skz6jfvw4uggy2h5w3
 // int PickBranch(Rect_t * r, Node_t * n) 
-public static Object PickBranch(Object... arg) {
-UNSUPPORTED("efxc8619milx7pkmu113b8cl0"); // int PickBranch(Rect_t * r, Node_t * n)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("4rx3my7ninlw252mkhq0t72v7"); //     register Rect_t *rr=0;
-UNSUPPORTED("cu5ueogqdqm7ym79nlop077f9"); //     register int i=0, flag=1, increase=0, bestIncr=0, area=0, bestArea=0;
-UNSUPPORTED("b5pkdhy36omd5ubfol2jsyr2z"); //     int best=0;
-UNSUPPORTED("3lp95fcfxfbsb08w5umj6mjxb"); //     assert(r && n);
-UNSUPPORTED("82kuymnzv3rubrwutx9bcz4xs"); //     for (i = 0; i < 64; i++) {
-UNSUPPORTED("1ro7ykl3rxfkkcyghzozikkfc"); // 	if (n->branch[i].child) {
-UNSUPPORTED("4wt347mvef1i2kr5h5z9l0g8i"); // 	    Rect_t rect;
-UNSUPPORTED("ak8qz4z2mipw1i6img1tvc3hk"); // 	    rr = &n->branch[i].rect;
-UNSUPPORTED("d4pnse7tksvywt9f6rcaluv8e"); // 	    area = RectArea(rr);
-UNSUPPORTED("4wsrjtivlov1p70rt8tn4dt9v"); // 	    /* increase = RectArea(&CombineRect(r, rr)) - area; */
-UNSUPPORTED("8b9or9d0f959zrx6zrd0o9noj"); // 	    rect = CombineRect(r, rr);
-UNSUPPORTED("a1p1sz58nzxnj53fxzzkut6cm"); // 	    increase = RectArea(&rect) - area;
-UNSUPPORTED("6k6tiifs973t6iordeclfqygk"); // 	    if (increase < bestIncr || flag) {
-UNSUPPORTED("93dpfupbht4p3y9bsui3n8km4"); // 		best = i;
-UNSUPPORTED("apb6b50as71d87ge91yfjwr33"); // 		bestArea = area;
-UNSUPPORTED("45tyhbogdetuq767acgw0cvyg"); // 		bestIncr = increase;
-UNSUPPORTED("6bejndin7u1ns7xicz114gqtn"); // 		flag = 0;
-UNSUPPORTED("1wqm4msrcepk5ixg5ab8polj7"); // 	    } else if (increase == bestIncr && area < bestArea) {
-UNSUPPORTED("93dpfupbht4p3y9bsui3n8km4"); // 		best = i;
-UNSUPPORTED("apb6b50as71d87ge91yfjwr33"); // 		bestArea = area;
-UNSUPPORTED("45tyhbogdetuq767acgw0cvyg"); // 		bestIncr = increase;
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("3kkxvbiqcsdmtjhhw3b2jcqcy"); //     return best;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/node.c", name="PickBranch", key="bek56v2skz6jfvw4uggy2h5w3", definition="int PickBranch(Rect_t * r, Node_t * n)")
+public static int PickBranch(ST_Rect_t r, ST_Node_t___ n) {
+	ENTERING("bek56v2skz6jfvw4uggy2h5w3","PickBranch");
+	try {
+     ST_Rect_t rr=null;
+     int i=0, flag=1, increase=0, bestIncr=0, area=0, bestArea=0;
+     int best=0;
+//     assert(r && n);
+     for (i = 0; i < 64; i++) {
+ 	if (n.branch[i].child!=null) {
+ 	    final ST_Rect_t rect = new ST_Rect_t();
+ 	    rr = (ST_Rect_t) n.branch[i].rect;
+ 	    area = RectArea((ST_Rect_t) rr);
+ 	    /* increase = RectArea(&CombineRect(r, rr)) - area; */
+ 	    rect.___(CombineRect((ST_Rect_t) r, rr));
+ 	    increase = RectArea((ST_Rect_t) rect) - area;
+ 	    if (increase < bestIncr || flag!=0) {
+ 		best = i;
+ 		bestArea = area;
+ 		bestIncr = increase;
+ 		flag = 0;
+ 	    } else if (increase == bestIncr && area < bestArea) {
+ 		best = i;
+ 		bestArea = area;
+ 		bestIncr = increase;
+ 	    }
+ 	}
+     }
+     return best;
+} finally {
+LEAVING("bek56v2skz6jfvw4uggy2h5w3","PickBranch");
+}
 }
 
 
@@ -327,40 +212,42 @@ throw new UnsupportedOperationException();
 
 //3 2njctcrpeff95ysmv9ji34x4s
 // int AddBranch(RTree_t * rtp, Branch_t * b, Node_t * n, Node_t ** new) 
-public static Object AddBranch(Object... arg) {
-UNSUPPORTED("abswgz0jexhhyl0we1x68i5gl"); // int AddBranch(RTree_t * rtp, Branch_t * b, Node_t * n, Node_t ** new)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("pp6gyv6pecd6kik4hoguluwp"); //     register int i;
-UNSUPPORTED("5xtwc50ov4mxby7k6gahwv12t"); //     assert(b);
-UNSUPPORTED("25fhmphgra40j368i6b09n5xz"); //     assert(n);
-UNSUPPORTED("8irlja6ar7hjh8mel91hltz17"); //     if (n->count < 64) {	/* split won't be necessary */
-UNSUPPORTED("8vlryher8oaw4h715yfzs4h0"); // 	for (i = 0; i < 64; i++) {	/* find empty branch */
-UNSUPPORTED("3eaeba8b8yt8gq9074wtep0e0"); // 	    if (n->branch[i].child == NULL) {
-UNSUPPORTED("9newc1m7r062crcakg2dn00kp"); // 		n->branch[i] = *b;
-UNSUPPORTED("b4orzj362grzvud5mj73w1cb1"); // 		n->count++;
-UNSUPPORTED("9ekmvj13iaml5ndszqyxa8eq"); // 		break;
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("2gjzrafpfll8afj90mhedcnnq"); // 	assert(i < 64);
-UNSUPPORTED("c9ckhc8veujmwcw0ar3u3zld4"); // 	return 0;
-UNSUPPORTED("c07up7zvrnu2vhzy6d7zcu94g"); //     } else {
-UNSUPPORTED("dhd7sfbis7klukcyf8rg2skvp"); // 	if (rtp->StatFlag) {
+@Unused
+@Original(version="2.38.0", path="lib/label/node.c", name="AddBranch", key="2njctcrpeff95ysmv9ji34x4s", definition="int AddBranch(RTree_t * rtp, Branch_t * b, Node_t * n, Node_t ** new)")
+public static int AddBranch(ST_RTree rtp, ST_Branch_t b, ST_Node_t___ n, ST_Node_t___ new_[]) {
+ENTERING("2njctcrpeff95ysmv9ji34x4s","AddBranch");
+try {
+     int i;
+//     assert(b);
+//     assert(n);
+     if (n.count < 64) {	/* split won't be necessary */
+ 	for (i = 0; i < 64; i++) {	/* find empty branch */
+ 	    if (n.branch[i].child == null) {
+ 		n.branch[i].___(b.getStruct());
+ 		n.setInt("count", n.count+1);
+ 		break;
+ 	    }
+}
+// 	assert(i < 64);
+ 	return 0;
+     } else {
+ 	if (rtp.StatFlag!=0) {
 UNSUPPORTED("2y8kv6b3ysrr61q7tqn76rhhc"); // 	    if (rtp->Deleting)
 UNSUPPORTED("dn4oynmx9ugizzs5pkxiyptbi"); // 		rtp->DeTouchCount++;
 UNSUPPORTED("5c97f6vfxny0zz35l2bu4maox"); // 	    else
 UNSUPPORTED("2u8wpa4w1q7rg14t07bny6p8i"); // 		rtp->InTouchCount++;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("chipmsvc1hum7sbmvzrfmewz6"); // 	assert(new);
-UNSUPPORTED("91mdffv90jr6ypnu3u1bmc972"); // 	SplitNode(rtp, n, b, new);
-UNSUPPORTED("1t8cl7q3utcr23gvhtgc1cp0u"); // 	if (n->level == 0)
-UNSUPPORTED("b2cc70cq7gpras4l3rbz241at"); // 	    rtp->LeafCount++;
-UNSUPPORTED("9352ql3e58qs4fzapgjfrms2s"); // 	else
+ 	}
+// 	assert(new);
+ 	SplitNode(rtp, n, b, new_);
+ 	if (n.level == 0)
+ 		rtp.setInt("LeafCount", rtp.LeafCount+1);
+ 	else
 UNSUPPORTED("6tkfiebspy7ecivrzb3l5y7jd"); // 	    rtp->NonLeafCount++;
-UNSUPPORTED("eleqpc2p2r3hvma6tipoy7tr"); // 	return 1;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+ 	return 1;
+     }
+} finally {
+LEAVING("2njctcrpeff95ysmv9ji34x4s","AddBranch");
+}
 }
 
 
@@ -368,16 +255,18 @@ throw new UnsupportedOperationException();
 
 //3 eqzamflj58f43cflwns9cemnk
 // void DisconBranch(Node_t * n, int i) 
-public static Object DisconBranch(Object... arg) {
-UNSUPPORTED("1gbs5xw4y9htfbc5suxq1rdm4"); // void DisconBranch(Node_t * n, int i)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("ays33wicr9a5qwu2dr9g8t1h2"); //     assert(n && i >= 0 && i < 64);
-UNSUPPORTED("29zl8z52z6bh8yxdkmezbs82l"); //     assert(n->branch[i].child);
-UNSUPPORTED("3rvakcl9f71ez4zya83f1vvgx"); //     InitBranch(&(n->branch[i]));
-UNSUPPORTED("4a3m9b5jmmhd18oa8nzovalys"); //     n->count--;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/node.c", name="DisconBranch", key="eqzamflj58f43cflwns9cemnk", definition="void DisconBranch(Node_t * n, int i)")
+public static void DisconBranch(ST_Node_t___ n, int i) {
+ENTERING("eqzamflj58f43cflwns9cemnk","DisconBranch");
+try {
+//     assert(n && i >= 0 && i < 64);
+//     assert(n->branch[i].child);
+     InitBranch(n.branch[i]);
+     n.setInt("count", n.count-1);
+} finally {
+LEAVING("eqzamflj58f43cflwns9cemnk","DisconBranch");
+}
 }
 
 

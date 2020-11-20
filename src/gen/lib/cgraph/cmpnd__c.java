@@ -4,10 +4,15 @@
  *
  * Project Info:  http://plantuml.com
  * 
+ * If you like this project or if you find it useful, you can support us at:
+ * 
+ * http://plantuml.com/patreon (only 1$ per month!)
+ * http://plantuml.com/paypal
+ * 
  * This file is part of Smetana.
  * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * (C) Copyright 2009-2017, Arnaud Roques
+ * (C) Copyright 2009-2022, Arnaud Roques
  *
  * This translation is distributed under the same Licence as the original C program:
  * 
@@ -39,153 +44,10 @@
  *
  */
 package gen.lib.cgraph;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static smetana.core.JUtilsDebug.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import gen.annotation.Original;
+import gen.annotation.Reviewed;
+import gen.annotation.Unused;
+import static smetana.core.Macro.UNSUPPORTED;
 
 public class cmpnd__c {
 //1 9k44uhd5foylaeoekf3llonjq
@@ -328,6 +190,8 @@ public class cmpnd__c {
 
 //3 4rwqki94tjjugk2oy6kmp9538
 // static save_stack_t *save_stack_of(Agedge_t * e, 				   Agnode_t * node_being_saved) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/cmpnd.c", name="", key="4rwqki94tjjugk2oy6kmp9538", definition="static save_stack_t *save_stack_of(Agedge_t * e, 				   Agnode_t * node_being_saved)")
 public static Object save_stack_of(Object... arg) {
 UNSUPPORTED("dwtd4ghruns6yb5wivsktmicy"); // static save_stack_t *save_stack_of(Agedge_t * e,
 UNSUPPORTED("8r63y462x0ogz32e14ocmtc7z"); // 				   Agnode_t * node_being_saved)
@@ -352,6 +216,8 @@ throw new UnsupportedOperationException();
 
 //3 bsses08e1nxxzo7v1nz6e5md6
 // static void stackpush(save_stack_t * stk, Agnode_t * from, Agnode_t * to) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/cmpnd.c", name="stackpush", key="bsses08e1nxxzo7v1nz6e5md6", definition="static void stackpush(save_stack_t * stk, Agnode_t * from, Agnode_t * to)")
 public static Object stackpush(Object... arg) {
 UNSUPPORTED("lk08htngq4befknew1gfxoa9"); // static void stackpush(save_stack_t * stk, Agnode_t * from, Agnode_t * to)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -372,6 +238,8 @@ throw new UnsupportedOperationException();
 
 //3 3bdssdhs8qmao1r28n4x05wla
 // static save_e_t stacktop(save_stack_t * stk) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/cmpnd.c", name="stacktop", key="3bdssdhs8qmao1r28n4x05wla", definition="static save_e_t stacktop(save_stack_t * stk)")
 public static Object stacktop(Object... arg) {
 UNSUPPORTED("3oi8j1tra0jhtoedy30z1dceg"); // static save_e_t stacktop(save_stack_t * stk)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -391,6 +259,8 @@ throw new UnsupportedOperationException();
 
 //3 egn9apfhc7c3wd684jp5des9n
 // static save_e_t stackpop(save_stack_t * stk) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/cmpnd.c", name="stackpop", key="egn9apfhc7c3wd684jp5des9n", definition="static save_e_t stackpop(save_stack_t * stk)")
 public static Object stackpop(Object... arg) {
 UNSUPPORTED("6bswtdhkkqef505cf56ngupax"); // static save_e_t stackpop(save_stack_t * stk)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -409,6 +279,8 @@ throw new UnsupportedOperationException();
 
 //3 19fmhewiyatxc021gdknul20f
 // static void splice(Agobj_t * obj, void *arg) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/cmpnd.c", name="splice", key="19fmhewiyatxc021gdknul20f", definition="static void splice(Agobj_t * obj, void *arg)")
 public static Object splice(Object... arg) {
 UNSUPPORTED("7wcsyoha9usni3nl1ai3tc3o7"); // static void splice(Agobj_t * obj, void *arg)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -454,6 +326,8 @@ throw new UnsupportedOperationException();
 
 //3 5j5g1wthbifddy3p9spuns8yr
 // int agsplice(Agedge_t * e, Agnode_t * target) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/cmpnd.c", name="agsplice", key="5j5g1wthbifddy3p9spuns8yr", definition="int agsplice(Agedge_t * e, Agnode_t * target)")
 public static Object agsplice(Object... arg) {
 UNSUPPORTED("axfzz9idalyza2vcuc3lxpm6"); // int agsplice(Agedge_t * e, Agnode_t * target)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -465,7 +339,7 @@ UNSUPPORTED("8d9xfgejx5vgd6shva5wk5k06"); // 	return -1;
 UNSUPPORTED("dmucqaij4o1u2fxfg43y5j4ow"); //     g = agraphof(e);
 UNSUPPORTED("5webprz21nzifr3m5zwnqxx6m"); //     t = AGTAIL(e);
 UNSUPPORTED("ax8363bkxphvbre4n21ewb568"); //     h = AGHEAD(e);
-UNSUPPORTED("dki2ntsgjodo47i5gijolwk9l"); //     splice_arg.head_side = (e->node == h);
+UNSUPPORTED("dki2ntsgjodo47i5gijolwk9l"); //     splice_arg.head_side = e->node == h;
 UNSUPPORTED("5c8hd46y7z4m71nncma6imi91"); //     splice_arg.target = target;
 UNSUPPORTED("bnybowlbrgjx7x160vaxt6eok"); //     root = agroot(g);
 UNSUPPORTED("dezciasi2v303hk1sw0x8sdgu"); //     agapply(root, (Agobj_t *) e, splice, &splice_arg, (!(0)));
@@ -480,6 +354,8 @@ throw new UnsupportedOperationException();
 
 //3 1tlq3bzvd3l8vgfzqblufnrbl
 // Agnode_t *agcmpnode(Agraph_t * g, char *name) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/cmpnd.c", name="", key="1tlq3bzvd3l8vgfzqblufnrbl", definition="Agnode_t *agcmpnode(Agraph_t * g, char *name)")
 public static Object agcmpnode(Object... arg) {
 UNSUPPORTED("512bqm8afn34qet92ucsr48py"); // Agnode_t *agcmpnode(Agraph_t * g, char *name)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -501,6 +377,8 @@ throw new UnsupportedOperationException();
 
 //3 55kt0ymvf8xwytjl27ldl9w47
 // int agassociate(Agnode_t * n, Agraph_t * sub) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/cmpnd.c", name="agassociate", key="55kt0ymvf8xwytjl27ldl9w47", definition="int agassociate(Agnode_t * n, Agraph_t * sub)")
 public static Object agassociate(Object... arg) {
 UNSUPPORTED("4sypdgvq8ag9maceg6t7ybgh2"); // int agassociate(Agnode_t * n, Agraph_t * sub)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -525,6 +403,8 @@ throw new UnsupportedOperationException();
 
 //3 b07pin7xj9eofda53ydvki64l
 // static void delete_outside_subg(Agraph_t * g, Agnode_t * node, 				Agraph_t * subg) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/cmpnd.c", name="delete_outside_subg", key="b07pin7xj9eofda53ydvki64l", definition="static void delete_outside_subg(Agraph_t * g, Agnode_t * node, 				Agraph_t * subg)")
 public static Object delete_outside_subg(Object... arg) {
 UNSUPPORTED("kry3yfo20dytuxfnf38kcsam"); // static void delete_outside_subg(Agraph_t * g, Agnode_t * node,
 UNSUPPORTED("5y3h6zj5vt2f7wcth5pip26cj"); // 				Agraph_t * subg)
@@ -556,6 +436,8 @@ throw new UnsupportedOperationException();
 
 //3 ayp78uwr34sz0qhg1h8t95kwv
 // int aghide(Agnode_t * cmpnode) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/cmpnd.c", name="aghide", key="ayp78uwr34sz0qhg1h8t95kwv", definition="int aghide(Agnode_t * cmpnode)")
 public static Object aghide(Object... arg) {
 UNSUPPORTED("1g3pfblqoo1dgglsxstj9742s"); // int aghide(Agnode_t * cmpnode)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -606,6 +488,8 @@ throw new UnsupportedOperationException();
 
 //3 1gb6h0a1ld4kfxblxauozwl1n
 // static void insert_outside_subg(Agraph_t * g, Agnode_t * node, 				Agraph_t * subg) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/cmpnd.c", name="insert_outside_subg", key="1gb6h0a1ld4kfxblxauozwl1n", definition="static void insert_outside_subg(Agraph_t * g, Agnode_t * node, 				Agraph_t * subg)")
 public static Object insert_outside_subg(Object... arg) {
 UNSUPPORTED("76ij8hacl890v9sivg40zvbig"); // static void insert_outside_subg(Agraph_t * g, Agnode_t * node,
 UNSUPPORTED("5y3h6zj5vt2f7wcth5pip26cj"); // 				Agraph_t * subg)
@@ -634,6 +518,8 @@ throw new UnsupportedOperationException();
 
 //3 6lc402jyd31q9vuhqstq3cipf
 // int agexpose(Agnode_t * cmpnode) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/cmpnd.c", name="agexpose", key="6lc402jyd31q9vuhqstq3cipf", definition="int agexpose(Agnode_t * cmpnode)")
 public static Object agexpose(Object... arg) {
 UNSUPPORTED("9apmbol4kwi7nzggmvu74lu8"); // int agexpose(Agnode_t * cmpnode)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -676,7 +562,7 @@ UNSUPPORTED("6eq5kf0bj692bokt0bixy1ixh"); // 		}
 UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
 UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
 UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("6lipw6f0pqk6r03nvkb5cjdbq"); //     noderec->collapsed = (0);
+UNSUPPORTED("6lipw6f0pqk6r03nvkb5cjdbq"); //     noderec->collapsed = 0;
 UNSUPPORTED("5oxhd3fvp0gfmrmz12vndnjt"); //     return 0;
 UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
 
@@ -688,6 +574,8 @@ throw new UnsupportedOperationException();
 
 //3 aduq2oedmk7tixfq937xsx8uk
 // Agraph_t *agcmpgraph_of(Agnode_t * n) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/cmpnd.c", name="", key="aduq2oedmk7tixfq937xsx8uk", definition="Agraph_t *agcmpgraph_of(Agnode_t * n)")
 public static Object agcmpgraph_of(Object... arg) {
 UNSUPPORTED("96w163plg7m5fs459ya5s4eyr"); // Agraph_t *agcmpgraph_of(Agnode_t * n)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -707,6 +595,8 @@ throw new UnsupportedOperationException();
 
 //3 5hzjwc4e1cfmit7v903028piu
 // Agnode_t *agcmpnode_of(Agraph_t * g) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/cmpnd.c", name="", key="5hzjwc4e1cfmit7v903028piu", definition="Agnode_t *agcmpnode_of(Agraph_t * g)")
 public static Object agcmpnode_of(Object... arg) {
 UNSUPPORTED("exxk55w9iak7ur9634a45037a"); // Agnode_t *agcmpnode_of(Agraph_t * g)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -726,6 +616,8 @@ throw new UnsupportedOperationException();
 
 //3 2yirbmqshfrzkjrbay3m6j4ep
 // Agnode_t *agfindhidden(Agraph_t * g, char *name) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/cmpnd.c", name="", key="2yirbmqshfrzkjrbay3m6j4ep", definition="Agnode_t *agfindhidden(Agraph_t * g, char *name)")
 public static Object agfindhidden(Object... arg) {
 UNSUPPORTED("8cv8z2j9nan9aew6qpjmibk2t"); // Agnode_t *agfindhidden(Agraph_t * g, char *name)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {

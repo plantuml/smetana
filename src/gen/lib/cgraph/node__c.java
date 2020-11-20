@@ -4,10 +4,15 @@
  *
  * Project Info:  http://plantuml.com
  * 
+ * If you like this project or if you find it useful, you can support us at:
+ * 
+ * http://plantuml.com/patreon (only 1$ per month!)
+ * http://plantuml.com/paypal
+ * 
  * This file is part of Smetana.
  * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * (C) Copyright 2009-2017, Arnaud Roques
+ * (C) Copyright 2009-2022, Arnaud Roques
  *
  * This translation is distributed under the same Licence as the original C program:
  * 
@@ -39,301 +44,63 @@
  *
  */
 package gen.lib.cgraph;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static smetana.core.JUtilsDebug.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import static gen.lib.cdt.dtsize__c.dtsize_;
+import static gen.lib.cgraph.attr__c.AgDataRecName;
+import static gen.lib.cgraph.attr__c.agnodeattr_init;
+import static gen.lib.cgraph.edge__c.agsubrep;
+import static gen.lib.cgraph.graph__c.agnextseq;
+import static gen.lib.cgraph.id__c.agmapnametoid;
+import static gen.lib.cgraph.id__c.agregister;
+import static gen.lib.cgraph.mem__c.agalloc;
+import static gen.lib.cgraph.obj__c.agmethod_init;
+import static gen.lib.cgraph.obj__c.agroot;
+import static gen.lib.cgraph.rec__c.agbindrec;
+import static gen.lib.cgraph.subg__c.agparent;
+import static smetana.core.JUtils.EQ;
+import static smetana.core.JUtils.NEQ;
+import static smetana.core.JUtils.sizeof;
+import static smetana.core.JUtilsDebug.ENTERING;
+import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.AGID;
+import static smetana.core.Macro.AGNODE;
+import static smetana.core.Macro.AGSEQ;
+import static smetana.core.Macro.AGTYPE;
+import static smetana.core.Macro.N;
+import static smetana.core.Macro.UNSUPPORTED;
+import static smetana.core.Macro.dtfirst;
+import static smetana.core.Macro.dtnext;
+import static smetana.core.Macro.dtsearch;
+
+import gen.annotation.Original;
+import gen.annotation.Reviewed;
+import gen.annotation.Unused;
+import h.ST_Agattr_s;
+import h.ST_Agdesc_s;
+import h.ST_Agnode_s;
+import h.ST_Agraph_s;
+import h.ST_Agsubnode_s;
+import h.ST_dt_s;
+import h.ST_dtdisc_s;
+import smetana.core.CString;
+import smetana.core.Z;
+import smetana.core.__ptr__;
 
 public class node__c {
-//1 9k44uhd5foylaeoekf3llonjq
-// extern Dtmethod_t* 	Dtset
 
 
-//1 1ahfywsmzcpcig2oxm7pt9ihj
-// extern Dtmethod_t* 	Dtbag
 
-
-//1 anhghfj3k7dmkudy2n7rvt31v
-// extern Dtmethod_t* 	Dtoset
-
-
-//1 5l6oj1ux946zjwvir94ykejbc
-// extern Dtmethod_t* 	Dtobag
-
-
-//1 2wtf222ak6cui8cfjnw6w377z
-// extern Dtmethod_t*	Dtlist
-
-
-//1 d1s1s6ibtcsmst88e3057u9r7
-// extern Dtmethod_t*	Dtstack
-
-
-//1 axa7mflo824p6fspjn1rdk0mt
-// extern Dtmethod_t*	Dtqueue
-
-
-//1 ega812utobm4xx9oa9w9ayij6
-// extern Dtmethod_t*	Dtdeque
-
-
-//1 cyfr996ur43045jv1tjbelzmj
-// extern Dtmethod_t*	Dtorder
-
-
-//1 wlofoiftbjgrrabzb2brkycg
-// extern Dtmethod_t*	Dttree
-
-
-//1 12bds94t7voj7ulwpcvgf6agr
-// extern Dtmethod_t*	Dthash
-
-
-//1 9lqknzty480cy7zsubmabkk8h
-// extern Dtmethod_t	_Dttree
-
-
-//1 bvn6zkbcp8vjdhkccqo1xrkrb
-// extern Dtmethod_t	_Dthash
-
-
-//1 9lidhtd6nsmmv3e7vjv9e10gw
-// extern Dtmethod_t	_Dtlist
-
-
-//1 34ujfamjxo7xn89u90oh2k6f8
-// extern Dtmethod_t	_Dtqueue
-
-
-//1 3jy4aceckzkdv950h89p4wjc8
-// extern Dtmethod_t	_Dtstack
-
-
-//1 8dfqgf3u1v830qzcjqh9o8ha7
-// extern Agmemdisc_t AgMemDisc
-
-
-//1 18k2oh2t6llfsdc5x0wlcnby8
-// extern Agiddisc_t AgIdDisc
-
-
-//1 a4r7hi80gdxtsv4hdoqpyiivn
-// extern Agiodisc_t AgIoDisc
-
-
-//1 bnzt5syjb7mgeru19114vd6xx
-// extern Agdisc_t AgDefaultDisc
-
-
-//1 35y2gbegsdjilegaribes00mg
-// extern Agdesc_t Agdirected, Agstrictdirected, Agundirected,     Agstrictundirected
-
-
-//1 c2rygslq6bcuka3awmvy2b3ow
-// typedef Agsubnode_t	Agnoderef_t
-
-
-//1 xam6yv0dcsx57dtg44igpbzn
-// typedef Dtlink_t	Agedgeref_t
-
-
-//1 6ayavpu39aihwyojkx093pcy3
-// extern Agraph_t *Ag_G_global
-
-
-//1 871mxtg9l6ffpxdl9kniwusf7
-// extern char *AgDataRecName
-
-
-//1 c0o2kmml0tn6hftuwo0u4shwd
-// extern Dtdisc_t Ag_subnode_id_disc
-
-
-//1 8k15pyu256unm2kpd9zf5pf7k
-// extern Dtdisc_t Ag_subnode_seq_disc
-
-
-//1 e3d820y06gpeusn6atgmj8bzd
-// extern Dtdisc_t Ag_mainedge_id_disc
-
-
-//1 cbr0772spix9h1aw7h5v7dv9j
-// extern Dtdisc_t Ag_subedge_id_disc
-
-
-//1 akd0c3v0j7m2npxcb9acit1fa
-// extern Dtdisc_t Ag_mainedge_seq_disc
-
-
-//1 12d8la07351ww7vwfzucjst8m
-// extern Dtdisc_t Ag_subedge_seq_disc
-
-
-//1 29eokk7v88e62g8o6lizmo967
-// extern Dtdisc_t Ag_subgraph_id_disc
-
-
-//1 4xd9cbgy6hk5g6nhjcbpzkx14
-// extern Agcbdisc_t AgAttrdisc
-
-
-
-
-//3 4w89du6uel405pm3vxsr3ayxt
-// Agnode_t *agfindnode_by_id(Agraph_t * g, unsigned long id) 
-//private static __struct__<Agsubnode_s> template = __struct__.from(Agsubnode_s.class);
-//private static __struct__<Agnode_s> dummy = __struct__.from(Agnode_s.class);
-public static Agnode_s agfindnode_by_id(Agraph_s g, int id) {
+@Reviewed(when = "13/11/2020")
+@Original(version="2.38.0", path="lib/cgraph/node.c", name="", key="4w89du6uel405pm3vxsr3ayxt", definition="Agnode_t *agfindnode_by_id(Agraph_t * g, unsigned long id)")
+public static ST_Agnode_s agfindnode_by_id(ST_Agraph_s g, int id) {
 ENTERING("4w89du6uel405pm3vxsr3ayxt","agfindnode_by_id");
 try {
-    Agsubnode_s sn;
-    Z._().dummy.getStruct("base").getStruct("tag").setInt("id", id);
-    Z._().template.setPtr("node", Z._().dummy.amp());
-    sn = (Agsubnode_s) (g.getPtr("n_id").call("searchf", g.getPtr("n_id"), Z._().template.amp(),0000004));
-    return (Agnode_s) (sn!=null ? sn.getPtr("node") : null);
+    ST_Agsubnode_s sn;
+    
+    
+    Z.z().dummy.base.tag.id = id;
+    Z.z().template.node = Z.z().dummy;
+    sn = (ST_Agsubnode_s) dtsearch(g.n_id, Z.z().template);
+    return sn!=null ? sn.node : null;
 } finally {
 LEAVING("4w89du6uel405pm3vxsr3ayxt","agfindnode_by_id");
 }
@@ -344,6 +111,8 @@ LEAVING("4w89du6uel405pm3vxsr3ayxt","agfindnode_by_id");
 
 //3 1ibow5tsw9y9hfbt65y10nw0r
 // Agnode_t *agfindnode_by_name(Agraph_t * g, char *name) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/node.c", name="", key="1ibow5tsw9y9hfbt65y10nw0r", definition="Agnode_t *agfindnode_by_name(Agraph_t * g, char *name)")
 public static Object agfindnode_by_name(Object... arg) {
 UNSUPPORTED("jjckyz5rvj2kpvd0vw02o8yj"); // Agnode_t *agfindnode_by_name(Agraph_t * g, char *name)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -359,15 +128,14 @@ throw new UnsupportedOperationException();
 
 
 
-
-//3 55wopi2gd93zpmycxoywlxm0y
-// Agnode_t *agfstnode(Agraph_t * g) 
-public static Agnode_s agfstnode(Agraph_s g) {
+@Reviewed(when = "12/11/2020")
+@Original(version="2.38.0", path="lib/cgraph/node.c", name="agfstnode", key="55wopi2gd93zpmycxoywlxm0y", definition="Agnode_t *agfstnode(Agraph_t * g)")
+public static ST_Agnode_s agfstnode(ST_Agraph_s g) {
 ENTERING("55wopi2gd93zpmycxoywlxm0y","agfstnode");
 try {
-    Agsubnode_s sn;
-    sn = (Agsubnode_s) g.getPtr("n_seq").castTo(_dt_s.class).call("searchf", g.getPtr("n_seq"),null,0000200);
-    return sn!=null ? (Agnode_s) sn.getPtr("node") : null;
+	ST_Agsubnode_s sn;
+    sn = (ST_Agsubnode_s) dtfirst(g.n_seq);
+    return sn!=null ? sn.node : null;
 } finally {
 LEAVING("55wopi2gd93zpmycxoywlxm0y","agfstnode");
 }
@@ -376,15 +144,17 @@ LEAVING("55wopi2gd93zpmycxoywlxm0y","agfstnode");
 
 
 
-//3 bek79ccvjys1j9q404i3y6oh8
-// Agnode_t *agnxtnode(Agraph_t * g, Agnode_t * n) 
-public static Agnode_s agnxtnode(Agraph_s g, Agnode_s n) {
+
+
+@Reviewed(when = "12/11/2020")
+@Original(version="2.38.0", path="lib/cgraph/node.c", name="agnxtnode", key="bek79ccvjys1j9q404i3y6oh8", definition="Agnode_t *agnxtnode(Agraph_t * g, Agnode_t * n)")
+public static ST_Agnode_s agnxtnode(ST_Agraph_s g, ST_Agnode_s n) {
 ENTERING("bek79ccvjys1j9q404i3y6oh8","agnxtnode");
 try {
-    Agsubnode_s sn;
+    ST_Agsubnode_s sn;
     sn = agsubrep(g, n);
-    if (sn!=null) sn = (Agsubnode_s) g.getPtr("n_seq").castTo(_dt_s.class).call("searchf", g.getPtr("n_seq"),sn,0000010);
-    return (Agnode_s) (sn!=null ? sn.getPtr("node") : null);
+    if (sn!=null) sn = (ST_Agsubnode_s) dtnext(g.n_seq, sn);
+    return sn!=null ? sn.node : null;
 } finally {
 LEAVING("bek79ccvjys1j9q404i3y6oh8","agnxtnode");
 }
@@ -392,9 +162,10 @@ LEAVING("bek79ccvjys1j9q404i3y6oh8","agnxtnode");
 
 
 
-
 //3 17tu6ipvtgbjfrggkvyz3nasf
 // Agnode_t *aglstnode(Agraph_t * g) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/node.c", name="", key="17tu6ipvtgbjfrggkvyz3nasf", definition="Agnode_t *aglstnode(Agraph_t * g)")
 public static Object aglstnode(Object... arg) {
 UNSUPPORTED("4lnse8d2e11zapjwbkulyywtz"); // Agnode_t *aglstnode(Agraph_t * g)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -411,6 +182,8 @@ throw new UnsupportedOperationException();
 
 //3 3qloij26jbl7m0ftyb0ouesq4
 // Agnode_t *agprvnode(Agraph_t * g, Agnode_t * n) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/node.c", name="", key="3qloij26jbl7m0ftyb0ouesq4", definition="Agnode_t *agprvnode(Agraph_t * g, Agnode_t * n)")
 public static Object agprvnode(Object... arg) {
 UNSUPPORTED("8ichcmu1fmaap5w9hqfiohi13"); // Agnode_t *agprvnode(Agraph_t * g, Agnode_t * n)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -428,17 +201,19 @@ throw new UnsupportedOperationException();
 
 //3 dzb7m0p5xsngvtyr8zs912og4
 // static Agnode_t *newnode(Agraph_t * g, unsigned long id, unsigned long seq) 
-public static Agnode_s newnode(Agraph_s g, int id, int seq) {
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/node.c", name="", key="dzb7m0p5xsngvtyr8zs912og4", definition="static Agnode_t *newnode(Agraph_t * g, unsigned long id, unsigned long seq)")
+public static ST_Agnode_s newnode(ST_Agraph_s g, int id, int seq) {
 ENTERING("dzb7m0p5xsngvtyr8zs912og4","newnode");
 try {
-    Agnode_s n;
-    n = (Agnode_s) ((__ptr__)agalloc(g, sizeof(Agnode_s.class))).castTo(Agnode_s.class);
+    ST_Agnode_s n;
+    n = (ST_Agnode_s) ((__ptr__)agalloc(g, sizeof(ST_Agnode_s.class))).castTo(ST_Agnode_s.class);
     AGTYPE(n, AGNODE);
     AGID(n, id);
     AGSEQ(n, seq);
     n.setPtr("root", agroot(g));
-    if (agroot(g).getStruct("desc").getInt("has_attrs")!=0)
-	  agbindrec(n, AgDataRecName, sizeof(Agattr_s.class), false);
+    if (((ST_Agdesc_s)agroot(g).desc).has_attrs!=0)
+	  agbindrec(n, AgDataRecName, sizeof(ST_Agattr_s.class), false);
     /* nodeattr_init and method_init will be called later, from the
      * subgraph where the node was actually created, but first it has
      * to be installed in all the (sub)graphs up to root. */
@@ -453,17 +228,19 @@ LEAVING("dzb7m0p5xsngvtyr8zs912og4","newnode");
 
 //3 4m26dpgaiw44hcleugjy71eus
 // static void installnode(Agraph_t * g, Agnode_t * n) 
-public static void installnode(Agraph_s g, Agnode_s n) {
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/node.c", name="installnode", key="4m26dpgaiw44hcleugjy71eus", definition="static void installnode(Agraph_t * g, Agnode_t * n)")
+public static void installnode(ST_Agraph_s g, ST_Agnode_s n) {
 ENTERING("4m26dpgaiw44hcleugjy71eus","installnode");
 try {
-    Agsubnode_s sn;
+	ST_Agsubnode_s sn;
     int osize;
-    osize = dtsize_((_dt_s)g.getPtr("n_id"));
-    if (EQ(g, agroot(g))) sn = (Agsubnode_s) n.getStruct("mainsub").amp().castTo(Agsubnode_s.class);
-    else sn = (Agsubnode_s) ((__ptr__)agalloc(g, sizeof(Agsubnode_s.class))).castTo(Agsubnode_s.class);
+    osize = dtsize_((ST_dt_s)g.n_id);
+    if (EQ(g, agroot(g))) sn = (ST_Agsubnode_s) n.mainsub;
+    else sn = (ST_Agsubnode_s) ((__ptr__)agalloc(g, sizeof(ST_Agsubnode_s.class))).castTo(ST_Agsubnode_s.class);
     sn.setPtr("node", n);
-    g.getPtr("n_id").call("searchf", g.getPtr("n_id"),sn,0000001);
-    g.getPtr("n_seq").call("searchf", g.getPtr("n_seq"),sn,0000001);
+    g.n_id.searchf.exe(g.n_id,sn,0000001);
+    g.n_seq.searchf.exe(g.n_seq,sn,0000001);
 } finally {
 LEAVING("4m26dpgaiw44hcleugjy71eus","installnode");
 }
@@ -474,10 +251,12 @@ LEAVING("4m26dpgaiw44hcleugjy71eus","installnode");
 
 //3 3mfxjcaeepn8nitirs3yoqaed
 // static void installnodetoroot(Agraph_t * g, Agnode_t * n) 
-public static void installnodetoroot(Agraph_s g, Agnode_s n) {
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/node.c", name="installnodetoroot", key="3mfxjcaeepn8nitirs3yoqaed", definition="static void installnodetoroot(Agraph_t * g, Agnode_t * n)")
+public static void installnodetoroot(ST_Agraph_s g, ST_Agnode_s n) {
 ENTERING("3mfxjcaeepn8nitirs3yoqaed","installnodetoroot");
 try {
-    Agraph_s par;
+    ST_Agraph_s par;
     installnode(g, n);
     if ((par = agparent(g))!=null)
 	installnodetoroot(par, n);
@@ -491,10 +270,12 @@ LEAVING("3mfxjcaeepn8nitirs3yoqaed","installnodetoroot");
 
 //3 85bb9mezhsgtzar3kqz95mq1
 // static void initnode(Agraph_t * g, Agnode_t * n) 
-public static void initnode(Agraph_s g, Agnode_s n) {
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/node.c", name="initnode", key="85bb9mezhsgtzar3kqz95mq1", definition="static void initnode(Agraph_t * g, Agnode_t * n)")
+public static void initnode(ST_Agraph_s g, ST_Agnode_s n) {
 ENTERING("85bb9mezhsgtzar3kqz95mq1","initnode");
 try {
-    if (agroot(g).getStruct("desc").getInt("has_attrs")!=0)
+    if (((ST_Agdesc_s)agroot(g).desc).has_attrs!=0)
 	agnodeattr_init(g,n);
     agmethod_init(g, n);
 } finally {
@@ -505,13 +286,15 @@ LEAVING("85bb9mezhsgtzar3kqz95mq1","initnode");
 
 
 
-//3 1m6sl9df2yaolmufyq5i577a3
-// Agnode_t *agidnode(Agraph_t * g, unsigned long id, int cflag) 
-public static Agnode_s agidnode(Agraph_s g, int id, int cflag) {
+/* external node constructor - create by id */
+@Reviewed(when = "13/11/2020")
+@Original(version="2.38.0", path="lib/cgraph/node.c", name="", key="1m6sl9df2yaolmufyq5i577a3", definition="Agnode_t *agidnode(Agraph_t * g, unsigned long id, int cflag)")
+public static ST_Agnode_s agidnode(ST_Agraph_s g, int id, int cflag) {
 ENTERING("1m6sl9df2yaolmufyq5i577a3","agidnode");
 try {
-    Agraph_s root;
-    Agnode_s n;
+    ST_Agraph_s root;
+    ST_Agnode_s n;
+    
     n = agfindnode_by_id(g, id);
     if ((n == null) && cflag!=0) {
 UNSUPPORTED("7zol2448bccu90sqoxkvnbuif"); // 	root = agroot(g);
@@ -538,11 +321,13 @@ LEAVING("1m6sl9df2yaolmufyq5i577a3","agidnode");
 
 //3 4yh1h1cwoitzb1t8869b79e3g
 // Agnode_t *agnode(Agraph_t * g, char *name, int cflag) 
-public static Agnode_s agnode(Agraph_s g, CString name, boolean cflag) {
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/node.c", name="", key="4yh1h1cwoitzb1t8869b79e3g", definition="Agnode_t *agnode(Agraph_t * g, char *name, int cflag)")
+public static ST_Agnode_s agnode(ST_Agraph_s g, CString name, boolean cflag) {
 ENTERING("4yh1h1cwoitzb1t8869b79e3g","agnode");
 try {
-    Agraph_s root;
-    Agnode_s n;
+    ST_Agraph_s root;
+    ST_Agnode_s n;
     int id[] = new int[1];
     root = agroot(g);
     /* probe for existing node */
@@ -573,6 +358,8 @@ LEAVING("4yh1h1cwoitzb1t8869b79e3g","agnode");
 
 //3 acahmq5kvzn3o31mluqgw7q9p
 // void agdelnodeimage(Agraph_t * g, Agnode_t * n, void *ignored) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/node.c", name="agdelnodeimage", key="acahmq5kvzn3o31mluqgw7q9p", definition="void agdelnodeimage(Agraph_t * g, Agnode_t * n, void *ignored)")
 public static Object agdelnodeimage(Object... arg) {
 UNSUPPORTED("elm2o1y1nn2deregqtwfd0fm"); // void agdelnodeimage(Agraph_t * g, Agnode_t * n, void *ignored)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -599,6 +386,8 @@ throw new UnsupportedOperationException();
 
 //3 d7hac3hpizqk8mmx6oxiv6d3q
 // int agdelnode(Agraph_t * g, Agnode_t * n) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/node.c", name="agdelnode", key="d7hac3hpizqk8mmx6oxiv6d3q", definition="int agdelnode(Agraph_t * g, Agnode_t * n)")
 public static Object agdelnode(Object... arg) {
 UNSUPPORTED("5vrhjcls5tltlk3dn4ssxzusq"); // int agdelnode(Agraph_t * g, Agnode_t * n)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -632,6 +421,8 @@ throw new UnsupportedOperationException();
 
 //3 dytehp1u14cb4j9zsmlesojkq
 // static void dict_relabel(Agnode_t * n, void *arg) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/node.c", name="dict_relabel", key="dytehp1u14cb4j9zsmlesojkq", definition="static void dict_relabel(Agnode_t * n, void *arg)")
 public static Object dict_relabel(Object... arg) {
 UNSUPPORTED("44mem1e9kck28s208xgn5g04k"); // static void dict_relabel(Agnode_t * n, void *arg)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -654,6 +445,8 @@ throw new UnsupportedOperationException();
 
 //3 a29io0pb5tx5bwevwjtr1hg1r
 // int agrelabel_node(Agnode_t * n, char *newname) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/node.c", name="agrelabel_node", key="a29io0pb5tx5bwevwjtr1hg1r", definition="int agrelabel_node(Agnode_t * n, char *newname)")
 public static Object agrelabel_node(Object... arg) {
 UNSUPPORTED("838qr3zz1vpfb75cfio36192j"); // int agrelabel_node(Agnode_t * n, char *newname)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -682,14 +475,16 @@ throw new UnsupportedOperationException();
 
 
 
-//3 d5farp22buvesyi4pydjam4g2
-// Agnode_t *agsubnode(Agraph_t * g, Agnode_t * n0, int cflag) 
-public static Agnode_s agsubnode(Agraph_s g, Agnode_s n0, boolean cflag) {
+/* lookup or insert <n> in <g> */
+@Reviewed(when = "13/11/2020")
+@Original(version="2.38.0", path="lib/cgraph/node.c", name="", key="d5farp22buvesyi4pydjam4g2", definition="Agnode_t *agsubnode(Agraph_t * g, Agnode_t * n0, int cflag)")
+public static ST_Agnode_s agsubnode(ST_Agraph_s g, ST_Agnode_s n0, boolean cflag) {
 ENTERING("d5farp22buvesyi4pydjam4g2","agsubnode");
 try {
-    Agraph_s par;
-    Agnode_s n;
-    if (NEQ(agroot(g), n0.getPtr("root")))
+    ST_Agraph_s par;
+    ST_Agnode_s n;
+    
+    if (NEQ(agroot(g), n0.root))
 	return null;
     n = agfindnode_by_id(g, AGID(n0));
     if ((n == null) && cflag) {
@@ -710,16 +505,16 @@ LEAVING("d5farp22buvesyi4pydjam4g2","agsubnode");
 
 
 
-//3 awwiazixy9c76hvyxlkvvb3vo
-// int agsubnodeidcmpf(Dict_t * d, void *arg0, void *arg1, Dtdisc_t * disc) 
-public static int agsubnodeidcmpf(_dt_s d, __ptr__ arg0, __ptr__ arg1, _dtdisc_s disc) {
+@Reviewed(when = "13/11/2020")
+@Original(version="2.38.0", path="lib/cgraph/node.c", name="agsubnodeidcmpf", key="awwiazixy9c76hvyxlkvvb3vo", definition="int agsubnodeidcmpf(Dict_t * d, void *arg0, void *arg1, Dtdisc_t * disc)")
+public static int agsubnodeidcmpf(ST_dt_s d, __ptr__ arg0, __ptr__ arg1, ST_dtdisc_s disc) {
 ENTERING("awwiazixy9c76hvyxlkvvb3vo","agsubnodeidcmpf");
 try {
     int	v;
-    Agsubnode_s sn0, sn1;
-    sn0 = (Agsubnode_s) arg0.castTo(Agsubnode_s.class);
-    sn1 = (Agsubnode_s) arg1.castTo(Agsubnode_s.class);
-    v = (AGID(sn0.getPtr("node")) - AGID(sn1.getPtr("node")));
+    ST_Agsubnode_s sn0, sn1;
+    sn0 = (ST_Agsubnode_s) arg0.castTo(ST_Agsubnode_s.class);
+    sn1 = (ST_Agsubnode_s) arg1.castTo(ST_Agsubnode_s.class);
+    v = (AGID(sn0.node) - AGID(sn1.node));
     return ((v==0)?0:(v<0?-1:1));
 } finally {
 LEAVING("awwiazixy9c76hvyxlkvvb3vo","agsubnodeidcmpf");
@@ -729,16 +524,16 @@ LEAVING("awwiazixy9c76hvyxlkvvb3vo","agsubnodeidcmpf");
 
 
 
-//3 41fjseux0nxzpr0aq7igym9ux
-// int agsubnodeseqcmpf(Dict_t * d, void *arg0, void *arg1, Dtdisc_t * disc) 
-public static int agsubnodeseqcmpf(_dt_s d, __ptr__ arg0, __ptr__ arg1, _dtdisc_s disc) {
+@Reviewed(when = "13/11/2020")
+@Original(version="2.38.0", path="lib/cgraph/node.c", name="agsubnodeseqcmpf", key="41fjseux0nxzpr0aq7igym9ux", definition="int agsubnodeseqcmpf(Dict_t * d, void *arg0, void *arg1, Dtdisc_t * disc)")
+public static int agsubnodeseqcmpf(ST_dt_s d, __ptr__ arg0, __ptr__ arg1, ST_dtdisc_s disc) {
 ENTERING("41fjseux0nxzpr0aq7igym9ux","agsubnodeseqcmpf");
 try {
-    Agsubnode_s sn0, sn1;
+	ST_Agsubnode_s sn0, sn1;
     int	v;
-    sn0 = (Agsubnode_s) arg0.castTo(Agsubnode_s.class);
-    sn1 = (Agsubnode_s) arg1.castTo(Agsubnode_s.class);
-    v = (AGSEQ(sn0.getPtr("node")) - AGSEQ(sn1.getPtr("node")));
+    sn0 = (ST_Agsubnode_s) arg0.castTo(ST_Agsubnode_s.class);
+    sn1 = (ST_Agsubnode_s) arg1.castTo(ST_Agsubnode_s.class);
+    v = (AGSEQ(sn0.node) - AGSEQ(sn1.node));
     return ((v==0)?0:(v<0?-1:1));
 } finally {
 LEAVING("41fjseux0nxzpr0aq7igym9ux","agsubnodeseqcmpf");
@@ -750,6 +545,8 @@ LEAVING("41fjseux0nxzpr0aq7igym9ux","agsubnodeseqcmpf");
 
 //3 a7tb3b1kvq6ykrxzhbaduvg9r
 // static void free_subnode (Dt_t* d, Agsubnode_t* sn, Dtdisc_t * disc) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/node.c", name="free_subnode", key="a7tb3b1kvq6ykrxzhbaduvg9r", definition="static void free_subnode (Dt_t* d, Agsubnode_t* sn, Dtdisc_t * disc)")
 public static Object free_subnode(Object... arg) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("9e4h6d4hxsvsnaiuubzlmccsm"); // free_subnode (Dt_t* d, Agsubnode_t* sn, Dtdisc_t * disc)
@@ -764,7 +561,7 @@ throw new UnsupportedOperationException();
 
 //1 us7d1n3fefkf0qyr6thv1sai
 // Dtdisc_t Ag_subnode_id_disc = 
-/*public static final __struct__<_dtdisc_s> Ag_subnode_id_disc = __struct__.from(_dtdisc_s.class);
+/*public static final __struct__<_dtdisc_s> Ag_subnode_id_disc = JUtils.from(_dtdisc_s.class);
 static {
 	Ag_subnode_id_disc.setInt("key", 0);
 	Ag_subnode_id_disc.setInt("size", 0);
@@ -779,7 +576,7 @@ static {
 
 //1 3gqjvodjfsv6wz1tk75zy19p9
 // Dtdisc_t Ag_subnode_seq_disc = 
-/*public static final __struct__<_dtdisc_s> Ag_subnode_seq_disc = __struct__.from(_dtdisc_s.class);
+/*public static final __struct__<_dtdisc_s> Ag_subnode_seq_disc = JUtils.from(_dtdisc_s.class);
 static {
 	Ag_subnode_seq_disc.setInt("key", 0);
 	Ag_subnode_seq_disc.setInt("size", 0);

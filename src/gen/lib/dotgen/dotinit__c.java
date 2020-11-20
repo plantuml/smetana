@@ -4,10 +4,15 @@
  *
  * Project Info:  http://plantuml.com
  * 
+ * If you like this project or if you find it useful, you can support us at:
+ * 
+ * http://plantuml.com/patreon (only 1$ per month!)
+ * http://plantuml.com/paypal
+ * 
  * This file is part of Smetana.
  * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * (C) Copyright 2009-2017, Arnaud Roques
+ * (C) Copyright 2009-2022, Arnaud Roques
  *
  * This translation is distributed under the same Licence as the original C program:
  * 
@@ -39,395 +44,92 @@
  *
  */
 package gen.lib.dotgen;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static smetana.core.JUtilsDebug.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import static gen.lib.cgraph.attr__c.agget;
+import static gen.lib.cgraph.edge__c.agfstout;
+import static gen.lib.cgraph.edge__c.aghead;
+import static gen.lib.cgraph.edge__c.agnxtout;
+import static gen.lib.cgraph.edge__c.agtail;
+import static gen.lib.cgraph.graph__c.agnnodes;
+import static gen.lib.cgraph.node__c.agfstnode;
+import static gen.lib.cgraph.node__c.agnxtnode;
+import static gen.lib.cgraph.obj__c.agraphof;
+import static gen.lib.cgraph.obj__c.agroot;
+import static gen.lib.cgraph.rec__c.agbindrec;
+import static gen.lib.cgraph.subg__c.agfstsubg;
+import static gen.lib.cgraph.subg__c.agnxtsubg;
+import static gen.lib.common.postproc__c.dotneato_postprocess;
+import static gen.lib.common.utils__c.common_init_edge;
+import static gen.lib.common.utils__c.common_init_node;
+import static gen.lib.common.utils__c.gv_nodesize;
+import static gen.lib.common.utils__c.late_int;
+import static gen.lib.common.utils__c.late_string;
+import static gen.lib.common.utils__c.mapbool;
+import static gen.lib.common.utils__c.setEdgeType;
+import static gen.lib.dotgen.aspect__c.setAspect;
+import static gen.lib.dotgen.class1__c.nonconstraint_edge;
+import static gen.lib.dotgen.compound__c.dot_compoundEdges;
+import static gen.lib.dotgen.dotsplines__c.dot_splines;
+import static gen.lib.dotgen.mincross__c.dot_mincross;
+import static gen.lib.dotgen.position__c.dot_position;
+import static gen.lib.dotgen.rank__c.dot_rank;
+import static gen.lib.dotgen.sameport__c.dot_sameports;
+import static gen.lib.pack.pack__c.getPack;
+import static gen.lib.pack.pack__c.getPackInfo;
+import static gen.lib.pack.pack__c.getPackModeInfo;
+import static smetana.core.JUtils.EQ;
+import static smetana.core.JUtils.NEQ;
+import static smetana.core.JUtils.enumAsInt;
+import static smetana.core.JUtils.sizeof;
+import static smetana.core.JUtilsDebug.ENTERING;
+import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.CL_OFFSET;
+import static smetana.core.Macro.ED_count;
+import static smetana.core.Macro.ED_minlen;
+import static smetana.core.Macro.ED_showboxes;
+import static smetana.core.Macro.ED_weight;
+import static smetana.core.Macro.ED_xpenalty;
+import static smetana.core.Macro.ET_SPLINE;
+import static smetana.core.Macro.GD_dotroot;
+import static smetana.core.Macro.GD_flags;
+import static smetana.core.Macro.GD_flip;
+import static smetana.core.Macro.N;
+import static smetana.core.Macro.ND_UF_size;
+import static smetana.core.Macro.ND_flat_in;
+import static smetana.core.Macro.ND_flat_out;
+import static smetana.core.Macro.ND_in;
+import static smetana.core.Macro.ND_other;
+import static smetana.core.Macro.ND_out;
+import static smetana.core.Macro.NEW_RANK;
+import static smetana.core.Macro.UNSUPPORTED;
+import static smetana.core.Macro.agfindgraphattr;
+import static smetana.core.Macro.alloc_elist;
+
+import gen.annotation.Original;
+import gen.annotation.Reviewed;
+import gen.annotation.Unused;
+import h.ST_Agedge_s;
+import h.ST_Agedgeinfo_t;
+import h.ST_Agnode_s;
+import h.ST_Agnodeinfo_t;
+import h.ST_Agraph_s;
+import h.ST_Agraphinfo_t;
+import h.ST_aspect_t;
+import h.ST_pack_info;
+import h.ST_pointf;
+import h.pack_mode;
+import smetana.core.CString;
+import smetana.core.Z;
+import smetana.core.__ptr__;
 
 public class dotinit__c {
-//1 2digov3edok6d5srhgtlmrycs
-// extern lt_symlist_t lt_preloaded_symbols[]
-
-
-//1 baedz5i9est5csw3epz3cv7z
-// typedef Ppoly_t Ppolyline_t
-
-
-//1 9k44uhd5foylaeoekf3llonjq
-// extern Dtmethod_t* 	Dtset
-
-
-//1 1ahfywsmzcpcig2oxm7pt9ihj
-// extern Dtmethod_t* 	Dtbag
-
-
-//1 anhghfj3k7dmkudy2n7rvt31v
-// extern Dtmethod_t* 	Dtoset
-
-
-//1 5l6oj1ux946zjwvir94ykejbc
-// extern Dtmethod_t* 	Dtobag
-
-
-//1 2wtf222ak6cui8cfjnw6w377z
-// extern Dtmethod_t*	Dtlist
-
-
-//1 d1s1s6ibtcsmst88e3057u9r7
-// extern Dtmethod_t*	Dtstack
-
-
-//1 axa7mflo824p6fspjn1rdk0mt
-// extern Dtmethod_t*	Dtqueue
-
-
-//1 ega812utobm4xx9oa9w9ayij6
-// extern Dtmethod_t*	Dtdeque
-
-
-//1 cyfr996ur43045jv1tjbelzmj
-// extern Dtmethod_t*	Dtorder
-
-
-//1 wlofoiftbjgrrabzb2brkycg
-// extern Dtmethod_t*	Dttree
-
-
-//1 12bds94t7voj7ulwpcvgf6agr
-// extern Dtmethod_t*	Dthash
-
-
-//1 9lqknzty480cy7zsubmabkk8h
-// extern Dtmethod_t	_Dttree
-
-
-//1 bvn6zkbcp8vjdhkccqo1xrkrb
-// extern Dtmethod_t	_Dthash
-
-
-//1 9lidhtd6nsmmv3e7vjv9e10gw
-// extern Dtmethod_t	_Dtlist
-
-
-//1 34ujfamjxo7xn89u90oh2k6f8
-// extern Dtmethod_t	_Dtqueue
-
-
-//1 3jy4aceckzkdv950h89p4wjc8
-// extern Dtmethod_t	_Dtstack
-
-
-//1 8dfqgf3u1v830qzcjqh9o8ha7
-// extern Agmemdisc_t AgMemDisc
-
-
-//1 18k2oh2t6llfsdc5x0wlcnby8
-// extern Agiddisc_t AgIdDisc
-
-
-//1 a4r7hi80gdxtsv4hdoqpyiivn
-// extern Agiodisc_t AgIoDisc
-
-
-//1 bnzt5syjb7mgeru19114vd6xx
-// extern Agdisc_t AgDefaultDisc
-
-
-//1 35y2gbegsdjilegaribes00mg
-// extern Agdesc_t Agdirected, Agstrictdirected, Agundirected,     Agstrictundirected
-
-
-//1 c2rygslq6bcuka3awmvy2b3ow
-// typedef Agsubnode_t	Agnoderef_t
-
-
-//1 xam6yv0dcsx57dtg44igpbzn
-// typedef Dtlink_t	Agedgeref_t
-
-
-//1 nye6dsi1twkbddwo9iffca1j
-// extern char *Version
-
-
-//1 65mu6k7h7lb7bx14jpiw7iyxr
-// extern char **Files
-
-
-//1 2rpjdzsdyrvomf00zcs3u3dyn
-// extern const char **Lib
-
-
-//1 6d2f111lntd2rsdt4gswh5909
-// extern char *CmdName
-
-
-//1 a0ltq04fpeg83soa05a2fkwb2
-// extern char *specificFlags
-
-
-//1 1uv30qeqq2jh6uznlr4dziv0y
-// extern char *specificItems
-
-
-//1 7i4hkvngxe3x7lmg5h6b3t9g3
-// extern char *Gvfilepath
-
-
-//1 9jp96pa73kseya3w6sulxzok6
-// extern char *Gvimagepath
-
-
-//1 40ylumfu7mrvawwf4v2asvtwk
-// extern unsigned char Verbose
-
-
-//1 93st8awjy1z0h07n28qycbaka
-// extern unsigned char Reduce
-
-
-//1 f2vs67ts992erf8onwfglurzp
-// extern int MemTest
-
-
-//1 c6f8whijgjwwagjigmxlwz3gb
-// extern char *HTTPServerEnVar
-
-
-//1 cp4hzj7p87m7arw776d3bt7aj
-// extern char *Output_file_name
-
-
-//1 a3rqagofsgraie6mx0krzkgsy
-// extern int graphviz_errors
-
-
-//1 5up05203r4kxvjn1m4njcgq5x
-// extern int Nop
-
-
-//1 umig46cco431x14b3kosde2t
-// extern double PSinputscale
-
-
-//1 52bj6v8fqz39khasobljfukk9
-// extern int Syntax_errors
-
-
-//1 9ekf2ina8fsjj6y6i0an6somj
-// extern int Show_cnt
-
-
-//1 38di5qi3nkxkq65onyvconk3r
-// extern char** Show_boxes
-
-
-//1 6ri6iu712m8mpc7t2670etpcw
-// extern int CL_type
-
-
-//1 bomxiw3gy0cgd1ydqtek7fpxr
-// extern unsigned char Concentrate
-
-
-//1 cqy3gqgcq8empdrbnrhn84058
-// extern double Epsilon
-
-
-//1 64slegfoouqeg0rmbyjrm8wgr
-// extern int MaxIter
-
-
-//1 88wdinpnmfs4mab4aw62yb0bg
-// extern int Ndim
-
-
-//1 8bbad3ogcelqnnvo5br5s05gq
-// extern int State
-
-
-//1 17rnd8q45zclfn68qqst2vxxn
-// extern int EdgeLabelsDone
-
-
-//1 ymx1z4s8cznjifl2d9f9m8jr
-// extern double Initial_dist
-
-
-//1 a33bgl0c3uqb3trx419qulj1x
-// extern double Damping
-
-
-//1 d9lvrpjg1r0ojv40pod1xwk8n
-// extern int Y_invert
-
-
-//1 71efkfs77q5tq9ex6y0f4kanh
-// extern int GvExitOnUsage
-
-
-//1 4xy2dkdkv0acs2ue9eca8hh2e
-// extern Agsym_t 	*G_activepencolor, *G_activefillcolor, 	*G_selectedpencolor, *G_selectedfillcolor, 	*G_visitedpencolor, *G_visitedfillcolor, 	*G_deletedpencolor, *G_deletedfillcolor, 	*G_ordering, *G_peripheries, *G_penwidth, 	*G_gradientangle, *G_margin
-
-
-//1 9js5gxgzr74eakgtfhnbws3t9
-// extern Agsym_t 	*N_height, *N_width, *N_shape, *N_color, *N_fillcolor, 	*N_activepencolor, *N_activefillcolor, 	*N_selectedpencolor, *N_selectedfillcolor, 	*N_visitedpencolor, *N_visitedfillcolor, 	*N_deletedpencolor, *N_deletedfillcolor, 	*N_fontsize, *N_fontname, *N_fontcolor, *N_margin, 	*N_label, *N_xlabel, *N_nojustify, *N_style, *N_showboxes, 	*N_sides, *N_peripheries, *N_ordering, *N_orientation, 	*N_skew, *N_distortion, *N_fixed, *N_imagescale, *N_layer, 	*N_group, *N_comment, *N_vertices, *N_z, 	*N_penwidth, *N_gradientangle
-
-
-//1 anqllp9sj7wo45w6bm11j8trn
-// extern Agsym_t 	*E_weight, *E_minlen, *E_color, *E_fillcolor, 	*E_activepencolor, *E_activefillcolor, 	*E_selectedpencolor, *E_selectedfillcolor, 	*E_visitedpencolor, *E_visitedfillcolor, 	*E_deletedpencolor, *E_deletedfillcolor, 	*E_fontsize, *E_fontname, *E_fontcolor, 	*E_label, *E_xlabel, *E_dir, *E_style, *E_decorate, 	*E_showboxes, *E_arrowsz, *E_constr, *E_layer, 	*E_comment, *E_label_float, 	*E_samehead, *E_sametail, 	*E_arrowhead, *E_arrowtail, 	*E_headlabel, *E_taillabel, 	*E_labelfontsize, *E_labelfontname, *E_labelfontcolor, 	*E_labeldistance, *E_labelangle, 	*E_tailclip, *E_headclip, 	*E_penwidth
-
-
-//1 bh0z9puipqw7gymjd5h5b8s6i
-// extern struct fdpParms_s* fdp_parms
 
 
 
 
 //3 ciez0pfggxdljedzsbklq49f0
 // static inline point pointof(int x, int y) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="pointof", key="ciez0pfggxdljedzsbklq49f0", definition="static inline point pointof(int x, int y)")
 public static Object pointof(Object... arg) {
 UNSUPPORTED("8e4tj258yvfq5uhsdpk37n5eq"); // static inline point pointof(int x, int y)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -443,29 +145,12 @@ throw new UnsupportedOperationException();
 
 
 
-//3 c1s4k85p1cdfn176o3uryeros
-// static inline pointf pointfof(double x, double y) 
-public static __struct__<pointf> pointfof(double x, double y) {
-// WARNING!! STRUCT
-return pointfof_w_(x, y).copy();
-}
-private static __struct__<pointf> pointfof_w_(double x, double y) {
-ENTERING("c1s4k85p1cdfn176o3uryeros","pointfof");
-try {
-    final __struct__<pointf> r = __struct__.from(pointf.class);
-    r.setDouble("x", x);
-    r.setDouble("y", y);
-    return r;
-} finally {
-LEAVING("c1s4k85p1cdfn176o3uryeros","pointfof");
-}
-}
-
-
 
 
 //3 7cufnfitrh935ew093mw0i4b7
 // static inline box boxof(int llx, int lly, int urx, int ury) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="boxof", key="7cufnfitrh935ew093mw0i4b7", definition="static inline box boxof(int llx, int lly, int urx, int ury)")
 public static Object boxof(Object... arg) {
 UNSUPPORTED("3lzesfdd337h31jrlib1czocm"); // static inline box boxof(int llx, int lly, int urx, int ury)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -481,31 +166,14 @@ throw new UnsupportedOperationException();
 
 
 
-//3 1vvsta5i8of59frav6uymguav
-// static inline boxf boxfof(double llx, double lly, double urx, double ury) 
-public static __struct__<boxf> boxfof(double llx, double lly, double urx, double ury) {
-// WARNING!! STRUCT
-return boxfof_w_(llx, lly, urx, ury).copy();
-}
-private static __struct__<boxf> boxfof_w_(double llx, double lly, double urx, double ury) {
-ENTERING("1vvsta5i8of59frav6uymguav","boxfof");
-try {
-    final __struct__<boxf> b = __struct__.from(boxf.class);
-    b.getStruct("LL").setDouble("x", llx);
-    b.getStruct("LL").setDouble("y", lly);
-    b.getStruct("UR").setDouble("x", urx);
-    b.getStruct("UR").setDouble("y", ury);
-    return b;
-} finally {
-LEAVING("1vvsta5i8of59frav6uymguav","boxfof");
-}
-}
 
 
 
 
 //3 1n5xl70wxuabyf97mclvilsm6
 // static inline point add_point(point p, point q) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="add_point", key="1n5xl70wxuabyf97mclvilsm6", definition="static inline point add_point(point p, point q)")
 public static Object add_point(Object... arg) {
 UNSUPPORTED("6iamka1fx8fk1rohzzse8phte"); // static inline point add_point(point p, point q)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -521,29 +189,10 @@ throw new UnsupportedOperationException();
 
 
 
-//3 arrsbik9b5tnfcbzsm8gr2chx
-// static inline pointf add_pointf(pointf p, pointf q) 
-public static __struct__<pointf> add_pointf(final __struct__<pointf> p, final __struct__<pointf> q) {
-// WARNING!! STRUCT
-return add_pointf_w_(p.copy(), q.copy()).copy();
-}
-private static __struct__<pointf> add_pointf_w_(final __struct__<pointf> p, final __struct__<pointf> q) {
-ENTERING("arrsbik9b5tnfcbzsm8gr2chx","add_pointf");
-try {
-    final __struct__<pointf> r = __struct__.from(pointf.class);
-    r.setDouble("x", p.getDouble("x") + q.getDouble("x"));
-    r.setDouble("y", p.getDouble("y") + q.getDouble("y"));
-    return r;
-} finally {
-LEAVING("arrsbik9b5tnfcbzsm8gr2chx","add_pointf");
-}
-}
-
-
-
-
 //3 ai2dprak5y6obdsflguh5qbd7
 // static inline point sub_point(point p, point q) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="sub_point", key="ai2dprak5y6obdsflguh5qbd7", definition="static inline point sub_point(point p, point q)")
 public static Object sub_point(Object... arg) {
 UNSUPPORTED("cd602849h0bce8lu9xegka0ia"); // static inline point sub_point(point p, point q)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -561,6 +210,8 @@ throw new UnsupportedOperationException();
 
 //3 16f6pyogcv3j7n2p0n8giqqgh
 // static inline pointf sub_pointf(pointf p, pointf q) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="sub_pointf", key="16f6pyogcv3j7n2p0n8giqqgh", definition="static inline pointf sub_pointf(pointf p, pointf q)")
 public static Object sub_pointf(Object... arg) {
 UNSUPPORTED("dmufj44lddsnj0wjyxsg2fcso"); // static inline pointf sub_pointf(pointf p, pointf q)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -578,6 +229,8 @@ throw new UnsupportedOperationException();
 
 //3 9k50jgrhc4f9824vf8ony74rw
 // static inline point mid_point(point p, point q) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="mid_point", key="9k50jgrhc4f9824vf8ony74rw", definition="static inline point mid_point(point p, point q)")
 public static Object mid_point(Object... arg) {
 UNSUPPORTED("evy44tdsmu3erff9dp2x835u2"); // static inline point mid_point(point p, point q)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -595,6 +248,8 @@ throw new UnsupportedOperationException();
 
 //3 59c4f7im0ftyowhnzzq2v9o1x
 // static inline pointf mid_pointf(pointf p, pointf q) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="mid_pointf", key="59c4f7im0ftyowhnzzq2v9o1x", definition="static inline pointf mid_pointf(pointf p, pointf q)")
 public static Object mid_pointf(Object... arg) {
 UNSUPPORTED("381o63o9kb04d7gzg65v0r3q"); // static inline pointf mid_pointf(pointf p, pointf q)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -612,6 +267,8 @@ throw new UnsupportedOperationException();
 
 //3 5r18p38gisvcx3zsvbb9saixx
 // static inline pointf interpolate_pointf(double t, pointf p, pointf q) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="interpolate_pointf", key="5r18p38gisvcx3zsvbb9saixx", definition="static inline pointf interpolate_pointf(double t, pointf p, pointf q)")
 public static Object interpolate_pointf(Object... arg) {
 UNSUPPORTED("894yimn33kmtm454llwdaotu8"); // static inline pointf interpolate_pointf(double t, pointf p, pointf q)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -629,6 +286,8 @@ throw new UnsupportedOperationException();
 
 //3 bxzrv2ghq04qk5cbyy68s4mol
 // static inline point exch_xy(point p) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="exch_xy", key="bxzrv2ghq04qk5cbyy68s4mol", definition="static inline point exch_xy(point p)")
 public static Object exch_xy(Object... arg) {
 UNSUPPORTED("2vxya0v2fzlv5e0vjaa8d414"); // static inline point exch_xy(point p)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -646,6 +305,8 @@ throw new UnsupportedOperationException();
 
 //3 9lt3e03tac6h6sydljrcws8fd
 // static inline pointf exch_xyf(pointf p) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="exch_xyf", key="9lt3e03tac6h6sydljrcws8fd", definition="static inline pointf exch_xyf(pointf p)")
 public static Object exch_xyf(Object... arg) {
 UNSUPPORTED("8qamrobrqi8jsvvfrxkimrsnw"); // static inline pointf exch_xyf(pointf p)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -663,6 +324,8 @@ throw new UnsupportedOperationException();
 
 //3 8l9qhieokthntzdorlu5zn29b
 // static inline box box_bb(box b0, box b1) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="box_bb", key="8l9qhieokthntzdorlu5zn29b", definition="static inline box box_bb(box b0, box b1)")
 public static Object box_bb(Object... arg) {
 UNSUPPORTED("36et5gmnjrby6o7bq9sgh1hx6"); // static inline box box_bb(box b0, box b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -682,6 +345,8 @@ throw new UnsupportedOperationException();
 
 //3 clws9h3bbjm0lw3hexf8nl4c4
 // static inline boxf boxf_bb(boxf b0, boxf b1) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="boxf_bb", key="clws9h3bbjm0lw3hexf8nl4c4", definition="static inline boxf boxf_bb(boxf b0, boxf b1)")
 public static Object boxf_bb(Object... arg) {
 UNSUPPORTED("dyrqu4ww9osr9c86gqgmifcp6"); // static inline boxf boxf_bb(boxf b0, boxf b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -701,6 +366,8 @@ throw new UnsupportedOperationException();
 
 //3 bit6ycxo1iqd2al92y8gkzlvb
 // static inline box box_intersect(box b0, box b1) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="box_intersect", key="bit6ycxo1iqd2al92y8gkzlvb", definition="static inline box box_intersect(box b0, box b1)")
 public static Object box_intersect(Object... arg) {
 UNSUPPORTED("34gv28cldst09bl71itjgviue"); // static inline box box_intersect(box b0, box b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -720,6 +387,8 @@ throw new UnsupportedOperationException();
 
 //3 8gfybie7k6pgb3o1a6llgpwng
 // static inline boxf boxf_intersect(boxf b0, boxf b1) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="boxf_intersect", key="8gfybie7k6pgb3o1a6llgpwng", definition="static inline boxf boxf_intersect(boxf b0, boxf b1)")
 public static Object boxf_intersect(Object... arg) {
 UNSUPPORTED("ape22b8z6jfg17gvo42hok9eb"); // static inline boxf boxf_intersect(boxf b0, boxf b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -739,6 +408,8 @@ throw new UnsupportedOperationException();
 
 //3 7z8j2quq65govaaejrz7b4cvb
 // static inline int box_overlap(box b0, box b1) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="box_overlap", key="7z8j2quq65govaaejrz7b4cvb", definition="static inline int box_overlap(box b0, box b1)")
 public static Object box_overlap(Object... arg) {
 UNSUPPORTED("1e9k599x7ygct7r4cfdxlk9u9"); // static inline int box_overlap(box b0, box b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -753,6 +424,8 @@ throw new UnsupportedOperationException();
 
 //3 4z0suuut2acsay5m8mg9dqjdu
 // static inline int boxf_overlap(boxf b0, boxf b1) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="boxf_overlap", key="4z0suuut2acsay5m8mg9dqjdu", definition="static inline int boxf_overlap(boxf b0, boxf b1)")
 public static Object boxf_overlap(Object... arg) {
 UNSUPPORTED("905nejsewihwhhc3bhnrz9nwo"); // static inline int boxf_overlap(boxf b0, boxf b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -767,6 +440,8 @@ throw new UnsupportedOperationException();
 
 //3 dd34swz5rmdgu3a2np2a4h1dy
 // static inline int box_contains(box b0, box b1) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="box_contains", key="dd34swz5rmdgu3a2np2a4h1dy", definition="static inline int box_contains(box b0, box b1)")
 public static Object box_contains(Object... arg) {
 UNSUPPORTED("aputfc30fjkvy6jx4otljaczq"); // static inline int box_contains(box b0, box b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -781,6 +456,8 @@ throw new UnsupportedOperationException();
 
 //3 8laj1bspbu2i1cjd9upr7xt32
 // static inline int boxf_contains(boxf b0, boxf b1) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="boxf_contains", key="8laj1bspbu2i1cjd9upr7xt32", definition="static inline int boxf_contains(boxf b0, boxf b1)")
 public static Object boxf_contains(Object... arg) {
 UNSUPPORTED("7ccnttkiwt834yfyw0evcm18v"); // static inline int boxf_contains(boxf b0, boxf b1)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -795,6 +472,8 @@ throw new UnsupportedOperationException();
 
 //3 4wf5swkz24xx51ja2dynbycu1
 // static inline pointf perp (pointf p) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="perp", key="4wf5swkz24xx51ja2dynbycu1", definition="static inline pointf perp (pointf p)")
 public static Object perp(Object... arg) {
 UNSUPPORTED("567wpqlg9rv63ynyvxd9sgkww"); // static inline pointf perp (pointf p)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -812,6 +491,8 @@ throw new UnsupportedOperationException();
 
 //3 6dtlpzv4mvgzb9o0b252yweuv
 // static inline pointf scale (double c, pointf p) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="scale", key="6dtlpzv4mvgzb9o0b252yweuv", definition="static inline pointf scale (double c, pointf p)")
 public static Object scale(Object... arg) {
 UNSUPPORTED("c1ngytew34bmkdb7vps5h3dh8"); // static inline pointf scale (double c, pointf p)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -831,16 +512,18 @@ throw new UnsupportedOperationException();
 
 
 
-//3 cmr94z4p2bdeiply1d4wrqwes
-// static void dot_init_subg(graph_t * g, graph_t* droot) 
-public static void dot_init_subg(Agraph_s g, Agraph_s droot) {
+@Reviewed(when = "12/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="dot_init_subg", key="cmr94z4p2bdeiply1d4wrqwes", definition="static void dot_init_subg(graph_t * g, graph_t* droot)")
+public static void dot_init_subg(ST_Agraph_s g, ST_Agraph_s droot) {
 ENTERING("cmr94z4p2bdeiply1d4wrqwes","dot_init_subg");
 try {
-    Agraph_s subg;
+    ST_Agraph_s subg;
+    
     if (NEQ(g, agroot(g)))
-	agbindrec(g, new CString("Agraphinfo_t"), sizeof(Agraphinfo_t.class), (N(0)));
+	agbindrec(g, new CString("Agraphinfo_t"), sizeof(ST_Agraphinfo_t.class), true);
     if (EQ(g, droot))
 	GD_dotroot(agroot(g), droot);
+    
     for (subg = agfstsubg(g); subg!=null; subg = agnxtsubg(subg)) {
 	dot_init_subg(subg, droot);
     }
@@ -852,19 +535,19 @@ LEAVING("cmr94z4p2bdeiply1d4wrqwes","dot_init_subg");
 
 
 
-//3 3hk92jbrfjmn6no3svn9jvje9
-// static void  dot_init_node(node_t * n) 
-public static void dot_init_node(Agnode_s n) {
+@Reviewed(when = "12/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="dot_init_node", key="3hk92jbrfjmn6no3svn9jvje9", definition="static void  dot_init_node(node_t * n)")
+public static void dot_init_node(ST_Agnode_s n) {
 ENTERING("3hk92jbrfjmn6no3svn9jvje9","dot_init_node");
 try {
-    agbindrec(n, new CString("Agnodeinfo_t"), sizeof(Agnodeinfo_t.class), (N(0)));	//graph custom data
+    agbindrec(n, new CString("Agnodeinfo_t"), sizeof(ST_Agnodeinfo_t.class), true);	//graph custom data
     common_init_node(n);
     gv_nodesize(n, GD_flip(agraphof(n)));
-    alloc_elist(4, ND_in(n), Agnode_s.class);
-    alloc_elist(4, ND_out(n), Agnode_s.class);
-    alloc_elist(2, ND_flat_in(n), Agnode_s.class);
-    alloc_elist(2, ND_flat_out(n), Agnode_s.class);
-    alloc_elist(2, ND_other(n), Agnode_s.class);
+    alloc_elist(4, ND_in(n));
+    alloc_elist(4, ND_out(n));
+    alloc_elist(2, ND_flat_in(n));
+    alloc_elist(2, ND_flat_out(n));
+    alloc_elist(2, ND_other(n));
     ND_UF_size(n, 1);
 } finally {
 LEAVING("3hk92jbrfjmn6no3svn9jvje9","dot_init_node");
@@ -873,30 +556,33 @@ LEAVING("3hk92jbrfjmn6no3svn9jvje9","dot_init_node");
 
 
 
-
-//3 zbvhnhd78bppq8wb872847bj
-// static void  dot_init_edge(edge_t * e) 
-public static void dot_init_edge(Agedge_s e) {
+@Reviewed(when = "13/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="dot_init_edge", key="zbvhnhd78bppq8wb872847bj", definition="static void  dot_init_edge(edge_t * e)")
+public static void dot_init_edge(ST_Agedge_s e) {
 ENTERING("zbvhnhd78bppq8wb872847bj","dot_init_edge");
 try {
     CString tailgroup, headgroup;
-    agbindrec(e, new CString("Agedgeinfo_t"), sizeof(Agedgeinfo_t.class), (N(0)));	//graph custom data
+    agbindrec(e, new CString("Agedgeinfo_t"), sizeof(ST_Agedgeinfo_t.class), true);	//graph custom data
     common_init_edge(e);
-    ED_weight(e, late_int(e, Z._().E_weight, 1, 0));
-    tailgroup = late_string(agtail(e), Z._().N_group, new CString(""));
-    headgroup = late_string(aghead(e), Z._().N_group, new CString(""));
+    
+    
+    ED_weight(e, late_int(e, Z.z().E_weight, 1, 0));
+    tailgroup = late_string(agtail(e), Z.z().N_group, new CString(""));
+    headgroup = late_string(aghead(e), Z.z().N_group, new CString(""));
     ED_count(e, 1);
     ED_xpenalty(e, 1);
     if (tailgroup.charAt(0)!='\0' && (tailgroup.isSame(headgroup))) {
-UNSUPPORTED("atjraranegsdjegclykesn5gx"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->xpenalty) = 1000;
-UNSUPPORTED("5y0yunmvmngg67c9exlbn6jbk"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->weight) *= 100;
+	UNSUPPORTED("atjraranegsdjegclykesn5gx"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->xpenalty) = 1000;
+	UNSUPPORTED("5y0yunmvmngg67c9exlbn6jbk"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->weight) *= 100;
     }
     if (nonconstraint_edge(e)) {
-UNSUPPORTED("54niz21n2omf1i9v67brdid9w"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->xpenalty) = 0;
-UNSUPPORTED("2v5u5jdguhhn7vjihniotrml0"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->weight) = 0;
+	UNSUPPORTED("54niz21n2omf1i9v67brdid9w"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->xpenalty) = 0;
+	UNSUPPORTED("2v5u5jdguhhn7vjihniotrml0"); // 	(((Agedgeinfo_t*)(((Agobj_t*)(e))->data))->weight) = 0;
     }
-    ED_showboxes(e, late_int(e, Z._().E_showboxes, 0, 0));
-    ED_minlen(e, late_int(e, Z._().E_minlen, 1, 0));
+    
+    
+    ED_showboxes(e, late_int(e, Z.z().E_showboxes, 0, 0));
+    ED_minlen(e, late_int(e, Z.z().E_minlen, 1, 0));
 } finally {
 LEAVING("zbvhnhd78bppq8wb872847bj","dot_init_edge");
 }
@@ -905,13 +591,13 @@ LEAVING("zbvhnhd78bppq8wb872847bj","dot_init_edge");
 
 
 
-//3 2ylyhz7macit0ts1hap2tg3wy
-// void  dot_init_node_edge(graph_t * g) 
-public static void dot_init_node_edge(Agraph_s g) {
+@Reviewed(when = "12/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="dot_init_node_edge", key="2ylyhz7macit0ts1hap2tg3wy", definition="void  dot_init_node_edge(graph_t * g)")
+public static void dot_init_node_edge(ST_Agraph_s g) {
 ENTERING("2ylyhz7macit0ts1hap2tg3wy","dot_init_node_edge");
 try {
-	Agnode_s n;
-	Agedge_s e;
+	ST_Agnode_s n;
+	ST_Agedge_s e;
     for (n = agfstnode(g); n!=null; n = agnxtnode(g, n))
 	dot_init_node(n);
     for (n = agfstnode(g); n!=null; n = agnxtnode(g, n)) {
@@ -928,6 +614,8 @@ LEAVING("2ylyhz7macit0ts1hap2tg3wy","dot_init_node_edge");
 
 //3 5z1h7gr0tgapjvuc2z9st9xjr
 // static void  dot_cleanup_node(node_t * n) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="dot_cleanup_node", key="5z1h7gr0tgapjvuc2z9st9xjr", definition="static void  dot_cleanup_node(node_t * n)")
 public static Object dot_cleanup_node(Object... arg) {
 UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
 UNSUPPORTED("3wd33alc21mdt92sw3x9gl65j"); // dot_cleanup_node(node_t * n)
@@ -952,6 +640,8 @@ throw new UnsupportedOperationException();
 
 //3 5x42drpgjuyzb9oapi7osqxb6
 // static void free_virtual_edge_list(node_t * n) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="free_virtual_edge_list", key="5x42drpgjuyzb9oapi7osqxb6", definition="static void free_virtual_edge_list(node_t * n)")
 public static Object free_virtual_edge_list(Object... arg) {
 UNSUPPORTED("2kwoaiz0pcpatrbztzebypz24"); // static void free_virtual_edge_list(node_t * n)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -979,6 +669,8 @@ throw new UnsupportedOperationException();
 
 //3 bzy6cpyjjzfeesjlq49c5sfmo
 // static void free_virtual_node_list(node_t * vn) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="free_virtual_node_list", key="bzy6cpyjjzfeesjlq49c5sfmo", definition="static void free_virtual_node_list(node_t * vn)")
 public static Object free_virtual_node_list(Object... arg) {
 UNSUPPORTED("b8mii2q777xhhq7ugpswc15so"); // static void free_virtual_node_list(node_t * vn)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -1004,6 +696,8 @@ throw new UnsupportedOperationException();
 
 //3 colq6urkwrm9hh0zggl873dla
 // static void  dot_cleanup_graph(graph_t * g) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="dot_cleanup_graph", key="colq6urkwrm9hh0zggl873dla", definition="static void  dot_cleanup_graph(graph_t * g)")
 public static Object dot_cleanup_graph(Object... arg) {
 UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
 UNSUPPORTED("84r7i6e9lays55x1yan1d0nlp"); // dot_cleanup_graph(graph_t * g)
@@ -1036,6 +730,8 @@ throw new UnsupportedOperationException();
 
 //3 2uv40x0vx6nmbvld01reukyly
 // void dot_cleanup(graph_t * g) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="dot_cleanup", key="2uv40x0vx6nmbvld01reukyly", definition="void dot_cleanup(graph_t * g)")
 public static Object dot_cleanup(Object... arg) {
 UNSUPPORTED("a2tqiktifcbodk46i6x0ux9j1"); // void dot_cleanup(graph_t * g)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -1059,6 +755,8 @@ throw new UnsupportedOperationException();
 
 //3 4jt1p8taqjuk4atqpwbxkru3g
 // static void remove_from_rank (Agraph_t * g, Agnode_t* n) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="remove_from_rank", key="4jt1p8taqjuk4atqpwbxkru3g", definition="static void remove_from_rank (Agraph_t * g, Agnode_t* n)")
 public static Object remove_from_rank(Object... arg) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("9axg5z61bd5rkf0cbubkto6eb"); // remove_from_rank (Agraph_t * g, Agnode_t* n)
@@ -1086,6 +784,8 @@ throw new UnsupportedOperationException();
 
 //3 xgvyh3kinj6cbnknb5oo9qfr
 // static void removeFill (Agraph_t * g) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="removeFill", key="xgvyh3kinj6cbnknb5oo9qfr", definition="static void removeFill (Agraph_t * g)")
 public static Object removeFill(Object... arg) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("8asq16rjvm285smlce6dul5nq"); // removeFill (Agraph_t * g)
@@ -1112,6 +812,8 @@ throw new UnsupportedOperationException();
 
 //3 63o8ieaetc5apjocrd74fobt0
 // static void attach_phase_attrs (Agraph_t * g, int maxphase) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="attach_phase_attrs", key="63o8ieaetc5apjocrd74fobt0", definition="static void attach_phase_attrs (Agraph_t * g, int maxphase)")
 public static Object attach_phase_attrs(Object... arg) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("adogsvx2s8kkwixbfl53zj175"); // attach_phase_attrs (Agraph_t * g, int maxphase)
@@ -1138,25 +840,28 @@ throw new UnsupportedOperationException();
 
 
 
-//3 7t18nggek2s9vvb5opwqa8rwr
-// static void dotLayout(Agraph_t * g) 
-public static void dotLayout(Agraph_s g) {
+@Reviewed(when = "12/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="dotLayout", key="7t18nggek2s9vvb5opwqa8rwr", definition="static void dotLayout(Agraph_t * g)")
+public static void dotLayout(ST_Agraph_s g) {
 ENTERING("7t18nggek2s9vvb5opwqa8rwr","dotLayout");
 try {
-    aspect_t aspect = (aspect_t) Memory.malloc(aspect_t.class);
-    aspect_t asp;
-    int maxphase = late_int(g, (agattr(g,AGRAPH,new CString("phase"),null)), -1, 1);
-    setEdgeType (g, (5 << 1));
+	ST_aspect_t aspect = new ST_aspect_t();
+	ST_aspect_t asp;
+    int maxphase = late_int(g, agfindgraphattr(g,"phase"), -1, 1);
+    
+    setEdgeType (g, ET_SPLINE);
     asp = setAspect (g, aspect);
+    
     dot_init_subg(g,g);
     dot_init_node_edge(g);
+    
     do {
         dot_rank(g, asp);
 	if (maxphase == 1) {
 	    attach_phase_attrs (g, 1);
 	    return;
 	}
-	if (aspect.getBoolean("badGraph")) {
+	if (aspect.badGraph!=0) {
 UNSUPPORTED("1yu5j8tk43i6jlmu8wk9jks15"); // 	    agerr(AGWARN, "dot does not support the aspect attribute for disconnected graphs or graphs with clusters\n");
 UNSUPPORTED("5uwp9z6jkv5uc30iyfszyg6dw"); // 	    asp = NULL;
 UNSUPPORTED("28kbszyxsjoj03gb134ov4hag"); // 	    aspect.nextIter = 0;
@@ -1171,9 +876,9 @@ UNSUPPORTED("28kbszyxsjoj03gb134ov4hag"); // 	    aspect.nextIter = 0;
 	    attach_phase_attrs (g, 2);  /* positions will be attached on output */
 	    return;
 	}
-	aspect.setInt("nPasses", aspect.getInt("nPasses") -1);
-    } while (aspect.getInt("nextIter")!=0 && aspect.getInt("nPasses")!=0);
-    if ((GD_flags(g) & (1 << 4))!=0)
+	aspect.nPasses--;
+    } while (aspect.nextIter!=0 && aspect.nPasses!=0);
+    if ((GD_flags(g) & NEW_RANK)!=0)
 	removeFill (g);
     dot_sameports(g);
     dot_splines(g);
@@ -1189,6 +894,8 @@ LEAVING("7t18nggek2s9vvb5opwqa8rwr","dotLayout");
 
 //3 j18uqz16uc5895o8w92sc8us
 // static void initSubg (Agraph_t* sg, Agraph_t* g) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="initSubg", key="j18uqz16uc5895o8w92sc8us", definition="static void initSubg (Agraph_t* sg, Agraph_t* g)")
 public static Object initSubg(Object... arg) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("dxv1kymai2xe3m4wblwapgffu"); // initSubg (Agraph_t* sg, Agraph_t* g)
@@ -1213,6 +920,8 @@ throw new UnsupportedOperationException();
 
 //3 9pe0e6i01ks2zju1xjzgg39v1
 // static void attachPos (Agraph_t* g) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="attachPos", key="9pe0e6i01ks2zju1xjzgg39v1", definition="static void attachPos (Agraph_t* g)")
 public static Object attachPos(Object... arg) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("d606brtp0hf4k8bamafqhu08b"); // attachPos (Agraph_t* g)
@@ -1235,6 +944,8 @@ throw new UnsupportedOperationException();
 
 //3 eufhyu2dccn1mleg8a43s9k2h
 // static void resetCoord (Agraph_t* g) 
+@Unused
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="resetCoord", key="eufhyu2dccn1mleg8a43s9k2h", definition="static void resetCoord (Agraph_t* g)")
 public static Object resetCoord(Object... arg) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("caofcucw710wwaiwfz4650zsz"); // resetCoord (Agraph_t* g)
@@ -1257,17 +968,20 @@ throw new UnsupportedOperationException();
 
 
 
-//3 nedairhdof6qkmjjoh4h68zy
-// static void doDot (Agraph_t* g) 
-public static void doDot(Agraph_s g) {
+/* doDot:
+ * Assume g has nodes.
+ */
+@Reviewed(when = "12/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="doDot", key="nedairhdof6qkmjjoh4h68zy", definition="static void doDot (Agraph_t* g)")
+public static void doDot(ST_Agraph_s g) {
 ENTERING("nedairhdof6qkmjjoh4h68zy","doDot");
 try {
-    Agraph_s ccs[];
-    Agraph_s sg;
+    ST_Agraph_s ccs[];
+    ST_Agraph_s sg;
     int ncc;
     int i;
-    pack_info pinfo = (pack_info) Memory.malloc(pack_info.class);
-    int Pack = getPack(g, -1, 8);
+    final ST_pack_info pinfo = new ST_pack_info();
+    int Pack = getPack(g, -1, CL_OFFSET);
     int mode = getPackModeInfo (g, enumAsInt(pack_mode.class, "l_undef"), pinfo);
     getPackInfo(g, enumAsInt(pack_mode.class, "l_node"), 8, pinfo);
     if ((mode == enumAsInt(pack_mode.class, "l_undef")) && (Pack < 0)) {
@@ -1319,9 +1033,9 @@ LEAVING("nedairhdof6qkmjjoh4h68zy","doDot");
 
 
 
-//3 euvc3uoksq3e24augkwebfkcv
-// void dot_layout(Agraph_t * g) 
-public static void dot_layout(Agraph_s g) {
+@Reviewed(when = "12/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="dot_layout", key="euvc3uoksq3e24augkwebfkcv", definition="void dot_layout(Agraph_t * g)")
+public static void dot_layout(ST_Agraph_s g) {
 ENTERING("euvc3uoksq3e24augkwebfkcv","dot_layout");
 try {
     if (agnnodes(g)!=0) doDot (g);
@@ -1334,9 +1048,9 @@ LEAVING("euvc3uoksq3e24augkwebfkcv","dot_layout");
 
 
 
-//3 ca52dadcp7m8x0bqhaw4tvtaw
-// Agraph_t * dot_root (void* p) 
-public static Agraph_s dot_root(__ptr__ p) {
+@Reviewed(when = "13/11/2020")
+@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="dot_root", key="ca52dadcp7m8x0bqhaw4tvtaw", definition="Agraph_t * dot_root (void* p)")
+public static ST_Agraph_s dot_root(__ptr__ p) {
 ENTERING("ca52dadcp7m8x0bqhaw4tvtaw","dot_root");
 try {
     return GD_dotroot(agroot(p));

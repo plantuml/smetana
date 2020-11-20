@@ -4,10 +4,15 @@
  *
  * Project Info:  http://plantuml.com
  * 
+ * If you like this project or if you find it useful, you can support us at:
+ * 
+ * http://plantuml.com/patreon (only 1$ per month!)
+ * http://plantuml.com/paypal
+ * 
  * This file is part of Smetana.
  * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * (C) Copyright 2009-2017, Arnaud Roques
+ * (C) Copyright 2009-2022, Arnaud Roques
  *
  * This translation is distributed under the same Licence as the original C program:
  * 
@@ -39,153 +44,10 @@
  *
  */
 package gen.lib.gvc;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static smetana.core.JUtilsDebug.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import gen.annotation.Original;
+import gen.annotation.Reviewed;
+import gen.annotation.Unused;
+import static smetana.core.Macro.UNSUPPORTED;
 
 public class gvdevice__c {
 //1 2digov3edok6d5srhgtlmrycs
@@ -296,6 +158,8 @@ public class gvdevice__c {
 
 //3 2bgvvqltcp240iwsswb2msc4b
 // static size_t gvwrite_no_z (GVJ_t * job, const char *s, size_t len) 
+@Unused
+@Original(version="2.38.0", path="lib/gvc/gvdevice.c", name="gvwrite_no_z", key="2bgvvqltcp240iwsswb2msc4b", definition="static size_t gvwrite_no_z (GVJ_t * job, const char *s, size_t len)")
 public static Object gvwrite_no_z(Object... arg) {
 UNSUPPORTED("avituu19zqjw7jh9tfrcm2vaa"); // static size_t gvwrite_no_z (GVJ_t * job, const char *s, size_t len)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -329,6 +193,8 @@ throw new UnsupportedOperationException();
 
 //3 cc376t4uiy6qsmjtdc2stei85
 // static void auto_output_filename(GVJ_t *job) 
+@Unused
+@Original(version="2.38.0", path="lib/gvc/gvdevice.c", name="auto_output_filename", key="cc376t4uiy6qsmjtdc2stei85", definition="static void auto_output_filename(GVJ_t *job)")
 public static Object auto_output_filename(Object... arg) {
 UNSUPPORTED("7bmm5yx4a4rufskcsnxv6wl0z"); // static void auto_output_filename(GVJ_t *job)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -374,6 +240,8 @@ throw new UnsupportedOperationException();
 
 //3 9zdt3xvyjnxhf42eizyfy29ly
 // int gvdevice_initialize(GVJ_t * job) 
+@Unused
+@Original(version="2.38.0", path="lib/gvc/gvdevice.c", name="gvdevice_initialize", key="9zdt3xvyjnxhf42eizyfy29ly", definition="int gvdevice_initialize(GVJ_t * job)")
 public static Object gvdevice_initialize(Object... arg) {
 UNSUPPORTED("2same1m1pu1ldefe93fodijcl"); // int gvdevice_initialize(GVJ_t * job)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -415,6 +283,8 @@ throw new UnsupportedOperationException();
 
 //3 ajhncfer509k2pk55o2k8w9aw
 // size_t gvwrite (GVJ_t * job, const char *s, size_t len) 
+@Unused
+@Original(version="2.38.0", path="lib/gvc/gvdevice.c", name="gvwrite", key="ajhncfer509k2pk55o2k8w9aw", definition="size_t gvwrite (GVJ_t * job, const char *s, size_t len)")
 public static Object gvwrite(Object... arg) {
 UNSUPPORTED("bwx5n843dguc728qqcypic3er"); // size_t gvwrite (GVJ_t * job, const char *s, size_t len)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -443,6 +313,8 @@ throw new UnsupportedOperationException();
 
 //3 38q4ri7dsm0ur36bqkxqeeu6y
 // int gvferror (FILE* stream) 
+@Unused
+@Original(version="2.38.0", path="lib/gvc/gvdevice.c", name="gvferror", key="38q4ri7dsm0ur36bqkxqeeu6y", definition="int gvferror (FILE* stream)")
 public static Object gvferror(Object... arg) {
 UNSUPPORTED("bw6pcxpys8yj8g1611fjiq85f"); // int gvferror (FILE* stream)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -460,6 +332,8 @@ throw new UnsupportedOperationException();
 
 //3 ejkm659i2t9ni9abwvls81srg
 // size_t gvfwrite (const void *ptr, size_t size, size_t nmemb, FILE *stream) 
+@Unused
+@Original(version="2.38.0", path="lib/gvc/gvdevice.c", name="gvfwrite", key="ejkm659i2t9ni9abwvls81srg", definition="size_t gvfwrite (const void *ptr, size_t size, size_t nmemb, FILE *stream)")
 public static Object gvfwrite(Object... arg) {
 UNSUPPORTED("9jmr6dp0tzh6pynfebkrgg0qu"); // size_t gvfwrite (const void *ptr, size_t size, size_t nmemb, FILE *stream)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -475,6 +349,8 @@ throw new UnsupportedOperationException();
 
 //3 baq4lnmy9b8h5r38t5kac1wfp
 // int gvputs(GVJ_t * job, const char *s) 
+@Unused
+@Original(version="2.38.0", path="lib/gvc/gvdevice.c", name="gvputs", key="baq4lnmy9b8h5r38t5kac1wfp", definition="int gvputs(GVJ_t * job, const char *s)")
 public static Object gvputs(Object... arg) {
 UNSUPPORTED("1p5e428gxaoorzh5qz00rfy0k"); // int gvputs(GVJ_t * job, const char *s)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -493,6 +369,8 @@ throw new UnsupportedOperationException();
 
 //3 dmzoqt3ukt72kvftmdjotritt
 // int gvputc(GVJ_t * job, int c) 
+@Unused
+@Original(version="2.38.0", path="lib/gvc/gvdevice.c", name="gvputc", key="dmzoqt3ukt72kvftmdjotritt", definition="int gvputc(GVJ_t * job, int c)")
 public static Object gvputc(Object... arg) {
 UNSUPPORTED("9mag55jpuhl60bjf9unj7xp92"); // int gvputc(GVJ_t * job, int c)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -511,6 +389,8 @@ throw new UnsupportedOperationException();
 
 //3 cv9w48stixnm7kbet4eftjadx
 // int gvflush (GVJ_t * job) 
+@Unused
+@Original(version="2.38.0", path="lib/gvc/gvdevice.c", name="gvflush", key="cv9w48stixnm7kbet4eftjadx", definition="int gvflush (GVJ_t * job)")
 public static Object gvflush(Object... arg) {
 UNSUPPORTED("5ckii4epkwj83v2nnt54ofh8d"); // int gvflush (GVJ_t * job)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -531,6 +411,8 @@ throw new UnsupportedOperationException();
 
 //3 330e9khckra3n5ssrwak5tfea
 // static void gvdevice_close(GVJ_t * job) 
+@Unused
+@Original(version="2.38.0", path="lib/gvc/gvdevice.c", name="gvdevice_close", key="330e9khckra3n5ssrwak5tfea", definition="static void gvdevice_close(GVJ_t * job)")
 public static Object gvdevice_close(Object... arg) {
 UNSUPPORTED("1kd1owjv512h3o8vja7myre50"); // static void gvdevice_close(GVJ_t * job)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -553,6 +435,8 @@ throw new UnsupportedOperationException();
 
 //3 b8iwpcj6eij03r64m0360e7qs
 // void gvdevice_format(GVJ_t * job) 
+@Unused
+@Original(version="2.38.0", path="lib/gvc/gvdevice.c", name="gvdevice_format", key="b8iwpcj6eij03r64m0360e7qs", definition="void gvdevice_format(GVJ_t * job)")
 public static Object gvdevice_format(Object... arg) {
 UNSUPPORTED("6z5f8fkhpqc1bo4eeaxujv2lr"); // void gvdevice_format(GVJ_t * job)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -570,6 +454,8 @@ throw new UnsupportedOperationException();
 
 //3 46sqk4d6tbspekxqa4h32d301
 // void gvdevice_finalize(GVJ_t * job) 
+@Unused
+@Original(version="2.38.0", path="lib/gvc/gvdevice.c", name="gvdevice_finalize", key="46sqk4d6tbspekxqa4h32d301", definition="void gvdevice_finalize(GVJ_t * job)")
 public static Object gvdevice_finalize(Object... arg) {
 UNSUPPORTED("e4zp9r9c2a5l12d2tadisfxsi"); // void gvdevice_finalize(GVJ_t * job)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -600,6 +486,8 @@ throw new UnsupportedOperationException();
 
 //3 1egirdomc1btc6kjc3dgard3o
 // void gvprintf(GVJ_t * job, const char *format, ...) 
+@Unused
+@Original(version="2.38.0", path="lib/gvc/gvdevice.c", name="gvprintf", key="1egirdomc1btc6kjc3dgard3o", definition="void gvprintf(GVJ_t * job, const char *format, ...)")
 public static Object gvprintf(Object... arg) {
 UNSUPPORTED("6fhkk7sp6y4sbd7qnk0vy9c"); // void gvprintf(GVJ_t * job, const char *format, ...)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -631,6 +519,8 @@ throw new UnsupportedOperationException();
 
 //3 alkcimcmn7kdav5dab3x68rin
 // static char * gvprintnum (size_t *len, double number) 
+@Unused
+@Original(version="2.38.0", path="lib/gvc/gvdevice.c", name="gvprintnum", key="alkcimcmn7kdav5dab3x68rin", definition="static char * gvprintnum (size_t *len, double number)")
 public static Object gvprintnum(Object... arg) {
 UNSUPPORTED("3sz3rah6s15fileyrygtyvsy4"); // static char * gvprintnum (size_t *len, double number)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -695,6 +585,8 @@ throw new UnsupportedOperationException();
 
 //3 bmeyiwkpu2qs7dejvs5sh6o8v
 // void gvprintdouble(GVJ_t * job, double num) 
+@Unused
+@Original(version="2.38.0", path="lib/gvc/gvdevice.c", name="gvprintdouble", key="bmeyiwkpu2qs7dejvs5sh6o8v", definition="void gvprintdouble(GVJ_t * job, double num)")
 public static Object gvprintdouble(Object... arg) {
 UNSUPPORTED("cn6ds26lgsd3ujjqzrqcox1x5"); // void gvprintdouble(GVJ_t * job, double num)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -712,6 +604,8 @@ throw new UnsupportedOperationException();
 
 //3 5duaexp4igxjoostpe3eattxa
 // void gvprintpointf(GVJ_t * job, pointf p) 
+@Unused
+@Original(version="2.38.0", path="lib/gvc/gvdevice.c", name="gvprintpointf", key="5duaexp4igxjoostpe3eattxa", definition="void gvprintpointf(GVJ_t * job, pointf p)")
 public static Object gvprintpointf(Object... arg) {
 UNSUPPORTED("ctyuokdenka2j9jhskd3ql9px"); // void gvprintpointf(GVJ_t * job, pointf p)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -732,6 +626,8 @@ throw new UnsupportedOperationException();
 
 //3 9mtarrxfoqaaz8anygvcs0eni
 // void gvprintpointflist(GVJ_t * job, pointf *p, int n) 
+@Unused
+@Original(version="2.38.0", path="lib/gvc/gvdevice.c", name="gvprintpointflist", key="9mtarrxfoqaaz8anygvcs0eni", definition="void gvprintpointflist(GVJ_t * job, pointf *p, int n)")
 public static Object gvprintpointflist(Object... arg) {
 UNSUPPORTED("bbdhtxxtsiyz2al9t7saa9yqh"); // void gvprintpointflist(GVJ_t * job, pointf *p, int n)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {

@@ -4,10 +4,15 @@
  *
  * Project Info:  http://plantuml.com
  * 
+ * If you like this project or if you find it useful, you can support us at:
+ * 
+ * http://plantuml.com/patreon (only 1$ per month!)
+ * http://plantuml.com/paypal
+ * 
  * This file is part of Smetana.
  * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * (C) Copyright 2009-2017, Arnaud Roques
+ * (C) Copyright 2009-2022, Arnaud Roques
  *
  * This translation is distributed under the same Licence as the original C program:
  * 
@@ -39,333 +44,84 @@
  *
  */
 package gen.lib.cgraph;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static smetana.core.JUtilsDebug.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import static gen.lib.cdt.dtsize__c.dtsize_;
+import static gen.lib.cdt.dtview__c.dtview;
+import static gen.lib.cgraph.apply__c.agapply;
+import static gen.lib.cgraph.edge__c.agfstout;
+import static gen.lib.cgraph.edge__c.agnxtout;
+import static gen.lib.cgraph.graph__c.agopen;
+import static gen.lib.cgraph.mem__c.agalloc;
+import static gen.lib.cgraph.node__c.agfstnode;
+import static gen.lib.cgraph.node__c.agnxtnode;
+import static gen.lib.cgraph.obj__c.agmethod_upd;
+import static gen.lib.cgraph.obj__c.agraphof;
+import static gen.lib.cgraph.obj__c.agroot;
+import static gen.lib.cgraph.rec__c.agbindrec;
+import static gen.lib.cgraph.rec__c.aggetrec;
+import static gen.lib.cgraph.refstr__c.agstrdup;
+import static gen.lib.cgraph.refstr__c.agstrfree;
+import static gen.lib.cgraph.subg__c.agparent;
+import static gen.lib.cgraph.utils__c.agdtopen;
+import static smetana.core.JUtils.NEQ;
+import static smetana.core.JUtils.function;
+import static smetana.core.JUtils.sizeof;
+import static smetana.core.JUtilsDebug.ENTERING;
+import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.AGEDGE;
+import static smetana.core.Macro.AGINEDGE;
+import static smetana.core.Macro.AGNODE;
+import static smetana.core.Macro.AGOUTEDGE;
+import static smetana.core.Macro.AGRAPH;
+import static smetana.core.Macro.AGTYPE;
+import static smetana.core.Macro.N;
+import static smetana.core.Macro.UNSUPPORTED;
+import static smetana.core.Macro.dtinsert;
+import static smetana.core.Macro.dtsearch;
+
+import java.util.ArrayList;
+
+import gen.annotation.Difficult;
+import gen.annotation.Original;
+import gen.annotation.Reviewed;
+import gen.annotation.Unused;
+import h.ST_Agattr_s;
+import h.ST_Agdatadict_s;
+import h.ST_Agdesc_s;
+import h.ST_Agedge_s;
+import h.ST_Agnode_s;
+import h.ST_Agobj_s;
+import h.ST_Agraph_s;
+import h.ST_Agrec_s;
+import h.ST_Agsym_s;
+import h.ST_Agtag_s;
+import h.ST_dt_s;
+import h.ST_dtdisc_s;
+import smetana.core.CString;
+import smetana.core.Z;
+import smetana.core.__ptr__;
 
 public class attr__c {
-//1 9k44uhd5foylaeoekf3llonjq
-// extern Dtmethod_t* 	Dtset
 
 
-//1 1ahfywsmzcpcig2oxm7pt9ihj
-// extern Dtmethod_t* 	Dtbag
+private static final int MINATTR = 4;
 
-
-//1 anhghfj3k7dmkudy2n7rvt31v
-// extern Dtmethod_t* 	Dtoset
-
-
-//1 5l6oj1ux946zjwvir94ykejbc
-// extern Dtmethod_t* 	Dtobag
-
-
-//1 2wtf222ak6cui8cfjnw6w377z
-// extern Dtmethod_t*	Dtlist
-
-
-//1 d1s1s6ibtcsmst88e3057u9r7
-// extern Dtmethod_t*	Dtstack
-
-
-//1 axa7mflo824p6fspjn1rdk0mt
-// extern Dtmethod_t*	Dtqueue
-
-
-//1 ega812utobm4xx9oa9w9ayij6
-// extern Dtmethod_t*	Dtdeque
-
-
-//1 cyfr996ur43045jv1tjbelzmj
-// extern Dtmethod_t*	Dtorder
-
-
-//1 wlofoiftbjgrrabzb2brkycg
-// extern Dtmethod_t*	Dttree
-
-
-//1 12bds94t7voj7ulwpcvgf6agr
-// extern Dtmethod_t*	Dthash
-
-
-//1 9lqknzty480cy7zsubmabkk8h
-// extern Dtmethod_t	_Dttree
-
-
-//1 bvn6zkbcp8vjdhkccqo1xrkrb
-// extern Dtmethod_t	_Dthash
-
-
-//1 9lidhtd6nsmmv3e7vjv9e10gw
-// extern Dtmethod_t	_Dtlist
-
-
-//1 34ujfamjxo7xn89u90oh2k6f8
-// extern Dtmethod_t	_Dtqueue
-
-
-//1 3jy4aceckzkdv950h89p4wjc8
-// extern Dtmethod_t	_Dtstack
-
-
-//1 8dfqgf3u1v830qzcjqh9o8ha7
-// extern Agmemdisc_t AgMemDisc
-
-
-//1 18k2oh2t6llfsdc5x0wlcnby8
-// extern Agiddisc_t AgIdDisc
-
-
-//1 a4r7hi80gdxtsv4hdoqpyiivn
-// extern Agiodisc_t AgIoDisc
-
-
-//1 bnzt5syjb7mgeru19114vd6xx
-// extern Agdisc_t AgDefaultDisc
-
-
-//1 35y2gbegsdjilegaribes00mg
-// extern Agdesc_t Agdirected, Agstrictdirected, Agundirected,     Agstrictundirected
-
-
-//1 c2rygslq6bcuka3awmvy2b3ow
-// typedef Agsubnode_t	Agnoderef_t
-
-
-//1 xam6yv0dcsx57dtg44igpbzn
-// typedef Dtlink_t	Agedgeref_t
-
-
-//1 6ayavpu39aihwyojkx093pcy3
-// extern Agraph_t *Ag_G_global
-
-
-//1 871mxtg9l6ffpxdl9kniwusf7
-// extern char *AgDataRecName
-
-
-//1 c0o2kmml0tn6hftuwo0u4shwd
-// extern Dtdisc_t Ag_subnode_id_disc
-
-
-//1 8k15pyu256unm2kpd9zf5pf7k
-// extern Dtdisc_t Ag_subnode_seq_disc
-
-
-//1 e3d820y06gpeusn6atgmj8bzd
-// extern Dtdisc_t Ag_mainedge_id_disc
-
-
-//1 cbr0772spix9h1aw7h5v7dv9j
-// extern Dtdisc_t Ag_subedge_id_disc
-
-
-//1 akd0c3v0j7m2npxcb9acit1fa
-// extern Dtdisc_t Ag_mainedge_seq_disc
-
-
-//1 12d8la07351ww7vwfzucjst8m
-// extern Dtdisc_t Ag_subedge_seq_disc
-
-
-//1 29eokk7v88e62g8o6lizmo967
-// extern Dtdisc_t Ag_subgraph_id_disc
-
-
-//1 4xd9cbgy6hk5g6nhjcbpzkx14
-// extern Agcbdisc_t AgAttrdisc
-
-
-//1 cwbgwzo8cprw4eobs3iji59dp
-// Dtdisc_t AgDataDictDisc = 
-/*static public final __struct__<_dtdisc_s> AgDataDictDisc = __struct__.from(_dtdisc_s.class);
-static {
-	AgDataDictDisc.setInt("key", OFFSET.create(Agsym_s.class, "name").toInt());
-	AgDataDictDisc.setInt("size", -1);
-	AgDataDictDisc.setInt("link", OFFSET.create(Agsym_s.class, "link").toInt());
-	AgDataDictDisc.setPtr("makef", null);
-	AgDataDictDisc.setPtr("freef", function(attr__c.class, "freesym"));
-	AgDataDictDisc.setPtr("comparf", null);
-	AgDataDictDisc.setPtr("hashf", null);
-}*/
 
 //1 67blfrj9x850g8ccpo9qjer2
 // static char DataDictName[] = 
 public final static CString DataDictName = new CString("_AG_datadict");
-//1 1qn6s7dwoq08ugdjnmsvdgj6u
-// static Agdesc_t ProtoDesc = 
-/*static final public __struct__<Agdesc_s> ProtoDesc = __struct__.from(Agdesc_s.class);
-static {
-	ProtoDesc.setInt("directed", 1);
-	ProtoDesc.setInt("strict", 0);
-	ProtoDesc.setInt("no_loop", 1);
-	ProtoDesc.setInt("maingraph", 0);
-	ProtoDesc.setInt("flatlock", 1);
-	ProtoDesc.setInt("no_write", 1);
-}*/
 
 
-//1 30ftenxl879wmnziizunr5vt1
-// static Agraph_t *ProtoGraph
-//static public Agraph_s ProtoGraph;
-
-
-
-//3 4bm10isw1qq1eqcse8afbxee3
-// Agdatadict_t *agdatadict(Agraph_t * g, int cflag) 
-public static Agdatadict_s agdatadict(Agraph_s g, boolean cflag) {
+@Reviewed(when = "12/11/2020")
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agdatadict", key="4bm10isw1qq1eqcse8afbxee3", definition="Agdatadict_t *agdatadict(Agraph_t * g, int cflag)")
+public static ST_Agdatadict_s agdatadict(ST_Agraph_s g, boolean cflag) {
 ENTERING("4bm10isw1qq1eqcse8afbxee3","agdatadict");
 try {
-    Agdatadict_s rv;
-    rv = (Agdatadict_s) aggetrec(g, DataDictName, false).castTo(Agdatadict_s.class);
+    ST_Agdatadict_s rv;
+    rv = aggetrec(g, DataDictName, false).castTo_ST_Agdatadict_s();
     if (rv!=null || N(cflag))
 	return rv;
     init_all_attrs(g);
-    rv = (Agdatadict_s) aggetrec(g, DataDictName, false).castTo(Agdatadict_s.class);
+    rv = aggetrec(g, DataDictName, false).castTo_ST_Agdatadict_s();
     return rv;
 } finally {
 LEAVING("4bm10isw1qq1eqcse8afbxee3","agdatadict");
@@ -374,26 +130,25 @@ LEAVING("4bm10isw1qq1eqcse8afbxee3","agdatadict");
 
 
 
-
-//3 2b2cg0am9e1lwc0nqikl2wczb
-// Dict_t *agdictof(Agraph_t * g, int kind) 
-public static _dt_s agdictof(Agraph_s g, int kind) {
+@Reviewed(when = "12/11/2020")
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agdictof", key="2b2cg0am9e1lwc0nqikl2wczb", definition="Dict_t *agdictof(Agraph_t * g, int kind)")
+public static ST_dt_s agdictof(ST_Agraph_s g, int kind) {
 ENTERING("2b2cg0am9e1lwc0nqikl2wczb","agdictof");
 try {
-    Agdatadict_s dd;
-    _dt_s dict;
+    ST_Agdatadict_s dd;
+    ST_dt_s dict;
     dd = agdatadict(g, false);
     if (dd!=null)
 	switch (kind) {
 	case AGRAPH:
-	    dict = (_dt_s) dd.getPtr("dict.g");
+	    dict = dd.dict_g;
 	    break;
 	case AGNODE:
-	    dict = (_dt_s) dd.getPtr("dict.n");
+	    dict = dd.dict_n;
 	    break;
 	case AGINEDGE:
 	case AGOUTEDGE:
-	    dict = (_dt_s) dd.getPtr("dict.e");
+	    dict = dd.dict_e;
 	    break;
 	default:
 	    System.err.println("agdictof: unknown kind "+ kind);
@@ -410,17 +165,17 @@ LEAVING("2b2cg0am9e1lwc0nqikl2wczb","agdictof");
 
 
 
-//3 dbhw2q2jfsz9qwawchy0hxj4i
-// Agsym_t *agnewsym(Agraph_t * g, char *name, char *value, int id, int kind) 
-public static Agsym_s agnewsym(Agraph_s g, CString name, CString value, int id, int kind) {
+@Reviewed(when = "12/11/2020")
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agnewsym", key="dbhw2q2jfsz9qwawchy0hxj4i", definition="Agsym_t *agnewsym(Agraph_t * g, char *name, char *value, int id, int kind)")
+public static ST_Agsym_s agnewsym(ST_Agraph_s g, CString name, CString value, int id, int kind) {
 ENTERING("dbhw2q2jfsz9qwawchy0hxj4i","agnewsym");
 try {
-    Agsym_s sym;
-    sym = (Agsym_s) agalloc(g, sizeof(Agsym_s.class));
-    sym.setInt("kind", kind);
-    sym.setPtr("name", agstrdup(g, name));
-    sym.setPtr("defval", agstrdup(g, value));
-    sym.setInt("id", id);
+    ST_Agsym_s sym;
+    sym = (ST_Agsym_s) agalloc(g, sizeof(ST_Agsym_s.class));
+    sym.kind = kind;
+    sym.name = agstrdup(g, name);
+    sym.defval = agstrdup(g, value);
+    sym.id = id;
     return sym;
 } finally {
 LEAVING("dbhw2q2jfsz9qwawchy0hxj4i","agnewsym");
@@ -432,6 +187,8 @@ LEAVING("dbhw2q2jfsz9qwawchy0hxj4i","agnewsym");
 
 //3 5s4tpjeh3jwf722izjq6cm6rq
 // static void agcopydict(Dict_t * src, Dict_t * dest, Agraph_t * g, int kind) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agcopydict", key="5s4tpjeh3jwf722izjq6cm6rq", definition="static void agcopydict(Dict_t * src, Dict_t * dest, Agraph_t * g, int kind)")
 public static Object agcopydict(Object... arg) {
 UNSUPPORTED("5x2q9spbx7y0k6l59z6oy8cuc"); // static void agcopydict(Dict_t * src, Dict_t * dest, Agraph_t * g, int kind)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -452,31 +209,30 @@ throw new UnsupportedOperationException();
 
 
 
-//3 alb1d5x6huba3q44ms1wt0rr5
-// static Agdatadict_t *agmakedatadict(Agraph_t * g) 
-public static Agdatadict_s agmakedatadict(Agraph_s g) {
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agmakedatadict", key="alb1d5x6huba3q44ms1wt0rr5", definition="static Agdatadict_t *agmakedatadict(Agraph_t * g)")
+public static ST_Agdatadict_s agmakedatadict(ST_Agraph_s g) {
 ENTERING("alb1d5x6huba3q44ms1wt0rr5","agmakedatadict");
 try {
-    Agraph_s par;
-    Agdatadict_s parent_dd, dd;
-    dd = (Agdatadict_s) agbindrec(g, DataDictName, sizeof(Agdatadict_s.class),
-				    false).castTo(Agdatadict_s.class);
-    dd.setPtr("dict.n", agdtopen(g, Z._().AgDataDictDisc.amp(), Z._().Dttree));
-    dd.setPtr("dict.e", agdtopen(g, Z._().AgDataDictDisc.amp(),Z._(). Dttree));
-    dd.setPtr("dict.g", agdtopen(g, Z._().AgDataDictDisc.amp(), Z._().Dttree));
+    ST_Agraph_s par;
+    ST_Agdatadict_s parent_dd, dd;
+    dd = (ST_Agdatadict_s) agbindrec(g, DataDictName, sizeof(ST_Agdatadict_s.class),
+				    false).castTo(ST_Agdatadict_s.class);
+    dd.setPtr("dict.n", agdtopen(g, Z.z().AgDataDictDisc, Z.z().Dttree));
+    dd.setPtr("dict.e", agdtopen(g, Z.z().AgDataDictDisc,Z.z(). Dttree));
+    dd.setPtr("dict.g", agdtopen(g, Z.z().AgDataDictDisc, Z.z().Dttree));
     if ((par = agparent(g))!=null) {
 	parent_dd = agdatadict(par, false);
-	dtview((_dt_s)dd.getPtr("dict.n"), (_dt_s)parent_dd.getPtr("dict.n"));
-	dtview((_dt_s)dd.getPtr("dict.e"), (_dt_s)parent_dd.getPtr("dict.e"));
-	dtview((_dt_s)dd.getPtr("dict.g"), (_dt_s)parent_dd.getPtr("dict.g"));
+	dtview((ST_dt_s)dd.dict_n, (ST_dt_s)parent_dd.dict_n);
+	dtview((ST_dt_s)dd.dict_e, (ST_dt_s)parent_dd.dict_e);
+	dtview((ST_dt_s)dd.dict_g, (ST_dt_s)parent_dd.dict_g);
     } else {
-	if (Z._().ProtoGraph!=null && NEQ(g, Z._().ProtoGraph)) {
+	if (Z.z().ProtoGraph!=null && NEQ(g, Z.z().ProtoGraph)) {
 	    /* it's not ok to dtview here for several reasons. the proto
 	       graph could change, and the sym indices don't match */
-	    parent_dd = agdatadict(Z._().ProtoGraph, false);
-	    agcopydict(parent_dd.getPtr("dict.n"), dd.getPtr("dict.n"), g, AGNODE);
-	    agcopydict(parent_dd.getPtr("dict.e"), dd.getPtr("dict.e"), g, AGEDGE);
-	    agcopydict(parent_dd.getPtr("dict.g"), dd.getPtr("dict.g"), g, AGRAPH);
+	    parent_dd = agdatadict(Z.z().ProtoGraph, false);
+	    agcopydict(parent_dd.dict_n, dd.dict_n, g, AGNODE);
+	    agcopydict(parent_dd.dict_e, dd.dict_e, g, AGEDGE);
+	    agcopydict(parent_dd.dict_g, dd.dict_g, g, AGRAPH);
 	}
     }
     return dd;
@@ -488,14 +244,14 @@ LEAVING("alb1d5x6huba3q44ms1wt0rr5","agmakedatadict");
 
 
 
-//3 50wfzq5wy8wc7vuyvs3mrx5ct
-// Agsym_t *agdictsym(Dict_t * dict, char *name) 
-public static Agsym_s agdictsym(_dt_s dict, CString name) {
+@Reviewed(when = "11/11/2020")
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agdictsym", key="50wfzq5wy8wc7vuyvs3mrx5ct", definition="Agsym_t *agdictsym(Dict_t * dict, char *name)")
+public static ST_Agsym_s agdictsym(ST_dt_s dict, CString name) {
 ENTERING("50wfzq5wy8wc7vuyvs3mrx5ct","agdictsym");
 try {
-    Agsym_s key = (Agsym_s) Memory.malloc(Agsym_s.class);
-    key.setPtr("name", name);
-    return  (Agsym_s) dict.call("searchf", (dict),key,0000004);
+    final ST_Agsym_s key = new ST_Agsym_s();
+    key.name = name;
+    return  (ST_Agsym_s) dtsearch(dict, key);
 } finally {
 LEAVING("50wfzq5wy8wc7vuyvs3mrx5ct","agdictsym");
 }
@@ -503,14 +259,13 @@ LEAVING("50wfzq5wy8wc7vuyvs3mrx5ct","agdictsym");
 
 
 
-
-//3 4wy4ggu70d7harhix8xnh5w4l
-// Agsym_t *aglocaldictsym(Dict_t * dict, char *name) 
-public static Agsym_s aglocaldictsym(_dt_s dict, CString name) {
+@Reviewed(when = "12/11/2020")
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="aglocaldictsym", key="4wy4ggu70d7harhix8xnh5w4l", definition="Agsym_t *aglocaldictsym(Dict_t * dict, char *name)")
+public static ST_Agsym_s aglocaldictsym(ST_dt_s dict, CString name) {
 ENTERING("4wy4ggu70d7harhix8xnh5w4l","aglocaldictsym");
 try {
-    Agsym_s rv;
-    _dt_s view;
+    ST_Agsym_s rv;
+    ST_dt_s view;
     view = dtview(dict, null);
     rv = agdictsym(dict, name);
     dtview(dict, view);
@@ -522,18 +277,18 @@ LEAVING("4wy4ggu70d7harhix8xnh5w4l","aglocaldictsym");
 
 
 
-
-//3 8hy9sl3zmwobwm960jz466ufe
-// Agsym_t *agattrsym(void *obj, char *name) 
-public static Agsym_s agattrsym(__ptr__ obj, CString name) {
+@Reviewed(when = "11/11/2020")
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agattrsym", key="8hy9sl3zmwobwm960jz466ufe", definition="Agsym_t *agattrsym(void *obj, char *name)")
+public static ST_Agsym_s agattrsym(__ptr__ obj, CString name) {
 ENTERING("8hy9sl3zmwobwm960jz466ufe","agattrsym");
 try {
-    Agattr_s data;
-    Agsym_s rv;
+	ST_Agattr_s data;
+    ST_Agsym_s rv;
     CString arg = name;
-    data = agattrrec(obj.castTo(Agobj_s.class));
+    
+    data = agattrrec(obj.castTo(ST_Agobj_s.class));
     if (data!=null)
-	rv = agdictsym((_dt_s)data.getPtr("dict"), arg);
+	rv = agdictsym((ST_dt_s)data.dict, arg);
     else
 	rv = null;
     return rv;
@@ -549,12 +304,11 @@ public final static CString AgDataRecName = new CString("_AG_strdata");
 
 
 
-//3 6az8xu0sgu1d6abu0xfpd89hi
-// static int topdictsize(Agobj_t * obj) 
-public static int topdictsize(Agobj_s obj) {
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="topdictsize", key="6az8xu0sgu1d6abu0xfpd89hi", definition="static int topdictsize(Agobj_t * obj)")
+public static int topdictsize(ST_Agobj_s obj) {
 ENTERING("6az8xu0sgu1d6abu0xfpd89hi","topdictsize");
 try {
-    _dt_s d;
+    ST_dt_s d;
     d = agdictof(agroot(agraphof(obj)), AGTYPE(obj));
     return d!=null ? dtsize_(d) : 0;
 } finally {
@@ -565,33 +319,32 @@ LEAVING("6az8xu0sgu1d6abu0xfpd89hi","topdictsize");
 
 
 
-//3 3wjrlyjdlz8k9nfxenxsfiqmj
-// static Agrec_t *agmakeattrs(Agraph_t * context, void *obj) 
-public static Agrec_s agmakeattrs(Agraph_s context, __ptr__ obj) {
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agmakeattrs", key="3wjrlyjdlz8k9nfxenxsfiqmj", definition="static Agrec_t *agmakeattrs(Agraph_t * context, void *obj)")
+public static ST_Agrec_s agmakeattrs(ST_Agraph_s context, __ptr__ obj) {
 ENTERING("3wjrlyjdlz8k9nfxenxsfiqmj","agmakeattrs");
 try {
     int sz;
-    Agattr_s rec;
-    Agsym_s sym;
-    _dt_s datadict;
-    rec = (Agattr_s) agbindrec(obj, AgDataRecName, sizeof(Agattr_s.class), false).castTo(Agattr_s.class);
+    ST_Agattr_s rec;
+    ST_Agsym_s sym;
+    ST_dt_s datadict;
+    rec = (ST_Agattr_s) agbindrec(obj, AgDataRecName, sizeof(ST_Agattr_s.class), false).castTo(ST_Agattr_s.class);
     datadict = agdictof(context, AGTYPE(obj));
 
 
-    if (rec.getPtr("dict") == null) {
-	rec.setPtr("dict", agdictof(agroot(context), AGTYPE(obj)));
+    if (rec.dict == null) {
+	rec.dict = agdictof(agroot(context), AGTYPE(obj));
 	/* don't malloc(0) */
-	sz = topdictsize((Agobj_s) obj);
+	sz = topdictsize((ST_Agobj_s) obj.castTo(ST_Agobj_s.class));
 	if (sz < 4)
 	    sz = 4;
-	rec.setPtr("str", agalloc(agraphof(obj), sizeof("char*", sz)));
+	rec.str = new ArrayList<CString>(); for (int i=0; i<sz; i++) rec.str.add(null);
 	/* doesn't call agxset() so no obj-modified callbacks occur */
-	for (sym = (Agsym_s) ((__ptr__)datadict.call("searchf", datadict,null,0000200)); sym!=null;
-	     sym = (Agsym_s) ((__ptr__)datadict.call("searchf", datadict,sym,0000010)))
-	    rec.getArrayOfCString("str").plus(sym.getInt("id")).setCString( agstrdup(agraphof(obj), sym.getCString("defval")));
+	for (sym = (ST_Agsym_s) ((__ptr__)datadict.searchf.exe(datadict,null,0000200)); sym!=null;
+	     sym = (ST_Agsym_s) ((__ptr__)datadict.searchf.exe(datadict,sym,0000010)))
+	    rec.str.set(sym.id, agstrdup(agraphof(obj), sym.defval));
     } else {
     }
-    return (Agrec_s) rec;
+    return (ST_Agrec_s) rec.castTo(ST_Agrec_s.class);
 } finally {
 LEAVING("3wjrlyjdlz8k9nfxenxsfiqmj","agmakeattrs");
 }
@@ -602,6 +355,8 @@ LEAVING("3wjrlyjdlz8k9nfxenxsfiqmj","agmakeattrs");
 
 //3 50md6kgbmmjiwsq00tdvtqrom
 // static void freeattr(Agobj_t * obj, Agattr_t * attr) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="freeattr", key="50md6kgbmmjiwsq00tdvtqrom", definition="static void freeattr(Agobj_t * obj, Agattr_t * attr)")
 public static Object freeattr(Object... arg) {
 UNSUPPORTED("b7w7ts75503jg2pb69wdgviy6"); // static void freeattr(Agobj_t * obj, Agattr_t * attr)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -620,12 +375,12 @@ throw new UnsupportedOperationException();
 
 
 
-//3 6b3c2syvj23lbf7kz0aal8vmc
-// static void freesym(Dict_t * d, void * obj, Dtdisc_t * disc) 
-public static void freesym(_dt_s d, Object obj, _dtdisc_s disc) {
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="freesym", key="6b3c2syvj23lbf7kz0aal8vmc", definition="static void freesym(Dict_t * d, void * obj, Dtdisc_t * disc)")
+public static void freesym(ST_dt_s d, Object obj, ST_dtdisc_s disc) {
 ENTERING("6b3c2syvj23lbf7kz0aal8vmc","freesym");
 try {
-	UNSUPPORTED("bf9av4xbx61835st3og3wfqr8"); // static void freesym(Dict_t * d, void * obj, Dtdisc_t * disc)
+UNSUPPORTED("bf9av4xbx61835st3og3wfqr8"); // static void freesym(Dict_t * d, void * obj, Dtdisc_t * disc)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
 UNSUPPORTED("av59ae8c4mws46sf5dumz1k0s"); //     Agsym_t *sym;
 UNSUPPORTED("6z29omss9ay00bqf6xael7t6t"); //     (void) d;
@@ -645,34 +400,34 @@ LEAVING("6b3c2syvj23lbf7kz0aal8vmc","freesym");
 
 
 
-//3 13sfx74lme08ur04vkrqta25j
-// Agattr_t *agattrrec(void *obj) 
-public static Agattr_s agattrrec(__ptr__ obj) {
+@Reviewed(when = "11/11/2020")
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agattrrec", key="13sfx74lme08ur04vkrqta25j", definition="Agattr_t *agattrrec(void *obj)")
+public static ST_Agattr_s agattrrec(__ptr__ obj) {
 ENTERING("13sfx74lme08ur04vkrqta25j","agattrrec");
 try {
-    return (Agattr_s) aggetrec(obj, AgDataRecName, false).castTo(Agattr_s.class);
+    return (ST_Agattr_s) aggetrec(obj, AgDataRecName, false).castTo(ST_Agattr_s.class);
 } finally {
 LEAVING("13sfx74lme08ur04vkrqta25j","agattrrec");
 }
 }
 
 
-
-
-//3 2io7b26wq70e7kwdlzsh6bw7f
-// static void addattr(Agraph_t * g, Agobj_t * obj, Agsym_t * sym) 
-public static void addattr(Agraph_s g, Agobj_s obj, Agsym_s sym) {
+@Reviewed(when = "12/11/2020")
+@Difficult
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="addattr", key="2io7b26wq70e7kwdlzsh6bw7f", definition="static void addattr(Agraph_t * g, Agobj_t * obj, Agsym_t * sym)")
+public static void addattr(ST_Agraph_s g, ST_Agobj_s obj, ST_Agsym_s sym) {
 ENTERING("2io7b26wq70e7kwdlzsh6bw7f","addattr");
 try {
-    Agattr_s attr;
-    attr = (Agattr_s) agattrrec(obj);
+	ST_Agattr_s attr;
+    attr = (ST_Agattr_s) agattrrec(obj);
 
-    if (sym.getInt("id") >= 4)
-	attr.setPtr("str", (__ptr__) g.getPtr("clos").getPtr("disc").getPtr("mem").call("resize", g.getPtr("clos").getPtr("state").getPtr("mem"),
-						     attr.getPtr("str"),
-						     sizeof("char*", sym.getInt("id")),
-						     sizeof("char*", sym.getInt("id") + 1)));
-	attr.getArrayOfCString("str").plus(sym.getInt("id")).setCString(agstrdup(g, sym.getCString("defval")));
+    if (sym.id >= MINATTR)
+//	attr.str = (StarArrayOfCString) g.clos.disc.mem.call("resize", g.clos.state.mem,
+//						     attr.str,
+//						     sizeof("char*", sym.id),
+//						     sizeof("char*", sym.id + 1));
+    attr.str.add(null);
+	attr.str.set(sym.id, agstrdup(g, sym.defval));
     /* agmethod_upd(g,obj,sym);  JCE and GN didn't like this. */
 } finally {
 LEAVING("2io7b26wq70e7kwdlzsh6bw7f","addattr");
@@ -681,57 +436,56 @@ LEAVING("2io7b26wq70e7kwdlzsh6bw7f","addattr");
 
 
 
-
-//3 a3qr8ug1rkxp6ocieyp41ly3o
-// static Agsym_t *setattr(Agraph_t * g, int kind, char *name, char *value) 
-public static Agsym_s setattr(Agraph_s g, int kind, CString name, CString value) {
+@Reviewed(when = "12/11/2020")
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="setattr", key="a3qr8ug1rkxp6ocieyp41ly3o", definition="static Agsym_t *setattr(Agraph_t * g, int kind, char *name, char *value)")
+public static ST_Agsym_s setattr(ST_Agraph_s g, int kind, CString name, CString value) {
 ENTERING("a3qr8ug1rkxp6ocieyp41ly3o","setattr");
 try {
-    Agdatadict_s dd;
-    _dt_s ldict, rdict;
-    Agsym_s lsym, psym, rsym, rv;
-    Agraph_s root;
-    Agnode_s n;
-    Agedge_s e;
+    ST_Agdatadict_s dd;
+    ST_dt_s ldict, rdict;
+    ST_Agsym_s lsym, psym, rsym, rv;
+    ST_Agraph_s root;
+    ST_Agnode_s n;
+    ST_Agedge_s e;
    
     root = agroot(g);
-    dd = agdatadict(g, (N(0)));	/* force initialization of string attributes */
+    dd = agdatadict(g, true);	/* force initialization of string attributes */
     ldict = agdictof(g, kind);
     lsym = aglocaldictsym(ldict, name);
     if (lsym!=null) {			/* update old local definiton */
-	agstrfree(g, lsym.getCString("defval"));
-	lsym.setPtr("defval", agstrdup(g, value));
+	agstrfree(g, lsym.defval);
+	lsym.defval = agstrdup(g, value);
 	rv = lsym;
     } else {
 	psym = agdictsym(ldict, name);	/* search with viewpath up to root */
 	if (psym!=null) {		/* new local definition */
-	    lsym = agnewsym(g, name, value, psym.getInt("id"), kind);
-	    ldict.castTo(_dt_s.class).call("searchf",ldict,lsym,0000001);
+	    lsym = agnewsym(g, name, value, psym.id, kind);
+	    dtinsert(ldict, lsym);
 	    rv = lsym;
 	} else {		/* new global definition */
 	    rdict = agdictof(root, kind);
 	    rsym = agnewsym(g, name, value, dtsize_(rdict), kind);
-	    rdict.castTo(_dt_s.class).call("searchf",rdict,rsym,0000001);
+	    dtinsert(rdict, rsym);
 	    switch (kind) {
 	    case AGRAPH:
-		agapply(root, root.castTo(Agobj_s.class), (agobjfn_t) function(attr__c.class, "addattr"),
-			rsym, (N(0)));
+		agapply(root, root.castTo_ST_Agobj_s(), function(attr__c.class, "addattr"),
+			rsym, true);
 		break;
 	    case AGNODE:
 		for (n = agfstnode(root); n!=null; n = agnxtnode(root, n))
-		    addattr(g, (Agobj_s) n.castTo(Agobj_s.class), rsym);
+		    addattr(g, n.castTo_ST_Agobj_s(), rsym);
 		break;
 	    case AGINEDGE:
 	    case AGOUTEDGE:
 		for (n = agfstnode(root); n!=null; n = agnxtnode(root, n))
 		    for (e = agfstout(root, n); e!=null; e = agnxtout(root, e))
-			addattr(g, (Agobj_s) e.castTo(Agobj_s.class), rsym);
+			addattr(g, e.castTo_ST_Agobj_s(), rsym);
 		break;
 	    }
 	    rv = rsym;
 	}
     }
-    if (rv!=null && (kind == 0))
+    if (rv!=null && (kind == AGRAPH))
 	agxset(g, rv, value);
     agmethod_upd(g, g, rv);	/* JCE and GN wanted this */
     return rv;
@@ -743,13 +497,13 @@ LEAVING("a3qr8ug1rkxp6ocieyp41ly3o","setattr");
 
 
 
-//3 8f80aahwb8cqc2t9592v47ttd
-// static Agsym_t *getattr(Agraph_t * g, int kind, char *name) 
-public static Agsym_s getattr(Agraph_s g, int kind, CString name) {
+@Reviewed(when = "12/11/2020")
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="getattr", key="8f80aahwb8cqc2t9592v47ttd", definition="static Agsym_t *getattr(Agraph_t * g, int kind, char *name)")
+public static ST_Agsym_s getattr(ST_Agraph_s g, int kind, CString name) {
 ENTERING("8f80aahwb8cqc2t9592v47ttd","getattr");
 try {
-    Agsym_s rv = null;
-    _dt_s dict;
+    ST_Agsym_s rv = null;
+    ST_dt_s dict;
     dict = agdictof(g, kind);
     if (dict!=null)
 	rv = agdictsym(dict, name);	/* viewpath up to root */
@@ -761,17 +515,16 @@ LEAVING("8f80aahwb8cqc2t9592v47ttd","getattr");
 
 
 
-
-//3 blr3drm2hxuzwd6gpeeb84yyg
-// Agsym_t *agattr(Agraph_t * g, int kind, char *name, char *value) 
-public static Agsym_s agattr(Agraph_s g, int kind, CString name, CString value) {
+@Reviewed(when = "12/11/2020")
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agattr", key="blr3drm2hxuzwd6gpeeb84yyg", definition="Agsym_t *agattr(Agraph_t * g, int kind, char *name, char *value)")
+public static ST_Agsym_s agattr(ST_Agraph_s g, int kind, CString name, CString value) {
 ENTERING("blr3drm2hxuzwd6gpeeb84yyg","agattr");
 try {
-    Agsym_s rv;
+    ST_Agsym_s rv;
     if (g == null) {
-	if (Z._().ProtoGraph == null)
-	    Z._().ProtoGraph = agopen(null, Z._().ProtoDesc.copy(), null);
-	g = Z._().ProtoGraph;
+	if (Z.z().ProtoGraph == null)
+	    Z.z().ProtoGraph = agopen(null, (ST_Agdesc_s) Z.z().ProtoDesc.copy(), null);
+	g = Z.z().ProtoGraph;
     }
     if (value!=null)
 	rv = setattr(g, kind, name, value);
@@ -788,6 +541,8 @@ LEAVING("blr3drm2hxuzwd6gpeeb84yyg","agattr");
 
 //3 9medmidrd61ljmzlswpxwuxjm
 // Agsym_t *agnxtattr(Agraph_t * g, int kind, Agsym_t * attr) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="", key="9medmidrd61ljmzlswpxwuxjm", definition="Agsym_t *agnxtattr(Agraph_t * g, int kind, Agsym_t * attr)")
 public static Object agnxtattr(Object... arg) {
 UNSUPPORTED("1nquny99ik5rdqpdzl1efzzw5"); // Agsym_t *agnxtattr(Agraph_t * g, int kind, Agsym_t * attr)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -809,15 +564,14 @@ throw new UnsupportedOperationException();
 
 
 
-//3 ex2qtmuwz0o2e5svkujdbux78
-// void agraphattr_init(Agraph_t * g) 
-public static void agraphattr_init(Agraph_s g) {
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agraphattr_init", key="ex2qtmuwz0o2e5svkujdbux78", definition="void agraphattr_init(Agraph_t * g)")
+public static void agraphattr_init(ST_Agraph_s g) {
 ENTERING("ex2qtmuwz0o2e5svkujdbux78","agraphattr_init");
 try {
     /* Agdatadict_t *dd; */
     /* Agrec_t                      *attr; */
-    Agraph_s context;
-    g.getStruct("desc").setInt("has_attrs", 1);
+    ST_Agraph_s context;
+    ((ST_Agdesc_s)g.desc).has_attrs = 1;
     /* dd = */ agmakedatadict(g);
     if (N(context = agparent(g)))
 	context = g;
@@ -832,6 +586,8 @@ LEAVING("ex2qtmuwz0o2e5svkujdbux78","agraphattr_init");
 
 //3 ccqww3yvujvy82bw6i1m0rv96
 // int agraphattr_delete(Agraph_t * g) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agraphattr_delete", key="ccqww3yvujvy82bw6i1m0rv96", definition="int agraphattr_delete(Agraph_t * g)")
 public static Object agraphattr_delete(Object... arg) {
 UNSUPPORTED("4chc6o30l6nehselkvpo4xtao"); // int agraphattr_delete(Agraph_t * g)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -857,14 +613,13 @@ throw new UnsupportedOperationException();
 
 
 
-//3 2pp4ot3pqy71jpfvu3g398y4y
-// void agnodeattr_init(Agraph_t * g, Agnode_t * n) 
-public static void agnodeattr_init(Agraph_s g, Agnode_s n) {
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agnodeattr_init", key="2pp4ot3pqy71jpfvu3g398y4y", definition="void agnodeattr_init(Agraph_t * g, Agnode_t * n)")
+public static void agnodeattr_init(ST_Agraph_s g, ST_Agnode_s n) {
 ENTERING("2pp4ot3pqy71jpfvu3g398y4y","agnodeattr_init");
 try {
-    Agattr_s data;
-    data = (Agattr_s) agattrrec(n);
-    if ((N(data)) || (N(data.getPtr("dict"))))
+	ST_Agattr_s data;
+    data = (ST_Agattr_s) agattrrec(n);
+    if ((N(data)) || (N(data.dict)))
 	agmakeattrs(g, n);
 } finally {
 LEAVING("2pp4ot3pqy71jpfvu3g398y4y","agnodeattr_init");
@@ -876,6 +631,8 @@ LEAVING("2pp4ot3pqy71jpfvu3g398y4y","agnodeattr_init");
 
 //3 7fbhjqpb2w17ahde2ie2l22n5
 // void agnodeattr_delete(Agnode_t * n) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agnodeattr_delete", key="7fbhjqpb2w17ahde2ie2l22n5", definition="void agnodeattr_delete(Agnode_t * n)")
 public static Object agnodeattr_delete(Object... arg) {
 UNSUPPORTED("72jlvkhc0kqxzf6infgwjj96n"); // void agnodeattr_delete(Agnode_t * n)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -892,14 +649,13 @@ throw new UnsupportedOperationException();
 
 
 
-//3 ckfzmnxfi0jiiayxmq38giw0r
-// void agedgeattr_init(Agraph_t * g, Agedge_t * e) 
-public static void agedgeattr_init(Agraph_s g, Agedge_s e) {
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agedgeattr_init", key="ckfzmnxfi0jiiayxmq38giw0r", definition="void agedgeattr_init(Agraph_t * g, Agedge_t * e)")
+public static void agedgeattr_init(ST_Agraph_s g, ST_Agedge_s e) {
 ENTERING("ckfzmnxfi0jiiayxmq38giw0r","agedgeattr_init");
 try {
-    Agattr_s data;
+	ST_Agattr_s data;
     data = agattrrec(e);
-    if ((N(data)) || (N(data.getPtr("dict"))))
+    if ((N(data)) || (N(data.dict)))
 	agmakeattrs(g, e);
 } finally {
 LEAVING("ckfzmnxfi0jiiayxmq38giw0r","agedgeattr_init");
@@ -911,6 +667,8 @@ LEAVING("ckfzmnxfi0jiiayxmq38giw0r","agedgeattr_init");
 
 //3 3cm42f5o83187rwf4l7j7ie1k
 // void agedgeattr_delete(Agedge_t * e) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agedgeattr_delete", key="3cm42f5o83187rwf4l7j7ie1k", definition="void agedgeattr_delete(Agedge_t * e)")
 public static Object agedgeattr_delete(Object... arg) {
 UNSUPPORTED("97nvxy8b8p4rmo31kk1qkusns"); // void agedgeattr_delete(Agedge_t * e)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -927,20 +685,21 @@ throw new UnsupportedOperationException();
 
 
 
-//3 eydjyhexv5jr6vi7uhk0cgphv
-// char *agget(void *obj, char *name) 
+@Reviewed(when = "11/11/2020")
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agget", key="eydjyhexv5jr6vi7uhk0cgphv", definition="char *agget(void *obj, char *name)")
 public static CString agget(__ptr__ obj, CString name) {
 ENTERING("eydjyhexv5jr6vi7uhk0cgphv","agget");
 try {
-    Agsym_s sym;
-    Agattr_s data;
+    ST_Agsym_s sym;
+    ST_Agattr_s data;
     CString rv = null;
+    
     sym = agattrsym(obj, name);
     if (sym == null)
 	rv = null;			/* note was "", but this provides more info */
     else {
-	data = agattrrec(obj.castTo(Agobj_s.class));
-	rv = data.getArrayOfCString("str").plus(sym.getInt("id")).getCString();
+	data = agattrrec(obj.castTo(ST_Agobj_s.class));
+	rv = data.str.get(sym.id);
     }
     return rv;
 } finally {
@@ -950,17 +709,16 @@ LEAVING("eydjyhexv5jr6vi7uhk0cgphv","agget");
 
 
 
-
-//3 9h5oymhfkp6k34zl0fonn10k9
-// char *agxget(void *obj, Agsym_t * sym) 
-public static CString agxget(__ptr__ obj,  Agsym_s sym) {
+@Reviewed(when = "12/11/2020")
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agxget", key="9h5oymhfkp6k34zl0fonn10k9", definition="char *agxget(void *obj, Agsym_t * sym)")
+public static CString agxget(__ptr__ obj,  ST_Agsym_s sym) {
 ENTERING("9h5oymhfkp6k34zl0fonn10k9","agxget");
 try {
-    Agattr_s data;
+	ST_Agattr_s data;
     CString rv;
-    data = agattrrec(obj.castTo(Agobj_s.class));
+    data = agattrrec(obj.castTo(ST_Agobj_s.class));
 
-    rv = data.getArrayOfCString("str").plus(sym.getInt("id")).getCString();
+    rv = data.str.get(sym.id);
     return rv;
 } finally {
 LEAVING("9h5oymhfkp6k34zl0fonn10k9","agxget");
@@ -972,6 +730,8 @@ LEAVING("9h5oymhfkp6k34zl0fonn10k9","agxget");
 
 //3 alc2i3vy4lm57qoc7qn69ppgr
 // int agset(void *obj, char *name, char *value) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agset", key="alc2i3vy4lm57qoc7qn69ppgr", definition="int agset(void *obj, char *name, char *value)")
 public static Object agset(Object... arg) {
 UNSUPPORTED("dw46ysqbvbb1syq3h2su8khpt"); // int agset(void *obj, char *name, char *value)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -991,31 +751,30 @@ throw new UnsupportedOperationException();
 
 
 
-//3 4q8xvstvl6fbijhucfd1endxc
-// int agxset(void *obj, Agsym_t * sym, char *value) 
-public static int agxset(__ptr__ obj, Agsym_s sym, CString value) {
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agxset", key="4q8xvstvl6fbijhucfd1endxc", definition="int agxset(void *obj, Agsym_t * sym, char *value)")
+public static int agxset(__ptr__ obj, ST_Agsym_s sym, CString value) {
 ENTERING("4q8xvstvl6fbijhucfd1endxc","agxset");
 try {
-    Agraph_s g;
-    Agobj_s hdr;
-    Agattr_s data;
-    Agsym_s lsym;
+    ST_Agraph_s g;
+    ST_Agobj_s hdr;
+    ST_Agattr_s data;
+    ST_Agsym_s lsym;
     g = agraphof(obj);
-    hdr = (Agobj_s) obj.castTo(Agobj_s.class);
+    hdr = (ST_Agobj_s) obj.castTo(ST_Agobj_s.class);
     data = agattrrec(hdr);
 
-    agstrfree(g, data.getArrayOfCString("str").plus(sym.getInt("id")).getCString());
-    data.getArrayOfCString("str").plus(sym.getInt("id")).setCString(agstrdup(g, value));
-    if (hdr.getStruct("tag").getInt("objtype") == AGRAPH) {
+    agstrfree(g, data.str.get(sym.id));
+    data.str.set(sym.id, agstrdup(g, value));
+    if (((ST_Agtag_s)hdr.tag).objtype == AGRAPH) {
 	/* also update dict default */
-	_dt_s dict;
-	dict = (_dt_s) agdatadict(g, false).getPtr("dict").getPtr("g");
-	if ((lsym = aglocaldictsym(dict, sym.getCString("name")))!=null) {
-	    agstrfree(g, lsym.getCString("defval"));
+	ST_dt_s dict;
+	dict = (ST_dt_s) agdatadict(g, false).dict_g;
+	if ((lsym = aglocaldictsym(dict, sym.name))!=null) {
+	    agstrfree(g, lsym.defval);
 	    lsym.setPtr("defval", agstrdup(g, value));
 	} else {
-	    UNSUPPORTED("lsym = agnewsym(g, sym->name, value, sym->id, ((((Agobj_t*)(hdr))->tag).objtype));");
-	    UNSUPPORTED("(*(((Dt_t*)(dict))->searchf))((dict),(void*)(lsym),0000001);");
+	    lsym = agnewsym(g, sym.name, value, sym.id, AGTYPE(hdr));
+	    dict.searchf.exe(dict, lsym, 0000001);
 	}
     }
     agmethod_upd(g, obj, sym);
@@ -1028,12 +787,11 @@ LEAVING("4q8xvstvl6fbijhucfd1endxc","agxset");
 
 
 
-//3 9b7vn95cin8o7mb2f21exh1qr
-// int agsafeset(void *obj, char *name, char *value, char *def) 
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agsafeset", key="9b7vn95cin8o7mb2f21exh1qr", definition="int agsafeset(void *obj, char *name, char *value, char *def)")
 public static int agsafeset(__ptr__ obj, CString name, CString value, CString def) {
 ENTERING("9b7vn95cin8o7mb2f21exh1qr","agsafeset");
 try {
-    Agsym_s a;
+    ST_Agsym_s a;
     a = agattr(agraphof(obj), AGTYPE(obj), name, null);
     if (N(a))
 	a = agattr(agraphof(obj), AGTYPE(obj), name, def);
@@ -1048,6 +806,8 @@ LEAVING("9b7vn95cin8o7mb2f21exh1qr","agsafeset");
 
 //3 6gjlgo4s6r0bu7gjazfee6qv8
 // static void init_all_attrs(Agraph_t * g) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="init_all_attrs", key="6gjlgo4s6r0bu7gjazfee6qv8", definition="static void init_all_attrs(Agraph_t * g)")
 public static Object init_all_attrs(Object... arg) {
 UNSUPPORTED("bir8xur87cl8inhyrgimkboqq"); // static void init_all_attrs(Agraph_t * g)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -1073,6 +833,8 @@ throw new UnsupportedOperationException();
 
 //3 2fmwbgdlz116bdnivfr2gbst7
 // int agcopyattr(void *oldobj, void *newobj) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agcopyattr", key="2fmwbgdlz116bdnivfr2gbst7", definition="int agcopyattr(void *oldobj, void *newobj)")
 public static Object agcopyattr(Object... arg) {
 UNSUPPORTED("9hxxxad2s159e1mpaqdq32p1j"); // int agcopyattr(void *oldobj, void *newobj)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {

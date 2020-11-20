@@ -4,10 +4,15 @@
  *
  * Project Info:  http://plantuml.com
  * 
+ * If you like this project or if you find it useful, you can support us at:
+ * 
+ * http://plantuml.com/patreon (only 1$ per month!)
+ * http://plantuml.com/paypal
+ * 
  * This file is part of Smetana.
  * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * (C) Copyright 2009-2017, Arnaud Roques
+ * (C) Copyright 2009-2022, Arnaud Roques
  *
  * This translation is distributed under the same Licence as the original C program:
  * 
@@ -39,153 +44,14 @@
  *
  */
 package gen.lib.label;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static smetana.core.JUtilsDebug.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import gen.annotation.Original;
+import gen.annotation.Reviewed;
+import gen.annotation.Unused;
+import static smetana.core.JUtilsDebug.ENTERING;
+import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.N;
+import static smetana.core.Macro.UNSUPPORTED;
+import h.ST_Rect_t;
 
 public class rectangle__c {
 //1 9k44uhd5foylaeoekf3llonjq
@@ -288,15 +154,17 @@ public class rectangle__c {
 
 //3 1wtvfzwbzj03e6w5rw4k7qdax
 // void InitRect(Rect_t * r) 
-public static Object InitRect(Object... arg) {
-UNSUPPORTED("bfynnbut17s29886tfi4hmp71"); // void InitRect(Rect_t * r)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("pp6gyv6pecd6kik4hoguluwp"); //     register int i;
-UNSUPPORTED("6v26zqmzay64h92bxd4qt6qgs"); //     for (i = 0; i < 2*2; i++)
-UNSUPPORTED("d3uknh6sy0xxecd62dbcemd5p"); // 	r->boundary[i] = 0;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/rectangle.c", name="InitRect", key="1wtvfzwbzj03e6w5rw4k7qdax", definition="void InitRect(Rect_t * r)")
+public static void InitRect(ST_Rect_t r) {
+ENTERING("1wtvfzwbzj03e6w5rw4k7qdax","InitRect");
+try {
+     int i;
+     for (i = 0; i < 2*2; i++)
+    	 r.boundary[i]=0;
+} finally {
+LEAVING("1wtvfzwbzj03e6w5rw4k7qdax","InitRect");
+}
 }
 
 
@@ -304,19 +172,23 @@ throw new UnsupportedOperationException();
 
 //3 bvazxgli5q4yxvzl5kn1vjqpm
 // Rect_t NullRect() 
-public static Object NullRect(Object... arg) {
-UNSUPPORTED("7bfeg4qbgfa72qeao4zmwznat"); // Rect_t NullRect()
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("9jotn4njsd13qx406m9otorg4"); //     Rect_t r;
-UNSUPPORTED("pp6gyv6pecd6kik4hoguluwp"); //     register int i;
-UNSUPPORTED("4cmj0swptez35tqafqf86bskl"); //     r.boundary[0] = 1;
-UNSUPPORTED("6lzrqh8r1olplqcbtz1n5dow7"); //     r.boundary[2] = -1;
-UNSUPPORTED("ol4wmdbmn9kjw3hpmp2gwavz"); //     for (i = 1; i < 2; i++)
-UNSUPPORTED("9xr8ijrn07laqlacrzelzczxa"); // 	r.boundary[i] = r.boundary[i + 2] = 0;
-UNSUPPORTED("a2hk6w52njqjx48nq3nnn2e5i"); //     return r;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/rectangle.c", name="NullRect", key="bvazxgli5q4yxvzl5kn1vjqpm", definition="Rect_t NullRect()")
+public static ST_Rect_t NullRect() {
+ENTERING("bvazxgli5q4yxvzl5kn1vjqpm","NullRect");
+try {
+     ST_Rect_t r = new ST_Rect_t();
+     int i;
+     r.boundary[0]=1;
+     r.boundary[2]=-1;
+     for (i = 1; i < 2; i++) {
+         r.boundary[i]=0;
+         r.boundary[i+2]=0;
+     }
+     return r;
+} finally {
+LEAVING("bvazxgli5q4yxvzl5kn1vjqpm","NullRect");
+}
 }
 
 
@@ -324,30 +196,32 @@ throw new UnsupportedOperationException();
 
 //3 1ijarur71gcahchxz8vqf69na
 // unsigned int RectArea(Rect_t * r) 
-public static Object RectArea(Object... arg) {
-UNSUPPORTED("dt9366zeifsgcei4onz0fdt4i"); // unsigned int RectArea(Rect_t * r)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("9cyat6ft4tmgpumn70l9fwydy"); //   register int i;
-UNSUPPORTED("eep6ne1fnwvxrzmao6aq2e80t"); //   unsigned int area=1, a=1;
-UNSUPPORTED("bxtlpefe142w9pb81aa0gkkcj"); //   assert(r);
-UNSUPPORTED("7xe9zz3f2fwhfptig6esqvb1t"); //     if (((r)->boundary[0] > (r)->boundary[2])) return 0;
-UNSUPPORTED("9gsgfs2guis9c3c3oi57mxpq2"); //     /*
-UNSUPPORTED("asaz8qrby7qugc5m3ylnjg6o7"); //      * XXX add overflow checks
-UNSUPPORTED("795vpnc8yojryr8b46aidsu69"); //      */
-UNSUPPORTED("17o3f4aat9tkp17wsngm29nst"); //     area = 1;
-UNSUPPORTED("6xp61z8h2baoxnlm757q289e3"); //     for (i = 0; i < 2; i++) {
-UNSUPPORTED("6g0ik6vssf9px33quo2z9ferr"); //       unsigned int b = r->boundary[i + 2] - r->boundary[i];
-UNSUPPORTED("7tqqzmxu3tsfxccs53evs54me"); //       a *= b;
-UNSUPPORTED("3u7h4981b69nu4w80bhv3s4q"); //       if( (a / b ) != area) {
+@Unused
+@Original(version="2.38.0", path="lib/label/rectangle.c", name="RectArea", key="1ijarur71gcahchxz8vqf69na", definition="unsigned int RectArea(Rect_t * r)")
+public static int RectArea(ST_Rect_t r) {
+ENTERING("1ijarur71gcahchxz8vqf69na","RectArea");
+try {
+   int i;
+   int area=1, a=1;
+//   assert(r);
+     if (r.boundary[0] > r.boundary[2]) return 0;
+     /*
+      * XXX add overflow checks
+      */
+     area = 1;
+     for (i = 0; i < 2; i++) {
+       int b = r.boundary[i+2] - r.boundary[i];
+       a *= b;
+       if( (a / b ) != area) {
 UNSUPPORTED("6qc59bm54jy4hv9gw8a50rk0u"); // 	agerr (AGERR, "label: area too large for rtree\n");
 UNSUPPORTED("awx87c59fwl0w8r64jfd86jrd"); // 	return UINT_MAX;
-UNSUPPORTED("dquo3qofk56ds5xl95lhvcthf"); //       }
-UNSUPPORTED("b34qh5cr4ie1y00nbl91sn2km"); //       area = a;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("9ww3ox2wqjgbtsin4e26qgoyx"); //     return area;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+       }
+       area = a;
+     }
+     return area;
+} finally {
+LEAVING("1ijarur71gcahchxz8vqf69na","RectArea");
+}
 }
 
 
@@ -355,25 +229,27 @@ throw new UnsupportedOperationException();
 
 //3 tgmhi1wshyhqky2pappb6w6w
 // Rect_t CombineRect(Rect_t * r, Rect_t * rr) 
-public static Object CombineRect(Object... arg) {
-UNSUPPORTED("18ebi8xfcz225jqpfk5vtp9hf"); // Rect_t CombineRect(Rect_t * r, Rect_t * rr)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("7gcww32g3xx6yjb9m2tgq8f7c"); //     register int i, j;
-UNSUPPORTED("ep1c21oj5vdbkci5nklq26u6d"); //     Rect_t new;
-UNSUPPORTED("8woqwn01hzllzlrb8an6apviw"); //     assert(r && rr);
-UNSUPPORTED("61el74qdlszr9b7htgajgnncw"); //     if (((r)->boundary[0] > (r)->boundary[2]))
-UNSUPPORTED("26gbreijuodtzexgobqd73u1p"); // 	return *rr;
-UNSUPPORTED("9c5jzil5a7hm4bfzytn0e7aww"); //     if (((rr)->boundary[0] > (rr)->boundary[2]))
-UNSUPPORTED("h0psmi4ydywx720mvhp33x5g"); // 	return *r;
-UNSUPPORTED("6xp61z8h2baoxnlm757q289e3"); //     for (i = 0; i < 2; i++) {
-UNSUPPORTED("1p51ro3v4iw4nogctzk3y0bts"); // 	new.boundary[i] = MIN(r->boundary[i], rr->boundary[i]);
-UNSUPPORTED("2h0ee6s8hk7srb6xqmnfluf52"); // 	j = i + 2;
-UNSUPPORTED("3cljcok8kw06fphxnu0183g4"); // 	new.boundary[j] = MAX(r->boundary[j], rr->boundary[j]);
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("4b8pgvy3c1dhlanxwmafau4pt"); //     return new;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/rectangle.c", name="CombineRect", key="tgmhi1wshyhqky2pappb6w6w", definition="Rect_t CombineRect(Rect_t * r, Rect_t * rr)")
+public static ST_Rect_t CombineRect(ST_Rect_t r, ST_Rect_t rr) {
+ENTERING("tgmhi1wshyhqky2pappb6w6w","CombineRect");
+try {
+     int i, j;
+     ST_Rect_t new_ = new ST_Rect_t();
+     //     assert(r && rr);
+     if (r.boundary[0] > r.boundary[2])
+ 	return (ST_Rect_t) rr.copy();
+     if (rr.boundary[0] > rr.boundary[2])
+ 	return (ST_Rect_t) r.copy();
+     for (i = 0; i < 2; i++) {
+ 	new_.boundary[i] = Math.min(r.boundary[i], rr.boundary[i]);
+ 	j = i + 2;
+ 	new_.boundary[j] = Math.max(r.boundary[j], rr.boundary[j]);
+     }
+     return new_;
+} finally {
+LEAVING("tgmhi1wshyhqky2pappb6w6w","CombineRect");
+}
 }
 
 
@@ -381,21 +257,23 @@ throw new UnsupportedOperationException();
 
 //3 9glce34jzknoqj98agg96k03o
 // int Overlap(Rect_t * r, Rect_t * s) 
-public static Object Overlap(Object... arg) {
-UNSUPPORTED("75f545jos6v3su84hbt728wxr"); // int Overlap(Rect_t * r, Rect_t * s)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("7gcww32g3xx6yjb9m2tgq8f7c"); //     register int i, j;
-UNSUPPORTED("3ilt6jfw7dcaebocva6xawiui"); //     assert(r && s);
-UNSUPPORTED("6xp61z8h2baoxnlm757q289e3"); //     for (i = 0; i < 2; i++) {
-UNSUPPORTED("71gqfx1xze9ccjzy9ids9x8cj"); // 	j = i + 2;	/* index for high sides */
-UNSUPPORTED("b41yx5qm8jqsnyojyaztg6wy1"); // 	if (r->boundary[i] > s->boundary[j]
-UNSUPPORTED("cjb3lqf10yggej4b0uh9acc72"); // 	    || s->boundary[i] > r->boundary[j])
-UNSUPPORTED("8tnlb2txucdutal7665h0v68g"); // 	    return (0);
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("4si0cf97a5sfd9ozuunds9goz"); //     return (!(0));
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/rectangle.c", name="Overlap", key="9glce34jzknoqj98agg96k03o", definition="int Overlap(Rect_t * r, Rect_t * s)")
+public static boolean Overlap(ST_Rect_t r, ST_Rect_t s) {
+ENTERING("9glce34jzknoqj98agg96k03o","Overlap");
+try {
+     int i, j;
+//     assert(r && s);
+     for (i = 0; i < 2; i++) {
+ 	j = i + 2;	/* index for high sides */
+ 	if (r.boundary[i] > s.boundary[j]
+ 	    || s.boundary[i] > r.boundary[j])
+ 	    return false;
+     }
+     return (N(0));
+} finally {
+LEAVING("9glce34jzknoqj98agg96k03o","Overlap");
+}
 }
 
 
@@ -403,6 +281,8 @@ throw new UnsupportedOperationException();
 
 //3 b2epj09d2wxyndbn4bgdsxr2q
 // int Contained(Rect_t * r, Rect_t * s) 
+@Unused
+@Original(version="2.38.0", path="lib/label/rectangle.c", name="Contained", key="b2epj09d2wxyndbn4bgdsxr2q", definition="int Contained(Rect_t * r, Rect_t * s)")
 public static Object Contained(Object... arg) {
 UNSUPPORTED("733zc41b58sdh3p9oeu9fj9l4"); // int Contained(Rect_t * r, Rect_t * s)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {

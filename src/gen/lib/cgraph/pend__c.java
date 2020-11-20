@@ -4,10 +4,15 @@
  *
  * Project Info:  http://plantuml.com
  * 
+ * If you like this project or if you find it useful, you can support us at:
+ * 
+ * http://plantuml.com/patreon (only 1$ per month!)
+ * http://plantuml.com/paypal
+ * 
  * This file is part of Smetana.
  * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * (C) Copyright 2009-2017, Arnaud Roques
+ * (C) Copyright 2009-2022, Arnaud Roques
  *
  * This translation is distributed under the same Licence as the original C program:
  * 
@@ -39,153 +44,10 @@
  *
  */
 package gen.lib.cgraph;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static smetana.core.JUtilsDebug.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import gen.annotation.Original;
+import gen.annotation.Reviewed;
+import gen.annotation.Unused;
+import static smetana.core.Macro.UNSUPPORTED;
 
 public class pend__c {
 //1 9k44uhd5foylaeoekf3llonjq
@@ -328,6 +190,8 @@ public class pend__c {
 
 //3 byhbwh2n3ga4l1qwnurcynxym
 // static void free_symlist(pending_cb_t * pcb) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/pend.c", name="free_symlist", key="byhbwh2n3ga4l1qwnurcynxym", definition="static void free_symlist(pending_cb_t * pcb)")
 public static Object free_symlist(Object... arg) {
 UNSUPPORTED("3ghvg7ys2fzlmdd0nfqzopisv"); // static void free_symlist(pending_cb_t * pcb)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -346,6 +210,8 @@ throw new UnsupportedOperationException();
 
 //3 1x8gmra18kgia8023n42trx6s
 // static void freef(Dict_t * dict, void *ptr, Dtdisc_t * disc) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/pend.c", name="freef", key="1x8gmra18kgia8023n42trx6s", definition="static void freef(Dict_t * dict, void *ptr, Dtdisc_t * disc)")
 public static Object freef(Object... arg) {
 UNSUPPORTED("ctg6vmef59dajuf3reb8gedms"); // static void freef(Dict_t * dict, void *ptr, Dtdisc_t * disc)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -369,6 +235,8 @@ throw new UnsupportedOperationException();
 
 //3 cvwttyefig4x3yibqx8zu9rpg
 // static Dict_t *dictof(pendingset_t * ds, Agobj_t * obj, int kind) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/pend.c", name="", key="cvwttyefig4x3yibqx8zu9rpg", definition="static Dict_t *dictof(pendingset_t * ds, Agobj_t * obj, int kind)")
 public static Object dictof(Object... arg) {
 UNSUPPORTED("9138xlja2ni7mmvi0cd4temyb"); // static Dict_t *dictof(pendingset_t * ds, Agobj_t * obj, int kind)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -438,6 +306,8 @@ throw new UnsupportedOperationException();
 
 //3 9u07pj11z97vzx0rdu35dy5b6
 // static unsigned long genkey(Agobj_t * obj) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/pend.c", name="genkey", key="9u07pj11z97vzx0rdu35dy5b6", definition="static unsigned long genkey(Agobj_t * obj)")
 public static Object genkey(Object... arg) {
 UNSUPPORTED("6wrgawykukpwhj0d0ha4mzab4"); // static unsigned long genkey(Agobj_t * obj)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -452,6 +322,8 @@ throw new UnsupportedOperationException();
 
 //3 d1eeyb9xae1m5jodp0tq4maaw
 // static pending_cb_t *lookup(Dict_t * dict, Agobj_t * obj) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/pend.c", name="", key="d1eeyb9xae1m5jodp0tq4maaw", definition="static pending_cb_t *lookup(Dict_t * dict, Agobj_t * obj)")
 public static Object lookup(Object... arg) {
 UNSUPPORTED("94gs9x3we2rbx577uw4x9elm2"); // static pending_cb_t *lookup(Dict_t * dict, Agobj_t * obj)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -469,6 +341,8 @@ throw new UnsupportedOperationException();
 
 //3 f35guneihrs1ux86uvf6heyj6
 // static void record_sym(Agobj_t * obj, pending_cb_t * handle, 		       Agsym_t * optsym) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/pend.c", name="record_sym", key="f35guneihrs1ux86uvf6heyj6", definition="static void record_sym(Agobj_t * obj, pending_cb_t * handle, 		       Agsym_t * optsym)")
 public static Object record_sym(Object... arg) {
 UNSUPPORTED("bl646bfryeajicgd7718m70ed"); // static void record_sym(Agobj_t * obj, pending_cb_t * handle,
 UNSUPPORTED("amek1l9br0si8a9jvgv8v9jkb"); // 		       Agsym_t * optsym)
@@ -498,6 +372,8 @@ throw new UnsupportedOperationException();
 
 //3 bjiqwdwumf3dnt54kft0r6k0d
 // static pending_cb_t *insert(Dict_t * dict, Agraph_t * g, Agobj_t * obj, 			    Agsym_t * optsym) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/pend.c", name="", key="bjiqwdwumf3dnt54kft0r6k0d", definition="static pending_cb_t *insert(Dict_t * dict, Agraph_t * g, Agobj_t * obj, 			    Agsym_t * optsym)")
 public static Object insert(Object... arg) {
 UNSUPPORTED("ckcre9wwmah3rfq66mljy5lh"); // static pending_cb_t *insert(Dict_t * dict, Agraph_t * g, Agobj_t * obj,
 UNSUPPORTED("a2kv73jmjelhmpqkjs8m1xjhw"); // 			    Agsym_t * optsym)
@@ -524,6 +400,8 @@ throw new UnsupportedOperationException();
 
 //3 6xukd3ssn86gjgbed1tgfj2d3
 // static void purge(Dict_t * dict, Agobj_t * obj) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/pend.c", name="purge", key="6xukd3ssn86gjgbed1tgfj2d3", definition="static void purge(Dict_t * dict, Agobj_t * obj)")
 public static Object purge(Object... arg) {
 UNSUPPORTED("5e5swvwz1c1vwauwkpqhyba29"); // static void purge(Dict_t * dict, Agobj_t * obj)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -541,6 +419,8 @@ throw new UnsupportedOperationException();
 
 //3 77vpxparxzmm27mmm1mqs0m0y
 // void agrecord_callback(Agraph_t * g, Agobj_t * obj, int kind, 		       Agsym_t * optsym) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/pend.c", name="agrecord_callback", key="77vpxparxzmm27mmm1mqs0m0y", definition="void agrecord_callback(Agraph_t * g, Agobj_t * obj, int kind, 		       Agsym_t * optsym)")
 public static Object agrecord_callback(Object... arg) {
 UNSUPPORTED("8kh7tdu40e0f5hui0hcx3ojw"); // void agrecord_callback(Agraph_t * g, Agobj_t * obj, int kind,
 UNSUPPORTED("amek1l9br0si8a9jvgv8v9jkb"); // 		       Agsym_t * optsym)
@@ -591,6 +471,8 @@ throw new UnsupportedOperationException();
 
 //3 74sr5sunzimzs4dop6e56ylqr
 // static void cb(Dict_t * dict, int callback_kind) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/pend.c", name="cb", key="74sr5sunzimzs4dop6e56ylqr", definition="static void cb(Dict_t * dict, int callback_kind)")
 public static Object cb(Object... arg) {
 UNSUPPORTED("8z1461yc2ld1pp01ko4qua5ob"); // static void cb(Dict_t * dict, int callback_kind)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -626,6 +508,8 @@ throw new UnsupportedOperationException();
 
 //3 e7sb9ozah1m8hcgr0r26yztet
 // static void agrelease_callbacks(Agraph_t * g) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/pend.c", name="agrelease_callbacks", key="e7sb9ozah1m8hcgr0r26yztet", definition="static void agrelease_callbacks(Agraph_t * g)")
 public static Object agrelease_callbacks(Object... arg) {
 UNSUPPORTED("6nqqqrpb95kihyqznxyew5ax6"); // static void agrelease_callbacks(Agraph_t * g)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -656,6 +540,8 @@ throw new UnsupportedOperationException();
 
 //3 8uhdzlydn56607gimdrofjtex
 // int agcallbacks(Agraph_t * g, int flag) 
+@Unused
+@Original(version="2.38.0", path="lib/cgraph/pend.c", name="agcallbacks", key="8uhdzlydn56607gimdrofjtex", definition="int agcallbacks(Agraph_t * g, int flag)")
 public static Object agcallbacks(Object... arg) {
 UNSUPPORTED("6grr09xacc6khqaw6ho0nky79"); // int agcallbacks(Agraph_t * g, int flag)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {

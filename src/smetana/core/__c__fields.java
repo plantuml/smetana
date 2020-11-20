@@ -4,10 +4,15 @@
  *
  * Project Info:  http://plantuml.com
  * 
+ * If you like this project or if you find it useful, you can support us at:
+ * 
+ * http://plantuml.com/patreon (only 1$ per month!)
+ * http://plantuml.com/paypal
+ * 
  * This file is part of Smetana.
  * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * (C) Copyright 2009-2017, Arnaud Roques
+ * (C) Copyright 2009-2020, Arnaud Roques
  *
  * This translation is distributed under the same Licence as the original C program.
  * 
@@ -35,25 +40,11 @@ package smetana.core;
 
 public interface __c__fields {
 
-	public __ptr__ getPtr(String fieldName);
-	public __struct__ getStruct(String fieldName);
-	public boolean getBoolean(String fieldName);
-	public double getDouble(String fieldName);
-	public CString getCString(String fieldName);
-	public int getInt(String fieldName);
-	
 	public __ptr__ setPtr(String fieldName, __ptr__ value);
-	public void setCString(String fieldName, CString value);
+
 	public void setStruct(String fieldName, __struct__ value);
 	public void setInt(String fieldName, int value);
-	public void setBoolean(String fieldName, boolean value);
 	public void setDouble(String fieldName, double value);
-	
-	// public __array__ getArray(String fieldName);
-	public __array_of_integer__ getArrayOfInteger(String fieldName);
-	public __array_of_struct__ getArrayOfStruct(String fieldName);
-	public __array_of_ptr__ getArrayOfPtr(String fieldName);
-	public __array_of_cstring__ getArrayOfCString(String fieldName);
 	
 
 }

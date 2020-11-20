@@ -4,10 +4,15 @@
  *
  * Project Info:  http://plantuml.com
  * 
+ * If you like this project or if you find it useful, you can support us at:
+ * 
+ * http://plantuml.com/patreon (only 1$ per month!)
+ * http://plantuml.com/paypal
+ * 
  * This file is part of Smetana.
  * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * (C) Copyright 2009-2017, Arnaud Roques
+ * (C) Copyright 2009-2022, Arnaud Roques
  *
  * This translation is distributed under the same Licence as the original C program:
  * 
@@ -39,154 +44,39 @@
  *
  */
 package gen.lib.label;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static smetana.core.JUtilsDebug.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
-
+import gen.annotation.Original;
+import gen.annotation.Reviewed;
+import gen.annotation.Unused;
+import static gen.lib.cdt.dtclose__c.dtclose;
+import static gen.lib.cdt.dtopen__c.dtopen;
+import static gen.lib.label.index__c.RTreeClose;
+import static gen.lib.label.index__c.RTreeInsert;
+import static gen.lib.label.index__c.RTreeLeafListFree;
+import static gen.lib.label.index__c.RTreeOpen;
+import static gen.lib.label.index__c.RTreeSearch;
+import static smetana.core.JUtils.EQ;
+import static smetana.core.JUtilsDebug.ENTERING;
+import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.N;
+import static smetana.core.Macro.UNSUPPORTED;
+import h.ST_BestPos_t;
+import h.ST_HDict_t;
+import h.ST_LeafList_t;
+import h.ST_Node_t___;
+import h.ST_RTree;
+import h.ST_Rect_t;
+import h.ST_XLabels_t;
+import h.ST_dt_s;
+import h.ST_dtdisc_s;
+import h.ST_label_params_t;
+import h.ST_object_t;
+import h.ST_point;
+import h.ST_pointf;
+import h.ST_xlabel_t;
+import smetana.core.CStar;
+import smetana.core.Memory;
+import smetana.core.Z;
+import smetana.core.__ptr__;
 public class xlabels__c {
 //1 9k44uhd5foylaeoekf3llonjq
 // extern Dtmethod_t* 	Dtset
@@ -264,14 +154,17 @@ public class xlabels__c {
 
 //3 5p3ac8qk4gnne5hj1dc21ysi
 // static int icompare(Dt_t * dt, void * v1, void * v2, Dtdisc_t * disc) 
-public static Object icompare(Object... arg) {
-UNSUPPORTED("bpbhsdw4fe10xdxxfuegnvqt2"); // static int icompare(Dt_t * dt, void * v1, void * v2, Dtdisc_t * disc)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("ehks25fxahyjbjd4lm6ryh9su"); //     int k1 = *((int *) v1), k2 = *((int *) v2);
-UNSUPPORTED("6in30ubiocmaih693f0arymgc"); //     return k1 - k2;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="icompare", key="5p3ac8qk4gnne5hj1dc21ysi", definition="static int icompare(Dt_t * dt, void * v1, void * v2, Dtdisc_t * disc)")
+public static int icompare(ST_dt_s dt, Object v1, Object v2, ST_dtdisc_s disc) {
+ENTERING("5p3ac8qk4gnne5hj1dc21ysi","icompare");
+try {
+	Integer k1 = (Integer) v1;
+	Integer k2 = (Integer) v2;
+    return k1 - k2;
+} finally {
+LEAVING("5p3ac8qk4gnne5hj1dc21ysi","icompare");
+}
 }
 
 
@@ -279,40 +172,43 @@ throw new UnsupportedOperationException();
 
 //3 88mbfm305igsr7cew5qx6yldp
 // static XLabels_t *xlnew(object_t * objs, int n_objs, 			xlabel_t * lbls, int n_lbls, 			label_params_t * params) 
-public static Object xlnew(Object... arg) {
-UNSUPPORTED("3le94zdf67vws2boexolzlx7k"); // static XLabels_t *xlnew(object_t * objs, int n_objs,
-UNSUPPORTED("cb2wq8p902q5tlc1mh5hikgi2"); // 			xlabel_t * lbls, int n_lbls,
-UNSUPPORTED("bz8hxsdu70exdmt52dnayj0c7"); // 			label_params_t * params)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("bkrrqfyt0mc9r9usgj4c7t9zs"); //     XLabels_t *xlp;
-UNSUPPORTED("5tfjcsm3vbxebkz2ev3uqptnx"); //     xlp = (XLabels_t*)zmalloc(sizeof(XLabels_t));
-UNSUPPORTED("evg8rhuwggcno9jwcrub0i4y4"); //     /* used to load the rtree in hilbert space filling curve order */
-UNSUPPORTED("8yj6rj5llf2mw5pp8tt355a7o"); //     if (!(xlp->hdx = dtopen(&Hdisc, Dtobag))) {
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="", key="88mbfm305igsr7cew5qx6yldp", definition="static XLabels_t *xlnew(object_t * objs, int n_objs, 			xlabel_t * lbls, int n_lbls, 			label_params_t * params)")
+public static ST_XLabels_t xlnew(CStar<ST_object_t> objs, int n_objs, CStar<ST_xlabel_t> lbls, int n_lbls, ST_label_params_t params) {
+ENTERING("88mbfm305igsr7cew5qx6yldp","xlnew");
+try {
+ST_XLabels_t xlp;
+xlp = new ST_XLabels_t();
+/* used to load the rtree in hilbert space filling curve order */
+xlp.setPtr("hdx", dtopen(Z.z().Hdisc, Z.z().Dtobag));
+if (N(xlp.hdx)) {
 UNSUPPORTED("4t1y5iinm4310lkpvbal1spve"); // 	fprintf(stderr, "out of memory\n");
 UNSUPPORTED("3m406diamp5s5kwcqtwo4pshf"); // 	goto bad;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("1bzq9uxiqzj7l6llb7e6gti7e"); //     /* for querying intersection candidates */
-UNSUPPORTED("7elrkgy2129t2ut4mi03dhf75"); //     if (!(xlp->spdx = RTreeOpen())) {
+}
+/* for querying intersection candidates */
+xlp.setPtr("spdx", RTreeOpen());
+if (N(xlp.spdx)) {
 UNSUPPORTED("4t1y5iinm4310lkpvbal1spve"); // 	fprintf(stderr, "out of memory\n");
 UNSUPPORTED("3m406diamp5s5kwcqtwo4pshf"); // 	goto bad;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("85lb5m2umu5izyudq40of0dgi"); //     /* save arg pointers in the handle */
-UNSUPPORTED("ava6c0wrmq2d6j1i4j7bd1lpp"); //     xlp->objs = objs;
-UNSUPPORTED("85sh2ov52z31nsy9mk5su9p5p"); //     xlp->n_objs = n_objs;
-UNSUPPORTED("3et8g76wlkf60sgxrmi3z1vom"); //     xlp->lbls = lbls;
-UNSUPPORTED("2pwe3sog0n7styjgekuhrnd5e"); //     xlp->n_lbls = n_lbls;
-UNSUPPORTED("52j9u0n44sdpwexr3bunb46zi"); //     xlp->params = params;
-UNSUPPORTED("64t9yhsoz02rjp8vy1as25a5n"); //     return xlp;
-UNSUPPORTED("98zx7s9vt8t1s5x9l35evcxnz"); //   bad:
-UNSUPPORTED("66s40csd2ivd8rx4h2ut8oai5"); //     if (xlp->hdx)
-UNSUPPORTED("8mg8tqxa78f1nfk4jh9drw2n0"); // 	dtclose(xlp->hdx);
-UNSUPPORTED("b9uy03exphaovgyz5t4gru409"); //     if (xlp->spdx)
-UNSUPPORTED("4cfpl6hom6vo3btrjlhfmn6mi"); // 	RTreeClose(xlp->spdx);
-UNSUPPORTED("dms04fhv1vao18v2p0lmk80xf"); //     free(xlp);
-UNSUPPORTED("5oxhd3fvp0gfmrmz12vndnjt"); //     return 0;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+     }
+/* save arg pointers in the handle */
+xlp.objs = objs;
+xlp.setInt("n_objs", n_objs);
+xlp.lbls = lbls;
+xlp.setInt("n_lbls", n_lbls);
+xlp.setPtr("params", params);
+return (ST_XLabels_t) xlp;
+} finally {
+LEAVING("88mbfm305igsr7cew5qx6yldp","xlnew");
+}
+//UNSUPPORTED("98zx7s9vt8t1s5x9l35evcxnz"); //   bad:
+//UNSUPPORTED("66s40csd2ivd8rx4h2ut8oai5"); //     if (xlp->hdx)
+//UNSUPPORTED("8mg8tqxa78f1nfk4jh9drw2n0"); // 	dtclose(xlp->hdx);
+//UNSUPPORTED("b9uy03exphaovgyz5t4gru409"); //     if (xlp->spdx)
+//UNSUPPORTED("4cfpl6hom6vo3btrjlhfmn6mi"); // 	RTreeClose(xlp->spdx);
+//UNSUPPORTED("dms04fhv1vao18v2p0lmk80xf"); //     free(xlp);
+//UNSUPPORTED("5oxhd3fvp0gfmrmz12vndnjt"); //     return 0;
+//UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
 }
 
 
@@ -320,15 +216,16 @@ throw new UnsupportedOperationException();
 
 //3 apvhod2s1yjb8717rb7gie2kb
 // static void xlfree(XLabels_t * xlp) 
-public static Object xlfree(Object... arg) {
-UNSUPPORTED("7jv3t0oxe54lacl7qn1meznth"); // static void xlfree(XLabels_t * xlp)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("3120ftcrfb2pccpafsxzl14te"); //     RTreeClose(xlp->spdx);
-UNSUPPORTED("dms04fhv1vao18v2p0lmk80xf"); //     free(xlp);
-UNSUPPORTED("b9185t6i77ez1ac587ul8ndnc"); //     return;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="xlfree", key="apvhod2s1yjb8717rb7gie2kb", definition="static void xlfree(XLabels_t * xlp)")
+public static void xlfree(ST_XLabels_t xlp) {
+ENTERING("apvhod2s1yjb8717rb7gie2kb","xlfree");
+try {
+     RTreeClose((ST_RTree) xlp.spdx);
+     Memory.free(xlp);
+} finally {
+LEAVING("apvhod2s1yjb8717rb7gie2kb","xlfree");
+}
 }
 
 
@@ -336,35 +233,37 @@ throw new UnsupportedOperationException();
 
 //3 6lz36gkh8fla3z6f0lxniy368
 // static int floorLog2(unsigned int n) 
-public static Object floorLog2(Object... arg) {
-UNSUPPORTED("dhjwlofpfy5gop5y81eemv6i4"); // static int floorLog2(unsigned int n)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("3xzujk207ipx0d60nbbrwyjez"); //     int pos = 0;
-UNSUPPORTED("f0os7tzuki1s9mllsml3zu2fd"); //     if (n == 0)
-UNSUPPORTED("8d9xfgejx5vgd6shva5wk5k06"); // 	return -1;
-UNSUPPORTED("4b22up0qcghijti04gz41jqiz"); //     if (n >= 1 << 16) {
-UNSUPPORTED("b8h1lnvuhauq15z5k0fs5u2l1"); // 	n >>= 16;
-UNSUPPORTED("e1kd6x1c70e7l8ml3qgzahq34"); // 	pos += 16;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("a7hxj1hb2pc8py8ywsfit3q4n"); //     if (n >= 1 << 8) {
-UNSUPPORTED("aioe8c94e5sluu8n00fdgq128"); // 	n >>= 8;
-UNSUPPORTED("b5apnzow59vwb4z38m0bgaxuj"); // 	pos += 8;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("8ln2bn60t9zq7iigfqy9wa5dk"); //     if (n >= 1 << 4) {
-UNSUPPORTED("albua8gefgieknhiuhr1cook"); // 	n >>= 4;
-UNSUPPORTED("5ivee6b3gs2khi9h8mpbr20g9"); // 	pos += 4;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("930rjgw6ueudlb4emmrfw8y8w"); //     if (n >= 1 << 2) {
-UNSUPPORTED("3p8vzi941bcva583xzhk2o7qb"); // 	n >>= 2;
-UNSUPPORTED("3t90pfuwl7kz4zpjrsa99cof8"); // 	pos += 2;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("8b1fqmv1sxvuyxs3dcp7aas0k"); //     if (n >= 1 << 1) {
-UNSUPPORTED("nx53w89cor5x9akadlbw5et8"); // 	pos += 1;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("2kr5zds5y6oiaubm8wiunqccr"); //     return pos;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="floorLog2", key="6lz36gkh8fla3z6f0lxniy368", definition="static int floorLog2(unsigned int n)")
+public static int floorLog2(int n) {
+ENTERING("6lz36gkh8fla3z6f0lxniy368","floorLog2");
+try {
+    int pos = 0;
+    if (n == 0)
+	return -1;
+    if (n >= 1 << 16) {
+	n >>= 16;
+	pos += 16;
+    }
+    if (n >= 1 << 8) {
+	n >>= 8;
+	pos += 8;
+    }
+    if (n >= 1 << 4) {
+	n >>= 4;
+	pos += 4;
+    }
+    if (n >= 1 << 2) {
+	n >>= 2;
+	pos += 2;
+    }
+    if (n >= 1 << 1) {
+	pos += 1;
+    }
+    return pos;
+} finally {
+LEAVING("6lz36gkh8fla3z6f0lxniy368","floorLog2");
+}
 }
 
 
@@ -372,14 +271,17 @@ throw new UnsupportedOperationException();
 
 //3 uvnzthcpf4xiih05gxie2rx1
 // unsigned int xlhorder(XLabels_t * xlp) 
-public static Object xlhorder(Object... arg) {
-UNSUPPORTED("9rtsoeopc1glcmntqwf7hz6x7"); // unsigned int xlhorder(XLabels_t * xlp)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("7w1e4a6q9gftmlsxkc4v7eq9d"); //     double maxx = xlp->params->bb.UR.x, maxy = xlp->params->bb.UR.y;
-UNSUPPORTED("147h47bz0sqql0238qat4fdky"); //     return floorLog2(maxx > maxy ? maxx : maxy) + 1;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="xlhorder", key="uvnzthcpf4xiih05gxie2rx1", definition="unsigned int xlhorder(XLabels_t * xlp)")
+public static int xlhorder(ST_XLabels_t xlp) {
+ENTERING("uvnzthcpf4xiih05gxie2rx1","xlhorder");
+try {
+    double maxx = xlp.params.bb.UR.x;
+    double maxy = xlp.params.bb.UR.y;
+    return floorLog2(maxx > maxy ? (int)maxx : (int)maxy) + 1;
+} finally {
+LEAVING("uvnzthcpf4xiih05gxie2rx1","xlhorder");
+}
 }
 
 
@@ -387,59 +289,66 @@ throw new UnsupportedOperationException();
 
 //3 9lkyvq87bawe3yon7bdwvcjzq
 // static unsigned int hd_hil_s_from_xy(point p, int n) 
-public static Object hd_hil_s_from_xy(Object... arg) {
-UNSUPPORTED("9zi37w33fe5wi8h5d2dymr0tt"); // static unsigned int hd_hil_s_from_xy(point p, int n)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("65resmfdu81d1xg2em5l84y82"); //     int i, x = p.x, y = p.y, xi, yi;
-UNSUPPORTED("3s2drtfrrzifwhrt8rk6kq5gq"); //     unsigned s;
-UNSUPPORTED("bd5j4s2m9y2fcgu9giqi9qrhy"); //     s = 0;			/* Initialize. */
-UNSUPPORTED("9d7993w9kft7mplobqeb9boaz"); //     for (i = n - 1; i >= 0; i--) {
-UNSUPPORTED("c1xqmgsdfzeebwk2yfoz65pue"); // 	xi = (x >> i) & 1;	/* Get bit i of x. */
-UNSUPPORTED("270wzledmbxq3z8mp5tz7ezib"); // 	yi = (y >> i) & 1;	/* Get bit i of y. */
-UNSUPPORTED("3d69e96cdg4apqijubufzse5z"); // 	s = 4 * s + 2 * xi + (xi ^ yi);	/* Append two bits to s. */
-UNSUPPORTED("c4cig8vru225s8qy4aj21mfe0"); // 	x = x ^ y;		/* These 3 lines swap */
-UNSUPPORTED("7r0w00av090u8a4vi14al4ct6"); // 	y = y ^ (x & (yi - 1));	/* x and y if yi = 0. */
-UNSUPPORTED("cpz7xdfh4gvp5hufdb1ij5amy"); // 	x = x ^ y;
-UNSUPPORTED("7i7jygllv89x29npu61cfn74p"); // 	x = x ^ (-xi & (yi - 1));	/* Complement x and y if */
-UNSUPPORTED("5p8kbkyzcbsr9m1b1fl7z3q0h"); // 	y = y ^ (-xi & (yi - 1));	/* xi = 1 and yi = 0. */
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("3y6wj3ntgmr1qkdpm7wp1dsch"); //     return s;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="hd_hil_s_from_xy", key="9lkyvq87bawe3yon7bdwvcjzq", definition="static unsigned int hd_hil_s_from_xy(point p, int n)")
+public static int hd_hil_s_from_xy(ST_point p, int n) {
+ENTERING("9lkyvq87bawe3yon7bdwvcjzq","hd_hil_s_from_xy");
+try {
+	return hd_hil_s_from_xy_((ST_point) p.copy(), n);
+} finally {
+LEAVING("9lkyvq87bawe3yon7bdwvcjzq","hd_hil_s_from_xy");
 }
+}
+private static int hd_hil_s_from_xy_(ST_point p, int n) {
+     int i, x = p.x, y = p.y, xi, yi;
+     int s;
+     s = 0;			/* Initialize. */
+     for (i = n - 1; i >= 0; i--) {
+ 	xi = (x >> i) & 1;	/* Get bit i of x. */
+ 	yi = (y >> i) & 1;	/* Get bit i of y. */
+ 	s = 4 * s + 2 * xi + (xi ^ yi);	/* Append two bits to s. */
+ 	x = x ^ y;		/* These 3 lines swap */
+ 	y = y ^ (x & (yi - 1));	/* x and y if yi = 0. */
+ 	x = x ^ y;
+ 	x = x ^ (-xi & (yi - 1));	/* Complement x and y if */
+ 	y = y ^ (-xi & (yi - 1));	/* xi = 1 and yi = 0. */
+     }
+     return s;
+ }
 
 
 
 
 //3 bpkzwylrchx5wta1qhytfgbtr
 // static double aabbaabb(Rect_t * r, Rect_t * s) 
-public static Object aabbaabb(Object... arg) {
-UNSUPPORTED("21oyvapf2qfnxqid5aolv4mmr"); // static double aabbaabb(Rect_t * r, Rect_t * s)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("dywr73ggaui4ayztq3tmljs4z"); //     /* per dimension if( max < omin || min > omax) */
-UNSUPPORTED("981pm44oz7wkhcspjabhjqpmq"); //     double iminx, iminy, imaxx, imaxy;
-UNSUPPORTED("60uso6twsxyml3pff70yndkys"); //     if (r->boundary[2] < s->boundary[0] || r->boundary[0] > s->boundary[2])
-UNSUPPORTED("c9ckhc8veujmwcw0ar3u3zld4"); // 	return 0;
-UNSUPPORTED("1tavt6umo55xyoarc64k3dxs0"); //     if (r->boundary[3] < s->boundary[1] || r->boundary[1] > s->boundary[3])
-UNSUPPORTED("c9ckhc8veujmwcw0ar3u3zld4"); // 	return 0;
-UNSUPPORTED("ls92qicz53qcx6cwst6f8om3"); //     /* if we get here we have an intersection */
-UNSUPPORTED("31cw8fo82001qx6nsg22hugnf"); //     /* rightmost left edge of the 2 rectangles */
-UNSUPPORTED("7d66kym3m7c0ya8b4kt7vjtvv"); //     iminx =
-UNSUPPORTED("2ohiqb8vdv4gbnzqigtqd47c3"); // 	r->boundary[0] > s->boundary[0] ? r->boundary[0] : s->boundary[0];
-UNSUPPORTED("2bf3t8qfsxq7y4d98hc3p59gv"); //     /* upmost bottom edge */
-UNSUPPORTED("cvk4ll2zvw3sljlm63j6bcjr8"); //     iminy =
-UNSUPPORTED("13n8uz9c82r3pkg85oh43qf74"); // 	r->boundary[1] > s->boundary[1] ? r->boundary[1] : s->boundary[1];
-UNSUPPORTED("dsfdevf6xy6buo0sydh3h3fis"); //     /* leftmost right edge */
-UNSUPPORTED("8rdxlzisdq5iw8b07usm1toc9"); //     imaxx =
-UNSUPPORTED("a8uyhcvpgmwrihxaaa5u77i69"); // 	r->boundary[2] < s->boundary[2] ? r->boundary[2] : s->boundary[2];
-UNSUPPORTED("cr403g6ud2h0cyys19fti84tb"); //     /* downmost top edge */
-UNSUPPORTED("cqszcttk6vqvj0hezy1t1bsig"); //     imaxy =
-UNSUPPORTED("41qdog59oicvy8ku3n9vbzhj6"); // 	r->boundary[3] < s->boundary[3] ? r->boundary[3] : s->boundary[3];
-UNSUPPORTED("cxtiz800rb16yy2u6burhy6mi"); //     return (imaxx - iminx) * (imaxy - iminy);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="aabbaabb", key="bpkzwylrchx5wta1qhytfgbtr", definition="static double aabbaabb(Rect_t * r, Rect_t * s)")
+public static double aabbaabb(ST_Rect_t r, ST_Rect_t s) {
+ENTERING("bpkzwylrchx5wta1qhytfgbtr","aabbaabb");
+try {
+     /* per dimension if( max < omin || min > omax) */
+     double iminx, iminy, imaxx, imaxy;
+     if (r.boundary[2] < s.boundary[0] || r.boundary[0] > s.boundary[2])
+ 	return 0;
+     if (r.boundary[3] < s.boundary[1] || r.boundary[1] > s.boundary[3])
+  	return 0;
+     /* if we get here we have an intersection */
+     /* rightmost left edge of the 2 rectangles */
+     iminx =
+ 	r.boundary[0] > s.boundary[0] ? r.boundary[0] : s.boundary[0];
+     /* upmost bottom edge */
+     iminy =
+ 	r.boundary[1] > s.boundary[1] ? r.boundary[1] : s.boundary[1];
+     /* leftmost right edge */
+     imaxx =
+ 	r.boundary[2] < s.boundary[2] ? r.boundary[2] : s.boundary[2];
+     /* downmost top edge */
+     imaxy =
+ 	r.boundary[3] < s.boundary[3] ? r.boundary[3] : s.boundary[3];
+     return (imaxx - iminx) * (imaxy - iminy);
+} finally {
+LEAVING("bpkzwylrchx5wta1qhytfgbtr","aabbaabb");
+}
 }
 
 
@@ -447,37 +356,46 @@ throw new UnsupportedOperationException();
 
 //3 2g71cq6f8w5jbmbnn2x9y5qfq
 // static int lblenclosing(object_t * objp, object_t * objp1) 
-public static Object lblenclosing(Object... arg) {
-UNSUPPORTED("96fk2h2cameoldx630f8490ei"); // static int lblenclosing(object_t * objp, object_t * objp1)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("2uf1ispemhfeg8c7qhy0fbq2j"); //   xlabel_t * xlp = objp->lbl;;
-UNSUPPORTED("txl92fx6l8dzi4yeuegwqirj"); //   assert(objp1->sz.x == 0 && objp1->sz.y == 0);
-UNSUPPORTED("ek6g4dsfb8puipbh006mizket"); //   if(! xlp) return 0;
-UNSUPPORTED("exdts7f2bpam5122kabq2b86c"); //   return objp1->pos.x > xlp->pos.x &&
-UNSUPPORTED("99uxf5dqw5nzdymlzfj764uol"); // 	 objp1->pos.x < (xlp->pos.x + xlp->sz.x) &&
-UNSUPPORTED("epx7s3oiw75fuioasz208w1k1"); // 	 objp1->pos.y > xlp->pos.y &&
-UNSUPPORTED("29g3tye8vebllnv9b91xyntzi"); // 	 objp1->pos.y < (xlp->pos.y + xlp->sz.y);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="lblenclosing", key="2g71cq6f8w5jbmbnn2x9y5qfq", definition="static int lblenclosing(object_t * objp, object_t * objp1)")
+public static boolean lblenclosing(ST_object_t objp, ST_object_t objp1) {
+ENTERING("2g71cq6f8w5jbmbnn2x9y5qfq","lblenclosing");
+try {
+	CStar<ST_xlabel_t> xlp = objp.lbl;
+//   assert(objp1->sz.x == 0 && objp1->sz.y == 0);
+   if(N(xlp)) return false;
+      return objp1.pos.x > xlp.get__(0).pos.x &&
+    		  objp1.pos.x < (xlp.get__(0).pos.x + xlp.get__(0).sz.y) &&
+    		  objp1.pos.y > xlp.get__(0).pos.y &&
+    		  objp1.pos.y < (xlp.get__(0).pos.y + xlp.get__(0).sz.y);
+//   UNSUPPORTED("exdts7f2bpam5122kabq2b86c"); //   return objp1->pos.x > xlp->pos.x &&
+//   UNSUPPORTED("99uxf5dqw5nzdymlzfj764uol"); // 	 objp1->pos.x < (xlp->pos.x + xlp->sz.x) &&
+//   UNSUPPORTED("epx7s3oiw75fuioasz208w1k1"); // 	 objp1->pos.y > xlp->pos.y &&
+//   UNSUPPORTED("29g3tye8vebllnv9b91xyntzi"); // 	 objp1->pos.y < (xlp->pos.y + xlp->sz.y);
+//   UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+} finally {
+LEAVING("2g71cq6f8w5jbmbnn2x9y5qfq","lblenclosing");
 }
+}
+
 
 
 
 
 //3 dq1wkb4oxshdggv6cwtgas6m
 // static void objp2rect(object_t * op, Rect_t * r) 
-public static Object objp2rect(Object... arg) {
-UNSUPPORTED("bmdr5joxjahq30nkb15r6rf41"); // static void objp2rect(object_t * op, Rect_t * r)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("cdtyz1w6cga7n2jo2fbh8c6ro"); //     r->boundary[0] = op->pos.x;
-UNSUPPORTED("9ir52jgzphc4cgyevo2o2ltjs"); //     r->boundary[1] = op->pos.y;
-UNSUPPORTED("cz4cc7haeit4u59so96vv80ch"); //     r->boundary[2] = op->pos.x + op->sz.x;
-UNSUPPORTED("3m857h9kn35205vsumkenc0dx"); //     r->boundary[3] = op->pos.y + op->sz.y;
-UNSUPPORTED("b9185t6i77ez1ac587ul8ndnc"); //     return;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="objp2rect", key="dq1wkb4oxshdggv6cwtgas6m", definition="static void objp2rect(object_t * op, Rect_t * r)")
+public static void objp2rect(ST_object_t op, ST_Rect_t r) {
+ENTERING("dq1wkb4oxshdggv6cwtgas6m","objp2rect");
+try {
+	r.boundary[0]=((int)op.pos.x);
+	r.boundary[1]=((int)op.pos.y);
+	r.boundary[2]=((int)(op.pos.x+op.sz.x));
+	r.boundary[3]=((int)(op.pos.y+op.sz.y));
+} finally {
+LEAVING("dq1wkb4oxshdggv6cwtgas6m","objp2rect");
+}
 }
 
 
@@ -485,18 +403,19 @@ throw new UnsupportedOperationException();
 
 //3 71b5ttp3xs7lo9fqgb7ypyqgx
 // static void objplp2rect(object_t * objp, Rect_t * r) 
-public static Object objplp2rect(Object... arg) {
-UNSUPPORTED("5giyzyeu3hmuyo2r06ushsohy"); // static void objplp2rect(object_t * objp, Rect_t * r)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("3wparjbgs7cft1xsjcztm8bdh"); //     xlabel_t *lp = objp->lbl;
-UNSUPPORTED("5abhryoldlbjfzt4lh63gmcb4"); //     r->boundary[0] = lp->pos.x;
-UNSUPPORTED("acpv39vcusl8yzf591aja97a0"); //     r->boundary[1] = lp->pos.y;
-UNSUPPORTED("flr92u77dscu4d286xzfwhzs"); //     r->boundary[2] = lp->pos.x + lp->sz.x;
-UNSUPPORTED("beq6fj10iaic6pf2z8xgb1atm"); //     r->boundary[3] = lp->pos.y + lp->sz.y;
-UNSUPPORTED("b9185t6i77ez1ac587ul8ndnc"); //     return;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="objplp2rect", key="71b5ttp3xs7lo9fqgb7ypyqgx", definition="static void objplp2rect(object_t * objp, Rect_t * r)")
+public static void objplp2rect(ST_object_t objp, ST_Rect_t r) {
+ENTERING("71b5ttp3xs7lo9fqgb7ypyqgx","objplp2rect");
+try {
+	CStar<ST_xlabel_t> lp = objp.lbl;
+    r.boundary[0]=((int)lp.get__(0).pos.x);
+    r.boundary[1]=((int)lp.get__(0).pos.y);
+    r.boundary[2]=((int)(lp.get__(0).pos.x+lp.get__(0).sz.x));
+    r.boundary[3]=((int)(lp.get__(0).pos.y+lp.get__(0).sz.y));
+} finally {
+LEAVING("71b5ttp3xs7lo9fqgb7ypyqgx","objplp2rect");
+}
 }
 
 
@@ -504,24 +423,27 @@ throw new UnsupportedOperationException();
 
 //3 ksqjbiie0e6vvaeawdxriie5
 // static Rect_t objplpmks(XLabels_t * xlp, object_t * objp) 
-public static Object objplpmks(Object... arg) {
-UNSUPPORTED("56xi0kf7c3v2wjn9pgxjfd6h"); // static Rect_t objplpmks(XLabels_t * xlp, object_t * objp)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("1xpsng8cc6f4327hr9iybol18"); //     Rect_t rect;
-UNSUPPORTED("2bghyit203pd6xw2ihhenzyn8"); //     pointf p;
-UNSUPPORTED("44i0d8rb96ptawj2nb9zhyuzq"); //     p.x = p.y = 0.0;
-UNSUPPORTED("3dwj4u821y9ogiqj7n51lyoag"); //     if (objp->lbl)
-UNSUPPORTED("43e7r8tcv1i4842l88wzlv8oh"); // 	p = objp->lbl->sz;
-UNSUPPORTED("5vkhq86nkkgbben2zw7acts5t"); //     rect.boundary[0] = (int) floor(objp->pos.x - p.x);
-UNSUPPORTED("3smh87oiqzvpexhjkfsvfqk9x"); //     rect.boundary[1] = (int) floor(objp->pos.y - p.y);
-UNSUPPORTED("2qxkma0x5w0j667gciafl1erp"); //     rect.boundary[2] = (int) ceil(objp->pos.x + objp->sz.x + p.x);
-UNSUPPORTED("6jltyhrpm228xlstvy1cij4b"); //     assert(rect.boundary[2] < INT_MAX);
-UNSUPPORTED("aczubaaqymb9ns1q4t70v16a2"); //     rect.boundary[3] = (int) ceil(objp->pos.y + objp->sz.y + p.y);
-UNSUPPORTED("560x8steudix953y8g7kyqgph"); //     assert(rect.boundary[3] < INT_MAX);
-UNSUPPORTED("5r5gm69aqx2rcthvo0oaisz5n"); //     return rect;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="objplpmks", key="ksqjbiie0e6vvaeawdxriie5", definition="static Rect_t objplpmks(XLabels_t * xlp, object_t * objp)")
+public static ST_Rect_t objplpmks(ST_XLabels_t xlp, ST_object_t objp) {
+ENTERING("ksqjbiie0e6vvaeawdxriie5","objplpmks");
+try {
+     final ST_Rect_t rect = new ST_Rect_t();
+     final ST_pointf p = new ST_pointf();
+     p.x = 0;
+     p.y = 0;
+     if (objp.lbl!=null)
+    	 p.___(objp.lbl.get__(0).sz);
+     rect.boundary[0]=((int) Math.floor(objp.pos.x - p.x));
+     rect.boundary[1]=((int) Math.floor(objp.pos.y - p.y));
+     rect.boundary[2]=((int) Math.ceil(objp.pos.x + objp.sz.x + p.x));
+     //     assert(rect.boundary[2] < INT_MAX);
+     rect.boundary[3]=((int) Math.ceil(objp.pos.y + objp.sz.y + p.y));
+     //     assert(rect.boundary[3] < INT_MAX);
+     return rect;
+} finally {
+LEAVING("ksqjbiie0e6vvaeawdxriie5","objplpmks");
+}
 }
 
 
@@ -529,14 +451,16 @@ throw new UnsupportedOperationException();
 
 //3 calnhom3s9dqvvi6crrz3h2wp
 // static int getintrsxi(XLabels_t * xlp, object_t * op, object_t * cp) 
-public static Object getintrsxi(Object... arg) {
-UNSUPPORTED("a9fedvxwftar39hm6zje929tj"); // static int getintrsxi(XLabels_t * xlp, object_t * op, object_t * cp)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("451bp6msra12odk32g38u2p4l"); //     int i = -1;
-UNSUPPORTED("6ve3kvakrupo08cfuexjzim3j"); //     xlabel_t *lp = op->lbl, *clp = cp->lbl;
-UNSUPPORTED("bot9xncc749y7iruelw2v96mm"); //     assert(lp != clp);
-UNSUPPORTED("95np7ge1zv1ws57dp9wu3twm8"); //     if (lp->set == 0 || clp->set == 0)
-UNSUPPORTED("11drvggon8u61uz4iw75insly"); // 	return i;
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="getintrsxi", key="calnhom3s9dqvvi6crrz3h2wp", definition="static int getintrsxi(XLabels_t * xlp, object_t * op, object_t * cp)")
+public static int getintrsxi(ST_XLabels_t xlp, ST_object_t  op, ST_object_t cp) {
+ENTERING("calnhom3s9dqvvi6crrz3h2wp","getintrsxi");
+try {
+     int i = -1;
+     CStar<ST_xlabel_t> lp = op.lbl, clp = cp.lbl;
+     assert(lp != clp);
+     if (lp.get__(0).set == 0 || clp.get__(0).set == 0)
+ 	return i;
 UNSUPPORTED("bofpvwtmumoe1ckgnlgbwg8bt"); //     if ((op->pos.x == 0.0 && op->pos.y == 0.0) ||
 UNSUPPORTED("f039op8rn0jopi9r8kora4cwz"); // 	(cp->pos.x == 0.0 && cp->pos.y == 0.0))
 UNSUPPORTED("11drvggon8u61uz4iw75insly"); // 	return i;
@@ -562,6 +486,9 @@ UNSUPPORTED("ahwo5hst5k1gyq20ve63ahe81"); //     return i;
 UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
 
 throw new UnsupportedOperationException();
+} finally {
+LEAVING("calnhom3s9dqvvi6crrz3h2wp","getintrsxi");
+}
 }
 
 
@@ -569,40 +496,40 @@ throw new UnsupportedOperationException();
 
 //3 52awwxu810dg9a2pjq45aomam
 // static double recordointrsx(XLabels_t * xlp, object_t * op, object_t * cp, Rect_t * rp, 	      double a, object_t * intrsx[9]) 
-public static Object recordointrsx(Object... arg) {
-UNSUPPORTED("lt6cippjix5bbvyhkcpl8g7g"); // static double
-UNSUPPORTED("2zz9cixco1u51p503mmbdrgwj"); // recordointrsx(XLabels_t * xlp, object_t * op, object_t * cp, Rect_t * rp,
-UNSUPPORTED("apwjxkvmqelrsmtxwca7febp5"); // 	      double a, object_t * intrsx[9])
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("ejj0lh0dxc3weinkmoqplvk87"); //     int i = getintrsxi(xlp, op, cp);
-UNSUPPORTED("7jqpiltkvdvvkjldnxqmz4nfw"); //     if (i < 0)
-UNSUPPORTED("cmp9l0lizmu0ars1jf1oxdms"); // 	i = 5;
-UNSUPPORTED("b3zyhtz43kkfxl6c8kovnaukv"); //     if (intrsx[i] != (void *)0) {
-UNSUPPORTED("908eps96desp6goewhn8nkz4v"); // 	double sa, maxa = 0.0;
-UNSUPPORTED("cz5yjl642c9a3c7quub0ndp2a"); // 	Rect_t srect;
-UNSUPPORTED("aq0f27u636o0qqw392noohjgj"); // 	/* keep maximally overlapping object */
-UNSUPPORTED("5vocmgb870od0q18046qxkydh"); // 	objp2rect(intrsx[i], &srect);
-UNSUPPORTED("3by02iwc6g6vz00qca2gs8af1"); // 	sa = aabbaabb(rp, &srect);
-UNSUPPORTED("77dloi6nsmguqzpi413an26qc"); // 	if (sa > a)
-UNSUPPORTED("8e6d6m12amff6diyc58bdpzap"); // 	    maxa = sa;
-UNSUPPORTED("2d4heu1iudrpn42muf8z4aedr"); // 	/*keep maximally overlapping label */
-UNSUPPORTED("5g3p1wh0h43afgmy1ttrgr1jv"); // 	if (intrsx[i]->lbl) {
-UNSUPPORTED("e5ldv4apogj6g1ixv62v7fqn7"); // 	    objplp2rect(intrsx[i], &srect);
-UNSUPPORTED("6h73h574xwo051r2xjepln3kk"); // 	    sa = aabbaabb(rp, &srect);
-UNSUPPORTED("cl94uq2flao8cddtvg02oliwb"); // 	    if (sa > a)
-UNSUPPORTED("d9hnc5ox6fsga1e2336gg1fwv"); // 		maxa = sa > maxa ? sa : maxa;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("6nmie1l1f5g573kzykn3266zd"); // 	if (maxa > 0.0)
-UNSUPPORTED("dm9264t4efl70h617d1apqrlj"); // 	    return maxa;
-UNSUPPORTED("3vems3bwps1fshis117u06l2l"); // 	/*replace overlapping label/object pair */
-UNSUPPORTED("c3ewj48u0ngzq2xd8g3238ays"); // 	intrsx[i] = cp;
-UNSUPPORTED("efte22brajv8hm98pgq1oyjc5"); // 	return a;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("2u8wtbwfirvx570l7nhbkqwmn"); //     intrsx[i] = cp;
-UNSUPPORTED("3gfohtnqgemf2e1akg4je944a"); //     return a;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="recordointrsx", key="52awwxu810dg9a2pjq45aomam", definition="static double recordointrsx(XLabels_t * xlp, object_t * op, object_t * cp, Rect_t * rp, 	      double a, object_t * intrsx[9])")
+public static double recordointrsx(ST_XLabels_t xlp, ST_object_t op, ST_object_t cp, ST_Rect_t rp, double a, ST_object_t[] intrsx) {
+ENTERING("52awwxu810dg9a2pjq45aomam","recordointrsx");
+try {
+     int i = getintrsxi(xlp, op, cp);
+     if (i < 0)
+ 	i = 5;
+     if (intrsx[i] != null) {
+ 	double sa, maxa = 0.0;
+ 	final ST_Rect_t srect = new ST_Rect_t();
+ 	/* keep maximally overlapping object */
+ 	objp2rect(intrsx[i], srect);
+ 	sa = aabbaabb(rp, srect);
+ 	if (sa > a)
+ 	    maxa = sa;
+ 	/*keep maximally overlapping label */
+ 	if (intrsx[i].lbl!=null) {
+ 	    objplp2rect(intrsx[i], srect);
+ 	    sa = aabbaabb(rp, srect);
+ 	    if (sa > a)
+ 		maxa = sa > maxa ? sa : maxa;
+ 	}
+ 	if (maxa > 0.0)
+ 	    return maxa;
+ 	/*replace overlapping label/object pair */
+ 	intrsx[i] = cp;
+ 	return a;
+     }
+     intrsx[i] = cp;
+     return a;
+} finally {
+LEAVING("52awwxu810dg9a2pjq45aomam","recordointrsx");
+}
 }
 
 
@@ -610,99 +537,116 @@ throw new UnsupportedOperationException();
 
 //3 2umrncgkunxoyeuc8i9hd5pwa
 // static double recordlintrsx(XLabels_t * xlp, object_t * op, object_t * cp, Rect_t * rp, 	      double a, object_t * intrsx[9]) 
-public static Object recordlintrsx(Object... arg) {
-UNSUPPORTED("lt6cippjix5bbvyhkcpl8g7g"); // static double
-UNSUPPORTED("a36vanbvru4xq84pujn0rdpr5"); // recordlintrsx(XLabels_t * xlp, object_t * op, object_t * cp, Rect_t * rp,
-UNSUPPORTED("apwjxkvmqelrsmtxwca7febp5"); // 	      double a, object_t * intrsx[9])
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("ejj0lh0dxc3weinkmoqplvk87"); //     int i = getintrsxi(xlp, op, cp);
-UNSUPPORTED("7jqpiltkvdvvkjldnxqmz4nfw"); //     if (i < 0)
-UNSUPPORTED("cmp9l0lizmu0ars1jf1oxdms"); // 	i = 5;
-UNSUPPORTED("b3zyhtz43kkfxl6c8kovnaukv"); //     if (intrsx[i] != (void *)0) {
-UNSUPPORTED("908eps96desp6goewhn8nkz4v"); // 	double sa, maxa = 0.0;
-UNSUPPORTED("cz5yjl642c9a3c7quub0ndp2a"); // 	Rect_t srect;
-UNSUPPORTED("aq0f27u636o0qqw392noohjgj"); // 	/* keep maximally overlapping object */
-UNSUPPORTED("5vocmgb870od0q18046qxkydh"); // 	objp2rect(intrsx[i], &srect);
-UNSUPPORTED("3by02iwc6g6vz00qca2gs8af1"); // 	sa = aabbaabb(rp, &srect);
-UNSUPPORTED("77dloi6nsmguqzpi413an26qc"); // 	if (sa > a)
-UNSUPPORTED("8e6d6m12amff6diyc58bdpzap"); // 	    maxa = sa;
-UNSUPPORTED("2d4heu1iudrpn42muf8z4aedr"); // 	/*keep maximally overlapping label */
-UNSUPPORTED("5g3p1wh0h43afgmy1ttrgr1jv"); // 	if (intrsx[i]->lbl) {
-UNSUPPORTED("e5ldv4apogj6g1ixv62v7fqn7"); // 	    objplp2rect(intrsx[i], &srect);
-UNSUPPORTED("6h73h574xwo051r2xjepln3kk"); // 	    sa = aabbaabb(rp, &srect);
-UNSUPPORTED("cl94uq2flao8cddtvg02oliwb"); // 	    if (sa > a)
-UNSUPPORTED("d9hnc5ox6fsga1e2336gg1fwv"); // 		maxa = sa > maxa ? sa : maxa;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("6nmie1l1f5g573kzykn3266zd"); // 	if (maxa > 0.0)
-UNSUPPORTED("dm9264t4efl70h617d1apqrlj"); // 	    return maxa;
-UNSUPPORTED("3vems3bwps1fshis117u06l2l"); // 	/*replace overlapping label/object pair */
-UNSUPPORTED("c3ewj48u0ngzq2xd8g3238ays"); // 	intrsx[i] = cp;
-UNSUPPORTED("efte22brajv8hm98pgq1oyjc5"); // 	return a;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("2u8wtbwfirvx570l7nhbkqwmn"); //     intrsx[i] = cp;
-UNSUPPORTED("3gfohtnqgemf2e1akg4je944a"); //     return a;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="recordlintrsx", key="2umrncgkunxoyeuc8i9hd5pwa", definition="static double recordlintrsx(XLabels_t * xlp, object_t * op, object_t * cp, Rect_t * rp, 	      double a, object_t * intrsx[9])")
+public static double recordlintrsx(ST_XLabels_t xlp, ST_object_t op, ST_object_t cp, ST_Rect_t rp, double a, ST_object_t intrsx[]) {
+ENTERING("2umrncgkunxoyeuc8i9hd5pwa","recordlintrsx");
+try {
+     int i = getintrsxi(xlp, op, cp);
+     if (i < 0)
+ 	i = 5;
+     if (intrsx[i] != null) {
+ 	double sa, maxa = 0.0;
+ 	final ST_Rect_t srect = new ST_Rect_t();
+ 	/* keep maximally overlapping object */
+ 	objp2rect(intrsx[i], srect);
+ 	sa = aabbaabb(rp, srect);
+ 	if (sa > a)
+ 	    maxa = sa;
+ 	/*keep maximally overlapping label */
+ 	if (intrsx[i].lbl!=null) {
+ 	    objplp2rect(intrsx[i], srect);
+ 	    sa = aabbaabb(rp, srect);
+ 	    if (sa > a)
+ 		maxa = sa > maxa ? sa : maxa;
+ 	}
+ 	if (maxa > 0.0)
+ 	    return maxa;
+ 	/*replace overlapping label/object pair */
+ 	intrsx[i] = cp;
+ 	return a;
+     }
+  	intrsx[i] = cp;
+  	return a;
+} finally {
+LEAVING("2umrncgkunxoyeuc8i9hd5pwa","recordlintrsx");
+}
 }
 
 
 
 
+/* find the objects and labels intersecting lp */
 //3 2td62i5hus8obwt8j1lo3ddj9
 // static BestPos_t xlintersections(XLabels_t * xlp, object_t * objp, object_t * intrsx[9]) 
-public static Object xlintersections(Object... arg) {
-UNSUPPORTED("5d1nc0otrpz1jjsig9p42wcdx"); // static BestPos_t
-UNSUPPORTED("6wd33niscsg9gaphvjj2k27mk"); // xlintersections(XLabels_t * xlp, object_t * objp, object_t * intrsx[9])
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("b17di9c7wgtqm51bvsyxz6e2f"); //     int i;
-UNSUPPORTED("3zfiovc9yy1ux6pn9mcga1mhx"); //     LeafList_t *ilp, *llp;
-UNSUPPORTED("a1j5r089evbgqbrk12ebcposk"); //     Rect_t rect, srect;
-UNSUPPORTED("ac14qcqjljksbh1ulqbhsnrnb"); //     BestPos_t bp;
-UNSUPPORTED("cep99zzwrn6h0kw9g90d0bcx5"); //     assert(objp->lbl);
-UNSUPPORTED("at98kl98nqfoglwklw8bmf8dy"); //     bp.n = 0;
-UNSUPPORTED("6umte8r5yaoo1st9aa3ak69vv"); //     bp.area = 0.0;
-UNSUPPORTED("6lbd8rbktjb11npai18mqgehg"); //     bp.pos = objp->lbl->pos;
-UNSUPPORTED("bu059qij9p4jrq3c2fc3dv1tc"); //     for(i=0; i<xlp->n_objs; i++) {
-UNSUPPORTED("2ju28cg7zhx8a22r2nngjed1z"); //       if(objp == &xlp->objs[i]) continue;
-UNSUPPORTED("8y5ea7egphfppbq3tbxnqvszd"); //       if(xlp->objs[i].sz.x > 0 && xlp->objs[i].sz.y > 0) continue;
-UNSUPPORTED("8kr7yfnz75qb1mcurk9ikvqm4"); //       if(lblenclosing(objp, &xlp->objs[i]) ) {
-UNSUPPORTED("4szbt8bacnec4eh6741w9202k"); // 	bp.n++;
-UNSUPPORTED("dquo3qofk56ds5xl95lhvcthf"); //       }
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("3kxhpoylut0o1vn46d51xaxmm"); //     objplp2rect(objp, &rect);
-UNSUPPORTED("2oyraxz5ikxma3gbfbygvqyfb"); //     llp = RTreeSearch(xlp->spdx, xlp->spdx->root, &rect);
-UNSUPPORTED("5gmvhcq1f7m3vaw99uu5u2lhh"); //     if (!llp)
-UNSUPPORTED("6t20fkj318tjhdok8hlpbsnf7"); // 	return bp;
-UNSUPPORTED("cu0fy461wercnkus2c5pix4y9"); //     for (ilp = llp; ilp; ilp = ilp->next) {
-UNSUPPORTED("694r1mgceoxxp4ktbci1h2qnm"); // 	double a, ra;
-UNSUPPORTED("6sqdh7rdwpg33jt0ecjx3yobj"); // 	object_t *cp = ilp->leaf->data;
-UNSUPPORTED("7wl0z6xy4danjs21muyt94sm7"); // 	if (cp == objp)
-UNSUPPORTED("6hqli9m8yickz1ox1qfgtdbnd"); // 	    continue;
-UNSUPPORTED("91gncffnouukjk2940jfpcll4"); // 	/*label-object intersect */
-UNSUPPORTED("8gzbd1z9dm5uszv31wx6una1n"); // 	objp2rect(cp, &srect);
-UNSUPPORTED("c5t1kwupnkevwfpx3deb42y52"); // 	a = aabbaabb(&rect, &srect);
-UNSUPPORTED("9zmfoo91yy2c8v5o1x9tul9a5"); // 	if (a > 0.0) {
-UNSUPPORTED("di2i1k0ht9d4tbn1d0os7lj44"); // 	  ra = recordointrsx(xlp, objp, cp, &rect, a, intrsx);
-UNSUPPORTED("20fp32yan59vu7bbp6jc1t8fn"); // 	  bp.n++;
-UNSUPPORTED("asfx7fyb1rvar23xmjcttxkyc"); // 	  bp.area += ra;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("6pabj7ne9s1dinxh7rgynt84r"); // 	/*label-label intersect */
-UNSUPPORTED("6azbae5tbds7g6ytolv14300v"); // 	if (!cp->lbl || !cp->lbl->set)
-UNSUPPORTED("6hqli9m8yickz1ox1qfgtdbnd"); // 	    continue;
-UNSUPPORTED("4jw7tfl9ltqgflydxukej7r0d"); // 	objplp2rect(cp, &srect);
-UNSUPPORTED("c5t1kwupnkevwfpx3deb42y52"); // 	a = aabbaabb(&rect, &srect);
-UNSUPPORTED("9zmfoo91yy2c8v5o1x9tul9a5"); // 	if (a > 0.0) {
-UNSUPPORTED("db5ir72mk4a23hg0pqyapmdav"); // 	  ra = recordlintrsx(xlp, objp, cp, &rect, a, intrsx);
-UNSUPPORTED("20fp32yan59vu7bbp6jc1t8fn"); // 	  bp.n++;
-UNSUPPORTED("asfx7fyb1rvar23xmjcttxkyc"); // 	  bp.area += ra;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("6q4puajbcusq4jhaq2i60nlt4"); //     RTreeLeafListFree(llp);
-UNSUPPORTED("bgo7070e5cs998w6zp1ma85ad"); //     return bp;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="xlintersections", key="2td62i5hus8obwt8j1lo3ddj9", definition="static BestPos_t xlintersections(XLabels_t * xlp, object_t * objp, object_t * intrsx[9])")
+public static ST_BestPos_t xlintersections(ST_XLabels_t xlp, ST_object_t objp, ST_object_t intrsx[]) {
+ENTERING("2td62i5hus8obwt8j1lo3ddj9","xlintersections");
+try {
+	return (ST_BestPos_t) xlintersections_(xlp, objp, intrsx).copy();
+} finally {
+LEAVING("2td62i5hus8obwt8j1lo3ddj9","xlintersections");
+}
+}
 
-throw new UnsupportedOperationException();
+private static ST_BestPos_t xlintersections_(ST_XLabels_t xlp, ST_object_t objp, ST_object_t intrsx[]) {
+	int i;
+	ST_LeafList_t ilp, llp;
+	final ST_Rect_t rect = new ST_Rect_t(), srect = new ST_Rect_t();
+	final ST_BestPos_t bp = new ST_BestPos_t();
+		
+//     assert(objp->lbl);
+		
+    bp.n = 0;
+    bp.area = 0.0;
+    bp.pos.___(objp.lbl.get__(0).pos);
+
+     for(i=0; i<xlp.n_objs; i++) {
+    	       if (EQ(objp, xlp.objs.get__(i))) continue;
+       if(xlp.objs.get__(i).sz.x > 0 && xlp.objs.get__(i).sz.y > 0) continue;
+       if(lblenclosing(objp, xlp.objs.get__(i))) {
+    	 	  bp.setInt("n", bp.n+1);
+       }
+     }
+     
+     objplp2rect(objp, rect);
+     
+     llp = RTreeSearch(xlp.spdx, xlp.spdx.root, rect);
+     if (N(llp))
+ 	return bp;
+     
+     for (ilp = llp; ilp!=null; ilp = ilp.next) {
+ 	double a, ra;
+ 	// WARNING FOR TRANSLATION
+ 	// In the C code, "data" was used. However ST_Branch_t is very close to ST_Leaf_t
+ 	// So in Java version, ST_Leaf_t has been removed and ST_Branch_t is used instead
+ 	ST_object_t cp = (ST_object_t) ilp.leaf.child;
+ 	
+ 	if (EQ(cp, objp))
+ 	    continue;
+ 	
+   /*label-object intersect */
+ 	objp2rect(cp, srect);
+ 	a = aabbaabb(rect, srect);
+ 	if (a > 0.0) {
+ 	  ra = recordointrsx(xlp, objp, cp, rect, a, intrsx);
+	  bp.n++;
+	  bp.area += ra;
+ 	}
+ 	/*label-label intersect */
+ 	if (N(cp.lbl) || N(cp.lbl.get__(0).set))
+ 	    continue;
+ 	objplp2rect(cp, srect);
+ 	a = aabbaabb(rect, srect);
+ 	if (a > 0.0) {
+ 	  ra = recordlintrsx(xlp, objp, cp, rect, a, intrsx);
+	  bp.n++;
+	  bp.area += ra;
+ 	}
+     }
+     RTreeLeafListFree(llp);
+     return bp;
 }
 
 
@@ -710,78 +654,87 @@ throw new UnsupportedOperationException();
 
 //3 8rxvucqsqnqej6h8p1osfnk4b
 // static BestPos_t xladjust(XLabels_t * xlp, object_t * objp) 
-public static Object xladjust(Object... arg) {
-UNSUPPORTED("855u8yvlwgwm8xrgmk8yd4q2g"); // static BestPos_t xladjust(XLabels_t * xlp, object_t * objp)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("3wparjbgs7cft1xsjcztm8bdh"); //     xlabel_t *lp = objp->lbl;
-UNSUPPORTED("3z9wizs5r8uuyz9r6zxqmltyr"); //     double xincr = ((2 * lp->sz.x) + objp->sz.x) / 8;
-UNSUPPORTED("6y5jbcs5zcnghcye723x4gerv"); //     double yincr = ((2 * lp->sz.y) + objp->sz.y) / 2;
-UNSUPPORTED("75ucply06uar4cxvlazotnq23"); //     object_t *intrsx[9];
-UNSUPPORTED("9akjtu5ebkpokhkmmtkmz7alu"); //     BestPos_t bp, nbp;
-UNSUPPORTED("cep99zzwrn6h0kw9g90d0bcx5"); //     assert(objp->lbl);
-UNSUPPORTED("8imr23u6gekt0djjf1kronrfn"); //     memset(intrsx, 0, sizeof(intrsx));
-UNSUPPORTED("1yhd7hlhm8avh8zzfa6szjhz"); //     /*x left */
-UNSUPPORTED("9j4u90wq1z4maw7hj3ecfdm76"); //     lp->pos.x = objp->pos.x - lp->sz.x;
-UNSUPPORTED("dximv1vws8eaor4idmmxl4cxm"); //     /*top */
-UNSUPPORTED("2fqhd5bouvdzxkjo7cb26f1be"); //     lp->pos.y = objp->pos.y + objp->sz.y;
-UNSUPPORTED("4ol5wxgvom71bm5d6x8u1uhce"); //     bp = xlintersections(xlp, objp, intrsx);
-UNSUPPORTED("b2di2eiikxmj7aprwrglzmouu"); //     if (bp.n == 0)
-UNSUPPORTED("6t20fkj318tjhdok8hlpbsnf7"); // 	return bp;
-UNSUPPORTED("aagnln5mk16fd69wnvh7p5m33"); //     /*mid */
-UNSUPPORTED("b7imuebo95ow7fl42ukl08csq"); //     lp->pos.y = objp->pos.y;
-UNSUPPORTED("4a8niot6lun3zef1tls6aomot"); //     nbp = xlintersections(xlp, objp, intrsx);
-UNSUPPORTED("5d0zdvxl3sgzkryeuli9o53y8"); //     if (nbp.n == 0)
-UNSUPPORTED("6a6aos5zy43mcgqak0sb6pm5f"); // 	return nbp;
-UNSUPPORTED("anqn2ghhjsx21704j9hnkxqle"); //     if (nbp.area < bp.area)
-UNSUPPORTED("ct5bwjy62uv01c11htvtjj68p"); // 	bp = nbp;
-UNSUPPORTED("d0vrsmmihdqn5mrg1ukoz4opr"); //     /*bottom */
-UNSUPPORTED("f5b4ggww4fzy0j1ustukdd023"); //     lp->pos.y = objp->pos.y - lp->sz.y;
-UNSUPPORTED("4a8niot6lun3zef1tls6aomot"); //     nbp = xlintersections(xlp, objp, intrsx);
-UNSUPPORTED("5d0zdvxl3sgzkryeuli9o53y8"); //     if (nbp.n == 0)
-UNSUPPORTED("6a6aos5zy43mcgqak0sb6pm5f"); // 	return nbp;
-UNSUPPORTED("anqn2ghhjsx21704j9hnkxqle"); //     if (nbp.area < bp.area)
-UNSUPPORTED("ct5bwjy62uv01c11htvtjj68p"); // 	bp = nbp;
-UNSUPPORTED("7fnjcyugtimcpcfm4309c9tdm"); //     /*x mid */
-UNSUPPORTED("321pfgsh01nbsjro6xmf2ayfz"); //     lp->pos.x = objp->pos.x;
-UNSUPPORTED("dximv1vws8eaor4idmmxl4cxm"); //     /*top */
-UNSUPPORTED("2fqhd5bouvdzxkjo7cb26f1be"); //     lp->pos.y = objp->pos.y + objp->sz.y;
-UNSUPPORTED("4a8niot6lun3zef1tls6aomot"); //     nbp = xlintersections(xlp, objp, intrsx);
-UNSUPPORTED("5d0zdvxl3sgzkryeuli9o53y8"); //     if (nbp.n == 0)
-UNSUPPORTED("6a6aos5zy43mcgqak0sb6pm5f"); // 	return nbp;
-UNSUPPORTED("anqn2ghhjsx21704j9hnkxqle"); //     if (nbp.area < bp.area)
-UNSUPPORTED("ct5bwjy62uv01c11htvtjj68p"); // 	bp = nbp;
-UNSUPPORTED("d0vrsmmihdqn5mrg1ukoz4opr"); //     /*bottom */
-UNSUPPORTED("f5b4ggww4fzy0j1ustukdd023"); //     lp->pos.y = objp->pos.y - lp->sz.y;
-UNSUPPORTED("4a8niot6lun3zef1tls6aomot"); //     nbp = xlintersections(xlp, objp, intrsx);
-UNSUPPORTED("5d0zdvxl3sgzkryeuli9o53y8"); //     if (nbp.n == 0)
-UNSUPPORTED("6a6aos5zy43mcgqak0sb6pm5f"); // 	return nbp;
-UNSUPPORTED("anqn2ghhjsx21704j9hnkxqle"); //     if (nbp.area < bp.area)
-UNSUPPORTED("ct5bwjy62uv01c11htvtjj68p"); // 	bp = nbp;
-UNSUPPORTED("630ofptck59xowlm1hcwiue59"); //     /*x right */
-UNSUPPORTED("3zrvv0dmz98537x06egk4mwsj"); //     lp->pos.x = objp->pos.x + objp->sz.x;
-UNSUPPORTED("dximv1vws8eaor4idmmxl4cxm"); //     /*top */
-UNSUPPORTED("2fqhd5bouvdzxkjo7cb26f1be"); //     lp->pos.y = objp->pos.y + objp->sz.y;
-UNSUPPORTED("4a8niot6lun3zef1tls6aomot"); //     nbp = xlintersections(xlp, objp, intrsx);
-UNSUPPORTED("5d0zdvxl3sgzkryeuli9o53y8"); //     if (nbp.n == 0)
-UNSUPPORTED("6a6aos5zy43mcgqak0sb6pm5f"); // 	return nbp;
-UNSUPPORTED("anqn2ghhjsx21704j9hnkxqle"); //     if (nbp.area < bp.area)
-UNSUPPORTED("ct5bwjy62uv01c11htvtjj68p"); // 	bp = nbp;
-UNSUPPORTED("aagnln5mk16fd69wnvh7p5m33"); //     /*mid */
-UNSUPPORTED("b7imuebo95ow7fl42ukl08csq"); //     lp->pos.y = objp->pos.y;
-UNSUPPORTED("4a8niot6lun3zef1tls6aomot"); //     nbp = xlintersections(xlp, objp, intrsx);
-UNSUPPORTED("5d0zdvxl3sgzkryeuli9o53y8"); //     if (nbp.n == 0)
-UNSUPPORTED("6a6aos5zy43mcgqak0sb6pm5f"); // 	return nbp;
-UNSUPPORTED("anqn2ghhjsx21704j9hnkxqle"); //     if (nbp.area < bp.area)
-UNSUPPORTED("ct5bwjy62uv01c11htvtjj68p"); // 	bp = nbp;
-UNSUPPORTED("d0vrsmmihdqn5mrg1ukoz4opr"); //     /*bottom */
-UNSUPPORTED("f5b4ggww4fzy0j1ustukdd023"); //     lp->pos.y = objp->pos.y - lp->sz.y;
-UNSUPPORTED("4a8niot6lun3zef1tls6aomot"); //     nbp = xlintersections(xlp, objp, intrsx);
-UNSUPPORTED("5d0zdvxl3sgzkryeuli9o53y8"); //     if (nbp.n == 0)
-UNSUPPORTED("6a6aos5zy43mcgqak0sb6pm5f"); // 	return nbp;
-UNSUPPORTED("anqn2ghhjsx21704j9hnkxqle"); //     if (nbp.area < bp.area)
-UNSUPPORTED("ct5bwjy62uv01c11htvtjj68p"); // 	bp = nbp;
-UNSUPPORTED("6eft7mmbcin2x9bhx6gvtc33b"); //     /*sliding from top left */
-UNSUPPORTED("2lmnvn101cpkt9b1cwipe71gz"); //     if (intrsx[6] || intrsx[7] || intrsx[8] || intrsx[3] || intrsx[0]) {	/* have to move */
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="xladjust", key="8rxvucqsqnqej6h8p1osfnk4b", definition="static BestPos_t xladjust(XLabels_t * xlp, object_t * objp)")
+public static ST_BestPos_t xladjust(ST_XLabels_t xlp, ST_object_t objp) {
+ENTERING("8rxvucqsqnqej6h8p1osfnk4b","xladjust");
+try {
+	return (ST_BestPos_t) xladjust_(xlp, objp).copy();	
+} finally {
+LEAVING("8rxvucqsqnqej6h8p1osfnk4b","xladjust");
+}
+}
+private static ST_BestPos_t xladjust_(ST_XLabels_t xlp, ST_object_t objp) {
+	CStar<ST_xlabel_t> lp = objp.lbl; // ST_xlabel_t
+    double xincr = ((2 * lp.get__(0).sz.x + objp.sz.x)) / 8;
+    double yincr = ((2 * lp.get__(0).sz.y + objp.sz.y)) / 2;
+    ST_object_t intrsx[] = new ST_object_t[9];
+    final ST_BestPos_t bp = new ST_BestPos_t();
+    final ST_BestPos_t nbp = new ST_BestPos_t();
+    //     assert(objp->lbl);
+    //     memset(intrsx, 0, sizeof(intrsx));
+     /*x left */
+    lp.get__(0).pos.x = objp.pos.x - lp.get__(0).sz.x;
+     /*top */
+    lp.get__(0).pos.y = objp.pos.y + objp.sz.y;
+    bp.___(xlintersections(xlp, objp, intrsx));
+     if (bp.n == 0)
+ 	return bp;
+     /*mid */
+     lp.get__(0).pos.y = objp.pos.y;
+     nbp.___(xlintersections(xlp, objp, intrsx));
+     if (nbp.n == 0)
+ 	return nbp;
+     if (nbp.area < bp.area)
+ 	bp.___(nbp);
+     /*bottom */
+     lp.get__(0).pos.y = objp.pos.y - lp.get__(0).sz.y;
+     nbp.___(xlintersections(xlp, objp, intrsx));
+     if (nbp.n == 0)
+ 	return nbp;
+     if (nbp.area < bp.area)
+ 	bp.___(nbp);
+     /*x mid */
+     lp.get__(0).pos.x = objp.pos.x;
+     /*top */
+     lp.get__(0).pos.y = objp.pos.y + objp.sz.y;
+     nbp.___(xlintersections(xlp, objp, intrsx));
+     if (nbp.n == 0)
+       return nbp;
+     if (nbp.area < bp.area)
+       bp.___(nbp);
+     /*bottom */
+	lp.get__(0).pos.y = objp.pos.y - lp.get__(0).sz.y;
+     nbp.___(xlintersections(xlp, objp, intrsx));
+     if (nbp.n == 0)
+       return nbp;
+     if (nbp.area < bp.area)
+       bp.___(nbp);
+     /*x right */
+ 	lp.get__(0).pos.x = objp.pos.x + objp.sz.x;
+     /*top */
+ 	lp.get__(0).pos.y = objp.pos.y + objp.sz.y;
+     nbp.___(xlintersections(xlp, objp, intrsx));
+if (nbp.n == 0)
+return nbp;
+if (nbp.area < bp.area)
+    bp.___(nbp);
+     /*mid */
+	lp.get__(0).pos.y = objp.pos.y;
+     nbp.___(xlintersections(xlp, objp, intrsx));
+if (nbp.n == 0)
+return nbp;
+if (nbp.area < bp.area)
+    bp.___(nbp);
+     /*bottom */
+	lp.get__(0).pos.y = objp.pos.y - lp.get__(0).sz.y;
+     nbp.___(xlintersections(xlp, objp, intrsx));
+if (nbp.n == 0)
+return nbp;
+if (nbp.area < bp.area)
+    bp.___(nbp);
+     /*sliding from top left */
+     if (intrsx[6]!=null || intrsx[7]!=null || intrsx[8]!=null || intrsx[3]!=null || intrsx[0]!=null) {	/* have to move */
 UNSUPPORTED("c5acs4cl77hgu5j6nmhk090uz"); // 	if (!intrsx[7] && !intrsx[8]) {	/* some room right? */
 UNSUPPORTED("ez8sbh237xdqdjeewev2ys74y"); // 	    /* slide along upper edge */
 UNSUPPORTED("ajgw2jggmwmofm77lgbx5eo2n"); // 	    for (lp->pos.x = objp->pos.x - lp->sz.x,
@@ -808,25 +761,25 @@ UNSUPPORTED("8yd6g3a3f0g09gmu5f67vah0x"); // 		if (nbp.area < bp.area)
 UNSUPPORTED("d6ac36j6lh6qspxwnn3vi0uc3"); // 		    bp = nbp;
 UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
 UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("8nu4s12gyh52h2ot9r2mlueuv"); //     /*sliding from bottom right */
-UNSUPPORTED("3zrvv0dmz98537x06egk4mwsj"); //     lp->pos.x = objp->pos.x + objp->sz.x;
-UNSUPPORTED("f5b4ggww4fzy0j1ustukdd023"); //     lp->pos.y = objp->pos.y - lp->sz.y;
-UNSUPPORTED("9bzyoo2lc0pw2w76mz7eeduvc"); //     if (intrsx[2] || intrsx[1] || intrsx[0] || intrsx[5] || intrsx[8]) {	/* have to move */
-UNSUPPORTED("dq7ul34gznvszkqhgqlz4fihm"); // 	if (!intrsx[1] && !intrsx[0]) {	/* some room left? */
-UNSUPPORTED("ahn6dk8lj2by2umnd8pceb83d"); // 	    /* slide along lower edge */
-UNSUPPORTED("7natp0873pfsvymhhhvki1sev"); // 	    for (lp->pos.x = objp->pos.x + objp->sz.x,
-UNSUPPORTED("56ycmo0ljb7e86mnezdx3regh"); // 		 lp->pos.y = objp->pos.y - lp->sz.y;
-UNSUPPORTED("3wro576dh2vj9wpmfxx4rldbm"); // 		 lp->pos.x >= (objp->pos.x - lp->sz.x);
-UNSUPPORTED("bvw5pjd7v4j796l8hhh1zrln6"); // 		 lp->pos.x -= xincr) {
-UNSUPPORTED("8pbum2o0fs86ceaiuxv4efbb6"); // 		nbp = xlintersections(xlp, objp, intrsx);
-UNSUPPORTED("5xx7o143ftoj0rhyhg1hqgioa"); // 		if (nbp.n == 0)
-UNSUPPORTED("eqanxe9w90oki7yqvwyzpfcw1"); // 		    return nbp;
-UNSUPPORTED("8yd6g3a3f0g09gmu5f67vah0x"); // 		if (nbp.area < bp.area)
-UNSUPPORTED("d6ac36j6lh6qspxwnn3vi0uc3"); // 		    bp = nbp;
-UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("4owpyb9p8esm06ttngj1arl5c"); // 	if (!intrsx[5] && !intrsx[8]) {	/* some room up? */
+     }
+     /*sliding from bottom right */
+ 	lp.get__(0).pos.x = objp.pos.x + objp.sz.x;
+	lp.get__(0).pos.y = objp.pos.y - lp.get__(0).sz.y;
+     if (intrsx[2]!=null || intrsx[1]!=null || intrsx[0]!=null || intrsx[5]!=null || intrsx[8]!=null) {	/* have to move */
+ 	if (N(intrsx[1]) && N(intrsx[0])) {	/* some room left? */
+ 	    /* slide along lower edge */
+ 	    for (lp.get__(0).pos.x = (objp.pos.x + objp.sz.x),
+ 		 lp.get__(0).pos.y = objp.pos.y - lp.get__(0).sz.y;
+ 		 lp.get__(0).pos.x >= (objp.pos.x - lp.get__(0).sz.x);
+ 		 lp.get__(0).pos.x = (lp.get__(0).pos.x - xincr)) {
+ 		nbp.___(xlintersections(xlp, objp, intrsx));
+ 		if (nbp.n == 0)
+ 			return nbp;
+ 			if (nbp.area < bp.area)
+ 			    bp.___(nbp);
+ 	    }
+ 	}
+ 	if (N(intrsx[5]) && N(intrsx[8])) {	/* some room up? */
 UNSUPPORTED("4bcpk3ixfwrlr0yzrjv2efigj"); // 	    /* slide up right edge */
 UNSUPPORTED("7natp0873pfsvymhhhvki1sev"); // 	    for (lp->pos.x = objp->pos.x + objp->sz.x,
 UNSUPPORTED("56ycmo0ljb7e86mnezdx3regh"); // 		 lp->pos.y = objp->pos.y - lp->sz.y;
@@ -838,12 +791,9 @@ UNSUPPORTED("eqanxe9w90oki7yqvwyzpfcw1"); // 		    return nbp;
 UNSUPPORTED("8yd6g3a3f0g09gmu5f67vah0x"); // 		if (nbp.area < bp.area)
 UNSUPPORTED("d6ac36j6lh6qspxwnn3vi0uc3"); // 		    bp = nbp;
 UNSUPPORTED("6t98dcecgbvbvtpycwiq2ynnj"); // 	    }
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("bgo7070e5cs998w6zp1ma85ad"); //     return bp;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+ 	}
+     }
+     return bp;
 }
 
 
@@ -851,30 +801,34 @@ throw new UnsupportedOperationException();
 
 //3 e29g2hwlogx0zchsnvi464c7t
 // static int xlhdxload(XLabels_t * xlp) 
-public static Object xlhdxload(Object... arg) {
-UNSUPPORTED("ttxmlo99ck9eo0jae04cg2v0"); // static int xlhdxload(XLabels_t * xlp)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("b17di9c7wgtqm51bvsyxz6e2f"); //     int i;
-UNSUPPORTED("5qghcwlht7sxz3cthtja5f043"); //     int order = xlhorder(xlp);
-UNSUPPORTED("eali4r93mgkm937waq6to82sj"); //     for (i = 0; i < xlp->n_objs; i++) {
-UNSUPPORTED("aves0wxiz65s447kr8wukl6zr"); // 	HDict_t *hp;
-UNSUPPORTED("43j1m17g0mjbn69pbx7ph6omt"); // 	point pi;
-UNSUPPORTED("bn6ewrzw1x1whedilfc6kobal"); // 	hp = (HDict_t*)zmalloc(sizeof(HDict_t));
-UNSUPPORTED("5wresbe1bm8eff0j10in23a8b"); // 	hp->d.data = &xlp->objs[i];
-UNSUPPORTED("7syosspcm4ygedrsu0c1gaqop"); // 	hp->d.rect = objplpmks(xlp, &xlp->objs[i]);
-UNSUPPORTED("6mb29odwxakb6cqdulhhed9j5"); // 	/* center of the labeling area */
-UNSUPPORTED("83ihi4lf580lzo4gdus20wr2w"); // 	pi.x = hp->d.rect.boundary[0] +
-UNSUPPORTED("ao944ocofv44otdeh08kl4u8o"); // 	    (hp->d.rect.boundary[2] - hp->d.rect.boundary[0]) / 2;
-UNSUPPORTED("3igtyiyl8cpovcwukpm44iquw"); // 	pi.y = hp->d.rect.boundary[1] +
-UNSUPPORTED("3r4kfmd4lw5d0osh14sf4cjwg"); // 	    (hp->d.rect.boundary[3] - hp->d.rect.boundary[1]) / 2;
-UNSUPPORTED("42x3x9vgkald7xdpbxyxih2zj"); // 	hp->key = hd_hil_s_from_xy(pi, order);
-UNSUPPORTED("4apoyv2n3t2fcv72hom4owvgj"); // 	if (!((*(((Dt_t*)(xlp->hdx))->searchf))((xlp->hdx),(void*)(hp),0000001)))
-UNSUPPORTED("aivfd7ajlfz8o8oi68d4u5s5z"); // 	    return -1;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("5oxhd3fvp0gfmrmz12vndnjt"); //     return 0;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="xlhdxload", key="e29g2hwlogx0zchsnvi464c7t", definition="static int xlhdxload(XLabels_t * xlp)")
+public static int xlhdxload(ST_XLabels_t xlp) {
+ENTERING("e29g2hwlogx0zchsnvi464c7t","xlhdxload");
+try {
+     int i;
+     int order = xlhorder(xlp);
+      for (i = 0; i < xlp.n_objs; i++) {
+    	  ST_HDict_t hp;
+    	  final ST_point pi = new ST_point();
+    	  hp = new ST_HDict_t();
+    	  hp.d.child = xlp.objs.get__(i);
+    	  hp.d.rect.___(objplpmks(xlp, xlp.objs.get__(i)));
+          /* center of the labeling area */
+    	  pi.x = hp.d.rect.boundary[0] +
+    	   (hp.d.rect.boundary[2] - hp.d.rect.boundary[0]) / 2;
+		  pi.y = hp.d.rect.boundary[1] +
+		   (hp.d.rect.boundary[3] - hp.d.rect.boundary[1]) / 2;
+		  
+		  hp.key = hd_hil_s_from_xy(pi, order);
+		  if (N(xlp.hdx.searchf.exe(xlp.hdx, hp, 0000001)))
+			  
+ 	    return -1;
+     }
+     return 0;
+} finally {
+LEAVING("e29g2hwlogx0zchsnvi464c7t","xlhdxload");
+}
 }
 
 
@@ -882,23 +836,28 @@ throw new UnsupportedOperationException();
 
 //3 26qpvnyd6tmdut8i2wo4itza3
 // static void xlhdxunload(XLabels_t * xlp) 
-public static Object xlhdxunload(Object... arg) {
-UNSUPPORTED("4bsnj74f63qe288s6be1xmrzw"); // static void xlhdxunload(XLabels_t * xlp)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("9sqtid8yyo2ws8avf33utdebf"); //   int size=dtsize(xlp->hdx), freed=0;
-UNSUPPORTED("dm7bmt2fwlkdskmcebdm1ctqj"); //   while(dtsize(xlp->hdx) ) {
-UNSUPPORTED("a3jz6ykhoarsdfviidq7beb9z"); //     void*vp=(((Dt_t*)(xlp->hdx))->data->here ? (((Dt_t*)((xlp->hdx)))->disc->link < 0 ? ((Dthold_t*)((((Dt_t*)(xlp->hdx))->data->here)))->obj : (void*)((char*)((((Dt_t*)(xlp->hdx))->data->here)) - ((Dt_t*)((xlp->hdx)))->disc->link) ):(void*)(0));
-UNSUPPORTED("2covsywkzvpkysnjf34nmr1uw"); //     assert(vp);
-UNSUPPORTED("a9jmr8hmnwcky7f1e1qorwnjv"); //     if(vp) {
-UNSUPPORTED("d2vfgb4tj6x8x7cq0kv0qgk23"); //       (*(((Dt_t*)(xlp->hdx))->searchf))((xlp->hdx),(void*)(vp),0010000);
-UNSUPPORTED("7f4abg2jsf465jjlnp95d9sk6"); //       free(vp);
-UNSUPPORTED("5hklxkrkvjgi37kkm6v9xajwc"); //       freed++;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("7ijd6pszsxnoopppf6xwo8wdl"); //   }
-UNSUPPORTED("bifp41eoqo8l51crrab087z21"); //   assert(size==freed);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="xlhdxunload", key="26qpvnyd6tmdut8i2wo4itza3", definition="static void xlhdxunload(XLabels_t * xlp)")
+public static void xlhdxunload(ST_XLabels_t xlp) {
+ENTERING("26qpvnyd6tmdut8i2wo4itza3","xlhdxunload");
+try {
+//UNSUPPORTED("4bsnj74f63qe288s6be1xmrzw"); // static void xlhdxunload(XLabels_t * xlp)
+//UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
+//UNSUPPORTED("9sqtid8yyo2ws8avf33utdebf"); //   int size=dtsize(xlp->hdx), freed=0;
+//UNSUPPORTED("dm7bmt2fwlkdskmcebdm1ctqj"); //   while(dtsize(xlp->hdx) ) {
+//UNSUPPORTED("a3jz6ykhoarsdfviidq7beb9z"); //     void*vp=(((Dt_t*)(xlp->hdx))->data->here ? (((Dt_t*)((xlp->hdx)))->disc->link < 0 ? ((Dthold_t*)((((Dt_t*)(xlp->hdx))->data->here)))->obj : (void*)((char*)((((Dt_t*)(xlp->hdx))->data->here)) - ((Dt_t*)((xlp->hdx)))->disc->link) ):(void*)(0));
+//UNSUPPORTED("2covsywkzvpkysnjf34nmr1uw"); //     assert(vp);
+//UNSUPPORTED("a9jmr8hmnwcky7f1e1qorwnjv"); //     if(vp) {
+//UNSUPPORTED("d2vfgb4tj6x8x7cq0kv0qgk23"); //       (*(((Dt_t*)(xlp->hdx))->searchf))((xlp->hdx),(void*)(vp),0010000);
+//UNSUPPORTED("7f4abg2jsf465jjlnp95d9sk6"); //       free(vp);
+//UNSUPPORTED("5hklxkrkvjgi37kkm6v9xajwc"); //       freed++;
+//UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
+//UNSUPPORTED("7ijd6pszsxnoopppf6xwo8wdl"); //   }
+//UNSUPPORTED("bifp41eoqo8l51crrab087z21"); //   assert(size==freed);
+//UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
+} finally {
+LEAVING("26qpvnyd6tmdut8i2wo4itza3","xlhdxunload");
+}
 }
 
 
@@ -906,18 +865,27 @@ throw new UnsupportedOperationException();
 
 //3 3wrxwwd3y5ts0ekr32o8vhuvv
 // static int xlspdxload(XLabels_t * xlp) 
-public static Object xlspdxload(Object... arg) {
-UNSUPPORTED("87f4jxirnq7mx28zcremgaezf"); // static int xlspdxload(XLabels_t * xlp)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("eoerd3bf05xvvfj7aisz4slcs"); //     HDict_t *op=0;
-UNSUPPORTED("2ub4kt9g1hlj02ucnbi3as0ps"); //     for (op = (*(((Dt_t*)(xlp->hdx))->searchf))((xlp->hdx),(void*)(0),0000200); op; op = (*(((Dt_t*)(xlp->hdx))->searchf))((xlp->hdx),(void*)(op),0000010)) {
-UNSUPPORTED("cklsugu3v9hzi5pvl4dqcq7gf"); // 	/*          tree       rectangle    data        node             lvl */
-UNSUPPORTED("b49ahflq7xke1g6eoxv0jw2tg"); // 	RTreeInsert(xlp->spdx, &op->d.rect, op->d.data, &xlp->spdx->root, 0);
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("5oxhd3fvp0gfmrmz12vndnjt"); //     return 0;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="xlspdxload", key="3wrxwwd3y5ts0ekr32o8vhuvv", definition="static int xlspdxload(XLabels_t * xlp)")
+public static int xlspdxload(ST_XLabels_t xlp) {
+ENTERING("3wrxwwd3y5ts0ekr32o8vhuvv","xlspdxload");
+try {
+     ST_HDict_t op=null;
+     for (op = (ST_HDict_t) xlp.hdx.searchf.exe(xlp.hdx, null, 0000200); op!=null;
+    		 op = (ST_HDict_t) xlp.hdx.searchf.exe(xlp.hdx, op, 0000010)) {
+   	/*          tree       rectangle    data        node             lvl */
+//    	 	RTreeInsert(xlp->spdx, &op->d.rect, op->d.data, &xlp->spdx->root, 0);
+    	 // WARNING ARRAY
+     	final ST_Node_t___[] tmp = new ST_Node_t___[] {(ST_Node_t___) xlp.spdx.root};
+		RTreeInsert((ST_RTree) xlp.spdx, (ST_Rect_t)op.d.rect,
+     			op.d.child,
+     			tmp, 0);
+		xlp.spdx.setPtr("root", tmp[0]);
+     }
+     return 0;
+} finally {
+LEAVING("3wrxwwd3y5ts0ekr32o8vhuvv","xlspdxload");
+}
 }
 
 
@@ -925,19 +893,21 @@ throw new UnsupportedOperationException();
 
 //3 6d3fqrllm55toeo3wscwvv4ty
 // static int xlinitialize(XLabels_t * xlp) 
-public static Object xlinitialize(Object... arg) {
-UNSUPPORTED("732719k3woyiirridxkwkzxoo"); // static int xlinitialize(XLabels_t * xlp)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("4s45njph0l3mj07r60fuv2k3y"); //     int r=0;
-UNSUPPORTED("ez5mifho06mx5h3ncausptuzp"); //     if ((r = xlhdxload(xlp)) < 0)
-UNSUPPORTED("bt8wt6mqb316pv7egiekltb74"); // 	return r;
-UNSUPPORTED("f2rrvhf7kqopq3w2vk3a66gqq"); //     if ((r = xlspdxload(xlp)) < 0)
-UNSUPPORTED("bt8wt6mqb316pv7egiekltb74"); // 	return r;
-UNSUPPORTED("5stn8d1urg4jlet1hh0it6cnh"); //     xlhdxunload(xlp);
-UNSUPPORTED("bevdavatk2tsg3i7wugaqk0ta"); //     return dtclose(xlp->hdx);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="xlinitialize", key="6d3fqrllm55toeo3wscwvv4ty", definition="static int xlinitialize(XLabels_t * xlp)")
+public static int xlinitialize(ST_XLabels_t xlp) {
+ENTERING("6d3fqrllm55toeo3wscwvv4ty","xlinitialize");
+try {
+     int r=0;
+     if ((r = xlhdxload(xlp)) < 0)
+ 	return r;
+     if ((r = xlspdxload(xlp)) < 0)
+ 	return r;
+     xlhdxunload(xlp);
+     return dtclose((ST_dt_s) xlp.hdx);
+} finally {
+LEAVING("6d3fqrllm55toeo3wscwvv4ty","xlinitialize");
+}
 }
 
 
@@ -945,55 +915,55 @@ throw new UnsupportedOperationException();
 
 //3 brqgbskh3z4ah8infjompibvu
 // int placeLabels(object_t * objs, int n_objs, 	    xlabel_t * lbls, int n_lbls, label_params_t * params) 
-public static Object placeLabels(Object... arg) {
-UNSUPPORTED("etrjsq5w49uo9jq5pzifohkqw"); // int
-UNSUPPORTED("ec68cktfb4yv5ddz6c3prlrlz"); // placeLabels(object_t * objs, int n_objs,
-UNSUPPORTED("5ldon0a05p5rangda7ft97vpf"); // 	    xlabel_t * lbls, int n_lbls, label_params_t * params)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("ch9su7givqwexp175hzif4dga"); //     int r, i;
-UNSUPPORTED("ac14qcqjljksbh1ulqbhsnrnb"); //     BestPos_t bp;
-UNSUPPORTED("as2y5lue6yv2statqso3a65vn"); //     XLabels_t *xlp = xlnew(objs, n_objs, lbls, n_lbls, params);
-UNSUPPORTED("dm5w2lmehr2rv6b2yi2v83i3g"); //     if ((r = xlinitialize(xlp)) < 0)
-UNSUPPORTED("bt8wt6mqb316pv7egiekltb74"); // 	return r;
-UNSUPPORTED("8izrf1sxed8y2dmpz5ju27b6h"); //     /* Place xlabel_t* lp near lp->obj so that the rectangle whose lower-left
-UNSUPPORTED("dy7wplw95swrlkv1ne5udmbk4"); //      * corner is lp->pos, and size is lp->sz does not intersect any object
-UNSUPPORTED("8x5vdo798lnffr7xy14gs8x50"); //      * in objs (by convention, an object consisting of a single point
-UNSUPPORTED("9gxb8rlhafdv5g89oagw3add7"); //      * intersects nothing) nor any other label, if possible. On input,
-UNSUPPORTED("4w8t3nbzjsvab8g9jpodkwd8m"); //      * lp->set is 0.
-UNSUPPORTED("e715w78m2sgdlih8srgyerdiv"); //      *
-UNSUPPORTED("z4vevdpoynmn19xji08qzk3g"); //      * On output, any label with a position should have this stored in
-UNSUPPORTED("4v5b9m6g4uktmdpnsll0erj7z"); //      * lp->pos and have lp->set non-zero.
-UNSUPPORTED("e715w78m2sgdlih8srgyerdiv"); //      *
-UNSUPPORTED("3lkc8tv6lv7r7ufa9evyti04j"); //      * If params->force is true, all labels must be positioned, even if
-UNSUPPORTED("4lybka8gtaqneks34nylp952d"); //      * overlaps are necessary.
-UNSUPPORTED("e715w78m2sgdlih8srgyerdiv"); //      *
-UNSUPPORTED("5frb7jkllwey3jie0brk7sexw"); //      * Return 0 if all labels could be placed without overlap;
-UNSUPPORTED("b8t343yuuec8v0l5c25l9lpi9"); //      * non-zero otherwise.
-UNSUPPORTED("795vpnc8yojryr8b46aidsu69"); //      */
-UNSUPPORTED("dfy198s0balu93ez4di7muow9"); //     r = 0;
-UNSUPPORTED("bznihqrwh4167vo2mn4du53da"); //     for (i = 0; i < n_objs; i++) {
-UNSUPPORTED("1kray7p45i859cpqe20uu98y6"); // 	if (objs[i].lbl == 0)
-UNSUPPORTED("6hqli9m8yickz1ox1qfgtdbnd"); // 	    continue;
-UNSUPPORTED("572cl1ylp2iqus4kjdigoqut3"); // 	bp = xladjust(xlp, &objs[i]);
-UNSUPPORTED("dr8tnm5vyr6b4kb5le39f33s9"); // 	if (bp.n == 0) {
-UNSUPPORTED("1wsz4ptoxskyulgu7czf059sf"); // 	    objs[i].lbl->set = 1;
-UNSUPPORTED("crlmrxaiu6t07d3ztas7pwfoi"); // 	} else if(bp.area == 0) {
-UNSUPPORTED("djsgfzak14js9ukvgmoqnkm8v"); // 	    objs[i].lbl->pos.x = bp.pos.x;
-UNSUPPORTED("5s2aq4djc0l3xyilkowd7ri1r"); // 	    objs[i].lbl->pos.y = bp.pos.y;
-UNSUPPORTED("1wsz4ptoxskyulgu7czf059sf"); // 	    objs[i].lbl->set = 1;
-UNSUPPORTED("19st2bzrcserz5r5280g8iwb8"); // 	} else if (params->force == 1) {
-UNSUPPORTED("djsgfzak14js9ukvgmoqnkm8v"); // 	    objs[i].lbl->pos.x = bp.pos.x;
-UNSUPPORTED("5s2aq4djc0l3xyilkowd7ri1r"); // 	    objs[i].lbl->pos.y = bp.pos.y;
-UNSUPPORTED("1wsz4ptoxskyulgu7czf059sf"); // 	    objs[i].lbl->set = 1;
-UNSUPPORTED("7yhr8hn3r6wohafwxrt85b2j2"); // 	} else {
-UNSUPPORTED("cqgdtl138trieiu5el4upwpg0"); // 	    r = 1;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("6oy0ry9luo305no4iuqqxcdjr"); //     xlfree(xlp);
-UNSUPPORTED("a2hk6w52njqjx48nq3nnn2e5i"); //     return r;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
+@Unused
+@Original(version="2.38.0", path="lib/label/xlabels.c", name="placeLabels", key="brqgbskh3z4ah8infjompibvu", definition="int placeLabels(object_t * objs, int n_objs, 	    xlabel_t * lbls, int n_lbls, label_params_t * params)")
+public static int placeLabels(CStar<ST_object_t> objs, int n_objs, CStar<ST_xlabel_t> lbls, int n_lbls, ST_label_params_t params) {
+ENTERING("brqgbskh3z4ah8infjompibvu","placeLabels");
+try {
+int r, i;
+final ST_BestPos_t bp = new ST_BestPos_t();
+ST_XLabels_t xlp = xlnew(objs, n_objs, lbls, n_lbls, params);
+     if ((r = xlinitialize(xlp)) < 0)
+ 	return r;
+     /* Place xlabel_t* lp near lp->obj so that the rectangle whose lower-left
+      * corner is lp->pos, and size is lp->sz does not intersect any object
+      * in objs (by convention, an object consisting of a single point
+      * intersects nothing) nor any other label, if possible. On input,
+      * lp->set is 0.
+      *
+      * On output, any label with a position should have this stored in
+      * lp->pos and have lp->set non-zero.
+      *
+      * If params->force is true, all labels must be positioned, even if
+      * overlaps are necessary.
+      *
+      * Return 0 if all labels could be placed without overlap;
+      * non-zero otherwise.
+      */
+     r = 0;
+     for (i = 0; i < n_objs; i++) {
+ 	if (objs.get__(i).lbl == null)
+ 	    continue;
+ 	bp.___(xladjust(xlp, objs.get__(i)));
+ 	if (bp.n == 0) {
+ 	    objs.get__(i).lbl.get__(0).set = 1;
+ 	} else if(bp.area == 0) {
+ 	    objs.get__(i).lbl.get__(0).pos.x = bp.pos.x;
+ 	    objs.get__(i).lbl.get__(0).pos.y = bp.pos.y;
+ 	    objs.get__(i).lbl.get__(0).set = 1;
+ 	} else if (params.force) {
+ 	    objs.get__(i).lbl.get__(0).pos.x = bp.pos.x;
+ 	    objs.get__(i).lbl.get__(0).pos.y = bp.pos.y;
+ 	    objs.get__(i).lbl.get__(0).set = 1;
+ 	} else {
+ 	    r = 1;
+ 	}
+     }
+     xlfree(xlp);
+     return r;
+} finally {
+LEAVING("brqgbskh3z4ah8infjompibvu","placeLabels");
+}
 }
 
 

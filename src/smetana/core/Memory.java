@@ -4,10 +4,15 @@
  *
  * Project Info:  http://plantuml.com
  * 
+ * If you like this project or if you find it useful, you can support us at:
+ * 
+ * http://plantuml.com/patreon (only 1$ per month!)
+ * http://plantuml.com/paypal
+ * 
  * This file is part of Smetana.
  * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * (C) Copyright 2009-2017, Arnaud Roques
+ * (C) Copyright 2009-2020, Arnaud Roques
  *
  * This translation is distributed under the same Licence as the original C program.
  * 
@@ -30,15 +35,11 @@
  */
 package smetana.core;
 
-import smetana.core.amiga.StarArrayOfPtr;
-import smetana.core.amiga.StarStar;
-import smetana.core.amiga.StarStruct;
-
 public class Memory {
 
-	public static __ptr__ malloc(Class cl) {
-		JUtils.LOG("MEMORY::malloc " + cl);
-		return StarStruct.malloc(cl);
+	public static __ptr__ malloc(Class theClass) {
+		JUtils.LOG("MEMORY::malloc " + theClass);
+		return JUtils.create(theClass, null);
 	}
 
 	public static __ptr__ malloc(size_t size) {
@@ -46,25 +47,21 @@ public class Memory {
 	}
 
 	public static __ptr__ realloc(__ptr__ old, size_t size) {
-		if (old instanceof StarArrayOfPtr) {
-			((StarArrayOfPtr) old).realloc(((size_t_array_of_something) size).getNb());
-			return old;
-		}
-		if (old instanceof StarStar) {
-			((StarStar) old).realloc(((size_t_array_of_array_of_something_empty) size).getNb());
-			return old;
-		}
-		throw new UnsupportedOperationException();
+		throw new UnsupportedOperationException("" + old.getClass());
 	}
 
 	public static void free(Object arg) {
 	}
 
-	public static int identityHashCode(Object data) {
-		int result = 2 * System.identityHashCode(data);
-		Z._().all.put(result, data);
+	public static int identityHashCode(CString data) {
+		if (data == null) {
+			return 0;
+		}
+		// int result = 2 * System.identityHashCode(data);
+		int result = data.getUid();
+		Z.z().all.put(result, data);
 		// System.err.println("Memory::identityHashCode data=" + data);
-		// System.err.println("Memory::identityHashCode result=" + result + " " + Z._().all.size());
+		// System.err.println("Memory::identityHashCode result=" + result + " " + Z.z().all.size());
 		return result;
 	}
 
@@ -73,7 +70,7 @@ public class Memory {
 		if (hash % 2 != 0) {
 			throw new IllegalArgumentException();
 		}
-		Object result = Z._().all.get(hash);
+		Object result = Z.z().all.get(hash);
 		// System.err.println("Memory::fromIdentityHashCode result=" + result);
 		if (result == null) {
 			throw new UnsupportedOperationException();

@@ -4,10 +4,15 @@
  *
  * Project Info:  http://plantuml.com
  * 
+ * If you like this project or if you find it useful, you can support us at:
+ * 
+ * http://plantuml.com/patreon (only 1$ per month!)
+ * http://plantuml.com/paypal
+ * 
  * This file is part of Smetana.
  * Smetana is a partial translation of Graphviz/Dot sources from C to Java.
  *
- * (C) Copyright 2009-2017, Arnaud Roques
+ * (C) Copyright 2009-2022, Arnaud Roques
  *
  * This translation is distributed under the same Licence as the original C program:
  * 
@@ -39,286 +44,72 @@
  *
  */
 package gen.lib.gvc;
-import h.*;
-import smetana.core.*;
-import static smetana.core.Macro.*;
-import static smetana.core.JUtils.*;
-import static smetana.core.JUtilsDebug.*;
-import static gen.lib.cdt.dtclose__c.*;
-import static gen.lib.cdt.dtdisc__c.*;
-import static gen.lib.cdt.dtextract__c.*;
-import static gen.lib.cdt.dtflatten__c.*;
-import static gen.lib.cdt.dthash__c.*;
-import static gen.lib.cdt.dtlist__c.*;
-import static gen.lib.cdt.dtmethod__c.*;
-import static gen.lib.cdt.dtopen__c.*;
-import static gen.lib.cdt.dtrenew__c.*;
-import static gen.lib.cdt.dtrestore__c.*;
-import static gen.lib.cdt.dtsize__c.*;
-import static gen.lib.cdt.dtstat__c.*;
-import static gen.lib.cdt.dtstrhash__c.*;
-import static gen.lib.cdt.dttreeset__c.*;
-import static gen.lib.cdt.dttree__c.*;
-import static gen.lib.cdt.dtview__c.*;
-import static gen.lib.cdt.dtwalk__c.*;
-import static gen.lib.cgraph.agerror__c.*;
-import static gen.lib.cgraph.agxbuf__c.*;
-import static gen.lib.cgraph.apply__c.*;
-import static gen.lib.cgraph.attr__c.*;
-import static gen.lib.cgraph.cmpnd__c.*;
-import static gen.lib.cgraph.edge__c.*;
-import static gen.lib.cgraph.flatten__c.*;
-import static gen.lib.cgraph.graph__c.*;
-import static gen.lib.cgraph.id__c.*;
-import static gen.lib.cgraph.imap__c.*;
-import static gen.lib.cgraph.io__c.*;
-import static gen.lib.cgraph.main__c.*;
-import static gen.lib.cgraph.mem__c.*;
-import static gen.lib.cgraph.node__c.*;
-import static gen.lib.cgraph.obj__c.*;
-import static gen.lib.cgraph.pend__c.*;
-import static gen.lib.cgraph.rec__c.*;
-import static gen.lib.cgraph.refstr__c.*;
-import static gen.lib.cgraph.scan__c.*;
-import static gen.lib.cgraph.subg__c.*;
-import static gen.lib.cgraph.tester__c.*;
-import static gen.lib.cgraph.utils__c.*;
-import static gen.lib.cgraph.write__c.*;
-import static gen.lib.circogen.blockpath__c.*;
-import static gen.lib.circogen.blocktree__c.*;
-import static gen.lib.circogen.block__c.*;
-import static gen.lib.circogen.circpos__c.*;
-import static gen.lib.circogen.circularinit__c.*;
-import static gen.lib.circogen.circular__c.*;
-import static gen.lib.circogen.deglist__c.*;
-import static gen.lib.circogen.edgelist__c.*;
-import static gen.lib.circogen.nodelist__c.*;
-import static gen.lib.circogen.nodeset__c.*;
-import static gen.lib.common.args__c.*;
-import static gen.lib.common.arrows__c.*;
-import static gen.lib.common.colxlate__c.*;
-import static gen.lib.common.ellipse__c.*;
-import static gen.lib.common.emit__c.*;
-import static gen.lib.common.geom__c.*;
-import static gen.lib.common.globals__c.*;
-import static gen.lib.common.htmllex__c.*;
-import static gen.lib.common.htmlparse__c.*;
-import static gen.lib.common.htmltable__c.*;
-import static gen.lib.common.input__c.*;
-import static gen.lib.common.intset__c.*;
-import static gen.lib.common.labels__c.*;
-import static gen.lib.common.memory__c.*;
-import static gen.lib.common.ns__c.*;
-import static gen.lib.common.output__c.*;
-import static gen.lib.common.pointset__c.*;
-import static gen.lib.common.postproc__c.*;
-import static gen.lib.common.psusershape__c.*;
-import static gen.lib.common.routespl__c.*;
-import static gen.lib.common.shapes__c.*;
-import static gen.lib.common.splines__c.*;
-import static gen.lib.common.strcasecmp__c.*;
-import static gen.lib.common.strncasecmp__c.*;
-import static gen.lib.common.taper__c.*;
-import static gen.lib.common.textspan__c.*;
-import static gen.lib.common.timing__c.*;
-import static gen.lib.common.utils__c.*;
-import static gen.lib.dotgen.acyclic__c.*;
-import static gen.lib.dotgen.aspect__c.*;
-import static gen.lib.dotgen.class1__c.*;
-import static gen.lib.dotgen.class2__c.*;
-import static gen.lib.dotgen.cluster__c.*;
-import static gen.lib.dotgen.compound__c.*;
-import static gen.lib.dotgen.conc__c.*;
-import static gen.lib.dotgen.decomp__c.*;
-import static gen.lib.dotgen.dotinit__c.*;
-import static gen.lib.dotgen.dotsplines__c.*;
-import static gen.lib.dotgen.fastgr__c.*;
-import static gen.lib.dotgen.flat__c.*;
-import static gen.lib.dotgen.mincross__c.*;
-import static gen.lib.dotgen.position__c.*;
-import static gen.lib.dotgen.rank__c.*;
-import static gen.lib.dotgen.sameport__c.*;
-import static gen.lib.fdpgen.clusteredges__c.*;
-import static gen.lib.fdpgen.comp__c.*;
-import static gen.lib.fdpgen.dbg__c.*;
-import static gen.lib.fdpgen.fdpinit__c.*;
-import static gen.lib.fdpgen.grid__c.*;
-import static gen.lib.fdpgen.layout__c.*;
-import static gen.lib.fdpgen.tlayout__c.*;
-import static gen.lib.fdpgen.xlayout__c.*;
-import static gen.lib.gvc.gvbuffstderr__c.*;
-import static gen.lib.gvc.gvconfig__c.*;
-import static gen.lib.gvc.gvcontext__c.*;
-import static gen.lib.gvc.gvc__c.*;
-import static gen.lib.gvc.gvdevice__c.*;
-import static gen.lib.gvc.gvevent__c.*;
-import static gen.lib.gvc.gvjobs__c.*;
-import static gen.lib.gvc.gvlayout__c.*;
-import static gen.lib.gvc.gvloadimage__c.*;
-import static gen.lib.gvc.gvplugin__c.*;
-import static gen.lib.gvc.gvrender__c.*;
-import static gen.lib.gvc.gvtextlayout__c.*;
-import static gen.lib.gvc.gvusershape__c.*;
-import static gen.lib.gvc.regex_win32__c.*;
-import static gen.lib.label.index__c.*;
-import static gen.lib.label.node__c.*;
-import static gen.lib.label.nrtmain__c.*;
-import static gen.lib.label.rectangle__c.*;
-import static gen.lib.label.split_q__c.*;
-import static gen.lib.label.xlabels__c.*;
-import static gen.lib.ortho.fPQ__c.*;
-import static gen.lib.ortho.maze__c.*;
-import static gen.lib.ortho.ortho__c.*;
-import static gen.lib.ortho.partition__c.*;
-import static gen.lib.ortho.rawgraph__c.*;
-import static gen.lib.ortho.sgraph__c.*;
-import static gen.lib.ortho.trapezoid__c.*;
-import static gen.lib.pack.ccomps__c.*;
-import static gen.lib.pack.pack__c.*;
-import static gen.lib.pack.ptest__c.*;
-import static gen.lib.pathplan.cvt__c.*;
-import static gen.lib.pathplan.inpoly__c.*;
-import static gen.lib.pathplan.route__c.*;
-import static gen.lib.pathplan.shortestpth__c.*;
-import static gen.lib.pathplan.shortest__c.*;
-import static gen.lib.pathplan.solvers__c.*;
-import static gen.lib.pathplan.triang__c.*;
-import static gen.lib.pathplan.util__c.*;
-import static gen.lib.pathplan.visibility__c.*;
-import static gen.lib.xdot.xdot__c.*;
+import static gen.lib.cgraph.obj__c.agroot;
+import static gen.lib.cgraph.rec__c.agbindrec;
+import static gen.lib.common.emit__c.gv_fixLocale;
+import static gen.lib.common.input__c.graph_init;
+import static smetana.core.JUtils.LOG2;
+import static smetana.core.JUtils.NEQ;
+import static smetana.core.JUtils.enumAsInt;
+import static smetana.core.JUtils.function;
+import static smetana.core.JUtils.sizeof;
+import static smetana.core.JUtilsDebug.ENTERING;
+import static smetana.core.JUtilsDebug.LEAVING;
+import static smetana.core.Macro.GD_cleanup;
+import static smetana.core.Macro.GD_drawing;
+import static smetana.core.Macro.GD_gvc;
+import static smetana.core.Macro.GVRENDER_PLUGIN;
+import static smetana.core.Macro.LAYOUT_USES_RANKDIR;
+import static smetana.core.Macro.N;
+import static smetana.core.Macro.UNSUPPORTED;
+
+import gen.annotation.Original;
+import gen.annotation.Reviewed;
+import gen.annotation.Unused;
+import h.ST_Agraph_s;
+import h.ST_Agraphinfo_t;
+import h.ST_GVC_s;
+import h.ST_gvlayout_engine_s;
+import h.ST_gvlayout_features_t;
+import h.ST_gvplugin_installed_t;
+import h.layout_type;
+import smetana.core.CString;
 
 public class gvlayout__c {
-//1 2digov3edok6d5srhgtlmrycs
-// extern lt_symlist_t lt_preloaded_symbols[]
 
 
-//1 baedz5i9est5csw3epz3cv7z
-// typedef Ppoly_t Ppolyline_t
-
-
-//1 9k44uhd5foylaeoekf3llonjq
-// extern Dtmethod_t* 	Dtset
-
-
-//1 1ahfywsmzcpcig2oxm7pt9ihj
-// extern Dtmethod_t* 	Dtbag
-
-
-//1 anhghfj3k7dmkudy2n7rvt31v
-// extern Dtmethod_t* 	Dtoset
-
-
-//1 5l6oj1ux946zjwvir94ykejbc
-// extern Dtmethod_t* 	Dtobag
-
-
-//1 2wtf222ak6cui8cfjnw6w377z
-// extern Dtmethod_t*	Dtlist
-
-
-//1 d1s1s6ibtcsmst88e3057u9r7
-// extern Dtmethod_t*	Dtstack
-
-
-//1 axa7mflo824p6fspjn1rdk0mt
-// extern Dtmethod_t*	Dtqueue
-
-
-//1 ega812utobm4xx9oa9w9ayij6
-// extern Dtmethod_t*	Dtdeque
-
-
-//1 cyfr996ur43045jv1tjbelzmj
-// extern Dtmethod_t*	Dtorder
-
-
-//1 wlofoiftbjgrrabzb2brkycg
-// extern Dtmethod_t*	Dttree
-
-
-//1 12bds94t7voj7ulwpcvgf6agr
-// extern Dtmethod_t*	Dthash
-
-
-//1 9lqknzty480cy7zsubmabkk8h
-// extern Dtmethod_t	_Dttree
-
-
-//1 bvn6zkbcp8vjdhkccqo1xrkrb
-// extern Dtmethod_t	_Dthash
-
-
-//1 9lidhtd6nsmmv3e7vjv9e10gw
-// extern Dtmethod_t	_Dtlist
-
-
-//1 34ujfamjxo7xn89u90oh2k6f8
-// extern Dtmethod_t	_Dtqueue
-
-
-//1 3jy4aceckzkdv950h89p4wjc8
-// extern Dtmethod_t	_Dtstack
-
-
-//1 8dfqgf3u1v830qzcjqh9o8ha7
-// extern Agmemdisc_t AgMemDisc
-
-
-//1 18k2oh2t6llfsdc5x0wlcnby8
-// extern Agiddisc_t AgIdDisc
-
-
-//1 a4r7hi80gdxtsv4hdoqpyiivn
-// extern Agiodisc_t AgIoDisc
-
-
-//1 bnzt5syjb7mgeru19114vd6xx
-// extern Agdisc_t AgDefaultDisc
-
-
-//1 35y2gbegsdjilegaribes00mg
-// extern Agdesc_t Agdirected, Agstrictdirected, Agundirected,     Agstrictundirected
-
-
-//1 c2rygslq6bcuka3awmvy2b3ow
-// typedef Agsubnode_t	Agnoderef_t
-
-
-//1 xam6yv0dcsx57dtg44igpbzn
-// typedef Dtlink_t	Agedgeref_t
-
-
-
-
-//3 2g20jitdi8afuoei8p1mcfg9l
-// int gvlayout_select(GVC_t * gvc, const char *layout) 
-private final static __struct__<gvlayout_features_t> dotgen_features = __struct__.from(gvlayout_features_t.class);
-private final static __struct__<gvlayout_engine_s> dotgen_engine = __struct__.from(gvlayout_engine_s.class);
+private final static ST_gvlayout_features_t dotgen_features = new ST_gvlayout_features_t();
+private final static ST_gvlayout_engine_s dotgen_engine = new ST_gvlayout_engine_s();
 static {
-dotgen_features.setInt("flags", 1<<0);
-dotgen_engine.setPtr("layout", function(gen.lib.dotgen.dotinit__c.class, "dot_layout"));
-dotgen_engine.setPtr("cleanup", function(gen.lib.dotgen.dotinit__c.class, "dot_cleanup"));
+	dotgen_features.flags = LAYOUT_USES_RANKDIR;
+	dotgen_engine.layout = function(gen.lib.dotgen.dotinit__c.class, "dot_layout");
+	dotgen_engine.cleanup = function(gen.lib.dotgen.dotinit__c.class, "dot_cleanup");
 }
-public static int gvlayout_select(GVC_s gvc, CString layout) {
+
+
+
+@Reviewed(when = "11/11/2020")
+@Original(version="2.38.0", path="lib/gvc/gvlayout.c", name="gvlayout_select", key="2g20jitdi8afuoei8p1mcfg9l", definition="int gvlayout_select(GVC_t * gvc, const char *layout)")
+public static int gvlayout_select(ST_GVC_s gvc, CString layout) {
 ENTERING("2g20jitdi8afuoei8p1mcfg9l","gvlayout_select");
 try {
-	gvplugin_installed_t gvlayout_dot_layout = (gvplugin_installed_t) Memory.malloc(gvplugin_installed_t.class);
-	gvlayout_dot_layout.setInt("id", enumAsInt(layout_type.class, "LAYOUT_DOT"));
-	gvlayout_dot_layout.setPtr("type", new CString("dot"));
-	gvlayout_dot_layout.setInt("quality", 0);
-	gvlayout_dot_layout.setPtr("engine", dotgen_engine.amp());
-	gvlayout_dot_layout.setPtr("features", dotgen_features.amp());
+	ST_gvplugin_installed_t gvlayout_dot_layout = new ST_gvplugin_installed_t();
+	gvlayout_dot_layout.id = enumAsInt(layout_type.class, "LAYOUT_DOT");
+	gvlayout_dot_layout.type = new CString("dot");
+	gvlayout_dot_layout.quality = 0;
+	gvlayout_dot_layout.engine = dotgen_engine;
+	gvlayout_dot_layout.features = dotgen_features;
 
 //    gvplugin_available_t *plugin;
-    gvplugin_installed_t typeptr = gvlayout_dot_layout;
+	ST_gvplugin_installed_t typeptr = gvlayout_dot_layout;
 //    plugin = gvplugin_load(gvc, API_layout, layout);
 //    if (plugin) {
 //	typeptr = plugin->typeptr;
-	gvc.getStruct("layout").setPtr("type", typeptr.getPtr("type"));
-	gvc.getStruct("layout").setPtr("engine", typeptr.getPtr("engine"));
-	gvc.getStruct("layout").setInt("id", typeptr.getInt("id"));
-	gvc.getStruct("layout").setPtr("features", typeptr.getPtr("features"));
-	return 300;  /* FIXME - need better return code */
+	gvc.layout.type = typeptr.type;
+	gvc.layout.engine = typeptr.engine;
+	gvc.layout.id = typeptr.id;
+	gvc.layout.features = typeptr.features;
+	return GVRENDER_PLUGIN;  /* FIXME - need better return code */
 //    }
 //    return 999;
 } finally {
@@ -329,18 +120,18 @@ LEAVING("2g20jitdi8afuoei8p1mcfg9l","gvlayout_select");
 
 
 
-//3 991b7t7n0x8ifkp49zotjs78x
-// int gvLayoutJobs(GVC_t * gvc, Agraph_t * g) 
-public static int gvLayoutJobs(GVC_s gvc, Agraph_s g) {
+@Reviewed(when = "11/11/2020")
+@Original(version="2.38.0", path="lib/gvc/gvlayout.c", name="gvLayoutJobs", key="991b7t7n0x8ifkp49zotjs78x", definition="int gvLayoutJobs(GVC_t * gvc, Agraph_t * g)")
+public static int gvLayoutJobs(ST_GVC_s gvc, ST_Agraph_s g) {
 ENTERING("991b7t7n0x8ifkp49zotjs78x","gvLayoutJobs");
 try {
-    gvlayout_engine_s gvle;
+	ST_gvlayout_engine_s gvle;
     CString p = null;
     int rc;
-    agbindrec(g, new CString("Agraphinfo_t"), sizeof(Agraphinfo_t.class), (N(0)));
+    agbindrec(g, new CString("Agraphinfo_t"), sizeof(ST_Agraphinfo_t.class), true);
     GD_gvc(g, gvc);
     if (NEQ(g, agroot(g)))
-UNSUPPORTED("ah9ygbaap1fyxr97z734juk0j"); // 	(((Agraphinfo_t*)(((Agobj_t*)(agroot(g)))->data))->gvc) = gvc;
+UNSUPPORTED("ah9ygbaap1fyxr97z734juk0j"); // 	GD_gvc(agroot(g)) = gvc;
 /*    if ((p = agget(g, new CString("layout")))!=null) {
 UNSUPPORTED("dlm1jil8gt2pv7p8yrit1tuls"); //         gvc->layout.engine = NULL;
 UNSUPPORTED("efl8rjna6ij4qjxb0xlyu3hh1"); // 	rc = gvlayout_select(gvc, p);
@@ -353,18 +144,23 @@ UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
     
     rc = gvlayout_select(gvc, p); //Let's force things
     
-    gvle = (gvlayout_engine_s) gvc.getStruct("layout").getPtr("engine");
+    gvle = (ST_gvlayout_engine_s) gvc.layout.engine;
     if (N(gvle))
 	UNSUPPORTED("return -1;");
+    
+    
     gv_fixLocale (1);
-    graph_init(g, (gvc.getStruct("layout").getPtr("features").getInt("flags") & (1<<0))!=0);
+    graph_init(g, (gvc.layout.features.flags & LAYOUT_USES_RANKDIR)!=0);
     GD_drawing(agroot(g), GD_drawing(g));
-    if (gvle!=null && gvle.getPtr("layout")!=null) {
-	gvle.call("layout", g);
-	if (gvle.getPtr("cleanup")!=null)
-	if (GD_cleanup(g)==null) 
-	System.err.println("WARNING WE CHEAT GD_cleanup(g) is NULL"); else
-	    GD_cleanup(g).setPtr(gvle.getPtr("cleanup"));
+    if (gvle!=null && gvle.layout!=null) {
+	gvle.layout.exe(g);
+
+	
+	
+	if (gvle.cleanup!=null)
+		if (GD_cleanup(g)==null) 
+		LOG2("WARNING WE CHEAT GD_cleanup(g) is NULL"); else
+	    GD_cleanup(g).setPtr(gvle.cleanup);
     }
     gv_fixLocale (0);
     return 0;
@@ -376,8 +172,8 @@ LEAVING("991b7t7n0x8ifkp49zotjs78x","gvLayoutJobs");
 
 
 
-//3 3c99zdwpmvsunk8fuj6my9c14
-// int gvFreeLayout(GVC_t * gvc, Agraph_t * g) 
+@Unused
+@Original(version="2.38.0", path="lib/gvc/gvlayout.c", name="gvFreeLayout", key="3c99zdwpmvsunk8fuj6my9c14", definition="int gvFreeLayout(GVC_t * gvc, Agraph_t * g)")
 public static Object gvFreeLayout(Object... arg) {
 UNSUPPORTED("miztaqpyzsrx0tzflsbk18df"); // int gvFreeLayout(GVC_t * gvc, Agraph_t * g)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
