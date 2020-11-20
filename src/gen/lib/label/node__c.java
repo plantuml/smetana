@@ -82,26 +82,6 @@ LEAVING("9uj7ni1m6q6drtoh56w82d6m4","RTreeNewNode");
 
 
 
-//3 65wa5vy8i5k40218lbhdibrjx
-// void RTreeFreeNode(RTree_t * rtp, Node_t * p) 
-@Unused
-@Original(version="2.38.0", path="lib/label/node.c", name="RTreeFreeNode", key="65wa5vy8i5k40218lbhdibrjx", definition="void RTreeFreeNode(RTree_t * rtp, Node_t * p)")
-public static Object RTreeFreeNode(Object... arg) {
-UNSUPPORTED("e9yu9bfc7a1ihpoc5axpyg4eg"); // void RTreeFreeNode(RTree_t * rtp, Node_t * p)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("2jtyh6hx1w2fcx2gjs8ksbkuh"); //     rtp->NodeCount--;
-UNSUPPORTED("ed5n0l2c9xevohsgtsmv822gw"); //     if (p->level == 0)
-UNSUPPORTED("8pbkap1jra9u3gvgio7ou7y1n"); // 	rtp->LeafCount--;
-UNSUPPORTED("div10atae09n36x269sl208r1"); //     else
-UNSUPPORTED("357domcrb707wvdox73ayvdj1"); // 	rtp->NonLeafCount--;
-UNSUPPORTED("bo0y3vz195pcz24vm46pixpb2"); //     free(p);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
 
 //3 4qk9wkm05q2pwf20ud6g2tufg
 // void InitNode(Node_t * n) 

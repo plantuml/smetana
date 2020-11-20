@@ -265,30 +265,6 @@ LEAVING("dkv97rr4ytpehp291etaxe9gc","delete_fast_edge");
 
 
 
-//3 b8a9hlxts1y43x7r4f31vwee6
-// static void  safe_delete_fast_edge(edge_t * e) 
-@Unused
-@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="safe_delete_fast_edge", key="b8a9hlxts1y43x7r4f31vwee6", definition="static void  safe_delete_fast_edge(edge_t * e)")
-public static Object safe_delete_fast_edge(Object... arg) {
-UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
-UNSUPPORTED("bw8hdfe3bql5qxhdyxjh12iaf"); // safe_delete_fast_edge(edge_t * e)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("b17di9c7wgtqm51bvsyxz6e2f"); //     int i;
-UNSUPPORTED("6ag74vz3kjmohe4bp89fktey4"); //     edge_t *f;
-UNSUPPORTED("axei6r4pdvrumkaqc9p82yzjh"); //     assert(e != NULL);
-UNSUPPORTED("f10apexer8zzjd53hdc3kc6l5"); //     for (i = 0; (f = ND_out(agtail(e)).list[i]); i++)
-UNSUPPORTED("dibajtvzac9fny0wd51x9jto8"); // 	if (f == e)
-UNSUPPORTED("8jj8ar5kwgfuzsk5nd6eyfcmc"); // 	    zapinlist(&(ND_out(agtail(e))), e);
-UNSUPPORTED("7h2ym5qzjdgt4gg6uscho1z1e"); //     for (i = 0; (f = ND_in(aghead(e)).list[i]); i++)
-UNSUPPORTED("dibajtvzac9fny0wd51x9jto8"); // 	if (f == e)
-UNSUPPORTED("dyemtglp4tpava0oysdm66am8"); // 	    zapinlist(&(ND_in(aghead(e))), e);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
 
 @Reviewed(when = "15/11/2020")
 @Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="other_edge", key="73oebfcfiescklohgt8mddswc", definition="void other_edge(edge_t * e)")
@@ -408,28 +384,6 @@ try {
 } finally {
 LEAVING("98hkec8t6fjk10bjpstumw0ey","fast_node");
 }
-}
-
-
-
-
-//3 66jdzhjfa6kx3ntfyl5t7cehm
-// void fast_nodeapp(node_t * u, node_t * v) 
-@Unused
-@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="fast_nodeapp", key="66jdzhjfa6kx3ntfyl5t7cehm", definition="void fast_nodeapp(node_t * u, node_t * v)")
-public static Object fast_nodeapp(Object... arg) {
-UNSUPPORTED("24rf80znlmwn6xx6m03vqyykr"); // void fast_nodeapp(node_t * u, node_t * v)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("8g450a5aruflexr2yn977dnjz"); //     assert(u != v);
-UNSUPPORTED("dw67xh0kd304grgqkgiffmejh"); //     assert(ND_next(v) == NULL);
-UNSUPPORTED("1tm9zh31fbm0sufjyg78ke83i"); //     ND_next(v) = ND_next(u);
-UNSUPPORTED("cswodtimhknr7wxlbmhxfzutw"); //     if (ND_next(u))
-UNSUPPORTED("7aukr7lwtj4wnis5h9ciserpd"); // 	ND_prev(ND_next(u)) = v;
-UNSUPPORTED("6oaowqmk3llh0vp3h096bo6nq"); //     ND_prev(v) = u;
-UNSUPPORTED("5ymiaen2fr7qzsn4uotyf2eqy"); //     ND_next(u) = v;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
 }
 
 
@@ -561,53 +515,6 @@ LEAVING("6dxgtoii76tmonlnvz4rmiytd","merge_oneway");
 }
 
 
-
-
-//3 656h1u18x3gommk50i4bak8wi
-// static void  unrep(edge_t * rep, edge_t * e) 
-@Unused
-@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="unrep", key="656h1u18x3gommk50i4bak8wi", definition="static void  unrep(edge_t * rep, edge_t * e)")
-public static Object unrep(Object... arg) {
-UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
-UNSUPPORTED("1cysdqgx90krtmp6pc8358byz"); // unrep(edge_t * rep, edge_t * e)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("az4p9xxo3dhparzmtf3co61n"); //     ED_count(rep) -= ED_count(e);
-UNSUPPORTED("bf8f3cgvxc5n9ixbj4d1z94r0"); //     ED_xpenalty(rep) -= ED_xpenalty(e);
-UNSUPPORTED("5m9h7kqjxjgizf3o1i6udm3c5"); //     ED_weight(rep) -= ED_weight(e);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
-//3 62io7qyqg9kqthfkbotnjdq49
-// void unmerge_oneway(edge_t * e) 
-@Unused
-@Original(version="2.38.0", path="lib/dotgen/fastgr.c", name="unmerge_oneway", key="62io7qyqg9kqthfkbotnjdq49", definition="void unmerge_oneway(edge_t * e)")
-public static Object unmerge_oneway(Object... arg) {
-UNSUPPORTED("3rlflkkd29cm53ssikvrqx06v"); // void unmerge_oneway(edge_t * e)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("3we8ga4x5k2sj4s20xlwumjq5"); //     edge_t *rep, *nextrep;
-UNSUPPORTED("e23vpxy61ysfsjvp3u2boafhb"); //     for (rep = ED_to_virt(e); rep; rep = nextrep) {
-UNSUPPORTED("bifyf7jydjlvj8u8hc9tqwutm"); // 	unrep(rep, e);
-UNSUPPORTED("eyjz7xjwxabdlqhyvuzfkks49"); // 	nextrep = ED_to_virt(rep);
-UNSUPPORTED("4h71tbcobl3o6put6h58thpgu"); // 	if (ED_count(rep) == 0)
-UNSUPPORTED("c87nxr35m1again4xqc8x4rhh"); // 	    safe_delete_fast_edge(rep);	/* free(rep)? */
-UNSUPPORTED("9np2sz8r74ucvij23elgzxkr4"); // 	/* unmerge from a virtual edge chain */
-UNSUPPORTED("5wohy8hhosadqtj6712ufa10t"); // 	while ((ED_edge_type(rep) == 1)
-UNSUPPORTED("9nortwuccpr0jx3z027d2jcyh"); // 	       && (ND_node_type(aghead(rep)) == 1)
-UNSUPPORTED("drowv2sbxmbe2b6632mn3luww"); // 	       && (ND_out(aghead(rep)).size == 1)) {
-UNSUPPORTED("6f9b53obe00vhcbxj865xc57u"); // 	    rep = ND_out(aghead(rep)).list[0];
-UNSUPPORTED("11fxzls2ru6go1mcuza6i8zhv"); // 	    unrep(rep, e);
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("bm31ww0y2fu2w9n5nyi04ad76"); //     ED_to_virt(e) = NULL;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
 
 
 }
