@@ -1,6 +1,0 @@
-//private static pointnlink_t pnls;
-//private static __ptr__ pnlps;
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-static pointnlink_t *pnls, **pnlps;
-

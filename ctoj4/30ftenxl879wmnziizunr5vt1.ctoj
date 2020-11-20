@@ -1,5 +1,0 @@
-//static public Agraph_s ProtoGraph;
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-static Agraph_t *ProtoGraph;
-

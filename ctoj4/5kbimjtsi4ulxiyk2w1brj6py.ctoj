@@ -1,4 +1,0 @@
-//private static Agraph_s G;
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-static graph_t *G;
-

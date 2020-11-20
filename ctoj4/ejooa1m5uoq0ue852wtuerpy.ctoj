@@ -1,5 +1,0 @@
-//private final static __struct__<pointf> Offset = __struct__.from(pointf.class);
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-static pointf Offset;
-

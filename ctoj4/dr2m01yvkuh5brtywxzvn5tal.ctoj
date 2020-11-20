@@ -1,5 +1,0 @@
-//private static __ptr__ edges;
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-static Pedge_t *edges;
-

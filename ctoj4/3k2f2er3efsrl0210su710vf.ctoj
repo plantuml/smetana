@@ -1,5 +1,0 @@
-//static private __ptr__ ops;
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-static Ppoint_t *ops;
-

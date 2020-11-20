@@ -1,5 +1,0 @@
-//private final static __struct__<deque_t> dq = __struct__.from(deque_t.class);
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-static deque_t dq;
-

@@ -1,5 +1,0 @@
-//private static __ptr__ tris;
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-static triangle_t *tris;
-

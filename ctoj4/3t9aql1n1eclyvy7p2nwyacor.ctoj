@@ -1,5 +1,0 @@
-//private static final __struct__<nlist_t> Tree_node = __struct__.from(nlist_t.class);
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-static nlist_t Tree_node;
-

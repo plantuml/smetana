@@ -1,5 +1,0 @@
-// private static __ptr__ TI_list;
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-static int *TI_list;
-
