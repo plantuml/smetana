@@ -145,15 +145,15 @@ try {
 	if(N(dt = new ST_dt_s()))
 		return null;
 //	/* initialize all absolutely private data */
-	dt.setPtr("searchf", null);
-	dt.setPtr("meth", null);
-	dt.setPtr("disc", null);
+	dt.searchf = null;
+	dt.meth = null;
+	dt.disc = null;
 	dtdisc(dt,disc,0);
 	dt.setInt("type", 0);
 	dt.setInt("nview", 0);
-	dt.setPtr("view", null);
-	dt.setPtr("walk", null);
-	dt.setPtr("user", null);
+	dt.view = null;
+	dt.walk = null;
+	dt.user = null;
 	if(disc.eventf!=null)
 	{	/* if shared/persistent dictionary, get existing data */
 		throw new UnsupportedOperationException();
