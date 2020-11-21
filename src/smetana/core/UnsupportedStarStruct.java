@@ -67,10 +67,6 @@ public class UnsupportedStarStruct implements StarStruct {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 
-	public void setDouble(double value) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
 	public __ptr__ getPtr() {
 		throw new UnsupportedOperationException(getClass().toString());
 	}

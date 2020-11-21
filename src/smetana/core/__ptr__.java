@@ -54,7 +54,7 @@ public interface __ptr__ extends __c__fields {
 	public int getInt();
 	public void setInt(int value);
 	public double getDouble();
-	public void setDouble(double value);
+
 	public __ptr__ getPtr();
 	public void setPtr(__ptr__ value);
 	public __struct__ getStruct();
