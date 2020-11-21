@@ -58,8 +58,8 @@ import h.ST_Agraph_s;
 import h.ST_dt_s;
 import h.ST_refstr_t;
 import smetana.core.ACCESS;
+import smetana.core.CStar;
 import smetana.core.CString;
-import smetana.core.STARSTAR;
 import smetana.core.Z;
 
 public class refstr__c {
@@ -86,9 +86,9 @@ static {
 private static ST_dt_s refdict(final ST_Agraph_s g) {
 ENTERING("f1nwss2xoaub1hyord232ugoj","refdict");
 try {
-		STARSTAR<ST_dt_s> dictref;
+		final CStar<ST_dt_s> dictref;
 		if (g != null)
-			dictref = STARSTAR.amp(new ACCESS<ST_dt_s>() {
+			dictref = CStar.<ST_dt_s> BUILD(new ACCESS<ST_dt_s>() {
 				public ST_dt_s get() {
 					return (ST_dt_s) g.clos.strdict;
 				}
@@ -97,7 +97,7 @@ try {
 				}
 			});
 		else
-			dictref = STARSTAR.amp(new ACCESS<ST_dt_s>() {
+			dictref = CStar.<ST_dt_s> BUILD(new ACCESS<ST_dt_s>() {
 				public ST_dt_s get() {
 					return Z.z().Refdict_default;
 				}
@@ -105,12 +105,12 @@ try {
 					Z.z().Refdict_default = obj;
 				}
 			});
-    if (dictref.getMe() == null) {
-	dictref.setMe(agdtopen(g, Z.z().Refstrdisc, Z.z().Dttree));
+    if (dictref.star() == null) {
+	dictref.star(agdtopen(g, Z.z().Refstrdisc, Z.z().Dttree));
 	Z.z().HTML_BIT = 1 << 31;
 	Z.z().CNT_BITS = ~Z.z().HTML_BIT;
 	}
-    return dictref.getMe();
+    return dictref.star();
 } finally {
 LEAVING("f1nwss2xoaub1hyord232ugoj","refdict");
 }
