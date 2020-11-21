@@ -1535,7 +1535,7 @@ try {
     final ST_boxf b = new ST_boxf();
     b.___(maximal_bbox(g, sp, n, null, e));
     endp.setStruct("nb", b);
-    endp.setInt("sidemask", 1<<2);
+    endp.sidemask = (1<<2);
     if (isBegin) beginpath(P, e, 2, endp, false);
     else endpath(P, e, 2, endp, false);
     b.UR.y = endp.boxes[endp.boxn - 1].UR.y;

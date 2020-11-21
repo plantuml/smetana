@@ -96,19 +96,6 @@ public class ST_pathend_t extends UnsupportedStructAndPtr {
 		super.setStruct(fieldName, newData);
 	}
 
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("boxn")) {
-			this.boxn = data;
-			return;
-		}
-		if (fieldName.equals("sidemask")) {
-			this.sidemask = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
-
 }
 
 // typedef struct pathend_t {

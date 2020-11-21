@@ -659,7 +659,7 @@ UNSUPPORTED("a7fgam0j0jm7bar0mblsv3no4"); // 	return;
 UNSUPPORTED("ex9kjvshm19zbu9vqonk1avd8"); // 	endp->sidemask = mask;
     else {
     endp.boxes[0].setStruct(endp.nb);
-	endp.setInt("boxn", 1);
+	endp.boxn = 1;
 	switch (et) {
 	case 8:
 	/* moving the box UR.y by + 1 avoids colinearity between
@@ -671,13 +671,13 @@ UNSUPPORTED("auefgwb39x5hzqqc9b1zgl239"); // 	    endp->sidemask = 1<<0;
 	    break;
 	case 2:
 	    if (endp.sidemask == (1<<2))
-		((ST_boxf)endp.boxes[0]).LL.y = P.start.p.y;
+		endp.boxes[0].LL.y = P.start.p.y;
 	    else
-	    	((ST_boxf)endp.boxes[0]).UR.y = P.start.p.y;
+	    	endp.boxes[0].UR.y = P.start.p.y;
 	    break;
 	case 1:
-	    ((ST_boxf)(endp).boxes[0]).UR.y = P.start.p.y;
-	    endp.setInt("sidemask", (1<<0));
+	    endp.boxes[0].UR.y = P.start.p.y;
+	    endp.sidemask = (1<<0);
 	    P.start.p.y = P.start.p.y - 1;
 	    break;
 	}    
@@ -866,10 +866,10 @@ UNSUPPORTED("a7fgam0j0jm7bar0mblsv3no4"); // 	return;
 			endp.boxn = obj;
 		}
 	}))!=0)
-	endp.setInt("sidemask", mask);
+	endp.sidemask = mask;
     else {
     	endp.boxes[0].setStruct(endp.nb);
-	endp.setInt("boxn", 1);
+	endp.boxn = 1;
 	switch (et) {
 	case 8:
 	    /* offset of -1 is symmetric w.r.t. beginpath() 
@@ -887,7 +887,7 @@ UNSUPPORTED("ai3czg6gaaxspsmndknpyvuiu"); // 	    break;
 	    break;
 	case 1:
 		endp.boxes[0].LL.y = P.end.p.y;
-	    endp.setInt("sidemask", (1<<2));
+	    endp.sidemask = (1<<2);
 	    P.end.p.y = P.end.p.y +1;
 	    break;
 	}
