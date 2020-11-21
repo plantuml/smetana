@@ -2124,21 +2124,6 @@ LEAVING("2vdhpcykq508ma83aif8sxcbd","nodeposcmpf");
 
 
 
-
-//3 87c98ld9c4hv87ekcxdyojx8l
-// static int edgeidcmpf(edge_t ** e0, edge_t ** e1) 
-@Unused
-@Original(version="2.38.0", path="lib/dotgen/mincross.c", name="edgeidcmpf", key="87c98ld9c4hv87ekcxdyojx8l", definition="static int edgeidcmpf(edge_t ** e0, edge_t ** e1)")
-public static Object edgeidcmpf(Object... arg) {
-UNSUPPORTED("apvyql25ya1p7w7i7396gucdg"); // static int edgeidcmpf(edge_t ** e0, edge_t ** e1)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("9gjc2rit3ezq4il0t5aymk1z"); //     return (AGSEQ(*e0) - AGSEQ(*e1));
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
 //1 40as9opn4mzq4gp4nkmp4dj8w
 // static int table[3][3] = 
 private static int table[][] = new int[][]{

@@ -1129,33 +1129,13 @@ LEAVING("dlbpiimh9g9ff9w7wjoabf817","rec_bb");
 
 
 
-//3 2p3nacev7k2jft9xov90nke50
-// static void scale_bb(graph_t * g, graph_t * root, double xf, double yf) 
-@Unused
-@Original(version="2.38.0", path="lib/dotgen/position.c", name="scale_bb", key="2p3nacev7k2jft9xov90nke50", definition="static void scale_bb(graph_t * g, graph_t * root, double xf, double yf)")
-public static Object scale_bb(Object... arg) {
-UNSUPPORTED("9zkkf6x8cj12vuzqrjaoxfn8s"); // static void scale_bb(graph_t * g, graph_t * root, double xf, double yf)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("53xzwretgdbd0atozc0w6hagb"); //     int c;
-UNSUPPORTED("7z5fb6iyowsosn1hiz7opeoc6"); //     for (c = 1; c <= GD_n_cluster(g); c++)
-UNSUPPORTED("7leh3r5v7roon4liia73wue7e"); // 	scale_bb(GD_clust(g)[c], root, xf, yf);
-UNSUPPORTED("duz0iqmos1i372cztpjtsemab"); //     GD_bb(g).LL.x *= xf;
-UNSUPPORTED("ja25041s2x99bhwj5wcliok0"); //     GD_bb(g).LL.y *= yf;
-UNSUPPORTED("7mpnp4j7m1ymn1zdbxzeh5xxd"); //     GD_bb(g).UR.x *= xf;
-UNSUPPORTED("4ahigy1a10wsl6lvc90lpax5e"); //     GD_bb(g).UR.y *= yf;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
 
 
 //3 53z9yhpfixulhgqsauulkllvc
 // static void adjustAspectRatio (graph_t* g, aspect_t* asp) 
 @Unused
 @Original(version="2.38.0", path="lib/dotgen/position.c", name="adjustAspectRatio", key="53z9yhpfixulhgqsauulkllvc", definition="static void adjustAspectRatio (graph_t* g, aspect_t* asp)")
-public static Object adjustAspectRatio(Object... arg) {
+public static Object adjustAspectRatio(Object... arg_) {
 UNSUPPORTED("ezldb6r0csirv1fmkq5itw1v2"); // static void adjustAspectRatio (graph_t* g, aspect_t* asp)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
 UNSUPPORTED("7rtldqefvdgcf4u50kulbxtvn"); //     double AR = (GD_bb(g).UR.x - GD_bb(g).LL.x)/(GD_bb(g).UR.y - GD_bb(g).LL.y);
@@ -1274,50 +1254,6 @@ LEAVING("7effq6z6ur101wrch6ttozr26","set_aspect");
 
 
 
-//3 41mmud7cyx1rwhd0k7g7weaf8
-// static point resize_leaf(node_t * leaf, point lbound) 
-@Unused
-@Original(version="2.38.0", path="lib/dotgen/position.c", name="resize_leaf", key="41mmud7cyx1rwhd0k7g7weaf8", definition="static point resize_leaf(node_t * leaf, point lbound)")
-public static Object resize_leaf(Object... arg) {
-UNSUPPORTED("alcqddrml4aj55twvzwyyvfjh"); // static point resize_leaf(node_t * leaf, point lbound)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("dnj5vqe4cb2yzzx75ubwrxvav"); //     gv_nodesize(leaf, GD_flip(agraphof(leaf)));
-UNSUPPORTED("bxig9t3r62l84xejntt3x96kv"); //     ND_coord(leaf).y = lbound.y;
-UNSUPPORTED("bx00ps5hied5a63922sqqpvhi"); //     ND_coord(leaf).x = lbound.x + ND_lw(leaf);
-UNSUPPORTED("euhijhn76fi66yqoh8gxk5nq0"); //     lbound.x = lbound.x + ND_lw(leaf) + ND_rw(leaf) + GD_nodesep(agraphof(leaf));
-UNSUPPORTED("1xmj5l8g8znua01mljujyh61i"); //     return lbound;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
-//3 4jx34mwc4aby8v45omelmfluv
-// static point place_leaf(graph_t* ing, node_t * leaf, point lbound, int order) 
-@Unused
-@Original(version="2.38.0", path="lib/dotgen/position.c", name="place_leaf", key="4jx34mwc4aby8v45omelmfluv", definition="static point place_leaf(graph_t* ing, node_t * leaf, point lbound, int order)")
-public static Object place_leaf(Object... arg) {
-UNSUPPORTED("cetlk9m8mjd69vuru3rjho0lw"); // static point place_leaf(graph_t* ing, node_t * leaf, point lbound, int order)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("b1ht34ftmnpsuxflrqun4ptkr"); //     node_t *leader;
-UNSUPPORTED("aqfu9qyb55o3lehhaqmxag540"); //     graph_t *g = dot_root(ing);
-UNSUPPORTED("1b5u4ut4j70lu60geogmkv572"); //     leader = UF_find(leaf);
-UNSUPPORTED("3urvo2e4w7312r8scg44o0hqw"); //     if (leaf != leader)
-UNSUPPORTED("azdkjz4shu49j3fzjpazxrpwz"); // 	fast_nodeapp(leader, leaf);
-UNSUPPORTED("95h5y689udztblrtgdwc8y2ei"); //     ND_order(leaf) = order;
-UNSUPPORTED("cvsh6pf3vxzxd2zn1u8ykd8hx"); //     ND_rank(leaf) = ND_rank(leader);
-UNSUPPORTED("6k8r94a4chbol18r2rnbi9haj"); //     GD_rank(g)[ND_rank(leaf)].v[ND_order(leaf)] = leaf;
-UNSUPPORTED("7ku2dbhi28rhi6dtag1v4zung"); //     return resize_leaf(leaf, lbound);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
 /* make space for the leaf nodes of each rank */
 @Unused
 @Reviewed(when = "16/11/2020")
@@ -1360,7 +1296,7 @@ LEAVING("1lejhh3evsa10auyj7cgqj8ub","make_leafslots");
 // static void do_leaves(graph_t * g, node_t * leader) 
 @Unused
 @Original(version="2.38.0", path="lib/dotgen/position.c", name="do_leaves", key="wb2wvxthkr2sp9u8113go3j3", definition="static void do_leaves(graph_t * g, node_t * leader)")
-public static Object do_leaves(Object... arg) {
+public static Object do_leaves(Object... arg_) {
 UNSUPPORTED("5nmyuqyhfqfwbmgdj5aot9fp4"); // static void do_leaves(graph_t * g, node_t * leader)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
 UNSUPPORTED("2bs0wcp6367dz1o5x166ec7l8"); //     int j;
@@ -1524,45 +1460,6 @@ UNSUPPORTED("6hqli9m8yickz1ox1qfgtdbnd"); // 	    continue;
 } finally {
 LEAVING("daz786541idcxnywckcbncazb","contain_nodes");
 }
-}
-
-
-
-
-//3 betdvb8dk8icvqkn6e6y5h94x
-// static boolean idealsize(graph_t * g, double minallowed) 
-@Unused
-@Original(version="2.38.0", path="lib/dotgen/position.c", name="idealsize", key="betdvb8dk8icvqkn6e6y5h94x", definition="static boolean idealsize(graph_t * g, double minallowed)")
-public static Object idealsize(Object... arg) {
-UNSUPPORTED("74m5dgfkgpr7bq7elj8bk5w6z"); // static boolean idealsize(graph_t * g, double minallowed)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("bp9bpmgkh2gsdynqe5wio0i32"); //     double xf, yf, f, R;
-UNSUPPORTED("8404v5b2qtn2x2mlgbyxidbx4"); //     pointf b, relpage, margin;
-UNSUPPORTED("a3ke28asz3w87p4n8bgil541i"); //     /* try for one page */
-UNSUPPORTED("avi96122npbhja9hwa4goidp"); //     relpage = GD_drawing(g)->page;
-UNSUPPORTED("19uch6jfal0x385xni41gqam6"); //     if (relpage.x < 0.001 || relpage.y < 0.001)
-UNSUPPORTED("52kuioyxcuboss35kg15wudvt"); // 	return 0;		/* no page was specified */
-UNSUPPORTED("d6i2metpbkzakq2abzgvcdzle"); //     margin = GD_drawing(g)->margin;
-UNSUPPORTED("asgqm8o7cruxxpfx9lobsif1c"); //     relpage = sub_pointf(relpage, margin);
-UNSUPPORTED("asgqm8o7cruxxpfx9lobsif1c"); //     relpage = sub_pointf(relpage, margin);
-UNSUPPORTED("aqhjsr7rv4ig7d1vagm74jpmo"); //     b.x = GD_bb(g).UR.x;
-UNSUPPORTED("30xemhqjxz13hiyv2o2r8mol1"); //     b.y = GD_bb(g).UR.y;
-UNSUPPORTED("cv2s8vkuet41gdoms8vue473z"); //     xf = relpage.x / b.x;
-UNSUPPORTED("rvfej1l4o57i17le73vt80cf"); //     yf = relpage.y / b.y;
-UNSUPPORTED("4f2ksj9hf0fi9wnzrz20eswmo"); //     if ((xf >= 1.0) && (yf >= 1.0))
-UNSUPPORTED("e64anddwrzfgr4xoopjelwqg1"); // 	return 0;		/* fits on one page */
-UNSUPPORTED("9vakpuy3iri2q9upsuy7lqhln"); //     f = MIN(xf, yf);
-UNSUPPORTED("ccu6nxd64lwxm1h8x0sbrkdv7"); //     xf = yf = MAX(f, minallowed);
-UNSUPPORTED("yc64sd7yr28zgjqrr734fc7i"); //     R = ceil((xf * b.x) / relpage.x);
-UNSUPPORTED("aht5rw6872hwmg7vaop0eairh"); //     xf = ((R * relpage.x) / b.x);
-UNSUPPORTED("asw2ato73u7m4kb07x2mr2snv"); //     R = ceil((yf * b.y) / relpage.y);
-UNSUPPORTED("76j6b15q20gswxka8cglflbym"); //     yf = ((R * relpage.y) / b.y);
-UNSUPPORTED("49gpvau7p2bvvkp6oemyqyjev"); //     GD_drawing(g)->size.x = b.x * xf;
-UNSUPPORTED("7gewumkvzgtqon1jqxp8yf0kk"); //     GD_drawing(g)->size.y = b.y * yf;
-UNSUPPORTED("8fwlqtemsmckleh6946lyd8mw"); //     return NOT(0);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
 }
 
 
