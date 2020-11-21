@@ -518,12 +518,15 @@ private static int _DTCMP(ST_dt_s dt, Object k1, Object k2, ST_dtdisc_s dc, CFun
 
 
 private static Object _DTOBJ(ST_dtlink_s root, int lk) {
-	return lk < 0 ? root.castTo_ST_dthold_s().obj : root.addVirtualBytes(-lk);
+	if (lk < 0) {
+		return root.castTo_ST_dthold_s().obj;
+	}
+	return root.addVirtualBytes(-lk);
 }
 
 
 private static Object _DTKEY(__ptr__ obj, int ky, int sz) {
-	return sz < 0 ? obj.addVirtualBytes(ky) : obj.addVirtualBytes(ky);
+	return obj.addVirtualBytes(ky);
 }
 
 
