@@ -483,7 +483,7 @@ try {
 	    P.start.constrained= false;
     }
     P.nbox = 0;
-    P.setPtr("data", e);
+    P.data = e;
     endp.setStruct("np", P.start.p);
     if ((et == 1) && (ND_node_type(n) == 0) && ((side = ED_tail_port(e).side)!=0)) {
 	ST_Agedge_s orig;

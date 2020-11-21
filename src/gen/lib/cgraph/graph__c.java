@@ -105,11 +105,11 @@ try {
 		memdisc = (ST_Agmemdisc_s) ((proto != null && proto.mem != null) ? proto.mem : Z.z().AgMemDisc);
 		memclosure = (__ptr__) memdisc.open.exe(proto);
 		rv = (ST_Agclos_s) memdisc.alloc.exe(memclosure, sizeof(ST_Agclos_s.class));
-		rv.disc.setPtr("mem", memdisc);
-		rv.state.setPtr("mem", memclosure);
-		rv.disc.setPtr("id", ((proto != null && proto.id != null) ? proto.id : Z.z().AgIdDisc));
+		rv.disc.mem = memdisc;
+		rv.state.mem = memclosure;
+		rv.disc.id = ((proto != null && proto.id != null) ? proto.id : Z.z().AgIdDisc);
 		// Translation bug in next line: should be AgIoDisc and not AgIdDisc
-		// rv.disc.setPtr("io", ((proto != null && proto.getPtr("io") != null) ? proto.getPtr("io") : Z.z().AgIoDisc));
+		// rv.disc.io = ((proto != null && proto.getPtr("io") != null) ? proto.getPtr("io") : Z.z().AgIoDisc));
 		rv.callbacks_enabled = (N(0));
 		return rv;
 } finally {
@@ -137,11 +137,11 @@ try {
 		clos = agclos(arg_disc);
 		g = (ST_Agraph_s) clos.disc.mem.alloc.exe(clos.state.mem, sizeof(ST_Agraph_s.class));
     	AGTYPE(g, AGRAPH);
-		g.setPtr("clos", clos);
+		g.clos = clos;
 		g.setStruct("desc", desc);
 		((ST_Agdesc_s)g.desc).maingraph = ASINT((N(0)));
-		g.setPtr("root", g);
-		g.clos.state.setPtr("id", (__ptr__) g.clos.disc.id.open.exe(g, arg_disc));
+		g.root = g;
+		g.clos.state.id = (__ptr__) g.clos.disc.id.open.exe(g, arg_disc);
 		 if (agmapnametoid(g, AGRAPH, name, gid, (N(0)))!=0)
 		   AGID(g, gid[0]);
 		// /* else AGID(g) = 0 because we have no alternatives */
@@ -164,11 +164,11 @@ public static ST_Agraph_s agopen1(ST_Agraph_s g) {
 ENTERING("8jyhwfdfm0a877qfz8cjlb8rk","agopen1");
 try {
     ST_Agraph_s par;
-    g.setPtr("n_seq", agdtopen(g, Z.z().Ag_subnode_seq_disc, Z.z().Dttree));
-    g.setPtr("n_id", agdtopen(g, Z.z().Ag_subnode_id_disc, Z.z().Dttree));
-    g.setPtr("e_seq", agdtopen(g, EQ(g, agroot(g))? Z.z().Ag_mainedge_seq_disc : Z.z().Ag_subedge_seq_disc, Z.z().Dttree));
-    g.setPtr("e_id", agdtopen(g, EQ(g, agroot(g))? Z.z().Ag_mainedge_id_disc : Z.z().Ag_subedge_id_disc, Z.z().Dttree));
-    g.setPtr("g_dict", agdtopen(g, Z.z().Ag_subgraph_id_disc, Z.z().Dttree));
+    g.n_seq = agdtopen(g, Z.z().Ag_subnode_seq_disc, Z.z().Dttree);
+    g.n_id = agdtopen(g, Z.z().Ag_subnode_id_disc, Z.z().Dttree);
+    g.e_seq = agdtopen(g, EQ(g, agroot(g))? Z.z().Ag_mainedge_seq_disc : Z.z().Ag_subedge_seq_disc, Z.z().Dttree);
+    g.e_id = agdtopen(g, EQ(g, agroot(g))? Z.z().Ag_mainedge_id_disc : Z.z().Ag_subedge_id_disc, Z.z().Dttree);
+    g.g_dict = agdtopen(g, Z.z().Ag_subgraph_id_disc, Z.z().Dttree);
     par = agparent(g);
     if (par!=null) {
 	AGSEQ(g, agnextseq(par, AGRAPH));

@@ -390,8 +390,8 @@ try {
     AGID(in, id);
     AGSEQ(in, seq);
     AGSEQ(out, seq);
-    in.setPtr("node", t);
-    out.setPtr("node", h);
+    in.node = t;
+    out.node = h;
     installedge(g, out);
     if (((ST_Agdesc_s)g.desc).has_attrs!=0) {
 	  agbindrec(out, AgDataRecName, sizeof(ST_Agattr_s.class), false);

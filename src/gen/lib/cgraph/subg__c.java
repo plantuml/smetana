@@ -99,11 +99,11 @@ try {
     if (subg!=null)
 	return subg;
     subg = (ST_Agraph_s) agalloc(g, sizeof(ST_Agraph_s.class));
-    subg.setPtr("clos", g.clos);
+    subg.clos = g.clos;
     subg.setStruct("desc", g.desc);
     ((ST_Agdesc_s)subg.desc).maingraph = 0;
-    subg.setPtr("parent", g);
-    subg.setPtr("root", g.root);
+    subg.parent = g;
+    subg.root = g.root;
     AGID(subg, id);
     return agopen1(subg);
 } finally {

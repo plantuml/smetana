@@ -210,13 +210,13 @@ LEAVING("5bjqo0ihl0x25vaspoiehmwzk","idregister");
 // Agiddisc_t AgIdDisc = 
 /*public final static __struct__<Agiddisc_s> AgIdDisc = JUtils.from(Agiddisc_s.class);
 static {
-	AgIdDisc.setPtr("open", function(id__c.class, "idopen"));
-	AgIdDisc.setPtr("map", function(id__c.class, "idmap"));
-	AgIdDisc.setPtr("alloc", function(id__c.class, "idalloc"));
-	AgIdDisc.setPtr("free", function(id__c.class, "idfree"));
-	AgIdDisc.setPtr("print", function(id__c.class, "idprint"));
-	AgIdDisc.setPtr("close", function(id__c.class, "idclose"));
-	AgIdDisc.setPtr("idregister", function(id__c.class, "idregister"));
+	AgIdDisc.open = function(id__c.class, "idopen"));
+	AgIdDisc.map = function(id__c.class, "idmap"));
+	AgIdDisc.alloc = function(id__c.class, "idalloc"));
+	AgIdDisc.free = function(id__c.class, "idfree"));
+	AgIdDisc.print = function(id__c.class, "idprint"));
+	AgIdDisc.close = function(id__c.class, "idclose"));
+	AgIdDisc.idregister = function(id__c.class, "idregister"));
 }*/
 
 

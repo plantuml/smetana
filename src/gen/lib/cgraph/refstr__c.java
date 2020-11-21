@@ -70,12 +70,12 @@ static {
 	Refstrdisc.setInt("key", OFFSET.create(refstr_t.class, "s").toInt()); // *s is the third field in refstr_t
 	Refstrdisc.setInt("size", -1);
 	Refstrdisc.setInt("link", 0);
-	Refstrdisc.setPtr("makef", null);
-	Refstrdisc.setPtr("freef", function(utils__c.class, "agdictobjfree"));
-	Refstrdisc.setPtr("comparf", null);
-	Refstrdisc.setPtr("hashf", null);
-	Refstrdisc.setPtr("memoryf", function(utils__c.class, "agdictobjmem"));
-	Refstrdisc.setPtr("eventf", null);
+	Refstrdisc.makef = null);
+	Refstrdisc.freef = function(utils__c.class, "agdictobjfree"));
+	Refstrdisc.comparf = null);
+	Refstrdisc.hashf = null);
+	Refstrdisc.memoryf = function(utils__c.class, "agdictobjmem"));
+	Refstrdisc.eventf = null);
 }*/
 
 
@@ -128,7 +128,7 @@ ENTERING("9ts4wqhw2xafdv3tlcilneewq","refsymbind");
 try {
     final ST_refstr_t key = new ST_refstr_t();
     ST_refstr_t r;
-    // key.setPtr("s", s.duplicate());
+    // key.s = s.duplicate());
     key.setString(s);
     r = (ST_refstr_t) dtsearch(strdict, key);
     return r;

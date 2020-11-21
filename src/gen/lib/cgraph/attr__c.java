@@ -620,7 +620,7 @@ try {
 	dict = (ST_dt_s) agdatadict(g, false).dict_g;
 	if ((lsym = aglocaldictsym(dict, sym.name))!=null) {
 	    agstrfree(g, lsym.defval);
-	    lsym.setPtr("defval", agstrdup(g, value));
+	    lsym.defval = agstrdup(g, value);
 	} else {
 	    lsym = agnewsym(g, sym.name, value, sym.id, AGTYPE(hdr));
 	    dict.searchf.exe(dict, lsym, 0000001);

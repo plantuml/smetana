@@ -154,7 +154,7 @@ try {
     AGTYPE(n, AGNODE);
     AGID(n, id);
     AGSEQ(n, seq);
-    n.setPtr("root", agroot(g));
+    n.root = agroot(g);
     if (((ST_Agdesc_s)agroot(g).desc).has_attrs!=0)
 	  agbindrec(n, AgDataRecName, sizeof(ST_Agattr_s.class), false);
     /* nodeattr_init and method_init will be called later, from the

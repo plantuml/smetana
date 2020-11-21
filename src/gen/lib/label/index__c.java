@@ -173,7 +173,7 @@ try {
 	ST_RTree rtp;
     rtp = new ST_RTree();
     if (rtp!=null)
-    	rtp.setPtr("root", RTreeNewIndex(rtp));
+    	rtp.root = RTreeNewIndex(rtp);
     return rtp;
 } finally {
 LEAVING("aa29m7d7qc06m8id896e60lkg","RTreeOpen");
