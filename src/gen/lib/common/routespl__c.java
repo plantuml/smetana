@@ -736,44 +736,11 @@ LEAVING("de6jvvw786rx88318tuuqywgq","mkspacep");
 
 
 
-//3 6u7mpvz8gz08jacc16azxm31t
-// static pointf get_centroid(Agraph_t *g) 
-@Unused
-@Original(version="2.38.0", path="lib/common/routespl.c", name="get_centroid", key="6u7mpvz8gz08jacc16azxm31t", definition="static pointf get_centroid(Agraph_t *g)")
-public static Object get_centroid(Object... arg) {
-UNSUPPORTED("2zo1gwkn1bj1agy4g8dxcfmh"); // static pointf get_centroid(Agraph_t *g)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("6reqgncjwgiuo3fb8rkhmtjv1"); //     int     cnt = 0;
-UNSUPPORTED("e1s7ys0dbvp12r1vo9cdl7sp0"); //     static pointf   sum = {0.0, 0.0};
-UNSUPPORTED("4nx1l2ustbo0ptupk2ja9ekds"); //     static Agraph_t *save;
-UNSUPPORTED("2jcii9cclu1dijzqekzc175pe"); //     Agnode_t *n;
-UNSUPPORTED("f17csexi07fwmif5pkxj2wgr1"); //     sum.x = (GD_bb(g).LL.x + GD_bb(g).UR.x) / 2.0;
-UNSUPPORTED("8hoglhn0m8txbvp8w9fvo5cwt"); //     sum.y = (GD_bb(g).LL.y + GD_bb(g).UR.y) / 2.0;
-UNSUPPORTED("e8d6re0f7zq6d14zby6lxtm85"); //     return sum;
-UNSUPPORTED("5xw9py1u6p24f7e8fju2hsmw0"); //     if (save == g) return sum;
-UNSUPPORTED("a1cvki7btccn0pv2gpusya4pt"); //     save = g;
-UNSUPPORTED("7wq24g054kmx3aw25vk5ksj4"); //     for (n = agfstnode(g); n; n = agnxtnode(g,n)) {
-UNSUPPORTED("7mgmah70c4cze5ed5zlcjfnpj"); //         sum.x += ND_pos(n)[0];
-UNSUPPORTED("3pk32i8trbg5r4tjfzi0xepsa"); //         sum.y += ND_pos(n)[1];
-UNSUPPORTED("77mslev6fngkh87g2jkd6j87j"); //         cnt++;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("ci5ydgm2xpqvgw8qn5sz0317w"); //     sum.x = sum.x / cnt;
-UNSUPPORTED("f1ofwhoh52tmotz2jx74ji4h5"); //     sum.y = sum.y / cnt;
-UNSUPPORTED("e8d6re0f7zq6d14zby6lxtm85"); //     return sum;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
-
 //3 2erpr561ggowmq2m9465p5kqd
 // void  makeStraightEdge(graph_t * g, edge_t * e, int et, splineInfo* sinfo) 
 @Unused
 @Original(version="2.38.0", path="lib/common/routespl.c", name="makeStraightEdge", key="2erpr561ggowmq2m9465p5kqd", definition="void  makeStraightEdge(graph_t * g, edge_t * e, int et, splineInfo* sinfo)")
-public static Object makeStraightEdge(Object... arg) {
+public static Object makeStraightEdge(Object... arg_) {
 UNSUPPORTED("347dderd02mvlozoheqo4ejwo"); // void 
 UNSUPPORTED("89t1p0jilkexnvk5i1vv1arc0"); // makeStraightEdge(graph_t * g, edge_t * e, int et, splineInfo* sinfo)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
