@@ -88,26 +88,7 @@ public class ST_layout_t extends UnsupportedStructAndPtr {
 		return super.setPtr(fieldName, newData);
 	}
 
-	@Override
-	public void setDouble(String fieldName, double data) {
-		if (fieldName.equals("quantum")) {
-			this.quantum = data;
-			return;
-		}
-		if (fieldName.equals("scale")) {
-			this.scale = data;
-			return;
-		}
-		if (fieldName.equals("ratio")) {
-			this.ratio = data;
-			return;
-		}
-		if (fieldName.equals("dpi")) {
-			this.dpi = data;
-			return;
-		}
-		super.setDouble(fieldName, data);
-	}
+
 	
 }
 

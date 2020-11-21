@@ -102,14 +102,6 @@ public class ST_GVC_s extends UnsupportedStructAndPtr {
 		this.parent = parent;
 	}
 
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("config_found")) {
-			this.config_found = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
 
 }
 

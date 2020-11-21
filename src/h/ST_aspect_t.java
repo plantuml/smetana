@@ -73,22 +73,6 @@ public class ST_aspect_t extends UnsupportedStructAndPtr {
 	// "}",
 	// "aspect_t");
 
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("nextIter")) {
-			this.nextIter = data;
-			return;
-		}
-		if (fieldName.equals("badGraph")) {
-			this.badGraph = data;
-			return;
-		}
-		if (fieldName.equals("nPasses")) {
-			this.nPasses = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
 
 }
 

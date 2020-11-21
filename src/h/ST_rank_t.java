@@ -100,47 +100,6 @@ public class ST_rank_t extends UnsupportedStructAndPtr {
 		this.flat = this2.flat;
 	}
 
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("n")) {
-			this.n = data;
-			return;
-		}
-		if (fieldName.equals("an")) {
-			this.an = data;
-			return;
-		}
-		if (fieldName.equals("valid")) {
-			this.valid = data;
-			return;
-		}
-		if (fieldName.equals("cache_nc")) {
-			this.cache_nc = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
-
-	@Override
-	public void setDouble(String fieldName, double data) {
-		if (fieldName.equals("pht1")) {
-			this.pht1 = data;
-			return;
-		}
-		if (fieldName.equals("pht2")) {
-			this.pht2 = data;
-			return;
-		}
-		if (fieldName.equals("ht1")) {
-			this.ht1 = data;
-			return;
-		}
-		if (fieldName.equals("ht2")) {
-			this.ht2 = data;
-			return;
-		}
-		super.setDouble(fieldName, data);
-	}
 
 	@Override
 	public __struct__ getStruct() {

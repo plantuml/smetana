@@ -130,18 +130,7 @@ public class ST_pointf extends UnsupportedStructAndPtr {
 		this.y = other2.y;
 	}
 
-	@Override
-	public void setDouble(String fieldName, double data) {
-		if (fieldName.equals("x")) {
-			this.x = data;
-			return;
-		}
-		if (fieldName.equals("y")) {
-			this.y = data;
-			return;
-		}
-		super.setDouble(fieldName, data);
-	}
+
 
 	public ST_pointf(StarStruct parent) {
 	}

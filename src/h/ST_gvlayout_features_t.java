@@ -56,15 +56,6 @@ public class ST_gvlayout_features_t extends UnsupportedStructAndPtr {
 	// "}",
 	// "gvlayout_features_t");
 
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("flags")) {
-			this.flags = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
-
 
 }
 

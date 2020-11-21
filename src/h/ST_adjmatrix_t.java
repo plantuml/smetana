@@ -67,21 +67,6 @@ public class ST_adjmatrix_t extends UnsupportedStructAndPtr {
 	// "char *data",
 	public int[][] data;
 
-	// "}",
-	// "adjmatrix_t");
-
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("ncols")) {
-			this.ncols = data;
-			return;
-		}
-		if (fieldName.equals("nrows")) {
-			this.nrows = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
 
 }
 

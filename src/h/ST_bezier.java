@@ -103,23 +103,6 @@ public class ST_bezier extends UnsupportedStructAndPtr {
 	}
 
 	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("size")) {
-			this.size = data;
-			return;
-		}
-		if (fieldName.equals("sflag")) {
-			this.sflag = data;
-			return;
-		}
-		if (fieldName.equals("eflag")) {
-			this.eflag = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
-
-	@Override
 	public __ptr__ setPtr(String fieldName, __ptr__ newData) {
 //		if (fieldName.equals("list")) {
 //			this.list = (Array) newData;

@@ -77,30 +77,6 @@ public class ST_dtdata_s extends UnsupportedStructAndPtr {
 		return parent;
 	}
 
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("type")) {
-			this.type = data;
-			return;
-		}
-		if (fieldName.equals("ntab")) {
-			this.ntab = data;
-			return;
-		}
-		if (fieldName.equals("size")) {
-			this.size = data;
-			return;
-		}
-		if (fieldName.equals("loop")) {
-			this.loop = data;
-			return;
-		}
-		if (fieldName.equals("minp")) {
-			this.minp = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
 
 	// public interface ST_dtdata_s extends __ptr__ {
 	// public static List<String> DEFINITION = Arrays.asList(

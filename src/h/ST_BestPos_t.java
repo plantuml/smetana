@@ -91,24 +91,6 @@ public class ST_BestPos_t extends UnsupportedStructAndPtr {
 		super.setStruct(fieldName, newData);
 	}
 
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("n")) {
-			this.n = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
-
-	@Override
-	public void setDouble(String fieldName, double data) {
-		if (fieldName.equals("area")) {
-			this.area = data;
-			return;
-		}
-		super.setDouble(fieldName, data);
-	}
-
 	// typedef struct best_p_s {
 	// int n;
 	// double area;

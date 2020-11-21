@@ -63,13 +63,6 @@ public class UnsupportedC implements __ptr__ {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 
-	public void setInt(String fieldName, int data) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
-	public void setDouble(String fieldName, double data) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
 
 	public __ptr__ castTo(Class dest) {
 		throw new UnsupportedOperationException(getClass().toString());

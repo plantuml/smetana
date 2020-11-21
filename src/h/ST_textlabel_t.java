@@ -117,36 +117,6 @@ public class ST_textlabel_t extends UnsupportedStructAndPtr {
 	}
 
 	@Override
-	public void setDouble(String fieldName, double data) {
-		if (fieldName.equals("fontsize")) {
-			this.fontsize = data;
-			return;
-		}
-		super.setDouble(fieldName, data);
-	}
-
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("charset")) {
-			this.charset = data;
-			return;
-		}
-		if (fieldName.equals("valign")) {
-			this.valign = data;
-			return;
-		}
-		if (fieldName.equals("u.txt.nspans")) {
-			this.nspans = data;
-			return;
-		}
-		if (fieldName.equals("set")) {
-			this.set = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
-
-	@Override
 	public boolean isSameThan(StarStruct other) {
 		ST_textlabel_t other2 = (ST_textlabel_t) other;
 		return this == other2;

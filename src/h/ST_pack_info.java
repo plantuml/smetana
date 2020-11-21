@@ -79,31 +79,6 @@ public class ST_pack_info extends UnsupportedStructAndPtr {
 	// "pack_info");
 
 	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("flags")) {
-			this.flags = data;
-			return;
-		}
-		if (fieldName.equals("sz")) {
-			this.sz = data;
-			return;
-		}
-		if (fieldName.equals("margin")) {
-			this.margin = data;
-			return;
-		}
-		if (fieldName.equals("doSplines")) {
-			this.doSplines = data;
-			return;
-		}
-		if (fieldName.equals("fixed") && data == 0) {
-			this.fixed = null;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
-
-	@Override
 	public __ptr__ setPtr(String fieldName, __ptr__ newData) {
 		if (fieldName.equals("vals") && newData == null) {
 			this.vals = newData;

@@ -137,55 +137,6 @@ public class ST_Agedgeinfo_t extends UnsupportedStructAndPtr {
 		super.setStruct(fieldName, newData);
 	}
 
-	@Override
-	public void setDouble(String fieldName, double data) {
-		if (fieldName.equals("dist")) {
-			this.dist = data;
-			return;
-		}
-		super.setDouble(fieldName, data);
-	}
-
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("minlen")) {
-			this.minlen = data;
-			return;
-		}
-		if (fieldName.equals("weight")) {
-			this.weight = data;
-			return;
-		}
-		if (fieldName.equals("cutvalue")) {
-			this.cutvalue = data;
-			return;
-		}
-		if (fieldName.equals("tree_index")) {
-			this.tree_index = data;
-			return;
-		}
-		if (fieldName.equals("count")) {
-			this.count = data;
-			return;
-		}
-		if (fieldName.equals("xpenalty")) {
-			this.xpenalty = data;
-			return;
-		}
-		if (fieldName.equals("showboxes")) {
-			this.showboxes = data;
-			return;
-		}
-		if (fieldName.equals("edge_type")) {
-			this.edge_type = data;
-			return;
-		}
-		if (fieldName.equals("adjacent")) {
-			this.adjacent = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
 
 
 	@Override

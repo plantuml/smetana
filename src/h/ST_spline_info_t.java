@@ -68,26 +68,6 @@ public class ST_spline_info_t extends UnsupportedStructAndPtr {
 	// "}",
 	// "spline_info_t");
 
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("LeftBound")) {
-			this.LeftBound = data;
-			return;
-		}
-		if (fieldName.equals("RightBound")) {
-			this.RightBound = data;
-			return;
-		}
-		if (fieldName.equals("Splinesep")) {
-			this.Splinesep = data;
-			return;
-		}
-		if (fieldName.equals("Multisep")) {
-			this.Multisep = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
 
 }
 

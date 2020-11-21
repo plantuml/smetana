@@ -71,16 +71,6 @@ public class ST_fontinfo extends UnsupportedStructAndPtr {
 	// "}");
 
 	@Override
-	public void setDouble(String fieldName, double data) {
-		if (fieldName.equals("fontsize")) {
-			this.fontsize = data;
-			return;
-		}
-		super.setDouble(fieldName, data);
-	}
-
-
-	@Override
 	public __ptr__ setPtr(String fieldName, __ptr__ newData) {
 		if (fieldName.equals("fontname")) {
 			return this.fontname;

@@ -77,18 +77,6 @@ public class ST_Node_t___ extends UnsupportedStructAndPtr implements ST_Node_t__
 		this.parent = parent;
 	}
 
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("count")) {
-			this.count = data;
-			return;
-		}
-		if (fieldName.equals("level")) {
-			this.level = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
 
 
 	// "typedef struct Node",

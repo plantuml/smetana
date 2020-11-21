@@ -70,14 +70,6 @@ public class ST_Ppoly_t extends UnsupportedStructAndPtr {
 		return result;
 	}
 
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("pn")) {
-			this.pn = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
 
 	// public static List<String> DEFINITION = Arrays.asList(
 	// "typedef struct Ppoly_t",

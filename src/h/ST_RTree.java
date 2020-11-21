@@ -101,34 +101,7 @@ public class ST_RTree extends UnsupportedStructAndPtr {
 		return super.setPtr(fieldName, newData);
 	}
 
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("NodeCount")) {
-			this.NodeCount = data;
-			return;
-		}
-		if (fieldName.equals("LeafCount")) {
-			this.LeafCount = data;
-			return;
-		}
-		if (fieldName.equals("RectCount")) {
-			this.RectCount = data;
-			return;
-		}
-		if (fieldName.equals("EntryCount")) {
-			this.EntryCount = data;
-			return;
-		}
-		if (fieldName.equals("SeTouchCount")) {
-			this.SeTouchCount = data;
-			return;
-		}
-		if (fieldName.equals("NonLeafCount")) {
-			this.NonLeafCount = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
+
 
 }
 

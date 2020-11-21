@@ -71,40 +71,6 @@ public class ST_polygon_t extends UnsupportedStructAndPtr {
 
 
 
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("regular")) {
-			this.regular = data!=0;
-			return;
-		}
-		if (fieldName.equals("peripheries")) {
-			this.peripheries = data;
-			return;
-		}
-		if (fieldName.equals("sides")) {
-			this.sides = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
-
-	@Override
-	public void setDouble(String fieldName, double data) {
-		if (fieldName.equals("orientation")) {
-			this.orientation = data;
-			return;
-		}
-		if (fieldName.equals("distortion")) {
-			this.distortion = data;
-			return;
-		}
-		if (fieldName.equals("skew")) {
-			this.skew = data;
-			return;
-		}
-		super.setDouble(fieldName, data);
-	}
-
 
 	// public static List<String> DEFINITION = Arrays.asList(
 	// "typedef struct polygon_t",

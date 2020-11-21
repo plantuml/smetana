@@ -88,16 +88,6 @@ public class ST_HDict_t extends UnsupportedStructAndPtr {
 //		return super.getPtr(fieldName);
 //	}
 	
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("key")) {
-			this.key = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
-	
-	
 	// "typedef struct obyh",
 	// "{",
 	// "Dtlink_t link",

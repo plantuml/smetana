@@ -64,14 +64,6 @@ public class ST_tna_t extends UnsupportedStructAndPtr {
 	public double t;
 	public final ST_pointf a[] = new ST_pointf[] { new ST_pointf(), new ST_pointf() };
 	
-	@Override
-	public void setDouble(String fieldName, double data) {
-		if (fieldName.equals("t")) {
-			this.t = data;
-			return;
-		}
-		super.setDouble(fieldName, data);
-	}
 
 	@Override
 	public __struct__ getStruct() {

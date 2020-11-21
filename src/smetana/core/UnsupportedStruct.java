@@ -48,13 +48,6 @@ public class UnsupportedStruct implements __struct__ {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 
-	public void setInt(String fieldName, int value) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
-	public void setDouble(String fieldName, double value) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
 
 	public __struct__ copy() {
 		throw new UnsupportedOperationException(getClass().toString());

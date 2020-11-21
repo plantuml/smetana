@@ -71,19 +71,6 @@ public class ST_XLabels_t extends UnsupportedStructAndPtr {
 	public ST_RTree spdx;
 
 
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("n_objs")) {
-			this.n_objs = data;
-			return;
-		}
-		if (fieldName.equals("n_lbls")) {
-			this.n_lbls = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
-
 
 	
 	@Override

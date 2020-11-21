@@ -110,19 +110,6 @@ public class ST_dt_s extends UnsupportedStructAndPtr {
 	}
 
 	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("type")) {
-			this.type = data;
-			return;
-		}
-		if (fieldName.equals("nview")) {
-			this.nview = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
-
-	@Override
 	public boolean isSameThan(StarStruct other) {
 		ST_dt_s other2 = (ST_dt_s) other;
 		return this == other2;

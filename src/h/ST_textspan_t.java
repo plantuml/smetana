@@ -74,14 +74,6 @@ public class ST_textspan_t extends UnsupportedStructAndPtr {
 
 
 
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("just")) {
-			this.just = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
 
 	@Override
 	public __ptr__ setPtr(String fieldName, __ptr__ newData) {

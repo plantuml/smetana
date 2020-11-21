@@ -71,15 +71,6 @@ public class ST_splines extends UnsupportedStructAndPtr {
 	// "}",
 	// "splines");
 
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("size")) {
-			this.size = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
-
 }
 
 // typedef struct splines {

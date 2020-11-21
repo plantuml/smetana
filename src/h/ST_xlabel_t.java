@@ -69,15 +69,6 @@ public class ST_xlabel_t extends UnsupportedStructAndPtr {
 	public int set;
 
 	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("set")) {
-			this.set = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
-
-	@Override
 	public __ptr__ setPtr(String fieldName, __ptr__ newData) {
 		if (fieldName.equals("lbl")) {
 			this.lbl = (ST_textlabel_t) newData;

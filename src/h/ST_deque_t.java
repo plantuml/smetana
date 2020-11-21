@@ -117,27 +117,6 @@ public class ST_deque_t extends UnsupportedStructAndPtr {
 //		return super.getInt(fieldName);
 //	}
 
-//	@Override
-//	public void setInt(String fieldName, int data) {
-//		if (fieldName.equals("pnlpn")) {
-//			pnlpn = data;
-//			return;
-//		}
-//		if (fieldName.equals("fpnlpi")) {
-//			fpnlpi = data;
-//			return;
-//		}
-//		if (fieldName.equals("lpnlpi")) {
-//			lpnlpi = data;
-//			return;
-//		}
-//		if (fieldName.equals("apex")) {
-//			apex = data;
-//			return;
-//		}
-//		super.setInt(fieldName, data);
-//	}
-
 	// public static List<String> DEFINITION = Arrays.asList(
 	// "typedef struct deque_t",
 	// "{",

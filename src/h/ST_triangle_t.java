@@ -64,14 +64,7 @@ public class ST_triangle_t extends UnsupportedStructAndPtr {
 
 	public final ST_tedge_t e[] = new ST_tedge_t[] { new ST_tedge_t(), new ST_tedge_t(), new ST_tedge_t() };
 
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("mark")) {
-			this.mark = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
+
 
 }
 

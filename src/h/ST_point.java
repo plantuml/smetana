@@ -84,19 +84,6 @@ public class ST_point extends UnsupportedStructAndPtr {
 		this.y = this2.y;
 	}
 
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("x")) {
-			this.x = data;
-			return;
-		}
-		if (fieldName.equals("y")) {
-			this.y = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
-
 }
 
 // typedef struct { int x, y; } point;

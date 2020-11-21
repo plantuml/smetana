@@ -69,15 +69,6 @@ public class ST_gvplugin_installed_t extends UnsupportedStructAndPtr {
 	public ST_gvlayout_engine_s engine;
 	public ST_gvlayout_features_t features;
 
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("quality")) {
-			this.quality = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
-
 
 	@Override
 	public __ptr__ setPtr(String fieldName, __ptr__ newData) {

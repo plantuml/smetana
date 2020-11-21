@@ -108,19 +108,6 @@ public class ST_Agsym_s extends UnsupportedStructAndPtr {
 		return super.setPtr(fieldName, newData);
 	}
 
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("kind")) {
-			this.kind = data;
-			return;
-		}
-		if (fieldName.equals("id")) {
-			this.id = data;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
-
 	public StarStruct from_link(ST_dtlink_s from) {
 		if (from == link) {
 			return this;

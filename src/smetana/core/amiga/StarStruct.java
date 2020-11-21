@@ -52,9 +52,6 @@ public interface StarStruct extends AllH {
 
 	public String getDebug(String fieldName);
 
-	public void setInt(String fieldName, int data);
-
-	public void setDouble(String fieldName, double data);
 
 	public __ptr__ plus(int pointerMove);
 

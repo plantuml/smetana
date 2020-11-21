@@ -71,14 +71,6 @@ public class ST_textfont_t extends UnsupportedStructAndPtr {
 		return super.setPtr(fieldName, newData);
 	}
 
-	@Override
-	public void setDouble(String fieldName, double data) {
-		if (fieldName.equals("size")) {
-			this.size = data;
-			return;
-		}
-		super.setDouble(fieldName, data);
-	}
 
 	// public interface ST_textfont_t extends __ptr__ {
 	// public static List<String> DEFINITION = Arrays.asList(

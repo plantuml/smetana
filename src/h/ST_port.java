@@ -124,25 +124,6 @@ public class ST_port extends UnsupportedStructAndPtr {
 		super.setStruct(fieldName, newData);
 	}
 
-	@Override
-	public void setInt(String fieldName, int data) {
-		if (fieldName.equals("constrained")) {
-			constrained = data!=0;
-			return;
-		}
-		super.setInt(fieldName, data);
-	}
-
-
-	@Override
-	public void setDouble(String fieldName, double data) {
-		if (fieldName.equals("theta")) {
-			this.theta = data;
-			return;
-		}
-		super.setDouble(fieldName, data);
-	}
-
 	// "typedef struct port",
 	// "{",
 	// "pointf p",
