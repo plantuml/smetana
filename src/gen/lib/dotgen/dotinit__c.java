@@ -222,127 +222,13 @@ LEAVING("2ylyhz7macit0ts1hap2tg3wy","dot_init_node_edge");
 
 
 
-//3 5z1h7gr0tgapjvuc2z9st9xjr
-// static void  dot_cleanup_node(node_t * n) 
-@Unused
-@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="dot_cleanup_node", key="5z1h7gr0tgapjvuc2z9st9xjr", definition="static void  dot_cleanup_node(node_t * n)")
-public static Object dot_cleanup_node(Object... arg) {
-UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
-UNSUPPORTED("3wd33alc21mdt92sw3x9gl65j"); // dot_cleanup_node(node_t * n)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("bft238x0kn16j4rew2s49lf8p"); //     free_list(ND_in(n));
-UNSUPPORTED("9k0f5njfz83ho3jgj8a6l97ia"); //     free_list(ND_out(n));
-UNSUPPORTED("9hf5u4ow9x2bxsh5roh3klohe"); //     free_list(ND_flat_out(n));
-UNSUPPORTED("d5cejyb0j1nhixps76lgii0fr"); //     free_list(ND_flat_in(n));
-UNSUPPORTED("er7qgmylfnw39xn97jixe3cqp"); //     free_list(ND_other(n));
-UNSUPPORTED("dv63sk5dujcwfkf99o6ponzqm"); //     free_label(ND_label(n));
-UNSUPPORTED("5or6zu6ycx4zage9ggy1o9it4"); //     free_label(ND_xlabel(n));
-UNSUPPORTED("4wkmsp7365vb7u5fqtm2buotu"); //     if (ND_shape(n))
-UNSUPPORTED("2yujce4phniaiwg4fq8up6xu7"); // 	ND_shape(n)->fns->freefn(n);
-UNSUPPORTED("4zk1aro1ispxkab9ee4dd0tf"); //     agdelrec(n, "Agnodeinfo_t");	
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
-//3 5x42drpgjuyzb9oapi7osqxb6
-// static void free_virtual_edge_list(node_t * n) 
-@Unused
-@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="free_virtual_edge_list", key="5x42drpgjuyzb9oapi7osqxb6", definition="static void free_virtual_edge_list(node_t * n)")
-public static Object free_virtual_edge_list(Object... arg) {
-UNSUPPORTED("2kwoaiz0pcpatrbztzebypz24"); // static void free_virtual_edge_list(node_t * n)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("5gypxs09iuryx5a2eho9lgdcp"); //     edge_t *e;
-UNSUPPORTED("b17di9c7wgtqm51bvsyxz6e2f"); //     int i;
-UNSUPPORTED("4johvk6fhfn8nimnwv1bayucm"); //     for (i = ND_in(n).size - 1; i >= 0; i--) {
-UNSUPPORTED("dkwp8r3x5yxwt373copif99qc"); // 	e = ND_in(n).list[i];
-UNSUPPORTED("d0cytt2j3orasq0977h5sdypp"); // 	delete_fast_edge(e);
-UNSUPPORTED("3ersod3eshpdnzwy1yb73olpy"); // 	free(e->base.data);
-UNSUPPORTED("7eb6ytlppce1o1ihl2yf1mb6w"); // 	free(e);
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("dyyfpe9giifeythxw1ecgc9gw"); //     for (i = ND_out(n).size - 1; i >= 0; i--) {
-UNSUPPORTED("d0wu190s7vunqmaadd9r01j7m"); // 	e = ND_out(n).list[i];
-UNSUPPORTED("d0cytt2j3orasq0977h5sdypp"); // 	delete_fast_edge(e);
-UNSUPPORTED("3ersod3eshpdnzwy1yb73olpy"); // 	free(e->base.data);
-UNSUPPORTED("7eb6ytlppce1o1ihl2yf1mb6w"); // 	free(e);
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
-//3 bzy6cpyjjzfeesjlq49c5sfmo
-// static void free_virtual_node_list(node_t * vn) 
-@Unused
-@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="free_virtual_node_list", key="bzy6cpyjjzfeesjlq49c5sfmo", definition="static void free_virtual_node_list(node_t * vn)")
-public static Object free_virtual_node_list(Object... arg) {
-UNSUPPORTED("b8mii2q777xhhq7ugpswc15so"); // static void free_virtual_node_list(node_t * vn)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("3lk7715piw6ktz28izcuw3l10"); //     node_t *next_vn;
-UNSUPPORTED("cs50uo5tdqm5ri532weezud0q"); //     while (vn) {
-UNSUPPORTED("1zc0twfsq0pvs72obqpqn3jt7"); // 	next_vn = ND_next(vn);
-UNSUPPORTED("6v1txca0lc0m7vffh6cxe7s0v"); // 	free_virtual_edge_list(vn);
-UNSUPPORTED("ar8qtrvshtnclyd1lwsud1fe1"); // 	if (ND_node_type(vn) == 1) {
-UNSUPPORTED("52z735rh4jv9he0idjly61jel"); // 	    free_list(ND_out(vn));
-UNSUPPORTED("2cx91nqjcw6sdd1j219nb29ty"); // 	    free_list(ND_in(vn));
-UNSUPPORTED("f2pq0qi224q8wspagt6qwoxdp"); // 	    free(vn->base.data);
-UNSUPPORTED("3lo6egckclz8tk579663nqark"); // 	    free(vn);
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("1jra8cgf1nhojwmj7gyucvoni"); // 	vn = next_vn;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
-//3 colq6urkwrm9hh0zggl873dla
-// static void  dot_cleanup_graph(graph_t * g) 
-@Unused
-@Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="dot_cleanup_graph", key="colq6urkwrm9hh0zggl873dla", definition="static void  dot_cleanup_graph(graph_t * g)")
-public static Object dot_cleanup_graph(Object... arg) {
-UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
-UNSUPPORTED("84r7i6e9lays55x1yan1d0nlp"); // dot_cleanup_graph(graph_t * g)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("b17di9c7wgtqm51bvsyxz6e2f"); //     int i;
-UNSUPPORTED("8uujemixuhlf040icq3zsh7j8"); //     graph_t *subg;
-UNSUPPORTED("92vjk6rjnnnji7bcczz51lwfx"); //     for (subg = agfstsubg(g); subg; subg = agnxtsubg(subg)) {
-UNSUPPORTED("ykczo4avgse9arffpd1plmme"); // 	dot_cleanup_graph(subg);
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("12nbb17pw6fg2wwg5c7i800xv"); //     if (GD_clust(g)) free (GD_clust(g));
-UNSUPPORTED("cw69q4tfzxmrd72fi1vz2be1g"); //     if (GD_rankleader(g)) free (GD_rankleader(g));
-UNSUPPORTED("cnrd9322z9c4eqvr450ughbzh"); //     free_list(GD_comp(g));
-UNSUPPORTED("djox731ykith2qz2trtp7zgzf"); //     if (GD_rank(g)) {
-UNSUPPORTED("1vkvarx8mfy1iq12oyq5rtzpa"); // 	for (i = GD_minrank(g); i <= GD_maxrank(g); i++)
-UNSUPPORTED("32lqmila03wshgx9x3686apbo"); // 	    free(GD_rank(g)[i].av);
-UNSUPPORTED("dnv6plmiyr74l3u1aqc16qmiz"); // 	if (GD_minrank(g) == -1)
-UNSUPPORTED("b0hpil9jwq1zov1klvpd6vbnf"); // 	    free(GD_rank(g)-1);
-UNSUPPORTED("9352ql3e58qs4fzapgjfrms2s"); // 	else
-UNSUPPORTED("eqir7eaetsm1anqchd3kb8q8t"); // 	    free(GD_rank(g));
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("58o9b8zmlqcq96deeorllidce"); //     if (g != agroot(g)) 
-UNSUPPORTED("f5hqyohefj8o12bvcv17xpswc"); // 	agdelrec(g,"Agraphinfo_t");
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
 
 
 //3 2uv40x0vx6nmbvld01reukyly
 // void dot_cleanup(graph_t * g) 
 @Unused
 @Original(version="2.38.0", path="lib/dotgen/dotinit.c", name="dot_cleanup", key="2uv40x0vx6nmbvld01reukyly", definition="void dot_cleanup(graph_t * g)")
-public static Object dot_cleanup(Object... arg) {
+public static Object dot_cleanup(Object... arg_) {
 UNSUPPORTED("a2tqiktifcbodk46i6x0ux9j1"); // void dot_cleanup(graph_t * g)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
 UNSUPPORTED("cjx5v6hayed3q8eeub1cggqca"); //     node_t *n;
