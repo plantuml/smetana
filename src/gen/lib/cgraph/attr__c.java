@@ -557,27 +557,6 @@ LEAVING("ckfzmnxfi0jiiayxmq38giw0r","agedgeattr_init");
 
 
 
-
-//3 3cm42f5o83187rwf4l7j7ie1k
-// void agedgeattr_delete(Agedge_t * e) 
-@Unused
-@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agedgeattr_delete", key="3cm42f5o83187rwf4l7j7ie1k", definition="void agedgeattr_delete(Agedge_t * e)")
-public static Object agedgeattr_delete(Object... arg) {
-UNSUPPORTED("97nvxy8b8p4rmo31kk1qkusns"); // void agedgeattr_delete(Agedge_t * e)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("cxk0x5bmjhvgv8b1uv960lx4"); //     Agattr_t *rec;
-UNSUPPORTED("5n6u4cfiymhx4a88tj9vpz5z8"); //     if ((rec = agattrrec(e))) {
-UNSUPPORTED("1ct1lua1igkf5stpj1vcd2z0h"); // 	freeattr((Agobj_t *) e, rec);
-UNSUPPORTED("67nly1q6jgpe4ozoidte7zl4v"); // 	agdelrec(e, AgDataRecName);
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
 @Reviewed(when = "11/11/2020")
 @Original(version="2.38.0", path="lib/cgraph/attr.c", name="agget", key="eydjyhexv5jr6vi7uhk0cgphv", definition="char *agget(void *obj, char *name)")
 public static CString agget(__ptr__ obj, CString name) {
@@ -616,29 +595,6 @@ try {
 } finally {
 LEAVING("9h5oymhfkp6k34zl0fonn10k9","agxget");
 }
-}
-
-
-
-
-//3 alc2i3vy4lm57qoc7qn69ppgr
-// int agset(void *obj, char *name, char *value) 
-@Unused
-@Original(version="2.38.0", path="lib/cgraph/attr.c", name="agset", key="alc2i3vy4lm57qoc7qn69ppgr", definition="int agset(void *obj, char *name, char *value)")
-public static Object agset(Object... arg) {
-UNSUPPORTED("dw46ysqbvbb1syq3h2su8khpt"); // int agset(void *obj, char *name, char *value)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("av59ae8c4mws46sf5dumz1k0s"); //     Agsym_t *sym;
-UNSUPPORTED("ecz4e03zumggc8tfymqvirexq"); //     int rv;
-UNSUPPORTED("a5zpawq5lfz2h4k7xzaf5qtcl"); //     sym = agattrsym(obj, name);
-UNSUPPORTED("4htetkykqre1tnc0i1ksxdqmx"); //     if (sym == ((Agsym_t*)0))
-UNSUPPORTED("71xur63dbv1df4fp5xw1bru2i"); // 	rv = -1;
-UNSUPPORTED("div10atae09n36x269sl208r1"); //     else
-UNSUPPORTED("932tqrc73k3hieetx14jtfgk0"); // 	rv = agxset(obj, sym, value);
-UNSUPPORTED("v7vqc9l7ge2bfdwnw11z7rzi"); //     return rv;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
 }
 
 

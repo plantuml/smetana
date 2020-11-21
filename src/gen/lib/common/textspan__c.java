@@ -79,85 +79,6 @@ LEAVING("n8tcl06mifdn779rzenam44z","textspan_size");
 
 
 
-
-//3 3bbrz9gqi8j8b5c1fxsnv6txg
-// static void* textfont_makef(Dt_t* dt, void* obj, Dtdisc_t* disc) 
-@Unused
-@Original(version="2.38.0", path="lib/common/textspan.c", name="textfont_makef", key="3bbrz9gqi8j8b5c1fxsnv6txg", definition="static void* textfont_makef(Dt_t* dt, void* obj, Dtdisc_t* disc)")
-public static Object textfont_makef(Object... arg) {
-UNSUPPORTED("ezwm25dnds89i6n9bz6jxfpyv"); // static void* textfont_makef(Dt_t* dt, void* obj, Dtdisc_t* disc)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("51vxeragpkjf0vwb07i7dl9x"); //     textfont_t *f1 = (textfont_t*)obj;
-UNSUPPORTED("7j92va3n01tx9nm5lfz6stedq"); //     textfont_t *f2 = calloc(1,sizeof(textfont_t));
-UNSUPPORTED("5w5r0tig83q9yoy6zhz5o7agc"); //     /* key */
-UNSUPPORTED("23s5fksqi3wn73kpx2mipfx82"); //     if (f1->name) f2->name = strdup(f1->name);
-UNSUPPORTED("f2zpyj0gm6kd4y0chvzpe3di4"); //     if (f1->color) f2->color = strdup(f1->color);
-UNSUPPORTED("83wzklvzx2pc15wj16qppl4v2"); //     f2->flags = f1->flags;
-UNSUPPORTED("8u1zhn0nsxkxbr1tmt2w8hw1f"); //     f2->size = f1->size;
-UNSUPPORTED("62pprpgc67m2fs16j6p98kin6"); //     /* non key */
-UNSUPPORTED("cf410wlb1gvcoq8d3oiajaph3"); //     f2->postscript_alias = f1->postscript_alias;
-UNSUPPORTED("9y0cehsmm6fiuv0ibvh9e4gvz"); //     return f2;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
-//3 p4o48ztsya6bv2xz1m59jzrk
-// static void textfont_freef(Dt_t* dt, void* obj, Dtdisc_t* disc) 
-@Unused
-@Original(version="2.38.0", path="lib/common/textspan.c", name="textfont_freef", key="p4o48ztsya6bv2xz1m59jzrk", definition="static void textfont_freef(Dt_t* dt, void* obj, Dtdisc_t* disc)")
-public static Object textfont_freef(Object... arg) {
-UNSUPPORTED("d6z1bfrko1uq2uadgutf42fpr"); // static void textfont_freef(Dt_t* dt, void* obj, Dtdisc_t* disc)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("bx771pipb8kf13oa7ww02nex3"); //     textfont_t *f = (textfont_t*)obj;
-UNSUPPORTED("eymlly2a6yv51q1jufubndg9o"); //     if (f->name) free(f->name);
-UNSUPPORTED("1omkvtjx5x2ef8xensxdm6wt7"); //     if (f->color) free(f->color);
-UNSUPPORTED("a4v6veu7h0jl3a2wwlxwpdsuw"); //     free(f);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
-//3 3xya6188lnt9kg5uwchhya2wt
-// static int textfont_comparf (Dt_t* dt, void* key1, void* key2, Dtdisc_t* disc) 
-@Unused
-@Original(version="2.38.0", path="lib/common/textspan.c", name="textfont_comparf", key="3xya6188lnt9kg5uwchhya2wt", definition="static int textfont_comparf (Dt_t* dt, void* key1, void* key2, Dtdisc_t* disc)")
-public static Object textfont_comparf(Object... arg) {
-UNSUPPORTED("9w5158s061nd0o3p6dbh4tnqz"); // static int textfont_comparf (Dt_t* dt, void* key1, void* key2, Dtdisc_t* disc)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("1bh3yj957he6yv2dkeg4pzwdk"); //     int rc;
-UNSUPPORTED("222ejoojlkxc5ocmxue2bgxdy"); //     textfont_t *f1 = (textfont_t*)key1, *f2 = (textfont_t*)key2;
-UNSUPPORTED("87sttldb6hr2mn0ab405d03li"); //     if (f1->name || f2->name) {
-UNSUPPORTED("2bqh121m1japcj8bnsuy6sc8q"); //         if (! f1->name) return -1;
-UNSUPPORTED("86ytzx2x5nrcvurajdkbm95gk"); //         if (! f2->name) return 1;
-UNSUPPORTED("673e3f928tkakxhcajat2h6p0"); //         rc = strcmp(f1->name, f2->name);
-UNSUPPORTED("b9i8cahaxv9md4mvlw484iqeg"); //         if (rc) return rc;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("7vzuntdto9vcvitx5s7m6zma7"); //     if (f1->color || f2->color) {
-UNSUPPORTED("4tw0lvc7t2cc0000lrb9flurf"); //         if (! f1->color) return -1;
-UNSUPPORTED("7xj68kytc2wzv6iq8ddwkwqlk"); //         if (! f2->color) return 1;
-UNSUPPORTED("bcepjb2zqe0moqakgmofmbpq2"); //         rc = strcmp(f1->color, f2->color);
-UNSUPPORTED("b9i8cahaxv9md4mvlw484iqeg"); //         if (rc) return rc;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("9gf3266sjn2sm6m3mxf19197l"); //     rc = f1->flags - f2->flags;
-UNSUPPORTED("9ngqgld29f5nt7h1ffl4s0em4"); //     if (rc) return rc;
-UNSUPPORTED("d3e2n6libjqhx2xs4516lxyrf"); //     if (f1->size < f2->size) return -1;
-UNSUPPORTED("1kww1mevjniiermvdkcyihkqp"); //     if (f1->size > f2->size) return 1;
-UNSUPPORTED("5oxhd3fvp0gfmrmz12vndnjt"); //     return 0;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
 //3 9mfrgcpzz2d9f7nxfgx4nxj2q
 // Dt_t * textfont_dict_open(GVC_t *gvc) 
 @Unused
@@ -177,21 +98,6 @@ LEAVING("9mfrgcpzz2d9f7nxfgx4nxj2q","textfont_dict_open");
 }
 }
 
-
-
-
-//3 5o4jyd0j7s18vl7inlo4o0w99
-// void textfont_dict_close(GVC_t *gvc) 
-@Unused
-@Original(version="2.38.0", path="lib/common/textspan.c", name="textfont_dict_close", key="5o4jyd0j7s18vl7inlo4o0w99", definition="void textfont_dict_close(GVC_t *gvc)")
-public static Object textfont_dict_close(Object... arg) {
-UNSUPPORTED("7uxwdoqc8jmcbexpk4lhvdgg"); // void textfont_dict_close(GVC_t *gvc)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("dyrkxfb6i5v7i47xoxoe22ykv"); //     dtclose(gvc->textfont_dt);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
 
 
 }
