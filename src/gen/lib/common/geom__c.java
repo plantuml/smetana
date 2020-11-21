@@ -134,43 +134,6 @@ LEAVING("5q8h2tm3jifiasn423wrm0y60","cwrotatepf");
 
 
 
-//3 8v4jp36jzoo7itgk1f2139cvz
-// point ccwrotatep(point p, int ccwrot) 
-@Unused
-@Original(version="2.38.0", path="lib/common/geom.c", name="ccwrotatep", key="8v4jp36jzoo7itgk1f2139cvz", definition="point ccwrotatep(point p, int ccwrot)")
-public static Object ccwrotatep(Object... arg) {
-UNSUPPORTED("4netvfi1o450fu9936ptrychj"); // point ccwrotatep(point p, int ccwrot)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("do61zekb7jneykkag5k2ihoru"); //     int x = p.x, y = p.y;
-UNSUPPORTED("9hd3h63ctysf7ploj23tblup2"); //     switch (ccwrot) {
-UNSUPPORTED("70xjc0sbkjvexfar5luzibcgf"); //     case 0:
-UNSUPPORTED("6aw91xzjmqvmtdvt1di23af8y"); // 	break;
-UNSUPPORTED("1q74ra1plwbzbg77dmxva7rl5"); //     case 90:
-UNSUPPORTED("avktqxvqjaqt2xlnq4ykbvlca"); // 	p.x = -y;
-UNSUPPORTED("enc0wozuspuqe0erlieadffeb"); // 	p.y = x;
-UNSUPPORTED("6aw91xzjmqvmtdvt1di23af8y"); // 	break;
-UNSUPPORTED("17fu4k5xy8d72f5mch8cg6aga"); //     case 180:
-UNSUPPORTED("20gmg6188e8c58dfpcwshs68q"); // 	p.x = x;
-UNSUPPORTED("c7p7spy43wsvu86ax82p9jeni"); // 	p.y = -y;
-UNSUPPORTED("6aw91xzjmqvmtdvt1di23af8y"); // 	break;
-UNSUPPORTED("cltc0ksnwf3uugjgybaifa7r7"); //     case 270:
-UNSUPPORTED("volj3587rzrhhe2x9l5tcqoe"); // 	p.x = y;
-UNSUPPORTED("enc0wozuspuqe0erlieadffeb"); // 	p.y = x;
-UNSUPPORTED("6aw91xzjmqvmtdvt1di23af8y"); // 	break;
-UNSUPPORTED("8l3rwj6ctswoa4gvh2j4poq70"); //     default:
-UNSUPPORTED("225zfbgifuf05a2ndoo6eqxeu"); // 	if (ccwrot < 0)
-UNSUPPORTED("bdxv7ie6ag4u5y8py9bg2v6s2"); // 	    return cwrotatep(p, -ccwrot);
-UNSUPPORTED("2po0nwnam6kgn9hmqm0ls262w"); //         if (ccwrot > 360)
-UNSUPPORTED("87ycp7fzgeye35jy3hylox5it"); // 	    return ccwrotatep(p, ccwrot%360);
-UNSUPPORTED("9umyw4cv019twbecwlsnwom3k"); // 	return rotatep(p, 360-ccwrot);
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("91xduilalb406jjyw2g1i07th"); //     return p;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
 
 
 //3 6np74e9pfmv8uek8irqru2tma

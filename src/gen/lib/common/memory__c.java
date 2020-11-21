@@ -77,29 +77,6 @@ LEAVING("6hfkgng9qf75cucpojc4r8x6w","zmalloc");
 
 
 
-//3 dn6c3bthm7yuhtrxx3o2je19z
-// void *zrealloc(void *ptr, size_t size, size_t elt, size_t osize) 
-@Unused
-@Original(version="2.38.0", path="lib/common/memory.c", name="", key="dn6c3bthm7yuhtrxx3o2je19z", definition="void *zrealloc(void *ptr, size_t size, size_t elt, size_t osize)")
-public static Object zrealloc(Object... arg) {
-UNSUPPORTED("50do65rl7k8poomk5tdkjw6k2"); // void *zrealloc(void *ptr, size_t size, size_t elt, size_t osize)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("2esc94j9py77lfd4f23nk7w5x"); //     void *p = realloc(ptr, size * elt);
-UNSUPPORTED("e13q5hvkbkekp23xt0oxo1nsb"); //     if (p == NULL && size) {
-UNSUPPORTED("4t1y5iinm4310lkpvbal1spve"); // 	fprintf(stderr, "out of memory\n");
-UNSUPPORTED("68kasxgknec72r19lohbk6n3q"); // 	return p;
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("2wr2qtb30ktteuohi1vgzxugz"); //     if (osize < size)
-UNSUPPORTED("egt7kitgze0mw7g867jd7p6cq"); // 	memset((char *) p + (osize * elt), '\0', (size - osize) * elt);
-UNSUPPORTED("91xduilalb406jjyw2g1i07th"); //     return p;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
 @Reviewed(when = "14/11/2020")
 @Original(version="2.38.0", path="lib/common/memory.c", name="gmalloc", key="4mfikqpmxyxrke46i5xakatmc", definition="void *gmalloc(size_t nbytes)")
 public static __ptr__ gmalloc(size_t nbytes) {

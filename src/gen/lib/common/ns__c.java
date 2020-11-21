@@ -848,32 +848,6 @@ LEAVING("37hg5w7ywmyljdiebgp5ltl22","init_graph");
 
 
 
-//3 4jv545ixndzfz0hmy2ck1kvre
-// static void graphSize (graph_t * g, int* nn, int* ne) 
-@Unused
-@Original(version="2.38.0", path="lib/common/ns.c", name="graphSize", key="4jv545ixndzfz0hmy2ck1kvre", definition="static void graphSize (graph_t * g, int* nn, int* ne)")
-public static Object graphSize(Object... arg) {
-UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
-UNSUPPORTED("d95292hibn08mh6rbguy3zeib"); // graphSize (graph_t * g, int* nn, int* ne)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("4i46dhl8eqbh29vq1vn3ipo70"); //     int i, nnodes, nedges;
-UNSUPPORTED("cjx5v6hayed3q8eeub1cggqca"); //     node_t *n;
-UNSUPPORTED("5gypxs09iuryx5a2eho9lgdcp"); //     edge_t *e;
-UNSUPPORTED("359m8vuzzte7zl5lru7vf4bga"); //     nnodes = nedges = 0;
-UNSUPPORTED("8g62mxpap4eeua2lkn9a1iosi"); //     for (n = GD_nlist(g); n; n = ND_next(n)) {
-UNSUPPORTED("a5hcy2vbfyq09svspfdvsreu1"); // 	nnodes++;
-UNSUPPORTED("az80xiplaqv1i8gmq2feyyrea"); // 	for (i = 0; (e = ND_out(n).list[i]); i++) {
-UNSUPPORTED("1sy3rnb8qjw3nmyka290izgi2"); // 	    nedges++;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("h7rj9k6bm1iatjqeqmhlinoi"); //     *nn = nnodes;
-UNSUPPORTED("7whkfg1zlimqk163vbj7cgxmt"); //     *ne = nedges;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
 
 /* rank:
  * Apply network simplex to rank the nodes in a graph.

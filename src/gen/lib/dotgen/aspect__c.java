@@ -67,7 +67,7 @@ private static final int DEF_PASSES = 5;
 // void rank3(graph_t * g, aspect_t * asp) 
 @Unused
 @Original(version="2.38.0", path="lib/dotgen/aspect.c", name="rank3", key="25p8yyx732fa1dwxany5vkmqv", definition="void rank3(graph_t * g, aspect_t * asp)")
-public static Object rank3(Object... arg) {
+public static Object rank3(Object... arg_) {
 UNSUPPORTED("ey9g3c61eb7j5dnz3gbhvflt3"); // void rank3(graph_t * g, aspect_t * asp)
 
 
