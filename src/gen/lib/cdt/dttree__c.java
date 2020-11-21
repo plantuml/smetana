@@ -181,7 +181,7 @@ try {
 	}
 	try {
 	if(((type&(DT_MATCH|DT_SEARCH|DT_INSERT|DT_ATTACH))!=0))
-		{	key = ((type&DT_MATCH)!=0) ? obj : _DTKEY(obj, ky, sz);
+		{	key = ((type&DT_MATCH)!=0) ? obj : _DTKEY(obj, ky);
 		if(root!=null)
 			throw new do_search();
 	}
@@ -194,7 +194,7 @@ try {
 //			goto do_search;
 	}
 	else if(root!=null && EQ(_DTOBJ(root, lk), obj) == false)
-	{	key = _DTKEY(obj, ky, sz);
+	{	key = _DTKEY(obj, ky);
 		throw new do_search();
 	}
 	} catch (do_search do_search) {
@@ -247,12 +247,12 @@ try {
 		
 		
 		while(true) {
-			k = _DTOBJ(root, lk); k = _DTKEY((__ptr__) k,ky,sz);
+			k = _DTOBJ(root, lk); k = _DTKEY((__ptr__) k,ky);
 			if((cmp = _DTCMP(dt, key, k, disc, cmpf, sz)) == 0)
 				break;
 			else if(cmp < 0)
 			{	if((t = root._left)!=null )
-				{ k = _DTOBJ(t, lk); k = _DTKEY((__ptr__) k,ky,sz);
+				{ k = _DTOBJ(t, lk); k = _DTKEY((__ptr__) k,ky);
 				if((cmp = _DTCMP(dt, key, k, disc, cmpf, sz)) < 0)
 					{	rrotate(root, t);
 						r = rlink____warning(r, t);
@@ -279,7 +279,7 @@ try {
 			}
 			else /* if(cmp > 0) */
 			{	if ((t = root.right)!=null )
-				{   k = _DTOBJ(t, lk); k = _DTKEY((__ptr__) k, ky, sz);
+				{   k = _DTOBJ(t, lk); k = _DTKEY((__ptr__) k, ky);
 					if((cmp = _DTCMP(dt, key, k, disc, cmpf, sz)) > 0)
 					{   lrotate(root, t);
 						l = llink____warning(l, t);
@@ -525,7 +525,7 @@ private static Object _DTOBJ(ST_dtlink_s root, int lk) {
 }
 
 
-private static Object _DTKEY(__ptr__ obj, int ky, int sz) {
+private static Object _DTKEY(__ptr__ obj, int ky) {
 	return obj.addVirtualBytes(ky);
 }
 
