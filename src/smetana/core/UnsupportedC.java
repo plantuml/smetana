@@ -42,10 +42,6 @@ public class UnsupportedC implements __ptr__ {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 
-	public void setInt(int value) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-	
 
 	public double getDouble() {
 		throw new UnsupportedOperationException(getClass().toString());
