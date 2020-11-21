@@ -114,35 +114,6 @@ public class ST_Agsubnode_s extends UnsupportedStructAndPtr {
 		return super.castTo(dest);
 	}
 
-	@Override
-	public __ptr__ setPtr(String fieldName, __ptr__ newData) {
-		if (fieldName.equals("node")) {
-			this.node = (ST_Agnode_s) newData;
-			return node;
-		}
-		if (fieldName.equals("in_id")) {
-			this.in_id = (h.ST_dtlink_s) newData;
-			return in_id;
-		}
-		if (fieldName.equals("out_seq")) {
-			this.out_seq = (h.ST_dtlink_s) newData;
-			return out_seq;
-		}
-		if (fieldName.equals("out_id")) {
-			this.out_id = (h.ST_dtlink_s) newData;
-			return out_id;
-		}
-		if (fieldName.equals("seq_link")) {
-			this.seq_link.copyDataFrom(newData);
-			return seq_link;
-		}
-		if (fieldName.equals("in_seq")) {
-			this.in_seq = (h.ST_dtlink_s) newData;
-			return in_seq;
-		}
-		return super.setPtr(fieldName, newData);
-	}
-
 	public STARSTAR<ST_dtlink_s> out_seq__AMP() {
 		return STARSTAR.amp(new ACCESS<ST_dtlink_s>() {
 			public ST_dtlink_s get() {

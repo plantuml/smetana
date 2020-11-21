@@ -238,7 +238,7 @@ try {
     osize = dtsize_((ST_dt_s)g.n_id);
     if (EQ(g, agroot(g))) sn = (ST_Agsubnode_s) n.mainsub;
     else sn = (ST_Agsubnode_s) ((__ptr__)agalloc(g, sizeof(ST_Agsubnode_s.class))).castTo(ST_Agsubnode_s.class);
-    sn.setPtr("node", n);
+    sn.node = n;
     g.n_id.searchf.exe(g.n_id,sn,0000001);
     g.n_seq.searchf.exe(g.n_seq,sn,0000001);
 } finally {
