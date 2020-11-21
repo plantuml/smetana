@@ -237,7 +237,7 @@ LEAVING("bxjf5g7g953ii1hfodl1j0y4u","edgelabel_ranks");
 // static void  collapse_rankset(graph_t * g, graph_t * subg, int kind) 
 @Unused
 @Original(version="2.38.0", path="lib/dotgen/rank.c", name="collapse_rankset", key="9kjpoxcxoy3nhqd9rflwclo7c", definition="static void  collapse_rankset(graph_t * g, graph_t * subg, int kind)")
-public static Object collapse_rankset(Object... arg) {
+public static Object collapse_rankset(Object... arg_) {
 UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
 UNSUPPORTED("8hizp29cxh1rnp84yrlv4nl8x"); // collapse_rankset(graph_t * g, graph_t * subg, int kind)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -362,38 +362,6 @@ LEAVING("9lvm2ufqjzl2bsbpo0zg9go58","node_induce");
 
 
 
-//3 650rxyqioihwhhqkex61prwfs
-// void  dot_scan_ranks(graph_t * g) 
-@Unused
-@Original(version="2.38.0", path="lib/dotgen/rank.c", name="dot_scan_ranks", key="650rxyqioihwhhqkex61prwfs", definition="void  dot_scan_ranks(graph_t * g)")
-public static Object dot_scan_ranks(Object... arg) {
-UNSUPPORTED("347dderd02mvlozoheqo4ejwo"); // void 
-UNSUPPORTED("3qe2zolxii33gr1krcjkgygwm"); // dot_scan_ranks(graph_t * g)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("dkbxmqzr28yu8rswd5vubd3ha"); //     node_t *n, *leader = NULL;
-UNSUPPORTED("65ovv0jsp2kemyp7179cotrqh"); //     GD_minrank(g) = MAXSHORT;
-UNSUPPORTED("4rx9wnlw0uumqfzcjtyg9rpfl"); //     GD_maxrank(g) = -1;
-UNSUPPORTED("44thr6ep72jsj3fksjiwdx3yr"); //     for (n = agfstnode(g); n; n = agnxtnode(g, n)) {
-UNSUPPORTED("68vv0lam9vxeuk3fg60ad5w6g"); // 	if (GD_maxrank(g) < ND_rank(n))
-UNSUPPORTED("2v65dy95gqvsnppoelwwl8ayh"); // 	    GD_maxrank(g) = ND_rank(n);
-UNSUPPORTED("3ozq6tqfxcegom34qkyrrxnfg"); // 	if (GD_minrank(g) > ND_rank(n))
-UNSUPPORTED("duyud2jy9uf1rbcis84c3lsj6"); // 	    GD_minrank(g) = ND_rank(n);
-UNSUPPORTED("5j9c428shih0wjw2salkxw0qm"); // 	if (leader == NULL)
-UNSUPPORTED("73jlqlf2bn3kx7i020menpfcw"); // 	    leader = n;
-UNSUPPORTED("8k75h069sv2k9b6tgz77dscwd"); // 	else {
-UNSUPPORTED("bwqhlzu5ifbhdg1jral42ycdx"); // 	    if (ND_rank(n) < ND_rank(leader))
-UNSUPPORTED("7h663p7xpn4qn3l6bs6vxze7i"); // 		leader = n;
-UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("5j1zsofmtglx1esxwbstti1un"); //     GD_leader(g) = leader;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
 @Reviewed(when = "14/11/2020")
 @Original(version="2.38.0", path="lib/dotgen/rank.c", name="cluster_leader", key="2rbs5deyvlh5s7lkhv6zouqbe", definition="static void cluster_leader(graph_t * clust)")
 public static void cluster_leader(ST_Agraph_s clust) {
@@ -493,7 +461,7 @@ LEAVING("din4qnipewrwnelaimzvlplft","collapse_sets");
 // static void  find_clusters(graph_t * g) 
 @Unused
 @Original(version="2.38.0", path="lib/dotgen/rank.c", name="find_clusters", key="5n9mgh7vlru5mb1j9oienvbvs", definition="static void  find_clusters(graph_t * g)")
-public static Object find_clusters(Object... arg) {
+public static Object find_clusters(Object... arg_) {
 UNSUPPORTED("59dl3yc4jbcy2pb7j1njhlybi"); // static void 
 UNSUPPORTED("cdsgmo50taekqgk95mfn25930"); // find_clusters(graph_t * g)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
