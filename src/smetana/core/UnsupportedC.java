@@ -38,14 +38,6 @@ package smetana.core;
 
 public class UnsupportedC implements __ptr__ {
 
-	public int getInt() {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
-
-	public double getDouble() {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
 
 	public __ptr__ getPtr() {
 		throw new UnsupportedOperationException(getClass().toString());

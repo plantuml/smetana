@@ -51,9 +51,6 @@ public interface __ptr__ extends __c__fields {
 	public void copyDataFrom(__ptr__ other);
 	public void copyDataFrom(__struct__ other);
 	
-	public int getInt();
-
-	public double getDouble();
 
 	public __ptr__ getPtr();
 	public void setPtr(__ptr__ value);
