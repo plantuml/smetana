@@ -63,6 +63,13 @@ public class ST_dtlink_s extends UnsupportedStructAndPtr implements WithParent {
 		this.right = this2.right;
 		this._left = this2._left;
 	}
+	
+	@Override
+	public void ___(__struct__ other) {
+		ST_dtlink_s this2 = (ST_dtlink_s) other;
+		this.right = this2.right;
+		this._left = this2._left;
+	}
 
 	public ST_dtlink_s() {
 		this(null);

@@ -81,25 +81,22 @@ public class ST_Agtag_s extends UnsupportedStructAndPtr {
 
 	@Override
 	public void copyDataFrom(__struct__ other) {
-		// if (other instanceof ST_Agtag_s) {
 		final ST_Agtag_s other2 = (ST_Agtag_s) other;
 		objtype = other2.objtype;
 		mtflock = other2.mtflock;
 		attrwf = other2.attrwf;
 		seq = other2.seq;
 		id = other2.id;
-		// } else {
-		// objtype = other.getInt("objtype");
-		// mtflock = other.getInt("mtflock");
-		// attrwf = other.getInt("attrwf");
-		// seq = other.getInt("seq");
-		// id = other.getInt("id");
-		// }
 	}
 
 	@Override
 	public void ___(__struct__ other) {
-		copyDataFrom(other);
+		final ST_Agtag_s other2 = (ST_Agtag_s) other;
+		objtype = other2.objtype;
+		mtflock = other2.mtflock;
+		attrwf = other2.attrwf;
+		seq = other2.seq;
+		id = other2.id;
 	}
 
 	// public static List<String> DEFINITION = Arrays.asList(

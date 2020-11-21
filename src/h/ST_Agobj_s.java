@@ -60,7 +60,13 @@ public class ST_Agobj_s extends UnsupportedStructAndPtr implements WithParent {
 		ST_Agobj_s this2 = (ST_Agobj_s) other;
 		this.tag.copyDataFrom((__struct__) this2.tag);
 		this.data = this2.data;
-
+	}
+	
+	@Override
+	public void ___(__struct__ other) {
+		ST_Agobj_s this2 = (ST_Agobj_s) other;
+		this.tag.___(this2.tag);
+		this.data = this2.data;
 	}
 
 	private final StarStruct parent;

@@ -1366,10 +1366,10 @@ public class Macro {
 	public static void MAKEFWDEDGE(ST_Agedge_s new_, ST_Agedge_s old) {
 		ST_Agedge_s newp;
 		ST_Agedgeinfo_t info;
-		newp = (ST_Agedge_s) new_.getPtr();
+		newp = new_;
 		info = (ST_Agedgeinfo_t) newp.base.data.castTo(ST_Agedgeinfo_t.class);
 		info.copyDataFrom(old.base.data.castTo(ST_Agedgeinfo_t.class).getStruct());
-		newp.copyDataFrom((__ptr__)old);
+		newp.___(old);
 		newp.base.setPtr("data", info);
 		agtail(newp, AGHEAD(old));
 		aghead(newp, AGTAIL(old));
