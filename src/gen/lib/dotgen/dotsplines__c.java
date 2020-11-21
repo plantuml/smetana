@@ -438,22 +438,22 @@ UNSUPPORTED("46btiag50nczzur103eqhjcup"); // 	goto finish;
     if (routesplinesinit()!=0) return;
     P = (ST_path) zmalloc(sizeof(ST_path.class));
     /* FlatHeight = 2 * GD_nodesep(g); */
-    sd.setInt("Splinesep", GD_nodesep(g) / 4);
-    sd.setInt("Multisep", GD_nodesep(g));
+    sd.Splinesep = GD_nodesep(g) / 4;
+    sd.Multisep = GD_nodesep(g);
     edges = CArrayOfStar.<ST_Agedge_s>ALLOC(128, ST_Agedge_s.class);
     
     /* compute boundaries and list of splines */
-    sd.setInt("RightBound", 0);
-    sd.setInt("LeftBound", 0);
+    sd.RightBound = 0;
+    sd.LeftBound = 0;
     n_edges = n_nodes = 0;
     for (i = GD_minrank(g); i <= GD_maxrank(g); i++) {
 	n_nodes += GD_rank(g).get__(i).n;
 	if ((n = GD_rank(g).get__(i).v.get_(0))!=null)
-	    sd.setInt("LeftBound", (int)MIN(sd.LeftBound, (ND_coord(n).x - ND_lw(n))));
+	    sd.LeftBound = (int)MIN(sd.LeftBound, (ND_coord(n).x - ND_lw(n)));
 	if (GD_rank(g).get__(i).n!=0 && (n = GD_rank(g).get__(i).v.get_(GD_rank(g).get__(i).n - 1))!=null)
-	    sd.setInt("RightBound", (int)MAX(sd.RightBound, (ND_coord(n).x + ND_rw(n))));
-	sd.setInt("LeftBound", sd.LeftBound - 16);
-	sd.setInt("RightBound", sd.RightBound + 16);
+	    sd.RightBound = (int)MAX(sd.RightBound, (ND_coord(n).x + ND_rw(n)));
+	sd.LeftBound = sd.LeftBound - 16;
+	sd.RightBound = sd.RightBound + 16;
 	
 	for (j = 0; j < GD_rank(g).get__(i).n; j++) {
 	    n = (ST_Agnode_s) GD_rank(g).get__(i).v.get_(j);

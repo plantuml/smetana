@@ -278,9 +278,9 @@ try {
     ED_spl(e).list = CArray.<ST_bezier> REALLOC__(ED_spl(e).size + 1, ED_spl(e).list, ST_bezier.class);
     rv = ED_spl(e).list.get__(ED_spl(e).size++);
     rv.list = CArray.<ST_pointf>ALLOC__(sz, ST_pointf.class);
-    rv.setInt("size", sz);
-    rv.setInt("sflag", 0);
-    rv.setInt("eflag", 0);
+    rv.size = sz;
+    rv.sflag = 0;
+    rv.eflag = 0;
     rv.sp.x = 0;
     rv.sp.y = 0;
     rv.ep.x = 0;
@@ -681,9 +681,9 @@ UNSUPPORTED("2w0c22i5xgcch77xd9jg104nw"); // 	P->end.constrained = NOT(0);
     } else {
 	if (ED_head_port(e).constrained) {
 	    P.end.theta = ED_head_port(e).theta;
-	    P.end.setInt("constrained", 1);
+	    P.end.constrained = true;
 	} else
-	    P.end.setInt("constrained", 0);
+	    P.end.constrained = false;
     }
     endp.setStruct("np", P.end.p);
     if ((et == 1) && (ND_node_type(n) == 0) && ((side = ED_head_port(e).side)!=0)) {

@@ -149,8 +149,8 @@ try {
 	dt.meth = null;
 	dt.disc = null;
 	dtdisc(dt,disc,0);
-	dt.setInt("type", 0);
-	dt.setInt("nview", 0);
+	dt.type = 0;
+	dt.nview = 0;
 	dt.view = null;
 	dt.walk = null;
 	dt.user = null;

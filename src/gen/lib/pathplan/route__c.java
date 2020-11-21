@@ -115,7 +115,7 @@ UNSUPPORTED("8d9xfgejx5vgd6shva5wk5k06"); // 	return -1;
     Z.z().opl++;
     if (reallyroutespline(edges, edgen, inps, inpn, evs.get__(0), evs.get__(1)) == -1)
 	return -1;
-    output.setInt("pn", Z.z().opl);
+    output.pn = Z.z().opl;
     output.ps = Z.z().ops_route;
     return 0;
 } finally {

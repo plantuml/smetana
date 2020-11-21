@@ -192,9 +192,9 @@ UNSUPPORTED("3m406diamp5s5kwcqtwo4pshf"); // 	goto bad;
      }
 /* save arg pointers in the handle */
 xlp.objs = objs;
-xlp.setInt("n_objs", n_objs);
+xlp.n_objs = n_objs;
 xlp.lbls = lbls;
-xlp.setInt("n_lbls", n_lbls);
+xlp.n_lbls = n_lbls;
 xlp.setPtr("params", params);
 return (ST_XLabels_t) xlp;
 } finally {
@@ -605,7 +605,7 @@ private static ST_BestPos_t xlintersections_(ST_XLabels_t xlp, ST_object_t objp,
     	       if (EQ(objp, xlp.objs.get__(i))) continue;
        if(xlp.objs.get__(i).sz.x > 0 && xlp.objs.get__(i).sz.y > 0) continue;
        if(lblenclosing(objp, xlp.objs.get__(i))) {
-    	 	  bp.setInt("n", bp.n+1);
+    	 	  bp.n = bp.n+1;
        }
      }
      

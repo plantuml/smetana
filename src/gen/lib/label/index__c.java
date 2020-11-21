@@ -190,8 +190,8 @@ ENTERING("aa39m7d7qc06m8id896e60lkg","RTreeNewIndex");
 try {
 	ST_Node_t___ x;
 	x = RTreeNewNode(rtp);
-	x.setInt("level", 0); /* leaf */
-	rtp.setInt("LeafCount", rtp.LeafCount+1);
+	x.level = 0; /* leaf */
+	rtp.LeafCount = rtp.LeafCount+1;
 	return x;
 } finally {
 LEAVING("aa39m7d7qc06m8id896e60lkg","RTreeNewIndex");
@@ -214,9 +214,9 @@ try {
 	    if (N(RTreeClose2(rtp, (ST_Node_t___) n.branch[i].child))) {
 		Memory.free(n.branch[i].child);
 		DisconBranch(n, i);
-	    rtp.setInt("EntryCount", rtp.EntryCount-1);
+	    rtp.EntryCount = rtp.EntryCount-1;
 		if (rtp.StatFlag!=0)
-		    rtp.setInt("ElimCount", rtp.ElimCount+1);
+		    rtp.ElimCount = rtp.ElimCount+1;
 	    }
 	}
     } else {
@@ -225,9 +225,9 @@ try {
 		continue;
 	    // free(n->branch[i].child);
 	    DisconBranch(n, i);
-	    rtp.setInt("EntryCount", rtp.EntryCount-1);
+	    rtp.EntryCount = rtp.EntryCount-1;
 	    if (rtp.StatFlag!=0)
-		    rtp.setInt("ElimCount", rtp.ElimCount+1);
+		    rtp.ElimCount = rtp.ElimCount+1;
 	}
 	//free(n);
     }
@@ -273,7 +273,7 @@ try {
 //    assert(n->level >= 0);
 //    assert(r);
 
-    rtp.setInt("SeTouchCount", rtp.SeTouchCount+1);
+    rtp.SeTouchCount = rtp.SeTouchCount+1;
 
     if (n.level > 0) {		/* this is an internal node in the tree */
 	for (i = 0; i < 64; i++)
@@ -339,7 +339,7 @@ UNSUPPORTED("9352ql3e58qs4fzapgjfrms2s"); // 	else
 UNSUPPORTED("3kxquse3qg2crme5dzybg9jxe"); // 	    rtp->InsertCount++;
 }
      if (N(rtp.Deleting))
- 	rtp.setInt("RectCount", rtp.RectCount+1);
+ 	rtp.RectCount = rtp.RectCount+1;
      if (RTreeInsert2(rtp, r, data, n[0], newnode, level)!=0) {	/* root was split */
  	if (rtp.StatFlag!=0) {
 UNSUPPORTED("2y8kv6b3ysrr61q7tqn76rhhc"); // 	    if (rtp->Deleting)
@@ -348,8 +348,8 @@ UNSUPPORTED("5c97f6vfxny0zz35l2bu4maox"); // 	    else
 UNSUPPORTED("2u8wpa4w1q7rg14t07bny6p8i"); // 		rtp->InTouchCount++;
  	}
  	newroot = RTreeNewNode(rtp);	/* grow a new root, make tree taller */
- 	rtp.setInt("NonLeafCount", rtp.NonLeafCount+1);
- 	newroot.setInt("level", n[0].level + 1);
+ 	rtp.NonLeafCount = rtp.NonLeafCount+1;
+ 	newroot.level = n[0].level + 1;
  	b.setStruct("rect", NodeCover(n[0]));
  	b.child = n[0];
  	AddBranch(rtp, b, newroot, null);
@@ -358,7 +358,7 @@ UNSUPPORTED("2u8wpa4w1q7rg14t07bny6p8i"); // 		rtp->InTouchCount++;
  	AddBranch(rtp, b, newroot, null);
  	n[0] = newroot;
  	// rtp->root = newroot;
- 	rtp.setInt("EntryCount", rtp.EntryCount + 2);
+ 	rtp.EntryCount = rtp.EntryCount + 2;
  	result = 1;
      }
      return result;
@@ -406,7 +406,7 @@ UNSUPPORTED("1um729vqiy3529kbsrzyl9u3y"); // 	    rtp->InTouchCount++;
  	    		NodeCover((ST_Node_t___)n.branch[i].child));
  	    b.child = n2[0];
  	    b.rect.___(NodeCover(n2[0]));
- 		rtp.setInt("EntryCount", rtp.EntryCount+1);
+ 		rtp.EntryCount = rtp.EntryCount+1;
  	 	return AddBranch(rtp, b, n, new_);
  	}
      } else if (n.level == level) {	/* at level for insertion. */
@@ -414,7 +414,7 @@ UNSUPPORTED("1um729vqiy3529kbsrzyl9u3y"); // 	    rtp->InTouchCount++;
  	b.rect.___(r);
  	b.child = /*(Node_t *)*/(ST_Node_t___or_object_t) data; // THIS CAST IS A BIG ISSUE
 // UNSUPPORTED("7w1b5nw2bj3zmo70m9bczwwov"); // 	b.child = (Node_t *) data;
- 	rtp.setInt("EntryCount", rtp.EntryCount+1);
+ 	rtp.EntryCount = rtp.EntryCount+1;
  	return AddBranch(rtp, b, n, new_);
      } else {			/* Not supposed to happen */
 UNSUPPORTED("22oqraxnqrjall7fj6pooexmi"); // 	assert((0));

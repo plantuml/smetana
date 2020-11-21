@@ -420,7 +420,7 @@ try {
 	if (g.desc.no_loop!=0 && (EQ(t, h))) /* simple graphs */
 	    return false;
 	key.___(Z.z().Tag);
-	key.setInt("objtype", 0);	/* wild card */
+	key.objtype = 0;	/* wild card */
 	if (agfindedge_by_key(g, t, h, key)!=null)
 	    return false;
     }

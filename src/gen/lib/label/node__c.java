@@ -70,7 +70,7 @@ public static ST_Node_t___ RTreeNewNode(ST_RTree rtp) {
 ENTERING("9uj7ni1m6q6drtoh56w82d6m4","RTreeNewNode");
 try {
 	ST_Node_t___ n;
-	rtp.setInt("NodeCount", rtp.NodeCount + 1);
+	rtp.NodeCount = rtp.NodeCount + 1;
 	n = new ST_Node_t___();
      InitNode(n);
      return n;
@@ -91,8 +91,8 @@ public static void InitNode(ST_Node_t___ n) {
 ENTERING("4qk9wkm05q2pwf20ud6g2tufg","InitNode");
 try {
      int i;
-     n.setInt("count", 0);
-     n.setInt("level", -1);
+     n.count = 0;
+     n.level = -1;
      for (i = 0; i < 64; i++)
     	 InitBranch(n.branch[i]);
      // InitBranch(&(n->branch[i]));
@@ -204,7 +204,7 @@ try {
  	for (i = 0; i < 64; i++) {	/* find empty branch */
  	    if (n.branch[i].child == null) {
  		n.branch[i].___(b.getStruct());
- 		n.setInt("count", n.count+1);
+ 		n.count = n.count+1;
  		break;
  	    }
 }
@@ -220,7 +220,7 @@ UNSUPPORTED("2u8wpa4w1q7rg14t07bny6p8i"); // 		rtp->InTouchCount++;
 // 	assert(new);
  	SplitNode(rtp, n, b, new_);
  	if (n.level == 0)
- 		rtp.setInt("LeafCount", rtp.LeafCount+1);
+ 		rtp.LeafCount = rtp.LeafCount+1;
  	else
 UNSUPPORTED("6tkfiebspy7ecivrzb3l5y7jd"); // 	    rtp->NonLeafCount++;
  	return 1;
@@ -243,7 +243,7 @@ try {
 //     assert(n && i >= 0 && i < 64);
 //     assert(n->branch[i].child);
      InitBranch(n.branch[i]);
-     n.setInt("count", n.count-1);
+     n.count = n.count-1;
 } finally {
 LEAVING("eqzamflj58f43cflwns9cemnk","DisconBranch");
 }

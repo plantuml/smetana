@@ -716,7 +716,7 @@ placeLabels(objs, n_objs, lbls, n_lbls, params);
  	if (xlp.get__(0).set!=0) {
  	    cnt++;
  	    lp = xlp.get__(0).lbl;
- 	    lp.setInt("set", 1);
+ 	    lp.set = 1;
  	    lp.setStruct("pos", centerPt(xlp));
  	    updateBB (gp, lp);
  	}

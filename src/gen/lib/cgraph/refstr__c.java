@@ -63,21 +63,6 @@ import smetana.core.CString;
 import smetana.core.Z;
 
 public class refstr__c {
-//1 boyxdmkhstn4i64pqf6sv1mi7
-// static Dtdisc_t Refstrdisc = 
-/*static public final __struct__<_dtdisc_s> Refstrdisc = JUtils.from(_dtdisc_s.class);
-static {
-	Refstrdisc.setInt("key", OFFSET.create(refstr_t.class, "s").toInt()); // *s is the third field in refstr_t
-	Refstrdisc.setInt("size", -1);
-	Refstrdisc.setInt("link", 0);
-	Refstrdisc.makef = null);
-	Refstrdisc.freef = function(utils__c.class, "agdictobjfree"));
-	Refstrdisc.comparf = null);
-	Refstrdisc.hashf = null);
-	Refstrdisc.memoryf = function(utils__c.class, "agdictobjmem"));
-	Refstrdisc.eventf = null);
-}*/
-
 
 
 

@@ -73,7 +73,7 @@ try {
     /* default to no builtins, demand loading enabled */
     gvc = (ST_GVC_s) gvNEWcontext(null, (NOT(0)));
     /* builtins don't require LTDL */
-    gvc.setInt("config_found", 0);
+    gvc.config_found = 0;
     gvtextlayout_select(gvc);   /* choose best available textlayout plugin immediately */
     textfont_dict_open(gvc);    /* initialize font dict */
     return gvc;
