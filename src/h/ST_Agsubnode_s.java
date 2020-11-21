@@ -162,6 +162,7 @@ public class ST_Agsubnode_s extends UnsupportedStructAndPtr {
 		return super.castTo(dest);
 	}
 
+
 	// public interface ST_Agsubnode_s extends __ptr__ {
 	// public static List<String> DEFINITION = Arrays.asList(
 	// "struct Agsubnode_s",
