@@ -355,7 +355,7 @@ LEAVING("8kizmg7gziussfgx8zs3qvkfw","installedge");
 // static void subedge(Agraph_t * g, Agedge_t * e) 
 @Unused
 @Original(version="2.38.0", path="lib/cgraph/edge.c", name="subedge", key="2vtt6zb0n3oru23okvw4pxasg", definition="static void subedge(Agraph_t * g, Agedge_t * e)")
-public static Object subedge(Object... arg) {
+public static Object subedge(Object... arg_) {
 UNSUPPORTED("1qslen16fp6w3yse2y311vtsf"); // static void subedge(Agraph_t * g, Agedge_t * e)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
 UNSUPPORTED("3rvuc9rdxdwmvq3dtwv2hqwjo"); //     installedge(g, e);
