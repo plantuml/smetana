@@ -58,48 +58,8 @@ public class pend__c {
 // void agrecord_callback(Agraph_t * g, Agobj_t * obj, int kind, 		       Agsym_t * optsym) 
 @Unused
 @Original(version="2.38.0", path="lib/cgraph/pend.c", name="agrecord_callback", key="77vpxparxzmm27mmm1mqs0m0y", definition="void agrecord_callback(Agraph_t * g, Agobj_t * obj, int kind, 		       Agsym_t * optsym)")
-public static Object agrecord_callback(Object... arg) {
+public static Object agrecord_callback(Object... arg_) {
 UNSUPPORTED("8kh7tdu40e0f5hui0hcx3ojw"); // void agrecord_callback(Agraph_t * g, Agobj_t * obj, int kind,
-UNSUPPORTED("amek1l9br0si8a9jvgv8v9jkb"); // 		       Agsym_t * optsym)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("33vdvvs3uqbdtg7b1fuiy1r22"); //     pendingset_t *pending;
-UNSUPPORTED("do2ldsjj56m49f95rq76qxpq8"); //     Dict_t *dict;
-UNSUPPORTED("3e5oj67wvvqnpkv5irik2w6v7"); //     pending_cb_t *handle;
-UNSUPPORTED("ers4ys5zwhwnecpeo7f50pdlk"); //     pending =
-UNSUPPORTED("clm1anc67pw03dsc0fl3qb7p0"); // 	(pendingset_t *) agbindrec(g, DRName, sizeof(pendingset_t), (0));
-UNSUPPORTED("elb9jvgldg2htymh7c74smj7o"); //     switch (kind) {
-UNSUPPORTED("e19luzlumlv4ceyibjghgitjk"); //     case 100:
-UNSUPPORTED("bt8qt5d94yexozgdbv5sspmm4"); // 	;
-UNSUPPORTED("bt8qt5d94yexozgdbv5sspmm4"); // 	;
-UNSUPPORTED("bh8r0ah5bdhy9b8fguergxls8"); // 	dict = dictof(pending, obj, 100);
-UNSUPPORTED("8w10gh957jzwdh6u4cu779pov"); // 	handle = lookup(dict, obj);
-UNSUPPORTED("3niic65nul5y025zfu6sofbvs"); // 	if (handle == 0)
-UNSUPPORTED("3dk7uy243d9xxq8o4v964pmlw"); // 	    handle = insert(dict, g, obj, optsym);
-UNSUPPORTED("6aw91xzjmqvmtdvt1di23af8y"); // 	break;
-UNSUPPORTED("8q5omndta1qpcentw63h413zf"); //     case 101:
-UNSUPPORTED("16zt5ri5is42floscnatxr9y0"); // 	if (lookup(dictof(pending, obj, 100), obj))
-UNSUPPORTED("ai3czg6gaaxspsmndknpyvuiu"); // 	    break;
-UNSUPPORTED("7fgyme1271lzkag7zfllc0tew"); // 	if (lookup(dictof(pending, obj, 102), obj))
-UNSUPPORTED("ai3czg6gaaxspsmndknpyvuiu"); // 	    break;
-UNSUPPORTED("b8ce64b0yiy7uu0nuusdpn8mm"); // 	dict = dictof(pending, obj, 101);
-UNSUPPORTED("8w10gh957jzwdh6u4cu779pov"); // 	handle = lookup(dict, obj);
-UNSUPPORTED("3niic65nul5y025zfu6sofbvs"); // 	if (handle == 0)
-UNSUPPORTED("3dk7uy243d9xxq8o4v964pmlw"); // 	    handle = insert(dict, g, obj, optsym);
-UNSUPPORTED("a0edh2s4u2bcccyz9l2ipltzh"); // 	record_sym(obj, handle, optsym);
-UNSUPPORTED("6aw91xzjmqvmtdvt1di23af8y"); // 	break;
-UNSUPPORTED("e1sxtr2029u6bg4eodqye5nam"); //     case 102:
-UNSUPPORTED("3xn39mhl4qgpevnmfeihn3yfl"); // 	purge(dictof(pending, obj, 100), obj);
-UNSUPPORTED("ay7yim5iyu0h1rmxxq1j0yiew"); // 	purge(dictof(pending, obj, 101), obj);
-UNSUPPORTED("eva458xjr00pr4dd58xrsr3wo"); // 	dict = dictof(pending, obj, 102);
-UNSUPPORTED("8w10gh957jzwdh6u4cu779pov"); // 	handle = lookup(dict, obj);
-UNSUPPORTED("3niic65nul5y025zfu6sofbvs"); // 	if (handle == 0)
-UNSUPPORTED("3dk7uy243d9xxq8o4v964pmlw"); // 	    handle = insert(dict, g, obj, optsym);
-UNSUPPORTED("6aw91xzjmqvmtdvt1di23af8y"); // 	break;
-UNSUPPORTED("8l3rwj6ctswoa4gvh2j4poq70"); //     default:
-UNSUPPORTED("75q0u8gexnc6ds09pnl8xopt8"); // 	agerr(AGERR,"agrecord_callback of a bad object");
-UNSUPPORTED("dvgyxsnyeqqnyzq696k3vskib"); //     }
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
 throw new UnsupportedOperationException();
 }
 

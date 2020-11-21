@@ -73,7 +73,7 @@ public class obj__c {
 
 @Unused
 @Original(version="2.38.0", path="lib/cgraph/obj.c", name="agdelete", key="6wm1l0y857iajfoa6ywpotkld", definition = "int agdelete(Agraph_t * g, void *obj)")
-public static Object agdelete(Object... arg) {
+public static Object agdelete(Object... arg_) {
 UNSUPPORTED("26js2ch8px4mwz3gqvjehanq1"); // int agdelete(Agraph_t * g, void *obj)
 throw new UnsupportedOperationException();
 }
