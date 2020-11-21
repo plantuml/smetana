@@ -211,7 +211,7 @@ UNSUPPORTED("crysiae5zxc69cj3v2ygfs8xn"); // 	new_bb.UR = map_point(pointfof(bb.
 	GD_label(g).setStruct("pos", map_point((ST_pointf) GD_label(g).pos));
     }
     for (c = 1; c <= GD_n_cluster(g); c++)
-	translate_bb((ST_Agraph_s) GD_clust(g).get_(c).getPtr(), rankdir);
+	translate_bb((ST_Agraph_s) GD_clust(g).get_(c), rankdir);
 } finally {
 LEAVING("a3hf82rxsojxbunj6p8a6bkse","translate_bb");
 }
@@ -877,7 +877,7 @@ UNSUPPORTED("7ictv9eqmjvxjii5lqlyw8nu"); // 	    p.x = GD_bb(g).LL.x + d.x / 2;
 	GD_label(g).set= NOTI(false);
     }
     for (c = 1; c <= GD_n_cluster(g); c++)
-	place_graph_label((ST_Agraph_s) GD_clust(g).get_(c).getPtr());
+	place_graph_label((ST_Agraph_s) GD_clust(g).get_(c));
 } finally {
 LEAVING("72zw1alhd5vd0g6mhum507rvx","place_graph_label");
 }

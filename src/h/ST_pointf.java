@@ -118,8 +118,6 @@ public class ST_pointf extends UnsupportedStructAndPtr {
 			this.y = other2.y;
 			return;
 		}
-		System.err.println("other=" + other.getClass());
-		System.err.println("other=" + other.getPtr().getClass());
 		super.____(other);
 	}
 

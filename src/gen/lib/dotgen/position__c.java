@@ -575,7 +575,7 @@ try {
 	    make_aux_edge(GD_ln(g), GD_rn(g), 1, 128);	/* clust compaction edge */
     }
     for (c = 1; c <= GD_n_cluster(g); c++)
-	contain_clustnodes((ST_Agraph_s) GD_clust(g).get_(c).getPtr());
+	contain_clustnodes((ST_Agraph_s) GD_clust(g).get_(c));
 } finally {
 LEAVING("79v3omwzni0nm3h05l3onjsbz","contain_clustnodes");
 }
@@ -642,7 +642,7 @@ try {
 	}
     }
     for (c = 1; c <= GD_n_cluster(g); c++)
-	keepout_othernodes((ST_Agraph_s) GD_clust(g).get_(c).getPtr());
+	keepout_othernodes((ST_Agraph_s) GD_clust(g).get_(c));
 } finally {
 LEAVING("73cdgjl47ohty2va766evbo4","keepout_othernodes");
 }
@@ -663,7 +663,7 @@ try {
     margin = late_int (g, Z.z().G_margin, 8, 0);
     make_lrvn(g);
     for (c = 1; c <= GD_n_cluster(g); c++) {
-	subg = (ST_Agraph_s) GD_clust(g).get_(c).getPtr();
+	subg = (ST_Agraph_s) GD_clust(g).get_(c);
 	make_lrvn(subg);
 	make_aux_edge(GD_ln(g), GD_ln(subg),
 		      margin + GD_border(g)[3].x, 0);
@@ -691,11 +691,11 @@ try {
     ST_Agraph_s left, right;
     margin = late_int (g, Z.z().G_margin, 8, 0);
     for (i = 1; i <= GD_n_cluster(g); i++)
-	make_lrvn((ST_Agraph_s) GD_clust(g).get_(i).getPtr());
+	make_lrvn((ST_Agraph_s) GD_clust(g).get_(i));
     for (i = 1; i <= GD_n_cluster(g); i++) {
 	for (j = i + 1; j <= GD_n_cluster(g); j++) {
-	    low = (ST_Agraph_s) GD_clust(g).get_(i).getPtr();
-	    high = (ST_Agraph_s) GD_clust(g).get_(j).getPtr();
+	    low = (ST_Agraph_s) GD_clust(g).get_(i);
+	    high = (ST_Agraph_s) GD_clust(g).get_(j);
 	    if (GD_minrank(low) > GD_minrank(high)) {
 		ST_Agraph_s temp = low;
 		low = high;
@@ -713,7 +713,7 @@ try {
 	    }
 	    make_aux_edge(GD_rn(left), GD_ln(right), margin, 0);
 	}
-	separate_subclust((ST_Agraph_s) GD_clust(g).get_(i).getPtr());
+	separate_subclust((ST_Agraph_s) GD_clust(g).get_(i));
     }
 } finally {
 LEAVING("6oruu1p1b7kxr5moh3kmcmvr3","separate_subclust");
@@ -1119,7 +1119,7 @@ ENTERING("dlbpiimh9g9ff9w7wjoabf817","rec_bb");
 try {
     int c;
     for (c = 1; c <= GD_n_cluster(g); c++)
-	rec_bb((ST_Agraph_s) GD_clust(g).get_(c).getPtr(), root);
+	rec_bb((ST_Agraph_s) GD_clust(g).get_(c), root);
     dot_compute_bb(g, root);
 } finally {
 LEAVING("dlbpiimh9g9ff9w7wjoabf817","rec_bb");

@@ -378,7 +378,7 @@ public class JUtils {
 		System.err.println("splines.size=" + splines.size);
 		//System.err.println("bb.LL=" + pointftoString(bb.LL));
 		//System.err.println("bb.UR=" + pointftoString(bb.UR));
-		printDebugBezier((ST_bezier) splines.list.getPtr());
+		printDebugBezier((ST_bezier) splines.list.get__(0));
 
 	}
 
