@@ -148,10 +148,10 @@ try {
     ST_Agedge_s e;
     
     add_to_component(n);
-    vec[0].setStruct(ND_out(n));
-    vec[1].setStruct(ND_in(n));
-    vec[2].setStruct(ND_flat_out(n));
-    vec[3].setStruct(ND_flat_in(n));
+    vec[0].___(ND_out(n));
+    vec[1].___(ND_in(n));
+    vec[2].___(ND_flat_out(n));
+    vec[3].___(ND_flat_in(n));
     
     for (c = 0; c <= 3; c++) {
     	if (vec[c].list != null)

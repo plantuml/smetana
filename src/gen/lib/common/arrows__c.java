@@ -302,7 +302,7 @@ try {
     slen = arrow_length(e, sflag);
     slen2[0] = slen * slen;
     spl.setInt("sflag", sflag);
-    spl.setStruct("sp", ps.plus(startp).getStruct());
+    spl.sp.___(ps.get__(startp));
     if (endp > startp && DIST2(ps.get__(startp), ps.get__(startp + 3)) < slen2[0]) {
     	startp += 3;
     }

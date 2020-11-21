@@ -1963,7 +1963,7 @@ try {
 	b.LL.y = ND_coord(left1).y + GD_rank(g).get__(r + 1).ht2;
 	b.UR.x = sp.RightBound;
 	b.UR.y = ND_coord(left0).y - GD_rank(g).get__(r).ht1;
-	sp.Rank_box[r].setStruct(b);
+	sp.Rank_box[r].___(b);
     }
     return b;
 } finally {

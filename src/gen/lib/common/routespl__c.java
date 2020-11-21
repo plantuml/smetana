@@ -567,7 +567,7 @@ try {
 	if (ABS(((ST_boxf)boxes[bi]).LL.x - ((ST_boxf)boxes[bi]).UR.x) < .01)
 	    continue;
 	if (i != bi)
-	    boxes[i].setStruct(boxes[bi]);
+	    boxes[i].___(boxes[bi]);
 	i++;
     }
     boxn = i;

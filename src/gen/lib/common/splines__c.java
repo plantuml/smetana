@@ -442,7 +442,7 @@ ENTERING("egq4f4tmy1dhyj6jpj92r7xhu","add_box");
 try {
     if (b.LL.x < b.UR.x && b.LL.y < b.UR.y)
     {
-	P.boxes[P.nbox].setStruct(b);
+	P.boxes[P.nbox].___(b);
 	P.nbox = P.nbox+1;
 	}
 } finally {
@@ -623,7 +623,7 @@ UNSUPPORTED("a7fgam0j0jm7bar0mblsv3no4"); // 	return;
 	&& (mask = (Integer) pboxfn.exe(n, ED_tail_port(e), side, endp.boxes[0], endp.boxn))!=0)
 UNSUPPORTED("ex9kjvshm19zbu9vqonk1avd8"); // 	endp->sidemask = mask;
     else {
-    endp.boxes[0].setStruct(endp.nb);
+    endp.boxes[0].___(endp.nb);
 	endp.boxn[0] = 1;
 	switch (et) {
 	case 8:
@@ -825,7 +825,7 @@ UNSUPPORTED("a7fgam0j0jm7bar0mblsv3no4"); // 	return;
 	&& (mask = (Integer) pboxfn.exe(n, ED_head_port(e), side, endp.boxes[0], endp.boxn))!=0)
 	endp.sidemask = mask;
     else {
-    	endp.boxes[0].setStruct(endp.nb);
+    	endp.boxes[0].___(endp.nb);
 	endp.boxn[0] = 1;
 	switch (et) {
 	case 8:

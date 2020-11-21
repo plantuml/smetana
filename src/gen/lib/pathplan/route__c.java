@@ -195,11 +195,11 @@ LEAVING("13dxqzbgtpl4ubnnvw6ehzzi9","reallyroutespline");
 // static int mkspline(Ppoint_t * inps, int inpn, tna_t * tnas, Ppoint_t ev0, 		    Ppoint_t ev1, Ppoint_t * sp0, Ppoint_t * sv0, 		    Ppoint_t * sp1, Ppoint_t * sv1) 
 @Unused
 @Original(version="2.38.0", path="lib/pathplan/route.c", name="mkspline", key="29sok6jkfyobf83q130snkhmh", definition="static int mkspline(Ppoint_t * inps, int inpn, tna_t * tnas, Ppoint_t ev0, 		    Ppoint_t ev1, Ppoint_t * sp0, Ppoint_t * sv0, 		    Ppoint_t * sp1, Ppoint_t * sv1)")
-public static int mkspline(CArray<ST_pointf> inps, int inpn, CArray<ST_tna_t> tnas, final ST_pointf ev0, final ST_pointf ev1, __ptr__ sp0, __ptr__ sv0, __ptr__ sp1, __ptr__ sv1) {
+public static int mkspline(CArray<ST_pointf> inps, int inpn, CArray<ST_tna_t> tnas, final ST_pointf ev0, final ST_pointf ev1, ST_pointf sp0, ST_pointf sv0, ST_pointf sp1, ST_pointf sv1) {
 // WARNING!! STRUCT
 return mkspline_w_(inps, inpn, tnas, ev0.copy(), ev1.copy(), sp0, sv0, sp1, sv1);
 }
-private static int mkspline_w_(CArray<ST_pointf> inps, int inpn, CArray<ST_tna_t> tnas, final ST_pointf ev0, final ST_pointf ev1, __ptr__ sp0, __ptr__ sv0, __ptr__ sp1, __ptr__ sv1) {
+private static int mkspline_w_(CArray<ST_pointf> inps, int inpn, CArray<ST_tna_t> tnas, final ST_pointf ev0, final ST_pointf ev1, ST_pointf sp0, ST_pointf sv0, ST_pointf sp1, ST_pointf sv1) {
 ENTERING("29sok6jkfyobf83q130snkhmh","mkspline");
 try {
     final ST_pointf tmp = new ST_pointf();
@@ -233,10 +233,10 @@ try {
 	scale0 = d01;
 	scale3 = d01;
     }
-    sp0.setStruct(inps.get__(0));
-    sv0.setStruct(scale(ev0, scale0));
-    sp1.setStruct(inps.get__(inpn - 1));
-    sv1.setStruct(scale(ev1, scale3));
+    sp0.___(inps.get__(0));
+    sv0.___(scale(ev0, scale0));
+    sp1.___(inps.get__(inpn - 1));
+    sv1.___(scale(ev1, scale3));
     return 0;
 } finally {
 LEAVING("29sok6jkfyobf83q130snkhmh","mkspline");
