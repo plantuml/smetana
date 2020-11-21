@@ -179,8 +179,8 @@ UNSUPPORTED("8d9xfgejx5vgd6shva5wk5k06"); // 	return -1;
 	/* a straight line is better than failing */
 	growops(2);
 	output.pn = 2;
-	Z.z().ops_shortest.plus(0).setStruct(eps.plus(0).getStruct());
-	Z.z().ops_shortest.plus(1).setStruct(eps.plus(1).getStruct());
+	Z.z().ops_shortest.get__(0).___(eps.get__(0));
+	Z.z().ops_shortest.get__(1).___(eps.get__(1));
 	output.ps = Z.z().ops_shortest;
 	return 0;
     }
