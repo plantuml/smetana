@@ -45,7 +45,7 @@
  */
 package h;
 
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
 import smetana.core.__struct__;
@@ -66,7 +66,7 @@ public class ST_object_t extends UnsupportedStructAndPtr implements ST_Node_t___
 
 	public final ST_pointf pos = new ST_pointf(this);
 	public final ST_pointf sz = new ST_pointf(this);
-	public CStar<ST_xlabel_t> lbl;
+	public CArray<ST_xlabel_t> lbl;
 
 	@Override
 	public ST_object_t getStruct() {
@@ -91,7 +91,7 @@ public class ST_object_t extends UnsupportedStructAndPtr implements ST_Node_t___
 			return newData;
 		}
 		if (fieldName.equals("lbl")) {
-			this.lbl = (CStar<ST_xlabel_t>) newData;
+			this.lbl = (CArray<ST_xlabel_t>) newData;
 			return this.lbl;
 		}
 		return super.setPtr(fieldName, newData);

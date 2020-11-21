@@ -99,7 +99,7 @@ import h.ST_Agnode_s;
 import h.ST_Agraph_s;
 import h.ST_pointf;
 import h.ST_rank_t;
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.CStarStar;
 import smetana.core.JUtilsDebug;
 
@@ -345,13 +345,13 @@ public static void abomination(ST_Agraph_s g) {
 ENTERING("1lopavodoru6ee52snd5l6swd","abomination");
 try {
     int r;
-    CStar<ST_rank_t> rptr;
+    CArray<ST_rank_t> rptr;
     
     assert(GD_minrank(g) == 0);
     /* 3 = one for new rank, one for sentinel, one for off-by-one */
     r = GD_maxrank(g) + 3;
     
-    rptr = CStar.<ST_rank_t> REALLOC__(r, GD_rank(g), ST_rank_t.class);
+    rptr = CArray.<ST_rank_t> REALLOC__(r, GD_rank(g), ST_rank_t.class);
     GD_rank(g, rptr.plus_(1));
     for (r = GD_maxrank(g); r >= 0; r--)
 	GD_rank(g).get__(r).___(GD_rank(g).get__(r - 1));
@@ -389,7 +389,7 @@ try {
     ST_Agnode_s hn = aghead(e);
     int i, lo, hi;
     ST_Agnode_s n;
-    CStar<ST_rank_t> rank;
+    CArray<ST_rank_t> rank;
     
     if (ND_order(tn) < ND_order(hn)) {
 	lo = ND_order(tn);

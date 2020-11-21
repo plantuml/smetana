@@ -122,7 +122,7 @@ import h.ST_shape_desc;
 import h.ST_textlabel_t;
 import smetana.core.ACCESS;
 import smetana.core.CFunctionImpl;
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.CStarStar;
 import smetana.core.CString;
 import smetana.core.Memory;
@@ -216,7 +216,7 @@ try {
     final ST_pointf dimen = new ST_pointf(), min_bb = new ST_pointf(), bb = new ST_pointf();
     final ST_point imagesize = new ST_point();
     final ST_pointf P = new ST_pointf(), Q = new ST_pointf(), R = new ST_pointf();
-    CStar<ST_pointf> vertices = null;
+    CArray<ST_pointf> vertices = null;
     CString p, sfile, fxd;
     double temp, alpha, beta, gamma;
     double orientation, distortion, skew;
@@ -453,7 +453,7 @@ UNSUPPORTED("1fjwgzo5xkijo98ycmzhal8yv"); // 	bb = pd->size_gen(bb);
 	outp = 1;
     if (sides < 3) {		/* ellipses */
 	sides = 2;
-	vertices = CStar.<ST_pointf> ALLOC__(outp * sides, ST_pointf.class);
+	vertices = CArray.<ST_pointf> ALLOC__(outp * sides, ST_pointf.class);
 	P.x = bb.x / 2.;
 	P.y = bb.y / 2.;
 	vertices.get__(0).x = -P.x;
@@ -488,7 +488,7 @@ UNSUPPORTED("b5z0hw4dacenv33xsaex70g8d"); // 	    bb.y = 2. * P.y;
  *   It needs to find the point where the two lines, parallel to
  *   the current segments, and outside by GAP distance, intersect.   
  */
-	vertices = CStar.<ST_pointf>ALLOC__(outp * sides, ST_pointf.class);
+	vertices = CArray.<ST_pointf>ALLOC__(outp * sides, ST_pointf.class);
 	if (ND_shape(n).polygon.vertices!=null) {
 UNSUPPORTED("3ghle84ieryaenfnlbzrfv7bw"); // 	    poly_desc_t* pd = (poly_desc_t*)(((Agnodeinfo_t*)(((Agobj_t*)(n))->data))->shape)->polygon->vertices;
 UNSUPPORTED("227lpcg9dt83m2bm8yshb4djf"); // 	    pd->vertex_gen (vertices, &bb);

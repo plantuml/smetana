@@ -46,7 +46,7 @@
 package h;
 
 import smetana.core.CFunction;
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.CStarStar;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
@@ -89,7 +89,7 @@ public class ST_Agraphinfo_t extends UnsupportedStructAndPtr {
 	public CStarStar<ST_Agraph_s> clust;
 	public ST_Agraph_s dotroot;
 	public ST_Agnode_s nlist;
-	public CStar<ST_rank_t> rank;
+	public CArray<ST_rank_t> rank;
 	public ST_Agraph_s parent; /* containing cluster (not parent subgraph) */
 	// int level; /* cluster nesting level (not node level!) */
 	// node_t *minrep, *maxrep; /* set leaders for min and max rank */
@@ -188,7 +188,7 @@ public class ST_Agraphinfo_t extends UnsupportedStructAndPtr {
 			return rankleader;
 		}
 		if (fieldName.equals("rank")) {
-			this.rank = (CStar) newData;
+			this.rank = (CArray) newData;
 			return rank;
 		}
 		if (fieldName.equals("ln")) {

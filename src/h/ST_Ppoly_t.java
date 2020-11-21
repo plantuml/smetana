@@ -45,14 +45,14 @@
  */
 package h;
 
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__struct__;
 import smetana.core.amiga.StarStruct;
 
 public class ST_Ppoly_t extends UnsupportedStructAndPtr {
 
-	public CStar<ST_pointf> ps;
+	public CArray<ST_pointf> ps;
 	public int pn;
 
 	public ST_Ppoly_t() {

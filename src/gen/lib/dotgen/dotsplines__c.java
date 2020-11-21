@@ -144,7 +144,7 @@ import h.ST_port;
 import h.ST_rank_t;
 import h.ST_spline_info_t;
 import h.ST_splines;
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.CStarStar;
 import smetana.core.Memory;
 import smetana.core.Z;
@@ -284,16 +284,16 @@ LEAVING("3krohso3quojiv4fveh1en7o6","portcmp");
 @Difficult
 @Reviewed(when = "16/11/2020")
 @Original(version="2.38.0", path="lib/dotgen/dotsplines.c", name="swap_bezier", key="10wbtt4gwnxgqutinpj4ymjpk", definition="static void swap_bezier(bezier * old, bezier * new)")
-public static void swap_bezier(CStar<ST_bezier> old, CStar<ST_bezier> new_) {
+public static void swap_bezier(CArray<ST_bezier> old, CArray<ST_bezier> new_) {
 ENTERING("10wbtt4gwnxgqutinpj4ymjpk","swap_bezier");
 try {
-	CStar<ST_pointf> list;
-	CStar<ST_pointf> lp;
-	CStar<ST_pointf> olp;
+	CArray<ST_pointf> list;
+	CArray<ST_pointf> lp;
+	CArray<ST_pointf> olp;
     int i, sz;
     
     sz = old.get__(0).size;
-	list = CStar.<ST_pointf>ALLOC__(sz, ST_pointf.class);
+	list = CArray.<ST_pointf>ALLOC__(sz, ST_pointf.class);
     lp = list;
     olp = old.get__(0).list.plus_(sz - 1);
     for (i = 0; i < sz; i++) {	/* reverse list of points */
@@ -323,12 +323,12 @@ LEAVING("10wbtt4gwnxgqutinpj4ymjpk","swap_bezier");
 public static void swap_spline(ST_splines s) {
 ENTERING("3256l3e2huarsy29dd97vqj85","swap_spline");
 try {
-	CStar<ST_bezier> list;
-	CStar<ST_bezier> lp;
-	CStar<ST_bezier> olp;
+	CArray<ST_bezier> list;
+	CArray<ST_bezier> lp;
+	CArray<ST_bezier> olp;
     int i, sz;
     sz = s.size;
-    list = CStar.<ST_bezier>ALLOC__(sz, ST_bezier.class);
+    list = CArray.<ST_bezier>ALLOC__(sz, ST_bezier.class);
 	//list = new CStar<ST_bezier>(sz, ST_bezier.class);
     lp = list;
     olp = s.list.plus_(sz - 1);
@@ -1171,11 +1171,11 @@ LEAVING("bmsa24i3avg14po4sp17yh89k","edgelblcmpfn");
 public static void makeSimpleFlatLabels(ST_Agnode_s tn, ST_Agnode_s hn, CStarStar<ST_Agedge_s> edges, int ind, int cnt, int et, int n_lbls) {
 ENTERING("3xmylrnypvoqrj2yrxnomsj5k","makeSimpleFlatLabels");
 try {
-	CStar<ST_pointf> ps;
+	CArray<ST_pointf> ps;
     final ST_Ppoly_t poly = new ST_Ppoly_t();
     int pn[] = new int[1];
 	ST_Agedge_s e = edges.get_(ind);
-    final CStar<ST_pointf> points = CStar.<ST_pointf>ALLOC__(10, ST_pointf.class);
+    final CArray<ST_pointf> points = CArray.<ST_pointf>ALLOC__(10, ST_pointf.class);
     final ST_pointf tp = new ST_pointf(), hp = new ST_pointf();
     int i, pointn;
     double leftend, rightend, ctrx=0, ctry=0, miny, maxy;
@@ -1336,7 +1336,7 @@ public static void makeSimpleFlat(ST_Agnode_s tn, ST_Agnode_s hn, CStarStar<ST_A
 ENTERING("8kqyzk43ovc2sq6jegua6ytp","makeSimpleFlat");
 try {
     ST_Agedge_s e = edges.get_(ind);
-    final CStar<ST_pointf> points = CStar.<ST_pointf>ALLOC__(10, ST_pointf.class);
+    final CArray<ST_pointf> points = CArray.<ST_pointf>ALLOC__(10, ST_pointf.class);
     final ST_pointf tp = new ST_pointf(), hp = new ST_pointf();
     int i, pointn;
     double stepy, dy;
@@ -1586,13 +1586,13 @@ public static void make_flat_labeled_edge(ST_Agraph_s g, ST_spline_info_t sp, ST
 ENTERING("w8ptjibydq995d2lexg85mku","make_flat_labeled_edge");
 try {
     ST_Agnode_s tn, hn, ln;
-    CStar<ST_pointf> ps = null;
+    CArray<ST_pointf> ps = null;
     final ST_pathend_t tend = new ST_pathend_t(), hend = new ST_pathend_t();
     final ST_boxf lb = new ST_boxf();
     int boxn, i, ydelta;
     int pn[] = new int[1];
     ST_Agedge_s f;
-    final CStar<ST_pointf> points = CStar.<ST_pointf>ALLOC__(7, ST_pointf.class);
+    final CArray<ST_pointf> points = CArray.<ST_pointf>ALLOC__(7, ST_pointf.class);
     tn = agtail(e);
     hn = aghead(e);
     for (f = ED_to_virt(e); ED_to_virt(f)!=null; f = ED_to_virt(f));
@@ -1748,7 +1748,7 @@ try {
     double stepx, stepy, vspace;
     int tside, hside;
     int pn[] = new int[] {0};
-    CStar<ST_pointf> ps;
+    CArray<ST_pointf> ps;
     final ST_pathend_t tend = new ST_pathend_t(), hend = new ST_pathend_t();
     
     fwdedge.out.base.setPtr("data", fwdedgei);
@@ -1795,7 +1795,7 @@ try {
     hn = aghead(e);
     r = ND_rank(tn);
     if (r > 0) {
-    	CStar<ST_rank_t> prevr;
+    	CArray<ST_rank_t> prevr;
 	if ((GD_has_labels(g) & (1 << 0))!=0)
 	    prevr = GD_rank(g).plus_(r-2);
 	else
@@ -1960,7 +1960,7 @@ try {
     final ST_Agedgeinfo_t fwdedgeai = new ST_Agedgeinfo_t(), fwdedgebi = new ST_Agedgeinfo_t(), fwdedgei = new ST_Agedgeinfo_t();
     final ST_Agedgepair_s fwdedgea = new ST_Agedgepair_s(), fwdedgeb = new ST_Agedgepair_s(), fwdedge = new ST_Agedgepair_s();
     ST_Agedge_s e, fe, le, segfirst;
-    CStar<ST_pointf> ps = null;
+    CArray<ST_pointf> ps = null;
     final ST_pathend_t tend = new ST_pathend_t(), hend = new ST_pathend_t();
     final ST_boxf b = new ST_boxf();
     int boxn, sl, si, i, j, dx, hackflag, longedge;
@@ -1971,8 +1971,8 @@ try {
     fwdedgeb.out.base.setPtr("data", fwdedgebi);
     fwdedge.out.base.setPtr("data", fwdedgei);
     if (N(Z.z().pointfs)) {
-	Z.z().pointfs = CStar.<ST_pointf>ALLOC__(2000, ST_pointf.class);
-   	Z.z().pointfs2 = CStar.<ST_pointf>ALLOC__(2000, ST_pointf.class);
+	Z.z().pointfs = CArray.<ST_pointf>ALLOC__(2000, ST_pointf.class);
+   	Z.z().pointfs2 = CArray.<ST_pointf>ALLOC__(2000, ST_pointf.class);
 	Z.z().numpts = 2000;
 	Z.z().numpts2 = 2000;
     }
@@ -2183,7 +2183,7 @@ try {
     ST_Agedge_s uleft, uright, lleft, lright;
     int i, fb, lb;
     ST_splines spl;
-    CStar<ST_pointf> pp;
+    CArray<ST_pointf> pp;
     int pn;
     
     fb = lb = -1;
@@ -2374,7 +2374,7 @@ LEAVING("6qwcnugx2ytjrvi5rgxzyzg5i","straight_len");
 // static edge_t *straight_path(edge_t * e, int cnt, pointf * plist, int *np) 
 @Unused
 @Original(version="2.38.0", path="lib/dotgen/dotsplines.c", name="", key="15pgjjuil2c1rjldu29j07gbz", definition="static edge_t *straight_path(edge_t * e, int cnt, pointf * plist, int *np)")
-public static ST_Agedge_s straight_path(ST_Agedge_s e, int cnt, CStar<ST_pointf> plist, int np[]) {
+public static ST_Agedge_s straight_path(ST_Agedge_s e, int cnt, CArray<ST_pointf> plist, int np[]) {
 ENTERING("15pgjjuil2c1rjldu29j07gbz","straight_path");
 try {
     int n = np[0];
@@ -2637,7 +2637,7 @@ ENTERING("18pm6r3xcy90f0xi5hpm9jdhk","neighbor");
 try {
     int i;
     ST_Agnode_s n, rv = null;
-    CStar<ST_rank_t> rank = GD_rank(g).plus_(ND_rank(vn));
+    CArray<ST_rank_t> rank = GD_rank(g).plus_(ND_rank(vn));
     for (i = ND_order(vn) + dir; ((i >= 0) && (i < rank.get__(0).n)); i += dir) {
 	n = rank.get__(0).v.get_(i);
 	if ((ND_node_type(n) == 1) && (ND_label(n)!=null)) {

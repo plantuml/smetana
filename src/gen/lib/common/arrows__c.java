@@ -65,7 +65,7 @@ import h.ST_arrowname_t;
 import h.ST_bezier;
 import h.ST_inside_t;
 import h.ST_pointf;
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.CString;
 import smetana.core.Z;
 
@@ -250,11 +250,11 @@ LEAVING("7ymcsnwqkr1crisrga0kezh1f","inside");
 // int arrowEndClip(edge_t* e, pointf * ps, int startp, 		 int endp, bezier * spl, int eflag) 
 @Unused
 @Original(version="2.38.0", path="lib/common/arrows.c", name="arrowEndClip", key="9eellwhg4gsa2pdszpeqihs2d", definition="int arrowEndClip(edge_t* e, pointf * ps, int startp, 		 int endp, bezier * spl, int eflag)")
-public static int arrowEndClip(ST_Agedge_s e, CStar<ST_pointf> ps, int startp, int endp, ST_bezier spl, int eflag) {
+public static int arrowEndClip(ST_Agedge_s e, CArray<ST_pointf> ps, int startp, int endp, ST_bezier spl, int eflag) {
 ENTERING("9eellwhg4gsa2pdszpeqihs2d","arrowEndClip");
 try {
     final ST_inside_t inside_context = new ST_inside_t();
-    final CStar<ST_pointf> sp = CStar.<ST_pointf>ALLOC__(4, ST_pointf.class);
+    final CArray<ST_pointf> sp = CArray.<ST_pointf>ALLOC__(4, ST_pointf.class);
     double elen;
     final double elen2[] = new double[] {0};
     
@@ -291,11 +291,11 @@ LEAVING("9eellwhg4gsa2pdszpeqihs2d","arrowEndClip");
 // int arrowStartClip(edge_t* e, pointf * ps, int startp, 		   int endp, bezier * spl, int sflag) 
 @Unused
 @Original(version="2.38.0", path="lib/common/arrows.c", name="arrowStartClip", key="q7y4oxn0paexbgynmtg2zmiv", definition="int arrowStartClip(edge_t* e, pointf * ps, int startp, 		   int endp, bezier * spl, int sflag)")
-public static int arrowStartClip(ST_Agedge_s e, CStar<ST_pointf> ps, int startp, int endp, ST_bezier spl, int sflag) {
+public static int arrowStartClip(ST_Agedge_s e, CArray<ST_pointf> ps, int startp, int endp, ST_bezier spl, int sflag) {
 ENTERING("q7y4oxn0paexbgynmtg2zmiv","arrowStartClip");
 try {
     final ST_inside_t inside_context = new ST_inside_t();
-    final CStar<ST_pointf> sp = CStar.<ST_pointf>ALLOC__(4, ST_pointf.class);
+    final CArray<ST_pointf> sp = CArray.<ST_pointf>ALLOC__(4, ST_pointf.class);
     double slen;
     
     final double[] slen2 = new double[] {0};

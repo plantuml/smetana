@@ -585,11 +585,11 @@ public class Macro {
 
 	// #define GD_outleaf(g) (((Agraphinfo_t*)AGDATA(g))->outleaf)
 	// #define GD_rank(g) (((Agraphinfo_t*)AGDATA(g))->rank)
-	public static CStar<ST_rank_t> GD_rank(ST_Agraph_s g) {
+	public static CArray<ST_rank_t> GD_rank(ST_Agraph_s g) {
 		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).rank;
 	}
 
-	public static void GD_rank(ST_Agraph_s g, CStar<ST_rank_t> v) {
+	public static void GD_rank(ST_Agraph_s g, CArray<ST_rank_t> v) {
 		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("rank", v);
 		JUtilsDebug.LOG("set GD_rank "+v);
 	}

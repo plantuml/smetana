@@ -100,7 +100,7 @@ import h.ST_splines;
 import h.ST_textlabel_t;
 import smetana.core.ACCESS;
 import smetana.core.CFunction;
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.CStarStar;
 import smetana.core.__ptr__;
 
@@ -112,7 +112,7 @@ public class splines__c {
 // static void arrow_clip(edge_t * fe, node_t * hn, 	   pointf * ps, int *startp, int *endp, 	   bezier * spl, splineInfo * info) 
 @Unused
 @Original(version="2.38.0", path="lib/common/splines.c", name="arrow_clip", key="6izm0fbkejw7odmiw4zaw1ycp", definition="static void arrow_clip(edge_t * fe, node_t * hn, 	   pointf * ps, int *startp, int *endp, 	   bezier * spl, splineInfo * info)")
-public static void arrow_clip(ST_Agedge_s fe, ST_Agnode_s hn, CStar<ST_pointf> ps, int startp[], int endp[], ST_bezier spl, ST_splineInfo info) {
+public static void arrow_clip(ST_Agedge_s fe, ST_Agnode_s hn, CArray<ST_pointf> ps, int startp[], int endp[], ST_bezier spl, ST_splineInfo info) {
 ENTERING("6izm0fbkejw7odmiw4zaw1ycp","arrow_clip");
 try {
     ST_Agedge_s e;
@@ -168,13 +168,13 @@ LEAVING("6izm0fbkejw7odmiw4zaw1ycp","arrow_clip");
 // void bezier_clip(inside_t * inside_context, 		 boolean(*inside) (inside_t * inside_context, pointf p), 		 pointf * sp, boolean left_inside) 
 @Unused
 @Original(version="2.38.0", path="lib/common/splines.c", name="bezier_clip", key="q4t1ywnk3wm1vyh5seoj7xye", definition="void bezier_clip(inside_t * inside_context, 		 boolean(*inside) (inside_t * inside_context, pointf p), 		 pointf * sp, boolean left_inside)")
-public static void bezier_clip(__ptr__ inside_context, __ptr__ inside, CStar<ST_pointf> sp, boolean left_inside) {
+public static void bezier_clip(__ptr__ inside_context, __ptr__ inside, CArray<ST_pointf> sp, boolean left_inside) {
 ENTERING("q4t1ywnk3wm1vyh5seoj7xye","bezier_clip");
 try {
-    final CStar<ST_pointf> seg = CStar.<ST_pointf>ALLOC__(4, ST_pointf.class);
-    final CStar<ST_pointf> best = CStar.<ST_pointf>ALLOC__(4, ST_pointf.class);
+    final CArray<ST_pointf> seg = CArray.<ST_pointf>ALLOC__(4, ST_pointf.class);
+    final CArray<ST_pointf> best = CArray.<ST_pointf>ALLOC__(4, ST_pointf.class);
     final ST_pointf pt = new ST_pointf(), opt = new ST_pointf();
-    CStar<ST_pointf> left, right;
+    CArray<ST_pointf> left, right;
     double t;
     final double low[] = new double[] {0}, high[] = new double[] {0};
     double idir[] = null, odir[] = null;
@@ -236,12 +236,12 @@ LEAVING("q4t1ywnk3wm1vyh5seoj7xye","bezier_clip");
 // static void shape_clip0(inside_t * inside_context, node_t * n, pointf curve[4], 	    boolean left_inside) 
 @Unused
 @Original(version="2.38.0", path="lib/common/splines.c", name="shape_clip0", key="1fjkj1ydhtlf13pqj5r041orq", definition="static void shape_clip0(inside_t * inside_context, node_t * n, pointf curve[4], 	    boolean left_inside)")
-public static void shape_clip0(__ptr__ inside_context, ST_Agnode_s n, CStar<ST_pointf> curve, boolean left_inside) {
+public static void shape_clip0(__ptr__ inside_context, ST_Agnode_s n, CArray<ST_pointf> curve, boolean left_inside) {
 ENTERING("1fjkj1ydhtlf13pqj5r041orq","shape_clip0");
 try {
     int i;
     double save_real_size;
-    final CStar<ST_pointf> c = CStar.<ST_pointf>ALLOC__(4, ST_pointf.class);
+    final CArray<ST_pointf> c = CArray.<ST_pointf>ALLOC__(4, ST_pointf.class);
     save_real_size = ND_rw(n);
     for (i = 0; i < 4; i++) {
 	c.get__(i).x = curve.get__(i).x - ND_coord(n).x;
@@ -304,9 +304,9 @@ try {
 	e = ED_to_orig(e);
     if (ED_spl(e) == null)
 	ED_spl(e, new ST_splines());
-    ED_spl(e).list = CStar.<ST_bezier> REALLOC__(ED_spl(e).size + 1, ED_spl(e).list, ST_bezier.class);
+    ED_spl(e).list = CArray.<ST_bezier> REALLOC__(ED_spl(e).size + 1, ED_spl(e).list, ST_bezier.class);
     rv = ED_spl(e).list.get__(ED_spl(e).size++);
-    rv.list = CStar.<ST_pointf>ALLOC__(sz, ST_pointf.class);
+    rv.list = CArray.<ST_pointf>ALLOC__(sz, ST_pointf.class);
     rv.setInt("size", sz);
     rv.setInt("sflag", 0);
     rv.setInt("eflag", 0);
@@ -327,7 +327,7 @@ LEAVING("bdirexg1qdtophlh0ofjvsmj7","new_spline");
 // void clip_and_install(edge_t * fe, node_t * hn, pointf * ps, int pn, 		 splineInfo * info) 
 @Unused
 @Original(version="2.38.0", path="lib/common/splines.c", name="clip_and_install", key="duednxyuvf6xrff752uuv620f", definition="void clip_and_install(edge_t * fe, node_t * hn, pointf * ps, int pn, 		 splineInfo * info)")
-public static void clip_and_install(ST_Agedge_s fe, ST_Agnode_s hn, CStar<ST_pointf> ps, int pn, ST_splineInfo info) {
+public static void clip_and_install(ST_Agedge_s fe, ST_Agnode_s hn, CArray<ST_pointf> ps, int pn, ST_splineInfo info) {
 ENTERING("duednxyuvf6xrff752uuv620f","clip_and_install");
 try {
     final ST_pointf p2 = new ST_pointf();
@@ -397,7 +397,7 @@ try {
 	    break;
    arrow_clip(fe, hn, ps, start, end, newspl, info);
     for (i = start[0]; i < end[0] + 4; ) {
-	final CStar<ST_pointf> cp = CStar.<ST_pointf>ALLOC__(4, ST_pointf.class);
+	final CArray<ST_pointf> cp = CArray.<ST_pointf>ALLOC__(4, ST_pointf.class);
 	newspl.list.get__(i - start[0]).___(ps.get__(i));
 	cp.get__(0).___(ps.get__(i));
 	i++;
@@ -1142,7 +1142,7 @@ try {
     final ST_pointf tp = new ST_pointf(), hp = new ST_pointf(), np = new ST_pointf();
     ST_Agnode_s n;
     ST_Agedge_s e;
-    final CStar<ST_pointf> points = CStar.<ST_pointf>ALLOC__(1000, ST_pointf.class);
+    final CArray<ST_pointf> points = CArray.<ST_pointf>ALLOC__(1000, ST_pointf.class);
     int pointn;
     e = edges.get_(ind);
     n = agtail(e);

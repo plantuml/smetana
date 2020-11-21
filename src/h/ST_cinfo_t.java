@@ -45,7 +45,7 @@
  */
 package h;
 
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__struct__;
 import smetana.core.amiga.StarStruct;
@@ -53,7 +53,7 @@ import smetana.core.amiga.StarStruct;
 public class ST_cinfo_t extends UnsupportedStructAndPtr {
 
 	public final ST_boxf bb = new ST_boxf(this);
-	public CStar<ST_object_t> objp;
+	public CArray<ST_object_t> objp;
 
 	public ST_cinfo_t(StarStruct parent) {
 	}

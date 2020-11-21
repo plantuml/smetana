@@ -45,7 +45,7 @@
  */
 package h;
 
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.amiga.StarStruct;
 
@@ -58,7 +58,7 @@ public class ST_polygon_t extends UnsupportedStructAndPtr {
 	public double distortion;
 	public double skew;
 	public int option;
-	public CStar<ST_pointf> vertices;
+	public CArray<ST_pointf> vertices;
 
 	// "pointf *vertices",
 

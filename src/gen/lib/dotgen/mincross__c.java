@@ -140,7 +140,7 @@ import h.ST_adjmatrix_t;
 import h.ST_elist;
 import h.ST_nodequeue;
 import h.ST_rank_t;
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.CStarStar;
 import smetana.core.CString;
 import smetana.core.Memory;
@@ -1442,7 +1442,7 @@ try {
 			cn[r]++;
 	}
     }
-    GD_rank(g, CStar.<ST_rank_t>ALLOC__(GD_maxrank(g) + 2, ST_rank_t.class));
+    GD_rank(g, CArray.<ST_rank_t>ALLOC__(GD_maxrank(g) + 2, ST_rank_t.class));
     for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
 	GD_rank(g).get__(r).n = cn[r];
 	GD_rank(g).get__(r).an = cn[r];

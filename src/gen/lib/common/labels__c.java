@@ -86,7 +86,7 @@ import h.ST_pointf;
 import h.ST_port;
 import h.ST_textlabel_t;
 import h.ST_textspan_t;
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.CString;
 import smetana.core.Memory;
 import smetana.core.Z;
@@ -107,7 +107,7 @@ try {
     ST_textspan_t span = null;
     int oldsz = lp.nspans + 1;
     
-    lp.span = CStar.<ST_textspan_t>REALLOC__(oldsz + 1, lp.span, ST_textspan_t.class);
+    lp.span = CArray.<ST_textspan_t>REALLOC__(oldsz + 1, lp.span, ST_textspan_t.class);
     span = lp.span.get__(lp.nspans);
     span.str = line;
     span.just = terminator;

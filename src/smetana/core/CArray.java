@@ -39,7 +39,7 @@ package smetana.core;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CStar<O> extends UnsupportedC {
+public class CArray<O> extends UnsupportedC {
 
 	private final Class cl;
 	private final List<O> data;
@@ -52,13 +52,13 @@ public class CStar<O> extends UnsupportedC {
 //		realloc(size);
 //	}
 	
-	public static <O> CStar ALLOC__(int size, Class<O> cl) {
-		final CStar<O> result = new CStar<O>(new ArrayList<O>() , 0, cl);
+	public static <O> CArray ALLOC__(int size, Class<O> cl) {
+		final CArray<O> result = new CArray<O>(new ArrayList<O>() , 0, cl);
 		result.reallocWithStructure(size);
 		return result;
 	}
 
-	public static <O> CStar REALLOC__(int size, CStar<O> old, Class<O> cl) {
+	public static <O> CArray REALLOC__(int size, CArray<O> old, Class<O> cl) {
 		if (old==null) {
 			return ALLOC__(size, cl);
 		}
@@ -67,17 +67,17 @@ public class CStar<O> extends UnsupportedC {
 	}
 
 
-	private CStar(List<O> data, int offset, Class cl) {
+	private CArray(List<O> data, int offset, Class cl) {
 		this.data = data;
 		this.offset = offset;
 		this.cl = cl;
 	}
 
-	public CStar<O> plus_(int delta) {
-		return new CStar(data, offset + delta, cl);
+	public CArray<O> plus_(int delta) {
+		return new CArray(data, offset + delta, cl);
 	}
 	
-	public int minus_(CStar<O> other) {
+	public int minus_(CArray<O> other) {
 		if (this.data != other.data) {
 			throw new IllegalArgumentException();
 		}

@@ -150,7 +150,7 @@ import h.ST_aspect_t;
 import h.ST_point;
 import h.ST_pointf;
 import h.ST_rank_t;
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.CStarStar;
 import smetana.core.CString;
 import smetana.core.Memory;
@@ -204,7 +204,7 @@ try {
     ST_Agnode_s hp;
     ST_Agnode_s sn;
     ST_Agedge_s e;
-    CStar<ST_rank_t> rp;
+    CArray<ST_rank_t> rp;
     
     for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
 	rp = GD_rank(g).plus_(r);
@@ -414,7 +414,7 @@ try {
     int nodesep;      /* separation between nodes on same rank */
     ST_Agedge_s e, e0, e1, ff;
     ST_Agnode_s u, v, t0, h0;
-    CStar<ST_rank_t> rank = GD_rank(g);
+    CArray<ST_rank_t> rank = GD_rank(g);
     /* Use smaller separation on odd ranks if g has edge labels */
     if ((GD_has_labels(g) & (1 << 0))!=0) {
 	sep[0] = GD_nodesep(g);
@@ -853,7 +853,7 @@ ENTERING("1oobmglea9t819y95xeel37h8","set_xcoords");
 try {
     int i, j;
     ST_Agnode_s v;
-    CStar<ST_rank_t> rank = GD_rank(g);
+    CArray<ST_rank_t> rank = GD_rank(g);
     for (i = GD_minrank(g); i <= GD_maxrank(g); i++) {
 	for (j = 0; j < rank.get__(i).n; j++) {
 	    v = (ST_Agnode_s) rank.get__(i).v.get_(j);
@@ -974,7 +974,7 @@ try {
     int c;
     double ht1, ht2;
     ST_Agraph_s subg;
-    CStar<ST_rank_t> rank = GD_rank(dot_root(g));
+    CArray<ST_rank_t> rank = GD_rank(dot_root(g));
     int margin, haveClustLabel = 0;
     
     if (EQ(g, dot_root(g))) 
@@ -1031,7 +1031,7 @@ try {
     double ht2, maxht, delta, d0, d1;
     ST_Agnode_s n;
     ST_Agedge_s e;
-    CStar<ST_rank_t> rank = GD_rank(g);
+    CArray<ST_rank_t> rank = GD_rank(g);
     ST_Agraph_s clust;
     int lbl;
     

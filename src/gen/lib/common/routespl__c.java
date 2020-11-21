@@ -71,7 +71,7 @@ import h.ST_Ppoly_t;
 import h.ST_boxf;
 import h.ST_path;
 import h.ST_pointf;
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.Memory;
 import smetana.core.Z;
 
@@ -83,16 +83,16 @@ public class routespl__c {
 // pointf* simpleSplineRoute (pointf tp, pointf hp, Ppoly_t poly, int* n_spl_pts,     int polyline) 
 @Unused
 @Original(version="2.38.0", path="lib/common/routespl.c", name="simpleSplineRoute", key="7ebl6qohcfpf1b9ucih5r9qgp", definition="pointf* simpleSplineRoute (pointf tp, pointf hp, Ppoly_t poly, int* n_spl_pts,     int polyline)")
-public static CStar<ST_pointf> simpleSplineRoute(final ST_pointf tp, final ST_pointf hp, final ST_Ppoly_t poly, int[] n_spl_pts, boolean polyline) {
+public static CArray<ST_pointf> simpleSplineRoute(final ST_pointf tp, final ST_pointf hp, final ST_Ppoly_t poly, int[] n_spl_pts, boolean polyline) {
 // WARNING!! STRUCT
 return simpleSplineRoute_w_(tp.copy(), hp.copy(), (ST_Ppoly_t) poly.copy(), n_spl_pts, polyline);
 }
-private static CStar<ST_pointf> simpleSplineRoute_w_(final ST_pointf tp, final ST_pointf hp, final ST_Ppoly_t poly, int[] n_spl_pts, boolean polyline) {
+private static CArray<ST_pointf> simpleSplineRoute_w_(final ST_pointf tp, final ST_pointf hp, final ST_Ppoly_t poly, int[] n_spl_pts, boolean polyline) {
 ENTERING("7ebl6qohcfpf1b9ucih5r9qgp","simpleSplineRoute");
 try {
     final ST_Ppoly_t pl = new ST_Ppoly_t(), spl = new ST_Ppoly_t();
-    final CStar<ST_pointf> eps = CStar.<ST_pointf>ALLOC__(2, ST_pointf.class);
-    final CStar<ST_pointf> evs = CStar.<ST_pointf>ALLOC__(2, ST_pointf.class);
+    final CArray<ST_pointf> eps = CArray.<ST_pointf>ALLOC__(2, ST_pointf.class);
+    final CArray<ST_pointf> evs = CArray.<ST_pointf>ALLOC__(2, ST_pointf.class);
     int i;
     eps.get__(0).x = tp.x;
     eps.get__(0).y = tp.y;
@@ -104,7 +104,7 @@ try {
 	make_polyline (pl, spl);
     else {
 	if (poly.pn > Z.z().edgen) {
-	    Z.z().edges = CStar.<ST_Pedge_t>REALLOC__(poly.pn, Z.z().edges, ST_Pedge_t.class);
+	    Z.z().edges = CArray.<ST_Pedge_t>REALLOC__(poly.pn, Z.z().edges, ST_Pedge_t.class);
 	    Z.z().edgen = poly.pn;
 	}
 	for (i = 0; i < poly.pn; i++) {
@@ -145,7 +145,7 @@ public static int routesplinesinit() {
 ENTERING("bfsrazjf3vkf12stnke48vc8t","routesplinesinit");
 try {
     if (++Z.z().routeinit > 1) return 0;
-    if (N(Z.z().ps = CStar.<ST_pointf>ALLOC__(300, ST_pointf.class))) {
+    if (N(Z.z().ps = CArray.<ST_pointf>ALLOC__(300, ST_pointf.class))) {
 UNSUPPORTED("2qoo3na2ur9oh7hmvt6xv1txd"); // 	agerr(AGERR, "routesplinesinit: cannot allocate ps\n");
 UNSUPPORTED("eleqpc2p2r3hvma6tipoy7tr"); // 	return 1;
     }
@@ -188,12 +188,12 @@ LEAVING("55j3tny5cxemrsvrt3m21jxg8","routesplinesterm");
 // static void limitBoxes (boxf* boxes, int boxn, pointf *pps, int pn, int delta) 
 @Unused
 @Original(version="2.38.0", path="lib/common/routespl.c", name="limitBoxes", key="cu8ssjizw7ileqe9u7tcclq7k", definition="static void limitBoxes (boxf* boxes, int boxn, pointf *pps, int pn, int delta)")
-public static void limitBoxes(ST_boxf boxes[], int boxn, CStar<ST_pointf> pps, int pn, int delta) {
+public static void limitBoxes(ST_boxf boxes[], int boxn, CArray<ST_pointf> pps, int pn, int delta) {
 ENTERING("cu8ssjizw7ileqe9u7tcclq7k","limitBoxes");
 try {
     int bi, si, splinepi;
     double t;
-    final CStar<ST_pointf> sp = CStar.<ST_pointf>ALLOC__(4, ST_pointf.class);
+    final CArray<ST_pointf> sp = CArray.<ST_pointf>ALLOC__(4, ST_pointf.class);
     int num_div = delta * boxn;
     for (splinepi = 0; splinepi + 3 < pn; splinepi += 3) {
 	for (si = 0; si <= num_div; si++) {
@@ -238,14 +238,14 @@ LEAVING("cu8ssjizw7ileqe9u7tcclq7k","limitBoxes");
 // static pointf *_routesplines(path * pp, int *npoints, int polyline) 
 @Unused
 @Original(version="2.38.0", path="lib/common/routespl.c", name="", key="3mcnemqisisnqtd4mr72ej76y", definition="static pointf *_routesplines(path * pp, int *npoints, int polyline)")
-public static CStar<ST_pointf> _routesplines(ST_path pp, int npoints[], int polyline) {
+public static CArray<ST_pointf> _routesplines(ST_path pp, int npoints[], int polyline) {
 ENTERING("3mcnemqisisnqtd4mr72ej76y","_routesplines");
 try {
     final ST_Ppoly_t poly = new ST_Ppoly_t();
     final ST_Ppoly_t pl  = new ST_Ppoly_t(), spl = new ST_Ppoly_t();
     int splinepi;
-    final CStar<ST_pointf> eps = CStar.<ST_pointf>ALLOC__(2, ST_pointf.class);
-    final CStar<ST_pointf> evs = CStar.<ST_pointf>ALLOC__(2, ST_pointf.class);
+    final CArray<ST_pointf> eps = CArray.<ST_pointf>ALLOC__(2, ST_pointf.class);
+    final CArray<ST_pointf> evs = CArray.<ST_pointf>ALLOC__(2, ST_pointf.class);
     int edgei, prev, next;
     int pi=0, bi;
     ST_boxf[] boxes;
@@ -273,7 +273,7 @@ try {
 	return null;
     
     if (boxn * 8 > Z.z().polypointn) {
-	Z.z().polypoints = CStar.<ST_pointf>REALLOC__(boxn * 8, Z.z().polypoints, ST_pointf.class);
+	Z.z().polypoints = CArray.<ST_pointf>REALLOC__(boxn * 8, Z.z().polypoints, ST_pointf.class);
 	Z.z().polypointn = boxn * 8;
     }
     
@@ -400,7 +400,7 @@ UNSUPPORTED("48veztc3k9dfw8tqolu7jsktk"); // 	make_polyline (pl, &spl);
     }
     else {
 	if (poly.pn > Z.z().edgen) {
-	    Z.z().edges = CStar.<ST_Pedge_t>REALLOC__(poly.pn, Z.z().edges, ST_Pedge_t.class);
+	    Z.z().edges = CArray.<ST_Pedge_t>REALLOC__(poly.pn, Z.z().edges, ST_Pedge_t.class);
 	    Z.z().edgen = poly.pn;
 	}
 	for (edgei = 0; edgei < poly.pn; edgei++) {
@@ -488,7 +488,7 @@ LEAVING("3mcnemqisisnqtd4mr72ej76y","_routesplines");
 // pointf *routesplines(path * pp, int *npoints) 
 @Unused
 @Original(version="2.38.0", path="lib/common/routespl.c", name="", key="axqoytp2rpr8crajhkuvns6q9", definition="pointf *routesplines(path * pp, int *npoints)")
-public static CStar<ST_pointf> routesplines(ST_path pp, int npoints[]) {
+public static CArray<ST_pointf> routesplines(ST_path pp, int npoints[]) {
 ENTERING("axqoytp2rpr8crajhkuvns6q9","routesplines");
 try {
     return _routesplines (pp, npoints, 0);
@@ -504,7 +504,7 @@ LEAVING("axqoytp2rpr8crajhkuvns6q9","routesplines");
 // pointf *routepolylines(path * pp, int *npoints) 
 @Unused
 @Original(version="2.38.0", path="lib/common/routespl.c", name="", key="2v22s41xitwnnsljk9n01nrcy", definition="pointf *routepolylines(path * pp, int *npoints)")
-public static CStar<ST_pointf> routepolylines(ST_path pp, int npoints[]) {
+public static CArray<ST_pointf> routepolylines(ST_path pp, int npoints[]) {
 ENTERING("2v22s41xitwnnsljk9n01nrcy","routepolylines");
 try {
  UNSUPPORTED("1kjkc6bl8zpf8zjcwgbyni9p3"); // pointf *routepolylines(path * pp, int *npoints)
@@ -721,7 +721,7 @@ ENTERING("de6jvvw786rx88318tuuqywgq","mkspacep");
 try {
     if (size > Z.z().maxpn) {
 	int newmax = Z.z().maxpn + (size / 300 + 1) * 300;
-	Z.z().ps = CStar.<ST_pointf>REALLOC__(newmax, Z.z().ps, ST_pointf.class);
+	Z.z().ps = CArray.<ST_pointf>REALLOC__(newmax, Z.z().ps, ST_pointf.class);
 	if (N(Z.z().ps)) {
 UNSUPPORTED("ds2v91aohji00tc7zmjuc3v6q"); // 	    agerr(AGERR, "cannot re-allocate ps\n");
 UNSUPPORTED("btmwubugs9vkexo4yb7a5nqel"); // 	    return 1;

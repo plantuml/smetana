@@ -199,15 +199,15 @@ public class Z {
 
 	public int routeinit;
 
-	public CStar<ST_pointf> ps;
+	public CArray<ST_pointf> ps;
 
 	public int maxpn;
 
-	public CStar<ST_pointf> polypoints;
+	public CArray<ST_pointf> polypoints;
 
 	public int polypointn;
 
-	public CStar<ST_Pedge_t> edges;
+	public CArray<ST_Pedge_t> edges;
 
 	public int edgen;
 
@@ -234,7 +234,7 @@ public class Z {
 
 	public int trin, tril;
 
-	public CStar<ST_triangle_t> tris;
+	public CArray<ST_triangle_t> tris;
 
 	public int pnln, pnll;
 
@@ -251,7 +251,7 @@ public class Z {
 
 	public final ST_shape_functions record_fns = new ST_shape_functions();
 
-	public CStar<ST_tna_t> tnas;
+	public CArray<ST_tna_t> tnas;
 	public int tnan;
 
 	public final ST_shape_desc Shapes[] = {
@@ -272,13 +272,13 @@ public class Z {
 	public ST_polygon_t poly;
 	public int last, outp, sides;
 	public final ST_pointf O = new ST_pointf(); /* point (0,0) */
-	public CStar<ST_pointf> vertex;
+	public CArray<ST_pointf> vertex;
 	public double xsize, ysize, scalex, scaley, box_URx, box_URy;
 
 	public final ST_textfont_t tf = new ST_textfont_t();
 
-	public CStar<ST_pointf> pointfs;
-	public CStar<ST_pointf> pointfs2;
+	public CArray<ST_pointf> pointfs;
+	public CArray<ST_pointf> pointfs2;
 	public int numpts;
 	public int numpts2;
 
@@ -298,8 +298,8 @@ public class Z {
 	public int opn_route;
 	public int opn_shortest;
 
-	public CStar<ST_pointf> ops_route;
-	public CStar<ST_pointf> ops_shortest;
+	public CArray<ST_pointf> ops_route;
+	public CArray<ST_pointf> ops_shortest;
 	
 	public CString reclblp;
 

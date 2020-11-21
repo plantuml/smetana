@@ -73,7 +73,7 @@ import h.ST_object_t;
 import h.ST_point;
 import h.ST_pointf;
 import h.ST_xlabel_t;
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.Memory;
 import smetana.core.Z;
 public class xlabels__c {
@@ -173,7 +173,7 @@ LEAVING("5p3ac8qk4gnne5hj1dc21ysi","icompare");
 // static XLabels_t *xlnew(object_t * objs, int n_objs, 			xlabel_t * lbls, int n_lbls, 			label_params_t * params) 
 @Unused
 @Original(version="2.38.0", path="lib/label/xlabels.c", name="", key="88mbfm305igsr7cew5qx6yldp", definition="static XLabels_t *xlnew(object_t * objs, int n_objs, 			xlabel_t * lbls, int n_lbls, 			label_params_t * params)")
-public static ST_XLabels_t xlnew(CStar<ST_object_t> objs, int n_objs, CStar<ST_xlabel_t> lbls, int n_lbls, ST_label_params_t params) {
+public static ST_XLabels_t xlnew(CArray<ST_object_t> objs, int n_objs, CArray<ST_xlabel_t> lbls, int n_lbls, ST_label_params_t params) {
 ENTERING("88mbfm305igsr7cew5qx6yldp","xlnew");
 try {
 ST_XLabels_t xlp;
@@ -360,7 +360,7 @@ LEAVING("bpkzwylrchx5wta1qhytfgbtr","aabbaabb");
 public static boolean lblenclosing(ST_object_t objp, ST_object_t objp1) {
 ENTERING("2g71cq6f8w5jbmbnn2x9y5qfq","lblenclosing");
 try {
-	CStar<ST_xlabel_t> xlp = objp.lbl;
+	CArray<ST_xlabel_t> xlp = objp.lbl;
 //   assert(objp1->sz.x == 0 && objp1->sz.y == 0);
    if(N(xlp)) return false;
       return objp1.pos.x > xlp.get__(0).pos.x &&
@@ -407,7 +407,7 @@ LEAVING("dq1wkb4oxshdggv6cwtgas6m","objp2rect");
 public static void objplp2rect(ST_object_t objp, ST_Rect_t r) {
 ENTERING("71b5ttp3xs7lo9fqgb7ypyqgx","objplp2rect");
 try {
-	CStar<ST_xlabel_t> lp = objp.lbl;
+	CArray<ST_xlabel_t> lp = objp.lbl;
     r.boundary[0]=((int)lp.get__(0).pos.x);
     r.boundary[1]=((int)lp.get__(0).pos.y);
     r.boundary[2]=((int)(lp.get__(0).pos.x+lp.get__(0).sz.x));
@@ -456,7 +456,7 @@ public static int getintrsxi(ST_XLabels_t xlp, ST_object_t  op, ST_object_t cp) 
 ENTERING("calnhom3s9dqvvi6crrz3h2wp","getintrsxi");
 try {
      int i = -1;
-     CStar<ST_xlabel_t> lp = op.lbl, clp = cp.lbl;
+     CArray<ST_xlabel_t> lp = op.lbl, clp = cp.lbl;
      assert(lp != clp);
      if (lp.get__(0).set == 0 || clp.get__(0).set == 0)
  	return i;
@@ -664,7 +664,7 @@ LEAVING("8rxvucqsqnqej6h8p1osfnk4b","xladjust");
 }
 }
 private static ST_BestPos_t xladjust_(ST_XLabels_t xlp, ST_object_t objp) {
-	CStar<ST_xlabel_t> lp = objp.lbl; // ST_xlabel_t
+	CArray<ST_xlabel_t> lp = objp.lbl; // ST_xlabel_t
     double xincr = ((2 * lp.get__(0).sz.x + objp.sz.x)) / 8;
     double yincr = ((2 * lp.get__(0).sz.y + objp.sz.y)) / 2;
     ST_object_t intrsx[] = new ST_object_t[9];
@@ -916,7 +916,7 @@ LEAVING("6d3fqrllm55toeo3wscwvv4ty","xlinitialize");
 // int placeLabels(object_t * objs, int n_objs, 	    xlabel_t * lbls, int n_lbls, label_params_t * params) 
 @Unused
 @Original(version="2.38.0", path="lib/label/xlabels.c", name="placeLabels", key="brqgbskh3z4ah8infjompibvu", definition="int placeLabels(object_t * objs, int n_objs, 	    xlabel_t * lbls, int n_lbls, label_params_t * params)")
-public static int placeLabels(CStar<ST_object_t> objs, int n_objs, CStar<ST_xlabel_t> lbls, int n_lbls, ST_label_params_t params) {
+public static int placeLabels(CArray<ST_object_t> objs, int n_objs, CArray<ST_xlabel_t> lbls, int n_lbls, ST_label_params_t params) {
 ENTERING("brqgbskh3z4ah8infjompibvu","placeLabels");
 try {
 int r, i;

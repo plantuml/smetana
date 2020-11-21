@@ -58,7 +58,7 @@ import gen.annotation.Unused;
 import h.ST_Agraph_s;
 import h.ST_boxf;
 import h.ST_pointf;
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.CString;
 import smetana.core.__ptr__;
 
@@ -105,7 +105,7 @@ LEAVING("7udip7yo3ddkp9ocjftokpm9y","init_xdot");
 // static int check_control_points(pointf *cp) 
 @Unused
 @Original(version="2.38.0", path="lib/common/emit.c", name="check_control_points", key="7nqmdkcnal35ollpstkk707t8", definition="static int check_control_points(pointf *cp)")
-public static boolean check_control_points(CStar<ST_pointf> cp) {
+public static boolean check_control_points(CArray<ST_pointf> cp) {
 ENTERING("7nqmdkcnal35ollpstkk707t8","check_control_points");
 try {
     double dis1 = ptToLine2 (cp.get__(0), cp.get__(3), cp.get__(1));
@@ -127,7 +127,7 @@ LEAVING("7nqmdkcnal35ollpstkk707t8","check_control_points");
 // void update_bb_bz(boxf *bb, pointf *cp) 
 @Unused
 @Original(version="2.38.0", path="lib/common/emit.c", name="update_bb_bz", key="5wldemr88fdxl6101ugewclw9", definition="void update_bb_bz(boxf *bb, pointf *cp)")
-public static void update_bb_bz(ST_boxf bb, CStar<ST_pointf> cp) {
+public static void update_bb_bz(ST_boxf bb, CArray<ST_pointf> cp) {
 ENTERING("5wldemr88fdxl6101ugewclw9","update_bb_bz");
 try {
     /* if any control point of the segment is outside the bounding box */
@@ -156,8 +156,8 @@ try {
             }
         }
         else { /* else refine the segment */
-		    final CStar<ST_pointf> left = CStar.<ST_pointf>ALLOC__(4, ST_pointf.class);
-		    final CStar<ST_pointf> right = CStar.<ST_pointf>ALLOC__(4, ST_pointf.class);
+		    final CArray<ST_pointf> left = CArray.<ST_pointf>ALLOC__(4, ST_pointf.class);
+		    final CArray<ST_pointf> right = CArray.<ST_pointf>ALLOC__(4, ST_pointf.class);
             Bezier (cp, 3, 0.5, left, right);
             update_bb_bz(bb, left);
             update_bb_bz(bb, right);

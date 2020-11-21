@@ -45,7 +45,7 @@
  */
 package h;
 
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.CString;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
@@ -72,7 +72,7 @@ public class ST_textlabel_t extends UnsupportedStructAndPtr {
 	public final ST_pointf space = new ST_pointf(this);
 	public final ST_pointf pos = new ST_pointf(this);
 
-	public CStar<ST_textspan_t> span;
+	public CArray<ST_textspan_t> span;
 	public int nspans;
 
 	public final __ptr__ html__ = null;
@@ -110,7 +110,7 @@ public class ST_textlabel_t extends UnsupportedStructAndPtr {
 			return fontcolor;
 		}
 		if (fieldName.equals("u.txt.span")) {
-			this.span = (CStar<ST_textspan_t>) newData;
+			this.span = (CArray<ST_textspan_t>) newData;
 			return span;
 		}
 		return super.setPtr(fieldName, newData);

@@ -45,7 +45,7 @@
  */
 package h;
 
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
 import smetana.core.amiga.StarStruct;
@@ -65,8 +65,8 @@ public class ST_tedge_t extends UnsupportedStructAndPtr {
 	public ST_pointnlink_t pnl0p;
 	public ST_pointnlink_t pnl1p;
 
-	public CStar<ST_triangle_t> lrp;
-	public CStar<ST_triangle_t> rtp;
+	public CArray<ST_triangle_t> lrp;
+	public CArray<ST_triangle_t> rtp;
 
 	@Override
 	public __ptr__ setPtr(String fieldName, __ptr__ newData) {

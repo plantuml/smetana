@@ -45,7 +45,7 @@
  */
 package h;
 
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
 import smetana.core.__struct__;
@@ -65,7 +65,7 @@ public class ST_bezier extends UnsupportedStructAndPtr {
 
 	// "{",
 	// "pointf *list",
-	public CStar<ST_pointf> list;
+	public CArray<ST_pointf> list;
 
 	public int size;
 	public int sflag, eflag;

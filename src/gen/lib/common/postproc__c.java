@@ -115,7 +115,7 @@ import h.ST_pointf;
 import h.ST_splines;
 import h.ST_textlabel_t;
 import h.ST_xlabel_t;
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.CString;
 import smetana.core.Memory;
 import smetana.core.Z;
@@ -261,7 +261,7 @@ LEAVING("h4i5qxnd7hlrew919abswd13","translate_drawing");
 // static pointf centerPt (xlabel_t* xlp) 
 @Unused
 @Original(version="2.38.0", path="lib/common/postproc.c", name="centerPt", key="2i713kmewjct2igf3lwm80462", definition="static pointf centerPt (xlabel_t* xlp)")
-public static ST_pointf centerPt(CStar<ST_xlabel_t> xlp) {
+public static ST_pointf centerPt(CArray<ST_xlabel_t> xlp) {
 ENTERING("2i713kmewjct2igf3lwm80462","centerPt");
 try {
    final ST_pointf p = new ST_pointf();
@@ -349,7 +349,7 @@ if (bez.eflag!=0) {
 // static boxf adjustBB (object_t* objp, boxf bb) 
 @Unused
 @Original(version="2.38.0", path="lib/common/postproc.c", name="adjustBB", key="1ca6fh8ns5bgzfzcz8al4eh4k", definition="static boxf adjustBB (object_t* objp, boxf bb)")
-public static ST_boxf adjustBB(CStar<ST_object_t> objp, ST_boxf bb) {
+public static ST_boxf adjustBB(CArray<ST_object_t> objp, ST_boxf bb) {
 ENTERING("1ca6fh8ns5bgzfzcz8al4eh4k","adjustBB");
 try {
 	return adjustBB_(objp, bb.copy()).copy();
@@ -357,7 +357,7 @@ try {
 LEAVING("1ca6fh8ns5bgzfzcz8al4eh4k","adjustBB");
 }
 }
-private static ST_boxf adjustBB_(CStar<ST_object_t> objp, ST_boxf bb) {
+private static ST_boxf adjustBB_(CArray<ST_object_t> objp, ST_boxf bb) {
 	final ST_pointf ur = new ST_pointf();
 	/* Adjust bounding box */
 	bb.LL.x = (MIN(bb.LL.x, objp.get__(0).pos.x));
@@ -380,7 +380,7 @@ private static ST_boxf adjustBB_(CStar<ST_object_t> objp, ST_boxf bb) {
  */
 @Unused
 @Original(version="2.38.0", path="lib/common/postproc.c", name="addXLabel", key="3mefe722uemyoa0czmkkw6hjb", definition="static void addXLabel (textlabel_t* lp, object_t* objp, xlabel_t* xlp, int initObj, pointf pos)")
-public static void addXLabel(ST_textlabel_t lp, CStar<ST_object_t> objp, CStar<ST_xlabel_t> xlp, int initObj, ST_pointf pos) {
+public static void addXLabel(ST_textlabel_t lp, CArray<ST_object_t> objp, CArray<ST_xlabel_t> xlp, int initObj, ST_pointf pos) {
 ENTERING("3mefe722uemyoa0czmkkw6hjb","addXLabel");
 try {
 	addXLabel_(lp, objp, xlp, initObj, pos.copy());
@@ -388,7 +388,7 @@ try {
 LEAVING("3mefe722uemyoa0czmkkw6hjb","addXLabel");
 }
 }
-private static void addXLabel_(ST_textlabel_t lp, CStar<ST_object_t> objp, CStar<ST_xlabel_t> xlp, int initObj, ST_pointf pos) {
+private static void addXLabel_(ST_textlabel_t lp, CArray<ST_object_t> objp, CArray<ST_xlabel_t> xlp, int initObj, ST_pointf pos) {
 	if (initObj!=0) {
 		objp.get__(0).sz.x = 0;
 		objp.get__(0).sz.y = 0;
@@ -420,11 +420,11 @@ private static void addXLabel_(ST_textlabel_t lp, CStar<ST_object_t> objp, CStar
 // static boxf addLabelObj (textlabel_t* lp, object_t* objp, boxf bb) 
 @Unused
 @Original(version="2.38.0", path="lib/common/postproc.c", name="addLabelObj", key="dwxd5kvlanbcxqfuncjg0ea54", definition="static boxf addLabelObj (textlabel_t* lp, object_t* objp, boxf bb)")
-public static ST_boxf addLabelObj(ST_textlabel_t lp, CStar<ST_object_t> objp, final ST_boxf bb) {
+public static ST_boxf addLabelObj(ST_textlabel_t lp, CArray<ST_object_t> objp, final ST_boxf bb) {
 	// WARNING!! STRUCT
 	return addLabelObj_(lp, objp, bb.copy()).copy();
 }
-private static ST_boxf addLabelObj_(ST_textlabel_t lp, CStar<ST_object_t> objp, final ST_boxf bb) {
+private static ST_boxf addLabelObj_(ST_textlabel_t lp, CArray<ST_object_t> objp, final ST_boxf bb) {
 ENTERING("dwxd5kvlanbcxqfuncjg0ea54","addLabelObj");
 try {
 	if (Z.z().Flip) {
@@ -452,13 +452,13 @@ try {
 // static boxf addNodeObj (node_t* np, object_t* objp, boxf bb) 
 @Unused
 @Original(version="2.38.0", path="lib/common/postproc.c", name="addNodeObj", key="b8tjygxnwny5qoiir1mha1d62", definition="static boxf addNodeObj (node_t* np, object_t* objp, boxf bb)")
-public static ST_boxf addNodeObj(ST_Agnode_s np, CStar<ST_object_t> objp, final ST_boxf bb) {
+public static ST_boxf addNodeObj(ST_Agnode_s np, CArray<ST_object_t> objp, final ST_boxf bb) {
 	// WARNING!! STRUCT
 	return addNodeObj_(np, objp, bb.copy()).copy();
 }
 @Unused
 @Original(version="2.38.0", path="lib/common/postproc.c", name="", key="", definition="")
-public static ST_boxf addNodeObj_(ST_Agnode_s np, CStar<ST_object_t> objp, final ST_boxf bb) {
+public static ST_boxf addNodeObj_(ST_Agnode_s np, CArray<ST_object_t> objp, final ST_boxf bb) {
 ENTERING("b8tjygxnwny5qoiir1mha1d62","addNodeObj");
 try {
 	if (Z.z().Flip) {
@@ -499,7 +499,7 @@ private static ST_cinfo_t addClusterObj_(ST_Agraph_s g, ST_cinfo_t info) {
      for (c = 1; c <= GD_n_cluster(g); c++)
  	info.___(addClusterObj ((ST_Agraph_s)GD_clust(g).get_(c).castTo(ST_Agraph_s.class), info));
      if (NEQ(g, agroot(g)) && (GD_label(g)!=null) && GD_label(g).set!=0) {
-    	 CStar<ST_object_t> objp = info.objp;
+    	 CArray<ST_object_t> objp = info.objp;
     	 info.setStruct("bb", addLabelObj (GD_label(g), objp, (ST_boxf) info.bb));
     	 info.objp = info.objp.plus_(1);
 //UNSUPPORTED("dcgq2zlh4t0m1gno12t6h7ouy"); // 	object_t* objp = info.objp;
@@ -553,10 +553,10 @@ try {
     final ST_pointf ur = new ST_pointf();
     ST_textlabel_t lp;
     final ST_label_params_t params = new ST_label_params_t();
-    CStar<ST_object_t> objs;
-    CStar<ST_xlabel_t> lbls;
-    CStar<ST_object_t> objp;
-    CStar<ST_xlabel_t> xlp;
+    CArray<ST_object_t> objs;
+    CArray<ST_xlabel_t> lbls;
+    CArray<ST_object_t> objp;
+    CArray<ST_xlabel_t> xlp;
     ST_Agsym_s force;
     int et = (GD_flags(gp) & (7 << 1));
     
@@ -610,9 +610,9 @@ UNSUPPORTED("q3t8uxncrxc4n8rtuabtzxya"); // 		    n_elbls++;
 	 * and all unset edge labels and xlabels.
 	 */
 	n_objs = agnnodes(gp) + n_set_lbls + n_clbls + n_elbls;
-	objs = CStar.<ST_object_t>ALLOC__(n_objs, ST_object_t.class);
+	objs = CArray.<ST_object_t>ALLOC__(n_objs, ST_object_t.class);
 	objp = objs;
-	lbls = CStar.<ST_xlabel_t>ALLOC__(n_lbls, ST_xlabel_t.class);
+	lbls = CArray.<ST_xlabel_t>ALLOC__(n_lbls, ST_xlabel_t.class);
 	xlp = lbls;
 	bb.setStruct("LL", pointfof(INT_MAX, INT_MAX));
 	bb.setStruct("UR", pointfof(-INT_MAX, -INT_MAX));

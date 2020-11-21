@@ -45,7 +45,7 @@
  */
 package h;
 
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
 import smetana.core.amiga.StarStruct;
@@ -62,7 +62,7 @@ public class ST_inside_t extends UnsupportedStructAndPtr {
 		this.parent = parent;
 	}
 
-	public CStar<ST_pointf> a_p;
+	public CArray<ST_pointf> a_p;
 	public double a_r[];
 	public ST_Agnode_s s_n;
 	public ST_boxf s_bp;

@@ -60,7 +60,7 @@ import h.ST_Ppoly_t;
 import h.ST_pointf;
 import h.ST_pointnlink_t;
 import h.ST_triangle_t;
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.Z;
 import smetana.core.__ptr__;
 import smetana.core.jmp_buf;
@@ -89,7 +89,7 @@ private static jmp_buf jbuf = new jmp_buf();
 // int Pshortestpath(Ppoly_t * polyp, Ppoint_t * eps, Ppolyline_t * output) 
 @Unused
 @Original(version="2.38.0", path="lib/pathplan/shortest.c", name="Pshortestpath", key="2gub5b19vo2qexn56nw23wage", definition="int Pshortestpath(Ppoly_t * polyp, Ppoint_t * eps, Ppolyline_t * output)")
-public static int Pshortestpath(ST_Ppoly_t polyp, CStar<ST_pointf> eps, ST_Ppoly_t output) {
+public static int Pshortestpath(ST_Ppoly_t polyp, CArray<ST_pointf> eps, ST_Ppoly_t output) {
 ENTERING("2gub5b19vo2qexn56nw23wage","Pshortestpath");
 try {
     int pi, minpi;
@@ -99,7 +99,7 @@ try {
     int ei;
     final ST_pointnlink_t[]  epnls = new ST_pointnlink_t[] {new ST_pointnlink_t(),new ST_pointnlink_t()};
     ST_pointnlink_t lpnlp=null, rpnlp=null, pnlp=null;
-    CStar<ST_triangle_t> trip;
+    CArray<ST_triangle_t> trip;
     int splitindex;
     
     if (setjmp(jbuf)!=0)
@@ -371,7 +371,7 @@ LEAVING("72of3cd7shtwokglxapw04oe9","isdiagonal");
 public static void loadtriangle(__ptr__ pnlap, __ptr__ pnlbp, __ptr__ pnlcp) {
 ENTERING("7vf9jtj9i8rg0cxrstbqswuck","loadtriangle");
 try {
-	CStar<ST_triangle_t> trip;
+	CArray<ST_triangle_t> trip;
     int ei;
     /* make space */
     if (Z.z().tril >= Z.z().trin)
@@ -405,8 +405,8 @@ LEAVING("7vf9jtj9i8rg0cxrstbqswuck","loadtriangle");
 public static void connecttris(int tri1, int tri2) {
 ENTERING("6coujw0qksrgu5sxj0r39qm1u","connecttris");
 try {
-	CStar<ST_triangle_t> tri1p;
-	CStar<ST_triangle_t> tri2p;
+	CArray<ST_triangle_t> tri1p;
+	CArray<ST_triangle_t> tri2p;
     int ei, ej;
     for (ei = 0; ei < 3; ei++) {
 	for (ej = 0; ej < 3; ej++) {
@@ -691,12 +691,12 @@ try {
     if (newtrin <= Z.z().trin)
 	return;
     if (N(Z.z().tris)) {
-	if (N(Z.z().tris = CStar.<ST_triangle_t>ALLOC__(newtrin, ST_triangle_t.class))) {
+	if (N(Z.z().tris = CArray.<ST_triangle_t>ALLOC__(newtrin, ST_triangle_t.class))) {
 	UNSUPPORTED("5782e28cjpaa3dpf8up4zmtq7"); // 	    fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\shortest.c", 26, ("cannot malloc tris"));
 	UNSUPPORTED("1r6uhbnmxv8c6msnscw07w0qx"); // 	    longjmp(jbuf,1);
 	}
     } else {
-	if (N(Z.z().tris = CStar.<ST_triangle_t>REALLOC__(newtrin, Z.z().tris, ST_triangle_t.class))) {
+	if (N(Z.z().tris = CArray.<ST_triangle_t>REALLOC__(newtrin, Z.z().tris, ST_triangle_t.class))) {
 	UNSUPPORTED("d3fgu54pn5tydfhn7z73v73ra"); // 	    fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\shortest.c", 26, ("cannot realloc tris"));
 	UNSUPPORTED("1r6uhbnmxv8c6msnscw07w0qx"); // 	    longjmp(jbuf,1);
 	}
@@ -768,12 +768,12 @@ try {
     if (newopn <= Z.z().opn_shortest)
 	return;
     if (N(Z.z().ops_shortest)) {
-	if (N(Z.z().ops_shortest = CStar.<ST_pointf>ALLOC__(newopn, ST_pointf.class))) {
+	if (N(Z.z().ops_shortest = CArray.<ST_pointf>ALLOC__(newopn, ST_pointf.class))) {
 UNSUPPORTED("7wxgcgah7iy6vetj5yszoq4k4"); // 	    fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\shortest.c", 26, ("cannot malloc ops"));
 UNSUPPORTED("1r6uhbnmxv8c6msnscw07w0qx"); // 	    longjmp(jbuf,1);
 	}
     } else {
-	if (N(Z.z().ops_shortest = CStar.<ST_pointf>REALLOC__(newopn, Z.z().ops_shortest, ST_pointf.class))) {
+	if (N(Z.z().ops_shortest = CArray.<ST_pointf>REALLOC__(newopn, Z.z().ops_shortest, ST_pointf.class))) {
 UNSUPPORTED("7azrdo5s3kc44taqmtmeu1s33"); // 	    fprintf (stderr, "libpath/%s:%d: %s\n", "graphviz-2.38.0\\lib\\pathplan\\shortest.c", 26, ("cannot realloc ops"));
 UNSUPPORTED("1r6uhbnmxv8c6msnscw07w0qx"); // 	    longjmp(jbuf,1);
     }

@@ -127,7 +127,7 @@ import h.ST_port;
 import h.ST_splines;
 import h.ST_textlabel_t;
 import smetana.core.CFunction;
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.CStarStar;
 import smetana.core.CString;
 import smetana.core.Memory;
@@ -420,20 +420,20 @@ private static final int W_DEGREE = 5;
 // pointf Bezier(pointf * V, int degree, double t, pointf * Left, pointf * Right) 
 @Unused
 @Original(version="2.38.0", path="lib/common/utils.c", name="Bezier", key="6p0ey2c2ujk2o7h221p0b4xon", definition="pointf Bezier(pointf * V, int degree, double t, pointf * Left, pointf * Right)")
-public static ST_pointf Bezier(CStar<ST_pointf> V, int degree, double t, CStar<ST_pointf> Left, CStar<ST_pointf> Right) {
+public static ST_pointf Bezier(CArray<ST_pointf> V, int degree, double t, CArray<ST_pointf> Left, CArray<ST_pointf> Right) {
 // WARNING!! STRUCT
 return Bezier_w_(V, degree, t, Left, Right).copy();
 }
-private static ST_pointf Bezier_w_(CStar<ST_pointf> V, int degree, double t, CStar<ST_pointf> Left, CStar<ST_pointf> Right) {
+private static ST_pointf Bezier_w_(CArray<ST_pointf> V, int degree, double t, CArray<ST_pointf> Left, CArray<ST_pointf> Right) {
 ENTERING("6p0ey2c2ujk2o7h221p0b4xon","Bezier");
 try {
     int i, j;			/* Index variables      */
-    final CStar<ST_pointf> Vtemp[] = new CStar[] { CStar.ALLOC__(W_DEGREE+1,ST_pointf.class),
-    		CStar.ALLOC__(W_DEGREE+1,ST_pointf.class),
-    		CStar.ALLOC__(W_DEGREE+1,ST_pointf.class),
-    		CStar.ALLOC__(W_DEGREE+1,ST_pointf.class),
-    		CStar.ALLOC__(W_DEGREE+1,ST_pointf.class),
-    		CStar.ALLOC__(W_DEGREE+1,ST_pointf.class)};
+    final CArray<ST_pointf> Vtemp[] = new CArray[] { CArray.ALLOC__(W_DEGREE+1,ST_pointf.class),
+    		CArray.ALLOC__(W_DEGREE+1,ST_pointf.class),
+    		CArray.ALLOC__(W_DEGREE+1,ST_pointf.class),
+    		CArray.ALLOC__(W_DEGREE+1,ST_pointf.class),
+    		CArray.ALLOC__(W_DEGREE+1,ST_pointf.class),
+    		CArray.ALLOC__(W_DEGREE+1,ST_pointf.class)};
 
     /* Copy control points  */
     for (j = 0; j <= degree; j++) {
@@ -555,7 +555,7 @@ private static ST_pointf dotneato_closest_(ST_splines spl, final ST_pointf pt) {
      double bestdist2, d2, dlow2, dhigh2; /* squares of distances */
      double low, high, t;
      // final ST_pointf c[] = new ST_pointf[] {new ST_pointf(),new ST_pointf(),new ST_pointf(),new ST_pointf()};
-	 final CStar<ST_pointf> c = CStar.<ST_pointf>ALLOC__(4, ST_pointf.class);
+	 final CArray<ST_pointf> c = CArray.<ST_pointf>ALLOC__(4, ST_pointf.class);
      final ST_pointf pt2 = new ST_pointf();
      final ST_bezier bz = new ST_bezier();
      besti = bestj = -1;

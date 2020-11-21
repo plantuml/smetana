@@ -45,7 +45,7 @@
  */
 package h;
 
-import smetana.core.CStar;
+import smetana.core.CArray;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.amiga.StarStruct;
 
@@ -64,7 +64,7 @@ public class ST_splines extends UnsupportedStructAndPtr {
 	// "typedef struct splines",
 	// "{",
 // 	bezier *list;
-	public CStar<ST_bezier> list;
+	public CArray<ST_bezier> list;
 	public int size;
 
 	// "boxf bb",
