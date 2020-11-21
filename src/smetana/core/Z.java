@@ -494,19 +494,19 @@ public class Z {
 		Center.order = 0;
 		Center.side = 0;
 
-		p_ellipse.setInt("regular", 0);
-		p_ellipse.setInt("peripheries", 1);
-		p_ellipse.setInt("sides", 1);
-		p_ellipse.setDouble("orientation", 0.);
-		p_ellipse.setDouble("distortion", 0.);
-		p_ellipse.setDouble("skew", 0.);
+		p_ellipse.regular = false;
+		p_ellipse.peripheries = 1;
+		p_ellipse.sides = 1;
+		p_ellipse.orientation = 0.;
+		p_ellipse.distortion = 0.;
+		p_ellipse.skew = 0.;
 
-		p_box.setInt("regular", 0);
-		p_box.setInt("peripheries", 1);
-		p_box.setInt("sides", 4);
-		p_box.setDouble("orientation", 0.);
-		p_box.setDouble("distortion", 0.);
-		p_box.setDouble("skew", 0.);
+		p_box.regular = false;
+		p_box.peripheries = 1;
+		p_box.sides = 4;
+		p_box.orientation = 0.;
+		p_box.distortion = 0.;
+		p_box.skew = 0.;
 
 		poly_fns.setPtr("initfn", function(shapes__c.class, "poly_init"));
 		poly_fns.setPtr("freefn", function(shapes__c.class, "poly_free"));
