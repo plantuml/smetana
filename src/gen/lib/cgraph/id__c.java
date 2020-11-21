@@ -125,7 +125,7 @@ LEAVING("lsl0c1gejls1wv04ga6xy2cf","idmap");
 // static long idalloc(void *state, int objtype, unsigned long request) 
 @Unused
 @Original(version="2.38.0", path="lib/cgraph/id.c", name="idalloc", key="8ynmf2fueegi7vjejal3ri1ax", definition="static long idalloc(void *state, int objtype, unsigned long request)")
-public static Object idalloc(Object... arg) {
+public static Object idalloc(Object... arg_) {
 UNSUPPORTED("1z2o91qjhxg0zcs8vgzyl9bf1"); // static long idalloc(void *state, int objtype, unsigned long request)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
 UNSUPPORTED("2s0qc9g3dasd7eqa3rhtlxrae"); //     (void) state;
@@ -144,7 +144,7 @@ throw new UnsupportedOperationException();
 // static void idfree(void *state, int objtype, unsigned long id) 
 @Unused
 @Original(version="2.38.0", path="lib/cgraph/id.c", name="idfree", key="5fsdlq8w38bfd7gtwz1z8arad", definition="static void idfree(void *state, int objtype, unsigned long id)")
-public static Object idfree(Object... arg) {
+public static Object idfree(Object... arg_) {
 UNSUPPORTED("adq5fviqjzpkxrjt37qxo1ywh"); // static void idfree(void *state, int objtype, unsigned long id)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
 UNSUPPORTED("x0ltcg0hfp8jlgbjde43bdwj"); //     (void) objtype;
@@ -180,7 +180,7 @@ LEAVING("8143j507ej7uqqjzw5i32xej5","idprint");
 // static void idclose(void *state) 
 @Unused
 @Original(version="2.38.0", path="lib/cgraph/id.c", name="idclose", key="44seyu1scoubb1wsuhwlghwyz", definition="static void idclose(void *state)")
-public static Object idclose(Object... arg) {
+public static Object idclose(Object... arg_) {
 UNSUPPORTED("18oh21h7t6fg06ozg64u87nyu"); // static void idclose(void *state)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
 UNSUPPORTED("2s0qc9g3dasd7eqa3rhtlxrae"); //     (void) state;
@@ -256,36 +256,6 @@ LEAVING("aq30wwcj4ugatsgx0zdtdmeed","agmapnametoid");
 
 
 
-
-//3 dwufsd296z6lfmtm7fp4e3tk7
-// int agallocid(Agraph_t * g, int objtype, unsigned long request) 
-@Unused
-@Original(version="2.38.0", path="lib/cgraph/id.c", name="agallocid", key="dwufsd296z6lfmtm7fp4e3tk7", definition="int agallocid(Agraph_t * g, int objtype, unsigned long request)")
-public static Object agallocid(Object... arg) {
-UNSUPPORTED("5i7l75ugdm5j5c4xtqqk9atdd"); // int agallocid(Agraph_t * g, int objtype, unsigned long request)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("dlf21dkccrftu3zc0t5amuwu4"); //     return ((g)->clos->disc.id)->alloc(((g)->clos->state.id), objtype, request);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
-//3 cfub4osftc8djs88cq592feu3
-// void agfreeid(Agraph_t * g, int objtype, unsigned long id) 
-@Unused
-@Original(version="2.38.0", path="lib/cgraph/id.c", name="agfreeid", key="cfub4osftc8djs88cq592feu3", definition="void agfreeid(Agraph_t * g, int objtype, unsigned long id)")
-public static Object agfreeid(Object... arg) {
-UNSUPPORTED("4hpxv4j7rcvj3lrbvu2e0hus4"); // void agfreeid(Agraph_t * g, int objtype, unsigned long id)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("3s1vo79t7lt6fm1bimxdpbqj"); //     (void) aginternalmapdelete(g, objtype, id);
-UNSUPPORTED("dm45ri059viqxsb08rmvo60y1"); //     (((g)->clos->disc.id)->free) (((g)->clos->state.id), objtype, id);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
 
 
 
