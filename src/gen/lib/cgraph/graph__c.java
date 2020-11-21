@@ -83,8 +83,8 @@ import h.ST_Agsubnode_s;
 import h.ST_dt_s;
 import h.ST_dtdisc_s;
 import h.ST_dtlink_s;
+import smetana.core.CStar;
 import smetana.core.CString;
-import smetana.core.STARSTAR;
 import smetana.core.Z;
 import smetana.core.__ptr__;
 
@@ -282,13 +282,13 @@ LEAVING("9qgdebmdfrcfjm394bg59a7y5","agisstrict");
 
 @Reviewed(when = "14/11/2020")
 @Original(version="2.38.0", path="lib/cgraph/graph.c", name="cnt", key="abaldeo2ie6zi60cazxp7rv47", definition="static int cnt(Dict_t * d, Dtlink_t ** set)")
-public static int cnt(ST_dt_s d, STARSTAR<ST_dtlink_s> set) {
+public static int cnt(ST_dt_s d, CStar<ST_dtlink_s> set) {
 ENTERING("abaldeo2ie6zi60cazxp7rv47","cnt");
 try {
 	int rv;
-    dtrestore(d, set.getMe());
+    dtrestore(d, set.star());
     rv = dtsize_(d);
-    set.setMe(dtextract(d));
+    set.star(dtextract(d));
 	return rv;
 } finally {
 LEAVING("abaldeo2ie6zi60cazxp7rv47","cnt");
@@ -308,8 +308,8 @@ try {
     
     sn = agsubrep(g, n);
     if (sn!=null) {
-	if (want_out) rv += cnt(g.e_seq, sn.out_seq__AMP());
-	if (want_in) rv += cnt(g.e_seq, sn.in_seq__AMP());
+	if (want_out) rv += cnt(g.e_seq, sn.out_seq_AMP());
+	if (want_in) rv += cnt(g.e_seq, sn.in_seq_AMP());
     }
 	return rv;
 } finally {

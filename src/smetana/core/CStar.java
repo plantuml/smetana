@@ -38,19 +38,23 @@ package smetana.core;
 
 public class CStar<O> extends UnsupportedC {
 
-	private final O data;
+	private final ACCESS<O> access;
 
-	public static <O> CStar<O> BUILD(O data) {
-		return new CStar<O>(data);
+	public static <O> CStar<O> BUILD(ACCESS<O> access) {
+		return new CStar<O>(access);
 	}
 
-	private CStar(O data) {
-		this.data = data;
+	private CStar(ACCESS<O> access) {
+		this.access = access;
 	}
 	
 	
-	public O __() {
-		return data;
+	public O star() {
+		return access.get();
+	}
+	
+	public void star(O data) {
+		access.set(data);
 	}
 
 

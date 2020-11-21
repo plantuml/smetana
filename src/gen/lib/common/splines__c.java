@@ -99,8 +99,8 @@ import h.ST_splineInfo;
 import h.ST_splines;
 import h.ST_textlabel_t;
 import smetana.core.ACCESS;
-import smetana.core.CFunction;
 import smetana.core.CArray;
+import smetana.core.CFunction;
 import smetana.core.CStarStar;
 import smetana.core.__ptr__;
 

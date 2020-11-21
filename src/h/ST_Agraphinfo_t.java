@@ -45,8 +45,8 @@
  */
 package h;
 
-import smetana.core.CFunction;
 import smetana.core.CArray;
+import smetana.core.CFunction;
 import smetana.core.CStarStar;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;

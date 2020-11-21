@@ -46,8 +46,8 @@
 package h;
 
 import smetana.core.ACCESS;
+import smetana.core.CStar;
 import smetana.core.OFFSET;
-import smetana.core.STARSTAR;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
 import smetana.core.amiga.StarStruct;
@@ -57,10 +57,58 @@ public class ST_Agsubnode_s extends UnsupportedStructAndPtr {
 	public final ST_dtlink_s seq_link = new ST_dtlink_s(this);
 	public final ST_dtlink_s id_link = new ST_dtlink_s(this);
 	public ST_Agnode_s node;
+
 	public ST_dtlink_s in_id;
+	public CStar<ST_dtlink_s> in_id_AMP() {
+		return CStar.<ST_dtlink_s>BUILD(new ACCESS<ST_dtlink_s>() {
+			public ST_dtlink_s get() {
+				return in_id;
+			}
+
+			public void set(ST_dtlink_s data) {
+				in_id = data;
+			}
+		});
+	}
+
 	public ST_dtlink_s out_id;
+	public CStar<ST_dtlink_s> out_id_AMP() {
+		return CStar.<ST_dtlink_s>BUILD(new ACCESS<ST_dtlink_s>() {
+			public ST_dtlink_s get() {
+				return out_id;
+			}
+
+			public void set(ST_dtlink_s data) {
+				out_id = data;
+			}
+		});
+	}
+
 	public ST_dtlink_s in_seq;
+	public CStar<ST_dtlink_s> in_seq_AMP() {
+		return CStar.<ST_dtlink_s>BUILD(new ACCESS<ST_dtlink_s>() {
+			public ST_dtlink_s get() {
+				return in_seq;
+			}
+
+			public void set(ST_dtlink_s data) {
+				in_seq = data;
+			}
+		});
+	}
+
 	public ST_dtlink_s out_seq;
+	public CStar<ST_dtlink_s> out_seq_AMP() {
+		return CStar.<ST_dtlink_s>BUILD(new ACCESS<ST_dtlink_s>() {
+			public ST_dtlink_s get() {
+				return out_seq;
+			}
+
+			public void set(ST_dtlink_s data) {
+				out_seq = data;
+			}
+		});
+	}
 
 	public ST_Agsubnode_s() {
 		this(null);
@@ -112,79 +160,6 @@ public class ST_Agsubnode_s extends UnsupportedStructAndPtr {
 		}
 		System.err.println("dest=" + dest);
 		return super.castTo(dest);
-	}
-
-	@Override
-	public __ptr__ setPtr(String fieldName, __ptr__ newData) {
-		if (fieldName.equals("node")) {
-			this.node = (ST_Agnode_s) newData;
-			return node;
-		}
-		if (fieldName.equals("in_id")) {
-			this.in_id = (h.ST_dtlink_s) newData;
-			return in_id;
-		}
-		if (fieldName.equals("out_seq")) {
-			this.out_seq = (h.ST_dtlink_s) newData;
-			return out_seq;
-		}
-		if (fieldName.equals("out_id")) {
-			this.out_id = (h.ST_dtlink_s) newData;
-			return out_id;
-		}
-		if (fieldName.equals("seq_link")) {
-			this.seq_link.copyDataFrom(newData);
-			return seq_link;
-		}
-		if (fieldName.equals("in_seq")) {
-			this.in_seq = (h.ST_dtlink_s) newData;
-			return in_seq;
-		}
-		return super.setPtr(fieldName, newData);
-	}
-
-	public STARSTAR<ST_dtlink_s> out_seq__AMP() {
-		return STARSTAR.amp(new ACCESS<ST_dtlink_s>() {
-			public ST_dtlink_s get() {
-				return out_seq;
-			}
-			public void set(ST_dtlink_s obj) {
-				out_seq = obj;
-			}
-		});
-	}
-
-	public STARSTAR<ST_dtlink_s> in_seq__AMP() {
-		return STARSTAR.amp(new ACCESS<ST_dtlink_s>() {
-			public ST_dtlink_s get() {
-				return in_seq;
-			}
-			public void set(ST_dtlink_s obj) {
-				in_seq = obj;
-			}
-		});
-	}
-
-	public STARSTAR<ST_dtlink_s> out_id__AMP() {
-		return STARSTAR.amp(new ACCESS<ST_dtlink_s>() {
-			public ST_dtlink_s get() {
-				return out_id;
-			}
-			public void set(ST_dtlink_s obj) {
-				out_id = obj;
-			}
-		});
-	}
-
-	public STARSTAR<ST_dtlink_s> in_id__AMP() {
-		return STARSTAR.amp(new ACCESS<ST_dtlink_s>() {
-			public ST_dtlink_s get() {
-				return in_id;
-			}
-			public void set(ST_dtlink_s obj) {
-				in_id = obj;
-			}
-		});
 	}
 
 	// public interface ST_Agsubnode_s extends __ptr__ {
