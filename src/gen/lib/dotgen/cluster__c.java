@@ -121,7 +121,7 @@ import h.ST_Agedge_s;
 import h.ST_Agnode_s;
 import h.ST_Agraph_s;
 import h.ST_nodequeue;
-import smetana.core.CStarStar;
+import smetana.core.CArrayOfStar;
 
 public class cluster__c {
 
@@ -156,7 +156,7 @@ ENTERING("5ib4nnt2ah5fdd22zs0xds29r","make_slots");
 try {
     int i;
     ST_Agnode_s v;
-    CStarStar<ST_Agnode_s> vlist;
+    CArrayOfStar<ST_Agnode_s> vlist;
     vlist = GD_rank(root).get__(r).v;
     if (d <= 0) {
 	for (i = pos - d + 1; i < GD_rank(root).get__(r).n; i++) {
@@ -558,7 +558,7 @@ try {
     ST_Agedge_s e;
     
     prev = null;
-    GD_rankleader(subg, CStarStar.<ST_Agnode_s>ALLOC(GD_maxrank(subg) + 2, ST_Agnode_s.class));
+    GD_rankleader(subg, CArrayOfStar.<ST_Agnode_s>ALLOC(GD_maxrank(subg) + 2, ST_Agnode_s.class));
     for (r = GD_minrank(subg); r <= GD_maxrank(subg); r++) {
 	v = virtual_node(g);
 	GD_rankleader(subg).set_(r, v);

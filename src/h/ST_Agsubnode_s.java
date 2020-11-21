@@ -46,7 +46,7 @@
 package h;
 
 import smetana.core.ACCESS;
-import smetana.core.CStar;
+import smetana.core.CStarStar;
 import smetana.core.OFFSET;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
@@ -59,8 +59,8 @@ public class ST_Agsubnode_s extends UnsupportedStructAndPtr {
 	public ST_Agnode_s node;
 
 	public ST_dtlink_s in_id;
-	public CStar<ST_dtlink_s> in_id_AMP() {
-		return CStar.<ST_dtlink_s>BUILD(new ACCESS<ST_dtlink_s>() {
+	public CStarStar<ST_dtlink_s> in_id_AMP() {
+		return CStarStar.<ST_dtlink_s>BUILD(new ACCESS<ST_dtlink_s>() {
 			public ST_dtlink_s get() {
 				return in_id;
 			}
@@ -72,8 +72,8 @@ public class ST_Agsubnode_s extends UnsupportedStructAndPtr {
 	}
 
 	public ST_dtlink_s out_id;
-	public CStar<ST_dtlink_s> out_id_AMP() {
-		return CStar.<ST_dtlink_s>BUILD(new ACCESS<ST_dtlink_s>() {
+	public CStarStar<ST_dtlink_s> out_id_AMP() {
+		return CStarStar.<ST_dtlink_s>BUILD(new ACCESS<ST_dtlink_s>() {
 			public ST_dtlink_s get() {
 				return out_id;
 			}
@@ -85,8 +85,8 @@ public class ST_Agsubnode_s extends UnsupportedStructAndPtr {
 	}
 
 	public ST_dtlink_s in_seq;
-	public CStar<ST_dtlink_s> in_seq_AMP() {
-		return CStar.<ST_dtlink_s>BUILD(new ACCESS<ST_dtlink_s>() {
+	public CStarStar<ST_dtlink_s> in_seq_AMP() {
+		return CStarStar.<ST_dtlink_s>BUILD(new ACCESS<ST_dtlink_s>() {
 			public ST_dtlink_s get() {
 				return in_seq;
 			}
@@ -98,8 +98,8 @@ public class ST_Agsubnode_s extends UnsupportedStructAndPtr {
 	}
 
 	public ST_dtlink_s out_seq;
-	public CStar<ST_dtlink_s> out_seq_AMP() {
-		return CStar.<ST_dtlink_s>BUILD(new ACCESS<ST_dtlink_s>() {
+	public CStarStar<ST_dtlink_s> out_seq_AMP() {
+		return CStarStar.<ST_dtlink_s>BUILD(new ACCESS<ST_dtlink_s>() {
 			public ST_dtlink_s get() {
 				return out_seq;
 			}

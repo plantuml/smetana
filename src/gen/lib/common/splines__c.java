@@ -101,7 +101,7 @@ import h.ST_textlabel_t;
 import smetana.core.ACCESS;
 import smetana.core.CArray;
 import smetana.core.CFunction;
-import smetana.core.CStarStar;
+import smetana.core.CArrayOfStar;
 import smetana.core.__ptr__;
 
 public class splines__c {
@@ -1120,7 +1120,7 @@ throw new UnsupportedOperationException();
 // static void selfRight (edge_t* edges[], int ind, int cnt, double stepx, double sizey,            splineInfo* sinfo)  
 @Unused
 @Original(version="2.38.0", path="lib/common/splines.c", name="selfRight", key="3sr8gvj4141qql0v12lb89cyt", definition="static void selfRight (edge_t* edges[], int ind, int cnt, double stepx, double sizey,            splineInfo* sinfo)")
-public static void selfRight(CStarStar<ST_Agedge_s> edges, int ind, int cnt, double stepx, double sizey, ST_splineInfo sinfo) {
+public static void selfRight(CArrayOfStar<ST_Agedge_s> edges, int ind, int cnt, double stepx, double sizey, ST_splineInfo sinfo) {
 ENTERING("3sr8gvj4141qql0v12lb89cyt","selfRight");
 try {
     int i, sgn, point_pair;
@@ -1312,7 +1312,7 @@ LEAVING("678whq05s481ertx02jloteu3","selfRightSpace");
 // void makeSelfEdge(path * P, edge_t * edges[], int ind, int cnt, double sizex, 	     double sizey, splineInfo * sinfo) 
 @Unused
 @Original(version="2.38.0", path="lib/common/splines.c", name="makeSelfEdge", key="bt3fwgprixbc5rceeewozdqr9", definition="void makeSelfEdge(path * P, edge_t * edges[], int ind, int cnt, double sizex, 	     double sizey, splineInfo * sinfo)")
-public static void makeSelfEdge(ST_path P, CStarStar<ST_Agedge_s> edges, int ind, int cnt, double sizex, double sizey, ST_splineInfo sinfo) {
+public static void makeSelfEdge(ST_path P, CArrayOfStar<ST_Agedge_s> edges, int ind, int cnt, double sizex, double sizey, ST_splineInfo sinfo) {
 ENTERING("bt3fwgprixbc5rceeewozdqr9","makeSelfEdge");
 try {
     ST_Agedge_s e;

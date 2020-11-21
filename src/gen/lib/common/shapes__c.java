@@ -123,7 +123,7 @@ import h.ST_textlabel_t;
 import smetana.core.ACCESS;
 import smetana.core.CArray;
 import smetana.core.CFunctionImpl;
-import smetana.core.CStarStar;
+import smetana.core.CArrayOfStar;
 import smetana.core.CString;
 import smetana.core.Memory;
 import smetana.core.Z;
@@ -1655,7 +1655,7 @@ UNSUPPORTED("6hyelvzskqfqa07xtgjtvg2is"); // 		continue;
  	    break;
     }
 	//     rv->fld = (field_t **)zmalloc((maxf)*sizeof(field_t *));
-	rv.fld = CStarStar.<ST_field_t>ALLOC(maxf, ST_field_t.class);
+	rv.fld = CArrayOfStar.<ST_field_t>ALLOC(maxf, ST_field_t.class);
     rv.LR = LR;
     mode = 0;
     fi = 0;

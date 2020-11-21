@@ -100,7 +100,7 @@ import h.ST_Agraph_s;
 import h.ST_pointf;
 import h.ST_rank_t;
 import smetana.core.CArray;
-import smetana.core.CStarStar;
+import smetana.core.CArrayOfStar;
 import smetana.core.JUtilsDebug;
 
 public class flat__c {
@@ -119,10 +119,10 @@ public static ST_Agnode_s make_vn_slot(ST_Agraph_s g, int r, int pos) {
 ENTERING("e0gtvsxlvztmwu8yy44wfvf97","make_vn_slot");
 try {
     int i;
-    CStarStar<ST_Agnode_s> v;
+    CArrayOfStar<ST_Agnode_s> v;
     
     ST_Agnode_s n;
-	v = CStarStar.<ST_Agnode_s>REALLOC(GD_rank(g).get__(r).n + 2, GD_rank(g).get__(r).v, ST_Agnode_s.class);
+	v = CArrayOfStar.<ST_Agnode_s>REALLOC(GD_rank(g).get__(r).n + 2, GD_rank(g).get__(r).v, ST_Agnode_s.class);
     GD_rank(g).get__(r).v = v;
     for (i = GD_rank(g).get__(r).n; i > pos; i--) {
 	v.set_(i, v.get_(i - 1));
@@ -236,7 +236,7 @@ try {
     int lnode, rnode, r, pos;
     int[] lpos = new int[1], rpos = new int[1];
     int bounds[] = new int[4];
-    CStarStar<ST_Agnode_s> rank;
+    CArrayOfStar<ST_Agnode_s> rank;
     
     r = ND_rank(agtail(e)) - 1;
     if (r<0) {
@@ -357,7 +357,7 @@ try {
 	GD_rank(g).get__(r).___(GD_rank(g).get__(r - 1));
     GD_rank(g).get__(r).n = 0;
     GD_rank(g).get__(r).an = 0;
-    GD_rank(g).get__(r).v = CStarStar.<ST_Agnode_s>ALLOC(2, ST_Agnode_s.class);
+    GD_rank(g).get__(r).v = CArrayOfStar.<ST_Agnode_s>ALLOC(2, ST_Agnode_s.class);
     GD_rank(g).get__(r).av = GD_rank(g).get__(r).v;
     GD_rank(g).get__(r).flat = null;
     GD_rank(g).get__(r).ht1 = 1;

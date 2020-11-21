@@ -151,7 +151,7 @@ import h.ST_point;
 import h.ST_pointf;
 import h.ST_rank_t;
 import smetana.core.CArray;
-import smetana.core.CStarStar;
+import smetana.core.CArrayOfStar;
 import smetana.core.CString;
 import smetana.core.Memory;
 import smetana.core.Z;
@@ -1428,7 +1428,7 @@ try {
 	}
 	if (j <= GD_rank(g).get__(r).n)
 	    continue;
-	GD_rank(g).get__(r).v = CStarStar.<ST_Agnode_s>REALLOC(j + 1, GD_rank(g).get__(r).v, ST_Agnode_s.class);
+	GD_rank(g).get__(r).v = CArrayOfStar.<ST_Agnode_s>REALLOC(j + 1, GD_rank(g).get__(r).v, ST_Agnode_s.class);
 	for (i = GD_rank(g).get__(r).n - 1; i >= 0; i--) {
 	    v = GD_rank(g).get__(r).v.get_(i);
 	    GD_rank(g).get__(r).v.plus(ND_order(v)).setPtr(v);

@@ -98,7 +98,7 @@ import h.ST_Agtag_s;
 import h.ST_dt_s;
 import h.ST_dtdisc_s;
 import h.ST_dtlink_s;
-import smetana.core.CStar;
+import smetana.core.CStarStar;
 import smetana.core.CString;
 import smetana.core.Z;
 import smetana.core.__ptr__;
@@ -325,7 +325,7 @@ LEAVING("b32ssm6ex1pdz1b3nt4fwlhul","agsubrep");
 
 @Reviewed(when = "13/11/2020")
 @Original(version="2.38.0", path="lib/cgraph/edge.c", name="ins", key="6u0niow33w9gva780waluva4n", definition="static void ins(Dict_t * d, Dtlink_t ** set, Agedge_t * e)")
-public static void ins(ST_dt_s d, CStar<ST_dtlink_s> set, ST_Agedge_s e) {
+public static void ins(ST_dt_s d, CStarStar<ST_dtlink_s> set, ST_Agedge_s e) {
 ENTERING("6u0niow33w9gva780waluva4n","ins");
 try {
     dtrestore(d, set.star());

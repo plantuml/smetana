@@ -45,14 +45,14 @@
  */
 package h;
 
-import smetana.core.CStarStar;
+import smetana.core.CArrayOfStar;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.amiga.StarStruct;
 
 public class ST_nlist_t extends UnsupportedStructAndPtr {
 
 	public int size;
-	public CStarStar<ST_Agnode_s> list;
+	public CArrayOfStar<ST_Agnode_s> list;
 
 	public ST_nlist_t(StarStruct parent) {
 	}

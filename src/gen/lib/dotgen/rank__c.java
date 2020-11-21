@@ -124,7 +124,7 @@ import h.ST_Agraph_s;
 import h.ST_aspect_t;
 import h.ST_elist;
 import h.ST_point;
-import smetana.core.CStarStar;
+import smetana.core.CArrayOfStar;
 import smetana.core.CString;
 import smetana.core.Memory;
 import smetana.core.Z;
@@ -313,7 +313,7 @@ try {
     int cno;
     GD_n_cluster(g, GD_n_cluster(g)+1);
     cno = GD_n_cluster(g);
-    GD_clust(g, CStarStar.<ST_Agraph_s>REALLOC(cno + 1, GD_clust(g), ST_Agraph_s.class));
+    GD_clust(g, CArrayOfStar.<ST_Agraph_s>REALLOC(cno + 1, GD_clust(g), ST_Agraph_s.class));
     GD_clust(g).set_(cno, subg);
     do_graph_label(subg);
     return cno;

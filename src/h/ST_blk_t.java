@@ -45,13 +45,13 @@
  */
 package h;
 
-import smetana.core.CStarStar;
+import smetana.core.CArrayOfStar;
 import smetana.core.UnsupportedStructAndPtr;
 
 public class ST_blk_t extends UnsupportedStructAndPtr {
 	
-	public CStarStar<ST_Agnode_s> data;
-	public CStarStar<ST_Agnode_s> endp;
+	public CArrayOfStar<ST_Agnode_s> data;
+	public CArrayOfStar<ST_Agnode_s> endp;
 	public ST_blk_t prev;
 	public ST_blk_t next;
 

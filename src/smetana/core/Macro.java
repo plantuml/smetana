@@ -347,7 +347,7 @@ public class Macro {
 
 	// #define GD_cl_cnt(g) (((Agraphinfo_t*)AGDATA(g))->cl_nt)
 	// #define GD_clust(g) (((Agraphinfo_t*)AGDATA(g))->clust)
-	public static CStarStar<ST_Agraph_s> GD_clust(ST_Agraph_s g) {
+	public static CArrayOfStar<ST_Agraph_s> GD_clust(ST_Agraph_s g) {
 		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).clust;
 	}
 
@@ -595,11 +595,11 @@ public class Macro {
 	}
 
 	// #define GD_rankleader(g) (((Agraphinfo_t*)AGDATA(g))->rankleader)
-	public static CStarStar<ST_Agnode_s> GD_rankleader(ST_Agraph_s g) {
+	public static CArrayOfStar<ST_Agnode_s> GD_rankleader(ST_Agraph_s g) {
 		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).rankleader;
 	}
 
-	public static void GD_rankleader(ST_Agraph_s g, CStarStar<ST_Agnode_s> v) {
+	public static void GD_rankleader(ST_Agraph_s g, CArrayOfStar<ST_Agnode_s> v) {
 		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("rankleader", v);
 	}
 
@@ -1292,7 +1292,7 @@ public class Macro {
 	// #define elist_append(item,L) do {L.list = ALLOC(L.size + 2,L.list,edge_t*); L.list[L.size++] = item;
 	// L.list[L.size] = NULL;} while(0)
 	public static void elist_append(ST_Agedge_s item, ST_elist L) {
-		L.list = CStarStar.<ST_Agedge_s> REALLOC(L.size + 2, L.list, ST_Agedge_s.class);
+		L.list = CArrayOfStar.<ST_Agedge_s> REALLOC(L.size + 2, L.list, ST_Agedge_s.class);
 		L.list.set_(L.size++, item);
 		L.list.set_(L.size, null);
 	}
@@ -1300,7 +1300,7 @@ public class Macro {
 	// #define alloc_elist(n,L) do {L.size = 0; L.list = N_NEW(n + 1,edge_t*); } while (0)
 	public static void alloc_elist(int n, ST_elist L) {
 		L.size = 0;
-		L.list = CStarStar.<ST_Agedge_s> ALLOC(n + 1, ST_Agedge_s.class);
+		L.list = CArrayOfStar.<ST_Agedge_s> ALLOC(n + 1, ST_Agedge_s.class);
 	}
 
 	// #define free_list(L) do {if (L.list) free(L.list);} while (0)

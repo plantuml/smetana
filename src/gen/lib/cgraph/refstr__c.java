@@ -58,7 +58,7 @@ import h.ST_Agraph_s;
 import h.ST_dt_s;
 import h.ST_refstr_t;
 import smetana.core.ACCESS;
-import smetana.core.CStar;
+import smetana.core.CStarStar;
 import smetana.core.CString;
 import smetana.core.Z;
 
@@ -86,9 +86,9 @@ static {
 private static ST_dt_s refdict(final ST_Agraph_s g) {
 ENTERING("f1nwss2xoaub1hyord232ugoj","refdict");
 try {
-		final CStar<ST_dt_s> dictref;
+		final CStarStar<ST_dt_s> dictref;
 		if (g != null)
-			dictref = CStar.<ST_dt_s> BUILD(new ACCESS<ST_dt_s>() {
+			dictref = CStarStar.<ST_dt_s> BUILD(new ACCESS<ST_dt_s>() {
 				public ST_dt_s get() {
 					return (ST_dt_s) g.clos.strdict;
 				}
@@ -97,7 +97,7 @@ try {
 				}
 			});
 		else
-			dictref = CStar.<ST_dt_s> BUILD(new ACCESS<ST_dt_s>() {
+			dictref = CStarStar.<ST_dt_s> BUILD(new ACCESS<ST_dt_s>() {
 				public ST_dt_s get() {
 					return Z.z().Refdict_default;
 				}

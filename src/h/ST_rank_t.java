@@ -45,7 +45,7 @@
  */
 package h;
 
-import smetana.core.CStarStar;
+import smetana.core.CArrayOfStar;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
 import smetana.core.__struct__;
@@ -64,9 +64,9 @@ public class ST_rank_t extends UnsupportedStructAndPtr {
 	}
 
 	public int n;
-	public CStarStar<ST_Agnode_s> v;
+	public CArrayOfStar<ST_Agnode_s> v;
 	public int an;
-	public CStarStar<ST_Agnode_s> av;
+	public CArrayOfStar<ST_Agnode_s> av;
 
 	public double ht1, ht2;
 	public double pht1, pht2;
@@ -150,11 +150,11 @@ public class ST_rank_t extends UnsupportedStructAndPtr {
 	@Override
 	public __ptr__ setPtr(String fieldName, __ptr__ newData) {
 		if (fieldName.equals("v")) {
-			this.v = (CStarStar<ST_Agnode_s>) newData;
+			this.v = (CArrayOfStar<ST_Agnode_s>) newData;
 			return v;
 		}
 		if (fieldName.equals("av")) {
-			this.av = (CStarStar<ST_Agnode_s>) newData;
+			this.av = (CArrayOfStar<ST_Agnode_s>) newData;
 			return av;
 		}
 		if (fieldName.equals("flat")) {

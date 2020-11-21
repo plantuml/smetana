@@ -45,7 +45,7 @@
  */
 package h;
 
-import smetana.core.CStarStar;
+import smetana.core.CArrayOfStar;
 import smetana.core.CString;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
@@ -59,7 +59,7 @@ public class ST_field_t extends UnsupportedStructAndPtr {
 	public int n_flds;
 	public ST_textlabel_t lp;	/* n_flds == 0 */
 	// struct field_t **fld;	/* n_flds > 0 */
-	public CStarStar<ST_field_t> fld;
+	public CArrayOfStar<ST_field_t> fld;
 	public CString id;	/* user's identifier */
 	public boolean LR;	/* if box list is horizontal (left to right) */
 	public int sides;    /* sides of node exposed to field */

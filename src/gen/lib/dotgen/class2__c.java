@@ -110,7 +110,7 @@ import h.ST_Agedge_s;
 import h.ST_Agnode_s;
 import h.ST_Agraph_s;
 import h.ST_pointf;
-import smetana.core.CStarStar;
+import smetana.core.CArrayOfStar;
 import smetana.core.JUtilsDebug;
 import smetana.core.Z;
 
@@ -490,7 +490,7 @@ try {
     JUtilsDebug.LOG("OUT2");
     /* since decompose() is not called on subgraphs */
     if (NEQ(g, dot_root(g))) {
-    GD_comp(g).list = CStarStar.<ST_Agnode_s>REALLOC(1, GD_comp(g).list, ST_Agnode_s.class);
+    GD_comp(g).list = CArrayOfStar.<ST_Agnode_s>REALLOC(1, GD_comp(g).list, ST_Agnode_s.class);
 	GD_comp(g).list.set_(0, GD_nlist(g));
     }
 } finally {

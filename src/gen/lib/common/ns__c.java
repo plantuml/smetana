@@ -96,7 +96,7 @@ import h.ST_Agedge_s;
 import h.ST_Agnode_s;
 import h.ST_Agraph_s;
 import h.ST_nodequeue;
-import smetana.core.CStarStar;
+import smetana.core.CArrayOfStar;
 import smetana.core.CString;
 import smetana.core.Memory;
 import smetana.core.Z;
@@ -816,9 +816,9 @@ try {
     }
     
     
-    Z.z().Tree_node.list = CStarStar.<ST_Agnode_s>REALLOC(Z.z().N_nodes, Z.z().Tree_node.list, ST_Agnode_s.class); 
+    Z.z().Tree_node.list = CArrayOfStar.<ST_Agnode_s>REALLOC(Z.z().N_nodes, Z.z().Tree_node.list, ST_Agnode_s.class); 
     Z.z().Tree_node.size =  0;
-    Z.z().Tree_edge.list = CStarStar.<ST_Agedge_s>REALLOC(Z.z().N_nodes, Z.z().Tree_edge.list, ST_Agedge_s.class);
+    Z.z().Tree_edge.list = CArrayOfStar.<ST_Agedge_s>REALLOC(Z.z().N_nodes, Z.z().Tree_edge.list, ST_Agedge_s.class);
     Z.z().Tree_edge.size = 0;
     
     
@@ -833,10 +833,10 @@ try {
 		&& (ND_rank(aghead(e)) - ND_rank(agtail(e)) < ED_minlen(e)))
 		feasible = 0;
 	}
-	ND_tree_in(n).list = CStarStar.<ST_Agedge_s> ALLOC(i + 1, ST_Agedge_s.class);
+	ND_tree_in(n).list = CArrayOfStar.<ST_Agedge_s> ALLOC(i + 1, ST_Agedge_s.class);
 	ND_tree_in(n).size = 0;
 	for (i = 0; (e = (ST_Agedge_s) ND_out(n).list.get_(i))!=null; i++);
-	ND_tree_out(n).list = CStarStar.<ST_Agedge_s> ALLOC(i + 1, ST_Agedge_s.class);
+	ND_tree_out(n).list = CArrayOfStar.<ST_Agedge_s> ALLOC(i + 1, ST_Agedge_s.class);
 	ND_tree_out(n).size = 0;
     }
     return feasible;

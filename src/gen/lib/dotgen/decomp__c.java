@@ -73,7 +73,7 @@ import h.ST_Agedge_s;
 import h.ST_Agnode_s;
 import h.ST_Agraph_s;
 import h.ST_elist;
-import smetana.core.CStarStar;
+import smetana.core.CArrayOfStar;
 import smetana.core.Z;
 
 public class decomp__c {
@@ -127,7 +127,7 @@ try {
     int i;
     
     i = GD_comp(Z.z().G_decomp).size++;    
-    GD_comp(Z.z().G_decomp).list = CStarStar.<ST_Agnode_s>REALLOC(GD_comp(Z.z().G_decomp).size, GD_comp(Z.z().G_decomp).list, ST_Agnode_s.class);
+    GD_comp(Z.z().G_decomp).list = CArrayOfStar.<ST_Agnode_s>REALLOC(GD_comp(Z.z().G_decomp).size, GD_comp(Z.z().G_decomp).list, ST_Agnode_s.class);
     GD_comp(Z.z().G_decomp).list.set_(i, GD_nlist(Z.z().G_decomp));
 } finally {
 LEAVING("5o8hxpr6ppi15pinuy79m7u04","end_component");

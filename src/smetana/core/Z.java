@@ -223,7 +223,7 @@ public class Z {
 
 	public boolean ReMincross;
 
-	public CStarStar<ST_Agedge_s> TE_list;
+	public CArrayOfStar<ST_Agedge_s> TE_list;
 
 	public int TI_list[];
 

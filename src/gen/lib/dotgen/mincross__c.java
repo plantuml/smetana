@@ -141,7 +141,7 @@ import h.ST_elist;
 import h.ST_nodequeue;
 import h.ST_rank_t;
 import smetana.core.CArray;
-import smetana.core.CStarStar;
+import smetana.core.CArrayOfStar;
 import smetana.core.CString;
 import smetana.core.Memory;
 import smetana.core.Z;
@@ -499,12 +499,12 @@ LEAVING("657v773m21j5w3g3v94o7464t","left2right");
 public static int in_cross(ST_Agnode_s v, ST_Agnode_s w) {
 ENTERING("daknncpjy7g5peiicolbmh55i","in_cross");
 try {
-    CStarStar<ST_Agedge_s> e2_ = ND_in(w).list;
+    CArrayOfStar<ST_Agedge_s> e2_ = ND_in(w).list;
     int inv, cross = 0, t;
     for (int ie2 = 0; e2_.get_(ie2)!=null; ie2++) {
 	int cnt = ED_xpenalty(e2_.get_(ie2));		
 	inv = ND_order((agtail(e2_.get_(ie2))));
-    CStarStar<ST_Agedge_s> e1_ = ND_in(v).list;
+    CArrayOfStar<ST_Agedge_s> e1_ = ND_in(v).list;
 	for (int ie1 = 0; e1_.get_(ie1)!=null; ie1++) {
 	    t = ND_order(agtail(e1_.get_(ie1))) - inv;
 	    if ((t > 0)
@@ -529,12 +529,12 @@ LEAVING("daknncpjy7g5peiicolbmh55i","in_cross");
 public static int out_cross(ST_Agnode_s v, ST_Agnode_s w) {
 ENTERING("b7mf74np8ewrgzwd5u0o8fqod","out_cross");
 try {
- 	CStarStar<ST_Agedge_s> e2_ = ND_out(w).list;
+ 	CArrayOfStar<ST_Agedge_s> e2_ = ND_out(w).list;
     int inv, cross = 0, t;
     for (int ie2 = 0; e2_.get_(ie2)!=null; ie2++) {
 	int cnt = ED_xpenalty(e2_.get_(ie2));
 	inv = ND_order(aghead(e2_.get_(ie2)));
-    CStarStar<ST_Agedge_s> e1_ = ND_out(v).list;
+    CArrayOfStar<ST_Agedge_s> e1_ = ND_out(v).list;
 	for (int ie1 = 0; e1_.get_(ie1)!=null; ie1++) {
 	    t = ND_order(aghead(e1_.get_(ie1))) - inv;
 	    if ((t > 0)
@@ -1268,7 +1268,7 @@ try {
     /* also, the +1 avoids attempts to alloc 0 sizes, something
        that efence complains about */
     size = agnedges(dot_root(g)) + 1;
-    Z.z().TE_list = CStarStar.<ST_Agedge_s>ALLOC(size, ST_Agedge_s.class);
+    Z.z().TE_list = CArrayOfStar.<ST_Agedge_s>ALLOC(size, ST_Agedge_s.class);
     Z.z().TI_list = new int[size];
     mincross_options(g);
     if ((GD_flags(g) & NEW_RANK)!=0)
@@ -1446,7 +1446,7 @@ try {
     for (r = GD_minrank(g); r <= GD_maxrank(g); r++) {
 	GD_rank(g).get__(r).n = cn[r];
 	GD_rank(g).get__(r).an = cn[r];
-	CStarStar<ST_Agnode_s> tmp = CStarStar.<ST_Agnode_s>ALLOC(cn[r] + 1, ST_Agnode_s.class);
+	CArrayOfStar<ST_Agnode_s> tmp = CArrayOfStar.<ST_Agnode_s>ALLOC(cn[r] + 1, ST_Agnode_s.class);
 	GD_rank(g).get__(r).v = tmp;
 	GD_rank(g).get__(r).av = tmp;
     }
@@ -1515,7 +1515,7 @@ ENTERING("7t49bz6lfcbd9v63ds2x3518z","build_ranks");
 try {
     int i, j;
     ST_Agnode_s n, n0 = null;
-    CStarStar<ST_Agedge_s> otheredges;
+    CArrayOfStar<ST_Agedge_s> otheredges;
     ST_nodequeue q;
     
     q = new_queue(GD_n_nodes(g));
@@ -1548,7 +1548,7 @@ try {
 	GD_rank(Z.z().Root).get__(i).valid = 0;
 	if (GD_flip(g) && (GD_rank(g).get__(i).n > 0)) {
 	    int nn, ndiv2;
-	    CStarStar<ST_Agnode_s> vlist = GD_rank(g).get__(i).v;
+	    CArrayOfStar<ST_Agnode_s> vlist = GD_rank(g).get__(i).v;
 	    nn = GD_rank(g).get__(i).n - 1;
 	    ndiv2 = nn / 2;
 	    for (j = 0; j <= ndiv2; j++)
@@ -1623,7 +1623,7 @@ LEAVING("c8nqj0v20api63pikohsbx92u","constraining_flat_edge");
 */
 @Reviewed(when = "15/11/2020")
 @Original(version="2.38.0", path="lib/dotgen/mincross.c", name="postorder", key="46to0pkk188af2dlkik2ab7e3", definition="static int postorder(graph_t * g, node_t * v, node_t ** list, int r)")
-public static int postorder(ST_Agraph_s g, ST_Agnode_s v, CStarStar<ST_Agnode_s> list, int r) {
+public static int postorder(ST_Agraph_s g, ST_Agnode_s v, CArrayOfStar<ST_Agnode_s> list, int r) {
 ENTERING("46to0pkk188af2dlkik2ab7e3","postorder");
 try {
     ST_Agedge_s e;
@@ -1656,8 +1656,8 @@ ENTERING("zuxoswju917kyl08a5f0gtp6","flat_reorder");
 try {
     int i, j, r, pos, n_search, local_in_cnt, local_out_cnt, base_order;
     ST_Agnode_s v, t;
-    CStarStar<ST_Agnode_s> left, right;
-    CStarStar<ST_Agnode_s> temprank = null;
+    CArrayOfStar<ST_Agnode_s> left, right;
+    CArrayOfStar<ST_Agnode_s> temprank = null;
     ST_Agedge_s flat_e, e;
     
     if (GD_has_flat_edges(g) == 0)
@@ -1667,7 +1667,7 @@ try {
 	base_order = ND_order(GD_rank(g).get__(r).v.get_(0));
 	for (i = 0; i < GD_rank(g).get__(r).n; i++)
 	    ND_mark(GD_rank(g).get__(r).v.get_(i), 0);
-	temprank = CStarStar.<ST_Agnode_s>REALLOC(i + 1, temprank, ST_Agnode_s.class);
+	temprank = CArrayOfStar.<ST_Agnode_s>REALLOC(i + 1, temprank, ST_Agnode_s.class);
 	pos = 0;
 	
 	/* construct reverse topological sort order in temprank */
@@ -1751,8 +1751,8 @@ try {
     boolean changed = false;
     int nelt;
     boolean muststay, sawclust;
-    CStarStar<ST_Agnode_s> vlist = GD_rank(g).get__(r).v;
-    CStarStar<ST_Agnode_s> lp, rp=null, ep = vlist.plus_(GD_rank(g).get__(r).n);
+    CArrayOfStar<ST_Agnode_s> vlist = GD_rank(g).get__(r).v;
+    CArrayOfStar<ST_Agnode_s> lp, rp=null, ep = vlist.plus_(GD_rank(g).get__(r).n);
     
     for (nelt = GD_rank(g).get__(r).n - 1; nelt >= 0; nelt--) {
 	lp = vlist;
@@ -1904,7 +1904,7 @@ ENTERING("bk5nklhfqgg0uwkv7tv6dn8r2","rcross");
 try {
     int top, bot, cross, max, i, k;
     ST_Agnode_s v;
-    CStarStar<ST_Agnode_s> rtop;
+    CArrayOfStar<ST_Agnode_s> rtop;
     
     cross = 0;
     max = 0;
@@ -2005,7 +2005,7 @@ ENTERING("7397kynkpqf2m1jkpmi8pgf0n","flat_mval");
 try {
     int i;
     ST_Agedge_s e;
-    CStarStar<ST_Agedge_s> fl;
+    CArrayOfStar<ST_Agedge_s> fl;
     ST_Agnode_s nn;
     if (ND_flat_in(n).size > 0) {
 	fl = ND_flat_in(n).list;
@@ -2047,7 +2047,7 @@ try {
     int i, j, j0, lm, rm, lspan, rspan;
     int[] list;
     ST_Agnode_s n;
-    CStarStar<ST_Agnode_s> v;
+    CArrayOfStar<ST_Agnode_s> v;
     ST_Agedge_s e;
     boolean hasfixed = false;
     list = Z.z().TI_list;
@@ -2113,7 +2113,7 @@ LEAVING("azvdpixwwxspl31wp7f4k4fmh","medians");
 // static int nodeposcmpf(node_t ** n0, node_t ** n1) 
 @Unused
 @Original(version="2.38.0", path="lib/dotgen/mincross.c", name="nodeposcmpf", key="2vdhpcykq508ma83aif8sxcbd", definition="static int nodeposcmpf(node_t ** n0, node_t ** n1)")
-public static Object nodeposcmpf(CStarStar<ST_Agnode_s> n0, CStarStar<ST_Agnode_s> n1) {
+public static Object nodeposcmpf(CArrayOfStar<ST_Agnode_s> n0, CArrayOfStar<ST_Agnode_s> n1) {
 ENTERING("2vdhpcykq508ma83aif8sxcbd","nodeposcmpf");
 try {
     return (ND_order(n0.get_(0)) - ND_order(n1.get_(0)));

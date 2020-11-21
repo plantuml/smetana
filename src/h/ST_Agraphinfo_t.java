@@ -47,7 +47,7 @@ package h;
 
 import smetana.core.CArray;
 import smetana.core.CFunction;
-import smetana.core.CStarStar;
+import smetana.core.CArrayOfStar;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
 import smetana.core.amiga.StarStruct;
@@ -86,7 +86,7 @@ public class ST_Agraphinfo_t extends UnsupportedStructAndPtr {
 	// /* to have subgraphs */
 	public int n_cluster;
 	// graph_t **clust; /* clusters are in clust[1..n_cluster] !!! */
-	public CStarStar<ST_Agraph_s> clust;
+	public CArrayOfStar<ST_Agraph_s> clust;
 	public ST_Agraph_s dotroot;
 	public ST_Agnode_s nlist;
 	public CArray<ST_rank_t> rank;
@@ -115,7 +115,7 @@ public class ST_Agraphinfo_t extends UnsupportedStructAndPtr {
 	// /* for clusters */
 	// node_t *leader, **rankleader;
 	public ST_Agnode_s leader;
-	public CStarStar<ST_Agnode_s> rankleader;
+	public CArrayOfStar<ST_Agnode_s> rankleader;
 	public boolean expanded;
 	public int installed;
 	public int set_type;
@@ -160,7 +160,7 @@ public class ST_Agraphinfo_t extends UnsupportedStructAndPtr {
 			return parent;
 		}
 		if (fieldName.equals("clust")) {
-			this.clust = (CStarStar<ST_Agraph_s>) newData;
+			this.clust = (CArrayOfStar<ST_Agraph_s>) newData;
 			return clust;
 		}
 		if (fieldName.equals("label")) {
@@ -184,7 +184,7 @@ public class ST_Agraphinfo_t extends UnsupportedStructAndPtr {
 			return leader;
 		}
 		if (fieldName.equals("rankleader")) {
-			this.rankleader = (CStarStar<ST_Agnode_s>) newData;
+			this.rankleader = (CArrayOfStar<ST_Agnode_s>) newData;
 			return rankleader;
 		}
 		if (fieldName.equals("rank")) {

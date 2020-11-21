@@ -145,7 +145,7 @@ import h.ST_rank_t;
 import h.ST_spline_info_t;
 import h.ST_splines;
 import smetana.core.CArray;
-import smetana.core.CStarStar;
+import smetana.core.CArrayOfStar;
 import smetana.core.Memory;
 import smetana.core.Z;
 import smetana.core.__ptr__;
@@ -448,7 +448,7 @@ try {
     final ST_Agedgeinfo_t fwdedgeai = new ST_Agedgeinfo_t(), fwdedgebi = new ST_Agedgeinfo_t();
     final ST_Agedgepair_s fwdedgea = new ST_Agedgepair_s(), fwdedgeb = new ST_Agedgepair_s();
     ST_Agedge_s e, e0, e1, ea, eb, le0, le1;
-    CStarStar<ST_Agedge_s> edges;
+    CArrayOfStar<ST_Agedge_s> edges;
     ST_path P;
     final ST_spline_info_t sd = new ST_spline_info_t();
     int et = (GD_flags(g) & (7 << 1));
@@ -473,7 +473,7 @@ UNSUPPORTED("46btiag50nczzur103eqhjcup"); // 	goto finish;
     /* FlatHeight = 2 * GD_nodesep(g); */
     sd.setInt("Splinesep", GD_nodesep(g) / 4);
     sd.setInt("Multisep", GD_nodesep(g));
-    edges = CStarStar.<ST_Agedge_s>ALLOC(128, ST_Agedge_s.class);
+    edges = CArrayOfStar.<ST_Agedge_s>ALLOC(128, ST_Agedge_s.class);
     
     /* compute boundaries and list of splines */
     sd.setInt("RightBound", 0);
@@ -509,14 +509,14 @@ UNSUPPORTED("46btiag50nczzur103eqhjcup"); // 	goto finish;
 		setflags(e, 1, 16, 64);
 		edges.set_(n_edges++, e);
 		if (n_edges % 128 == 0)
-		    edges = CStarStar.<ST_Agedge_s>REALLOC(n_edges + 128, edges, ST_Agedge_s.class);
+		    edges = CArrayOfStar.<ST_Agedge_s>REALLOC(n_edges + 128, edges, ST_Agedge_s.class);
 	    }
 	    if (ND_flat_out(n).list!=null)
 		for (k = 0; (e = (ST_Agedge_s) ND_flat_out(n).list.get_(k))!=null; k++) {
 		    setflags(e, 2, 0, 128);
 			edges.set_(n_edges++, e);
 		    if (n_edges % 128 == 0)
-			    edges = CStarStar.<ST_Agedge_s>REALLOC(n_edges + 128, edges, ST_Agedge_s.class);
+			    edges = CArrayOfStar.<ST_Agedge_s>REALLOC(n_edges + 128, edges, ST_Agedge_s.class);
 		}
 	    if (ND_other(n).list!=null) {
 		/* In position, each node has its rw stored in mval and,
@@ -533,7 +533,7 @@ UNSUPPORTED("46btiag50nczzur103eqhjcup"); // 	goto finish;
 		    setflags(e, 0, 0, 128);
 			edges.set_(n_edges++, e);
 		    if (n_edges % 128 == 0)
-			    edges = CStarStar.<ST_Agedge_s>REALLOC(n_edges + 128, edges, ST_Agedge_s.class);
+			    edges = CArrayOfStar.<ST_Agedge_s>REALLOC(n_edges + 128, edges, ST_Agedge_s.class);
 		}
 	    }
 	}
@@ -780,7 +780,7 @@ LEAVING("598jn37hjkm7j0kcg2nmdvlwq","setflags");
 // static int edgecmp(edge_t** ptr0, edge_t** ptr1) 
 @Unused
 @Original(version="2.38.0", path="lib/dotgen/dotsplines.c", name="edgecmp", key="1nf1s6wkn35ptjn884ii56fh", definition="static int edgecmp(edge_t** ptr0, edge_t** ptr1)")
-public static int edgecmp(CStarStar<ST_Agedge_s> ptr0, CStarStar<ST_Agedge_s> ptr1) {
+public static int edgecmp(CArrayOfStar<ST_Agedge_s> ptr0, CArrayOfStar<ST_Agedge_s> ptr1) {
 ENTERING("1nf1s6wkn35ptjn884ii56fh","edgecmp");
 try {
     final ST_Agedgeinfo_t fwdedgeai = new ST_Agedgeinfo_t(), fwdedgebi = new ST_Agedgeinfo_t();
@@ -1126,7 +1126,7 @@ throw new UnsupportedOperationException();
 // static int edgelblcmpfn(edge_t** ptr0, edge_t** ptr1) 
 @Unused
 @Original(version="2.38.0", path="lib/dotgen/dotsplines.c", name="edgelblcmpfn", key="bmsa24i3avg14po4sp17yh89k", definition="static int edgelblcmpfn(edge_t** ptr0, edge_t** ptr1)")
-public static int edgelblcmpfn(CStarStar<ST_Agedge_s> ptr0, CStarStar<ST_Agedge_s> ptr1) {
+public static int edgelblcmpfn(CArrayOfStar<ST_Agedge_s> ptr0, CArrayOfStar<ST_Agedge_s> ptr1) {
 ENTERING("bmsa24i3avg14po4sp17yh89k","edgelblcmpfn");
 try {
     ST_Agedge_s e0, e1;
@@ -1168,7 +1168,7 @@ LEAVING("bmsa24i3avg14po4sp17yh89k","edgelblcmpfn");
 // static void makeSimpleFlatLabels (node_t* tn, node_t* hn, edge_t** edges, int ind, int cnt, int et, int n_lbls) 
 @Unused
 @Original(version="2.38.0", path="lib/dotgen/dotsplines.c", name="makeSimpleFlatLabels", key="3xmylrnypvoqrj2yrxnomsj5k", definition="static void makeSimpleFlatLabels (node_t* tn, node_t* hn, edge_t** edges, int ind, int cnt, int et, int n_lbls)")
-public static void makeSimpleFlatLabels(ST_Agnode_s tn, ST_Agnode_s hn, CStarStar<ST_Agedge_s> edges, int ind, int cnt, int et, int n_lbls) {
+public static void makeSimpleFlatLabels(ST_Agnode_s tn, ST_Agnode_s hn, CArrayOfStar<ST_Agedge_s> edges, int ind, int cnt, int et, int n_lbls) {
 ENTERING("3xmylrnypvoqrj2yrxnomsj5k","makeSimpleFlatLabels");
 try {
 	CArray<ST_pointf> ps;
@@ -1182,7 +1182,7 @@ try {
     double uminx=0, umaxx=0;
     double lminx=0, lmaxx=0;
     
-    CStarStar<ST_Agedge_s> earray = CStarStar.<ST_Agedge_s>ALLOC(cnt, ST_Agedge_s.class);
+    CArrayOfStar<ST_Agedge_s> earray = CArrayOfStar.<ST_Agedge_s>ALLOC(cnt, ST_Agedge_s.class);
     
     for (i = 0; i < cnt; i++) {
 	earray.set_(i, edges.get_(ind + i));
@@ -1332,7 +1332,7 @@ LEAVING("3xmylrnypvoqrj2yrxnomsj5k","makeSimpleFlatLabels");
 // static void makeSimpleFlat (node_t* tn, node_t* hn, edge_t** edges, int ind, int cnt, int et) 
 @Unused
 @Original(version="2.38.0", path="lib/dotgen/dotsplines.c", name="makeSimpleFlat", key="8kqyzk43ovc2sq6jegua6ytp", definition="static void makeSimpleFlat (node_t* tn, node_t* hn, edge_t** edges, int ind, int cnt, int et)")
-public static void makeSimpleFlat(ST_Agnode_s tn, ST_Agnode_s hn, CStarStar<ST_Agedge_s> edges, int ind, int cnt, int et) {
+public static void makeSimpleFlat(ST_Agnode_s tn, ST_Agnode_s hn, CArrayOfStar<ST_Agedge_s> edges, int ind, int cnt, int et) {
 ENTERING("8kqyzk43ovc2sq6jegua6ytp","makeSimpleFlat");
 try {
     ST_Agedge_s e = edges.get_(ind);
@@ -1384,7 +1384,7 @@ LEAVING("8kqyzk43ovc2sq6jegua6ytp","makeSimpleFlat");
 // static void make_flat_adj_edges(graph_t* g, path* P, edge_t** edges, int ind, int cnt, edge_t* e0,                     int et) 
 @Unused
 @Original(version="2.38.0", path="lib/dotgen/dotsplines.c", name="make_flat_adj_edges", key="bhnjospwghq4plid12757c928", definition="static void make_flat_adj_edges(graph_t* g, path* P, edge_t** edges, int ind, int cnt, edge_t* e0,                     int et)")
-public static void make_flat_adj_edges(ST_Agraph_s g, ST_path P, CStarStar<ST_Agedge_s> edges, int ind, int cnt, ST_Agedge_s e0, int et) {
+public static void make_flat_adj_edges(ST_Agraph_s g, ST_path P, CArrayOfStar<ST_Agedge_s> edges, int ind, int cnt, ST_Agedge_s e0, int et) {
 ENTERING("bhnjospwghq4plid12757c928","make_flat_adj_edges");
 try {
     ST_Agnode_s n;
@@ -1737,7 +1737,7 @@ throw new UnsupportedOperationException();
 // static void make_flat_edge(graph_t* g, spline_info_t* sp, path * P, edge_t ** edges, int ind, int cnt, int et) 
 @Unused
 @Original(version="2.38.0", path="lib/dotgen/dotsplines.c", name="make_flat_edge", key="6yr3jfkljl5w0z6dv354ryx63", definition="static void make_flat_edge(graph_t* g, spline_info_t* sp, path * P, edge_t ** edges, int ind, int cnt, int et)")
-public static void make_flat_edge(ST_Agraph_s g, ST_spline_info_t sp, ST_path P, CStarStar<ST_Agedge_s> edges, int ind, int cnt, int et) {
+public static void make_flat_edge(ST_Agraph_s g, ST_spline_info_t sp, ST_path P, CArrayOfStar<ST_Agedge_s> edges, int ind, int cnt, int et) {
 ENTERING("6yr3jfkljl5w0z6dv354ryx63","make_flat_edge");
 try {
     ST_Agnode_s tn, hn;
@@ -1953,7 +1953,7 @@ LEAVING("2n9bpvx34fnukqu1f9u4v7v6n","makeLineEdge");
 // static void make_regular_edge(graph_t* g, spline_info_t* sp, path * P, edge_t ** edges, int ind, int cnt, int et) 
 @Unused
 @Original(version="2.38.0", path="lib/dotgen/dotsplines.c", name="make_regular_edge", key="30wfq1dby4t07hft9io52nq6z", definition="static void make_regular_edge(graph_t* g, spline_info_t* sp, path * P, edge_t ** edges, int ind, int cnt, int et)")
-public static void make_regular_edge(ST_Agraph_s g, ST_spline_info_t sp, ST_path P, CStarStar<ST_Agedge_s> edges, int ind, int cnt, int et) {
+public static void make_regular_edge(ST_Agraph_s g, ST_spline_info_t sp, ST_path P, CArrayOfStar<ST_Agedge_s> edges, int ind, int cnt, int et) {
 ENTERING("30wfq1dby4t07hft9io52nq6z","make_regular_edge");
 try {
     ST_Agnode_s tn, hn = null;
@@ -2047,13 +2047,13 @@ UNSUPPORTED("bxkpl0bp0qhtxaj6rspd19d1k"); // 	hackflag = NOT(0);
 	    }
 	    if (N(smode) || si > 0) {
 	        si--;
-	        Z.z().boxes[boxn++].___(maximal_bbox(g, sp, hn, e, (ST_Agedge_s) ND_out(hn).list.get_(0)));
-	        e = (ST_Agedge_s) ND_out(hn).list.get_(0);
+	        Z.z().boxes[boxn++].___(maximal_bbox(g, sp, hn, e, ND_out(hn).list.get_(0)));
+	        e = ND_out(hn).list.get_(0);
 	        tn = agtail(e);
 	        hn = aghead(e);
 	        continue;
 	    }
-	    hend.setStruct("nb", maximal_bbox(g, sp, hn, e, (ST_Agedge_s) ND_out(hn).list.get_(0)));
+	    hend.setStruct("nb", maximal_bbox(g, sp, hn, e, ND_out(hn).list.get_(0)));
 	    endpath(P, e, 1, hend, spline_merge(aghead(e)));
 	    b.___(makeregularend(hend.boxes[hend.boxn[0] - 1], (1<<2),
 	    	       ND_coord(hn).y + GD_rank(g).get__(ND_rank(hn)).ht2));

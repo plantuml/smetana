@@ -128,7 +128,7 @@ import h.ST_splines;
 import h.ST_textlabel_t;
 import smetana.core.CArray;
 import smetana.core.CFunction;
-import smetana.core.CStarStar;
+import smetana.core.CArrayOfStar;
 import smetana.core.CString;
 import smetana.core.Memory;
 import smetana.core.Z;
@@ -153,7 +153,7 @@ try {
     
     if (sz <= 1)
 	sz = 2;
-    q.head = q.tail = q.store = CStarStar.<ST_Agnode_s>ALLOC(sz, ST_Agnode_s.class);
+    q.head = q.tail = q.store = CArrayOfStar.<ST_Agnode_s>ALLOC(sz, ST_Agnode_s.class);
 	q.limit = q.store.plus_(sz);
     return q;
 } finally {

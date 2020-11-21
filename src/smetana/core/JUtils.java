@@ -273,8 +273,8 @@ public class JUtils {
 		// }
 		// return EQ(o1b, o2b);
 		// }
-		if (o1 instanceof CStarStar && o2 instanceof CStarStar) {
-			return ((CStarStar) o1).comparePointer_((CStarStar) o2) == 0;
+		if (o1 instanceof CArrayOfStar && o2 instanceof CArrayOfStar) {
+			return ((CArrayOfStar) o1).comparePointer_((CArrayOfStar) o2) == 0;
 		}
 		System.err.println("o1=" + o1.getClass() + " " + o1);
 		System.err.println("o2=" + o2.getClass() + " " + o2);
@@ -285,7 +285,7 @@ public class JUtils {
 		return EQ(o1, o2) == false;
 	}
 	
-	public static void qsort1(CStarStar array, int nb, CFunction compare) {
+	public static void qsort1(CArrayOfStar array, int nb, CFunction compare) {
 		boolean change;
 		do {
 			change = false;
