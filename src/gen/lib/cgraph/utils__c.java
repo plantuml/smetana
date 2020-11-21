@@ -97,7 +97,7 @@ LEAVING("7dkudp41c9byhicatk2sxtxqk","agdictobjmem");
 
 @Unused
 @Original(version="2.38.0", path="lib/cgraph/utils.c", name="agdictobjfree", key="5xdfwxth4q1dm3180qzuf51sn", definition="void agdictobjfree(Dict_t * dict, void * p, Dtdisc_t * disc)")
-public static Object agdictobjfree(Object... arg) {
+public static Object agdictobjfree(Object... arg_) {
 UNSUPPORTED("bsemnw6m2qx5a4hk13xep80nh"); // void agdictobjfree(Dict_t * dict, void * p, Dtdisc_t * disc)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
 UNSUPPORTED("1dbyk58q3r4fyfxxo7ovemkpu"); //     Agraph_t *g;
@@ -145,45 +145,6 @@ UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
 UNSUPPORTED("id2cse8d1e37coxkbocjgjt4"); //     Ag_dictop_G = g;
 UNSUPPORTED("1ii7n9w3quq15wnwynuuwg395"); //     return (long) (*(((Dt_t*)(dict))->searchf))((dict),(void*)(obj),0000002);
 UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-throw new UnsupportedOperationException();
-}
-
-
-
-
-@Unused
-@Original(version="2.38.0", path="lib/cgraph/utils.c", name="agobjfinalize", key="8a6i39x23joa467bqbo4b25ng", definition="int agobjfinalize(void * obj)")
-public static Object agobjfinalize(Object... arg) {
-UNSUPPORTED("74745f6w9shsg8hps5dn9cunv"); // int agobjfinalize(void * obj)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("dnx10u35ynobkoiuo7v5k2u49"); //     agfree(Ag_dictop_G, obj);
-UNSUPPORTED("5oxhd3fvp0gfmrmz12vndnjt"); //     return 0;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
-@Unused
-@Original(version="2.38.0", path="lib/cgraph/utils.c", name="agdtclose", key="4x6nykawwls34vi6jc9gk1y29", definition="int agdtclose(Agraph_t * g, Dict_t * dict)")
-public static Object agdtclose(Object... arg) {
-UNSUPPORTED("8snkovnbu003p9w5cgbn12c73"); // int agdtclose(Agraph_t * g, Dict_t * dict)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("ac1z24z48td8pa6zl9az4bqpd"); //     Dtmemory_f memf;
-UNSUPPORTED("cawsyfy3xa5ktlemxuyyhd376"); //     Dtdisc_t *disc;
-UNSUPPORTED("95hw7dddoneu0z8zzcnb1uslv"); //     disc = dtdisc(dict, ((Dtdisc_t *)0), 0);
-UNSUPPORTED("9grut2uf2ma1mtzeq2sfg7p3f"); //     memf = disc->memoryf;
-UNSUPPORTED("1jsr5jo041ushyjrdwyazntu7"); //     disc->memoryf = agdictobjmem;
-UNSUPPORTED("id2cse8d1e37coxkbocjgjt4"); //     Ag_dictop_G = g;
-UNSUPPORTED("32zal75ij4wrh56hfv01bu7as"); //     if (dtclose(dict))
-UNSUPPORTED("eleqpc2p2r3hvma6tipoy7tr"); // 	return 1;
-UNSUPPORTED("9qqgn587jlvxto7mbtmfh3o00"); //     disc->memoryf = memf;
-UNSUPPORTED("dgvsuq3309uz08ww03zstdg8g"); //     Ag_dictop_G = ((Agraph_t*)0);
-UNSUPPORTED("5oxhd3fvp0gfmrmz12vndnjt"); //     return 0;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
 throw new UnsupportedOperationException();
 }
 
