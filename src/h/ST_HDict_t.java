@@ -80,13 +80,6 @@ public class ST_HDict_t extends UnsupportedStructAndPtr {
 		return super.addVirtualBytes(virtualBytes);
 	}
 
-//	@Override
-//	public __ptr__ getPtr(String fieldName) {
-//		if (fieldName.equals("d")) {
-//			return this.d;
-//		}
-//		return super.getPtr(fieldName);
-//	}
 	
 	// "typedef struct obyh",
 	// "{",

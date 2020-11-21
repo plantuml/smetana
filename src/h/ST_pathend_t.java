@@ -74,14 +74,7 @@ public class ST_pathend_t extends UnsupportedStructAndPtr {
 			new ST_boxf(), new ST_boxf(), new ST_boxf(), new ST_boxf(), new ST_boxf(), new ST_boxf(), new ST_boxf(),
 			new ST_boxf(), new ST_boxf() };
 
-	// "boxf boxes[20]",
-	// "}",
-	// "pathend_t");
 
-	@Override
-	public __ptr__ getPtr() {
-		return this;
-	}
 
 	@Override
 	public void setStruct(String fieldName, __struct__ newData) {

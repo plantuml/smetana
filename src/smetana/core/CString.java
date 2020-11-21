@@ -106,24 +106,6 @@ public class CString extends UnsupportedC implements __ptr__ {
 	public __ptr__ addVirtualBytes(int bytes) {
 		JUtils.LOG("CString::addVirtualBytes " + bytes);
 		JUtils.LOG("AM " + this);
-		// if (bytes < 0) {
-		// OFFSET offset = OFFSET.fromInt(-bytes);
-		// JUtils.LOG("offset=" + offset);
-		// for (__ptr__ f : fathers) {
-		// JUtils.LOG("f=" + f);
-		// if (f instanceof StarStruct && ((StarStruct) f).getRealClass() == offset.getTheClass()) {
-		// JUtils.LOG("FOUND1!!");
-		// if (f.getPtr(offset.getField()).equals(this)) {
-		// JUtils.LOG("FOUND2!!");
-		// return f;
-		// }
-		// }
-		// }
-		// } else {
-		// JUtils.LOG("father=" + fathers);
-		// JUtils.LOG("CString created on the following place:");
-		// creation.printStackTrace();
-		// }
 		throw new UnsupportedOperationException();
 	}
 

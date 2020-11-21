@@ -73,10 +73,7 @@ public class ST_object_t extends UnsupportedStructAndPtr implements ST_Node_t___
 		return this;
 	}
 
-	@Override
-	public ST_object_t getPtr() {
-		return this;
-	}
+
 
 	@Override
 	public boolean isSameThan(StarStruct other) {

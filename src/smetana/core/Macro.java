@@ -1311,7 +1311,6 @@ public class Macro {
 	public static void free_list(ST_elist L) {
 		if (L.list!=null)
 			Memory.free(L.list);
-		// Memory.free(L.getPtr("list"));
 	}
 
 	public static double ABS(double a) {

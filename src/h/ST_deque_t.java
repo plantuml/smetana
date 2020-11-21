@@ -83,39 +83,7 @@ public class ST_deque_t extends UnsupportedStructAndPtr {
 	public ST_deque_t(StarStruct parent) {
 	}
 
-//	@Override
-//	public __ptr__ getPtr(String fieldName) {
-//		if (fieldName.equals("pnlps")) {
-//			return pnlps;
-//		}
-//		return super.getPtr(fieldName);
-//	}
-//
-//	@Override
-//	public __ptr__ setPtr(String fieldName, __ptr__ newData) {
-//		if (fieldName.equals("pnlps")) {
-//			pnlps = newData;
-//			return pnlps;
-//		}
-//		return super.setPtr(fieldName, newData);
-//	}
 
-//	@Override
-//	public int getInt(String fieldName) {
-//		if (fieldName.equals("pnlpn")) {
-//			return pnlpn;
-//		}
-//		if (fieldName.equals("fpnlpi")) {
-//			return fpnlpi;
-//		}
-//		if (fieldName.equals("lpnlpi")) {
-//			return lpnlpi;
-//		}
-//		if (fieldName.equals("apex")) {
-//			return apex;
-//		}
-//		return super.getInt(fieldName);
-//	}
 
 	// public static List<String> DEFINITION = Arrays.asList(
 	// "typedef struct deque_t",

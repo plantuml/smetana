@@ -96,11 +96,6 @@ public class ST_Agraph_s extends UnsupportedStructAndPtr {
 		super.setStruct(fieldName, newData);
 	}
 
-	@Override
-	public ST_Agraph_s getPtr() {
-		return this;
-	}
-
 
 	@Override
 	public Object addVirtualBytes(int virtualBytes) {

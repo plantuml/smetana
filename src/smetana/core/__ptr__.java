@@ -49,7 +49,7 @@ public interface __ptr__ extends __c__fields {
 	public void copyDataFrom(__struct__ other);
 	
 
-	public __ptr__ getPtr();
+
 	public void setPtr(__ptr__ value);
 	public __struct__ getStruct();
 	public void setStruct(__struct__ value);

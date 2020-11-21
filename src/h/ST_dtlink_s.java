@@ -167,42 +167,7 @@ public class ST_dtlink_s extends UnsupportedStructAndPtr implements WithParent {
 		return super.addVirtualBytes(virtualBytes);
 	}
 
-	// @Override
-	// public __ptr__ setPtr(String fieldName, __ptr__ newData) {
-	// if (fieldName.equals("hl._left")) {
-	// this._left = (ST_dtlink_s) newData;
-	// return _left;
-	// }
-	// if (fieldName.equals("right")) {
-	// this.right = (ST_dtlink_s) newData;
-	// return right;
-	// }
-	// return super.setPtr(fieldName, newData);
-	// }
 
-	// @Override
-	// public __ptr__ getPtr(String fieldName) {
-	// // if (fieldName.equals("hl._left")) {
-	// // return _left;
-	// // }
-	// if (fieldName.equals("right")) {
-	// return right;
-	// }
-	// return super.getPtr(fieldName);
-	// }
-
-	// public interface ST_dtlink_s extends __ptr__ {
-	// public static List<String> DEFINITION = Arrays.asList(
-	// "struct _dtlink_s",
-	// "{",
-	// "Dtlink_t* right",
-	// "union",
-	// "{",
-	// "unsigned int _hash",
-	// "Dtlink_t* _left",
-	// "}",
-	// "hl",
-	// "}");
 }
 
 // struct _dtlink_s

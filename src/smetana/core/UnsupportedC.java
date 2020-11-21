@@ -39,10 +39,6 @@ package smetana.core;
 public class UnsupportedC implements __ptr__ {
 
 
-	public __ptr__ getPtr() {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
 	public void setPtr(__ptr__ value) {
 		throw new UnsupportedOperationException(getClass().toString());
 	}

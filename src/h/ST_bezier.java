@@ -116,10 +116,6 @@ public class ST_bezier extends UnsupportedStructAndPtr {
 		return this;
 	}
 
-	@Override
-	public ST_bezier getPtr() {
-		return this;
-	}
 
 }
 

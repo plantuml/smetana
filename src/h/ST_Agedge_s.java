@@ -144,11 +144,6 @@ public class ST_Agedge_s extends UnsupportedStructAndPtr {
 		return super.setPtr(fieldName, newData);
 	}
 
-	@Override
-	public ST_Agedge_s getPtr() {
-		return this;
-	}
-
 	public StarStruct from_seq_link(ST_dtlink_s from) {
 		if (from == seq_link) {
 			return this;

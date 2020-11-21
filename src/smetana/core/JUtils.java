@@ -262,17 +262,7 @@ public class JUtils {
 		if (o1 instanceof CString && o2 instanceof CString) {
 			return ((CString) o1).isSameThan((CString) o2);
 		}
-//		if (o1 instanceof ST_Agnode_s.ArrayOfStar && o2 instanceof ST_Agnode_s.ArrayOfStar) {
-//			return ((ST_Agnode_s.ArrayOfStar) o1).isSameThan2((ST_Agnode_s.ArrayOfStar) o2);
-//		}
-		// if (o1 instanceof StarStar && o2 instanceof StarArrayOfPtr) {
-		// __ptr__ o1b = ((StarStar) o1).getPtr();
-		// __ptr__ o2b = ((StarArrayOfPtr) o2).getPtr();
-		// if (((StarStruct) o1b).getRealClass() != ((StarStruct) o2b).getRealClass()) {
-		// throw new UnsupportedOperationException();
-		// }
-		// return EQ(o1b, o2b);
-		// }
+
 		if (o1 instanceof CArrayOfStar && o2 instanceof CArrayOfStar) {
 			return ((CArrayOfStar) o1).comparePointer_((CArrayOfStar) o2) == 0;
 		}
