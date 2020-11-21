@@ -189,7 +189,7 @@ LEAVING("dbhw2q2jfsz9qwawchy0hxj4i","agnewsym");
 // static void agcopydict(Dict_t * src, Dict_t * dest, Agraph_t * g, int kind) 
 @Unused
 @Original(version="2.38.0", path="lib/cgraph/attr.c", name="agcopydict", key="5s4tpjeh3jwf722izjq6cm6rq", definition="static void agcopydict(Dict_t * src, Dict_t * dest, Agraph_t * g, int kind)")
-public static Object agcopydict(Object... arg) {
+public static Object agcopydict(Object... arg_) {
 UNSUPPORTED("5x2q9spbx7y0k6l59z6oy8cuc"); // static void agcopydict(Dict_t * src, Dict_t * dest, Agraph_t * g, int kind)
 
 throw new UnsupportedOperationException();
@@ -657,7 +657,7 @@ LEAVING("9b7vn95cin8o7mb2f21exh1qr","agsafeset");
 // static void init_all_attrs(Agraph_t * g) 
 @Unused
 @Original(version="2.38.0", path="lib/cgraph/attr.c", name="init_all_attrs", key="6gjlgo4s6r0bu7gjazfee6qv8", definition="static void init_all_attrs(Agraph_t * g)")
-public static Object init_all_attrs(Object... arg) {
+public static Object init_all_attrs(Object... arg_) {
 UNSUPPORTED("bir8xur87cl8inhyrgimkboqq"); // static void init_all_attrs(Agraph_t * g)
 throw new UnsupportedOperationException();
 }

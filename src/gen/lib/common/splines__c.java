@@ -262,35 +262,6 @@ LEAVING("1fjkj1ydhtlf13pqj5r041orq","shape_clip0");
 
 
 
-//3 5m4auahepda0ug3e1o05gm0kf
-// void shape_clip(node_t * n, pointf curve[4]) 
-@Unused
-@Original(version="2.38.0", path="lib/common/splines.c", name="shape_clip", key="5m4auahepda0ug3e1o05gm0kf", definition="void shape_clip(node_t * n, pointf curve[4])")
-public static Object shape_clip(Object... arg) {
-UNSUPPORTED("14nvh1wyusdizrbkaqswyz6a3"); // void shape_clip(node_t * n, pointf curve[4])
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("9htbadryixdqglsfxbj66m3na"); //     double save_real_size;
-UNSUPPORTED("9hp0vh92flvlgoaxmzp4h6uaq"); //     boolean left_inside;
-UNSUPPORTED("a3jcleu2wok75rpalgfjt6tte"); //     pointf c;
-UNSUPPORTED("114lbsab8twbq15luo36j31q2"); //     inside_t inside_context;
-UNSUPPORTED("eua5l3utehs8yu615w4iusufv"); //     if (ND_shape(n) == NULL || ND_shape(n)->fns->insidefn == NULL)
-UNSUPPORTED("a7fgam0j0jm7bar0mblsv3no4"); // 	return;
-UNSUPPORTED("a8yyudcgedtaoi8ey9sje90ph"); //     inside_context.s.n = n;
-UNSUPPORTED("3y9eccm2tmdyx34ew24hitfqq"); //     inside_context.s.bp = NULL;
-UNSUPPORTED("27aelctxo5teujbhkeu9x73hp"); //     save_real_size = ND_rw(n);
-UNSUPPORTED("21zlezol1pqversb7b7rso1hl"); //     c.x = curve[0].x - ND_coord(n).x;
-UNSUPPORTED("dxn2z9gn2x96x83fwcba9bdme"); //     c.y = curve[0].y - ND_coord(n).y;
-UNSUPPORTED("5o23jq82y9dhpry5f9u9umk5d"); //     left_inside = ND_shape(n)->fns->insidefn(&inside_context, c);
-UNSUPPORTED("9q38fqg00ynddr6952dvaz6n3"); //     ND_rw(n) = save_real_size;
-UNSUPPORTED("w5x58kft1tdd1d2ae83yfrej"); //     shape_clip0(&inside_context, n, curve, left_inside);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
 /* new_spline:
  * Create and attach a new bezier of size sz to the edge d
  */
@@ -934,7 +905,7 @@ LEAVING("3g7alj6eirl5b2hlhluiqvaax","convert_sides_to_points");
 // static void selfBottom (edge_t* edges[], int ind, int cnt, 	double sizex, double stepy, splineInfo* sinfo)  
 @Unused
 @Original(version="2.38.0", path="lib/common/splines.c", name="selfBottom", key="7l37y1w97mt6n5pd9x5dzgwud", definition="static void selfBottom (edge_t* edges[], int ind, int cnt, 	double sizex, double stepy, splineInfo* sinfo)")
-public static Object selfBottom(Object... arg) {
+public static Object selfBottom(Object... arg_) {
 UNSUPPORTED("5mldqfen59kshqgaknayjc5ox"); // static void selfBottom (edge_t* edges[], int ind, int cnt,
 UNSUPPORTED("e0472i5ngodtv68y0hdhq1azu"); // 	double sizex, double stepy, splineInfo* sinfo) 
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
@@ -1010,7 +981,7 @@ throw new UnsupportedOperationException();
 // static void selfTop (edge_t* edges[], int ind, int cnt, double sizex, double stepy,            splineInfo* sinfo)  
 @Unused
 @Original(version="2.38.0", path="lib/common/splines.c", name="selfTop", key="2thwh4ase1jdq8ghhf0oqyql5", definition="static void selfTop (edge_t* edges[], int ind, int cnt, double sizex, double stepy,            splineInfo* sinfo)")
-public static Object selfTop(Object... arg) {
+public static Object selfTop(Object... arg_) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("32kq3vfpd1msv3v0nv0uqavzh"); // selfTop (edge_t* edges[], int ind, int cnt, double sizex, double stepy,
 UNSUPPORTED("2t4o7k97lw32u08cs5j96r7if"); //            splineInfo* sinfo) 
@@ -1199,7 +1170,7 @@ LEAVING("3sr8gvj4141qql0v12lb89cyt","selfRight");
 // static void selfLeft (edge_t* edges[], int ind, int cnt, double stepx, double sizey,           splineInfo* sinfo)  
 @Unused
 @Original(version="2.38.0", path="lib/common/splines.c", name="selfLeft", key="pb3pqqgfs6pzscxz9g4ip66b", definition="static void selfLeft (edge_t* edges[], int ind, int cnt, double stepx, double sizey,           splineInfo* sinfo)")
-public static Object selfLeft(Object... arg) {
+public static Object selfLeft(Object... arg_) {
 UNSUPPORTED("e2z2o5ybnr5tgpkt8ty7hwan1"); // static void
 UNSUPPORTED("e1xon7wncs6szxkut7r3ylg8a"); // selfLeft (edge_t* edges[], int ind, int cnt, double stepx, double sizey,
 UNSUPPORTED("304grcrgelbk1tnep5avkaylv"); //           splineInfo* sinfo) 
