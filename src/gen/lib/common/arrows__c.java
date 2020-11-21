@@ -434,7 +434,7 @@ throw new UnsupportedOperationException();
 // static void arrow_type_normal(GVJ_t * job, pointf p, pointf u, double arrowsize, double penwidth, int flag) 
 @Unused
 @Original(version="2.38.0", path="lib/common/arrows.c", name="arrow_type_normal", key="b7nm38od2nxotpyzxg0ychqdb", definition="static void arrow_type_normal(GVJ_t * job, pointf p, pointf u, double arrowsize, double penwidth, int flag)")
-public static Object arrow_type_normal(Object... arg) {
+public static Object arrow_type_normal(Object... arg_) {
 UNSUPPORTED("bk3aihjbdtkitpdvvtmzbt2zu"); // static void arrow_type_normal(GVJ_t * job, pointf p, pointf u, double arrowsize, double penwidth, int flag)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
 UNSUPPORTED("4z3ehq6q8ofvyjy4r4mrg86cl"); //     pointf q, v, a[5];

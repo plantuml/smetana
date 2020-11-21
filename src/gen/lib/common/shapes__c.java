@@ -1400,25 +1400,6 @@ throw new UnsupportedOperationException();
 
 
 
-//3 e9v6g9o3uouhdvy68a5uiisw9
-// static field_t *parse_error(field_t * rv, char *port) 
-@Unused
-@Original(version="2.38.0", path="lib/common/shapes.c", name="", key="e9v6g9o3uouhdvy68a5uiisw9", definition="static field_t *parse_error(field_t * rv, char *port)")
-public static Object parse_error(Object... arg) {
-UNSUPPORTED("9bgvna5r61dzeu3tfs4uvakqi"); // static field_t *parse_error(field_t * rv, char *port)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("4i2f9fbl6g816tgzjosnh9uxp"); //     free_field(rv);
-UNSUPPORTED("d6w5xfrx6ivjrjr01evg54l4o"); //     if (port)
-UNSUPPORTED("11a5y4khavkjgq5ubj4dyaa5p"); // 	free(port);
-UNSUPPORTED("o68dp934ebg4cplebgc5hv4v"); //     return NULL;
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
-
-
-
-
 //3 7zxlp1fmrq3zt4fprrtesdbg3
 // static field_t *parse_reclbl(node_t * n, int LR, int flag, char *text) 
 @Unused
