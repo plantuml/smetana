@@ -552,7 +552,7 @@ UNSUPPORTED("4v7mmisc358r5tpq14qp4dx0f"); // 	    endp->boxn = 2;
 	    endp.sidemask = 1<<0;
 	    b.UR.y = MAX(b.UR.y,P.start.p.y);
 	    endp.boxes[0].___(b);
-	    endp.boxn = 1;
+	    endp.boxn[0] = 1;
 	    P.start.p.y -= 1;
 	}
 	else if ((side & (1<<3))!=0) {
@@ -649,17 +649,11 @@ UNSUPPORTED("a7fgam0j0jm7bar0mblsv3no4"); // 	return;
     if (et == 1) side = 1<<0;
     else side = endp.sidemask;  /* for flat edges */
     if (pboxfn!=null
-	&& (mask = (Integer) pboxfn.exe(n, ED_tail_port(e), side, endp.boxes[0], new ACCESS<Integer>() {
-		public Integer get() {
-			throw new UnsupportedOperationException();
-		}
-		public void set(Integer obj) {
-			endp.boxn = obj;
-		}}))!=0)
+	&& (mask = (Integer) pboxfn.exe(n, ED_tail_port(e), side, endp.boxes[0], endp.boxn))!=0)
 UNSUPPORTED("ex9kjvshm19zbu9vqonk1avd8"); // 	endp->sidemask = mask;
     else {
     endp.boxes[0].setStruct(endp.nb);
-	endp.boxn = 1;
+	endp.boxn[0] = 1;
 	switch (et) {
 	case 8:
 	/* moving the box UR.y by + 1 avoids colinearity between
@@ -728,7 +722,7 @@ UNSUPPORTED("2w0c22i5xgcch77xd9jg104nw"); // 	P->end.constrained = NOT(0);
 	    endp.sidemask = 1<<2;
 	    b.LL.y = MIN(b.LL.y,P.end.p.y);
 	    endp.boxes[0].___(b);
-	    endp.boxn = 1;
+	    endp.boxn[0] = 1;
 	    P.end.p.y += 1;
 	}
 	else if ((side & (1<<0))!=0) {
@@ -777,7 +771,7 @@ UNSUPPORTED("5j92wv3nt0b7hnlf3ktengoom"); // 	    P->end.p.x -= 1;
 	    b.UR.y = ND_coord(n).y + (ND_ht(n)/2);
 	    b.LL.y = P.end.p.y;
 	    endp.boxes[0].___(b);
-	    endp.boxn = 1;
+	    endp.boxn[0] = 1;
 	    P.end.p.x += 1;
 	}
 	for (orig = e; ED_edge_type(orig) != 0; orig = ED_to_orig(orig));
@@ -857,19 +851,11 @@ UNSUPPORTED("a7fgam0j0jm7bar0mblsv3no4"); // 	return;
     if (et == 1) side = 1<<2;
     else side = endp.sidemask;  /* for flat edges */
     if (pboxfn!=null
-	&& (mask = (Integer) pboxfn.exe(n, ED_head_port(e), side, endp.boxes[0], new ACCESS<Integer>() {
-		public Integer get() {
-			throw new UnsupportedOperationException();
-		}
-
-		public void set(Integer obj) {
-			endp.boxn = obj;
-		}
-	}))!=0)
+	&& (mask = (Integer) pboxfn.exe(n, ED_head_port(e), side, endp.boxes[0], endp.boxn))!=0)
 	endp.sidemask = mask;
     else {
     	endp.boxes[0].setStruct(endp.nb);
-	endp.boxn = 1;
+	endp.boxn[0] = 1;
 	switch (et) {
 	case 8:
 	    /* offset of -1 is symmetric w.r.t. beginpath() 

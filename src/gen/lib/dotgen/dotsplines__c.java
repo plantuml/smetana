@@ -1538,8 +1538,8 @@ try {
     endp.sidemask = (1<<2);
     if (isBegin) beginpath(P, e, 2, endp, false);
     else endpath(P, e, 2, endp, false);
-    b.UR.y = endp.boxes[endp.boxn - 1].UR.y;
-    b.LL.y = endp.boxes[endp.boxn - 1].LL.y;
+    b.UR.y = endp.boxes[endp.boxn[0] - 1].UR.y;
+    b.LL.y = endp.boxes[endp.boxn[0] - 1].LL.y;
     b.___(makeregularend((ST_boxf) b, (1<<2), ND_coord(n).y + GD_rank(g).get__(ND_rank(n)).ht2));
     if (b.LL.x < b.UR.x && b.LL.y < b.UR.y)
 UNSUPPORTED("cmjm4y40vf7wklmgz0ae4k36v"); // 	endp->boxes[endp->boxn++] = b;
@@ -1622,24 +1622,24 @@ UNSUPPORTED("1uunj4jbr2uhiqxwor6rzmr3j"); // 	pn = 7;
 	boxn = 0;
 	makeFlatEnd (g, sp, P, tn, e,  tend, true);
 	makeFlatEnd (g, sp, P, hn, e,  hend, false);
-	Z.z().boxes[boxn].LL.x = tend.boxes[tend.boxn - 1].LL.x; 
-	Z.z().boxes[boxn].LL.y = tend.boxes[tend.boxn - 1].UR.y; 
+	Z.z().boxes[boxn].LL.x = tend.boxes[tend.boxn[0] - 1].LL.x; 
+	Z.z().boxes[boxn].LL.y = tend.boxes[tend.boxn[0] - 1].UR.y; 
 	Z.z().boxes[boxn].UR.x = lb.LL.x;
 	Z.z().boxes[boxn].UR.y = lb.LL.y;
 	boxn++;
-	Z.z().boxes[boxn].LL.x = tend.boxes[tend.boxn - 1].LL.x; 
+	Z.z().boxes[boxn].LL.x = tend.boxes[tend.boxn[0] - 1].LL.x; 
 	Z.z().boxes[boxn].LL.y = lb.LL.y;
-	Z.z().boxes[boxn].UR.x = hend.boxes[hend.boxn - 1].UR.x;
+	Z.z().boxes[boxn].UR.x = hend.boxes[hend.boxn[0] - 1].UR.x;
 	Z.z().boxes[boxn].UR.y = lb.UR.y;
 	boxn++;
 	Z.z().boxes[boxn].LL.x = lb.UR.x;
 	Z.z().boxes[boxn].UR.y = lb.LL.y;
-	Z.z().boxes[boxn].LL.y = hend.boxes[hend.boxn - 1].UR.y; 
-	Z.z().boxes[boxn].UR.x = hend.boxes[hend.boxn - 1].UR.x;
+	Z.z().boxes[boxn].LL.y = hend.boxes[hend.boxn[0] - 1].UR.y; 
+	Z.z().boxes[boxn].UR.x = hend.boxes[hend.boxn[0] - 1].UR.x;
 	boxn++;
-	for (i = 0; i < tend.boxn; i++) add_box(P, tend.boxes[i]);
+	for (i = 0; i < tend.boxn[0]; i++) add_box(P, tend.boxes[i]);
 	for (i = 0; i < boxn; i++) add_box(P, Z.z().boxes[i]);
-	for (i = hend.boxn - 1; i >= 0; i--) add_box(P, hend.boxes[i]);
+	for (i = hend.boxn[0] - 1; i >= 0; i--) add_box(P, hend.boxes[i]);
 	if (et == (5 << 1)) ps = routesplines(P, pn);
 	else ps = routepolylines(P, pn);
 	if (pn[0] == 0) return;
@@ -1815,26 +1815,26 @@ try {
 	final ST_boxf b = new ST_boxf();
 	e = edges.get_(ind + i);
 	boxn = 0;
-	b.___(tend.boxes[tend.boxn - 1]);
+	b.___(tend.boxes[tend.boxn[0] - 1]);
  	Z.z().boxes[boxn].LL.x = b.LL.x; 
 	Z.z().boxes[boxn].LL.y = b.UR.y; 
 	Z.z().boxes[boxn].UR.x = b.UR.x + (i + 1) * stepx;
 	Z.z().boxes[boxn].UR.y = b.UR.y + (i + 1) * stepy;
 	boxn++;
-	Z.z().boxes[boxn].LL.x = (tend.boxes[tend.boxn - 1]).LL.x; 
+	Z.z().boxes[boxn].LL.x = (tend.boxes[tend.boxn[0] - 1]).LL.x; 
 	Z.z().boxes[boxn].LL.y = (Z.z().boxes[boxn-1]).UR.y;
-	Z.z().boxes[boxn].UR.x = (hend.boxes[hend.boxn - 1]).UR.x;
+	Z.z().boxes[boxn].UR.x = (hend.boxes[hend.boxn[0] - 1]).UR.x;
 	Z.z().boxes[boxn].UR.y = Z.z().boxes[boxn].LL.y + stepy;
 	boxn++;
-	b.___(hend.boxes[hend.boxn - 1]);
+	b.___(hend.boxes[hend.boxn[0] - 1]);
 	Z.z().boxes[boxn].UR.x = b.UR.x;
 	Z.z().boxes[boxn].LL.y = b.UR.y;
 	Z.z().boxes[boxn].LL.x = b.LL.x - (i + 1) * stepx;
 	Z.z().boxes[boxn].UR.y = (Z.z().boxes[boxn-1]).LL.y;
 	boxn++;
-	for (j = 0; j < tend.boxn; j++) add_box(P, tend.boxes[j]);
+	for (j = 0; j < tend.boxn[0]; j++) add_box(P, tend.boxes[j]);
 	for (j = 0; j < boxn; j++) add_box(P, Z.z().boxes[j]);
-	for (j = hend.boxn - 1; j >= 0; j--) add_box(P, hend.boxes[j]);
+	for (j = hend.boxn[0] - 1; j >= 0; j--) add_box(P, hend.boxes[j]);
 	if (et == (5 << 1)) ps = routesplines(P, pn);
 	else ps = routepolylines(P, pn);
 	if (pn[0] == 0)
@@ -2024,15 +2024,15 @@ UNSUPPORTED("bxkpl0bp0qhtxaj6rspd19d1k"); // 	hackflag = NOT(0);
 	tend.nb.___(b);
 	beginpath(P, e, 1, tend, spline_merge(tn));
 	b.UR.y = 
-			tend.boxes[tend.boxn - 1].UR.y;
+			tend.boxes[tend.boxn[0] - 1].UR.y;
 	b.LL.y = 
-			tend.boxes[tend.boxn - 1].LL.y;
+			tend.boxes[tend.boxn[0] - 1].LL.y;
 	b.___(makeregularend(b, (1<<0),
 	    	   ND_coord(tn).y - GD_rank(g).get__(ND_rank(tn)).ht1));
 	if (b.LL.x < b.UR.x && b.LL.y < b.UR.y)
 	{
-	    tend.boxes[tend.boxn].___(b);
-	    tend.setInt("boxn", tend.boxn + 1);
+	    tend.boxes[tend.boxn[0]].___(b);
+	    tend.boxn[0] = tend.boxn[0] + 1;
 	}
 	longedge = 0;
 	smode = false; si = -1;
@@ -2055,7 +2055,7 @@ UNSUPPORTED("bxkpl0bp0qhtxaj6rspd19d1k"); // 	hackflag = NOT(0);
 	    }
 	    hend.setStruct("nb", maximal_bbox(g, sp, hn, e, (ST_Agedge_s) ND_out(hn).list.get_(0)));
 	    endpath(P, e, 1, hend, spline_merge(aghead(e)));
-	    b.___(makeregularend(hend.boxes[hend.boxn - 1], (1<<2),
+	    b.___(makeregularend(hend.boxes[hend.boxn[0] - 1], (1<<2),
 	    	       ND_coord(hn).y + GD_rank(g).get__(ND_rank(hn)).ht2));
 	    if (b.LL.x < b.UR.x && b.LL.y < b.UR.y)
 UNSUPPORTED("1crhubfzekx1qi2ti9ajqsfoc"); // 	        hend.boxes[hend.boxn++] = b;
@@ -2091,7 +2091,7 @@ UNSUPPORTED("8kbxhk7qirj3tr7hn1ukwar3h"); // 		pointfs = RALLOC(numpts, pointfs,
 	    boxn = 0;
 	    tend.setStruct("nb", maximal_bbox(g, sp, tn, (ST_Agedge_s) ND_in(tn).list.get_(0), e));
 	    beginpath(P, e, 1, tend, spline_merge(tn));
-	    b.___(makeregularend(tend.boxes[tend.boxn - 1], (1<<0),
+	    b.___(makeregularend(tend.boxes[tend.boxn[0] - 1], (1<<0),
 	    	       ND_coord(tn).y - GD_rank(g).get__(ND_rank(tn)).ht1));
 	    if (b.LL.x < b.UR.x && b.LL.y < b.UR.y)
 UNSUPPORTED("cjx6tldge3otk1pk6ks1pkn2w"); // 	        tend.boxes[tend.boxn++] = b;
@@ -2103,14 +2103,14 @@ UNSUPPORTED("cjx6tldge3otk1pk6ks1pkn2w"); // 	        tend.boxes[tend.boxn++] = 
 	b.___(maximal_bbox(g, sp, hn, e, null));
 	hend.nb.___(b);
 	endpath(P, (ST_Agedge_s) (hackflag!=0 ? fwdedgeb.out : e), 1, hend, spline_merge(aghead(e)));
-	b.UR.y = hend.boxes[hend.boxn - 1].UR.y;
-	b.LL.y = hend.boxes[hend.boxn - 1].LL.y;
+	b.UR.y = hend.boxes[hend.boxn[0] - 1].UR.y;
+	b.LL.y = hend.boxes[hend.boxn[0] - 1].LL.y;
 	b.___(makeregularend(b, (1<<2),
 	    	   ND_coord(hn).y + GD_rank(g).get__(ND_rank(hn)).ht2));
 	if (b.LL.x < b.UR.x && b.LL.y < b.UR.y)
 	    {
-	    hend.boxes[hend.boxn].___(b);
-	    hend.setInt("boxn", hend.boxn+1);
+	    hend.boxes[hend.boxn[0]].___(b);
+	    hend.boxn[0] = hend.boxn[0]+1;
 	    }
 	completeregularpath(P, segfirst, e, tend, hend, Z.z().boxes, boxn,
 	    		longedge);
@@ -2213,13 +2213,13 @@ try {
 	pp = spl.list.get__(spl.size - 1).list;
        	pn = spl.list.get__(spl.size - 1).size;
     }
-    for (i = 0; i < tendp.boxn; i++)
+    for (i = 0; i < tendp.boxn[0]; i++)
 	add_box(P, (tendp).boxes[i]);
     fb = P.nbox + 1;
     lb = fb + boxn - 3;
     for (i = 0; i < boxn; i++)
 	add_box(P, boxes[i]);
-    for (i = hendp.boxn - 1; i >= 0; i--)
+    for (i = hendp.boxn[0] - 1; i >= 0; i--)
 	add_box(P, (hendp).boxes[i]);
     adjustregularpath(P, fb, lb);
 } finally {

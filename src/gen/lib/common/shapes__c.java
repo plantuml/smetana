@@ -2110,7 +2110,7 @@ LEAVING("1f7b6eq3csywqv96raw75jqxr","record_inside_");
 // static int record_path(node_t * n, port * prt, int side, boxf rv[], 		       int *kptr) 
 @Unused
 @Original(version="2.38.0", path="lib/common/shapes.c", name="record_path", key="3p54k8x2kyueort8kj41qvkty", definition="static int record_path(node_t * n, port * prt, int side, boxf rv[], 		       int *kptr)")
-public static int record_path(ST_Agnode_s n, ST_port prt, int side, ST_boxf rv, ACCESS<Integer> kptr) {
+public static int record_path(ST_Agnode_s n, ST_port prt, int side, ST_boxf rv, int[] kptr) {
     int i, ls=0, rs=0;
     final ST_pointf p = new ST_pointf();
     ST_field_t info;
@@ -2136,7 +2136,7 @@ UNSUPPORTED("8p9z8b0nypgkzi1b3k7sx0fyz"); // 		rv[0] = flip_rec_boxf(info->fld[i
 		rv.UR.x = ND_coord(n).x + rs;
 	    }
 	    rv.UR.y = ND_coord(n).y + (ND_ht(n) / 2);
-	    kptr.set(1);
+	    kptr[0] = 1;
 	    break;
 	}
     }
