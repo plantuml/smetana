@@ -743,7 +743,7 @@ LEAVING("cdncou6d2ng5i48rd1mk2cpnw","is_cluster");
 // void dot2_rank(graph_t * g, aspect_t* asp) 
 @Unused
 @Original(version="2.38.0", path="lib/dotgen/rank.c", name="dot2_rank", key="590k5zi3mrpwbc3lib0w3rmr2", definition="void dot2_rank(graph_t * g, aspect_t* asp)")
-public static Object dot2_rank(Object... arg) {
+public static Object dot2_rank(Object... arg_) {
 UNSUPPORTED("d8gu9ua6rerpv9vz9ctco1ca2"); // void dot2_rank(graph_t * g, aspect_t* asp)
 UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
 UNSUPPORTED("23k65agnd27tv4ix9teds9e2t"); //     int ssize;
