@@ -102,27 +102,8 @@ LEAVING("mx2krtbgfhcihopw9rw8kcv3","aginternalmaplookup");
 // void aginternalmapinsert(Agraph_t * g, int objtype, char *str, 			 unsigned long id) 
 @Unused
 @Original(version="2.38.0", path="lib/cgraph/imap.c", name="aginternalmapinsert", key="ce8fo5gya95enhgssezqs3vav", definition="void aginternalmapinsert(Agraph_t * g, int objtype, char *str, 			 unsigned long id)")
-public static Object aginternalmapinsert(Object... arg) {
+public static Object aginternalmapinsert(Object... arg_) {
 UNSUPPORTED("bk4ucrzua03gr9lak6zfm3orp"); // void aginternalmapinsert(Agraph_t * g, int objtype, char *str,
-UNSUPPORTED("18mfx819yhg1vg5xkrfjr96x2"); // 			 unsigned long id)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("bh4b0zdn246m225u6zmdk75zs"); //     IMapEntry_t *ent;
-UNSUPPORTED("84hwqfygghmcbo2exzo01t93o"); //     Dict_t *d_name_to_id, *d_id_to_name;
-UNSUPPORTED("7wtz0h3ahdkrul4dbb0b7y0l4"); //     ent = ((IMapEntry_t*)(agalloc(g,sizeof(IMapEntry_t))));
-UNSUPPORTED("6nwwse4s1ba0m9jfptthwwjbj"); //     ent->id = id;
-UNSUPPORTED("d8vvc9mhtu43xfmzodcja9bu9"); //     ent->str = agstrdup(g, str);
-UNSUPPORTED("84sccu12ven74lipf2dljgik4"); //     if (objtype == AGINEDGE)
-UNSUPPORTED("5q9qhv35w1rsuiuzqkwgshm3p"); // 	objtype = AGEDGE;
-UNSUPPORTED("cdo42je1dwhjo7hka7tk4bu20"); //     if ((d_name_to_id = g->clos->lookup_by_name[objtype]) == ((Dict_t *)0))
-UNSUPPORTED("7tkuaa0dee3i2mkwj7ba9bmyj"); // 	d_name_to_id = g->clos->lookup_by_name[objtype] =
-UNSUPPORTED("5em5y2jcl61223aawnzfqj4a0"); // 	    agdtopen(g, &LookupByName, Dttree);
-UNSUPPORTED("4x4ql6no5kg3qbek3o45fn7nx"); //     if ((d_id_to_name = g->clos->lookup_by_id[objtype]) == ((Dict_t *)0))
-UNSUPPORTED("7tmtjlukhbvxyxkd08ijr2m47"); // 	d_id_to_name = g->clos->lookup_by_id[objtype] =
-UNSUPPORTED("bnhc1g7rce6un1du4m54v8m5r"); // 	    agdtopen(g, &LookupById, Dttree);
-UNSUPPORTED("1y4a6gz63nnj0k1ip32krystr"); //     (*(((Dt_t*)(d_name_to_id))->searchf))((d_name_to_id),(void*)(ent),0000001);
-UNSUPPORTED("6d4vd73oyoit1sj5kt1otroy9"); //     (*(((Dt_t*)(d_id_to_name))->searchf))((d_id_to_name),(void*)(ent),0000001);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
 throw new UnsupportedOperationException();
 }
 

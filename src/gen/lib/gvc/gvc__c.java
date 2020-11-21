@@ -65,7 +65,7 @@ public class gvc__c {
 // GVC_t *gvContext(void) 
 @Unused
 @Original(version="2.38.0", path="lib/gvc/gvc.c", name="", key="f3vdhir2c7dz3pvmx9d3m4lx1", definition="GVC_t *gvContext(void)")
-public static ST_GVC_s gvContext(Object... arg) {
+public static ST_GVC_s gvContext(Object... arg_) {
 ENTERING("f3vdhir2c7dz3pvmx9d3m4lx1","gvContext");
 try {
 	ST_GVC_s gvc;
