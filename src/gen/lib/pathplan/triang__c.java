@@ -51,35 +51,8 @@ import gen.annotation.Unused;
 import smetana.core.jmp_buf;
 
 public class triang__c {
-//1 baedz5i9est5csw3epz3cv7z
-// typedef Ppoly_t Ppolyline_t
 
-
-//1 7pb9zum2n4wlgil34lvh8i0ts
-// typedef double COORD
-
-
-//1 540u5gu9i0x1wzoxqqx5n2vwp
-// static jmp_buf jbuf
 private static jmp_buf jbuf = new jmp_buf();
-
-
-
-//3 9l5xg5aowmh2yvhbzseo8ws0i
-// static int dpd_ccw(Ppoint_t * p1, Ppoint_t * p2, Ppoint_t * p3) 
-@Unused
-@Original(version="2.38.0", path="lib/pathplan/triang.c", name="dpd_ccw", key="9l5xg5aowmh2yvhbzseo8ws0i", definition="static int dpd_ccw(Ppoint_t * p1, Ppoint_t * p2, Ppoint_t * p3)")
-public static Object dpd_ccw(Object... arg) {
-UNSUPPORTED("66u8hjpmzz1u1podxvft7tqbr"); // static int dpd_ccw(Ppoint_t * p1, Ppoint_t * p2, Ppoint_t * p3)
-UNSUPPORTED("erg9i1970wdri39osu8hx2a6e"); // {
-UNSUPPORTED("8l4kygp6iwsssqf4pip9kt8ih"); //     double d =
-UNSUPPORTED("a5i2lyqa3iblrijf5i8d2gc2l"); // 	((p1->y - p2->y) * (p3->x - p2->x)) -
-UNSUPPORTED("8vxxbchvixjdl9bnn73jj0ken"); // 	((p3->y - p2->y) * (p1->x - p2->x));
-UNSUPPORTED("2duek0l6qi5enj1p52uzx935s"); //     return (d > 0) ? 2 : ((d < 0) ? 1 : 3);
-UNSUPPORTED("c24nfmv9i7o5eoqaymbibp7m7"); // }
-
-throw new UnsupportedOperationException();
-}
 
 
 
