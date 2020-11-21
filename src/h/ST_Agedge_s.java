@@ -68,15 +68,6 @@ public class ST_Agedge_s extends UnsupportedStructAndPtr {
 	}
 
 	@Override
-	public void copyDataFrom(__ptr__ arg) {
-		ST_Agedge_s this2 = (ST_Agedge_s) arg;
-		this.base.copyDataFrom((__struct__) this2.base);
-		this.id_link.copyDataFrom((__struct__) this2.id_link);
-		this.seq_link.copyDataFrom((__struct__) this2.seq_link);
-		this.node = this2.node;
-	}
-	
-	@Override
 	public void ___(__struct__ arg) {
 		ST_Agedge_s this2 = (ST_Agedge_s) arg;
 		this.base.___(this2.base);

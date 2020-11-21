@@ -85,19 +85,6 @@ public class ST_object_t extends UnsupportedStructAndPtr implements ST_Node_t___
 	}
 
 	@Override
-	public __ptr__ setPtr(String fieldName, __ptr__ newData) {
-		if (fieldName.equals("pos")) {
-			this.pos.copyDataFrom(newData);
-			return newData;
-		}
-		if (fieldName.equals("lbl")) {
-			this.lbl = (CArray<ST_xlabel_t>) newData;
-			return this.lbl;
-		}
-		return super.setPtr(fieldName, newData);
-	}
-
-	@Override
 	public void setStruct(String fieldName, __struct__ newData) {
 		if (fieldName.equals("pos")) {
 			this.pos.copyDataFrom(newData);

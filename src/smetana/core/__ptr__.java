@@ -46,9 +46,6 @@ public interface __ptr__ extends __c__fields {
 	public __ptr__ plus(int pointerMove);
 	public int comparePointer(__ptr__ other);
 
-	public String getDebug(String fieldName);
-
-	public void copyDataFrom(__ptr__ other);
 	public void copyDataFrom(__struct__ other);
 	
 
