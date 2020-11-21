@@ -36,64 +36,21 @@
 
 package smetana.core;
 
-import java.util.ArrayList;
-import java.util.List;
+public class CStar<O> extends UnsupportedC {
 
-public class CArray<O> extends UnsupportedC {
+	private final O data;
 
-	private final Class<O> cl;
-	private final List<O> data;
-	private final int offset;
-
-	public static <O> CArray<O> ALLOC__(int size, Class<O> cl) {
-		final CArray<O> result = new CArray<O>(new ArrayList<O>() , 0, cl);
-		result.reallocWithStructure(size);
-		return result;
+	public static <O> CStar<O> BUILD(O data) {
+		return new CStar<O>(data);
 	}
 
-	public static <O> CArray<O> REALLOC__(int size, CArray<O> old, Class<O> cl) {
-		if (old==null) {
-			return ALLOC__(size, cl);
-		}
-		old.reallocWithStructure(size);
-		return old;
-	}
-
-
-	private CArray(List<O> data, int offset, Class<O> cl) {
+	private CStar(O data) {
 		this.data = data;
-		this.offset = offset;
-		this.cl = cl;
-	}
-
-	public CArray<O> plus_(int delta) {
-		return new CArray<O>(data, offset + delta, cl);
 	}
 	
-	public int minus_(CArray<O> other) {
-		if (this.data != other.data) {
-			throw new IllegalArgumentException();
-		}
-		return this.offset - other.offset;
-	}
-
-
-	public O get__(int i) {
-		return data.get(i + offset);
-	}
-
-	private void reallocWithStructure(int size) {
-		if (offset != 0) {
-			throw new IllegalStateException();
-		}
-		try {
-			for (int i = 0; i < size; i++) {
-				data.add((O) cl.newInstance());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new UnsupportedOperationException();
-		}
+	
+	public O __() {
+		return data;
 	}
 
 
