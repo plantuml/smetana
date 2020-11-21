@@ -162,10 +162,10 @@ try {
 	for (i = pos - d + 1; i < GD_rank(root).get__(r).n; i++) {
 	    v = vlist.get_(i);
 	    ND_order(v, i + d - 1);
-	    vlist.plus(ND_order(v)).setPtr(v);
+	    vlist.set_(ND_order(v), v);
 	}
 	for (i = GD_rank(root).get__(r).n + d - 1; i < GD_rank(root).get__(r).n; i++)
-	    vlist.plus(i).setPtr(null);
+	    vlist.set_(i, null);
     } else {
 /*assert(ND_rank(root)[r].n + d - 1 <= ND_rank(root)[r].an);*/
 	for (i = GD_rank(root).get__(r).n - 1; i > pos; i--) {

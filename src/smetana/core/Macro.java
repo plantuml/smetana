@@ -338,6 +338,10 @@ public class Macro {
 		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).cleanup;
 	}
 
+	public static void GD_cleanup(ST_Agraph_s g, CFunction data) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).cleanup = data;
+	}
+
 	// #define GD_dist(g) (((Agraphinfo_t*)AGDATA(g))->dist)
 	// #define GD_alg(g) (((Agraphinfo_t*)AGDATA(g))->alg)
 	// #define GD_border(g) (((Agraphinfo_t*)AGDATA(g))->border)

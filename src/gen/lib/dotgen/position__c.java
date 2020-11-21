@@ -1279,10 +1279,10 @@ try {
 	GD_rank(g).get__(r).v = CArrayOfStar.<ST_Agnode_s>REALLOC(j + 1, GD_rank(g).get__(r).v, ST_Agnode_s.class);
 	for (i = GD_rank(g).get__(r).n - 1; i >= 0; i--) {
 	    v = GD_rank(g).get__(r).v.get_(i);
-	    GD_rank(g).get__(r).v.plus(ND_order(v)).setPtr(v);
+	    GD_rank(g).get__(r).v.set_(ND_order(v), v);
 	}
 	GD_rank(g).get__(r).n = j;
-	GD_rank(g).get__(r).v.plus(j).setPtr(null);
+	GD_rank(g).get__(r).v.set_(j, null);
     }
 } finally {
 LEAVING("1lejhh3evsa10auyj7cgqj8ub","make_leafslots");

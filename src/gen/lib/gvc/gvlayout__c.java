@@ -158,7 +158,7 @@ UNSUPPORTED("flupwh3kosf3fkhkxllllt1"); // 	}
 	if (gvle.cleanup!=null)
 		if (GD_cleanup(g)==null) 
 		LOG2("WARNING WE CHEAT GD_cleanup(g) is NULL"); else
-	    GD_cleanup(g).setPtr(gvle.cleanup);
+	    GD_cleanup(g, gvle.cleanup);
     }
     gv_fixLocale (0);
     return 0;
