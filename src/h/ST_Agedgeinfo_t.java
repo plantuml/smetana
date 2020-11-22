@@ -78,10 +78,10 @@ public class ST_Agedgeinfo_t extends UnsupportedStructAndPtr {
 	@Override
 	public void copyDataFrom(__ptr__ other) {
 		ST_Agedgeinfo_t this2 = (ST_Agedgeinfo_t) other;
-		this.hdr.copyDataFrom((__struct__) this2.hdr);
+		this.hdr.___((__struct__) this2.hdr);
 		this.spl = this2.spl;
-		this.tail_port.copyDataFrom((__struct__) this2.tail_port);
-		this.head_port.copyDataFrom((__struct__) this2.head_port);
+		this.tail_port.___((__struct__) this2.tail_port);
+		this.head_port.___((__struct__) this2.head_port);
 		this.label = this2.label;
 		this.head_label = this2.head_label;
 		this.tail_label = this2.tail_label;
@@ -105,10 +105,10 @@ public class ST_Agedgeinfo_t extends UnsupportedStructAndPtr {
 	@Override
 	public void ___(__struct__ other) {
 		ST_Agedgeinfo_t this2 = (ST_Agedgeinfo_t) other;
-		this.hdr.copyDataFrom((__struct__) this2.hdr);
+		this.hdr.___((__struct__) this2.hdr);
 		this.spl = this2.spl;
-		this.tail_port.copyDataFrom((__struct__) this2.tail_port);
-		this.head_port.copyDataFrom((__struct__) this2.head_port);
+		this.tail_port.___((__struct__) this2.tail_port);
+		this.head_port.___((__struct__) this2.head_port);
 		this.label = this2.label;
 		this.head_label = this2.head_label;
 		this.tail_label = this2.tail_label;
@@ -132,10 +132,10 @@ public class ST_Agedgeinfo_t extends UnsupportedStructAndPtr {
 	@Override
 	public void copyDataFrom(__struct__ other) {
 		ST_Agedgeinfo_t this2 = (ST_Agedgeinfo_t) other;
-		this.hdr.copyDataFrom((__struct__) this2.hdr);
+		this.hdr.___((__struct__) this2.hdr);
 		this.spl = this2.spl;
-		this.tail_port.copyDataFrom((__struct__) this2.tail_port);
-		this.head_port.copyDataFrom((__struct__) this2.head_port);
+		this.tail_port.___((__struct__) this2.tail_port);
+		this.head_port.___((__struct__) this2.head_port);
 		this.label = this2.label;
 		this.head_label = this2.head_label;
 		this.tail_label = this2.tail_label;

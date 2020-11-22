@@ -69,6 +69,17 @@ public class ST_Agrec_s extends UnsupportedStructAndPtr implements WithParent {
 		this.next = this2.next;
 	}
 
+	@Override
+	public void ___(__struct__ other) {
+		if (other instanceof ST_Agedgeinfo_t && parent instanceof ST_Agedgeinfo_t) {
+			((ST_Agedgeinfo_t)parent).___(other);
+			return;
+		}
+		ST_Agrec_s this2 = (ST_Agrec_s) other;
+		this.name = this2.name;
+		this.next = this2.next;
+	}
+
 	public ST_Agrec_s(StarStruct parent) {
 		this.parent = parent;
 	}
