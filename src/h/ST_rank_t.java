@@ -49,7 +49,6 @@ import smetana.core.CArrayOfStar;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
 import smetana.core.__struct__;
-import smetana.core.amiga.StarStruct;
 
 public class ST_rank_t extends UnsupportedStructAndPtr {
 

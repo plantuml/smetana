@@ -48,19 +48,8 @@ package h;
 import smetana.core.CArray;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
-import smetana.core.amiga.StarStruct;
 
 public class ST_XLabels_t extends UnsupportedStructAndPtr {
-
-	private /*final*/ StarStruct parent;
-
-	public ST_XLabels_t() {
-		
-	}
-
-	public ST_XLabels_t(StarStruct parent) {
-		this.parent = parent;
-	}
 
 	public CArray<ST_object_t> objs;
 	public int n_objs;

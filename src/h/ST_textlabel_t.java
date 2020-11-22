@@ -54,15 +54,6 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_textlabel_t extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
-
-	public ST_textlabel_t() {
-		
-	}
-
-	public ST_textlabel_t(StarStruct parent) {
-		this.parent = parent;
-	}
 
 	public CString text, fontname, fontcolor;
 	public int charset;

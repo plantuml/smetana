@@ -50,7 +50,6 @@ import java.util.List;
 import smetana.core.CString;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
-import smetana.core.amiga.StarStruct;
 
 public class ST_Agattr_s extends UnsupportedStructAndPtr {
 

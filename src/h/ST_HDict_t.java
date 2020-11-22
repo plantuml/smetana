@@ -47,7 +47,6 @@ package h;
 
 import smetana.core.OFFSET;
 import smetana.core.UnsupportedStructAndPtr;
-import smetana.core.amiga.StarStruct;
 
 public class ST_HDict_t extends UnsupportedStructAndPtr {
 

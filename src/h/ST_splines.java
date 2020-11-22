@@ -47,23 +47,10 @@ package h;
 
 import smetana.core.CArray;
 import smetana.core.UnsupportedStructAndPtr;
-import smetana.core.amiga.StarStruct;
 
 public class ST_splines extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
 
-	public ST_splines() {
-		
-	}
-
-	public ST_splines(StarStruct parent) {
-		this.parent = parent;
-	}
-
-	// "typedef struct splines",
-	// "{",
-// 	bezier *list;
 	public CArray<ST_bezier> list;
 	public int size;
 

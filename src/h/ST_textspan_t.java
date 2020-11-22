@@ -48,20 +48,10 @@ package h;
 import smetana.core.CString;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
-import smetana.core.amiga.StarStruct;
 
 // UNUSED ?
 public class ST_textspan_t extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
-
-	public ST_textspan_t() {
-		
-	}
-
-	public ST_textspan_t(StarStruct parent) {
-		this.parent = parent;
-	}
 
 	public CString str;
 

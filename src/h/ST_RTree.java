@@ -47,14 +47,13 @@ package h;
 
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
-import smetana.core.amiga.StarStruct;
 
 public class ST_RTree extends UnsupportedStructAndPtr {
 
 
 	public ST_Node_t___ root;
 	// "Node_t *root",
-	public final ST_SplitQ_t split = new ST_SplitQ_t(this);
+	public final ST_SplitQ_t split = new ST_SplitQ_t();
 	public int MinFill;
 	// "long ElapsedTime",
 	// "float UserTime, SystemTime",

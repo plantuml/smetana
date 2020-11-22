@@ -48,19 +48,8 @@ package h;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
 import smetana.core.__struct__;
-import smetana.core.amiga.StarStruct;
 
 public class ST_xlabel_t extends UnsupportedStructAndPtr {
-
-	private /*final*/ StarStruct parent;
-
-	public ST_xlabel_t() {
-		
-	}
-
-	public ST_xlabel_t(StarStruct parent) {
-		this.parent = parent;
-	}
 
 	final public ST_pointf sz = new ST_pointf(this);
 	final public ST_pointf pos = new ST_pointf(this);

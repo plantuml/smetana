@@ -48,7 +48,6 @@ package h;
 import smetana.core.CArrayOfStar;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
-import smetana.core.amiga.StarStruct;
 
 public class ST_nodequeue extends UnsupportedStructAndPtr {
 

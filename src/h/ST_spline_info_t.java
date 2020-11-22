@@ -46,22 +46,10 @@
 package h;
 
 import smetana.core.UnsupportedStructAndPtr;
-import smetana.core.amiga.StarStruct;
 
 public class ST_spline_info_t extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
 
-	public ST_spline_info_t() {
-		
-	}
-
-	public ST_spline_info_t(StarStruct parent) {
-		this.parent = parent;
-	}
-
-	// "typedef struct",
-	// "{",
 	public int LeftBound, RightBound, Splinesep, Multisep;
 	public ST_boxf Rank_box[];
 

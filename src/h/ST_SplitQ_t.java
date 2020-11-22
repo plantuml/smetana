@@ -47,14 +47,10 @@ package h;
 
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__struct__;
-import smetana.core.amiga.StarStruct;
 
 public class ST_SplitQ_t extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
 
-	// typedef struct split_q_s {
-	// struct Branch BranchBuf[64 + 1];
 	// Sorry guys :-)
 	public final ST_Branch_t BranchBuf[] = new ST_Branch_t[] { new ST_Branch_t(), new ST_Branch_t(), new ST_Branch_t(),
 			new ST_Branch_t(), new ST_Branch_t(), new ST_Branch_t(), new ST_Branch_t(), new ST_Branch_t(),
@@ -79,9 +75,6 @@ public class ST_SplitQ_t extends UnsupportedStructAndPtr {
 	// struct PartitionVars Partitions[1];
 	// } SplitQ_t;
 
-	public ST_SplitQ_t() {
-		
-	}
 
 	@Override
 	public ST_Rect_t castTo(Class dest) {
@@ -89,10 +82,6 @@ public class ST_SplitQ_t extends UnsupportedStructAndPtr {
 			return CoverSplit;
 		}
 		throw new UnsupportedOperationException();
-	}
-
-	public ST_SplitQ_t(StarStruct parent) {
-		this.parent = parent;
 	}
 
 

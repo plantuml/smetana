@@ -46,7 +46,6 @@
 package h;
 
 import smetana.core.UnsupportedStructAndPtr;
-import smetana.core.amiga.StarStruct;
 
 public class ST_gvplugin_available_s extends UnsupportedStructAndPtr {
 

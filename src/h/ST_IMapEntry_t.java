@@ -47,7 +47,6 @@ package h;
 
 import smetana.core.CString;
 import smetana.core.UnsupportedStructAndPtr;
-import smetana.core.amiga.StarStruct;
 
 public class ST_IMapEntry_t extends UnsupportedStructAndPtr {
 

@@ -46,19 +46,8 @@
 package h;
 
 import smetana.core.UnsupportedStructAndPtr;
-import smetana.core.amiga.StarStruct;
 
 public class ST_tna_t extends UnsupportedStructAndPtr {
-
-	private /*final*/ StarStruct parent;
-
-	public ST_tna_t() {
-		
-	}
-
-	public ST_tna_t(StarStruct parent) {
-		this.parent = parent;
-	}
 
 	public double t;
 	public final ST_pointf a[] = new ST_pointf[] { new ST_pointf(), new ST_pointf() };

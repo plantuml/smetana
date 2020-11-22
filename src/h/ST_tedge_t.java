@@ -48,19 +48,9 @@ package h;
 import smetana.core.CArray;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
-import smetana.core.amiga.StarStruct;
 
 public class ST_tedge_t extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
-
-	public ST_tedge_t() {
-		
-	}
-
-	public ST_tedge_t(StarStruct parent) {
-		this.parent = parent;
-	}
 
 	public ST_pointnlink_t pnl0p;
 	public ST_pointnlink_t pnl1p;

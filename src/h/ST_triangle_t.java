@@ -46,19 +46,8 @@
 package h;
 
 import smetana.core.UnsupportedStructAndPtr;
-import smetana.core.amiga.StarStruct;
 
 public class ST_triangle_t extends UnsupportedStructAndPtr {
-
-	private /*final*/ StarStruct parent;
-
-	public ST_triangle_t() {
-		
-	}
-
-	public ST_triangle_t(StarStruct parent) {
-		this.parent = parent;
-	}
 
 	public int mark;
 
