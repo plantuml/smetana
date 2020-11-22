@@ -56,20 +56,6 @@ public class ST_Agdatadict_s extends UnsupportedStructAndPtr {
 	public ST_dt_s dict_e;
 	public ST_dt_s dict_g;
 
-	private /*final*/ StarStruct parent;
-
-	public ST_Agdatadict_s() {
-		
-	}
-
-	public ST_Agdatadict_s(StarStruct parent, boolean b) {
-		this.parent = parent;
-	}
-
-	public StarStruct getParent() {
-		return parent;
-	}
-
 	@Override
 	public __ptr__ setPtr(String fieldName, __ptr__ newData) {
 		if (fieldName.equals("dict.n")) {

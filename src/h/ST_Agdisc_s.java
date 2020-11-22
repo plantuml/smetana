@@ -55,11 +55,11 @@ public class ST_Agdisc_s extends UnsupportedStructAndPtr {
 	public ST_Agiddisc_s id;
 	public ST_Agiodisc_s io;
 
-	private /*final*/ StarStruct parent;
+	private final StarStruct parent;
 
-	public ST_Agdisc_s() {
-		
-	}
+//	public ST_Agdisc_s() {
+//		
+//	}
 
 	public ST_Agdisc_s(StarStruct parent) {
 		this.parent = parent;

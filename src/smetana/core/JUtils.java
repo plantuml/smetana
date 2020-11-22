@@ -334,10 +334,10 @@ public class JUtils {
 			return new ST_Agraphinfo_t(parent, true);
 		}
 		if (theClass == ST_Agattr_s.class) {
-			return new ST_Agattr_s(parent, true);
+			return new ST_Agattr_s();
 		}
 		if (theClass == ST_Agdatadict_s.class) {
-			return new ST_Agdatadict_s(parent, true);
+			return new ST_Agdatadict_s();
 		}
 		if (theClass == ST_dtdata_s.class) {
 			return new ST_dtdata_s(parent, true);
@@ -352,7 +352,7 @@ public class JUtils {
 			return new ST_Agnode_s(parent, true);
 		}
 		if (theClass == ST_Agclos_s.class) {
-			return new ST_Agclos_s(parent, true);
+			return new ST_Agclos_s();
 		}
 		throw new UnsupportedOperationException(theClass.toString());
 	}
