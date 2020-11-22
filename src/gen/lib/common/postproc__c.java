@@ -178,9 +178,9 @@ UNSUPPORTED("7894dgzvk2um2w1a5ph2r0bcc"); // 	    ED_spl(e)->list[j].sp = map_po
 UNSUPPORTED("al3tnq9zjjqeq1ll7qdxyu3ja"); // 	ED_xlabel(e)->pos = map_point(ED_xlabel(e)->pos);
     /* vladimir */
     if (ED_head_label(e)!=null)
-    	ED_head_label(e).setStruct("pos", map_point((ST_pointf) ED_head_label(e).pos));
+    	ED_head_label(e).pos.___(map_point((ST_pointf) ED_head_label(e).pos));
     if (ED_tail_label(e)!=null)
-    	ED_tail_label(e).setStruct("pos", map_point((ST_pointf) ED_tail_label(e).pos));
+    	ED_tail_label(e).pos.___(map_point((ST_pointf) ED_tail_label(e).pos));
 } finally {
 LEAVING("bvq3vvonvotn47mfe5zsvchie","map_edge");
 }
@@ -208,7 +208,7 @@ UNSUPPORTED("crysiae5zxc69cj3v2ygfs8xn"); // 	new_bb.UR = map_point(pointfof(bb.
     }
     GD_bb(g).___(new_bb);
     if (GD_label(g)!=null) {
-	GD_label(g).setStruct("pos", map_point((ST_pointf) GD_label(g).pos));
+	GD_label(g).pos.___(map_point((ST_pointf) GD_label(g).pos));
     }
     for (c = 1; c <= GD_n_cluster(g); c++)
 	translate_bb((ST_Agraph_s) GD_clust(g).get_(c), rankdir);
@@ -500,7 +500,7 @@ private static ST_cinfo_t addClusterObj_(ST_Agraph_s g, ST_cinfo_t info) {
  	info.___(addClusterObj ((ST_Agraph_s)GD_clust(g).get_(c).castTo(ST_Agraph_s.class), info));
      if (NEQ(g, agroot(g)) && (GD_label(g)!=null) && GD_label(g).set!=0) {
     	 CArray<ST_object_t> objp = info.objp;
-    	 info.setStruct("bb", addLabelObj (GD_label(g), objp, (ST_boxf) info.bb));
+    	 info.bb.___(addLabelObj (GD_label(g), objp, (ST_boxf) info.bb));
     	 info.objp = info.objp.plus_(1);
 //UNSUPPORTED("dcgq2zlh4t0m1gno12t6h7ouy"); // 	object_t* objp = info.objp;
 //UNSUPPORTED("ddz79zm5235krd6smukq1gza0"); // 	info.bb = addLabelObj (GD_label(g), objp, info.bb);
@@ -614,8 +614,8 @@ UNSUPPORTED("q3t8uxncrxc4n8rtuabtzxya"); // 		    n_elbls++;
 	objp = objs;
 	lbls = CArray.<ST_xlabel_t>ALLOC__(n_lbls, ST_xlabel_t.class);
 	xlp = lbls;
-	bb.setStruct("LL", pointfof(INT_MAX, INT_MAX));
-	bb.setStruct("UR", pointfof(-INT_MAX, -INT_MAX));
+	bb.LL.___(pointfof(INT_MAX, INT_MAX));
+	bb.UR.___(pointfof(-INT_MAX, -INT_MAX));
 	for (np = agfstnode(gp); np!=null; np = agnxtnode(gp, np)) {
 		bb.___(addNodeObj (np, objp, bb));
 		lp = ND_xlabel(np);
@@ -699,14 +699,14 @@ UNSUPPORTED("cls7z8l7wi371a4wrec0viqil"); // 		objp++;
 }
 if (n_clbls!=0) {
     final ST_cinfo_t info = new ST_cinfo_t();
-    info.setStruct("bb", bb);
+    info.bb.___(bb);
     info.objp = objp;
     info.___(addClusterObj (gp, info));
     bb.___(info.bb);
 }
 force = (agattr(gp,AGRAPH,new CString("forcelabels"),null));
 params.force = late_bool(gp, force, 1);
-params.setStruct("bb", bb);
+params.bb.___(bb);
 placeLabels(objs, n_objs, lbls, n_lbls, params);
 //     if (Verbose)
 // 	printData(objs, n_objs, lbls, n_lbls, &params);
@@ -717,7 +717,7 @@ placeLabels(objs, n_objs, lbls, n_lbls, params);
  	    cnt++;
  	    lp = xlp.get__(0).lbl;
  	    lp.set = 1;
- 	    lp.setStruct("pos", centerPt(xlp));
+ 	    lp.pos.___(centerPt(xlp));
  	    updateBB (gp, lp);
  	}
  	xlp = xlp.plus_(1);
@@ -873,7 +873,7 @@ UNSUPPORTED("7ictv9eqmjvxjii5lqlyw8nu"); // 	    p.x = GD_bb(g).LL.x + d.x / 2;
 	} else {
 	    p.x = ((GD_bb(g).LL.x + GD_bb(g).UR.x) / 2);
 	}
-	GD_label(g).setStruct("pos", p);
+	GD_label(g).pos.___(p);
 	GD_label(g).set= NOTI(false);
     }
     for (c = 1; c <= GD_n_cluster(g); c++)

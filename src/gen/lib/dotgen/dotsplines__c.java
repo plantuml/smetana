@@ -455,7 +455,7 @@ UNSUPPORTED("46btiag50nczzur103eqhjcup"); // 	goto finish;
 	    if (ND_alg(n)!=null) {
 		ST_Agedge_s fe = (ST_Agedge_s) ND_alg(n);
 		assert (ED_label(fe)!=null);
-		ED_label(fe).setStruct("pos", ND_coord(n));
+		ED_label(fe).pos.___(ND_coord(n));
 		ED_label(fe).set= NOTI(false);
 	    }
 	    if ((ND_node_type(n) != 0) &&
@@ -1212,7 +1212,7 @@ ENTERING("fybar4mljnmkh3kure5k1eod","makeFlatEnd");
 try {
     final ST_boxf b = new ST_boxf();
     b.___(maximal_bbox(g, sp, n, null, e));
-    endp.setStruct("nb", b);
+    endp.nb.___(b);
     endp.sidemask = (1<<2);
     if (isBegin) beginpath(P, e, 2, endp, false);
     else endpath(P, e, 2, endp, false);
@@ -1248,7 +1248,7 @@ try {
     hn = aghead(e);
     for (f = ED_to_virt(e); ED_to_virt(f)!=null; f = ED_to_virt(f));
     ln = agtail(f);
-    ED_label(e).setStruct("pos", ND_coord(ln));
+    ED_label(e).pos.___(ND_coord(ln));
     ED_label(e).set= NOTI(false);
     if (et == (1 << 1)) {
 UNSUPPORTED("ataaqkehwb736ts2x6olzqokx"); // 	pointf startp, endp, lp;
@@ -1678,7 +1678,7 @@ UNSUPPORTED("bxkpl0bp0qhtxaj6rspd19d1k"); // 	hackflag = NOT(0);
 	        hn = aghead(e);
 	        continue;
 	    }
-	    hend.setStruct("nb", maximal_bbox(g, sp, hn, e, ND_out(hn).list.get_(0)));
+	    hend.nb.___(maximal_bbox(g, sp, hn, e, ND_out(hn).list.get_(0)));
 	    endpath(P, e, 1, hend, spline_merge(aghead(e)));
 	    b.___(makeregularend(hend.boxes[hend.boxn[0] - 1], (1<<2),
 	    	       ND_coord(hn).y + GD_rank(g).get__(ND_rank(hn)).ht2));
@@ -1714,7 +1714,7 @@ UNSUPPORTED("8kbxhk7qirj3tr7hn1ukwar3h"); // 		pointfs = RALLOC(numpts, pointfs,
 	    tn = agtail(e);
 	    hn = aghead(e);
 	    boxn = 0;
-	    tend.setStruct("nb", maximal_bbox(g, sp, tn, (ST_Agedge_s) ND_in(tn).list.get_(0), e));
+	    tend.nb.___(maximal_bbox(g, sp, tn, (ST_Agedge_s) ND_in(tn).list.get_(0), e));
 	    beginpath(P, e, 1, tend, spline_merge(tn));
 	    b.___(makeregularend(tend.boxes[tend.boxn[0] - 1], (1<<0),
 	    	       ND_coord(tn).y - GD_rank(g).get__(ND_rank(tn)).ht1));

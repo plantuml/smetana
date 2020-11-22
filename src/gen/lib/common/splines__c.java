@@ -469,7 +469,7 @@ try {
 	pboxfn = (CFunction) ND_shape(n).fns.pboxfn;
     else
 	pboxfn = null;
-    P.start.setStruct("p", add_pointf(ND_coord(n), (ST_pointf) ED_tail_port(e).p));
+    P.start.p.___(add_pointf(ND_coord(n), (ST_pointf) ED_tail_port(e).p));
     if (merge) {
 	/*P->start.theta = - M_PI / 2; */
 	P.start.theta = (conc_slope(agtail(e)));
@@ -483,7 +483,7 @@ try {
     }
     P.nbox = 0;
     P.data = e;
-    endp.setStruct("np", P.start.p);
+    endp.np.___(P.start.p);
     if ((et == 1) && (ND_node_type(n) == 0) && ((side = ED_tail_port(e).side)!=0)) {
 	ST_Agedge_s orig;
 	final ST_boxf b0 = new ST_boxf(), b = endp.nb.copy();
@@ -671,7 +671,7 @@ try {
 	pboxfn = (CFunction) ND_shape(n).fns.pboxfn;
     else
 	pboxfn = null;
-    P.end.setStruct("p", add_pointf(ND_coord(n), (ST_pointf) ED_head_port(e).p));
+    P.end.p.___(add_pointf(ND_coord(n), (ST_pointf) ED_head_port(e).p));
     if (merge) {
 UNSUPPORTED("cproejwusj67kuugolh6tbkwz"); // 	/*P->end.theta = M_PI / 2; */
 UNSUPPORTED("65vhfvz1d1tub3f85tdsgg2g5"); // 	P->end.theta = conc_slope(aghead(e)) + M_PI;
@@ -684,7 +684,7 @@ UNSUPPORTED("2w0c22i5xgcch77xd9jg104nw"); // 	P->end.constrained = NOT(0);
 	} else
 	    P.end.constrained = false;
     }
-    endp.setStruct("np", P.end.p);
+    endp.np.___(P.end.p);
     if ((et == 1) && (ND_node_type(n) == 0) && ((side = ED_head_port(e).side)!=0)) {
 	ST_Agedge_s orig;
 	final ST_boxf b0 = new ST_boxf(), b = endp.nb.copy();

@@ -100,7 +100,7 @@ try {
 	return subg;
     subg = (ST_Agraph_s) agalloc(g, sizeof(ST_Agraph_s.class));
     subg.clos = g.clos;
-    subg.setStruct("desc", g.desc);
+    subg.desc.___(g.desc);
     ((ST_Agdesc_s)subg.desc).maingraph = 0;
     subg.parent = g;
     subg.root = g.root;

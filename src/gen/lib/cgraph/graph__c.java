@@ -138,7 +138,7 @@ try {
 		g = (ST_Agraph_s) clos.disc.mem.alloc.exe(clos.state.mem, sizeof(ST_Agraph_s.class));
     	AGTYPE(g, AGRAPH);
 		g.clos = clos;
-		g.setStruct("desc", desc);
+		g.desc.___(desc);
 		((ST_Agdesc_s)g.desc).maingraph = ASINT((N(0)));
 		g.root = g;
 		g.clos.state.id = (__ptr__) g.clos.disc.id.open.exe(g, arg_disc);

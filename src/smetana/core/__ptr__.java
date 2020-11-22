@@ -41,15 +41,17 @@ package smetana.core;
 public interface __ptr__ extends __c__fields {
 
 	public __ptr__ castTo(Class dest);
+	
 	public Object addVirtualBytes(int bytes);
+	
 	public __ptr__ unsupported();
+	
 	public __ptr__ plus(int pointerMove);
+	
 	public int comparePointer(__ptr__ other);
 
 	public void copyDataFrom(__struct__ other);
 	
-
-
 	public void setPtr(__ptr__ value);
 
 	public void setStruct(__struct__ value);

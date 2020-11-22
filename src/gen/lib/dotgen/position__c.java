@@ -1099,8 +1099,8 @@ try {
  }
  LL.y = ND_coord(GD_rank(root).get__(GD_maxrank(g)).v.get_(0)).y - GD_ht1(g);
  UR.y = ND_coord(GD_rank(root).get__(GD_minrank(g)).v.get_(0)).y + GD_ht2(g);
- GD_bb(g).setStruct("LL", LL);
- GD_bb(g).setStruct("UR", UR);
+ GD_bb(g).LL.___(LL);
+ GD_bb(g).UR.___(UR);
 } finally {
 LEAVING("9ay2xnnmh407i32pfokujfda5","dot_compute_bb");
 }

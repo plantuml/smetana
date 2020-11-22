@@ -350,10 +350,10 @@ UNSUPPORTED("2u8wpa4w1q7rg14t07bny6p8i"); // 		rtp->InTouchCount++;
  	newroot = RTreeNewNode(rtp);	/* grow a new root, make tree taller */
  	rtp.NonLeafCount = rtp.NonLeafCount+1;
  	newroot.level = n[0].level + 1;
- 	b.setStruct("rect", NodeCover(n[0]));
+ 	b.rect.___(NodeCover(n[0]));
  	b.child = n[0];
  	AddBranch(rtp, b, newroot, null);
- 	b.setStruct("rect", NodeCover(newnode[0]));
+ 	b.rect.___(NodeCover(newnode[0]));
  	b.child = newnode[0];
  	AddBranch(rtp, b, newroot, null);
  	n[0] = newroot;
