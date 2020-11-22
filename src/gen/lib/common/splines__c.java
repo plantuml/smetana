@@ -469,7 +469,7 @@ try {
 	pboxfn = (CFunction) ND_shape(n).fns.pboxfn;
     else
 	pboxfn = null;
-    P.start.p.___(add_pointf(ND_coord(n), (ST_pointf) ED_tail_port(e).p));
+    P.start.p.___(add_pointf(ND_coord(n), ED_tail_port(e).p));
     if (merge) {
 	/*P->start.theta = - M_PI / 2; */
 	P.start.theta = (conc_slope(agtail(e)));
@@ -671,7 +671,7 @@ try {
 	pboxfn = (CFunction) ND_shape(n).fns.pboxfn;
     else
 	pboxfn = null;
-    P.end.p.___(add_pointf(ND_coord(n), (ST_pointf) ED_head_port(e).p));
+    P.end.p.___(add_pointf(ND_coord(n), ED_head_port(e).p));
     if (merge) {
 UNSUPPORTED("cproejwusj67kuugolh6tbkwz"); // 	/*P->end.theta = M_PI / 2; */
 UNSUPPORTED("65vhfvz1d1tub3f85tdsgg2g5"); // 	P->end.theta = conc_slope(aghead(e)) + M_PI;

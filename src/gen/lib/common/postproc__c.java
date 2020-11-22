@@ -134,8 +134,8 @@ private static ST_pointf map_point_w_(final ST_pointf p) {
 ENTERING("dajapw16wus3rwimkrk5ihi2b","map_point");
 try {
     p.___(ccwrotatepf(p, Z.z().Rankdir * 90));
-    p.x = (p.x - Z.z().Offset.x);
-    p.y = (p.y - Z.z().Offset.y);
+    p.x -= Z.z().Offset.x;
+    p.y -= Z.z().Offset.y;
     return p;
 } finally {
 LEAVING("dajapw16wus3rwimkrk5ihi2b","map_point");
@@ -164,23 +164,23 @@ try {
     for (j = 0; j < ED_spl(e).size; j++) {
 	bz.___(ED_spl(e).list.get__(j));
 	for (k = 0; k < bz.size; k++) {
-	    bz.list.get__(k).___(map_point((ST_pointf) bz.list.get__(k)));
+	    bz.list.get__(k).___(map_point(bz.list.get__(k)));
 	}
 	if (bz.sflag!=0)
 UNSUPPORTED("7894dgzvk2um2w1a5ph2r0bcc"); // 	    ED_spl(e)->list[j].sp = map_point(ED_spl(e)->list[j].sp);
 	if (bz.eflag!=0) {
-	    ED_spl(e).list.get__(j).ep.___(map_point((ST_pointf) ED_spl(e).list.get__(j).ep));
+	    ED_spl(e).list.get__(j).ep.___(map_point(ED_spl(e).list.get__(j).ep));
     }
     }
     if (ED_label(e)!=null)
-	ED_label(e).pos.___(map_point((ST_pointf) ED_label(e).pos));
+	ED_label(e).pos.___(map_point(ED_label(e).pos));
     if (ED_xlabel(e)!=null)
 UNSUPPORTED("al3tnq9zjjqeq1ll7qdxyu3ja"); // 	ED_xlabel(e)->pos = map_point(ED_xlabel(e)->pos);
     /* vladimir */
     if (ED_head_label(e)!=null)
-    	ED_head_label(e).pos.___(map_point((ST_pointf) ED_head_label(e).pos));
+    	ED_head_label(e).pos.___(map_point(ED_head_label(e).pos));
     if (ED_tail_label(e)!=null)
-    	ED_tail_label(e).pos.___(map_point((ST_pointf) ED_tail_label(e).pos));
+    	ED_tail_label(e).pos.___(map_point(ED_tail_label(e).pos));
 } finally {
 LEAVING("bvq3vvonvotn47mfe5zsvchie","map_edge");
 }
@@ -208,7 +208,7 @@ UNSUPPORTED("crysiae5zxc69cj3v2ygfs8xn"); // 	new_bb.UR = map_point(pointfof(bb.
     }
     GD_bb(g).___(new_bb);
     if (GD_label(g)!=null) {
-	GD_label(g).pos.___(map_point((ST_pointf) GD_label(g).pos));
+	GD_label(g).pos.___(map_point(GD_label(g).pos));
     }
     for (c = 1; c <= GD_n_cluster(g); c++)
 	translate_bb((ST_Agraph_s) GD_clust(g).get_(c), rankdir);

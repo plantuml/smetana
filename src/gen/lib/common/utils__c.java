@@ -455,7 +455,7 @@ try {
     if (Right != null)
 	for (j = 0; j <= degree; j++)
 	    Right.get__(j).___(Vtemp[degree - j].get__(j));
-    return (ST_pointf) (Vtemp[degree].get__(0));
+    return (Vtemp[degree].get__(0));
 } finally {
 LEAVING("6p0ey2c2ujk2o7h221p0b4xon","Bezier");
 }
@@ -545,7 +545,7 @@ LEAVING("ehkvqh6bwf4jw3mj1w5p7a8m8","mapbool");
 public static ST_pointf dotneato_closest(ST_splines spl, final ST_pointf pt) {
 ENTERING("37hgj44s94wf9bmz16he85pgq","dotneato_closest");
 try {
-    return (ST_pointf) dotneato_closest_ (spl, (ST_pointf) pt.copy()).copy();
+    return dotneato_closest_ (spl, pt.copy()).copy();
 } finally {
 LEAVING("37hgj44s94wf9bmz16he85pgq","dotneato_closest");
 }	
