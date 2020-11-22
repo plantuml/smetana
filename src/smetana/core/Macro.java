@@ -1367,11 +1367,12 @@ public class Macro {
 	// ED_to_orig(newp) = old; \
 
 	public static void MAKEFWDEDGE(ST_Agedge_s new_, ST_Agedge_s old) {
+		JUtilsDebug.LOG("MAKEFWDEDGE");
 		ST_Agedge_s newp;
 		ST_Agedgeinfo_t info;
 		newp = new_;
 		info = (ST_Agedgeinfo_t) newp.base.data.castTo(ST_Agedgeinfo_t.class);
-		info.copyDataFrom(old.base.data.castTo(ST_Agedgeinfo_t.class));
+		info.___((ST_Agedgeinfo_t) old.base.data.castTo(ST_Agedgeinfo_t.class));
 		newp.___(old);
 		newp.base.setPtr("data", info);
 		agtail(newp, AGHEAD(old));
