@@ -50,18 +50,13 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_Agcbstack_s extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
+	
 
 	public ST_Agcbstack_s() {
 		
 	}
 
 	public ST_Agcbstack_s(StarStruct parent) {
-		this.parent = parent;
-	}
-
-	public StarStruct getParent() {
-		return parent;
 	}
 
 	// public static List<String> DEFINITION = Arrays.asList(

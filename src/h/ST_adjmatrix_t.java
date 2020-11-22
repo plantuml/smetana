@@ -50,15 +50,6 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_adjmatrix_t extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
-
-	public ST_adjmatrix_t() {
-		
-	}
-
-	public ST_adjmatrix_t(StarStruct parent) {
-		this.parent = parent;
-	}
 
 	// "typedef struct adjmatrix_t",
 	// "{",

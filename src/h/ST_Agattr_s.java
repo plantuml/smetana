@@ -68,10 +68,6 @@ public class ST_Agattr_s extends UnsupportedStructAndPtr {
 		this.parent = parent;
 	}
 
-	public StarStruct getParent() {
-		return parent;
-	}
-
 	@Override
 	public __ptr__ castTo(Class dest) {
 		if (dest == ST_Agrec_s.class) {
