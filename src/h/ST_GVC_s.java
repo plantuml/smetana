@@ -92,17 +92,6 @@ public class ST_GVC_s extends UnsupportedStructAndPtr {
 	// "int fontrenaming",
 	// "}");
 
-	private /*final*/ StarStruct parent;
-
-	public ST_GVC_s() {
-		
-	}
-
-	public ST_GVC_s(StarStruct parent) {
-		this.parent = parent;
-	}
-
-
 }
 
 // struct GVC_s {

@@ -52,18 +52,7 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_fontinfo extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
 
-	public ST_fontinfo() {
-		
-	}
-
-	public ST_fontinfo(StarStruct parent) {
-		this.parent = parent;
-	}
-
-	// "struct fontinfo",
-	// "{",
 	public double fontsize;
 	public CString fontname;
 	public CString fontcolor;

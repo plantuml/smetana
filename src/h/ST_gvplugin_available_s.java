@@ -50,8 +50,6 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_gvplugin_available_s extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
-
 	// gvplugin_available_t *next; /* next plugin in linked list, or NULL */
 	// const char *typestr; /* type string, e.g. "png" or "ps" */
 	// int quality; /* Programmer assigned quality ranking within type (+ve or -ve int).
@@ -59,14 +57,6 @@ public class ST_gvplugin_available_s extends UnsupportedStructAndPtr {
 	// gvplugin_package_t *package; /* details of library containing plugin */
 	// gvplugin_installed_t *typeptr; /* pointer to jumptable for plugin,
 	// or NULL if not yet loaded */
-
-	public ST_gvplugin_available_s() {
-		
-	}
-
-	public ST_gvplugin_available_s(StarStruct parent) {
-		this.parent = parent;
-	}
 
 	// struct gvplugin_available_s {
 	// gvplugin_available_t *next; /* next plugin in linked list, or NULL */

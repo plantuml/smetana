@@ -52,15 +52,6 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_gvplugin_installed_t extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
-
-	public ST_gvplugin_installed_t() {
-		
-	}
-
-	public ST_gvplugin_installed_t(StarStruct parent) {
-		this.parent = parent;
-	}
 
 	public EN_layout_type id;
 	public CString type;
