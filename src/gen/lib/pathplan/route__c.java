@@ -61,7 +61,6 @@ import h.ST_pointf;
 import h.ST_tna_t;
 import smetana.core.CArray;
 import smetana.core.Z;
-import smetana.core.__ptr__;
 import smetana.core.jmp_buf;
 
 public class route__c {

@@ -46,8 +46,8 @@
 package h;
 
 import smetana.core.CArray;
-import smetana.core.CFunction;
 import smetana.core.CArrayOfStar;
+import smetana.core.CFunction;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
 import smetana.core.amiga.StarStruct;

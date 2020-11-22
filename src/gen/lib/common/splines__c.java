@@ -98,10 +98,9 @@ import h.ST_pointf;
 import h.ST_splineInfo;
 import h.ST_splines;
 import h.ST_textlabel_t;
-import smetana.core.ACCESS;
 import smetana.core.CArray;
-import smetana.core.CFunction;
 import smetana.core.CArrayOfStar;
+import smetana.core.CFunction;
 import smetana.core.__ptr__;
 
 public class splines__c {

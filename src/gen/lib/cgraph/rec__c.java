@@ -61,11 +61,9 @@ import static smetana.core.Macro.AGTYPE;
 import static smetana.core.Macro.ASINT;
 import static smetana.core.Macro.N;
 import static smetana.core.Macro.NOT;
-import static smetana.core.Macro.UNSUPPORTED;
 
 import gen.annotation.Original;
 import gen.annotation.Reviewed;
-import gen.annotation.Unused;
 import h.ST_Agedge_s;
 import h.ST_Agobj_s;
 import h.ST_Agraph_s;

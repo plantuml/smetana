@@ -46,7 +46,6 @@
 package h;
 
 import smetana.core.UnsupportedStructAndPtr;
-import smetana.core.__struct__;
 import smetana.core.amiga.StarStruct;
 
 public class ST_tna_t extends UnsupportedStructAndPtr {
