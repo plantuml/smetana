@@ -360,12 +360,12 @@ LEAVING("1ca6fh8ns5bgzfzcz8al4eh4k","adjustBB");
 private static ST_boxf adjustBB_(CArray<ST_object_t> objp, ST_boxf bb) {
 	final ST_pointf ur = new ST_pointf();
 	/* Adjust bounding box */
-	bb.LL.x = (MIN(bb.LL.x, objp.get__(0).pos.x));
-	bb.LL.y = (MIN(bb.LL.y, objp.get__(0).pos.y));
-	ur.x = (objp.get__(0).pos.x + objp.get__(0).sz.x);
-	ur.y = (objp.get__(0).pos.y + objp.get__(0).sz.y);
-	bb.UR.x = (MAX(bb.UR.x, ur.x));
-	bb.UR.y = (MAX(bb.UR.y, ur.y));
+	bb.LL.x = MIN(bb.LL.x, objp.get__(0).pos.x);
+	bb.LL.y = MIN(bb.LL.y, objp.get__(0).pos.y);
+	ur.x = objp.get__(0).pos.x + objp.get__(0).sz.x;
+	ur.y = objp.get__(0).pos.y + objp.get__(0).sz.y;
+	bb.UR.x = MAX(bb.UR.x, ur.x);
+	bb.UR.y = MAX(bb.UR.y, ur.y);
 	return bb;
 }
 

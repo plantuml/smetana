@@ -131,7 +131,7 @@ try {
      /* calculate rect containing all in the set */
      rtp.split.CoverSplit.___(rtp.split.BranchBuf[0].rect);
      for (i = 1; i < 64 + 1; i++) {
-    	 rtp.split.setStruct("CoverSplit",
+    	 rtp.split.CoverSplit.___(
     	 CombineRect((ST_Rect_t)rtp.split.CoverSplit,
     			 (ST_Rect_t)rtp.split.BranchBuf[i].castTo(ST_Rect_t.class)));
      }

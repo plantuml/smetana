@@ -398,11 +398,11 @@ UNSUPPORTED("1um729vqiy3529kbsrzyl9u3y"); // 	    rtp->InTouchCount++;
  	i = PickBranch(r, n);
  	if (N(RTreeInsert2(rtp, r, data, (ST_Node_t___) n.branch[i].child, n2, level))) {
 /* recurse: child was not split */
- 	    n.branch[i].setStruct("rect",
+ 	    n.branch[i].rect.___(
  	    		CombineRect((ST_Rect_t)r, (ST_Rect_t) n.branch[i].rect));
  	    return 0;
  	} else {		/* child was split */
- 	    n.branch[i].setStruct("rect",
+ 	    n.branch[i].rect.___(
  	    		NodeCover((ST_Node_t___)n.branch[i].child));
  	    b.child = n2[0];
  	    b.rect.___(NodeCover(n2[0]));
