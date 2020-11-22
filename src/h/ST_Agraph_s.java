@@ -48,7 +48,6 @@ package h;
 import smetana.core.OFFSET;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
-import smetana.core.__struct__;
 import smetana.core.amiga.StarStruct;
 
 public class ST_Agraph_s extends UnsupportedStructAndPtr {
@@ -80,15 +79,6 @@ public class ST_Agraph_s extends UnsupportedStructAndPtr {
 
 	public StarStruct getParent() {
 		return _parent;
-	}
-
-	@Override
-	public void setStruct(String fieldName, __struct__ newData) {
-		if (fieldName.equals("desc")) {
-			desc.copyDataFrom(newData);
-			return;
-		}
-		super.setStruct(fieldName, newData);
 	}
 
 

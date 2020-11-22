@@ -47,7 +47,6 @@ package h;
 
 import smetana.core.CArray;
 import smetana.core.UnsupportedStructAndPtr;
-import smetana.core.__struct__;
 import smetana.core.amiga.StarStruct;
 
 public class ST_object_t extends UnsupportedStructAndPtr implements ST_Node_t___or_object_t {
@@ -61,19 +60,6 @@ public class ST_object_t extends UnsupportedStructAndPtr implements ST_Node_t___
 	public boolean isSameThan(StarStruct other) {
 		ST_object_t other2 = (ST_object_t) other;
 		return this == other2;
-	}
-
-	@Override
-	public void setStruct(String fieldName, __struct__ newData) {
-		if (fieldName.equals("pos")) {
-			this.pos.copyDataFrom(newData);
-			return;
-		}
-		if (fieldName.equals("sz")) {
-			this.sz.copyDataFrom(newData);
-			return;
-		}
-		super.setStruct(fieldName, newData);
 	}
 
 }

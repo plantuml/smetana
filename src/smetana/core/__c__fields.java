@@ -42,7 +42,6 @@ public interface __c__fields {
 
 	public __ptr__ setPtr(String fieldName, __ptr__ value);
 
-	public void setStruct(String fieldName, __struct__ value);
 	
 
 }

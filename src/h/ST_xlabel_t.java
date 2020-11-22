@@ -47,7 +47,6 @@ package h;
 
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
-import smetana.core.__struct__;
 
 public class ST_xlabel_t extends UnsupportedStructAndPtr {
 
@@ -64,19 +63,6 @@ public class ST_xlabel_t extends UnsupportedStructAndPtr {
 			return this.lbl;
 		}
 		return super.setPtr(fieldName, newData);
-	}
-
-	@Override
-	public void setStruct(String fieldName, __struct__ newData) {
-		if (fieldName.equals("sz")) {
-			this.sz.copyDataFrom(newData);
-			return;
-		}
-		if (fieldName.equals("pos")) {
-			this.pos.copyDataFrom(newData);
-			return;
-		}
-		super.setStruct(fieldName, newData);
 	}
 
 }

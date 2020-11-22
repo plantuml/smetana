@@ -48,10 +48,6 @@ public class UnsupportedC implements __ptr__ {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 
-	public void setStruct(String fieldName, __struct__ data) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
 
 	public __ptr__ castTo(Class dest) {
 		throw new UnsupportedOperationException(getClass().toString());

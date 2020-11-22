@@ -140,19 +140,6 @@ public class ST_Agedgeinfo_t extends UnsupportedStructAndPtr {
 		return super.castTo(dest);
 	}
 
-	@Override
-	public void setStruct(String fieldName, __struct__ newData) {
-		if (fieldName.equals("tail_port")) {
-			this.tail_port.copyDataFrom(newData);
-			return;
-		}
-		if (fieldName.equals("head_port")) {
-			this.head_port.copyDataFrom(newData);
-			return;
-		}
-		super.setStruct(fieldName, newData);
-	}
-
 
 
 	@Override

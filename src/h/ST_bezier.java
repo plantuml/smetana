@@ -77,18 +77,7 @@ public class ST_bezier extends UnsupportedStructAndPtr {
 		___((ST_bezier) other);
 	}
 
-	@Override
-	public void setStruct(String fieldName, __struct__ newData) {
-		if (fieldName.equals("sp")) {
-			this.sp.copyDataFrom(newData);
-			return;
-		}
-		if (fieldName.equals("ep")) {
-			this.ep.copyDataFrom(newData);
-			return;
-		}
-		super.setStruct(fieldName, newData);
-	}
+
 
 	@Override
 	public __ptr__ setPtr(String fieldName, __ptr__ newData) {

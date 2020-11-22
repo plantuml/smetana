@@ -46,27 +46,12 @@
 package h;
 
 import smetana.core.UnsupportedStructAndPtr;
-import smetana.core.__struct__;
 
 public class ST_Pedge_t extends UnsupportedStructAndPtr {
 
 
 	public final ST_pointf a = new ST_pointf(this);
 	public final ST_pointf b = new ST_pointf(this);
-
-
-	@Override
-	public void setStruct(String fieldName, __struct__ newData) {
-		if (fieldName.equals("a")) {
-			this.a.copyDataFrom(newData);
-			return;
-		}
-		if (fieldName.equals("b")) {
-			this.b.copyDataFrom(newData);
-			return;
-		}
-		super.setStruct(fieldName, newData);
-	}
 
 
 }

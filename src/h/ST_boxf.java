@@ -60,12 +60,7 @@ public class ST_boxf extends UnsupportedStructAndPtr {
 	public ST_boxf() {
 	}
 
-	// @Override
-	// public void setStruct(__struct__ value) {
-	// final ST_boxf other = (ST_boxf) value;
-	// this.LL.setStruct(other.LL);
-	// this.UR.setStruct(other.UR);
-	// }
+
 
 	public static ST_boxf[] malloc(int nb) {
 		final ST_boxf result[] = new ST_boxf[nb];

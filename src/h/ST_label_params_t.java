@@ -46,26 +46,13 @@
 package h;
 
 import smetana.core.UnsupportedStructAndPtr;
-import smetana.core.__struct__;
 
 public class ST_label_params_t extends UnsupportedStructAndPtr {
 
-	// "typedef struct",
-	// "{",
 	public final ST_boxf bb = new ST_boxf(this);
 	public boolean force;
 
-	// "}",
-	// "label_params_t");
 
-	@Override
-	public void setStruct(String fieldName, __struct__ newData) {
-		if (fieldName.equals("bb")) {
-			this.bb.copyDataFrom(newData);
-			return;
-		}
-		super.setStruct(fieldName, newData);
-	}
 	
 }
 

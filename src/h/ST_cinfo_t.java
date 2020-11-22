@@ -68,16 +68,7 @@ public class ST_cinfo_t extends UnsupportedStructAndPtr {
 		this.objp = other.objp;
 	}
 
-	@Override
-	public void setStruct(String fieldName, __struct__ newData) {
-		if (fieldName.equals("bb")) {
-			this.bb.___(newData);
-			return;
-		}
-		super.setStruct(fieldName, newData);
-	}
-	
-	
+
 	@Override
 	public ST_cinfo_t copy() {
 		final ST_cinfo_t result = new ST_cinfo_t();

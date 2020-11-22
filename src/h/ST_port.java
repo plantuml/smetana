@@ -115,29 +115,8 @@ public class ST_port extends UnsupportedStructAndPtr {
 		return result;
 	}
 
-	@Override
-	public void setStruct(String fieldName, __struct__ newData) {
-		if (fieldName.equals("p")) {
-			p.copyDataFrom(newData);
-			return;
-		}
-		super.setStruct(fieldName, newData);
-	}
 
-	// "typedef struct port",
-	// "{",
-	// "pointf p",
-	// "double theta",
-	// "boxf *bp",
-	// "boolean defined",
-	// "boolean constrained",
-	// "boolean clip",
-	// "boolean dyna",
-	// "unsigned char order",
-	// "unsigned char side",
-	// "char *name",
-	// "}",
-	// "port");
+
 }
 
 // typedef struct port { /* internal edge endpoint specification */

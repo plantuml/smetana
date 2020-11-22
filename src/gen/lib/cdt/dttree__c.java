@@ -506,17 +506,28 @@ LEAVING("abqfzg1d1vkzk51225tcdlik5","dttree");
 }
 
 
+///* internal functions for translating among holder, object and key */
+//#define _DT(dt)		((Dt_t*)(dt))
+//#define _DTDSC(dc,ky,sz,lk,cmpf) \
+//			(ky = dc->key, sz = dc->size, lk = dc->link, cmpf = dc->comparf)
+//#define _DTKEY(o,ky,sz)	(Void_t*)(sz < 0 ? *((char**)((char*)(o)+ky)) : ((char*)(o)+ky))
 
+
+//#define _DTLNK(o,lk)	((Dtlink_t*)((char*)(o) + lk) )
 private static ST_dtlink_s _DTLNK(__ptr__ o, int lk) {
 	return (ST_dtlink_s) ((__ptr__)o.addVirtualBytes(lk)).castTo(ST_dtlink_s.class);
 }
 
+//#define _DTCMP(dt,k1,k2,dc,cmpf,sz) \
+//(cmpf ? (*cmpf)(dt,k1,k2,dc) : \
+// (sz <= 0 ? strcmp(k1,k2) : memcmp(k1,k2,sz)) )
 private static int _DTCMP(ST_dt_s dt, Object k1, Object k2, ST_dtdisc_s dc, CFunction cmpf, int sz) {
 	return cmpf!=null ? (Integer)cmpf.exe(dt, k1, k2, dc) : 
 		(sz <= 0 ? strcmp((CString)k1, (CString)k2) : UNSUPPORTED_INT("memcmp(key,k,sz))") );
 }
 
 
+//#define _DTOBJ(e,lk)	(lk < 0 ? ((Dthold_t*)(e))->obj : (Void_t*)((char*)(e) - lk) )
 private static Object _DTOBJ(ST_dtlink_s root, int lk) {
 	if (lk < 0) {
 		return root.castTo_ST_dthold_s().obj;

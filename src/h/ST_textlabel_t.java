@@ -49,7 +49,6 @@ import smetana.core.CArray;
 import smetana.core.CString;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
-import smetana.core.__struct__;
 import smetana.core.amiga.StarStruct;
 
 public class ST_textlabel_t extends UnsupportedStructAndPtr {
@@ -73,18 +72,7 @@ public class ST_textlabel_t extends UnsupportedStructAndPtr {
 
 	public boolean html;
 
-	@Override
-	public void setStruct(String fieldName, __struct__ newData) {
-		if (fieldName.equals("space")) {
-			space.copyDataFrom(newData);
-			return;
-		}
-		if (fieldName.equals("pos")) {
-			pos.copyDataFrom(newData);
-			return;
-		}
-		super.setStruct(fieldName, newData);
-	}
+
 
 	@Override
 	public __ptr__ setPtr(String fieldName, __ptr__ newData) {

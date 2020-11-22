@@ -761,7 +761,7 @@ public class Macro {
 	}
 
 	public static void ND_in(__ptr__ n, __struct__<ST_elist> v) {
-		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setStruct("in", v);
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).in.___(v);
 	}
 
 	// #define ND_inleaf(n) (((Agnodeinfo_t*)AGDATA(n))->inleaf)
@@ -884,7 +884,7 @@ public class Macro {
 	}
 
 	public static void ND_out(__ptr__ n, __struct__<ST_elist> v) {
-		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setStruct("out", v);
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).out.___(v);
 	}
 
 	// #define ND_outleaf(n) (((Agnodeinfo_t*)AGDATA(n))->outleaf)
@@ -958,7 +958,7 @@ public class Macro {
 	}
 
 	public static void ND_save_in(ST_Agnode_s n, __struct__<ST_elist> v) {
-		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setStruct("save_in", v);
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).save_in.___(v);
 	}
 
 	// #define ND_save_out(n) (((Agnodeinfo_t*)AGDATA(n))->save_out)
@@ -967,7 +967,7 @@ public class Macro {
 	}
 
 	public static void ND_save_out(ST_Agnode_s n, __struct__<ST_elist> v) {
-		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setStruct("save_out", v);
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).save_out.___(v);
 	}
 
 	// #define ND_shape(n) (((Agnodeinfo_t*)AGDATA(n))->shape)
@@ -1084,7 +1084,7 @@ public class Macro {
 	}
 
 	public static void ED_head_port(ST_Agedge_s e, ST_port v) {
-		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setStruct("head_port", v);
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).head_port.___(v);
 	}
 
 	// #define ED_label(e) (((Agedgeinfo_t*)AGDATA(e))->label)
@@ -1153,7 +1153,7 @@ public class Macro {
 	}
 
 	public static void ED_tail_port(ST_Agedge_s e, ST_port v) {
-		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setStruct("tail_port", v);
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).tail_port.___(v);
 	}
 
 	// #define ED_to_orig(e) (((Agedgeinfo_t*)AGDATA(e))->to_orig)

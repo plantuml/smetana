@@ -71,14 +71,7 @@ public class ST_BestPos_t extends UnsupportedStructAndPtr {
 	}
 
 
-	@Override
-	public void setStruct(String fieldName, __struct__ newData) {
-		if (fieldName.equals("pos")) {
-			pos.copyDataFrom(newData);
-			return;
-		}
-		super.setStruct(fieldName, newData);
-	}
+
 
 	// typedef struct best_p_s {
 	// int n;

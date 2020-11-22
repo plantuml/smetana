@@ -46,7 +46,6 @@
 package h;
 
 import smetana.core.UnsupportedStructAndPtr;
-import smetana.core.__struct__;
 
 public class ST_pathend_t extends UnsupportedStructAndPtr {
 
@@ -62,19 +61,6 @@ public class ST_pathend_t extends UnsupportedStructAndPtr {
 			new ST_boxf(), new ST_boxf() };
 
 
-
-	@Override
-	public void setStruct(String fieldName, __struct__ newData) {
-		if (fieldName.equals("np")) {
-			this.np.___(newData);
-			return;
-		}
-		if (fieldName.equals("nb")) {
-			this.nb.___(newData);
-			return;
-		}
-		super.setStruct(fieldName, newData);
-	}
 
 }
 

@@ -113,15 +113,6 @@ public class ST_Agobj_s extends UnsupportedStructAndPtr implements WithParent {
 		return super.setPtr(fieldName, newData);
 	}
 
-	@Override
-	public void setStruct(String fieldName, __struct__ newData) {
-		if (fieldName.equals("tag")) {
-			this.tag.copyDataFrom(newData);
-			return;
-		}
-		super.setStruct(fieldName, newData);
-	}
-
 	public StarStruct getParent() {
 		return parent;
 	}

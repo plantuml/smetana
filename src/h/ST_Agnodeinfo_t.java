@@ -47,7 +47,6 @@ package h;
 
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
-import smetana.core.__struct__;
 
 public class ST_Agnodeinfo_t extends UnsupportedStructAndPtr {
 
@@ -162,26 +161,7 @@ public class ST_Agnodeinfo_t extends UnsupportedStructAndPtr {
 
 
 
-	@Override
-	public void setStruct(String fieldName, __struct__ newData) {
-		if (fieldName.equals("save_in")) {
-			save_in.copyDataFrom(newData);
-			return;
-		}
-		if (fieldName.equals("save_out")) {
-			save_out.copyDataFrom(newData);
-			return;
-		}
-		if (fieldName.equals("out")) {
-			out.copyDataFrom(newData);
-			return;
-		}
-		if (fieldName.equals("in")) {
-			in.copyDataFrom(newData);
-			return;
-		}
-		super.setStruct(fieldName, newData);
-	}
+
 }
 
 // typedef struct Agnodeinfo_t {

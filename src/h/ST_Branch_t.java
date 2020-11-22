@@ -82,15 +82,6 @@ public class ST_Branch_t extends UnsupportedStructAndPtr {
 	}
 
 	@Override
-	public void setStruct(String fieldName, __struct__ newData) {
-		if (fieldName.equals("rect")) {
-			this.rect.copyDataFrom(newData);
-			return;
-		}
-		super.setStruct(fieldName, newData);
-	}
-
-	@Override
 	public ST_Node_t___or_object_t setPtr(String fieldName, __ptr__ newData) {
 		if (fieldName.equals("child")) {
 			this.child = (ST_Node_t___or_object_t) newData;

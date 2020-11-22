@@ -46,7 +46,6 @@
 package h;
 
 import smetana.core.UnsupportedStructAndPtr;
-import smetana.core.__struct__;
 
 public class ST_SplitQ_t extends UnsupportedStructAndPtr {
 
@@ -85,14 +84,6 @@ public class ST_SplitQ_t extends UnsupportedStructAndPtr {
 	}
 
 
-	@Override
-	public void setStruct(String fieldName, __struct__ newData) {
-		if (fieldName.equals("CoverSplit")) {
-			this.CoverSplit.copyDataFrom(newData);
-			return;
-		}
-		super.setStruct(fieldName, newData);
-	}
 
 	// typedef struct split_q_s {
 	// struct Branch BranchBuf[64 + 1];

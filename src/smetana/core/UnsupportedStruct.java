@@ -44,10 +44,6 @@ public class UnsupportedStruct implements __struct__ {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 
-	public void setStruct(String fieldName, __struct__ value) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
 
 	public __struct__ copy() {
 		throw new UnsupportedOperationException(getClass().toString());
