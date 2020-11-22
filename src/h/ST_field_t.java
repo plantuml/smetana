@@ -54,7 +54,7 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_field_t extends UnsupportedStructAndPtr {
 
-	public final ST_pointf size = new ST_pointf(this);		/* its dimension */
+	public final ST_pointf size = new ST_pointf();		/* its dimension */
 	public final ST_boxf b = new ST_boxf(this);			/* its placement in node's coordinates */
 	public int n_flds;
 	public ST_textlabel_t lp;	/* n_flds == 0 */

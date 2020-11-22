@@ -58,9 +58,9 @@ public class ST_textlabel_t extends UnsupportedStructAndPtr {
 	public int charset;
 	public double fontsize;
 
-	public final ST_pointf dimen = new ST_pointf(this);
-	public final ST_pointf space = new ST_pointf(this);
-	public final ST_pointf pos = new ST_pointf(this);
+	public final ST_pointf dimen = new ST_pointf();
+	public final ST_pointf space = new ST_pointf();
+	public final ST_pointf pos = new ST_pointf();
 
 	public CArray<ST_textspan_t> span;
 	public int nspans;

@@ -52,7 +52,7 @@ public class ST_BestPos_t extends UnsupportedStructAndPtr {
 
 	public int n;
 	public double area;
-	public final ST_pointf pos = new ST_pointf(this);
+	public final ST_pointf pos = new ST_pointf();
 
 	@Override
 	public __struct__ copy() {

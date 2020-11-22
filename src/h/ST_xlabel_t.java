@@ -50,8 +50,8 @@ import smetana.core.__ptr__;
 
 public class ST_xlabel_t extends UnsupportedStructAndPtr {
 
-	final public ST_pointf sz = new ST_pointf(this);
-	final public ST_pointf pos = new ST_pointf(this);
+	final public ST_pointf sz = new ST_pointf();
+	final public ST_pointf pos = new ST_pointf();
 
 	public ST_textlabel_t lbl;
 	public int set;

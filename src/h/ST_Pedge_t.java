@@ -50,8 +50,8 @@ import smetana.core.UnsupportedStructAndPtr;
 public class ST_Pedge_t extends UnsupportedStructAndPtr {
 
 
-	public final ST_pointf a = new ST_pointf(this);
-	public final ST_pointf b = new ST_pointf(this);
+	public final ST_pointf a = new ST_pointf();
+	public final ST_pointf b = new ST_pointf();
 
 
 }

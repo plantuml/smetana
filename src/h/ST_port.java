@@ -52,7 +52,7 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_port extends UnsupportedStructAndPtr {
 
-	public final ST_pointf p = new ST_pointf(this);
+	public final ST_pointf p = new ST_pointf();
 	public double theta;
 	public ST_boxf bp;
 	public boolean defined;

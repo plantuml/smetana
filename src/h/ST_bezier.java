@@ -58,7 +58,7 @@ public class ST_bezier extends UnsupportedStructAndPtr {
 	public int size;
 	public int sflag, eflag;
 
-	public final ST_pointf sp = new ST_pointf(this), ep = new ST_pointf(this);
+	public final ST_pointf sp = new ST_pointf(), ep = new ST_pointf();
 
 
 	@Override

@@ -51,7 +51,7 @@ public class ST_pathend_t extends UnsupportedStructAndPtr {
 
 
 	public final ST_boxf nb = new ST_boxf(this);
-	public final ST_pointf np = new ST_pointf(this);
+	public final ST_pointf np = new ST_pointf();
 	public int sidemask;
 	public int boxn[] = new int[1];
 

@@ -59,7 +59,7 @@ public class ST_textspan_t extends UnsupportedStructAndPtr {
 	// "void *layout",
 	// "void (*free_layout) (void *layout)",
 	// "double yoffset_layout, yoffset_centerline",
-	public final ST_pointf size = new ST_pointf(this);
+	public final ST_pointf size = new ST_pointf();
 	public int just;
 
 

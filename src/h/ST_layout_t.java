@@ -56,9 +56,9 @@ public class ST_layout_t extends UnsupportedStructAndPtr {
 	public double ratio;
 	public double dpi;
 
-	public ST_pointf margin = new ST_pointf(this);
-	public ST_pointf page = new ST_pointf(this);
-	public ST_pointf size = new ST_pointf(this);
+	public ST_pointf margin = new ST_pointf();
+	public ST_pointf page = new ST_pointf();
+	public ST_pointf size = new ST_pointf();
 
 	public boolean filled;
 	public boolean landscape;

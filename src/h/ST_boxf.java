@@ -51,8 +51,8 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_boxf extends UnsupportedStructAndPtr {
 
-	public final ST_pointf LL = new ST_pointf(this);
-	public final ST_pointf UR = new ST_pointf(this);
+	public final ST_pointf LL = new ST_pointf();
+	public final ST_pointf UR = new ST_pointf();
 
 	public ST_boxf(StarStruct parent) {
 	}

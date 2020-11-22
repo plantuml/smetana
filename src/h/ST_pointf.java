@@ -51,14 +51,14 @@ import smetana.core.__struct__;
 import smetana.core.amiga.StarStruct;
 
 public class ST_pointf extends UnsupportedStructAndPtr {
-	
+
 	public static ST_pointf pointfof(double x, double y) {
 		final ST_pointf result = new ST_pointf();
 		result.x = x;
 		result.y = y;
 		return result;
 	}
-	
+
 	public static ST_pointf add_pointf(final ST_pointf p, final ST_pointf q) {
 		final ST_pointf result = new ST_pointf();
 		result.x = p.x + q.x;
@@ -66,22 +66,18 @@ public class ST_pointf extends UnsupportedStructAndPtr {
 		return result;
 	}
 
-
-
 	public double x;
 	public double y;
-	
+
 	@Override
 	public boolean isSameThan(StarStruct other) {
-		return this==(ST_pointf)other;
+		return this == (ST_pointf) other;
 	}
-
 
 	public ST_pointf() {
-		
+
 	}
 
-	
 	@Override
 	public ST_pointf copy() {
 		final ST_pointf result = new ST_pointf();
@@ -115,19 +111,6 @@ public class ST_pointf extends UnsupportedStructAndPtr {
 		this.x = other2.x;
 		this.y = other2.y;
 	}
-
-
-
-	public ST_pointf(StarStruct parent) {
-	}
-
-	// public interface ST_pointf extends __ptr__ {
-	// public static List<String> DEFINITION = Arrays.asList(
-	// "typedef struct pointf_s",
-	// "{",
-	// "double x, y",
-	// "}",
-	// "pointf");
 }
 
 // typedef struct pointf_s { double x, y; } pointf;

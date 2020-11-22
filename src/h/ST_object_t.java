@@ -51,8 +51,8 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_object_t extends UnsupportedStructAndPtr implements ST_Node_t___or_object_t {
 
-	public final ST_pointf pos = new ST_pointf(this);
-	public final ST_pointf sz = new ST_pointf(this);
+	public final ST_pointf pos = new ST_pointf();
+	public final ST_pointf sz = new ST_pointf();
 	public CArray<ST_xlabel_t> lbl;
 
 

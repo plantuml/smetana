@@ -55,7 +55,7 @@ public class ST_Agnodeinfo_t extends UnsupportedStructAndPtr {
 	public ST_shape_desc shape;
 	public __ptr__ shape_info;
 	// public ST_polygon_t shape_info;
-	public final ST_pointf coord = new ST_pointf(this);
+	public final ST_pointf coord = new ST_pointf();
 	public double width, height;
 
 	// "boxf bb",
