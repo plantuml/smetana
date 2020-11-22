@@ -860,7 +860,7 @@ try {
     final ST_pointf p = new ST_pointf(), d = new ST_pointf();
     if (NEQ(g, agroot(g)) && (GD_label(g)!=null) && N(GD_label(g).set)) {
 	if ((GD_label_pos(g) & 1)!=0) {
-	    d.___(GD_border(g)[2].getStruct());
+	    d.___(GD_border(g)[2]);
 	    p.y = GD_bb(g).UR.y - d.y / 2;
 	} else {
 UNSUPPORTED("1w38no4welthbwa0i10hei16b"); // 	    d = GD_border(g)[0];

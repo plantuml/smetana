@@ -203,7 +203,7 @@ try {
      if (n.count < 64) {	/* split won't be necessary */
  	for (i = 0; i < 64; i++) {	/* find empty branch */
  	    if (n.branch[i].child == null) {
- 		n.branch[i].___(b.getStruct());
+ 		n.branch[i].___(b);
  		n.count = n.count+1;
  		break;
  	    }

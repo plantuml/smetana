@@ -239,14 +239,6 @@ LEAVING("36ofw2qfqlh5ci8gc8cfkqgg3","swap_ends_p");
 }
 
 
-//1 300wnvw9sndobgke752j9u139
-// static splineInfo sinfo = 
-/*static final __struct__<splineInfo> sinfo = JUtils.from(splineInfo.class);
-static {
-	sinfo.setPtr("swapEnds", function(dotsplines__c.class, "swap_ends_p"));
-	sinfo.setPtr("splineMerge", function(dotsplines__c.class, "spline_merge"));
-}*/
-
 
 
 

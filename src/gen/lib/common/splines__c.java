@@ -337,8 +337,8 @@ try {
     }
     /* spline may be interior to node */
     if(clipTail && ND_shape(tn)!=null && ND_shape(tn).fns.insidefn!=null) {
-	inside_context.setPtr("s.n", tn);
-	inside_context.setPtr("s.bp", tbox);
+	inside_context.s_n = tn;
+	inside_context.s_bp = tbox;
 	for (start[0] = 0; start[0] < pn - 4; start[0] += 3) {
 	    p2.x = ps.get__(start[0] + 3).x - ND_coord(tn).x;
 	    p2.y = ps.get__(start[0] + 3).y - ND_coord(tn).y;
@@ -349,8 +349,8 @@ try {
     } else
 	start[0] = 0;
     if(clipHead && ND_shape(hn)!=null && ND_shape(hn).fns.insidefn!=null) {
-	inside_context.setPtr("s.n", hn);
-	inside_context.setPtr("s.bp", hbox);
+	inside_context.s_n = hn;
+	inside_context.s_bp = hbox;
 	for (end[0] = pn - 4; end[0] > 0; end[0] -= 3) {
 	    p2.x = ps.get__(end[0]).x - ND_coord(hn).x;
 	    p2.y = ps.get__(end[0]).y - ND_coord(hn).y;

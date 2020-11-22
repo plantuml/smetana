@@ -206,9 +206,9 @@ try {
     ST_Agdatadict_s parent_dd, dd;
     dd = (ST_Agdatadict_s) agbindrec(g, DataDictName, sizeof(ST_Agdatadict_s.class),
 				    false).castTo(ST_Agdatadict_s.class);
-    dd.setPtr("dict.n", agdtopen(g, Z.z().AgDataDictDisc, Z.z().Dttree));
-    dd.setPtr("dict.e", agdtopen(g, Z.z().AgDataDictDisc,Z.z(). Dttree));
-    dd.setPtr("dict.g", agdtopen(g, Z.z().AgDataDictDisc, Z.z().Dttree));
+    dd.dict_n = agdtopen(g, Z.z().AgDataDictDisc, Z.z().Dttree);
+    dd.dict_e = agdtopen(g, Z.z().AgDataDictDisc,Z.z(). Dttree);
+    dd.dict_g = agdtopen(g, Z.z().AgDataDictDisc, Z.z().Dttree);
     if ((par = agparent(g))!=null) {
 	parent_dd = agdatadict(par, false);
 	dtview((ST_dt_s)dd.dict_n, (ST_dt_s)parent_dd.dict_n);

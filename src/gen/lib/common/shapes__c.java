@@ -678,7 +678,7 @@ try {
     /* Quick test if port rectangle is target */
     if (bp!=null) {
 	final ST_boxf bbox = new ST_boxf();
-	bbox.___(bp.getStruct());
+	bbox.___(bp);
 	return INSIDE(P, bbox);
     }
     if (NEQ(n, Z.z().lastn)) {
