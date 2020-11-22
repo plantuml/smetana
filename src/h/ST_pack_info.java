@@ -51,10 +51,10 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_pack_info extends UnsupportedStructAndPtr {
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	public ST_pack_info() {
-		this(null);
+		
 	}
 
 	public ST_pack_info(StarStruct parent) {

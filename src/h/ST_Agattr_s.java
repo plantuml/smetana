@@ -58,13 +58,13 @@ public class ST_Agattr_s extends UnsupportedStructAndPtr {
 	public ST_dt_s dict; /* shared dict to interpret attr field */
 	public List<CString> str; /* the attribute string values */
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	public ST_Agattr_s() {
-		this(null);
+		
 	}
 
-	public ST_Agattr_s(StarStruct parent) {
+	public ST_Agattr_s(StarStruct parent, boolean b) {
 		this.parent = parent;
 	}
 

@@ -60,7 +60,7 @@ public class ST_Agdesc_s extends UnsupportedStructAndPtr {
 	public int has_cmpnd; /* if may contain collapsed nodes */
 
 	public ST_Agdesc_s() {
-		this(null);
+		
 	}
 
 	public ST_Agdesc_s(StarStruct parent) {

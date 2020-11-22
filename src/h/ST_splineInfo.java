@@ -58,7 +58,7 @@ public class ST_splineInfo extends UnsupportedStructAndPtr {
 	public boolean isOrtho;
 
 	public ST_splineInfo() {
-		this(null);
+		
 	}
 
 	public ST_splineInfo(StarStruct parent) {

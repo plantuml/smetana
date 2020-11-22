@@ -55,7 +55,7 @@ public class ST_pointnlink_t extends UnsupportedStructAndPtr {
 	public ST_pointnlink_t link;
 
 	public ST_pointnlink_t() {
-		this(null);
+		
 	}
 
 	public ST_pointnlink_t(StarStruct parent) {

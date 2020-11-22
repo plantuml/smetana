@@ -51,10 +51,10 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_Pedge_t extends UnsupportedStructAndPtr {
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	public ST_Pedge_t() {
-		this(null);
+		
 	}
 
 	public ST_Pedge_t(StarStruct parent) {

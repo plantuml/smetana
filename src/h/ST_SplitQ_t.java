@@ -51,7 +51,7 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_SplitQ_t extends UnsupportedStructAndPtr {
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	// typedef struct split_q_s {
 	// struct Branch BranchBuf[64 + 1];
@@ -80,7 +80,7 @@ public class ST_SplitQ_t extends UnsupportedStructAndPtr {
 	// } SplitQ_t;
 
 	public ST_SplitQ_t() {
-		this(null);
+		
 	}
 
 	@Override

@@ -52,10 +52,10 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_xlabel_t extends UnsupportedStructAndPtr {
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	public ST_xlabel_t() {
-		this(null);
+		
 	}
 
 	public ST_xlabel_t(StarStruct parent) {

@@ -53,10 +53,10 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_rank_t extends UnsupportedStructAndPtr {
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	public ST_rank_t() {
-		this(null);
+		
 	}
 
 	public ST_rank_t(StarStruct parent) {

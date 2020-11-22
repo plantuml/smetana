@@ -50,7 +50,7 @@ import smetana.core.__ptr__;
 import smetana.core.amiga.StarStruct;
 
 public class ST_Agclos_s extends UnsupportedStructAndPtr {
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	public final ST_Agdisc_s disc = new ST_Agdisc_s(this); /* resource discipline functions */
 	public final ST_Agdstate_s state = new ST_Agdstate_s(this); /* resource closures */
@@ -65,10 +65,10 @@ public class ST_Agclos_s extends UnsupportedStructAndPtr {
 	public final ST_dt_s[] lookup_by_id = new ST_dt_s[3];
 
 	public ST_Agclos_s() {
-		this(null);
+		
 	}
 
-	public ST_Agclos_s(StarStruct parent) {
+	public ST_Agclos_s(StarStruct parent, boolean b) {
 		this.parent = parent;
 	}
 

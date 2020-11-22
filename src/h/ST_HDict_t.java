@@ -51,14 +51,14 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_HDict_t extends UnsupportedStructAndPtr {
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	public final ST_dtlink_s link = new ST_dtlink_s(this);
 	public int key;
 	public final ST_Branch_t d = new ST_Branch_t(); /* Should be ST_Leaf_t */
 	
 	public ST_HDict_t() {
-		this(null);
+		
 	}
 
 	public ST_HDict_t(StarStruct parent) {

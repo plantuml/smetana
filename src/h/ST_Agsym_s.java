@@ -64,7 +64,7 @@ public class ST_Agsym_s extends UnsupportedStructAndPtr {
 	public int fixed; /* immutable value */
 	public int print; /* always print */
 
-	public ST_Agsym_s(StarStruct parent) {
+	public ST_Agsym_s(StarStruct parent, boolean b) {
 	}
 
 	@Override
@@ -85,7 +85,7 @@ public class ST_Agsym_s extends UnsupportedStructAndPtr {
 	}
 
 	public ST_Agsym_s() {
-		this(null);
+		
 	}
 	
 	@Override

@@ -69,10 +69,10 @@ public class ST_GVCOMMON_t extends UnsupportedStructAndPtr {
 	// "}",
 	// "GVCOMMON_t");
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	public ST_GVCOMMON_t() {
-		this(null);
+		
 	}
 
 	public ST_GVCOMMON_t(StarStruct parent) {

@@ -58,7 +58,7 @@ public class ST_nlist_t extends UnsupportedStructAndPtr {
 	}
 
 	public ST_nlist_t() {
-		this(null);
+		
 	}
 
 //	public void reallocEmpty(int n_nodes) {

@@ -60,7 +60,7 @@ public class ST_shape_functions extends UnsupportedStructAndPtr {
 	public CFunction codefn;
 
 	public ST_shape_functions() {
-		this(null);
+		
 	}
 
 	public ST_shape_functions(StarStruct parent) {

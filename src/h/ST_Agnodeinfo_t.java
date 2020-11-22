@@ -52,13 +52,13 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_Agnodeinfo_t extends UnsupportedStructAndPtr {
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	public ST_Agnodeinfo_t() {
-		this(null);
+		
 	}
 
-	public ST_Agnodeinfo_t(StarStruct parent) {
+	public ST_Agnodeinfo_t(StarStruct parent, boolean b) {
 		this.parent = parent;
 	}
 

@@ -56,7 +56,7 @@ public class ST_textfont_t extends UnsupportedStructAndPtr {
 	public double size;
 
 	public ST_textfont_t() {
-		this(null);
+		
 	}
 
 	public ST_textfont_t(StarStruct parent) {

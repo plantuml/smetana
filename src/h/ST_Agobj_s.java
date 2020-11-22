@@ -69,10 +69,10 @@ public class ST_Agobj_s extends UnsupportedStructAndPtr implements WithParent {
 		this.data = this2.data;
 	}
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	public ST_Agobj_s() {
-		this(null);
+		
 	}
 
 	public ST_Agobj_s(StarStruct parent) {

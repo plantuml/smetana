@@ -77,7 +77,7 @@ public class ST_deque_t extends UnsupportedStructAndPtr {
 	public int pnlpn, fpnlpi, lpnlpi, apex;
 
 	public ST_deque_t() {
-		this(null);
+		
 	}
 
 	public ST_deque_t(StarStruct parent) {

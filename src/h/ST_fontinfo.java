@@ -52,10 +52,10 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_fontinfo extends UnsupportedStructAndPtr {
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	public ST_fontinfo() {
-		this(null);
+		
 	}
 
 	public ST_fontinfo(StarStruct parent) {

@@ -56,7 +56,7 @@ public class ST_Ppoly_t extends UnsupportedStructAndPtr {
 	public int pn;
 
 	public ST_Ppoly_t() {
-		this(null);
+		
 	}
 
 	public ST_Ppoly_t(StarStruct parent) {

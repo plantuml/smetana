@@ -56,13 +56,13 @@ public class ST_Agdatadict_s extends UnsupportedStructAndPtr {
 	public ST_dt_s dict_e;
 	public ST_dt_s dict_g;
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	public ST_Agdatadict_s() {
-		this(null);
+		
 	}
 
-	public ST_Agdatadict_s(StarStruct parent) {
+	public ST_Agdatadict_s(StarStruct parent, boolean b) {
 		this.parent = parent;
 	}
 

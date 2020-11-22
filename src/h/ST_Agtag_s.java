@@ -60,7 +60,7 @@ public class ST_Agtag_s extends UnsupportedStructAndPtr {
 	}
 
 	public ST_Agtag_s() {
-		this(null);
+		
 	}
 
 	@Override

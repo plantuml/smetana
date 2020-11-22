@@ -66,7 +66,7 @@ public class ST_dt_s extends UnsupportedStructAndPtr {
 	public __ptr__ user; /* for user's usage */
 
 	public ST_dt_s() {
-		this(null);
+		
 	}
 
 	public ST_dt_s(StarStruct parent) {

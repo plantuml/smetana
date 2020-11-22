@@ -52,10 +52,10 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_nodequeue extends UnsupportedStructAndPtr {
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	public ST_nodequeue() {
-		this(null);
+		
 	}
 
 	public ST_nodequeue(StarStruct parent) {

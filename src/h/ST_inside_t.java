@@ -52,10 +52,10 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_inside_t extends UnsupportedStructAndPtr {
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	public ST_inside_t() {
-		this(null);
+		
 	}
 
 	public ST_inside_t(StarStruct parent) {

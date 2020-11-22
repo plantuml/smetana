@@ -122,14 +122,12 @@ public class ST_Agraphinfo_t extends UnsupportedStructAndPtr {
 	public int label_pos;
 	public int exact_ranksep;
 
-	private final StarStruct parent_;
 
 	public ST_Agraphinfo_t() {
-		this(null);
+		
 	}
 
-	public ST_Agraphinfo_t(StarStruct parent) {
-		this.parent_ = parent;
+	public ST_Agraphinfo_t(StarStruct parent, boolean b) {
 	}
 
 

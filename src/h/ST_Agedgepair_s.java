@@ -53,13 +53,13 @@ public class ST_Agedgepair_s extends UnsupportedStructAndPtr {
 	public final ST_Agedge_s out = new ST_Agedge_s(this);
 	public final ST_Agedge_s in = new ST_Agedge_s(this);
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	public ST_Agedgepair_s() {
-		this(null);
+		
 	}
 
-	public ST_Agedgepair_s(StarStruct parent) {
+	public ST_Agedgepair_s(StarStruct parent, boolean b) {
 		this.parent = parent;
 	}
 

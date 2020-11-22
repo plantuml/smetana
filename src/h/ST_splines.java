@@ -51,10 +51,10 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_splines extends UnsupportedStructAndPtr {
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	public ST_splines() {
-		this(null);
+		
 	}
 
 	public ST_splines(StarStruct parent) {

@@ -52,10 +52,10 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_object_t extends UnsupportedStructAndPtr implements ST_Node_t___or_object_t {
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	public ST_object_t() {
-		this(null);
+		
 	}
 
 	public ST_object_t(StarStruct parent) {

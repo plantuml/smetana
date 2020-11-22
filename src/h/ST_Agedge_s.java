@@ -53,7 +53,7 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_Agedge_s extends UnsupportedStructAndPtr {
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	public final ST_Agobj_s base = new ST_Agobj_s(this);
 	public final ST_dtlink_s id_link = new ST_dtlink_s(this);
@@ -77,7 +77,7 @@ public class ST_Agedge_s extends UnsupportedStructAndPtr {
 	}
 
 	public ST_Agedge_s() {
-		this(null);
+		
 	}
 
 	public ST_Agedge_s(StarStruct parent) {

@@ -55,7 +55,7 @@ public class ST_dtlink_s extends UnsupportedStructAndPtr implements WithParent {
 
 	public ST_dtlink_s right;
 	public ST_dtlink_s _left;
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	@Override
 	public void copyDataFrom(__struct__ other) {
@@ -72,7 +72,7 @@ public class ST_dtlink_s extends UnsupportedStructAndPtr implements WithParent {
 	}
 
 	public ST_dtlink_s() {
-		this(null);
+		
 	}
 
 	public ST_dtlink_s(StarStruct parent) {

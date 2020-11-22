@@ -313,46 +313,46 @@ public class JUtils {
 
 	public static StarStruct create(Class theClass, StarStruct parent) {
 		if (theClass == ST_Agedgepair_s.class) {
-			return new ST_Agedgepair_s(parent);
+			return new ST_Agedgepair_s(parent, true);
 		}
 		if (theClass == ST_Agsym_s.class) {
-			return new ST_Agsym_s(parent);
+			return new ST_Agsym_s(parent, true);
 		}
 		if (theClass == ST_dthold_s.class) {
-			return new ST_dthold_s(parent);
+			return new ST_dthold_s(parent, true);
 		}
 		if (theClass == ST_path.class) {
-			return new ST_path(parent);
+			return new ST_path(parent, true);
 		}
 		if (theClass == ST_Agedgeinfo_t.class) {
-			return new ST_Agedgeinfo_t(parent);
+			return new ST_Agedgeinfo_t(parent, true);
 		}
 		if (theClass == ST_Agnodeinfo_t.class) {
-			return new ST_Agnodeinfo_t(parent);
+			return new ST_Agnodeinfo_t(parent, true);
 		}
 		if (theClass == ST_Agraphinfo_t.class) {
-			return new ST_Agraphinfo_t(parent);
+			return new ST_Agraphinfo_t(parent, true);
 		}
 		if (theClass == ST_Agattr_s.class) {
-			return new ST_Agattr_s(parent);
+			return new ST_Agattr_s(parent, true);
 		}
 		if (theClass == ST_Agdatadict_s.class) {
-			return new ST_Agdatadict_s(parent);
+			return new ST_Agdatadict_s(parent, true);
 		}
 		if (theClass == ST_dtdata_s.class) {
-			return new ST_dtdata_s(parent);
+			return new ST_dtdata_s(parent, true);
 		}
 		if (theClass == ST_Agraph_s.class) {
-			return new ST_Agraph_s(parent);
+			return new ST_Agraph_s(parent, true);
 		}
 		if (theClass == ST_Agsubnode_s.class) {
-			return new ST_Agsubnode_s(parent);
+			return new ST_Agsubnode_s(parent, true);
 		}
 		if (theClass == ST_Agnode_s.class) {
-			return new ST_Agnode_s(parent);
+			return new ST_Agnode_s(parent, true);
 		}
 		if (theClass == ST_Agclos_s.class) {
-			return new ST_Agclos_s(parent);
+			return new ST_Agclos_s(parent, true);
 		}
 		throw new UnsupportedOperationException(theClass.toString());
 	}

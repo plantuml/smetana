@@ -65,7 +65,7 @@ public class ST_field_t extends UnsupportedStructAndPtr {
 	public int sides;    /* sides of node exposed to field */
 
 	public ST_field_t() {
-		this(null);
+		
 	}
 
 	public ST_field_t(StarStruct parent) {

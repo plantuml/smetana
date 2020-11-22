@@ -51,7 +51,7 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_dtdata_s extends UnsupportedStructAndPtr {
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 	
 	public int type; /* type of dictionary */
 	public ST_dtlink_s here; /* finger to last search element */
@@ -66,10 +66,10 @@ public class ST_dtdata_s extends UnsupportedStructAndPtr {
 
 
 	public ST_dtdata_s() {
-		this(null);
+		
 	}
 
-	public ST_dtdata_s(StarStruct parent) {
+	public ST_dtdata_s(StarStruct parent, boolean b) {
 		this.parent = parent;
 	}
 

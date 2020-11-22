@@ -78,7 +78,7 @@ public class ST_pointf extends UnsupportedStructAndPtr {
 
 
 	public ST_pointf() {
-		this(null);
+		
 	}
 
 	

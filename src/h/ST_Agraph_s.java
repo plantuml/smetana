@@ -67,14 +67,14 @@ public class ST_Agraph_s extends UnsupportedStructAndPtr {
 	public ST_Agraph_s root; /* subgraphs - ancestors */
 	public ST_Agclos_s clos; /* shared resources */
 
-	private final StarStruct _parent;
+	private StarStruct _parent;
 	public String NAME;
 
 	public ST_Agraph_s() {
-		this(null);
+		
 	}
 
-	public ST_Agraph_s(StarStruct parent) {
+	public ST_Agraph_s(StarStruct parent, boolean b) {
 		this._parent = parent;
 	}
 

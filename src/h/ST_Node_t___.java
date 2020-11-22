@@ -50,7 +50,7 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_Node_t___ extends UnsupportedStructAndPtr implements ST_Node_t___or_object_t {
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 	public int count;
 	public int level;
 	// Sorry guys :-)
@@ -70,7 +70,7 @@ public class ST_Node_t___ extends UnsupportedStructAndPtr implements ST_Node_t__
 			new ST_Branch_t() };
 
 	public ST_Node_t___() {
-		this(null);
+		
 	}
 
 	public ST_Node_t___(StarStruct parent) {

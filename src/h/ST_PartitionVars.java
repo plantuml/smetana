@@ -50,7 +50,7 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_PartitionVars extends UnsupportedStructAndPtr {
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	public final int[] partition = new int[64 + 1];
 	public final int[] taken = new int[64 + 1];
@@ -65,7 +65,7 @@ public class ST_PartitionVars extends UnsupportedStructAndPtr {
 	// int area[2];
 	
 	public ST_PartitionVars() {
-		this(null);
+		
 	}
 
 	public ST_PartitionVars(StarStruct parent) {

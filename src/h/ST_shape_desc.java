@@ -56,7 +56,7 @@ public class ST_shape_desc extends UnsupportedStructAndPtr {
 	}
 
 	public ST_shape_desc() {
-		this(null);
+		
 	}
 
 	public CString name;

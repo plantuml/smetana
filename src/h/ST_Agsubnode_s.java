@@ -111,10 +111,10 @@ public class ST_Agsubnode_s extends UnsupportedStructAndPtr {
 	}
 
 	public ST_Agsubnode_s() {
-		this(null);
+		
 	}
 
-	public ST_Agsubnode_s(StarStruct parent) {
+	public ST_Agsubnode_s(StarStruct parent, boolean b) {
 	}
 
 	public ST_Agsubnode_s from_id_link(ST_dtlink_s from) {

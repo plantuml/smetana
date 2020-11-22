@@ -53,9 +53,9 @@ public class ST_Agnode_s extends UnsupportedStructAndPtr {
 
 	public final ST_Agobj_s base = new ST_Agobj_s(this);
 	public ST_Agraph_s root;
-	public final ST_Agsubnode_s mainsub = new ST_Agsubnode_s(this);
+	public final ST_Agsubnode_s mainsub = new ST_Agsubnode_s(this, false);
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 	public String NAME;
 	
 	@Override
@@ -65,10 +65,10 @@ public class ST_Agnode_s extends UnsupportedStructAndPtr {
 
 
 	public ST_Agnode_s() {
-		this(null);
+		
 	}
 
-	public ST_Agnode_s(StarStruct parent) {
+	public ST_Agnode_s(StarStruct parent, boolean b) {
 		this.parent = parent;
 	}
 

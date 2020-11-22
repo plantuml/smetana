@@ -54,10 +54,10 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_textlabel_t extends UnsupportedStructAndPtr {
 
-	private final StarStruct parent;
+	private /*final*/ StarStruct parent;
 
 	public ST_textlabel_t() {
-		this(null);
+		
 	}
 
 	public ST_textlabel_t(StarStruct parent) {

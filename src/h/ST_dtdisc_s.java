@@ -66,7 +66,7 @@ public class ST_dtdisc_s extends UnsupportedStructAndPtr {
 	}
 
 	public ST_dtdisc_s() {
-		this(null);
+		
 	}
 
 	@Override

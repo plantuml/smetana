@@ -63,7 +63,7 @@ public class ST_polygon_t extends UnsupportedStructAndPtr {
 	// "pointf *vertices",
 
 	public ST_polygon_t() {
-		this(null);
+		
 	}
 
 	public ST_polygon_t(StarStruct parent) {
