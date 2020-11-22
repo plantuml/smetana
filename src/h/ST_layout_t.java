@@ -52,16 +52,6 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_layout_t extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
-
-	public ST_layout_t() {
-		
-	}
-
-	public ST_layout_t(StarStruct parent) {
-		this.parent = parent;
-	}
-
 	public double quantum;
 	public double scale;
 	public double ratio;

@@ -53,16 +53,6 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_rank_t extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
-
-	public ST_rank_t() {
-		
-	}
-
-	public ST_rank_t(StarStruct parent) {
-		this.parent = parent;
-	}
-
 	public int n;
 	public CArrayOfStar<ST_Agnode_s> v;
 	public int an;

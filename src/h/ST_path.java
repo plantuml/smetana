@@ -51,18 +51,7 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_path extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
 
-	public ST_path() {
-		
-	}
-
-	public ST_path(StarStruct parent, boolean b) {
-		this.parent = parent;
-	}
-
-	// "typedef struct path",
-	// "{",
 	final public ST_port start = new ST_port(this), end = new ST_port(this);
 	public int nbox;
 	// "boxf *boxes",

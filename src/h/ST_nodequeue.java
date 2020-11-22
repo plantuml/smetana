@@ -52,19 +52,7 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_nodequeue extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
 
-	public ST_nodequeue() {
-		
-	}
-
-	public ST_nodequeue(StarStruct parent) {
-		this.parent = parent;
-	}
-
-	// "typedef struct nodequeue",
-	// "{",
-	// "node_t **store, **limit, **head, **tail",
 	public CArrayOfStar<ST_Agnode_s> store;
 	public CArrayOfStar<ST_Agnode_s> tail;
 	public CArrayOfStar<ST_Agnode_s> head;

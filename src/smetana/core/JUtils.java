@@ -322,7 +322,7 @@ public class JUtils {
 			return new ST_dthold_s();
 		}
 		if (theClass == ST_path.class) {
-			return new ST_path(parent, true);
+			return new ST_path();
 		}
 		if (theClass == ST_Agedgeinfo_t.class) {
 			return new ST_Agedgeinfo_t();

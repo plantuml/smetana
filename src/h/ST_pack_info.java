@@ -51,19 +51,6 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_pack_info extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
-
-	public ST_pack_info() {
-		
-	}
-
-	public ST_pack_info(StarStruct parent) {
-		this.parent = parent;
-	}
-
-	// "typedef struct",
-	// "{",
-	// "float aspect",
 	public int sz;
 	public int margin;
 	public int doSplines;

@@ -51,17 +51,7 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_IMapEntry_t extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
-	
 	public final CString str = null;
-
-	public ST_IMapEntry_t() {
-		
-	}
-
-	public ST_IMapEntry_t(StarStruct parent) {
-		this.parent = parent;
-	}
 
 	// "typedef struct IMapEntry_s",
 	// "{",

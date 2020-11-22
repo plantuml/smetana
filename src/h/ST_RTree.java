@@ -51,18 +51,7 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_RTree extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
 
-	public ST_RTree() {
-		
-	}
-
-	public ST_RTree(StarStruct parent) {
-		this.parent = parent;
-	}
-
-	// "struct RTree",
-	// "{",
 	public ST_Node_t___ root;
 	// "Node_t *root",
 	public final ST_SplitQ_t split = new ST_SplitQ_t(this);

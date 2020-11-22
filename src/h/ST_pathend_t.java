@@ -51,18 +51,7 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_pathend_t extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
 
-	public ST_pathend_t() {
-		
-	}
-
-	public ST_pathend_t(StarStruct parent) {
-		this.parent = parent;
-	}
-
-	// "typedef struct pathend_t",
-	// "{",
 	public final ST_boxf nb = new ST_boxf(this);
 	public final ST_pointf np = new ST_pointf(this);
 	public int sidemask;

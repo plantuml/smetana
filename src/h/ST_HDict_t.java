@@ -51,20 +51,10 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_HDict_t extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
-
 	public final ST_dtlink_s link = new ST_dtlink_s(this);
 	public int key;
 	public final ST_Branch_t d = new ST_Branch_t(); /* Should be ST_Leaf_t */
 	
-	public ST_HDict_t() {
-		
-	}
-
-	public ST_HDict_t(StarStruct parent) {
-		this.parent = parent;
-	}
-
 	@Override
 	public Object addVirtualBytes(int virtualBytes) {
 		if (virtualBytes == 0) {

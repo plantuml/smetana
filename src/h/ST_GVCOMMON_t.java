@@ -52,8 +52,7 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_GVCOMMON_t extends UnsupportedStructAndPtr {
 
-	// "typedef struct GVCOMMON_s",
-	// "{",
+
 	public __ptr__ info;
 	// "char *cmdname",
 	// "int verbose",
@@ -68,16 +67,6 @@ public class ST_GVCOMMON_t extends UnsupportedStructAndPtr {
 	public boolean demand_loading;
 	// "}",
 	// "GVCOMMON_t");
-
-	private /*final*/ StarStruct parent;
-
-	public ST_GVCOMMON_t() {
-		
-	}
-
-	public ST_GVCOMMON_t(StarStruct parent) {
-		this.parent = parent;
-	}
 
 	@Override
 	public __ptr__ setPtr(String fieldName, __ptr__ newData) {

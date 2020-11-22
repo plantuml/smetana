@@ -52,7 +52,7 @@ public class ST_GVC_s extends UnsupportedStructAndPtr {
 
 	// "struct GVC_s",
 	// "{",
-	public final ST_GVCOMMON_t common = new ST_GVCOMMON_t(this);
+	public final ST_GVCOMMON_t common = new ST_GVCOMMON_t();
 	// "char *config_path",
 	public int config_found;
 	// "char **input_filenames",
