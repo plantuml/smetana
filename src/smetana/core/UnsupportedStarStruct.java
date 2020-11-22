@@ -85,15 +85,6 @@ public class UnsupportedStarStruct implements StarStruct {
 		throw new UnsupportedOperationException(fieldName + " " + getClass().toString());
 	}
 
-	public void copyDataFrom(__struct__ other) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
-
-	public void copyDataFrom(__ptr__ arg) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
 	public __ptr__ castTo(Class dest) {
 		System.err.println("I am " + toString() + " " + UID);
 		throw new UnsupportedOperationException(dest + " " + getClass().toString());

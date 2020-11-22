@@ -79,13 +79,6 @@ public class ST_boxf extends UnsupportedStructAndPtr {
 	}
 
 	@Override
-	public void copyDataFrom(__struct__ value) {
-		final ST_boxf other = (ST_boxf) value;
-		this.LL.___(other.LL);
-		this.UR.___(other.UR);
-	}
-
-	@Override
 	public void ___(__struct__ value) {
 		final ST_boxf other = (ST_boxf) value;
 		this.LL.___(other.LL);
@@ -94,13 +87,6 @@ public class ST_boxf extends UnsupportedStructAndPtr {
 
 
 
-	// public interface ST_boxf extends __ptr__ {
-	// public static List<String> DEFINITION = Arrays.asList(
-	// "typedef struct",
-	// "{",
-	// "pointf LL, UR",
-	// "}",
-	// "boxf");
 }
 
 // typedef struct { pointf LL, UR; } boxf;

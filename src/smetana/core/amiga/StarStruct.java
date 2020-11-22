@@ -55,10 +55,6 @@ public interface StarStruct extends AllH {
 
 	public __ptr__ setPtr(String fieldName, __ptr__ newData);
 
-	public void copyDataFrom(__struct__ other);
-
-
-	public void copyDataFrom(__ptr__ arg);
 
 	public __ptr__ castTo(Class dest);
 

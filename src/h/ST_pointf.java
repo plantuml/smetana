@@ -101,12 +101,6 @@ public class ST_pointf extends UnsupportedStructAndPtr {
 		return;
 	}
 
-	@Override
-	public void copyDataFrom(__struct__ other) {
-		final ST_pointf other2 = (ST_pointf) other;
-		this.x = other2.x;
-		this.y = other2.y;
-	}
 }
 
 // typedef struct pointf_s { double x, y; } pointf;

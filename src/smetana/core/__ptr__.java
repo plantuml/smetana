@@ -50,8 +50,7 @@ public interface __ptr__ extends __c__fields {
 	
 	public int comparePointer(__ptr__ other);
 
-	public void copyDataFrom(__struct__ other);
-	
+
 	public void setPtr(__ptr__ value);
 
 

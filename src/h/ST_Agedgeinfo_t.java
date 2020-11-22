@@ -75,32 +75,6 @@ public class ST_Agedgeinfo_t extends UnsupportedStructAndPtr {
 
 	public ST_Agedge_s to_virt;
 
-	@Override
-	public void copyDataFrom(__ptr__ other) {
-		ST_Agedgeinfo_t this2 = (ST_Agedgeinfo_t) other;
-		this.hdr.___((__struct__) this2.hdr);
-		this.spl = this2.spl;
-		this.tail_port.___((__struct__) this2.tail_port);
-		this.head_port.___((__struct__) this2.head_port);
-		this.label = this2.label;
-		this.head_label = this2.head_label;
-		this.tail_label = this2.tail_label;
-		this.xlabel = this2.xlabel;
-		this.edge_type = this2.edge_type;
-		this.adjacent = this2.adjacent;
-		this.label_ontop = this2.label_ontop;
-		this.to_orig = this2.to_orig;
-		this.dist = this2.dist;
-		this.showboxes = this2.showboxes;
-		this.conc_opp_flag = this2.conc_opp_flag;
-		this.xpenalty = this2.xpenalty;
-		this.weight = this2.weight;
-		this.cutvalue = this2.cutvalue;
-		this.tree_index = this2.tree_index;
-		this.count = this2.count;
-		this.minlen = this2.minlen;
-		this.to_virt = this2.to_virt;
-	}
 
 	@Override
 	public void ___(__struct__ other) {
@@ -129,32 +103,6 @@ public class ST_Agedgeinfo_t extends UnsupportedStructAndPtr {
 		this.to_virt = this2.to_virt;
 	}
 
-	@Override
-	public void copyDataFrom(__struct__ other) {
-		ST_Agedgeinfo_t this2 = (ST_Agedgeinfo_t) other;
-		this.hdr.___((__struct__) this2.hdr);
-		this.spl = this2.spl;
-		this.tail_port.___((__struct__) this2.tail_port);
-		this.head_port.___((__struct__) this2.head_port);
-		this.label = this2.label;
-		this.head_label = this2.head_label;
-		this.tail_label = this2.tail_label;
-		this.xlabel = this2.xlabel;
-		this.edge_type = this2.edge_type;
-		this.adjacent = this2.adjacent;
-		this.label_ontop = this2.label_ontop;
-		this.to_orig = this2.to_orig;
-		this.dist = this2.dist;
-		this.showboxes = this2.showboxes;
-		this.conc_opp_flag = this2.conc_opp_flag;
-		this.xpenalty = this2.xpenalty;
-		this.weight = this2.weight;
-		this.cutvalue = this2.cutvalue;
-		this.tree_index = this2.tree_index;
-		this.count = this2.count;
-		this.minlen = this2.minlen;
-		this.to_virt = this2.to_virt;
-	}
 
 	@Override
 	public __ptr__ castTo(Class dest) {

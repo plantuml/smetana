@@ -74,12 +74,4 @@ public class UnsupportedC implements __ptr__ {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 
-	public void copyDataFrom(__ptr__ other) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
-	public void copyDataFrom(__struct__ other) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
 }
