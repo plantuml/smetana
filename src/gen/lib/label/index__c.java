@@ -167,7 +167,7 @@ LEAVING("6zraor7x44vrnm19d2igkvow2","RTreeLeafListFree");
 //RTree_t *RTreeOpen()
 @Unused
 @Original(version="2.38.0", path="lib/label/index.c", name="", key="aa29m7d7qc06m8id896e60lkg", definition="Tree_t *RTreeOpen()")
-public static __ptr__ RTreeOpen() {
+public static ST_RTree RTreeOpen() {
 ENTERING("aa29m7d7qc06m8id896e60lkg","RTreeOpen");
 try {
 	ST_RTree rtp;

@@ -179,13 +179,13 @@ try {
 ST_XLabels_t xlp;
 xlp = new ST_XLabels_t();
 /* used to load the rtree in hilbert space filling curve order */
-xlp.setPtr("hdx", dtopen(Z.z().Hdisc, Z.z().Dtobag));
+xlp.hdx = dtopen(Z.z().Hdisc, Z.z().Dtobag);
 if (N(xlp.hdx)) {
 UNSUPPORTED("4t1y5iinm4310lkpvbal1spve"); // 	fprintf(stderr, "out of memory\n");
 UNSUPPORTED("3m406diamp5s5kwcqtwo4pshf"); // 	goto bad;
 }
 /* for querying intersection candidates */
-xlp.setPtr("spdx", RTreeOpen());
+xlp.spdx = RTreeOpen();
 if (N(xlp.spdx)) {
 UNSUPPORTED("4t1y5iinm4310lkpvbal1spve"); // 	fprintf(stderr, "out of memory\n");
 UNSUPPORTED("3m406diamp5s5kwcqtwo4pshf"); // 	goto bad;
@@ -195,7 +195,7 @@ xlp.objs = objs;
 xlp.n_objs = n_objs;
 xlp.lbls = lbls;
 xlp.n_lbls = n_lbls;
-xlp.setPtr("params", params);
+xlp.params = params;
 return (ST_XLabels_t) xlp;
 } finally {
 LEAVING("88mbfm305igsr7cew5qx6yldp","xlnew");
@@ -879,7 +879,7 @@ try {
 		RTreeInsert((ST_RTree) xlp.spdx, (ST_Rect_t)op.d.rect,
      			op.d.child,
      			tmp, 0);
-		xlp.spdx.setPtr("root", tmp[0]);
+		xlp.spdx.root = tmp[0];
      }
      return 0;
 } finally {
