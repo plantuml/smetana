@@ -83,11 +83,6 @@ public class ST_Agraph_s extends UnsupportedStructAndPtr {
 	}
 
 	@Override
-	public ST_Agraph_s getStruct() {
-		return this;
-	}
-
-	@Override
 	public void setStruct(String fieldName, __struct__ newData) {
 		if (fieldName.equals("desc")) {
 			desc.copyDataFrom(newData);

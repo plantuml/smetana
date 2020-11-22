@@ -78,11 +78,6 @@ public class ST_xlabel_t extends UnsupportedStructAndPtr {
 	}
 
 	@Override
-	public ST_xlabel_t getStruct() {
-		return this;
-	}
-
-	@Override
 	public void setStruct(String fieldName, __struct__ newData) {
 		if (fieldName.equals("sz")) {
 			this.sz.copyDataFrom(newData);

@@ -1371,7 +1371,7 @@ public class Macro {
 		ST_Agedgeinfo_t info;
 		newp = new_;
 		info = (ST_Agedgeinfo_t) newp.base.data.castTo(ST_Agedgeinfo_t.class);
-		info.copyDataFrom(old.base.data.castTo(ST_Agedgeinfo_t.class).getStruct());
+		info.copyDataFrom(old.base.data.castTo(ST_Agedgeinfo_t.class));
 		newp.___(old);
 		newp.base.setPtr("data", info);
 		agtail(newp, AGHEAD(old));

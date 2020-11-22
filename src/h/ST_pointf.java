@@ -98,11 +98,6 @@ public class ST_pointf extends UnsupportedStructAndPtr {
 	}
 
 	@Override
-	public ST_pointf getStruct() {
-		return this;
-	}
-
-	@Override
 	public void ___(__struct__ other) {
 		final ST_pointf other2 = (ST_pointf) other;
 		this.x = other2.x;

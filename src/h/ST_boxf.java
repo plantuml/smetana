@@ -76,23 +76,8 @@ public class ST_boxf extends UnsupportedStructAndPtr {
 	}
 
 	@Override
-	public __struct__ getStruct() {
-		return this;
-	}
-
-	@Override
 	public void setStruct(__struct__ value) {
 		copyDataFrom(value);
-	}
-
-	public __struct__ getStructInternal(String fieldName) {
-		if (fieldName.equals("LL")) {
-			return LL;
-		}
-		if (fieldName.equals("UR")) {
-			return UR;
-		}
-		throw new IllegalArgumentException();
 	}
 
 	@Override

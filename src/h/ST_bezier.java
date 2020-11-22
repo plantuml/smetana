@@ -86,7 +86,7 @@ public class ST_bezier extends UnsupportedStructAndPtr {
 
 	@Override
 	public void ____(__ptr__ other) {
-		___(((ST_bezier) other).getStruct());
+		___((ST_bezier) other);
 	}
 
 	@Override
@@ -110,12 +110,6 @@ public class ST_bezier extends UnsupportedStructAndPtr {
 //		}
 		return super.setPtr(fieldName, newData);
 	}
-
-	@Override
-	public ST_bezier getStruct() {
-		return this;
-	}
-
 
 }
 

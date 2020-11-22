@@ -89,18 +89,6 @@ public class ST_pointnlink_t extends UnsupportedStructAndPtr {
 		return super.setPtr(fieldName, newData);
 	}
 
-	@Override
-	public ST_pointnlink_t getStruct() {
-		return this;
-	}
-
-	// public static List<String> DEFINITION = Arrays.asList(
-	// "typedef struct pointnlink_t",
-	// "{",
-	// "Ppoint_t *pp",
-	// "struct pointnlink_t *link",
-	// "}",
-	// "pointnlink_t");
 }
 
 // typedef struct pointnlink_t {

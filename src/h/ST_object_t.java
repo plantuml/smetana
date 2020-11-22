@@ -68,12 +68,6 @@ public class ST_object_t extends UnsupportedStructAndPtr implements ST_Node_t___
 	public final ST_pointf sz = new ST_pointf(this);
 	public CArray<ST_xlabel_t> lbl;
 
-	@Override
-	public ST_object_t getStruct() {
-		return this;
-	}
-
-
 
 	@Override
 	public boolean isSameThan(StarStruct other) {

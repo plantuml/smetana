@@ -76,10 +76,6 @@ public class ST_Branch_t extends UnsupportedStructAndPtr {
 		return super.castTo(dest);
 	}
 
-	public __struct__ getStruct() {
-		return this;
-	}
-
 	@Override
 	public void ___(__struct__ other) {
 		this.copyDataFrom(other);

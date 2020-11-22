@@ -65,11 +65,6 @@ public class ST_tna_t extends UnsupportedStructAndPtr {
 	public final ST_pointf a[] = new ST_pointf[] { new ST_pointf(), new ST_pointf() };
 	
 
-	@Override
-	public __struct__ getStruct() {
-		return this;
-	}
-
 }
 
 // typedef struct tna_t {

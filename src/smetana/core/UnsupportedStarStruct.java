@@ -67,10 +67,6 @@ public class UnsupportedStarStruct implements StarStruct {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 
-	public __struct__ getStruct() {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
 	public String getUID36() {
 		throw new UnsupportedOperationException(getClass().toString());
 	}

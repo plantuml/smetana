@@ -46,8 +46,6 @@ public interface StarStruct extends AllH {
 
 	public Class getRealClass();
 
-	public __struct__ getStruct();
-
 	public String getUID36();
 
 	public String getDebug(String fieldName);

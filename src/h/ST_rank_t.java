@@ -102,11 +102,6 @@ public class ST_rank_t extends UnsupportedStructAndPtr {
 
 
 	@Override
-	public __struct__ getStruct() {
-		return this;
-	}
-
-	@Override
 	public __ptr__ setPtr(String fieldName, __ptr__ newData) {
 		if (fieldName.equals("v")) {
 			this.v = (CArrayOfStar<ST_Agnode_s>) newData;

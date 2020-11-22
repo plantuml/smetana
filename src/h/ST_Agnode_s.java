@@ -106,18 +106,6 @@ public class ST_Agnode_s extends UnsupportedStructAndPtr {
 		return super.setPtr(fieldName, newData);
 	}
 
-	@Override
-	public ST_Agnode_s getStruct() {
-		return this;
-	}
-
-	// public static List<String> DEFINITION = Arrays.asList(
-	// "struct Agnode_s",
-	// "{",
-	// "Agobj_t base",
-	// "Agraph_t *root",
-	// "Agsubnode_t mainsub",
-	// "}");
 }
 
 // struct Agnode_s {
