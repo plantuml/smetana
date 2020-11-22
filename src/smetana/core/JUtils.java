@@ -313,7 +313,7 @@ public class JUtils {
 
 	public static StarStruct create(Class theClass, StarStruct parent) {
 		if (theClass == ST_Agedgepair_s.class) {
-			return new ST_Agedgepair_s(parent, true);
+			return new ST_Agedgepair_s();
 		}
 		if (theClass == ST_Agsym_s.class) {
 			return new ST_Agsym_s(parent, true);
@@ -325,7 +325,7 @@ public class JUtils {
 			return new ST_path(parent, true);
 		}
 		if (theClass == ST_Agedgeinfo_t.class) {
-			return new ST_Agedgeinfo_t(parent, true);
+			return new ST_Agedgeinfo_t();
 		}
 		if (theClass == ST_Agnodeinfo_t.class) {
 			return new ST_Agnodeinfo_t(parent, true);

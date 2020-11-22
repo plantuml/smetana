@@ -51,14 +51,10 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_Agdstate_s extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
+	private final StarStruct parent;
 
 	public __ptr__ mem;
 	public __ptr__ id;
-
-	public ST_Agdstate_s() {
-		
-	}
 
 	public ST_Agdstate_s(StarStruct parent) {
 		this.parent = parent;
