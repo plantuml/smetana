@@ -59,7 +59,6 @@ public interface StarStruct extends AllH {
 
 	public void copyDataFrom(__struct__ other);
 
-	public void setStruct(__struct__ value);
 
 	public void copyDataFrom(__ptr__ arg);
 

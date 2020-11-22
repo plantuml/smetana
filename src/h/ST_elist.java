@@ -70,11 +70,6 @@ public class ST_elist extends UnsupportedStructAndPtr {
 	}
 
 	@Override
-	public void setStruct(__struct__ value) {
-		copyDataFrom(value);
-	}
-
-	@Override
 	public void ___(__struct__ other) {
 		ST_elist other2 = (ST_elist) other;
 		this.size = other2.size;

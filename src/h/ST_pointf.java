@@ -91,13 +91,6 @@ public class ST_pointf extends UnsupportedStructAndPtr {
 	}
 
 	@Override
-	public void setStruct(__struct__ value) {
-		final ST_pointf other2 = (ST_pointf) value;
-		this.x = other2.x;
-		this.y = other2.y;
-	}
-
-	@Override
 	public void ___(__struct__ other) {
 		final ST_pointf other2 = (ST_pointf) other;
 		this.x = other2.x;

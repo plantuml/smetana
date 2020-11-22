@@ -64,14 +64,14 @@ public class ST_cinfo_t extends UnsupportedStructAndPtr {
 	@Override
 	public void ___(__struct__ value) {
 		final ST_cinfo_t other = (ST_cinfo_t) value;
-		this.bb.setStruct(other.bb);
+		this.bb.___(other.bb);
 		this.objp = other.objp;
 	}
 
 	@Override
 	public void setStruct(String fieldName, __struct__ newData) {
 		if (fieldName.equals("bb")) {
-			this.bb.setStruct(newData);
+			this.bb.___(newData);
 			return;
 		}
 		super.setStruct(fieldName, newData);

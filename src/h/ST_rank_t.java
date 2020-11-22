@@ -68,13 +68,7 @@ public class ST_rank_t extends UnsupportedStructAndPtr {
 
 	@Override
 	public void ___(__struct__ other) {
-		setStruct(other);
-	}
-
-
-	@Override
-	public void setStruct(__struct__ value) {
-		ST_rank_t this2 = (ST_rank_t) value;
+		ST_rank_t this2 = (ST_rank_t) other;
 		this.n = this2.n;
 		this.v = this2.v;
 		this.an = this2.an;

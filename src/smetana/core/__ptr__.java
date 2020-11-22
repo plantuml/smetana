@@ -54,7 +54,5 @@ public interface __ptr__ extends __c__fields {
 	
 	public void setPtr(__ptr__ value);
 
-	public void setStruct(__struct__ value);
-	
 
 }

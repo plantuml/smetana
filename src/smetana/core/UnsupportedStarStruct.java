@@ -92,9 +92,6 @@ public class UnsupportedStarStruct implements StarStruct {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 
-	public void setStruct(__struct__ value) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
 
 	public void copyDataFrom(__ptr__ arg) {
 		throw new UnsupportedOperationException(getClass().toString());

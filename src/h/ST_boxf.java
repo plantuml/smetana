@@ -76,24 +76,6 @@ public class ST_boxf extends UnsupportedStructAndPtr {
 	}
 
 	@Override
-	public void setStruct(__struct__ value) {
-		copyDataFrom(value);
-	}
-
-	@Override
-	public void setStruct(String fieldName, __struct__ newData) {
-		if (fieldName.equals("LL")) {
-			this.LL.setStruct(newData);
-			return;
-		}
-		if (fieldName.equals("UR")) {
-			this.UR.setStruct(newData);
-			return;
-		}
-		super.setStruct(fieldName, newData);
-	}
-
-	@Override
 	public ST_boxf copy() {
 		final ST_boxf result = new ST_boxf();
 		result.LL.copyDataFrom((__struct__) this.LL);
@@ -104,15 +86,15 @@ public class ST_boxf extends UnsupportedStructAndPtr {
 	@Override
 	public void copyDataFrom(__struct__ value) {
 		final ST_boxf other = (ST_boxf) value;
-		this.LL.setStruct(other.LL);
-		this.UR.setStruct(other.UR);
+		this.LL.___(other.LL);
+		this.UR.___(other.UR);
 	}
 
 	@Override
 	public void ___(__struct__ value) {
 		final ST_boxf other = (ST_boxf) value;
-		this.LL.setStruct(other.LL);
-		this.UR.setStruct(other.UR);
+		this.LL.___(other.LL);
+		this.UR.___(other.UR);
 	}
 
 

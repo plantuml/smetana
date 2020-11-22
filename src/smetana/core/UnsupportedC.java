@@ -43,9 +43,6 @@ public class UnsupportedC implements __ptr__ {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 
-	public void setStruct(__struct__ value) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
 
 	public __ptr__ setPtr(String fieldName, __ptr__ data) {
 		throw new UnsupportedOperationException(getClass().toString());
