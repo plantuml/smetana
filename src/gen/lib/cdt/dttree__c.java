@@ -515,16 +515,23 @@ LEAVING("abqfzg1d1vkzk51225tcdlik5","dttree");
 
 //#define _DTLNK(o,lk)	((Dtlink_t*)((char*)(o) + lk) )
 private static ST_dtlink_s _DTLNK(__ptr__ o, int lk) {
-	return (ST_dtlink_s) ((__ptr__)o.addVirtualBytes(lk)).castTo(ST_dtlink_s.class);
-}
+		final __ptr__ tmp1 = (__ptr__) o.addVirtualBytes(lk);
+		final __ptr__ tmp2 = tmp1.castTo(ST_dtlink_s.class);
+		return (ST_dtlink_s) tmp2;
+	}
 
 //#define _DTCMP(dt,k1,k2,dc,cmpf,sz) \
 //(cmpf ? (*cmpf)(dt,k1,k2,dc) : \
 // (sz <= 0 ? strcmp(k1,k2) : memcmp(k1,k2,sz)) )
 private static int _DTCMP(ST_dt_s dt, Object k1, Object k2, ST_dtdisc_s dc, CFunction cmpf, int sz) {
-	return cmpf!=null ? (Integer)cmpf.exe(dt, k1, k2, dc) : 
-		(sz <= 0 ? strcmp((CString)k1, (CString)k2) : UNSUPPORTED_INT("memcmp(key,k,sz))") );
-}
+		if (cmpf == null) {
+			if (sz <= 0) {
+				return strcmp((CString) k1, (CString) k2);
+			}
+			throw new UnsupportedOperationException("memcmp(key,k,sz))");
+		}
+		return (Integer) cmpf.exe(dt, k1, k2, dc);
+	}
 
 
 //#define _DTOBJ(e,lk)	(lk < 0 ? ((Dthold_t*)(e))->obj : (Void_t*)((char*)(e) - lk) )
