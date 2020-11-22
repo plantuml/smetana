@@ -46,6 +46,11 @@ package smetana.core;
 public class size_t_struct implements size_t {
 
 	public final Class tobeAllocated;
+	
+	@Override
+	public String toString() {
+		return super.toString()+" "+tobeAllocated;
+	}
 
 	public size_t_struct(Class tobeAllocated) {
 		this.tobeAllocated = tobeAllocated;

@@ -116,6 +116,7 @@ throw new UnsupportedOperationException();
 public static __ptr__ agalloc(ST_Agraph_s g, size_t size) {
 ENTERING("7newv1hmzvt4vtttc9cxdxfpn","agalloc");
 try {
+	System.err.println("USING "+size);
 	return (__ptr__) size.malloc();
 //	__ptr__ mem;
 //    mem =  (__ptr__) g.clos.disc.mem.alloc.exe(g.clos.state.mem, size);
