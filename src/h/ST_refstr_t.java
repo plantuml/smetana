@@ -74,16 +74,9 @@ public class ST_refstr_t extends ST_dtlink_s /* implements WithParent */{
 	}
 
 	public CString to_s(ST_dtlink_s from) {
-//		if (from == link) {
 			return s;
-//		}
-//		throw new IllegalArgumentException();
 	}
 
-	@Override
-	public Class getRealClass() {
-		return ST_refstr_t.class;
-	}
 }
 
 // typedef struct refstr_t {

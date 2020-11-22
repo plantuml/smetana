@@ -66,12 +66,4 @@ public class UnsupportedC implements __ptr__ {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 
-	public int comparePointer(__ptr__ other) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
-	public String getDebug(String fieldName) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
 }

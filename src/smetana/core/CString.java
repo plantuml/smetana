@@ -133,7 +133,6 @@ public class CString extends UnsupportedC implements __ptr__ {
 		return new CString(data2, currentStart + pointerMove);
 	}
 	
-	@Override
 	public int comparePointer(__ptr__ other) {
 		final CString this2 = (CString) other;
 		if (this.data2 != this2.data2) {

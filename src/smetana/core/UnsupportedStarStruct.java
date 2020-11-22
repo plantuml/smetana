@@ -51,19 +51,11 @@ public class UnsupportedStarStruct implements StarStruct {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 
-	public int comparePointer(__ptr__ other) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
 	public void setPtr(__ptr__ value) {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 
 	public boolean isSameThan(StarStruct other) {
-		throw new UnsupportedOperationException(getClass().toString());
-	}
-
-	public Class getRealClass() {
 		throw new UnsupportedOperationException(getClass().toString());
 	}
 

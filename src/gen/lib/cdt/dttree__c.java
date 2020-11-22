@@ -68,7 +68,6 @@ import static smetana.core.Macro.DT_RENEW;
 import static smetana.core.Macro.DT_SEARCH;
 import static smetana.core.Macro.N;
 import static smetana.core.Macro.UNSUPPORTED;
-import static smetana.core.Macro.UNSUPPORTED_INT;
 import static smetana.core.Macro.llink____warning;
 import static smetana.core.Macro.lrotate;
 import static smetana.core.Macro.rlink____warning;

@@ -64,11 +64,6 @@ public class ST_Agtag_s extends UnsupportedStructAndPtr {
 	}
 
 	@Override
-	public Class getRealClass() {
-		return ST_Agtag_s.class;
-	}
-
-	@Override
 	public __struct__ copy() {
 		final ST_Agtag_s result = new ST_Agtag_s();
 		result.objtype = objtype;

@@ -38,13 +38,10 @@ package smetana.core.amiga;
 
 import smetana.core.AllH;
 import smetana.core.__ptr__;
-import smetana.core.__struct__;
 
 public interface StarStruct extends AllH {
 
 	public boolean isSameThan(StarStruct other);
-
-	public Class getRealClass();
 
 	public String getUID36();
 
