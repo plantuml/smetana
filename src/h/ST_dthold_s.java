@@ -51,20 +51,7 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_dthold_s extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
 
-	public ST_dthold_s() {
-		
-	}
-
-	public ST_dthold_s(StarStruct parent, boolean b) {
-		this.parent = parent;
-	}
-
-	// "struct _dthold_s",
-	// "{",
-	// "Dtlink_t hdr",
-	// "void*  obj",
 	public final ST_dtlink_s hdr = new ST_dtlink_s(this);
 	public __ptr__ obj;
 

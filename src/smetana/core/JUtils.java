@@ -319,7 +319,7 @@ public class JUtils {
 			return new ST_Agsym_s(parent, true);
 		}
 		if (theClass == ST_dthold_s.class) {
-			return new ST_dthold_s(parent, true);
+			return new ST_dthold_s();
 		}
 		if (theClass == ST_path.class) {
 			return new ST_path(parent, true);
@@ -340,7 +340,7 @@ public class JUtils {
 			return new ST_Agdatadict_s();
 		}
 		if (theClass == ST_dtdata_s.class) {
-			return new ST_dtdata_s(parent, true);
+			return new ST_dtdata_s();
 		}
 		if (theClass == ST_Agraph_s.class) {
 			return new ST_Agraph_s(parent, true);

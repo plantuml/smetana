@@ -53,18 +53,7 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_bezier extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
 
-	public ST_bezier() {
-		
-	}
-
-	public ST_bezier(StarStruct parent) {
-		this.parent = parent;
-	}
-
-	// "{",
-	// "pointf *list",
 	public CArray<ST_pointf> list;
 
 	public int size;

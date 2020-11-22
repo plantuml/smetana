@@ -51,8 +51,6 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_dtdata_s extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
-	
 	public int type; /* type of dictionary */
 	public ST_dtlink_s here; /* finger to last search element */
 	public __ptr__ _htab; /* hash table */
@@ -65,36 +63,6 @@ public class ST_dtdata_s extends UnsupportedStructAndPtr {
 	public int minp; /* min path before splay, always even */
 
 
-	public ST_dtdata_s() {
-		
-	}
-
-	public ST_dtdata_s(StarStruct parent, boolean b) {
-		this.parent = parent;
-	}
-
-	public StarStruct getParent() {
-		return parent;
-	}
-
-
-	// public interface ST_dtdata_s extends __ptr__ {
-	// public static List<String> DEFINITION = Arrays.asList(
-	// "struct _dtdata_s",
-	// "{",
-	// "int  type",
-	// "Dtlink_t* here",
-	// "union",
-	// "{",
-	// "Dtlink_t** _htab",
-	// "Dtlink_t* _head",
-	// "}",
-	// "hh",
-	// "int  ntab",
-	// "int  size",
-	// "int  loop",
-	// "int  minp",
-	// "}");
 }
 
 // struct _dtdata_s
