@@ -84,8 +84,8 @@ import static smetana.core.Macro.ND_rw;
 import static smetana.core.Macro.UNSUPPORTED;
 import static smetana.core.Macro.UNSURE_ABOUT;
 import static smetana.core.Macro.VIRTUAL;
-import static smetana.core.Macro.aghead;
-import static smetana.core.Macro.agtail;
+import static smetana.core.Macro.M_aghead;
+import static smetana.core.Macro.M_agtail;
 import static smetana.core.Macro.alloc_elist;
 import static smetana.core.Macro.elist_append;
 
@@ -315,8 +315,8 @@ try {
     AGTYPE(e2.out, AGOUTEDGE);
     e2.out.base.data = (ST_Agrec_s) new ST_Agedgeinfo_t().castTo(ST_Agrec_s.class);
     e = e2.out;
-    agtail(e, u);
-    aghead(e, v);
+    M_agtail(e, u);
+    M_aghead(e, v);
     ED_edge_type(e, VIRTUAL);
     
     

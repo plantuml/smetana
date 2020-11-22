@@ -228,11 +228,11 @@ public class Macro {
 		return (ST_Agnode_s) AGMKIN(e).node;
 	}
 
-	public static ST_Agnode_s agtail(__ptr__ e) {
+	public static ST_Agnode_s M_agtail(__ptr__ e) {
 		return (ST_Agnode_s) AGMKIN(e).node;
 	}
 
-	public static void agtail(ST_Agedge_s e, __ptr__ v) {
+	public static void M_agtail(ST_Agedge_s e, __ptr__ v) {
 		AGMKIN(e).setPtr("node", v);
 	}
 
@@ -241,11 +241,11 @@ public class Macro {
 		return (ST_Agnode_s) AGMKOUT(e).node;
 	}
 
-	private static ST_Agnode_s aghead(ST_Agedge_s e) {
+	private static ST_Agnode_s M_aghead(ST_Agedge_s e) {
 		return (ST_Agnode_s) AGMKOUT(e).node;
 	}
 
-	public static void aghead(ST_Agedge_s e, __ptr__ v) {
+	public static void M_aghead(ST_Agedge_s e, __ptr__ v) {
 		AGMKOUT(e).setPtr("node", v);
 	}
 
@@ -282,7 +282,7 @@ public class Macro {
 
 	// #define LENGTH(e) (ND_rank(aghead(e)) - ND_rank(agtail(e)))
 	public static int LENGTH(ST_Agedge_s e) {
-		return ND_rank(aghead(e)) - ND_rank(agtail(e));
+		return ND_rank(M_aghead(e)) - ND_rank(M_agtail(e));
 	}
 
 	// #define SLACK(e) (LENGTH(e) - ED_minlen(e))
@@ -1375,8 +1375,8 @@ public class Macro {
 		info.___((ST_Agedgeinfo_t) old.base.data.castTo(ST_Agedgeinfo_t.class));
 		newp.___(old);
 		newp.base.setPtr("data", info);
-		agtail(newp, AGHEAD(old));
-		aghead(newp, AGTAIL(old));
+		M_agtail(newp, AGHEAD(old));
+		M_aghead(newp, AGTAIL(old));
 		ED_tail_port(newp, ED_head_port(old));
 		ED_head_port(newp, ED_tail_port(old));
 		ED_edge_type(newp, VIRTUAL);

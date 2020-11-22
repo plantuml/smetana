@@ -129,8 +129,8 @@ import static smetana.core.Macro.ROUND;
 import static smetana.core.Macro.TOP_IX;
 import static smetana.core.Macro.UNSUPPORTED;
 import static smetana.core.Macro.UNSURE_ABOUT;
-import static smetana.core.Macro.aghead;
-import static smetana.core.Macro.agtail;
+import static smetana.core.Macro.M_aghead;
+import static smetana.core.Macro.M_agtail;
 import static smetana.core.Macro.alloc_elist;
 import static smetana.core.Macro.free_list;
 
@@ -355,8 +355,8 @@ try {
     AGTYPE(e2.out, AGOUTEDGE);
     e2.out.base.setPtr("data", new ST_Agedgeinfo_t());
     e = (ST_Agedge_s) e2.out;
-    agtail(e, u);
-    aghead(e, v);
+    M_agtail(e, u);
+    M_aghead(e, v);
     if (len > USHRT_MAX)
 	len = largeMinlen (len);
     ED_minlen(e, ROUND(len));
