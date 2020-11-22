@@ -61,7 +61,7 @@ public class ST_Agrec_s extends UnsupportedStructAndPtr implements WithParent {
 	@Override
 	public void copyDataFrom(__struct__ other) {
 		if (other instanceof ST_Agedgeinfo_t && parent instanceof ST_Agedgeinfo_t) {
-			parent.copyDataFrom(other);
+			((ST_Agedgeinfo_t)parent).___(other);
 			return;
 		}
 		ST_Agrec_s this2 = (ST_Agrec_s) other;

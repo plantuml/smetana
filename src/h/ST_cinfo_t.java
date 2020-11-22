@@ -72,7 +72,7 @@ public class ST_cinfo_t extends UnsupportedStructAndPtr {
 	@Override
 	public ST_cinfo_t copy() {
 		final ST_cinfo_t result = new ST_cinfo_t();
-		result.bb.copyDataFrom((__struct__) this.bb);
+		result.bb.___((__struct__) this.bb);
 		result.objp = this.objp;
 		return result;
 	}

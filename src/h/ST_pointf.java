@@ -95,14 +95,10 @@ public class ST_pointf extends UnsupportedStructAndPtr {
 
 	@Override
 	public void ____(__ptr__ other) {
-
-		if (other instanceof ST_pointf) {
-			ST_pointf other2 = (ST_pointf) other;
-			this.x = other2.x;
-			this.y = other2.y;
-			return;
-		}
-		super.____(other);
+		ST_pointf other2 = (ST_pointf) other;
+		this.x = other2.x;
+		this.y = other2.y;
+		return;
 	}
 
 	@Override

@@ -58,7 +58,7 @@ public class ST_Agobj_s extends UnsupportedStructAndPtr implements WithParent {
 	@Override
 	public void copyDataFrom(__struct__ other) {
 		ST_Agobj_s this2 = (ST_Agobj_s) other;
-		this.tag.copyDataFrom((__struct__) this2.tag);
+		this.tag.___((__struct__) this2.tag);
 		this.data = this2.data;
 	}
 	

@@ -61,7 +61,7 @@ public class ST_Branch_t extends UnsupportedStructAndPtr {
 	@Override
 	public void copyDataFrom(__struct__ other) {
 		ST_Branch_t this2 = (ST_Branch_t) other;
-		this.rect.copyDataFrom((__struct__) this2.rect);
+		this.rect.___((__struct__) this2.rect);
 		this.child = this2.child;
 	}
 
@@ -78,7 +78,9 @@ public class ST_Branch_t extends UnsupportedStructAndPtr {
 
 	@Override
 	public void ___(__struct__ other) {
-		this.copyDataFrom(other);
+		ST_Branch_t this2 = (ST_Branch_t) other;
+		this.rect.___((__struct__) this2.rect);
+		this.child = this2.child;
 	}
 
 	@Override

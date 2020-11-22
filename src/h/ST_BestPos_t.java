@@ -59,7 +59,7 @@ public class ST_BestPos_t extends UnsupportedStructAndPtr {
 		final ST_BestPos_t result = new ST_BestPos_t();
 		result.n = this.n;
 		result.area = this.area;
-		result.pos.copyDataFrom((__struct__) this.pos);
+		result.pos.___((__struct__) this.pos);
 		return result;
 	}
 	
@@ -67,7 +67,7 @@ public class ST_BestPos_t extends UnsupportedStructAndPtr {
 		ST_BestPos_t this2 = (ST_BestPos_t) other;
 		this.n = this2.n;
 		this.area = this2.area;
-		this.pos.copyDataFrom((__struct__) this2.pos);
+		this.pos.___((__struct__) this2.pos);
 	}
 
 

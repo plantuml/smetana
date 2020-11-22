@@ -73,8 +73,8 @@ public class ST_boxf extends UnsupportedStructAndPtr {
 	@Override
 	public ST_boxf copy() {
 		final ST_boxf result = new ST_boxf();
-		result.LL.copyDataFrom((__struct__) this.LL);
-		result.UR.copyDataFrom((__struct__) this.UR);
+		result.LL.___((__struct__) this.LL);
+		result.UR.___((__struct__) this.UR);
 		return result;
 	}
 

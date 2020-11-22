@@ -61,7 +61,11 @@ public class ST_Rect_t extends UnsupportedStructAndPtr {
 
 	@Override
 	public void ___(__struct__ other) {
-		this.copyDataFrom(other);
+		ST_Rect_t other2 = (ST_Rect_t) other;
+		this.boundary[0] = other2.boundary[0];
+		this.boundary[1] = other2.boundary[1];
+		this.boundary[2] = other2.boundary[2];
+		this.boundary[3] = other2.boundary[3];
 	}
 
 	@Override

@@ -68,8 +68,8 @@ public class ST_bezier extends UnsupportedStructAndPtr {
 		this.size = this2.size;
 		this.sflag = this2.sflag;
 		this.eflag = this2.eflag;
-		this.sp.copyDataFrom((__struct__) this2.sp);
-		this.ep.copyDataFrom((__struct__) this2.ep);
+		this.sp.___((__struct__) this2.sp);
+		this.ep.___((__struct__) this2.ep);
 	}
 
 	@Override
