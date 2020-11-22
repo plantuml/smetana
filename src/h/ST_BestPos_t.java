@@ -51,19 +51,9 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_BestPos_t extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
-
 	public int n;
 	public double area;
 	public final ST_pointf pos = new ST_pointf(this);
-
-	public ST_BestPos_t() {
-		
-	}
-
-	public ST_BestPos_t(StarStruct parent) {
-		this.parent = parent;
-	}
 
 	@Override
 	public __struct__ copy() {

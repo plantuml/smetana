@@ -50,20 +50,7 @@ import smetana.core.amiga.StarStruct;
 
 public class ST_aspect_t extends UnsupportedStructAndPtr {
 
-	private /*final*/ StarStruct parent;
 
-	public ST_aspect_t() {
-		
-	}
-
-	public ST_aspect_t(StarStruct parent) {
-		this.parent = parent;
-	}
-
-	// "typedef struct aspect_t",
-	// "{",
-	// "double targetAR",
-	// "double combiAR",
 	public int prevIterations;
 	public int curIterations;
 	public int nextIter;

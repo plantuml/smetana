@@ -56,7 +56,7 @@ public class ST_Agrec_s extends UnsupportedStructAndPtr implements WithParent {
 	public CString name;
 	public ST_Agrec_s next;
 
-	private /*final*/ StarStruct parent;
+	private final StarStruct parent;
 
 	@Override
 	public void copyDataFrom(__struct__ other) {
@@ -67,10 +67,6 @@ public class ST_Agrec_s extends UnsupportedStructAndPtr implements WithParent {
 		ST_Agrec_s this2 = (ST_Agrec_s) other;
 		this.name = this2.name;
 		this.next = this2.next;
-	}
-
-	public ST_Agrec_s() {
-		
 	}
 
 	public ST_Agrec_s(StarStruct parent) {

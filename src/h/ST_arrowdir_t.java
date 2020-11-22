@@ -54,16 +54,6 @@ public class ST_arrowdir_t extends UnsupportedStructAndPtr {
 	public int sflag;
 	public int eflag;
 
-	private /*final*/ StarStruct parent;
-
-	public ST_arrowdir_t() {
-		
-	}
-
-	public ST_arrowdir_t(StarStruct parent) {
-		this.parent = parent;
-	}
-
 	// typedef struct arrowdir_t {
 	// char *dir;
 	// int sflag;

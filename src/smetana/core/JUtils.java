@@ -328,7 +328,7 @@ public class JUtils {
 			return new ST_Agedgeinfo_t();
 		}
 		if (theClass == ST_Agnodeinfo_t.class) {
-			return new ST_Agnodeinfo_t(parent, true);
+			return new ST_Agnodeinfo_t();
 		}
 		if (theClass == ST_Agraphinfo_t.class) {
 			return new ST_Agraphinfo_t(parent, true);
@@ -349,7 +349,7 @@ public class JUtils {
 			return new ST_Agsubnode_s(parent, true);
 		}
 		if (theClass == ST_Agnode_s.class) {
-			return new ST_Agnode_s(parent, true);
+			return new ST_Agnode_s();
 		}
 		if (theClass == ST_Agclos_s.class) {
 			return new ST_Agclos_s();
