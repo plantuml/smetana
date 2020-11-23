@@ -622,7 +622,7 @@ public class Macro {
 	}
 
 	public static void GD_rn(ST_Agraph_s g, ST_Agnode_s v) {
-		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("rn", v);
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).rn = v;
 	}
 
 	// #define GD_set_type(g) (((Agraphinfo_t*)AGDATA(g))->set_type)
@@ -675,7 +675,7 @@ public class Macro {
 		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).alg;
 	}
 
-	public static void ND_alg(ST_Agnode_s n, __ptr__ value) {
+	public static void ND_alg(ST_Agnode_s n, ST_Agedge_s value) {
 		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setPtr("alg", value);
 	}
 

@@ -153,7 +153,7 @@ public class ST_Agnodeinfo_t extends UnsupportedStructAndPtr {
 			return par;
 		}
 		if (fieldName.equals("alg")) {
-			this.alg = (ST_Agedge_s) alg;
+			this.alg = (ST_Agedge_s) newData;
 			return alg;
 		}
 		return super.setPtr(fieldName, newData);
