@@ -232,8 +232,8 @@ public class Macro {
 		return (ST_Agnode_s) AGMKIN(e).node;
 	}
 
-	public static void M_agtail(ST_Agedge_s e, __ptr__ v) {
-		AGMKIN(e).setPtr("node", v);
+	public static void M_agtail(ST_Agedge_s e, ST_Agnode_s v) {
+		AGMKIN(e).node = v;
 	}
 
 	// #define AGHEAD(e) (AGMKOUT(e)->node)
@@ -245,8 +245,8 @@ public class Macro {
 		return (ST_Agnode_s) AGMKOUT(e).node;
 	}
 
-	public static void M_aghead(ST_Agedge_s e, __ptr__ v) {
-		AGMKOUT(e).setPtr("node", v);
+	public static void M_aghead(ST_Agedge_s e, ST_Agnode_s v) {
+		AGMKOUT(e).node = v;
 	}
 
 	// #define agtail(e) AGTAIL(e)
@@ -305,8 +305,8 @@ public class Macro {
 		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).parent;
 	}
 
-	public static void GD_parent(ST_Agraph_s g, __ptr__ v) {
-		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("parent", v);
+	public static void GD_parent(ST_Agraph_s g, ST_Agraph_s v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).parent = v;
 	}
 
 	// #define GD_level(g) (((Agraphinfo_t*)AGDATA(g))->level)
@@ -315,8 +315,8 @@ public class Macro {
 		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).drawing;
 	}
 
-	public static void GD_drawing(ST_Agraph_s g, __ptr__ v) {
-		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("drawing", v);
+	public static void GD_drawing(ST_Agraph_s g, ST_layout_t v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).drawing = v;
 	}
 
 	// #define GD_bb(g) (((Agraphinfo_t*)AGDATA(g))->bb)
@@ -330,7 +330,7 @@ public class Macro {
 	}
 
 	public static void GD_gvc(ST_Agraph_s g, ST_GVC_s v) {
-		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("gvc", v);
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).gvc = v;
 	}
 
 	// #define GD_cleanup(g) (((Agraphinfo_t*)AGDATA(g))->cleanup)
@@ -355,8 +355,8 @@ public class Macro {
 		return ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).clust;
 	}
 
-	public static void GD_clust(ST_Agraph_s g, __ptr__ v) {
-		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("clust", v);
+	public static void GD_clust(ST_Agraph_s g, CArrayOfStar<ST_Agraph_s> v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).clust = v;
 	}
 
 	// #define GD_dotroot(g) (((Agraphinfo_t*)AGDATA(g))->dotroot)
@@ -364,8 +364,8 @@ public class Macro {
 		return (ST_Agraph_s) ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).dotroot;
 	}
 
-	public static void GD_dotroot(ST_Agraph_s g, __ptr__ v) {
-		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("dotroot", v);
+	public static void GD_dotroot(ST_Agraph_s g, ST_Agraph_s v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).dotroot = v;
 	}
 
 	// #define GD_comp(g) (((Agraphinfo_t*)AGDATA(g))->comp)
@@ -464,8 +464,8 @@ public class Macro {
 		return (ST_textlabel_t) ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).label;
 	}
 
-	public static void GD_label(__ptr__ g, __ptr__ v) {
-		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("label", v);
+	public static void GD_label(__ptr__ g, ST_textlabel_t v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).label = v;
 	}
 
 	// #define GD_leader(g) (((Agraphinfo_t*)AGDATA(g))->leader)
@@ -473,8 +473,8 @@ public class Macro {
 		return (ST_Agnode_s) ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).leader;
 	}
 
-	public static void GD_leader(ST_Agraph_s g, __ptr__ v) {
-		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("leader", v);
+	public static void GD_leader(ST_Agraph_s g, ST_Agnode_s v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).leader = v;
 	}
 
 	// #define GD_rankdir2(g) (((Agraphinfo_t*)AGDATA(g))->rankdir)
