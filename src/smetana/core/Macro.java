@@ -513,8 +513,8 @@ public class Macro {
 		return (ST_Agnode_s) ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).ln;
 	}
 
-	public static void GD_ln(ST_Agraph_s g, __ptr__ v) {
-		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("ln", v);
+	public static void GD_ln(ST_Agraph_s g, ST_Agnode_s v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).ln = v;
 	}
 
 	// #define GD_maxrank(g) (((Agraphinfo_t*)AGDATA(g))->maxrank)
@@ -574,8 +574,8 @@ public class Macro {
 		return (ST_Agnode_s) ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).nlist;
 	}
 
-	public static void GD_nlist(ST_Agraph_s g, __ptr__ v) {
-		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("nlist", v);
+	public static void GD_nlist(ST_Agraph_s g, ST_Agnode_s v) {
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).nlist = v;
 	}
 
 	// #define GD_nodesep(g) (((Agraphinfo_t*)AGDATA(g))->nodesep)
@@ -594,7 +594,7 @@ public class Macro {
 	}
 
 	public static void GD_rank(ST_Agraph_s g, CArray<ST_rank_t> v) {
-		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("rank", v);
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).rank = v;
 		JUtilsDebug.LOG("set GD_rank "+v);
 	}
 
@@ -604,7 +604,7 @@ public class Macro {
 	}
 
 	public static void GD_rankleader(ST_Agraph_s g, CArrayOfStar<ST_Agnode_s> v) {
-		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("rankleader", v);
+		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).rankleader = v;
 	}
 
 	// #define GD_ranksep(g) (((Agraphinfo_t*)AGDATA(g))->ranksep)
@@ -621,7 +621,7 @@ public class Macro {
 		return (ST_Agnode_s) ((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).rn;
 	}
 
-	public static void GD_rn(ST_Agraph_s g, __ptr__ v) {
+	public static void GD_rn(ST_Agraph_s g, ST_Agnode_s v) {
 		((ST_Agraphinfo_t)AGDATA(g).castTo(ST_Agraphinfo_t.class)).setPtr("rn", v);
 	}
 
