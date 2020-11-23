@@ -205,23 +205,22 @@ public class Macro {
 
 	// #define AGOUT2IN(e) ((e)+1)
 	public static ST_Agedge_s AGOUT2IN(ST_Agedge_s e) {
-		System.err.println("e2="+e.getClass());
 		return e.plus(1);
 	}
 
 	// #define AGOPP(e) ((AGTYPE(e)==AGINEDGE)?AGIN2OUT(e):AGOUT2IN(e))
 	public static ST_Agedge_s AGOPP(ST_Agedge_s e) {
-		return (ST_Agedge_s) (AGTYPE(e) == AGINEDGE ? AGIN2OUT(e) : AGOUT2IN(e));
+		return (AGTYPE(e) == AGINEDGE ? AGIN2OUT(e) : AGOUT2IN(e));
 	}
 
 	// #define AGMKOUT(e) (AGTYPE(e) == AGOUTEDGE? (e): AGIN2OUT(e))
 	public static ST_Agedge_s AGMKOUT(ST_Agedge_s e) {
-		return (ST_Agedge_s) (AGTYPE(e) == AGOUTEDGE ? (e) : AGIN2OUT(e));
+		return (AGTYPE(e) == AGOUTEDGE ? (e) : AGIN2OUT(e));
 	}
 
 	// #define AGMKIN(e) (AGTYPE(e) == AGINEDGE? (e): AGOUT2IN(e))
 	public static ST_Agedge_s AGMKIN(ST_Agedge_s e) {
-		return (ST_Agedge_s) (AGTYPE(e) == AGINEDGE ? (e) : AGOUT2IN(e));
+		return (AGTYPE(e) == AGINEDGE ? (e) : AGOUT2IN(e));
 	}
 
 	// #define AGTAIL(e) (AGMKIN(e)->node)
@@ -718,12 +717,12 @@ public class Macro {
 
 	// #define ND_flat_in(n) (((Agnodeinfo_t*)AGDATA(n))->flat_in)
 	public static ST_elist ND_flat_in(ST_Agnode_s n) {
-		return (ST_elist) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).flat_in;
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).flat_in;
 	}
 
 	// #define ND_flat_out(n) (((Agnodeinfo_t*)AGDATA(n))->flat_out)
 	public static ST_elist ND_flat_out(ST_Agnode_s n) {
-		return (ST_elist) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).flat_out;
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).flat_out;
 	}
 
 	// #define ND_gui_state(n) (((Agnodeinfo_t*)AGDATA(n))->gui_state)
@@ -876,7 +875,7 @@ public class Macro {
 
 	// #define ND_other(n) (((Agnodeinfo_t*)AGDATA(n))->other)
 	public static ST_elist ND_other(ST_Agnode_s n) {
-		return (ST_elist) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).other;
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).other;
 	}
 
 	// #define ND_out(n) (((Agnodeinfo_t*)AGDATA(n))->out)
@@ -895,7 +894,7 @@ public class Macro {
 
 	// #define ND_par(n) (((Agnodeinfo_t*)AGDATA(n))->par)
 	public static ST_Agedge_s ND_par(ST_Agnode_s n) {
-		return (ST_Agedge_s) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).par;
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).par;
 	}
 
 	public static void ND_par(ST_Agnode_s n, __ptr__ v) {
@@ -955,7 +954,7 @@ public class Macro {
 
 	// #define ND_save_in(n) (((Agnodeinfo_t*)AGDATA(n))->save_in)
 	public static ST_elist ND_save_in(ST_Agnode_s n) {
-		return (ST_elist) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).save_in;
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).save_in;
 	}
 
 	public static void ND_save_in(ST_Agnode_s n, __struct__<ST_elist> v) {
@@ -964,7 +963,7 @@ public class Macro {
 
 	// #define ND_save_out(n) (((Agnodeinfo_t*)AGDATA(n))->save_out)
 	public static ST_elist ND_save_out(ST_Agnode_s n) {
-		return (ST_elist) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).save_out;
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).save_out;
 	}
 
 	public static void ND_save_out(ST_Agnode_s n, __struct__<ST_elist> v) {
@@ -1001,12 +1000,12 @@ public class Macro {
 	// #define ND_clustnode(n) (((Agnodeinfo_t*)AGDATA(n))->clustnode)
 	// #define ND_tree_in(n) (((Agnodeinfo_t*)AGDATA(n))->tree_in)
 	public static ST_elist ND_tree_in(ST_Agnode_s n) {
-		return (ST_elist) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).tree_in;
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).tree_in;
 	}
 
 	// #define ND_tree_out(n) (((Agnodeinfo_t*)AGDATA(n))->tree_out)
 	public static ST_elist ND_tree_out(ST_Agnode_s n) {
-		return (ST_elist) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).tree_out;
+		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).tree_out;
 	}
 
 	// #define ND_weight_class(n) (((Agnodeinfo_t*)AGDATA(n))->weight_class)
@@ -1159,7 +1158,7 @@ public class Macro {
 
 	// #define ED_to_orig(e) (((Agedgeinfo_t*)AGDATA(e))->to_orig)
 	public static ST_Agedge_s ED_to_orig(__ptr__ e) {
-		return (ST_Agedge_s) ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).to_orig;
+		return ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).to_orig;
 	}
 
 	public static void ED_to_orig(ST_Agedge_s e, __ptr__ v) {
@@ -1168,7 +1167,7 @@ public class Macro {
 
 	// #define ED_to_virt(e) (((Agedgeinfo_t*)AGDATA(e))->to_virt)
 	public static ST_Agedge_s ED_to_virt(ST_Agedge_s e) {
-		return (ST_Agedge_s) ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).to_virt;
+		return ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).to_virt;
 	}
 
 	public static void ED_to_virt(ST_Agedge_s e, __ptr__ v) {
