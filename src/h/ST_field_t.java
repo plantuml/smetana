@@ -52,7 +52,7 @@ import smetana.core.__ptr__;
 import smetana.core.__struct__;
 import smetana.core.amiga.StarStruct;
 
-public class ST_field_t extends UnsupportedStructAndPtr {
+public class ST_field_t extends UnsupportedStructAndPtr implements SHAPE_INFO {
 
 	public final ST_pointf size = new ST_pointf();		/* its dimension */
 	public final ST_boxf b = new ST_boxf(this);			/* its placement in node's coordinates */

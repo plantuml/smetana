@@ -50,6 +50,7 @@ import smetana.core.CArrayOfStar;
 import smetana.core.CFunction;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
+import smetana.core.__struct__;
 import smetana.core.amiga.StarStruct;
 
 public class ST_Agraphinfo_t extends UnsupportedStructAndPtr {
@@ -130,6 +131,10 @@ public class ST_Agraphinfo_t extends UnsupportedStructAndPtr {
 	public ST_Agraphinfo_t(StarStruct parent, boolean b) {
 	}
 
+	@Override
+	public void ___(__struct__ other) {
+		throw new UnsupportedOperationException();
+	}
 
 	@Override
 	public __ptr__ castTo(Class dest) {
@@ -139,118 +144,6 @@ public class ST_Agraphinfo_t extends UnsupportedStructAndPtr {
 		return super.castTo(dest);
 	}
 
-	@Override
-	public __ptr__ setPtr(String fieldName, __ptr__ newData) {
-		if (fieldName.equals("gvc")) {
-			this.gvc = (ST_GVC_s) newData;
-			return gvc;
-		}
-		if (fieldName.equals("drawing")) {
-			this.drawing = (ST_layout_t) newData;
-			return drawing;
-		}
-		if (fieldName.equals("dotroot")) {
-			this.dotroot = (ST_Agraph_s) newData;
-			return dotroot;
-		}
-		if (fieldName.equals("parent")) {
-			this.parent = (ST_Agraph_s) newData;
-			return parent;
-		}
-		if (fieldName.equals("clust")) {
-			this.clust = (CArrayOfStar<ST_Agraph_s>) newData;
-			return clust;
-		}
-		if (fieldName.equals("label")) {
-			this.label = (ST_textlabel_t) newData;
-			return label;
-		}
-		if (fieldName.equals("maxset")) {
-			this.maxset = (ST_Agnode_s) newData;
-			return maxset;
-		}
-		if (fieldName.equals("minset")) {
-			this.minset = (ST_Agnode_s) newData;
-			return minset;
-		}
-		if (fieldName.equals("nlist")) {
-			this.nlist = (ST_Agnode_s) newData;
-			return nlist;
-		}
-		if (fieldName.equals("leader")) {
-			this.leader = (ST_Agnode_s) newData;
-			return leader;
-		}
-		if (fieldName.equals("rankleader")) {
-			this.rankleader = (CArrayOfStar<ST_Agnode_s>) newData;
-			return rankleader;
-		}
-		if (fieldName.equals("rank")) {
-			this.rank = (CArray) newData;
-			return rank;
-		}
-		if (fieldName.equals("ln")) {
-			this.ln = (ST_Agnode_s) newData;
-			return ln;
-		}
-		if (fieldName.equals("rn")) {
-			this.rn = (ST_Agnode_s) newData;
-			return rn;
-		}
-		return super.setPtr(fieldName, newData);
-	}
-
-
-	// public static List<String> DEFINITION = Arrays.asList(
-	// "typedef struct Agraphinfo_t",
-	// "{",
-	// "Agrec_t hdr",
-	// "layout_t *drawing",
-	// "textlabel_t *label",
-	// "boxf bb",
-	// "pointf border[4]",
-	// "unsigned char gui_state",
-	// "unsigned char has_labels",
-	// "boolean has_images",
-	// "unsigned char charset",
-	// "int rankdir",
-	// "double ht1, ht2",
-	// "unsigned short flags",
-	// "void *alg",
-	// "GVC_t *gvc",
-	// "void (*cleanup) (graph_t * g)",
-	// "node_t **neato_nlist",
-	// "int move",
-	// "double **dist, **spring, **sum_t, ***t",
-	// "unsigned short ndim",
-	// "unsigned short odim",
-	// "int n_cluster",
-	// "graph_t **clust",
-	// "graph_t *dotroot",
-	// "node_t *nlist",
-	// "rank_t *rank",
-	// "graph_t *parent",
-	// "int level",
-	// "node_t *minrep, *maxrep",
-	// "nlist_t comp",
-	// "node_t *minset, *maxset",
-	// "long n_nodes",
-	// "short minrank, maxrank",
-	// "boolean has_flat_edges",
-	// "boolean has_sourcerank",
-	// "boolean has_sinkrank",
-	// "unsigned char showboxes",
-	// "fontname_kind fontnames",
-	// "int nodesep, ranksep",
-	// "node_t *ln, *rn",
-	// "node_t *leader, **rankleader",
-	// "boolean expanded",
-	// "char installed",
-	// "char set_type",
-	// "char label_pos",
-	// "boolean exact_ranksep",
-	// "}",
-	// "Agraphinfo_t");
 }
 
 // typedef struct Agraphinfo_t {

@@ -322,9 +322,9 @@ public class Z {
 
 	private ST_shape_desc __Shapes__(String s, ST_shape_functions shape_functions, ST_polygon_t polygon) {
 		ST_shape_desc result = new ST_shape_desc();
-		result.setPtr("name", s == null ? null : new CString(s));
-		result.setPtr("fns", shape_functions);
-		result.setPtr("polygon", polygon);
+		result.name = s == null ? null : new CString(s);
+		result.fns = shape_functions;
+		result.polygon = polygon;
 		return result;
 	}
 
@@ -508,19 +508,19 @@ public class Z {
 		p_box.distortion = 0.;
 		p_box.skew = 0.;
 
-		poly_fns.setPtr("initfn", function(shapes__c.class, "poly_init"));
-		poly_fns.setPtr("freefn", function(shapes__c.class, "poly_free"));
-		poly_fns.setPtr("portfn", function(shapes__c.class, "poly_port"));
-		poly_fns.setPtr("insidefn", function(shapes__c.class, "poly_inside"));
-		poly_fns.setPtr("pboxfn", function(shapes__c.class, "poly_path"));
-		poly_fns.setPtr("codefn", function(shapes__c.class, "poly_gencode"));
+		poly_fns.initfn = function(shapes__c.class, "poly_init");
+		poly_fns.freefn = function(shapes__c.class, "poly_free");
+		poly_fns.portfn = function(shapes__c.class, "poly_port");
+		poly_fns.insidefn = function(shapes__c.class, "poly_inside");
+		poly_fns.pboxfn = function(shapes__c.class, "poly_path");
+		poly_fns.codefn = function(shapes__c.class, "poly_gencode");
 
-		record_fns.setPtr("initfn", function(shapes__c.class, "record_init"));
-		record_fns.setPtr("freefn", function(shapes__c.class, "record_free"));
-		record_fns.setPtr("portfn", function(shapes__c.class, "record_port"));
-		record_fns.setPtr("insidefn", function(shapes__c.class, "record_inside"));
-		record_fns.setPtr("pboxfn", function(shapes__c.class, "record_path"));
-		record_fns.setPtr("codefn", function(shapes__c.class, "record_gencode"));
+		record_fns.initfn = function(shapes__c.class, "record_init");
+		record_fns.freefn = function(shapes__c.class, "record_free");
+		record_fns.portfn = function(shapes__c.class, "record_port");
+		record_fns.insidefn = function(shapes__c.class, "record_inside");
+		record_fns.pboxfn = function(shapes__c.class, "record_path");
+		record_fns.codefn = function(shapes__c.class, "record_gencode");
 
 		Ag_mainedge_id_disc.key = 0;
 		Ag_mainedge_id_disc.size = 0;
@@ -538,8 +538,8 @@ public class Z {
 		Agdirected.no_loop = 0;
 		Agdirected.maingraph = 1;
 
-		sinfo.setPtr("swapEnds", function(dotsplines__c.class, "swap_ends_p"));
-		sinfo.setPtr("splineMerge", function(dotsplines__c.class, "spline_merge"));
+		sinfo.swapEnds = function(dotsplines__c.class, "swap_ends_p");
+		sinfo.splineMerge = function(dotsplines__c.class, "spline_merge");
 
 	}
 

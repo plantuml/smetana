@@ -47,13 +47,14 @@ package h;
 
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
+import smetana.core.__struct__;
 
 public class ST_Agnodeinfo_t extends UnsupportedStructAndPtr {
 
 	public final ST_Agrec_s hdr = new ST_Agrec_s(this);
 
 	public ST_shape_desc shape;
-	public __ptr__ shape_info;
+	public SHAPE_INFO shape_info;
 	// public ST_polygon_t shape_info;
 	public final ST_pointf coord = new ST_pointf();
 	public double width, height;
@@ -112,54 +113,12 @@ public class ST_Agnodeinfo_t extends UnsupportedStructAndPtr {
 		}
 		return super.castTo(dest);
 	}
-
+	
+	
 	@Override
-	public __ptr__ setPtr(String fieldName, __ptr__ newData) {
-		if (fieldName.equals("shape")) {
-			this.shape = (ST_shape_desc) newData;
-			return shape;
-		}
-		if (fieldName.equals("shape_info")) {
-			if (newData instanceof ST_polygon_t)
-				this.shape_info = (ST_polygon_t) newData;
-			else if (newData instanceof ST_field_t)
-				this.shape_info = (ST_field_t) newData;
-			else
-				throw new UnsupportedOperationException();
-			return shape_info;
-		}
-		if (fieldName.equals("label")) {
-			this.label = (ST_textlabel_t) newData;
-			return label;
-		}
-		if (fieldName.equals("clust")) {
-				this.clust = (ST_Agraph_s) newData;
-			return clust;
-		}
-		if (fieldName.equals("next")) {
-			this.next = (ST_Agnode_s) newData;
-			return next;
-		}
-		if (fieldName.equals("prev")) {
-				this.prev = (ST_Agnode_s) newData;
-			return prev;
-		}
-		if (fieldName.equals("UF_parent")) {
-			this.UF_parent = (ST_Agnode_s) newData;
-			return UF_parent;
-		}
-		if (fieldName.equals("par")) {
-			this.par = (ST_Agedge_s) newData;
-			return par;
-		}
-		if (fieldName.equals("alg")) {
-			this.alg = (ST_Agedge_s) newData;
-			return alg;
-		}
-		return super.setPtr(fieldName, newData);
+	public void ___(__struct__ other) {
+		throw new UnsupportedOperationException();
 	}
-
-
 
 
 }

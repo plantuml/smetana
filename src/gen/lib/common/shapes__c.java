@@ -1869,7 +1869,7 @@ try {
     /* convert point to node coordinate system */
     p.___(ccwrotatepf(p, 90 * GD_rankdir(agraphof(n))));
     if (bp == null) {
-	fld0 = (ST_field_t) ND_shape_info(n).castTo(ST_field_t.class);
+	fld0 = (ST_field_t) ND_shape_info(n);
 	bbox.___(fld0.b);
     } else
 	bbox.___(bp);

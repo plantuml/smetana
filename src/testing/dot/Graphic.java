@@ -169,20 +169,15 @@ public class Graphic {
 			final double height = record.size.y;
 			double llx = record.b.LL.x;
 			double lly = record.b.LL.y;
-			System.err.println("record.b.LL.y="+record.b.LL.y);
+
 			double urx = record.b.UR.x;
 			double ury = record.b.UR.y;
-			if (lly==-72) {
-				System.err.println("ERROR HERE");
-				System.err.println("ERROR HERE "+record.b.LL.UID);
-				return;
-			}
+
 			System.err.println("record.b.UR.y="+record.b.UR.y);
 			System.err.println(String.format("dim=%f %f %f %f", llx, lly, urx, ury));
 			g.draw(new Rectangle2D.Double(x + llx, y + lly, urx - llx, ury - lly));
 			
 			for (int j=0; i<info.n_flds; j++) {
-			// for (ST_field_t child : info.fld) {
 				ST_field_t child = info.fld.get_(j);
 				drawRecords(g, x, y, child);
 			}

@@ -115,37 +115,6 @@ public class ST_Agedgeinfo_t extends UnsupportedStructAndPtr {
 		return super.castTo(dest);
 	}
 
-
-
-	@Override
-	public __ptr__ setPtr(String fieldName, __ptr__ newData) {
-		if (fieldName.equals("to_virt")) {
-				this.to_virt = (ST_Agedge_s) newData;
-			return this.to_virt;
-		}
-		if (fieldName.equals("to_orig")) {
-				this.to_orig = (ST_Agedge_s) newData;
-			return this.to_orig;
-		}
-		if (fieldName.equals("spl")) {
-			this.spl = (ST_splines) newData;
-			return this.spl;
-		}
-		if (fieldName.equals("label")) {
-			this.label = (ST_textlabel_t) newData;
-			return this.label;
-		}
-		if (fieldName.equals("head_label")) {
-			this.head_label = (ST_textlabel_t) newData;
-			return this.head_label;
-		}
-		if (fieldName.equals("tail_label")) {
-			this.tail_label = (ST_textlabel_t) newData;
-			return this.tail_label;
-		}
-		return super.setPtr(fieldName, newData);
-	}
-
 }
 
 // typedef struct Agedgeinfo_t {

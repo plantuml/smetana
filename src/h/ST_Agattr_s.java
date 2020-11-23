@@ -50,6 +50,7 @@ import java.util.List;
 import smetana.core.CString;
 import smetana.core.UnsupportedStructAndPtr;
 import smetana.core.__ptr__;
+import smetana.core.__struct__;
 
 public class ST_Agattr_s extends UnsupportedStructAndPtr {
 
@@ -57,6 +58,12 @@ public class ST_Agattr_s extends UnsupportedStructAndPtr {
 	public ST_dt_s dict; /* shared dict to interpret attr field */
 	public List<CString> str; /* the attribute string values */
 
+	@Override
+	public void ___(__struct__ other) {
+		throw new UnsupportedOperationException();
+	}
+	
+	
 	@Override
 	public __ptr__ castTo(Class dest) {
 		if (dest == ST_Agrec_s.class) {

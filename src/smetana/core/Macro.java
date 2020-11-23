@@ -45,6 +45,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import h.Dtcompar_f;
+import h.SHAPE_INFO;
 import h.ST_Agedge_s;
 import h.ST_Agedgeinfo_t;
 import h.ST_Agiddisc_s;
@@ -676,7 +677,7 @@ public class Macro {
 	}
 
 	public static void ND_alg(ST_Agnode_s n, ST_Agedge_s value) {
-		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setPtr("alg", value);
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).alg = value;
 	}
 
 	// #define ND_UF_parent(n) (((Agnodeinfo_t*)AGDATA(n))->UF_parent)
@@ -684,8 +685,8 @@ public class Macro {
 		return (ST_Agnode_s) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).UF_parent;
 	}
 
-	public static void ND_UF_parent(__ptr__ n, __ptr__ v) {
-		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setPtr("UF_parent", v);
+	public static void ND_UF_parent(__ptr__ n, ST_Agnode_s v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).UF_parent = v;
 	}
 
 	// #define ND_set(n) (((Agnodeinfo_t*)AGDATA(n))->set)
@@ -704,8 +705,8 @@ public class Macro {
 		return (ST_Agraph_s) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).clust;
 	}
 
-	public static void ND_clust(ST_Agnode_s n, __ptr__ v) {
-		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setPtr("clust", v);
+	public static void ND_clust(ST_Agnode_s n, ST_Agraph_s v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).clust = v;
 	}
 
 	// #define ND_coord(n) (((Agnodeinfo_t*)AGDATA(n))->coord)
@@ -774,8 +775,8 @@ public class Macro {
 		return (ST_textlabel_t) ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).label;
 	}
 
-	public static void ND_label(ST_Agnode_s n, __ptr__ v) {
-		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setPtr("label", v);
+	public static void ND_label(ST_Agnode_s n, ST_textlabel_t v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).label = v;
 	}
 
 	// #define ND_xlabel(n) (((Agnodeinfo_t*)AGDATA(n))->xlabel)
@@ -838,8 +839,8 @@ public class Macro {
 		return (ST_Agnode_s) ((ST_Agnodeinfo_t) AGDATA(n).castTo(ST_Agnodeinfo_t.class)).next;
 	}
 
-	public static void ND_next(__ptr__ n, __ptr__ v) {
-		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setPtr("next", v);
+	public static void ND_next(__ptr__ n, ST_Agnode_s v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).next = v;
 	}
 
 	// #define ND_node_type(n) (((Agnodeinfo_t*)AGDATA(n))->node_type)
@@ -897,19 +898,19 @@ public class Macro {
 		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).par;
 	}
 
-	public static void ND_par(ST_Agnode_s n, __ptr__ v) {
-		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setPtr("par", v);
+	public static void ND_par(ST_Agnode_s n, ST_Agedge_s v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).par = v;
 	}
 
 	// #define ND_pinned(n) (((Agnodeinfo_t*)AGDATA(n))->pinned)
 	// #define ND_pos(n) (((Agnodeinfo_t*)AGDATA(n))->pos)
 	// #define ND_prev(n) (((Agnodeinfo_t*)AGDATA(n))->prev)
-	public static __ptr__ ND_prev(ST_Agnode_s n) {
+	public static ST_Agnode_s ND_prev(ST_Agnode_s n) {
 		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).prev;
 	}
 
-	public static void ND_prev(ST_Agnode_s n, __ptr__ v) {
-		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setPtr("prev", v);
+	public static void ND_prev(ST_Agnode_s n, ST_Agnode_s v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).prev = v;
 	}
 
 	// #define ND_priority(n) (((Agnodeinfo_t*)AGDATA(n))->priority)
@@ -975,16 +976,16 @@ public class Macro {
 		return ((ST_Agnodeinfo_t) AGDATA(n).castTo(ST_Agnodeinfo_t.class)).shape;
 	}
 
-	public static void ND_shape(ST_Agnode_s n, __ptr__ v) {
-		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setPtr("shape", v);
+	public static void ND_shape(ST_Agnode_s n, ST_shape_desc v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).shape = v;
 	}
 
 	// #define ND_shape_info(n) (((Agnodeinfo_t*)AGDATA(n))->shape_info)
-	public static __ptr__ ND_shape_info(__ptr__ n) {
+	public static SHAPE_INFO ND_shape_info(__ptr__ n) {
 		return ((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).shape_info;
 	}
-	public static void ND_shape_info(ST_Agnode_s n, __ptr__ v) {
-		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).setPtr("shape_info", v);
+	public static void ND_shape_info(ST_Agnode_s n, SHAPE_INFO v) {
+		((ST_Agnodeinfo_t)AGDATA(n).castTo(ST_Agnodeinfo_t.class)).shape_info = v;
 	}
 
 	// #define ND_showboxes(n) (((Agnodeinfo_t*)AGDATA(n))->showboxes)
@@ -1074,8 +1075,8 @@ public class Macro {
 		return (ST_textlabel_t) ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).head_label;
 	}
 
-	public static void ED_head_label(ST_Agedge_s e, __ptr__ v) {
-		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setPtr("head_label", v);
+	public static void ED_head_label(ST_Agedge_s e, ST_textlabel_t v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).head_label = v;
 	}
 
 	// #define ED_head_port(e) (((Agedgeinfo_t*)AGDATA(e))->head_port)
@@ -1092,8 +1093,8 @@ public class Macro {
 		return (ST_textlabel_t) ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).label;
 	}
 
-	public static void ED_label(ST_Agedge_s e, __ptr__ v) {
-		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setPtr("label", v);
+	public static void ED_label(ST_Agedge_s e, ST_textlabel_t v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).label = v;
 	}
 
 	// #define ED_xlabel(e) (((Agedgeinfo_t*)AGDATA(e))->xlabel)
@@ -1143,8 +1144,8 @@ public class Macro {
 		return (ST_textlabel_t) ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).tail_label;
 	}
 
-	public static void ED_tail_label(ST_Agedge_s e, __ptr__ v) {
-		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setPtr("tail_label", v);
+	public static void ED_tail_label(ST_Agedge_s e, ST_textlabel_t v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).tail_label = v;
 	}
 
 	// #define ED_tail_port(e) (((Agedgeinfo_t*)AGDATA(e))->tail_port)
@@ -1161,8 +1162,8 @@ public class Macro {
 		return ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).to_orig;
 	}
 
-	public static void ED_to_orig(ST_Agedge_s e, __ptr__ v) {
-		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setPtr("to_orig", v);
+	public static void ED_to_orig(ST_Agedge_s e, ST_Agedge_s v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).to_orig = v;
 	}
 
 	// #define ED_to_virt(e) (((Agedgeinfo_t*)AGDATA(e))->to_virt)
@@ -1170,8 +1171,8 @@ public class Macro {
 		return ((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).to_virt;
 	}
 
-	public static void ED_to_virt(ST_Agedge_s e, __ptr__ v) {
-		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).setPtr("to_virt", v);
+	public static void ED_to_virt(ST_Agedge_s e, ST_Agedge_s v) {
+		((ST_Agedgeinfo_t)AGDATA(e).castTo(ST_Agedgeinfo_t.class)).to_virt = v;
 	}
 
 	// #define ED_tree_index(e) (((Agedgeinfo_t*)AGDATA(e))->tree_index)

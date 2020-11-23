@@ -94,9 +94,6 @@ public class ST_Agobj_s extends UnsupportedStructAndPtr implements WithParent {
 			} else if (newData instanceof ST_Agedgeinfo_t) {
 				ST_Agedgeinfo_t info = (ST_Agedgeinfo_t) newData;
 				newData = (ST_Agrec_s) info.castTo(ST_Agrec_s.class);
-			} else if (newData instanceof ST_Agedgeinfo_t) {
-				ST_Agedgeinfo_t info = (ST_Agedgeinfo_t) newData;
-				newData = (ST_Agrec_s) info.castTo(ST_Agrec_s.class);
 			}
 			if (newData instanceof ST_Agrec_s) {
 				this.data = (ST_Agrec_s) newData;

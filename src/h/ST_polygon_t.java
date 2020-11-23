@@ -47,9 +47,8 @@ package h;
 
 import smetana.core.CArray;
 import smetana.core.UnsupportedStructAndPtr;
-import smetana.core.amiga.StarStruct;
 
-public class ST_polygon_t extends UnsupportedStructAndPtr {
+public class ST_polygon_t extends UnsupportedStructAndPtr implements SHAPE_INFO {
 
 	public boolean regular;
 	public int peripheries;
@@ -60,31 +59,6 @@ public class ST_polygon_t extends UnsupportedStructAndPtr {
 	public int option;
 	public CArray<ST_pointf> vertices;
 
-	// "pointf *vertices",
-
-	public ST_polygon_t() {
-		
-	}
-
-	public ST_polygon_t(StarStruct parent) {
-	}
-
-
-
-
-	// public static List<String> DEFINITION = Arrays.asList(
-	// "typedef struct polygon_t",
-	// "{",
-	// "int regular",
-	// "int peripheries",
-	// "int sides",
-	// "double orientation",
-	// "double distortion",
-	// "double skew",
-	// "int option",
-	// "pointf *vertices",
-	// "}",
-	// "polygon_t");
 }
 
 // typedef struct polygon_t { /* mutable shape information for a node */
