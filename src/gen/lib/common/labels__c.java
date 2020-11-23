@@ -340,9 +340,9 @@ try {
 	    break;
 	case AGEDGE:
 	    isEdge = 1;
-	    g_str = agnameof(agroot(agraphof(M_agtail((obj.castTo(ST_Agedge_s.class))))));
+	    g_str = agnameof(agroot(agraphof((M_agtail((ST_Agedge_s)(obj.castTo(ST_Agedge_s.class)))))));
 	    g_len = strlen(g_str);
-	    t_str = agnameof(M_agtail((obj.castTo(ST_Agedge_s.class))));
+	    t_str = agnameof(M_agtail((ST_Agedge_s)(obj.castTo(ST_Agedge_s.class))));
 	    t_len = strlen(t_str);
 	    pt.___(ED_tail_port(obj.castTo(ST_Agedge_s.class)));
 	    if ((tp_str = pt.name)!=null)
@@ -358,7 +358,7 @@ try {
 	    	l_str = tl.text;
 	    	if (str!=null) l_len = strlen(l_str);
 	    }
-	    if (agisdirected(agroot(agraphof(M_agtail((obj.castTo(ST_Agedge_s.class)))))))
+	    if (agisdirected(agroot(agraphof(M_agtail((ST_Agedge_s)(obj.castTo(ST_Agedge_s.class)))))))
 		e_str = new CString("->");
 	    else
 		e_str = new CString("--");

@@ -199,12 +199,13 @@ public class Macro {
 	}
 
 	// #define AGIN2OUT(e) ((e)-1)
-	public static __ptr__ AGIN2OUT(__ptr__ e) {
+	public static ST_Agedge_s AGIN2OUT(ST_Agedge_s e) {
 		return e.plus(-1);
 	}
 
 	// #define AGOUT2IN(e) ((e)+1)
-	public static __ptr__ AGOUT2IN(__ptr__ e) {
+	public static ST_Agedge_s AGOUT2IN(ST_Agedge_s e) {
+		System.err.println("e2="+e.getClass());
 		return e.plus(1);
 	}
 
@@ -214,21 +215,21 @@ public class Macro {
 	}
 
 	// #define AGMKOUT(e) (AGTYPE(e) == AGOUTEDGE? (e): AGIN2OUT(e))
-	public static ST_Agedge_s AGMKOUT(__ptr__ e) {
+	public static ST_Agedge_s AGMKOUT(ST_Agedge_s e) {
 		return (ST_Agedge_s) (AGTYPE(e) == AGOUTEDGE ? (e) : AGIN2OUT(e));
 	}
 
 	// #define AGMKIN(e) (AGTYPE(e) == AGINEDGE? (e): AGOUT2IN(e))
-	public static ST_Agedge_s AGMKIN(__ptr__ e) {
+	public static ST_Agedge_s AGMKIN(ST_Agedge_s e) {
 		return (ST_Agedge_s) (AGTYPE(e) == AGINEDGE ? (e) : AGOUT2IN(e));
 	}
 
 	// #define AGTAIL(e) (AGMKIN(e)->node)
-	public static ST_Agnode_s AGTAIL(__ptr__ e) {
+	public static ST_Agnode_s AGTAIL(ST_Agedge_s e) {
 		return (ST_Agnode_s) AGMKIN(e).node;
 	}
 
-	public static ST_Agnode_s M_agtail(__ptr__ e) {
+	public static ST_Agnode_s M_agtail(ST_Agedge_s e) {
 		return (ST_Agnode_s) AGMKIN(e).node;
 	}
 
@@ -237,7 +238,7 @@ public class Macro {
 	}
 
 	// #define AGHEAD(e) (AGMKOUT(e)->node)
-	public static ST_Agnode_s AGHEAD(__ptr__ e) {
+	public static ST_Agnode_s AGHEAD(ST_Agedge_s e) {
 		return (ST_Agnode_s) AGMKOUT(e).node;
 	}
 
