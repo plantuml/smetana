@@ -12,6 +12,7 @@ The initial goal of the project was to test and prove the feasability of the C t
 This goal has been achieved, as the portability is working.
 
 So the work is going on into PlantUML itself.
+See https://github.com/plantuml/plantuml/discussions/1346 if you want to discuss or contribute
 
 Tell us if this port is important for you !
 
